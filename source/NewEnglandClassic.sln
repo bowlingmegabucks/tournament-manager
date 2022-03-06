@@ -5,11 +5,16 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewEnglandClassic.UI", "ui\NewEnglandClassic.UI.csproj", "{422D0156-DFC6-40A3-8013-176F92042B1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewEnglandClassic.Presentation", "presentation\NewEnglandClassic.Presentation.csproj", "{0B8F8990-7821-47C1-834A-07DAB530FAD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewEnglandClassic.Presentation", "presentation\NewEnglandClassic.Presentation.csproj", "{0B8F8990-7821-47C1-834A-07DAB530FAD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewEnglandClassic.BusinessLogic", "business\NewEnglandClassic.BusinessLogic.csproj", "{4273D5AF-A469-499C-B031-177844E7715E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewEnglandClassic.BusinessLogic", "business\NewEnglandClassic.BusinessLogic.csproj", "{4273D5AF-A469-499C-B031-177844E7715E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewEnglandClassic.Tests", "tests\NewEnglandClassic.Tests.csproj", "{8CD415EC-EB98-42F5-9667-2528A2DF4785}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewEnglandClassic.Tests", "tests\NewEnglandClassic.Tests.csproj", "{8CD415EC-EB98-42F5-9667-2528A2DF4785}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A4120606-860B-44BC-851B-A36877FF5466}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
