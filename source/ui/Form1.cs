@@ -15,7 +15,7 @@ public partial class Form1 : Form
 
     private void Button1_Click(object sender, EventArgs e)
     {
-        var result = new PingBusiness(_config).DatabaseAsync();
+        var result = new PingBusiness(_config).Database();
 
         MessageBox.Show(result ? "Database Connected" : "Database Not Connected");
     }

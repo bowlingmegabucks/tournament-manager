@@ -11,6 +11,6 @@ public class PingBusiness
         _database = new DataContext(config);
     }
 
-    public bool DatabaseAsync()
+    public bool Database()
         => _database.Ping();
 }
