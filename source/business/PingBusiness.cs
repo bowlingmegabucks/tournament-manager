@@ -1,7 +1,16 @@
-﻿namespace NewEnglandClassic;
+﻿using Microsoft.Extensions.Configuration;
 
-internal class PingBusiness
+namespace NewEnglandClassic;
+
+public class PingBusiness
 {
-    public int Execute(int value)
-        => value;
+    private readonly IDataContext _database;
+
+    public PingBusiness(IConfiguration config)
+    {
+        _database = new DataContext(config);
+    }
+
+    public bool DatabaseAsync()
+        => _database.Ping();
 }
