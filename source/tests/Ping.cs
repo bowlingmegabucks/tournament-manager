@@ -4,16 +4,6 @@
 public class Ping
 {
     [Test]
-    public void BusinessLogic()
-    {
-        var item = new PingBusiness();
-
-        var value = item.Execute(1);
-
-        Assert.That(value, Is.EqualTo(1));
-    }
-
-    [Test]
     public void Presentation()
     {
         var item = new PingPresentation();
