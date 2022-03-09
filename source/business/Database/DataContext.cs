@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace NewEnglandClassic;
+namespace NewEnglandClassic.Database;
 
 internal class DataContext : DbContext, IDataContext
 {
@@ -16,6 +11,19 @@ internal class DataContext : DbContext, IDataContext
     {
         _connectionString = config.GetConnectionString("tournament-manager");
     }
+
+#if DEBUG
+    /// <summary>
+    /// Migration Constructor
+    /// </summary>
+    public DataContext()
+    {
+        _connectionString = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddUserSecrets<DataContext>()
+            .Build().GetConnectionString("tournament-manager");
+    }
+#endif
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -33,6 +41,15 @@ internal class DataContext : DbContext, IDataContext
 
     bool IDataContext.Ping()
         => Database.CanConnect();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        => modelBuilder.Entity<Entities.Tournament>(builder =>
+        {
+            builder.Property(tournament => tournament.Start).HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();
+        });
+
+    internal DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
 }
 
 internal interface IDataContext

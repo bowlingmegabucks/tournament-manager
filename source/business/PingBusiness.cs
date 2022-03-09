@@ -4,11 +4,11 @@ namespace NewEnglandClassic;
 
 public class PingBusiness
 {
-    private readonly IDataContext _database;
+    private readonly Database.IDataContext _database;
 
     public PingBusiness(IConfiguration config)
     {
-        _database = new DataContext(config);
+        _database = new Database.DataContext(config);
     }
 
     public bool Database()

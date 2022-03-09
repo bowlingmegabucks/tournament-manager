@@ -1,32 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>NewEnglandClassic</RootNamespace>
-    <UserSecretsId>745ea9ba-042a-436d-bfa8-5a5a19950236</UserSecretsId>
-    <Version>0.1.0</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>NewEnglandClassic</RootNamespace>
+		<UserSecretsId>745ea9ba-042a-436d-bfa8-5a5a19950236</UserSecretsId>
+		<Version>0.1.0</Version>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="appsettings.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="appsettings.json" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-	<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-	<ProjectReference Include="..\presentation\NewEnglandClassic.Presentation.csproj" />
-  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\presentation\NewEnglandClassic.Presentation.csproj" />
+	</ItemGroup>
 
 </Project>
