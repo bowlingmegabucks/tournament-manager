@@ -49,10 +49,12 @@ internal class DataContext : DbContext, IDataContext
             builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();
         });
 
-    internal DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
+    public DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
 }
 
 internal interface IDataContext
 {
     bool Ping();
+
+    DbSet<Entities.Tournament> Tournaments { get; }
 }
