@@ -35,4 +35,12 @@ public class Tournament
         BowlingCenter = entity.BowlingCenter;
         Completed = entity.Completed;
     }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal Tournament()
+    {
+
+    }
 }
