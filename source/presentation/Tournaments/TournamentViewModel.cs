@@ -1,6 +1,6 @@
 ﻿
 namespace NewEnglandClassic.Tournaments;
-internal class ViewModel
+internal class ViewModel : IViewModel
 {
     public Guid Id { get; set; }
 
