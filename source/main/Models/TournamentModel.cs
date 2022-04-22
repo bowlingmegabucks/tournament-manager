@@ -1,6 +1,6 @@
 ﻿namespace NewEnglandClassic.Models;
 
-public class Tournament
+internal class Tournament
 {
     public Guid Id { get; set; }
 

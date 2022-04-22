@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 
 namespace NewEnglandClassic.Tournaments.Retrieve;
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     public Models.ErrorDetail? ErrorDetail { get; private set; }
 
@@ -36,7 +36,7 @@ public class BusinessLogic : IBusinessLogic
     }
 }
 
-public interface IBusinessLogic
+internal interface IBusinessLogic
 {
     Models.ErrorDetail? ErrorDetail { get; }
 

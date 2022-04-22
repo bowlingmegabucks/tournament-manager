@@ -1,6 +1,6 @@
 ﻿
 namespace NewEnglandClassic.Models;
-public class ErrorDetail
+internal class ErrorDetail
 {
     public string Message { get; internal set; }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NewEnglandClassic.Tournaments.Retrieve;
 
-public interface IView
+internal interface IView
 {
     void DisplayErrorMessage(string message);
 

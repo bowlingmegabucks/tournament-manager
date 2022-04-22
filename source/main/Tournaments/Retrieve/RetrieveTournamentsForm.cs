@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NewEnglandClassic.Tournaments.Retrieve;
-public partial class Form : System.Windows.Forms.Form, IView
+internal partial class Form : System.Windows.Forms.Form, IView
 {
     public Form(IConfiguration config)
     {

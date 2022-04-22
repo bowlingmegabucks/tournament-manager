@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NewEnglandClassic.Tournaments.Retrieve;
-public class Presenter
+internal class Presenter
 {
     private readonly IView _view;
 

@@ -33,8 +33,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\business\NewEnglandClassic.BusinessLogic.csproj" />
-	  <ProjectReference Include="..\presentation\NewEnglandClassic.Presentation.csproj" />
-	  <ProjectReference Include="..\ui\NewEnglandClassic.UI.csproj" />
+	  <ProjectReference Include="..\main\NewEnglandClassic.csproj" />
 	</ItemGroup>
 </Project>

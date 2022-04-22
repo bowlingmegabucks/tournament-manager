@@ -37,7 +37,7 @@ internal class ViewModel : IViewModel
     }
 }
 
-public interface IViewModel
+internal interface IViewModel
 {
     Guid Id { get; set; }
 
