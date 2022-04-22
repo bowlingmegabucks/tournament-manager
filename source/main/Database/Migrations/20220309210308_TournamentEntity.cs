@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace NewEnglandClassic.Migrations;
+namespace NewEnglandClassic.Database.Migrations;
 
 public partial class TournamentEntity : Migration
 {
