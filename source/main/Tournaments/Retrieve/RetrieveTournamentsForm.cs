@@ -20,7 +20,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         presenter.Execute();
     }
 
-    public void BindTournaments(ICollection<IViewModel> viewModels) => throw new NotImplementedException();
+    public void BindTournaments(ICollection<IViewModel> viewModels)
+        => TournamentsGrid.Bind(viewModels);
 
     public void DisableOpenTournament() 
         => ButtonOpenTournament.Enabled = false;

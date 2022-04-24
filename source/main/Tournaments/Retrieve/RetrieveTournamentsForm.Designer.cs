@@ -29,22 +29,34 @@ partial class Form
     private void InitializeComponent()
     {
             this.ButtonOpenTournament = new System.Windows.Forms.Button();
+            this.TournamentsGrid = new NewEnglandClassic.Tournaments.TournamentsGrid();
             this.SuspendLayout();
             // 
             // ButtonOpenTournament
             // 
-            this.ButtonOpenTournament.Location = new System.Drawing.Point(595, 358);
+            this.ButtonOpenTournament.Location = new System.Drawing.Point(595, 383);
             this.ButtonOpenTournament.Name = "ButtonOpenTournament";
             this.ButtonOpenTournament.Size = new System.Drawing.Size(75, 23);
             this.ButtonOpenTournament.TabIndex = 0;
             this.ButtonOpenTournament.Text = "Open";
             this.ButtonOpenTournament.UseVisualStyleBackColor = true;
             // 
+            // TournamentsGrid
+            // 
+            this.TournamentsGrid.AllowRowSelection = true;
+            this.TournamentsGrid.AlternateRowColors = true;
+            this.TournamentsGrid.Location = new System.Drawing.Point(0, 0);
+            this.TournamentsGrid.Name = "TournamentsGrid";
+            this.TournamentsGrid.SelectedRowContextMenu = null;
+            this.TournamentsGrid.Size = new System.Drawing.Size(670, 377);
+            this.TournamentsGrid.TabIndex = 1;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(674, 415);
+            this.Controls.Add(this.TournamentsGrid);
             this.Controls.Add(this.ButtonOpenTournament);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -58,4 +70,5 @@ partial class Form
     #endregion
 
     private Button ButtonOpenTournament;
+    private TournamentsGrid TournamentsGrid;
 }
