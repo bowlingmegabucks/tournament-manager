@@ -39,4 +39,28 @@ internal class TournamentsRepositoryTests
             Assert.That(actual.Any(tournament => tournament.Id == tournament3.Id), Is.True, "tournament3 Id Not Found");
         });
     }
+
+    [Test]
+    public void Add_TournamentAddedWithGuid()
+    {
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Tournament>().SetUpDbContext());
+        
+        var tournament = new NewEnglandClassic.Database.Entities.Tournament();
+
+        var guid = _tournamentsRepository.Add(tournament);
+
+        Assert.That(tournament.Id, Is.EqualTo(guid));
+    }
+
+    [Test]
+    public void Add_DataContextSaveChanges_Called()
+    {
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Tournament>().SetUpDbContext());
+
+        var tournament = new NewEnglandClassic.Database.Entities.Tournament();
+
+        _tournamentsRepository.Add(tournament);
+
+        _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once);
+    }
 }

@@ -42,6 +42,12 @@ internal class DataContext : DbContext, IDataContext
     bool IDataContext.Ping()
         => Database.CanConnect();
 
+    void IDataContext.SaveChanges()
+        => base.SaveChanges();
+
+    async Task IDataContext.SaveChangesAsync()
+        => await base.SaveChangesAsync();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
         => modelBuilder.Entity<Entities.Tournament>(builder =>
         {
@@ -50,6 +56,8 @@ internal class DataContext : DbContext, IDataContext
         });
 
     public DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
+
+    
 }
 
 internal interface IDataContext
@@ -57,4 +65,8 @@ internal interface IDataContext
     bool Ping();
 
     DbSet<Entities.Tournament> Tournaments { get; }
+
+    void SaveChanges();
+
+    Task SaveChangesAsync();
 }

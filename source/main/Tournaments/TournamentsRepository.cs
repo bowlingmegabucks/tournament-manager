@@ -20,9 +20,23 @@ internal class Repository : IRepository
 
     IEnumerable<Database.Entities.Tournament> IRepository.RetrieveAll()
         => _dataContext.Tournaments.AsEnumerable();
+
+    Guid IRepository.Add(Database.Entities.Tournament tournament)
+    {
+        var guid = Guid.NewGuid();
+
+        tournament.Id = guid;
+        
+        _dataContext.Tournaments.Add(tournament);
+        _dataContext.SaveChanges();
+        
+        return tournament.Id;
+    }
 }
 
 internal interface IRepository
 {
     IEnumerable<Database.Entities.Tournament> RetrieveAll();
+
+    Guid Add(Database.Entities.Tournament tournament); 
 }

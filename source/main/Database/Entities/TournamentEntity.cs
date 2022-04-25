@@ -5,6 +5,7 @@ namespace NewEnglandClassic.Database.Entities;
 
 internal class Tournament
 {
+    [Key]
     public Guid Id { get; set; }
 
     [Required]
