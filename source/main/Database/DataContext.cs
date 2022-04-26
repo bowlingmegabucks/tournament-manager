@@ -21,18 +21,24 @@ internal class DataContext : DbContext, IDataContext
         _connectionString = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddUserSecrets<DataContext>()
-            .Build().GetConnectionString("tournament-manager");
+            .Build().GetConnectionString("tournament-manager-migration");
     }
 #endif
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(_connectionString, options => options.EnableRetryOnFailure(3, new TimeSpan(0, 0, 1), new List<int>()));
+        MySqlServerVersion serverVersion;
 
 #if DEBUG
+        serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
+        
         optionsBuilder.UseLoggerFactory(ConsoleLogger);
         optionsBuilder.EnableSensitiveDataLogging(true);
+#else
+        serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
 #endif
+
+        optionsBuilder.UseMySql(_connectionString, serverVersion);
     }
 
 #if DEBUG
