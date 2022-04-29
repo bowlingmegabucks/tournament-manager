@@ -46,7 +46,7 @@ internal class Presenter
         }
         else
         {
-            _view.DisplayMessage($"{_view.Tournament.Name} successfully added");
+            _view.DisplayMessage($"{_view.Tournament.TournamentName} successfully added");
             _view.Tournament.Id = id!.Value;
             _view.Close();
         }

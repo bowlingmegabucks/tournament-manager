@@ -26,7 +26,7 @@ internal class Adapter
     {
         var viewModel = new NewEnglandClassic.Tournaments.ViewModel
         { 
-            Name = "name"
+            TournamentName = "name"
         };
 
         _adapter.Execute(viewModel);

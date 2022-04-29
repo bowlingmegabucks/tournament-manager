@@ -39,7 +39,7 @@ internal class Tournament
     internal Tournament(Tournaments.IViewModel viewModel)
     {
         Id = viewModel.Id;
-        Name = viewModel.Name;
+        Name = viewModel.TournamentName;
         Start = viewModel.Start;
         End = viewModel.End;
         EntryFee = viewModel.EntryFee;

@@ -28,7 +28,7 @@ internal class ViewModel
 
         var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
 
-        Assert.That(viewModel.Name, Is.EqualTo("name"));
+        Assert.That(viewModel.TournamentName, Is.EqualTo("name"));
     }
 
     [Test]

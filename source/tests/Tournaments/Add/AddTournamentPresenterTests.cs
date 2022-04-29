@@ -97,7 +97,7 @@ internal class Presenter
 
         var viewModel = new NewEnglandClassic.Tournaments.ViewModel
         { 
-            Name = "name"
+            TournamentName = "name"
         };
 
         _view.SetupGet(view => view.Tournament).Returns(viewModel);

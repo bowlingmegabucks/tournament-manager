@@ -120,7 +120,7 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentViewModel_NameMapped()
     {
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { Name = "name" };
+        var entity = new NewEnglandClassic.Tournaments.ViewModel { TournamentName = "name" };
 
         var model = new NewEnglandClassic.Models.Tournament(entity);
 
