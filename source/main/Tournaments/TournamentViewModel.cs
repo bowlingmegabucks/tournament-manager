@@ -35,6 +35,14 @@ internal class ViewModel : IViewModel
         BowlingCenter = model.BowlingCenter;
         Completed = model.Completed;
     }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal ViewModel()
+    {
+
+    }
 }
 
 internal interface IViewModel
