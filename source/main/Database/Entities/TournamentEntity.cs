@@ -20,7 +20,7 @@ internal class Tournament
     [Required]
     [Precision(5,2)]
     public decimal EntryFee { get; set; }
-
+    
     [Required]
     public short Games { get; set; }
 
