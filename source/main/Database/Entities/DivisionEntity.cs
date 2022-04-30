@@ -27,6 +27,7 @@ internal class Division
 
     public int? MaximumAverage { get; set; }
 
+    [Precision(3,2)]
     public decimal? HandicapPercentage { get; set; }
 
     public int? HandicapBase { get; set; }
