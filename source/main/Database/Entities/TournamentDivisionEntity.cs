@@ -1,0 +1,45 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.ComponentModel.DataAnnotations;
+
+namespace NewEnglandClassic.Database.Entities;
+internal class TournamentDivision
+{
+    [Key]
+    public Guid Id { get; set; }
+
+    [Required]
+    public short Number { get; set; }
+
+    [Required]
+    public Guid TournamentId { get; set; }
+
+    public Tournament Tournament { get; set; } = null!;
+
+    public short? MinimumAge { get; set; }
+    
+    public short? MaximumAge { get; set; }
+    
+    public int? MinimumAverage { get; set; }
+
+    public int? MaximumAverage { get; set; }
+
+    public decimal? HandicapPercentage { get; set; }
+
+    public int? HandicapBase { get; set; }
+
+    public int? MaximumHandicapPerGame { get; set; }
+
+    public Models.Gender? Gender { get; set; }
+
+    internal class Configuration : IEntityTypeConfiguration<TournamentDivision>
+    {
+        public void Configure(EntityTypeBuilder<TournamentDivision> builder)
+            => builder.HasOne(division => division.Tournament)
+                      .WithMany(tournament => tournament.Divisions)
+                      .HasForeignKey(division => division.TournamentId)
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+
+    }
+}

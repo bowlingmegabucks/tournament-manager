@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 
 namespace NewEnglandClassic.Database.Entities;
@@ -37,4 +38,6 @@ internal class Tournament
 
     [Required]
     public bool Completed { get; set; }
+
+    public ICollection<TournamentDivision> Divisions { get; set; } = null!;
 }

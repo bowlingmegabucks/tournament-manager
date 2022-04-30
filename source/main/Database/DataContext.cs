@@ -55,15 +55,20 @@ internal class DataContext : DbContext, IDataContext
         => await base.SaveChangesAsync();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-        => modelBuilder.Entity<Entities.Tournament>(builder =>
+    {
+        modelBuilder.Entity<Entities.Tournament>(builder =>
         {
             builder.Property(tournament => tournament.Start).HasConversion<DateOnlyConverter, DateOnlyComparer>();
             builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();
         });
 
+        modelBuilder.ApplyConfiguration(new Entities.TournamentDivision.Configuration());
+    }
+        
+
     public DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
 
-    
+    public DbSet<Entities.TournamentDivision> TournamentDivisions { get; set; } = null!;    
 }
 
 internal interface IDataContext
