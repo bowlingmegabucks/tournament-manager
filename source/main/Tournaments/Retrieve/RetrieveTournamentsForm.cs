@@ -38,10 +38,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         return form.ShowDialog() == DialogResult.OK ? form.Tournament.Id : null;
     }
-
+    
     public void OpenTournament(Guid id) 
     {   
-        var portal = new Portal(_config, id);
+        var portal = new Tournaments.Portal.Form(_config, id);
 
         Hide();
 

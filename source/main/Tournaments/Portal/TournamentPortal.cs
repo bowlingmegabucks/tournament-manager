@@ -9,14 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NewEnglandClassic.Tournaments;
-public partial class Portal : Form
+namespace NewEnglandClassic.Tournaments.Portal;
+public partial class Form : System.Windows.Forms.Form
 {
     private readonly IConfiguration _config;
     private readonly Guid _id;
 
     
-    public Portal(IConfiguration config, Guid id)
+    public Form(IConfiguration config, Guid id)
     {
         InitializeComponent();
 
