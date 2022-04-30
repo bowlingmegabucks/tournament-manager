@@ -59,7 +59,7 @@ namespace NewEnglandClassic.Database.Migrations
 
                     b.HasIndex("TournamentId");
 
-                    b.ToTable("TournamentDivisions");
+                    b.ToTable("Divisions");
                 });
 
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>

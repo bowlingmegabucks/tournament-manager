@@ -11,8 +11,8 @@ using NewEnglandClassic.Database;
 namespace NewEnglandClassic.Database.Migrations;
 
 [DbContext(typeof(DataContext))]
-[Migration("20220430122613_TournamentDivisions")]
-partial class TournamentDivisions
+[Migration("20220430141220_DivisionEntity")]
+partial class DivisionEntity
 {
     protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
@@ -61,7 +61,7 @@ partial class TournamentDivisions
 
                 b.HasIndex("TournamentId");
 
-                b.ToTable("TournamentDivisions");
+                b.ToTable("Divisions");
             });
 
         modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>

@@ -39,5 +39,5 @@ internal class Tournament
     [Required]
     public bool Completed { get; set; }
 
-    public ICollection<TournamentDivision> Divisions { get; set; } = null!;
+    public ICollection<Division> Divisions { get; set; } = null!;
 }

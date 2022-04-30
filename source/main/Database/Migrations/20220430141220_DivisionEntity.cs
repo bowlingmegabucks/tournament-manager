@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NewEnglandClassic.Database.Migrations;
 
-public partial class TournamentDivisions : Migration
+public partial class DivisionEntity : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)
     {
@@ -13,7 +13,7 @@ public partial class TournamentDivisions : Migration
             .Annotation("MySql:CharSet", "utf8mb4");
 
         migrationBuilder.CreateTable(
-            name: "TournamentDivisions",
+            name: "Divisions",
             columns: table => new
             {
                 Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -30,9 +30,9 @@ public partial class TournamentDivisions : Migration
             },
             constraints: table =>
             {
-                table.PrimaryKey("PK_TournamentDivisions", x => x.Id);
+                table.PrimaryKey("PK_Divisions", x => x.Id);
                 table.ForeignKey(
-                    name: "FK_TournamentDivisions_Tournaments_TournamentId",
+                    name: "FK_Divisions_Tournaments_TournamentId",
                     column: x => x.TournamentId,
                     principalTable: "Tournaments",
                     principalColumn: "Id",
@@ -41,11 +41,11 @@ public partial class TournamentDivisions : Migration
             .Annotation("MySql:CharSet", "utf8mb4");
 
         migrationBuilder.CreateIndex(
-            name: "IX_TournamentDivisions_TournamentId",
-            table: "TournamentDivisions",
+            name: "IX_Divisions_TournamentId",
+            table: "Divisions",
             column: "TournamentId");
     }
 
     protected override void Down(MigrationBuilder migrationBuilder) 
-        => migrationBuilder.DropTable(name: "TournamentDivisions");
+        => migrationBuilder.DropTable(name: "Divisions");
 }

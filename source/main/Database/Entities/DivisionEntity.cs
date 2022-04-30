@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 
 namespace NewEnglandClassic.Database.Entities;
-internal class TournamentDivision
+internal class Division
 {
     [Key]
     public Guid Id { get; set; }
@@ -32,9 +32,9 @@ internal class TournamentDivision
 
     public Models.Gender? Gender { get; set; }
 
-    internal class Configuration : IEntityTypeConfiguration<TournamentDivision>
+    internal class Configuration : IEntityTypeConfiguration<Division>
     {
-        public void Configure(EntityTypeBuilder<TournamentDivision> builder)
+        public void Configure(EntityTypeBuilder<Division> builder)
             => builder.HasOne(division => division.Tournament)
                       .WithMany(tournament => tournament.Divisions)
                       .HasForeignKey(division => division.TournamentId)
