@@ -85,6 +85,7 @@ partial class Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(369, 387);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonSave);

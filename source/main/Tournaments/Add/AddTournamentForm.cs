@@ -17,6 +17,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
     {
         InitializeComponent();
 
+        TournamentControlNew.Start = new DateOnly(DateTime.Now.Year, 1, 1);
+        TournamentControlNew.End = new DateOnly(DateTime.Now.Year, 12, 31);
+
         _config = config;
     }
 

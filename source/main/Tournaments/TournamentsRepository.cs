@@ -22,11 +22,7 @@ internal class Repository : IRepository
         => _dataContext.Tournaments.AsEnumerable();
 
     Guid IRepository.Add(Database.Entities.Tournament tournament)
-    {
-        var guid = Guid.NewGuid();
-
-        tournament.Id = guid;
-        
+    {   
         _dataContext.Tournaments.Add(tournament);
         _dataContext.SaveChanges();
         

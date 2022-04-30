@@ -18,5 +18,5 @@ public partial class NumericControl : NumericUpDown
     }
 
     private void SelectAll(object sender, EventArgs e)
-        => Select(0, Value.ToString().Length);
+        => Select(0, Text.Length);
 }
