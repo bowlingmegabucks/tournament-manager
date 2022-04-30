@@ -1,9 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
-
-namespace NewEnglandClassic.Controls;
+﻿namespace NewEnglandClassic.Controls;
 
 public partial class ProcessingMessage : UserControl
 {

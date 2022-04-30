@@ -1,6 +1,6 @@
-﻿namespace NewEnglandClassic.Tournaments;
+﻿namespace NewEnglandClassic.Tournaments.Portal;
 
-partial class Portal
+partial class Form
 {
     /// <summary>
     /// Required designer variable.
