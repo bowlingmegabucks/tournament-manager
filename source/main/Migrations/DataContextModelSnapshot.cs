@@ -49,6 +49,10 @@ namespace NewEnglandClassic.Database.Migrations
                     b.Property<int?>("MinimumAverage")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<short>("Number")
                         .HasColumnType("smallint");
 

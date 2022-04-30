@@ -9,6 +9,9 @@ internal class Division
     public Guid Id { get; set; }
 
     [Required]
+    public string Name { get; set; } = string.Empty;
+
+    [Required]
     public short Number { get; set; }
 
     [Required]
