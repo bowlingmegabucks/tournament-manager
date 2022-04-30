@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tests.Tournaments.Retrieve;
+﻿namespace NewEnglandClassic.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal class Adapter

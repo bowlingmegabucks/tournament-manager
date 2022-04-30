@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace NewEnglandClassic.Controls;
+﻿namespace NewEnglandClassic.Controls;
 
 /// <summary>
 ///
