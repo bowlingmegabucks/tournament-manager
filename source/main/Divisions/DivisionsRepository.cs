@@ -18,9 +18,17 @@ internal class Repository : IRepository
     {
         _dataContext = mockDataContext;
     }
+
+    Guid IRepository.Add(Database.Entities.Division division)
+    {
+        _dataContext.Divisions.Add(division);
+        _dataContext.SaveChanges();
+
+        return division.Id; ;
+    }
 }
 
 internal interface IRepository
 {
-
+    Guid Add(Database.Entities.Division division);
 }
