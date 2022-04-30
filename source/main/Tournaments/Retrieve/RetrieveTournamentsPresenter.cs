@@ -49,4 +49,14 @@ internal class Presenter
             _view.BindTournaments(tournaments.ToList());
         }
     }
+
+    public void NewTournament()
+    {
+        var id = _view.CreateNewTournament();
+
+        if (id != null)
+        {
+            _view.OpenTournament(id.Value);
+        }
+    }
 }

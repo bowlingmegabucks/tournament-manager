@@ -68,4 +68,34 @@ internal class Presenters
 
         _view.Verify(view => view.BindTournaments(tournaments), Times.Once);
     }
+
+    [Test]
+    public void NewTournament_ViewCreateNewTournament_Called()
+    {
+        _presenter.NewTournament();
+
+        _view.Verify(view => view.CreateNewTournament(), Times.Once);
+    }
+
+    [Test]
+    public void NewTournament_ViewCreateNewTournamentReturnsNull_ViewOpenTournamentNotCalled()
+    {
+        _view.Setup(view => view.CreateNewTournament()).Returns((Guid?)null);
+
+        _presenter.NewTournament();
+
+        _view.Verify(view => view.OpenTournament(It.IsAny<Guid>()), Times.Never);
+    }
+
+    [Test]
+    public void NewTournament_ViewCreateNewTournamentReturnsId_ViewOpenTournamentCalledCorrectly()
+    {
+        var guid = Guid.NewGuid();
+
+        _view.Setup(view => view.CreateNewTournament()).Returns(guid);
+
+        _presenter.NewTournament();
+
+        _view.Verify(view => view.OpenTournament(guid), Times.Once);
+    }
 }

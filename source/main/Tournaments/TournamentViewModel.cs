@@ -4,7 +4,7 @@ internal class ViewModel : IViewModel
 {
     public Guid Id { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+    public string TournamentName { get; set; } = string.Empty;
 
     public DateOnly Start { get; set; }
 
@@ -25,7 +25,7 @@ internal class ViewModel : IViewModel
     public ViewModel(Models.Tournament model)
     {
         Id = model.Id;
-        Name = model.Name;
+        TournamentName = model.Name;
         Start = model.Start;
         End = model.End;
         EntryFee = model.EntryFee;
@@ -35,13 +35,21 @@ internal class ViewModel : IViewModel
         BowlingCenter = model.BowlingCenter;
         Completed = model.Completed;
     }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal ViewModel()
+    {
+
+    }
 }
 
 internal interface IViewModel
 {
     Guid Id { get; set; }
 
-    string Name { get; set; }
+    string TournamentName { get; set; }
 
     DateOnly Start { get; set; }
 

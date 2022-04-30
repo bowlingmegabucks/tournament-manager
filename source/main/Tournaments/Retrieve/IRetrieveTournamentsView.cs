@@ -13,4 +13,8 @@ internal interface IView
     void DisableOpenTournament();
     
     void BindTournaments(ICollection<IViewModel> viewModels);
+
+    Guid? CreateNewTournament();
+
+    void OpenTournament(Guid id);
 }

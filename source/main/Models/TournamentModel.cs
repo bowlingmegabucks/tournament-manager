@@ -36,6 +36,20 @@ internal class Tournament
         Completed = entity.Completed;
     }
 
+    internal Tournament(Tournaments.IViewModel viewModel)
+    {
+        Id = viewModel.Id;
+        Name = viewModel.TournamentName;
+        Start = viewModel.Start;
+        End = viewModel.End;
+        EntryFee = viewModel.EntryFee;
+        Games = viewModel.Games;
+        FinalsRatio = viewModel.FinalsRatio;
+        CashRatio = viewModel.CashRatio;
+        BowlingCenter = viewModel.BowlingCenter;
+        Completed = viewModel.Completed;
+    }
+
     /// <summary>
     /// Unit Test Constructor
     /// </summary>

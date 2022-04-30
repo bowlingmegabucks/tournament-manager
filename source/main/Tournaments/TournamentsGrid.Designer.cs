@@ -48,7 +48,7 @@ partial class TournamentsGrid
             // 
             // ColumnName
             // 
-            this.ColumnName.DataPropertyName = "Name";
+            this.ColumnName.DataPropertyName = "TournamentName";
             this.ColumnName.HeaderText = "Name";
             this.ColumnName.Name = "ColumnName";
             this.ColumnName.ReadOnly = true;
