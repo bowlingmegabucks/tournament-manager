@@ -25,4 +25,28 @@ internal class Division
     public int? MaximumHandicapPerGame { get; set; }
 
     public Gender? Gender { get; set; }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal Division()
+    {
+        Name = string.Empty;
+    }
+
+    public Division(Divisions.IViewModel viewModel)
+    {
+        Id = viewModel.Id;
+        Number = viewModel.Number;
+        Name = viewModel.DivisionName;
+        TournamentId = viewModel.TournamentId;
+        MinimumAge = viewModel.MinimumAge;
+        MaximumAge = viewModel.MaximumAge;
+        MinimumAverage = viewModel.MinimumAverage;
+        MaximumAverage = viewModel.MaximumAverage;
+        HandicapPercentage = viewModel.HandicapPercentage;
+        HandicapBase = viewModel.HandicapBase;
+        MaximumHandicapPerGame = viewModel.MaximumHandicapPerGame;
+        Gender = viewModel.Gender;
+    }
 }

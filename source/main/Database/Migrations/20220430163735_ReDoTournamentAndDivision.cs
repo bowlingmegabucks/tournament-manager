@@ -29,10 +29,7 @@ public partial class ReDoTournamentAndDivision : Migration
                     .Annotation("MySql:CharSet", "utf8mb4"),
                 Completed = table.Column<bool>(type: "tinyint(1)", nullable: false)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_Tournaments", x => x.Id);
-            })
+            constraints: table => table.PrimaryKey("PK_Tournaments", x => x.Id))
             .Annotation("MySql:CharSet", "utf8mb4");
 
         migrationBuilder.CreateTable(
