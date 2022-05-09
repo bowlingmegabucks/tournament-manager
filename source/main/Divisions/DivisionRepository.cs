@@ -26,9 +26,14 @@ internal class Repository : IRepository
 
         return division.Id; ;
     }
+
+    IEnumerable<Database.Entities.Division> IRepository.ForTournament(Guid tournamentId)
+        => _dataContext.Divisions.Where(division => division.TournamentId == tournamentId).AsEnumerable();
 }
 
 internal interface IRepository
 {
     Guid Add(Database.Entities.Division division);
+
+    IEnumerable<Database.Entities.Division> ForTournament(Guid tournamentId);
 }

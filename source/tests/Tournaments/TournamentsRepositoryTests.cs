@@ -44,7 +44,7 @@ internal class TournamentsRepositoryTests
     public void Add_TournamentAddedWithGuid()
     {
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Tournament>().SetUpDbContext());
-        
+
         var tournament = new NewEnglandClassic.Database.Entities.Tournament();
 
         var guid = _tournamentsRepository.Add(tournament);

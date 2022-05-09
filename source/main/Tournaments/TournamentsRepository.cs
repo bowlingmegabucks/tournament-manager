@@ -34,5 +34,5 @@ internal interface IRepository
 {
     IEnumerable<Database.Entities.Tournament> RetrieveAll();
 
-    Guid Add(Database.Entities.Tournament tournament); 
+    Guid Add(Database.Entities.Tournament tournament);
 }
