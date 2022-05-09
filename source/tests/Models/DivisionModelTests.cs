@@ -148,4 +148,168 @@ internal class Division
 
         Assert.That(model.Gender, Is.EqualTo(gender));
     }
+
+    [Test]
+    public void Constructor_Entities_IdMapped()
+    {
+        var guid = Guid.NewGuid();
+
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            Id = guid
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.Id, Is.EqualTo(guid));
+    }
+
+    [Test]
+    public void Constructor_Entities_NumberMapped()
+    {
+        short number = 5;
+
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            Number = number
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.Number, Is.EqualTo(number));
+    }
+
+    [Test]
+    public void Constructor_Entities_NameMapped()
+    {
+        var name = "Division Name";
+
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            Name = name
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.Name, Is.EqualTo(name));
+    }
+
+    [Test]
+    public void Constructor_Entities_TournamentIdMapped()
+    {
+        var tournamentId = Guid.NewGuid();
+
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            TournamentId = tournamentId
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.TournamentId, Is.EqualTo(tournamentId));
+    }
+
+    [Test]
+    public void Constructor_Entities_MinumumAgeMapped([Values(null, 5)] short? age)
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            MinimumAge = age
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.MinimumAge, Is.EqualTo(age));
+    }
+
+    [Test]
+    public void Constructor_Entities_MaximumAgeMapped([Values(null, 5)] short? age)
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            MaximumAge = age
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.MaximumAge, Is.EqualTo(age));
+    }
+
+    [Test]
+    public void Constructor_Entities_MinimumAverageMapped([Values(null, 200)] int? average)
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            MinimumAverage = average
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.MinimumAverage, Is.EqualTo(average));
+    }
+
+    [Test]
+    public void Constructor_Entities_MaximumAverageMapped([Values(null, 200)] int? average)
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            MaximumAverage = average
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.MaximumAverage, Is.EqualTo(average));
+    }
+
+    [Test]
+    public void Constructor_Entities_HandicapPercentageMapped([Values(null, .7, 1)] decimal? handicapPercentage)
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            HandicapPercentage = handicapPercentage
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.HandicapPercentage, Is.EqualTo(handicapPercentage));
+    }
+
+    [Test]
+    public void Constructor_Entities_HandicapBaseMapped([Values(null, 200)] int? handicapBase)
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            HandicapBase = handicapBase
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.HandicapBase, Is.EqualTo(handicapBase));
+    }
+
+    [Test]
+    public void Constructor_Entities_MaximumHandicapPerGameMapped([Values(null, 50)] int? maximumHandicapPerGame)
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            MaximumHandicapPerGame = maximumHandicapPerGame
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.MaximumHandicapPerGame, Is.EqualTo(maximumHandicapPerGame));
+    }
+
+    [Test]
+    public void Constructor_Entities_GenderMapped([Values] NewEnglandClassic.Models.Gender gender)
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Division
+        {
+            Gender = gender
+        };
+
+        var model = new NewEnglandClassic.Models.Division(entity);
+
+        Assert.That(model.Gender, Is.EqualTo(gender));
+    }
 }

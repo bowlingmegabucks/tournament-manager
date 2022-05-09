@@ -49,4 +49,20 @@ internal class Division
         MaximumHandicapPerGame = viewModel.MaximumHandicapPerGame;
         Gender = viewModel.Gender;
     }
+
+    public Division(Database.Entities.Division entity)
+    {
+        Id = entity.Id;
+        Number = entity.Number;
+        Name = entity.Name;
+        TournamentId = entity.TournamentId;
+        MinimumAge = entity.MinimumAge;
+        MaximumAge = entity.MaximumAge;
+        MinimumAverage = entity.MinimumAverage;
+        MaximumAverage = entity.MaximumAverage;
+        HandicapPercentage = entity.HandicapPercentage;
+        HandicapBase = entity.HandicapBase;
+        MaximumHandicapPerGame = entity.MaximumHandicapPerGame;
+        Gender = entity.Gender;
+    }
 }
