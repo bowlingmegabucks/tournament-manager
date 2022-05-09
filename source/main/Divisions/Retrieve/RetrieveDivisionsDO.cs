@@ -18,10 +18,10 @@ internal class DataLayer : IDataLayer
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
-    /// <param name="repository"></param>
-    internal DataLayer(IRepository repository)
+    /// <param name="mockRepository"></param>
+    internal DataLayer(IRepository mockRepository)
     {
-        _repository = repository;
+        _repository = mockRepository;
     }
 
     public IEnumerable<Models.Division> ForTournament(Guid tournamentId)
