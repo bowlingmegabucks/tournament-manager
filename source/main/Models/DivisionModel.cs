@@ -24,7 +24,7 @@ internal class Division
 
     public int? MaximumHandicapPerGame { get; set; }
 
-    public Gender? Gender { get; set; }
+    public Gender Gender { get; set; }
 
     /// <summary>
     /// Unit Test Constructor
