@@ -96,7 +96,7 @@ partial class Form
             this.Name = "Form";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Add Tournament";
+            this.Text = "New Tournament";
             this.ResumeLayout(false);
 
     }

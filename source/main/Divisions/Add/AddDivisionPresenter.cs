@@ -34,7 +34,7 @@ internal class Presenter
 
     public void GetNextDivisionNumber()
     {
-        var divisions = RetrieveDivisionsAdapter.ForTournament(_view.TournamentId);
+        var divisions = RetrieveDivisionsAdapter.ForTournament(_view.Division.TournamentId);
 
         if (RetrieveDivisionsAdapter.Errors.Any())
         {
@@ -43,6 +43,29 @@ internal class Presenter
         else
         {
             _view.Division.Number = (short)(divisions.Count() + 1);
+        }
+    }
+
+    public void Execute()
+    {
+        if (!_view.IsValid())
+        {
+            _view.KeepOpen();
+            return;
+        }
+
+        var id = AddDivisionAdapter.Execute(_view.Division);
+
+        if (AddDivisionAdapter.Errors.Any())
+        {
+            _view.KeepOpen();
+            _view.DisplayErrors(AddDivisionAdapter.Errors.Select(e => e.Message));
+        }
+        else
+        {
+            _view.DisplayMessage($"{_view.Division.DivisionName} division added.");
+            _view.Division.Id = id!.Value;
+            _view.Close();
         }
     }
 }

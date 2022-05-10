@@ -28,11 +28,11 @@ internal class Presenter
     [Test]
     public void GetNextDivisionNumber_RetrieveDivisionsAdapterForTournament_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
-
         var division = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
+        
+        var tournamentId = Guid.NewGuid();
+        division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 
         _presenter.GetNextDivisionNumber();
 
@@ -42,11 +42,11 @@ internal class Presenter
     [Test]
     public void GetNextDivisionNumber_RetrieveDivisionAdapterHasErrors_ErrorFlow()
     {
-        var tournamentId = Guid.NewGuid();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
-
         var division = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
+
+        var tournamentId = Guid.NewGuid();
+        division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 
         var errors = new[] { new NewEnglandClassic.Models.ErrorDetail("error"), new NewEnglandClassic.Models.ErrorDetail("message") };
         _retrieveAdapter.SetupGet(retrieveAdapter => retrieveAdapter.Errors).Returns(errors);
@@ -65,11 +65,11 @@ internal class Presenter
     [TestCase(2, 3)]
     public void GetNextDivisionNumber_RetrieveDivisionAdapterHasNoErrors_NextDivisionNumberSet(short divisionCount, short expected)
     {
-        var tournamentId = Guid.NewGuid();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
-
         var division = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
+
+        var tournamentId = Guid.NewGuid();
+        division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 
         var divisions = Enumerable.Repeat(new Mock<NewEnglandClassic.Divisions.IViewModel>(), divisionCount).Select(mock => mock.Object).ToList();
         _retrieveAdapter.Setup(retrieveAdapter => retrieveAdapter.ForTournament(It.IsAny<Guid>())).Returns(divisions);

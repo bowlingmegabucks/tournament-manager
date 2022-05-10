@@ -1,8 +1,6 @@
 ﻿namespace NewEnglandClassic.Divisions.Add;
-internal interface IView
-{
-    Guid TournamentId { get; }
-    
+internal interface IView 
+{ 
     bool IsValid();
 
     IViewModel Division { get; }

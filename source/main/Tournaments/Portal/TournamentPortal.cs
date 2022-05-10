@@ -14,4 +14,11 @@ public partial class Form : System.Windows.Forms.Form
         _config = config;
         _id = id;
     }
+
+    private void MenuItemDivisionAdd_Click(object sender, EventArgs e)
+    {
+        using var form = new Divisions.Add.Form(_config, _id);
+
+        form.ShowDialog(this);
+    }
 }

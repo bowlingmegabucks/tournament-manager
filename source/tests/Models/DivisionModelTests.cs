@@ -107,7 +107,7 @@ internal class Division
 
         var model = new NewEnglandClassic.Models.Division(viewModel.Object);
 
-        Assert.That(model.HandicapPercentage, Is.EqualTo(handicapPercentage));
+        Assert.That(model.HandicapPercentage, Is.EqualTo(handicapPercentage / 100m));
     }
 
     [Test]

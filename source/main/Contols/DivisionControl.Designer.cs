@@ -45,12 +45,12 @@ partial class DivisionControl
             this.NumericMinimumAverage = new NewEnglandClassic.Controls.NumericControl();
             this.LabelMaximumAverage = new NewEnglandClassic.Controls.LabelControl();
             this.GroupboxHandicap = new System.Windows.Forms.GroupBox();
-            this.LabelHandicapPercentage = new NewEnglandClassic.Controls.LabelControl();
-            this.NumericHandicapPercentage = new NewEnglandClassic.Controls.NumericControl();
-            this.LabelHandicapBase = new NewEnglandClassic.Controls.LabelControl();
-            this.NumericHandicapBase = new NewEnglandClassic.Controls.NumericControl();
             this.LabelMaximumHandicapPerGame = new NewEnglandClassic.Controls.LabelControl();
             this.NumericMaximumHandicapPerGame = new NewEnglandClassic.Controls.NumericControl();
+            this.LabelHandicapBase = new NewEnglandClassic.Controls.LabelControl();
+            this.NumericHandicapBase = new NewEnglandClassic.Controls.NumericControl();
+            this.LabelHandicapPercentage = new NewEnglandClassic.Controls.LabelControl();
+            this.NumericHandicapPercentage = new NewEnglandClassic.Controls.NumericControl();
             this.LabelGender = new NewEnglandClassic.Controls.LabelControl();
             this.ComboboxGender = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderDivision)).BeginInit();
@@ -61,19 +61,19 @@ partial class DivisionControl
             ((System.ComponentModel.ISupportInitialize)(this.NumericMaximumAverage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericMinimumAverage)).BeginInit();
             this.GroupboxHandicap.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericHandicapPercentage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericHandicapBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericMaximumHandicapPerGame)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericHandicapBase)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericHandicapPercentage)).BeginInit();
             this.SuspendLayout();
             // 
             // TextboxDivisionName
             // 
             this.TextboxDivisionName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TextboxDivisionName.Location = new System.Drawing.Point(114, 28);
+            this.TextboxDivisionName.Location = new System.Drawing.Point(132, 28);
             this.TextboxDivisionName.Margin = new System.Windows.Forms.Padding(3, 3, 10, 10);
             this.TextboxDivisionName.Name = "TextboxDivisionName";
             this.TextboxDivisionName.PlaceholderText = "Division Description";
-            this.TextboxDivisionName.Size = new System.Drawing.Size(317, 27);
+            this.TextboxDivisionName.Size = new System.Drawing.Size(299, 27);
             this.TextboxDivisionName.TabIndex = 0;
             this.TextboxDivisionName.Validating += new System.ComponentModel.CancelEventHandler(this.TextboxDivisionName_Validating);
             this.TextboxDivisionName.Validated += new System.EventHandler(this.DivisionControl_Validated);
@@ -82,7 +82,7 @@ partial class DivisionControl
             // 
             this.LabelName.AutoSize = true;
             this.LabelName.Bold = false;
-            this.LabelName.Location = new System.Drawing.Point(114, 3);
+            this.LabelName.Location = new System.Drawing.Point(132, 3);
             this.LabelName.Name = "LabelName";
             this.LabelName.Required = true;
             this.LabelName.Size = new System.Drawing.Size(60, 19);
@@ -102,7 +102,7 @@ partial class DivisionControl
             this.LabelNumber.Location = new System.Drawing.Point(9, 3);
             this.LabelNumber.Name = "LabelNumber";
             this.LabelNumber.Required = false;
-            this.LabelNumber.Size = new System.Drawing.Size(72, 19);
+            this.LabelNumber.Size = new System.Drawing.Size(117, 19);
             this.LabelNumber.TabIndex = 104;
             this.LabelNumber.TabStop = false;
             this.LabelNumber.Text = "Number:";
@@ -256,7 +256,7 @@ partial class DivisionControl
             this.LabelMaximumAverage.Location = new System.Drawing.Point(171, 22);
             this.LabelMaximumAverage.Name = "LabelMaximumAverage";
             this.LabelMaximumAverage.Required = true;
-            this.LabelMaximumAverage.Size = new System.Drawing.Size(165, 19);
+            this.LabelMaximumAverage.Size = new System.Drawing.Size(159, 19);
             this.LabelMaximumAverage.TabIndex = 109;
             this.LabelMaximumAverage.TabStop = false;
             this.LabelMaximumAverage.Text = "Maximum Average:";
@@ -275,64 +275,6 @@ partial class DivisionControl
             this.GroupboxHandicap.TabIndex = 4;
             this.GroupboxHandicap.TabStop = false;
             this.GroupboxHandicap.Text = "Handicap (If Scratch all fields should be zero)";
-            // 
-            // LabelHandicapPercentage
-            // 
-            this.LabelHandicapPercentage.AutoSize = true;
-            this.LabelHandicapPercentage.Bold = false;
-            this.LabelHandicapPercentage.Location = new System.Drawing.Point(6, 22);
-            this.LabelHandicapPercentage.Name = "LabelHandicapPercentage";
-            this.LabelHandicapPercentage.Required = true;
-            this.LabelHandicapPercentage.Size = new System.Drawing.Size(114, 19);
-            this.LabelHandicapPercentage.TabIndex = 109;
-            this.LabelHandicapPercentage.TabStop = false;
-            this.LabelHandicapPercentage.Text = "Handicap %:";
-            // 
-            // NumericHandicapPercentage
-            // 
-            this.NumericHandicapPercentage.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NumericHandicapPercentage.Location = new System.Drawing.Point(6, 48);
-            this.NumericHandicapPercentage.Margin = new System.Windows.Forms.Padding(3, 4, 30, 10);
-            this.NumericHandicapPercentage.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.NumericHandicapPercentage.Name = "NumericHandicapPercentage";
-            this.NumericHandicapPercentage.Size = new System.Drawing.Size(131, 27);
-            this.NumericHandicapPercentage.TabIndex = 0;
-            this.NumericHandicapPercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.NumericHandicapPercentage.Validating += new System.ComponentModel.CancelEventHandler(this.NumericHandicapPercentage_Validating);
-            this.NumericHandicapPercentage.Validated += new System.EventHandler(this.DivisionControl_Validated);
-            // 
-            // LabelHandicapBase
-            // 
-            this.LabelHandicapBase.AutoSize = true;
-            this.LabelHandicapBase.Bold = false;
-            this.LabelHandicapBase.Location = new System.Drawing.Point(170, 22);
-            this.LabelHandicapBase.Name = "LabelHandicapBase";
-            this.LabelHandicapBase.Required = true;
-            this.LabelHandicapBase.Size = new System.Drawing.Size(141, 19);
-            this.LabelHandicapBase.TabIndex = 111;
-            this.LabelHandicapBase.TabStop = false;
-            this.LabelHandicapBase.Text = "Handicap Base:";
-            // 
-            // NumericHandicapBase
-            // 
-            this.NumericHandicapBase.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NumericHandicapBase.Location = new System.Drawing.Point(170, 48);
-            this.NumericHandicapBase.Margin = new System.Windows.Forms.Padding(3, 4, 30, 10);
-            this.NumericHandicapBase.Maximum = new decimal(new int[] {
-            300,
-            0,
-            0,
-            0});
-            this.NumericHandicapBase.Name = "NumericHandicapBase";
-            this.NumericHandicapBase.Size = new System.Drawing.Size(147, 27);
-            this.NumericHandicapBase.TabIndex = 1;
-            this.NumericHandicapBase.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.NumericHandicapBase.Validating += new System.ComponentModel.CancelEventHandler(this.NumericHandicapBase_Validating);
-            this.NumericHandicapBase.Validated += new System.EventHandler(this.DivisionControl_Validated);
             // 
             // LabelMaximumHandicapPerGame
             // 
@@ -363,6 +305,64 @@ partial class DivisionControl
             this.NumericMaximumHandicapPerGame.Validating += new System.ComponentModel.CancelEventHandler(this.NumericMaximumHandicapPerGame_Validating);
             this.NumericMaximumHandicapPerGame.Validated += new System.EventHandler(this.DivisionControl_Validated);
             // 
+            // LabelHandicapBase
+            // 
+            this.LabelHandicapBase.AutoSize = true;
+            this.LabelHandicapBase.Bold = false;
+            this.LabelHandicapBase.Location = new System.Drawing.Point(170, 22);
+            this.LabelHandicapBase.Name = "LabelHandicapBase";
+            this.LabelHandicapBase.Required = true;
+            this.LabelHandicapBase.Size = new System.Drawing.Size(141, 19);
+            this.LabelHandicapBase.TabIndex = 111;
+            this.LabelHandicapBase.TabStop = false;
+            this.LabelHandicapBase.Text = "Handicap Base:";
+            // 
+            // NumericHandicapBase
+            // 
+            this.NumericHandicapBase.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.NumericHandicapBase.Location = new System.Drawing.Point(170, 48);
+            this.NumericHandicapBase.Margin = new System.Windows.Forms.Padding(3, 4, 30, 10);
+            this.NumericHandicapBase.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.NumericHandicapBase.Name = "NumericHandicapBase";
+            this.NumericHandicapBase.Size = new System.Drawing.Size(147, 27);
+            this.NumericHandicapBase.TabIndex = 1;
+            this.NumericHandicapBase.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericHandicapBase.Validating += new System.ComponentModel.CancelEventHandler(this.NumericHandicapBase_Validating);
+            this.NumericHandicapBase.Validated += new System.EventHandler(this.DivisionControl_Validated);
+            // 
+            // LabelHandicapPercentage
+            // 
+            this.LabelHandicapPercentage.AutoSize = true;
+            this.LabelHandicapPercentage.Bold = false;
+            this.LabelHandicapPercentage.Location = new System.Drawing.Point(6, 22);
+            this.LabelHandicapPercentage.Name = "LabelHandicapPercentage";
+            this.LabelHandicapPercentage.Required = true;
+            this.LabelHandicapPercentage.Size = new System.Drawing.Size(114, 19);
+            this.LabelHandicapPercentage.TabIndex = 109;
+            this.LabelHandicapPercentage.TabStop = false;
+            this.LabelHandicapPercentage.Text = "Handicap %:";
+            // 
+            // NumericHandicapPercentage
+            // 
+            this.NumericHandicapPercentage.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.NumericHandicapPercentage.Location = new System.Drawing.Point(6, 48);
+            this.NumericHandicapPercentage.Margin = new System.Windows.Forms.Padding(3, 4, 30, 10);
+            this.NumericHandicapPercentage.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.NumericHandicapPercentage.Name = "NumericHandicapPercentage";
+            this.NumericHandicapPercentage.Size = new System.Drawing.Size(131, 27);
+            this.NumericHandicapPercentage.TabIndex = 0;
+            this.NumericHandicapPercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericHandicapPercentage.Validating += new System.ComponentModel.CancelEventHandler(this.NumericHandicapPercentage_Validating);
+            this.NumericHandicapPercentage.Validated += new System.EventHandler(this.DivisionControl_Validated);
+            // 
             // LabelGender
             // 
             this.LabelGender.AutoSize = true;
@@ -370,7 +370,7 @@ partial class DivisionControl
             this.LabelGender.Location = new System.Drawing.Point(9, 258);
             this.LabelGender.Name = "LabelGender";
             this.LabelGender.Required = false;
-            this.LabelGender.Size = new System.Drawing.Size(72, 19);
+            this.LabelGender.Size = new System.Drawing.Size(117, 19);
             this.LabelGender.TabIndex = 113;
             this.LabelGender.TabStop = false;
             this.LabelGender.Text = "Gender:";
@@ -414,9 +414,9 @@ partial class DivisionControl
             ((System.ComponentModel.ISupportInitialize)(this.NumericMinimumAverage)).EndInit();
             this.GroupboxHandicap.ResumeLayout(false);
             this.GroupboxHandicap.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericHandicapPercentage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NumericHandicapBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericMaximumHandicapPerGame)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericHandicapBase)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericHandicapPercentage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

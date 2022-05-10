@@ -44,7 +44,7 @@ internal class ViewModel : IViewModel
         MaximumAge = division.MaximumAge;
         MinimumAverage = division.MinimumAverage;
         MaximumAverage = division.MaximumAverage;
-        HandicapPercentage = division.HandicapPercentage;
+        HandicapPercentage = division.HandicapPercentage * 100;
         HandicapBase = division.HandicapBase;
         MaximumHandicapPerGame = division.MaximumHandicapPerGame;
         Gender = division.Gender;

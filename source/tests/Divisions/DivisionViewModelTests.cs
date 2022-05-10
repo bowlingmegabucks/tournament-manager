@@ -117,7 +117,7 @@ internal class ViewModel
 
         var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
 
-        Assert.That(viewModel.HandicapPercentage, Is.EqualTo(model.HandicapPercentage));
+        Assert.That(viewModel.HandicapPercentage, Is.EqualTo(model.HandicapPercentage * 100m));
     }
 
     [Test]

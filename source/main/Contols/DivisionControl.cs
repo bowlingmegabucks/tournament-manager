@@ -19,7 +19,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
             {(int)Models.Gender.Female, "Women" }
         };
 
-        ComboboxGender.DataSource = dictionary;
+        ComboboxGender.DataSource = dictionary.ToList();
     }
 
     public Guid Id { get; set; }
