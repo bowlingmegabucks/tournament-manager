@@ -9,6 +9,9 @@ internal class Division
     public Guid Id { get; set; }
 
     [Required]
+    public string Name { get; set; } = string.Empty;
+
+    [Required]
     public short Number { get; set; }
 
     [Required]
@@ -24,6 +27,7 @@ internal class Division
 
     public int? MaximumAverage { get; set; }
 
+    [Precision(3,2)]
     public decimal? HandicapPercentage { get; set; }
 
     public int? HandicapBase { get; set; }

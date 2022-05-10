@@ -32,7 +32,8 @@ namespace NewEnglandClassic.Database.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("HandicapPercentage")
-                        .HasColumnType("decimal(65,30)");
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<short?>("MaximumAge")
                         .HasColumnType("smallint");
@@ -48,6 +49,10 @@ namespace NewEnglandClassic.Database.Migrations
 
                     b.Property<int?>("MinimumAverage")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<short>("Number")
                         .HasColumnType("smallint");

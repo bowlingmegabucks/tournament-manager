@@ -11,8 +11,8 @@ using NewEnglandClassic.Database;
 namespace NewEnglandClassic.Database.Migrations;
 
 [DbContext(typeof(DataContext))]
-[Migration("20220430141220_DivisionEntity")]
-partial class DivisionEntity
+[Migration("20220430163735_ReDoTournamentAndDivision")]
+partial class ReDoTournamentAndDivision
 {
     protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
@@ -34,7 +34,8 @@ partial class DivisionEntity
                     .HasColumnType("int");
 
                 b.Property<decimal?>("HandicapPercentage")
-                    .HasColumnType("decimal(65,30)");
+                    .HasPrecision(3, 2)
+                    .HasColumnType("decimal(3,2)");
 
                 b.Property<short?>("MaximumAge")
                     .HasColumnType("smallint");
@@ -51,6 +52,10 @@ partial class DivisionEntity
                 b.Property<int?>("MinimumAverage")
                     .HasColumnType("int");
 
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
                 b.Property<short>("Number")
                     .HasColumnType("smallint");
 
@@ -62,6 +67,49 @@ partial class DivisionEntity
                 b.HasIndex("TournamentId");
 
                 b.ToTable("Divisions");
+            });
+
+        modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("char(36)");
+
+                b.Property<string>("BowlingCenter")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<decimal>("CashRatio")
+                    .HasPrecision(3, 1)
+                    .HasColumnType("decimal(3,1)");
+
+                b.Property<bool>("Completed")
+                    .HasColumnType("tinyint(1)");
+
+                b.Property<DateTime>("End")
+                    .HasColumnType("datetime(6)");
+
+                b.Property<decimal>("EntryFee")
+                    .HasPrecision(5, 2)
+                    .HasColumnType("decimal(5,2)");
+
+                b.Property<decimal>("FinalsRatio")
+                    .HasPrecision(3, 1)
+                    .HasColumnType("decimal(3,1)");
+
+                b.Property<short>("Games")
+                    .HasColumnType("smallint");
+
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<DateTime>("Start")
+                    .HasColumnType("datetime(6)");
+
+                b.HasKey("Id");
+
+                b.ToTable("Tournaments");
             });
 
         modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>

@@ -18,9 +18,22 @@ internal class Repository : IRepository
     {
         _dataContext = mockDataContext;
     }
+
+    Guid IRepository.Add(Database.Entities.Division division)
+    {
+        _dataContext.Divisions.Add(division);
+        _dataContext.SaveChanges();
+
+        return division.Id; ;
+    }
+
+    IEnumerable<Database.Entities.Division> IRepository.ForTournament(Guid tournamentId)
+        => _dataContext.Divisions.Where(division => division.TournamentId == tournamentId).AsEnumerable();
 }
 
 internal interface IRepository
 {
+    Guid Add(Database.Entities.Division division);
 
+    IEnumerable<Database.Entities.Division> ForTournament(Guid tournamentId);
 }

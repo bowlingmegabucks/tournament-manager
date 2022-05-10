@@ -77,6 +77,8 @@ internal interface IDataContext
 
     DbSet<Entities.Tournament> Tournaments { get; }
 
+    DbSet<Entities.Division> Divisions { get; }
+
     void SaveChanges();
 
     Task SaveChangesAsync();
