@@ -7,8 +7,6 @@ internal interface IView
 
     void KeepOpen();
 
-    void DisplayErrors(IEnumerable<string> errors);
-
     void DisplayMessage(string message);
 
     void Close();
