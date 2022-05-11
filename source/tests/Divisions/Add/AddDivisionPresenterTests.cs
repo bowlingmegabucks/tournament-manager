@@ -42,14 +42,14 @@ internal class Presenter
         var tournamentId = Guid.NewGuid();
         division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 
-        var errors = new[] { new NewEnglandClassic.Models.ErrorDetail("error"), new NewEnglandClassic.Models.ErrorDetail("message") };
-        _retrieveAdapter.SetupGet(retrieveAdapter => retrieveAdapter.Errors).Returns(errors);
+        var error = new NewEnglandClassic.Models.ErrorDetail("error");
+        _retrieveAdapter.SetupGet(retrieveAdapter => retrieveAdapter.Error).Returns(error);
 
         _presenter.GetNextDivisionNumber();
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.DisplayErrors(new[] { "error", "message" }), Times.Once);
+            _view.Verify(view => view.DisplayErrors(new[] { "error" }), Times.Once);
             division.VerifySet(d => d.Number = It.IsAny<short>(), Times.Never);
         });
     }

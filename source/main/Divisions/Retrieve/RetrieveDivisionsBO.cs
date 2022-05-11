@@ -17,7 +17,7 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = mockDataLayer;
     }
 
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
+    public Models.ErrorDetail? Error { get; private set; }
 
     public IEnumerable<Models.Division> ForTournament(Guid tournamentId)
     {
@@ -27,7 +27,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex) };
+            Error = new Models.ErrorDetail(ex);
 
             return Enumerable.Empty<Models.Division>();
         }
@@ -36,7 +36,7 @@ internal class BusinessLogic : IBusinessLogic
 
 internal interface IBusinessLogic
 {
-    IEnumerable<Models.ErrorDetail> Errors { get; }
+    Models.ErrorDetail? Error { get; }
 
     IEnumerable<Models.Division> ForTournament(Guid tournamentId);
 }

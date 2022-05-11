@@ -35,11 +35,11 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_NoErrors_ErrorDetailNull()
+    public void Execute_NoErrors_ErrorNull()
     {
         _businessLogic.Execute();
 
-        Assert.That(_businessLogic.ErrorDetail, Is.Null);
+        Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
@@ -54,7 +54,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_DataLayerExecuteThrowsException_ErrorDetailPopulated()
+    public void Execute_DataLayerExecuteThrowsException_ErrorPopulated()
     {
         var ex = new Exception("message");
         _dataLayer.Setup(dataLayer => dataLayer.Execute()).Throws(ex);
@@ -63,8 +63,8 @@ internal class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
-            Assert.That(_businessLogic.ErrorDetail.ReturnCode, Is.EqualTo(-1));
+            Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
+            Assert.That(_businessLogic.Error.ReturnCode, Is.EqualTo(-1));
         });
     }
 }

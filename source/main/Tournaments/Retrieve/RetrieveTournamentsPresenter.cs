@@ -28,9 +28,9 @@ internal class Presenter
     {
         var tournaments = Adapter.Execute();
 
-        if (Adapter.ErrorDetail != null)
+        if (Adapter.Error != null)
         {
-            _view.DisplayErrorMessage(Adapter.ErrorDetail.Message);
+            _view.DisplayErrorMessage(Adapter.Error.Message);
             _view.DisableOpenTournament();
         }
         else if (!tournaments.Any())
