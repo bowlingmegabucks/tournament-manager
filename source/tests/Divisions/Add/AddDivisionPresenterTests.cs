@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tests.Divisions.Add;
+﻿namespace NewEnglandClassic.Tests.Divisions.Add;
 
 [TestFixture]
 internal class Presenter

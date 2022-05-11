@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Divisions.Retrieve;
+﻿namespace NewEnglandClassic.Divisions.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

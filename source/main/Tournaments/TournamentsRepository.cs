@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Tournaments;
+﻿namespace NewEnglandClassic.Tournaments;
 internal class Repository : IRepository
 {
     private readonly Database.IDataContext _dataContext;

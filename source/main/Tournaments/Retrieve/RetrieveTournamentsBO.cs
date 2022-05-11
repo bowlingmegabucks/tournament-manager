@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NewEnglandClassic.Tournaments.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     public Models.ErrorDetail? ErrorDetail { get; private set; }

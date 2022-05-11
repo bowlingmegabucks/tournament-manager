@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Divisions;
+﻿namespace NewEnglandClassic.Divisions;
 
 internal class Repository : IRepository
 {

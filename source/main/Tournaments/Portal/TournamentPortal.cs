@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Tournaments.Portal;
+﻿namespace NewEnglandClassic.Tournaments.Portal;
 public partial class Form : System.Windows.Forms.Form
 {
     private readonly IConfiguration _config;

@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Tournaments.Add;
+﻿namespace NewEnglandClassic.Tournaments.Add;
 internal class Presenter
 {
     private readonly IView _view;

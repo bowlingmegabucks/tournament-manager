@@ -1,7 +1,4 @@
-﻿
-using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NewEnglandClassic.Tournaments.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly Lazy<IBusinessLogic> _businessLogic;
