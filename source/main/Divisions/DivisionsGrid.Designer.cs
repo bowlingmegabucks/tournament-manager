@@ -28,12 +28,14 @@ partial class DivisionsGrid
     /// </summary>
     private void InitializeComponent()
     {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnMinimumAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnMaximumAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnMinimumAverage = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +49,7 @@ partial class DivisionsGrid
             // 
             this.GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnNumber,
-            this.Column,
+            this.ColumnName,
             this.ColumnMinimumAge,
             this.ColumnMaximumAge,
             this.ColumnMinimumAverage,
@@ -61,64 +63,83 @@ partial class DivisionsGrid
             // ColumnNumber
             // 
             this.ColumnNumber.DataPropertyName = "Number";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Format = "N0";
+            dataGridViewCellStyle1.NullValue = null;
+            this.ColumnNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.ColumnNumber.HeaderText = "Number";
             this.ColumnNumber.Name = "ColumnNumber";
             this.ColumnNumber.ReadOnly = true;
+            this.ColumnNumber.Width = 60;
             // 
-            // Column
+            // ColumnName
             // 
-            this.Column.DataPropertyName = "DivisionName";
-            this.Column.HeaderText = "Name";
-            this.Column.Name = "Column";
-            this.Column.ReadOnly = true;
+            this.ColumnName.DataPropertyName = "DivisionName";
+            this.ColumnName.HeaderText = "Name";
+            this.ColumnName.Name = "ColumnName";
+            this.ColumnName.ReadOnly = true;
+            this.ColumnName.Width = 175;
             // 
             // ColumnMinimumAge
             // 
             this.ColumnMinimumAge.DataPropertyName = "MinimumAge";
-            dataGridViewCellStyle5.NullValue = "-";
-            this.ColumnMinimumAge.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = "-";
+            this.ColumnMinimumAge.DefaultCellStyle = dataGridViewCellStyle2;
             this.ColumnMinimumAge.HeaderText = "Min. Age";
             this.ColumnMinimumAge.Name = "ColumnMinimumAge";
             this.ColumnMinimumAge.ReadOnly = true;
+            this.ColumnMinimumAge.Width = 80;
             // 
             // ColumnMaximumAge
             // 
             this.ColumnMaximumAge.DataPropertyName = "MaximumAge";
-            dataGridViewCellStyle6.NullValue = "-";
-            this.ColumnMaximumAge.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.NullValue = "-";
+            this.ColumnMaximumAge.DefaultCellStyle = dataGridViewCellStyle3;
             this.ColumnMaximumAge.HeaderText = "Max. Age";
             this.ColumnMaximumAge.Name = "ColumnMaximumAge";
             this.ColumnMaximumAge.ReadOnly = true;
+            this.ColumnMaximumAge.Width = 80;
             // 
             // ColumnMinimumAverage
             // 
             this.ColumnMinimumAverage.DataPropertyName = "MinimumAverage";
-            dataGridViewCellStyle7.NullValue = "-";
-            this.ColumnMinimumAverage.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.NullValue = "-";
+            this.ColumnMinimumAverage.DefaultCellStyle = dataGridViewCellStyle4;
             this.ColumnMinimumAverage.HeaderText = "Min. Avg.";
             this.ColumnMinimumAverage.Name = "ColumnMinimumAverage";
             this.ColumnMinimumAverage.ReadOnly = true;
+            this.ColumnMinimumAverage.Width = 85;
             // 
             // ColumnMaximumAverage
             // 
             this.ColumnMaximumAverage.DataPropertyName = "MaximumAverage";
-            dataGridViewCellStyle8.NullValue = "-";
-            this.ColumnMaximumAverage.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.NullValue = "-";
+            this.ColumnMaximumAverage.DefaultCellStyle = dataGridViewCellStyle5;
             this.ColumnMaximumAverage.HeaderText = "Max. Avg.";
             this.ColumnMaximumAverage.Name = "ColumnMaximumAverage";
             this.ColumnMaximumAverage.ReadOnly = true;
+            this.ColumnMaximumAverage.Width = 85;
             // 
             // ColumnGender
             // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.NullValue = "-";
+            this.ColumnGender.DefaultCellStyle = dataGridViewCellStyle6;
             this.ColumnGender.HeaderText = "Gender";
             this.ColumnGender.Name = "ColumnGender";
             this.ColumnGender.ReadOnly = true;
+            this.ColumnGender.Width = 65;
             // 
             // ColumnHandicap
             // 
             this.ColumnHandicap.HeaderText = "Handicap";
             this.ColumnHandicap.Name = "ColumnHandicap";
             this.ColumnHandicap.ReadOnly = true;
+            this.ColumnHandicap.Width = 185;
             // 
             // DivisionsGrid
             // 
@@ -134,7 +155,7 @@ partial class DivisionsGrid
     #endregion
 
     private DataGridViewTextBoxColumn ColumnNumber;
-    private DataGridViewTextBoxColumn Column;
+    private DataGridViewTextBoxColumn ColumnName;
     private DataGridViewTextBoxColumn ColumnMinimumAge;
     private DataGridViewTextBoxColumn ColumnMaximumAge;
     private DataGridViewTextBoxColumn ColumnMinimumAverage;

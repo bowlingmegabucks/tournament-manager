@@ -1,6 +1,6 @@
 ﻿namespace NewEnglandClassic.Divisions.Retrieve;
 
-internal interface IView : NewEnglandClassic.IView
+internal interface IView
 {
     Guid TournamentId { get; }
 

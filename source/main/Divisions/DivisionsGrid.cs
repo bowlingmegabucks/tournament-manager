@@ -42,7 +42,7 @@ internal partial class DivisionsGrid
                 if (division!.HandicapBase != null)
                 {
                     var handicap = new StringBuilder();
-                    handicap.Append($"{division.HandicapPercentage!.Value}% of {division.HandicapBase!.Value}");
+                    handicap.Append($"{division.HandicapPercentage!.Value:N0}% of {division.HandicapBase!.Value}");
                     
                     if (division.MaximumHandicapPerGame.HasValue)
                         handicap.Append($" ({division.MaximumHandicapPerGame.Value} pins max)");

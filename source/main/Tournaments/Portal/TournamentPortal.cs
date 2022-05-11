@@ -19,4 +19,11 @@ public partial class Form : System.Windows.Forms.Form
 
         form.ShowDialog(this);
     }
+
+    private void MenuItemDivisionsView_Click(object sender, EventArgs e)
+    {
+        using var form = new Divisions.Retrieve.Form(_config, _id);
+
+        form.ShowDialog(this);
+    }
 }
