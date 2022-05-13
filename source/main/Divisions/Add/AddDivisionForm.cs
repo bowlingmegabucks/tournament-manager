@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Divisions.Add;
+﻿namespace NewEnglandClassic.Divisions.Add;
 public partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;

@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NewEnglandClassic.Tournaments.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
-    public Models.ErrorDetail? ErrorDetail { get; private set; }
+    public Models.ErrorDetail? Error { get; private set; }
 
     private readonly IDataLayer _dataLayer;
 
@@ -29,7 +27,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            ErrorDetail = new Models.ErrorDetail(ex);
+            Error = new Models.ErrorDetail(ex);
             
             return Enumerable.Empty<Models.Tournament>();
         }
@@ -38,7 +36,7 @@ internal class BusinessLogic : IBusinessLogic
 
 internal interface IBusinessLogic
 {
-    Models.ErrorDetail? ErrorDetail { get; }
+    Models.ErrorDetail? Error { get; }
 
     IEnumerable<Models.Tournament> Execute();
 }

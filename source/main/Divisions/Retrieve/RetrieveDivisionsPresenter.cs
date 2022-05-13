@@ -1,4 +1,5 @@
-﻿namespace NewEnglandClassic.Tournaments.Add;
+﻿namespace NewEnglandClassic.Divisions.Retrieve;
+
 internal class Presenter
 {
     private readonly IView _view;
@@ -24,24 +25,24 @@ internal class Presenter
 
     public void Execute()
     {
-        if (!_view.IsValid())
-        {
-            _view.KeepOpen();
-            return;
-        }
+        var divisions = _adapter.ForTournament(_view.TournamentId);
 
-        var id = _adapter.Execute(_view.Tournament);
-
-        if (_adapter.Errors.Any())
+        if (_adapter.Error != null)
         {
-            _view.KeepOpen();
-            _view.DisplayErrors(_adapter.Errors.Select(e => e.Message).ToList());
+            _view.DisplayError(_adapter.Error.Message);
+            _view.Disable();
         }
         else
         {
-            _view.DisplayMessage($"{_view.Tournament.TournamentName} successfully added");
-            _view.Tournament.Id = id!.Value;
-            _view.Close();
+            _view.BindDivisions(divisions);
         }
+    }
+
+    internal void AddDivision()
+    {
+        var divisionId = _view.AddDivision(_view.TournamentId);
+
+        if (divisionId != null)
+            _view.RefreshDivisions();
     }
 }

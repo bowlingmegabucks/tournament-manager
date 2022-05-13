@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Configuration;
-
 namespace NewEnglandClassic.UI;
 
 internal static class Program

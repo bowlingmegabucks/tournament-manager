@@ -26,22 +26,22 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicErrorDetailNull_AdapterErrorDetailNull()
     {
-        _businessLogic.Setup(businessLogic => businessLogic.ErrorDetail).Returns((NewEnglandClassic.Models.ErrorDetail)null);
+        _businessLogic.Setup(businessLogic => businessLogic.Error).Returns((NewEnglandClassic.Models.ErrorDetail)null);
 
         _adapter.Execute();
 
-        Assert.That(_adapter.ErrorDetail, Is.Null);
+        Assert.That(_adapter.Error, Is.Null);
     }
 
     [Test]
     public void Execute_BusinessLogicErrorDetailNotNull_AdapterErrorDetailEqualToBusinessLogicErrorDetail()
     {
         var errorDetail = new NewEnglandClassic.Models.ErrorDetail("message");
-        _businessLogic.Setup(businessLogic => businessLogic.ErrorDetail).Returns(errorDetail);
+        _businessLogic.Setup(businessLogic => businessLogic.Error).Returns(errorDetail);
 
         _adapter.Execute();
 
-        Assert.That(_adapter.ErrorDetail, Is.EqualTo(errorDetail));
+        Assert.That(_adapter.Error, Is.EqualTo(errorDetail));
     }
 
     [Test]

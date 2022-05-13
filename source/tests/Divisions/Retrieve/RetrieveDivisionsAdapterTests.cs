@@ -26,16 +26,16 @@ internal class Adapter
     }
 
     [Test]
-    public void ForTournament_ErrorsSetToBusinessLogicErrors([Range(0, 2)] int errorCount)
+    public void ForTournament_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
-        var errors = Enumerable.Repeat(new NewEnglandClassic.Models.ErrorDetail("test"), errorCount);
-        _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
+        var error = Enumerable.Repeat(new NewEnglandClassic.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var tournamentId = Guid.NewGuid();
 
         _adapter.ForTournament(tournamentId);
 
-        Assert.That(_adapter.Errors, Is.EqualTo(errors));
+        Assert.That(_adapter.Error, Is.EqualTo(error));
     }
 
     [Test]

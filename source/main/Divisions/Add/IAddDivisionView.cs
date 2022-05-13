@@ -1,15 +1,7 @@
 ﻿namespace NewEnglandClassic.Divisions.Add;
-internal interface IView 
-{ 
-    bool IsValid();
-
-    IViewModel Division { get; }
-
-    void KeepOpen();
-
+internal interface IView : NewEnglandClassic.IView
+{
     void DisplayErrors(IEnumerable<string> errors);
-
-    void DisplayMessage(string message);
-
-    void Close();
+    
+    IViewModel Division { get; }
 }

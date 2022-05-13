@@ -1,14 +1,11 @@
-﻿
-using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NewEnglandClassic.Tournaments.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly Lazy<IBusinessLogic> _businessLogic;
     private IBusinessLogic BusinessLogic => _businessLogic.Value;
 
-    public Models.ErrorDetail? ErrorDetail
-        => BusinessLogic.ErrorDetail;
+    public Models.ErrorDetail? Error
+        => BusinessLogic.Error;
 
     internal Adapter(IConfiguration config)
     {
@@ -34,7 +31,7 @@ internal class Adapter : IAdapter
 
 internal interface IAdapter
 {
-    Models.ErrorDetail? ErrorDetail { get; }
+    Models.ErrorDetail? Error { get; }
 
     IEnumerable<IViewModel> Execute();
 }

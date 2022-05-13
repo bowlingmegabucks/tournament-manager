@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Divisions.Add;
+﻿namespace NewEnglandClassic.Divisions.Add;
 
 internal class DataLayer : IDataLayer
 {

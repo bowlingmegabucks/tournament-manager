@@ -32,6 +32,7 @@ partial class Form
             this.MenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemDivision = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemDivisionAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemDivisionsView = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripPortal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +56,8 @@ partial class Form
             // MenuItemDivision
             // 
             this.MenuItemDivision.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemDivisionAdd});
+            this.MenuItemDivisionAdd,
+            this.MenuItemDivisionsView});
             this.MenuItemDivision.Name = "MenuItemDivision";
             this.MenuItemDivision.Size = new System.Drawing.Size(66, 20);
             this.MenuItemDivision.Text = "Divisions";
@@ -66,6 +68,13 @@ partial class Form
             this.MenuItemDivisionAdd.Size = new System.Drawing.Size(180, 22);
             this.MenuItemDivisionAdd.Text = "Add";
             this.MenuItemDivisionAdd.Click += new System.EventHandler(this.MenuItemDivisionAdd_Click);
+            // 
+            // MenuItemDivisionsView
+            // 
+            this.MenuItemDivisionsView.Name = "MenuItemDivisionsView";
+            this.MenuItemDivisionsView.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemDivisionsView.Text = "View";
+            this.MenuItemDivisionsView.Click += new System.EventHandler(this.MenuItemDivisionsView_Click);
             // 
             // Form
             // 
@@ -90,4 +99,5 @@ partial class Form
     private ToolStripMenuItem MenuItemFile;
     private ToolStripMenuItem MenuItemDivision;
     private ToolStripMenuItem MenuItemDivisionAdd;
+    private ToolStripMenuItem MenuItemDivisionsView;
 }

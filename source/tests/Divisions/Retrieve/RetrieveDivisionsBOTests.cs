@@ -41,7 +41,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void ForTournament_DataLayerForTournamentNoException_ErrorsEmpty()
+    public void ForTournament_DataLayerForTournamentNoException_ErrorNull()
     {
         var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.ForTournament(It.IsAny<Guid>())).Returns(divisions);
@@ -50,7 +50,7 @@ internal class BusinessLogic
 
          _businessLogic.ForTournament(tournamentId);
 
-        Assert.That(_businessLogic.Errors, Is.Empty);
+        Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
@@ -66,7 +66,7 @@ internal class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(actual, Is.Empty);
-            _businessLogic.Errors.HasErrorMessage("exception");
+            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
         });
     }
 }

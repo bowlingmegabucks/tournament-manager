@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Divisions.Retrieve;
+﻿namespace NewEnglandClassic.Divisions.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
