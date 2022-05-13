@@ -59,4 +59,36 @@ internal class Presenter
 
         _view.Verify(view => view.BindDivisions(divisions), Times.Once);
     }
+
+    [Test]
+    public void AddDivision_ViewAddDivision_Called()
+    {
+        var id = Guid.NewGuid();
+        _view.SetupGet(view => view.TournamentId).Returns(id);
+        
+        _presenter.AddDivision();
+
+        _view.Verify(view => view.AddDivision(id), Times.Once);
+    }
+
+    [Test]
+    public void AddDivision_ViewAddDivisionReturnsId_ViewRefreshDivisions_Called()
+    {
+        var id = Guid.NewGuid();
+        _view.Setup(view => view.AddDivision(It.IsAny<Guid>())).Returns(id);
+
+        _presenter.AddDivision();
+
+        _view.Verify(view => view.RefreshDivisions(), Times.Once);
+    }
+
+    [Test]
+    public void AddDivision_ViewAddDivisionReturnsNull_ViewRefreshDivisions_NotCalled()
+    {
+        _view.Setup(view => view.AddDivision(It.IsAny<Guid>())).Returns((Guid?)null);
+
+        _presenter.AddDivision();
+
+        _view.Verify(view => view.RefreshDivisions(), Times.Never);
+    }
 }
