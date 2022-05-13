@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tests.Tournaments.Retrieve;
+﻿namespace NewEnglandClassic.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal class Presenters
@@ -32,10 +26,10 @@ internal class Presenters
     }
 
     [Test]
-    public void Execute_AdapterErrorDetailNotNull_ErrorFlow()
+    public void Execute_AdapterErrorNotNull_ErrorFlow()
     {
         var errorDetail = new NewEnglandClassic.Models.ErrorDetail("message");
-        _adapter.SetupGet(adapter=> adapter.ErrorDetail).Returns(errorDetail);
+        _adapter.SetupGet(adapter=> adapter.Error).Returns(errorDetail);
 
         _presenter.Execute();
 

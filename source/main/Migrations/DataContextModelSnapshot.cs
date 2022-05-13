@@ -19,6 +19,54 @@ namespace NewEnglandClassic.Database.Migrations
                 .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HandicapBase")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("HandicapPercentage")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<short?>("MaximumAge")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("MaximumAverage")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MaximumHandicapPerGame")
+                        .HasColumnType("int");
+
+                    b.Property<short?>("MinimumAge")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("MinimumAverage")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<short>("Number")
+                        .HasColumnType("smallint");
+
+                    b.Property<Guid>("TournamentId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TournamentId");
+
+                    b.ToTable("Divisions");
+                });
+
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
                 {
                     b.Property<Guid>("Id")
@@ -60,6 +108,22 @@ namespace NewEnglandClassic.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tournaments");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
+                {
+                    b.HasOne("NewEnglandClassic.Database.Entities.Tournament", "Tournament")
+                        .WithMany("Divisions")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tournament");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
+                {
+                    b.Navigation("Divisions");
                 });
 #pragma warning restore 612, 618
         }

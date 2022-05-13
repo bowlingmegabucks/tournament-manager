@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tournaments.Add;
+﻿namespace NewEnglandClassic.Tournaments.Add;
 internal class Presenter
 {
     private readonly IView _view;

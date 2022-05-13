@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace NewEnglandClassic.Database;
@@ -55,15 +54,20 @@ internal class DataContext : DbContext, IDataContext
         => await base.SaveChangesAsync();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-        => modelBuilder.Entity<Entities.Tournament>(builder =>
+    {
+        modelBuilder.Entity<Entities.Tournament>(builder =>
         {
             builder.Property(tournament => tournament.Start).HasConversion<DateOnlyConverter, DateOnlyComparer>();
             builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();
         });
 
+        modelBuilder.ApplyConfiguration(new Entities.Division.Configuration());
+    }
+        
+
     public DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
 
-    
+    public DbSet<Entities.Division> Divisions { get; set; } = null!;    
 }
 
 internal interface IDataContext
@@ -71,6 +75,8 @@ internal interface IDataContext
     bool Ping();
 
     DbSet<Entities.Tournament> Tournaments { get; }
+
+    DbSet<Entities.Division> Divisions { get; }
 
     void SaveChanges();
 

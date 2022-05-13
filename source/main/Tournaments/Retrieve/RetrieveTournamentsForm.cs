@@ -1,14 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NewEnglandClassic.Tournaments.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
@@ -38,10 +28,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         return form.ShowDialog() == DialogResult.OK ? form.Tournament.Id : null;
     }
-
+    
     public void OpenTournament(Guid id) 
     {   
-        var portal = new Portal(_config, id);
+        var portal = new Tournaments.Portal.Form(_config, id);
 
         Hide();
 

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
 public partial class TournamentControl : UserControl, Tournaments.IViewModel
@@ -123,12 +115,6 @@ public partial class TournamentControl : UserControl, Tournaments.IViewModel
         set => TextboxBowlingCenter.Text = value;
     }
 
-    public bool Completed
-    {
-        get => CheckboxComplete.Checked;
-        set => CheckboxComplete.Checked = value;
-    }
-
     private void TextboxBowlingCenter_Validating(object sender, CancelEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(BowlingCenter))
@@ -136,6 +122,12 @@ public partial class TournamentControl : UserControl, Tournaments.IViewModel
             e.Cancel = true;
             ErrorProviderTournament.SetError(TextboxBowlingCenter, "Bowling center is required");
         }
+    }
+
+    public bool Completed
+    {
+        get => CheckboxComplete.Checked;
+        set => CheckboxComplete.Checked = value;
     }
 
     private void TournamentControl_Validating(object sender, CancelEventArgs e)

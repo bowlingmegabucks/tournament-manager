@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NewEnglandClassic.Tournaments.Retrieve;
 
 internal class DataLayer : IDataLayer
 {

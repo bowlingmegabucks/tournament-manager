@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NewEnglandClassic.Tournaments.Retrieve;
 internal class Presenter
 {
     private readonly IView _view;
@@ -35,9 +28,9 @@ internal class Presenter
     {
         var tournaments = Adapter.Execute();
 
-        if (Adapter.ErrorDetail != null)
+        if (Adapter.Error != null)
         {
-            _view.DisplayErrorMessage(Adapter.ErrorDetail.Message);
+            _view.DisplayErrorMessage(Adapter.Error.Message);
             _view.DisableOpenTournament();
         }
         else if (!tournaments.Any())
