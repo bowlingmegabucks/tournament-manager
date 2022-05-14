@@ -39,4 +39,8 @@ internal class Tournament
     public bool Completed { get; set; }
 
     public ICollection<Division> Divisions { get; set; } = null!;
+
+    public ICollection<TournamentSquad> Squads { get; set; } = null!;
+
+    public ICollection<SweeperSquad> Sweepers { get; set; } = null!;
 }

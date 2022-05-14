@@ -61,7 +61,15 @@ internal class DataContext : DbContext, IDataContext
             builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();
         });
 
+        modelBuilder.Entity<Entities.Squad>()
+                    .ToTable("Squads")
+                    .HasDiscriminator<int>("SquadType")
+                    .HasValue<Entities.TournamentSquad>(0)
+                    .HasValue<Entities.SweeperSquad>(1);
+
         modelBuilder.ApplyConfiguration(new Entities.Division.Configuration());
+        modelBuilder.ApplyConfiguration(new Entities.TournamentSquad.Configuration());
+        modelBuilder.ApplyConfiguration(new Entities.SweeperSquad.Configuration());
     }
         
 
