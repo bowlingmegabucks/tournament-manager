@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace NewEnglandClassic.Database.Migrations;
 
-public partial class ReDoTournamentAndDivision : Migration
+public partial class TournamentDefinition : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)
     {
@@ -28,8 +29,9 @@ public partial class ReDoTournamentAndDivision : Migration
                     .Annotation("MySql:CharSet", "utf8mb4"),
                 Completed = table.Column<bool>(type: "tinyint(1)", nullable: false)
             },
-            constraints: table => table.PrimaryKey("PK_Tournaments", x => x.Id))
-            .Annotation("MySql:CharSet", "utf8mb4");
+            constraints: table 
+                => table.PrimaryKey("PK_Tournaments", x => x.Id))
+                        .Annotation("MySql:CharSet", "utf8mb4");
 
         migrationBuilder.CreateTable(
             name: "Divisions",
@@ -61,16 +63,84 @@ public partial class ReDoTournamentAndDivision : Migration
             })
             .Annotation("MySql:CharSet", "utf8mb4");
 
+        migrationBuilder.CreateTable(
+            name: "Squads",
+            columns: table => new
+            {
+                Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                TournamentId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                MaxPerPair = table.Column<int>(type: "int", nullable: false),
+                Complete = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                SquadType = table.Column<int>(type: "int", nullable: false),
+                EntryFee = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: true),
+                Games = table.Column<short>(type: "smallint", nullable: true),
+                CashRatio = table.Column<decimal>(type: "decimal(3,1)", precision: 3, scale: 1, nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_Squads", x => x.Id);
+                table.ForeignKey(
+                    name: "FK_Squads_Tournaments_TournamentId",
+                    column: x => x.TournamentId,
+                    principalTable: "Tournaments",
+                    principalColumn: "Id",
+                    onDelete: ReferentialAction.Cascade);
+            })
+            .Annotation("MySql:CharSet", "utf8mb4");
+
+        migrationBuilder.CreateTable(
+            name: "SweeperDivision",
+            columns: table => new
+            {
+                SweeperId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                DivisionId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                BonusPinsPerGame = table.Column<int>(type: "int", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_SweeperDivision", x => new { x.SweeperId, x.DivisionId });
+                table.ForeignKey(
+                    name: "FK_SweeperDivision_Divisions_DivisionId",
+                    column: x => x.DivisionId,
+                    principalTable: "Divisions",
+                    principalColumn: "Id",
+                    onDelete: ReferentialAction.Cascade);
+                table.ForeignKey(
+                    name: "FK_SweeperDivision_Squads_SweeperId",
+                    column: x => x.SweeperId,
+                    principalTable: "Squads",
+                    principalColumn: "Id",
+                    onDelete: ReferentialAction.Cascade);
+            })
+            .Annotation("MySql:CharSet", "utf8mb4");
+
         migrationBuilder.CreateIndex(
             name: "IX_Divisions_TournamentId",
             table: "Divisions",
             column: "TournamentId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_Squads_TournamentId",
+            table: "Squads",
+            column: "TournamentId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_SweeperDivision_DivisionId",
+            table: "SweeperDivision",
+            column: "DivisionId");
     }
 
     protected override void Down(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.DropTable(
+            name: "SweeperDivision");
+
+        migrationBuilder.DropTable(
             name: "Divisions");
+
+        migrationBuilder.DropTable(
+            name: "Squads");
 
         migrationBuilder.DropTable(
             name: "Tournaments");

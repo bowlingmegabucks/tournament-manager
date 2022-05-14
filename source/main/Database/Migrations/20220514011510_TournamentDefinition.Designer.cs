@@ -11,8 +11,8 @@ using NewEnglandClassic.Database;
 namespace NewEnglandClassic.Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220514003641_SquadEntities")]
-    partial class SquadEntities
+    [Migration("20220514011510_TournamentDefinition")]
+    partial class TournamentDefinition
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,6 +95,24 @@ namespace NewEnglandClassic.Database.Migrations
                     b.ToTable("Squads", (string)null);
 
                     b.HasDiscriminator<int>("SquadType");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperDivision", b =>
+                {
+                    b.Property<Guid>("SweeperId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("DivisionId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int?>("BonusPinsPerGame")
+                        .HasColumnType("int");
+
+                    b.HasKey("SweeperId", "DivisionId");
+
+                    b.HasIndex("DivisionId");
+
+                    b.ToTable("SweeperDivision");
                 });
 
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
@@ -180,6 +198,25 @@ namespace NewEnglandClassic.Database.Migrations
                     b.Navigation("Tournament");
                 });
 
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperDivision", b =>
+                {
+                    b.HasOne("NewEnglandClassic.Database.Entities.Division", "Division")
+                        .WithMany("Sweepers")
+                        .HasForeignKey("DivisionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NewEnglandClassic.Database.Entities.SweeperSquad", "Sweeper")
+                        .WithMany("Divisions")
+                        .HasForeignKey("SweeperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Division");
+
+                    b.Navigation("Sweeper");
+                });
+
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperSquad", b =>
                 {
                     b.HasOne("NewEnglandClassic.Database.Entities.Tournament", "Tournament")
@@ -202,6 +239,11 @@ namespace NewEnglandClassic.Database.Migrations
                     b.Navigation("Tournament");
                 });
 
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
+                {
+                    b.Navigation("Sweepers");
+                });
+
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
                 {
                     b.Navigation("Divisions");
@@ -209,6 +251,11 @@ namespace NewEnglandClassic.Database.Migrations
                     b.Navigation("Squads");
 
                     b.Navigation("Sweepers");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperSquad", b =>
+                {
+                    b.Navigation("Divisions");
                 });
 #pragma warning restore 612, 618
         }

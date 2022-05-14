@@ -16,6 +16,8 @@ internal class SweeperSquad : Squad
     [Precision(3,1)]
     public decimal CashRatio { get; set; }
 
+    public ICollection<SweeperDivision> Divisions { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<SweeperSquad>
     {
         public void Configure(EntityTypeBuilder<SweeperSquad> builder)
