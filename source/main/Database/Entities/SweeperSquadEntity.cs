@@ -6,12 +6,14 @@ namespace NewEnglandClassic.Database.Entities;
 internal class SweeperSquad : Squad
 {
     [Required]
+    [Precision(5,2)]
     public decimal EntryFee { get; set; }
 
     [Required]
     public short Games { get; set; }
     
     [Required]
+    [Precision(3,1)]
     public decimal CashRatio { get; set; }
 
     internal class Configuration : IEntityTypeConfiguration<SweeperSquad>
