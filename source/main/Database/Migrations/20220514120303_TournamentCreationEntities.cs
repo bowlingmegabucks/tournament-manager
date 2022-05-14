@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NewEnglandClassic.Database.Migrations;
 
-public partial class TournamentDefinition : Migration
+public partial class TournamentCreationEntities : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)
     {

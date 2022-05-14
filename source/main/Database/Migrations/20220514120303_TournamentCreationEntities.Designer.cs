@@ -11,8 +11,8 @@ using NewEnglandClassic.Database;
 namespace NewEnglandClassic.Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220514011510_TournamentDefinition")]
-    partial class TournamentDefinition
+    [Migration("20220514120303_TournamentCreationEntities")]
+    partial class TournamentCreationEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
