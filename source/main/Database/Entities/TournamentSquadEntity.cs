@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 namespace NewEnglandClassic.Database.Entities;
 internal class TournamentSquad : Squad
 {
-
+    [Precision(3, 1)]
+    public decimal? FinalsRatio { get; set; }
+    
     internal class Configuration : IEntityTypeConfiguration<TournamentSquad>
     {
         public void Configure(EntityTypeBuilder<TournamentSquad> builder)

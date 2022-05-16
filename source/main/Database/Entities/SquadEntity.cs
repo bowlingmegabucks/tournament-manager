@@ -13,6 +13,9 @@ internal abstract class Squad
 
     public Tournament Tournament { get; set; } = null!;
 
+    [Precision(3, 1)]
+    public decimal? CashRatio { get; set; }
+
     [Required]
     public DateTime Date { get; set; }
 

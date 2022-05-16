@@ -11,10 +11,6 @@ internal class SweeperSquad : Squad
 
     [Required]
     public short Games { get; set; }
-    
-    [Required]
-    [Precision(3,1)]
-    public decimal CashRatio { get; set; }
 
     public ICollection<SweeperDivision> Divisions { get; set; } = null!;
 
