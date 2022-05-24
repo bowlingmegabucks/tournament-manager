@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 
 namespace NewEnglandClassic.Database.Entities;
@@ -39,4 +40,17 @@ internal class Tournament
     public bool Completed { get; set; }
 
     public ICollection<Division> Divisions { get; set; } = null!;
+
+    public ICollection<TournamentSquad> Squads { get; set; } = null!;
+
+    public ICollection<SweeperSquad> Sweepers { get; set; } = null!;
+
+    internal class Configuration : IEntityTypeConfiguration<Tournament>
+    {
+        public void Configure(EntityTypeBuilder<Tournament> builder)
+        {
+            builder.Property(tournament => tournament.Start).HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();
+        }
+    }
 }

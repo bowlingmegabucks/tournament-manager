@@ -55,13 +55,12 @@ internal class DataContext : DbContext, IDataContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Entities.Tournament>(builder =>
-        {
-            builder.Property(tournament => tournament.Start).HasConversion<DateOnlyConverter, DateOnlyComparer>();
-            builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();
-        });
-
+        modelBuilder.ApplyConfiguration(new Entities.Tournament.Configuration());
         modelBuilder.ApplyConfiguration(new Entities.Division.Configuration());
+        modelBuilder.ApplyConfiguration(new Entities.Squad.Configuration());
+        modelBuilder.ApplyConfiguration(new Entities.TournamentSquad.Configuration());
+        modelBuilder.ApplyConfiguration(new Entities.SweeperSquad.Configuration());
+        modelBuilder.ApplyConfiguration(new Entities.SweeperDivision.Configuration());        
     }
         
 

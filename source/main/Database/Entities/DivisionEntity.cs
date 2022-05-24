@@ -36,6 +36,8 @@ internal class Division
 
     public Models.Gender? Gender { get; set; }
 
+    public ICollection<SweeperDivision> Sweepers { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<Division>
     {
         public void Configure(EntityTypeBuilder<Division> builder)
