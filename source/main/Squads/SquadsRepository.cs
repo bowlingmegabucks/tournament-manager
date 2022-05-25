@@ -1,4 +1,10 @@
-﻿namespace NewEnglandClassic.Divisions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NewEnglandClassic.Squads;
 
 internal class Repository : IRepository
 {
@@ -17,21 +23,16 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    Guid IRepository.Add(Database.Entities.Division division)
+    public Guid Add(Database.Entities.TournamentSquad squad)
     {
-        _dataContext.Divisions.Add(division);
+        _dataContext.Squads.Add(squad);
         _dataContext.SaveChanges();
 
-        return division.Id;
+        return squad.Id;
     }
-
-    IEnumerable<Database.Entities.Division> IRepository.ForTournament(Guid tournamentId)
-        => _dataContext.Divisions.Where(division => division.TournamentId == tournamentId).AsEnumerable();
 }
 
 internal interface IRepository
 {
-    Guid Add(Database.Entities.Division division);
-
-    IEnumerable<Database.Entities.Division> ForTournament(Guid tournamentId);
+    Guid Add(Database.Entities.TournamentSquad squad);
 }

@@ -8,14 +8,14 @@ internal class Repository
 
     private Mock<NewEnglandClassic.Database.IDataContext> _dataContext;
 
-    private NewEnglandClassic.Divisions.IRepository _divisionsRepository;
+    private NewEnglandClassic.Divisions.IRepository _repository;
 
     [SetUp]
     public void SetUp()
     {
         _dataContext = new Mock<NewEnglandClassic.Database.IDataContext>();
 
-        _divisionsRepository = new NewEnglandClassic.Divisions.Repository(_dataContext.Object);
+        _repository = new NewEnglandClassic.Divisions.Repository(_dataContext.Object);
     }
 
     [Test]
@@ -25,7 +25,7 @@ internal class Repository
 
         var division = new NewEnglandClassic.Database.Entities.Division();
 
-        var guid = _divisionsRepository.Add(division);
+        var guid = _repository.Add(division);
 
         Assert.That(division.Id, Is.EqualTo(guid));
     }
@@ -37,7 +37,7 @@ internal class Repository
 
         var division = new NewEnglandClassic.Database.Entities.Division();
 
-        _divisionsRepository.Add(division);
+        _repository.Add(division);
 
         _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once);
     }
@@ -71,7 +71,7 @@ internal class Repository
         var divisions = new[] { division1, division2, division3 };
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(divisions.SetUpDbContext());
 
-        var actual = _divisionsRepository.ForTournament(tournamentId);
+        var actual = _repository.ForTournament(tournamentId);
 
         Assert.Multiple(() =>
         {
