@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NewEnglandClassic.Squads.Add;
+internal class DataLayer : IDataLayer
+{
+    private readonly IEntityMapper _mapper;
+    private readonly IRepository _repository;
+
+    internal DataLayer(IConfiguration config)
+    {
+        _mapper = new EntityMapper();
+        _repository = new Repository(config);
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockMapper"></param>
+    /// <param name="mockRepository"></param>
+    internal DataLayer(IEntityMapper mockMapper, IRepository mockRepository)
+    {
+        _mapper = mockMapper;
+        _repository = mockRepository;
+    }
+
+    public Guid Execute(Models.Squad squad)
+    {
+        var entity = _mapper.Execute(squad);
+        
+        return _repository.Add(entity);
+    }
+}
+
+internal interface IDataLayer
+{
+    Guid Execute(Models.Squad squad);
+}
