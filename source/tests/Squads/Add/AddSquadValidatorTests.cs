@@ -157,7 +157,8 @@ internal class Validator
             Date = new DateTime(2018, 1, 2),
             Tournament = new NewEnglandClassic.Models.Tournament
             {
-                Start = new DateOnly(2018, 1, 2)
+                Start = new DateOnly(2018, 1, 2),
+                End = new DateOnly(2018, 1, 3)
             }
         };
 
@@ -173,7 +174,8 @@ internal class Validator
             Date = new DateTime(2018, 1, 3),
             Tournament = new NewEnglandClassic.Models.Tournament
             {
-                Start = new DateOnly(2018, 1, 2)
+                Start = new DateOnly(2018, 1, 2),
+                End = new DateOnly(2018, 1, 4)
             }
         };
 

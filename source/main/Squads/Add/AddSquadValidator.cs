@@ -14,7 +14,7 @@ internal class Validator : AbstractValidator<Models.Squad>
         RuleFor(squad => squad.CashRatio).GreaterThan(1).When(squad=> squad.CashRatio != null).WithMessage("Cash ratio must be greater than 1");
 
         RuleFor(squad => squad.Date).GreaterThanOrEqualTo(squad => squad.Tournament.Start.ToDateTime(TimeOnly.MinValue)).WithMessage("Squad date must be after tournament start");
-        RuleFor(squad => squad.Date).LessThan(squad => squad.Tournament.End.ToDateTime(TimeOnly.MaxValue)).WithMessage("Squad date must be before tournament end");
+        RuleFor(squad => squad.Date).LessThanOrEqualTo(squad => squad.Tournament.End.ToDateTime(TimeOnly.MaxValue)).WithMessage("Squad date must be before tournament end");
 
         RuleFor(squad => squad.MaxPerPair).GreaterThan(0).WithMessage("Max per pair must be greater than 0");
 
