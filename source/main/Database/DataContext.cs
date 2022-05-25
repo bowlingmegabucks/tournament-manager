@@ -31,7 +31,7 @@ internal class DataContext : DbContext, IDataContext
 #if DEBUG
         serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
         
-        optionsBuilder.UseLoggerFactory(ConsoleLogger);
+        optionsBuilder.UseLoggerFactory(_consoleLogger);
         optionsBuilder.EnableSensitiveDataLogging(true);
 #else
         serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
@@ -41,7 +41,7 @@ internal class DataContext : DbContext, IDataContext
     }
 
 #if DEBUG
-    private static readonly ILoggerFactory ConsoleLogger = LoggerFactory.Create(builder => builder.AddConsole());
+    private static readonly ILoggerFactory _consoleLogger = LoggerFactory.Create(builder => builder.AddConsole());
 #endif
 
     bool IDataContext.Ping()
