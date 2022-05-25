@@ -31,4 +31,12 @@ internal class Squad
         MaxPerPair = squad.MaxPerPair;
         Complete = squad.Complete;
     }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal Squad()
+    {
+
+    }
 }
