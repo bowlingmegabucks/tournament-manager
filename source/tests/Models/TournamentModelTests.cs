@@ -107,12 +107,34 @@ internal class Tournament
     }
 
     [Test]
+    public void Constructor_TournamentEntity_SquadsNull_EmptySquadsCollection()
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Tournament { Squads = null };
+
+        var model = new NewEnglandClassic.Models.Tournament(entity);
+
+        Assert.That(model.Squads, Is.Empty);
+    }
+
+    [Test]
+    public void Constructor_TournamentEntity_SquadsNotNull_SquadsCollectionMapped()
+    {
+        var squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.TournamentSquad { Id = Guid.NewGuid() }, 3).ToList();
+        
+        var entity = new NewEnglandClassic.Database.Entities.Tournament { Squads = squads };
+
+        var model = new NewEnglandClassic.Models.Tournament(entity);
+
+        Assert.That(model.Squads, Is.Not.Empty);
+    }
+
+    [Test]
     public void Constructor_TournamentViewModel_IdMapped()
     {
         var id = Guid.NewGuid();
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { Id = id };
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel { Id = id };
 
-        var model = new NewEnglandClassic.Models.Tournament(entity);
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
 
         Assert.That(model.Id, Is.EqualTo(id));
     }
@@ -120,9 +142,9 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentViewModel_NameMapped()
     {
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { TournamentName = "name" };
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel { TournamentName = "name" };
 
-        var model = new NewEnglandClassic.Models.Tournament(entity);
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
 
         Assert.That(model.Name, Is.EqualTo("name"));
     }
@@ -142,9 +164,9 @@ internal class Tournament
     public void Constructor_TournamentViewModel_EndMapped()
     {
         var end = new DateOnly(2000, 1, 2);
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { End = end };
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel { End = end };
 
-        var model = new NewEnglandClassic.Models.Tournament(entity);
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
 
         Assert.That(model.End, Is.EqualTo(end));
     }
@@ -152,9 +174,9 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentViewModel_EntryFeeMapped()
     {
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { EntryFee = 123.45m };
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel { EntryFee = 123.45m };
 
-        var model = new NewEnglandClassic.Models.Tournament(entity);
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
 
         Assert.That(model.EntryFee, Is.EqualTo(123.45m));
     }
@@ -162,9 +184,9 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentViewModel_GamesMapped()
     {
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { Games = 5 };
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel { Games = 5 };
 
-        var model = new NewEnglandClassic.Models.Tournament(entity);
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
 
         Assert.That(model.Games, Is.EqualTo(5));
     }
@@ -172,9 +194,9 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentViewModel_FinalsRatioMapped()
     {
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { FinalsRatio = 12.3m };
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel { FinalsRatio = 12.3m };
 
-        var model = new NewEnglandClassic.Models.Tournament(entity);
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
 
         Assert.That(model.FinalsRatio, Is.EqualTo(12.3m));
     }
@@ -182,9 +204,9 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentViewModel_CashRatioMapped()
     {
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { CashRatio = 45.6m };
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel { CashRatio = 45.6m };
 
-        var model = new NewEnglandClassic.Models.Tournament(entity);
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
 
         Assert.That(model.CashRatio, Is.EqualTo(45.6m));
     }
@@ -192,9 +214,9 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentViewModel_BowlingCenterMapped()
     {
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { BowlingCenter = "bowlingCenter" };
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel { BowlingCenter = "bowlingCenter" };
 
-        var model = new NewEnglandClassic.Models.Tournament(entity);
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
 
         Assert.That(model.BowlingCenter, Is.EqualTo("bowlingCenter"));
     }
@@ -202,10 +224,20 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentViewModel_CompletedMapped([Values] bool completed)
     {
-        var entity = new NewEnglandClassic.Tournaments.ViewModel { Completed = completed };
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel { Completed = completed };
 
-        var model = new NewEnglandClassic.Models.Tournament(entity);
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
 
         Assert.That(model.Completed, Is.EqualTo(completed));
+    }
+
+    [Test]
+    public void Constructor_TournamentViewModel_EmptySquadsCollection()
+    {
+        var viewModel = new NewEnglandClassic.Tournaments.ViewModel();
+
+        var model = new NewEnglandClassic.Models.Tournament(viewModel);
+
+        Assert.That(model.Squads, Is.Empty);
     }
 }
