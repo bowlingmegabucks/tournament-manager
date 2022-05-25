@@ -1,6 +1,4 @@
-﻿using NewEnglandClassic.Tests.Extensions;
-
-namespace NewEnglandClassic.Tests.Divisions.Retrieve;
+﻿namespace NewEnglandClassic.Tests.Divisions.Retrieve;
 
 [TestFixture]
 internal class BusinessLogic

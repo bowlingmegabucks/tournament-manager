@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tests.Squads;
+﻿namespace NewEnglandClassic.Tests.Squads;
 
 [TestFixture]
 internal class EntityMapper
