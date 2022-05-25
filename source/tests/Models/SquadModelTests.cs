@@ -14,7 +14,8 @@ internal class Squad
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            Id = Guid.NewGuid()
+            Id = Guid.NewGuid(),
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         };
 
         var model = new NewEnglandClassic.Models.Squad(entity);
@@ -27,7 +28,8 @@ internal class Squad
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = Guid.NewGuid(),
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         };
 
         var model = new NewEnglandClassic.Models.Squad(entity);
@@ -40,7 +42,8 @@ internal class Squad
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            CashRatio = cashRatio
+            CashRatio = cashRatio,
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         };
 
         var model = new NewEnglandClassic.Models.Squad(entity);
@@ -53,7 +56,8 @@ internal class Squad
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            FinalsRatio = finalsRatio
+            FinalsRatio = finalsRatio,
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         };
 
         var model = new NewEnglandClassic.Models.Squad(entity);
@@ -66,7 +70,8 @@ internal class Squad
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            Date = DateTime.Now
+            Date = DateTime.Now,
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         };
 
         var model = new NewEnglandClassic.Models.Squad(entity);
@@ -79,7 +84,8 @@ internal class Squad
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            MaxPerPair = 5
+            MaxPerPair = 5,
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         };
 
         var model = new NewEnglandClassic.Models.Squad(entity);
@@ -92,7 +98,8 @@ internal class Squad
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            Complete = complete
+            Complete = complete,
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         };
 
         var model = new NewEnglandClassic.Models.Squad(entity);

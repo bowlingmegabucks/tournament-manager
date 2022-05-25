@@ -115,11 +115,12 @@ internal class Tournament
 
         Assert.That(model.Squads, Is.Empty);
     }
-
+    
     [Test]
     public void Constructor_TournamentEntity_SquadsNotNull_SquadsCollectionMapped()
     {
-        var squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.TournamentSquad { Id = Guid.NewGuid() }, 3).ToList();
+        var squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.TournamentSquad { Id = Guid.NewGuid(), Tournament = new NewEnglandClassic.Database.Entities.Tournament()
+        }, 3).ToList();
         
         var entity = new NewEnglandClassic.Database.Entities.Tournament { Squads = squads };
 
