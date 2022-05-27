@@ -41,6 +41,7 @@ partial class Form
             this.ButtonOpenTournament.TabIndex = 0;
             this.ButtonOpenTournament.Text = "Open";
             this.ButtonOpenTournament.UseVisualStyleBackColor = true;
+            this.ButtonOpenTournament.Click += new System.EventHandler(this.ButtonOpenTournament_Click);
             // 
             // TournamentsGrid
             // 
@@ -71,6 +72,7 @@ partial class Form
             this.Controls.Add(this.ButtonNew);
             this.Controls.Add(this.TournamentsGrid);
             this.Controls.Add(this.ButtonOpenTournament);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form";
