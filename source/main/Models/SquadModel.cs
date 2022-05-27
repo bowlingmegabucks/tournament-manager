@@ -30,6 +30,19 @@ internal class Squad
         Tournament = new Tournament(squad.Tournament);
     }
 
+    public Squad(Squads.IViewModel viewModel)
+    {
+        Id = viewModel.Id;
+        TournamentId = viewModel.TournamentId;
+        CashRatio = viewModel.CashRatio;
+        FinalsRatio = viewModel.FinalsRatio;
+        Date = viewModel.Date;
+        MaxPerPair = viewModel.MaxPerPair;
+        Complete = viewModel.Complete;
+
+        Tournament = new Tournament();
+    }
+
     /// <summary>
     /// Unit Test Constructor
     /// </summary>

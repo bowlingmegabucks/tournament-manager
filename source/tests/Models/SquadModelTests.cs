@@ -100,4 +100,91 @@ internal class Squad
 
         Assert.That(model.Complete, Is.EqualTo(entity.Complete));
     }
+
+    [Test]
+    public void Constructor_SquadViewModel_IdMapped()
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.Id).Returns(Guid.NewGuid());
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.Id, Is.EqualTo(viewModel.Object.Id));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_TournamentIdMapped()
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.TournamentId).Returns(Guid.NewGuid());
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.TournamentId, Is.EqualTo(viewModel.Object.TournamentId));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_CashRatioMapped([Values(null, 1.2)] decimal? cashRatio)
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.CashRatio).Returns(cashRatio);
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.CashRatio, Is.EqualTo(cashRatio));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_FinalsRatioMapped([Values(null, 2.2)] decimal? finalsRatio)
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.FinalsRatio).Returns(finalsRatio);
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.FinalsRatio, Is.EqualTo(finalsRatio));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_DateMapped()
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.Date).Returns(DateTime.Now);
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.Date, Is.EqualTo(viewModel.Object.Date));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_MaxPerPairMapped()
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.MaxPerPair).Returns(5);
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.MaxPerPair, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_CompleteMapped([Values] bool complete)
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.Complete).Returns(complete);
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.Complete, Is.EqualTo(complete));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_TournamentNotNull()
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.Tournament, Is.Not.Null);
+    }
 }
