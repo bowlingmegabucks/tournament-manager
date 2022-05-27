@@ -26,15 +26,11 @@ internal class DataContext : DbContext, IDataContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        MySqlServerVersion serverVersion;
+        var serverVersion = new MySqlServerVersion(new Version(10, 3, 35));
 
 #if DEBUG
-        serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
-        
         optionsBuilder.UseLoggerFactory(_consoleLogger);
         optionsBuilder.EnableSensitiveDataLogging(true);
-#else
-        serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
 #endif
 
         optionsBuilder.UseMySql(_connectionString, serverVersion);

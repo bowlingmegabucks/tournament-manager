@@ -20,7 +20,7 @@ internal abstract class Squad
     public DateTime Date { get; set; }
 
     [Required]
-    public int MaxPerPair { get; set; }
+    public short MaxPerPair { get; set; }
 
     [Required]
     public bool Complete { get; set; }

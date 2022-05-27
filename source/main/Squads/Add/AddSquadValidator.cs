@@ -16,7 +16,7 @@ internal class Validator : AbstractValidator<Models.Squad>
         RuleFor(squad => squad.Date).GreaterThanOrEqualTo(squad => squad.Tournament.Start.ToDateTime(TimeOnly.MinValue)).WithMessage("Squad date must be after tournament start");
         RuleFor(squad => squad.Date).LessThanOrEqualTo(squad => squad.Tournament.End.ToDateTime(TimeOnly.MaxValue)).WithMessage("Squad date must be before tournament end");
 
-        RuleFor(squad => squad.MaxPerPair).GreaterThan(0).WithMessage("Max per pair must be greater than 0");
+        RuleFor(squad => squad.MaxPerPair).Must(maxPerPair=> maxPerPair > 0).WithMessage("Max per pair must be greater than 0");
 
         RuleFor(squad => squad.Complete).Must(complete => !complete).WithMessage("Cannot add a completed squad");
     }

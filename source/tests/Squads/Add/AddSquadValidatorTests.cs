@@ -232,7 +232,7 @@ internal class Validator
     }
 
     [Test]
-    public void MaxPerPair_LessThanOrEqualToZero_HasError([Values(-1, 0)] int maxPerPair)
+    public void MaxPerPair_LessThanOrEqualToZero_HasError([Values(-1, 0)] short maxPerPair)
     {
         var squad = new NewEnglandClassic.Models.Squad
         {

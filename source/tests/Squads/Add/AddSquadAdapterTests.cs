@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace NewEnglandClassic.Tests.Squads.Add;
+﻿namespace NewEnglandClassic.Tests.Squads.Add;
 
 [TestFixture]
 internal class Adapter

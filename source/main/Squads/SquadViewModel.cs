@@ -12,7 +12,7 @@ internal class ViewModel : IViewModel
 
     public DateTime Date { get; set; }
 
-    public int MaxPerPair { get; set; }
+    public short MaxPerPair { get; set; }
 
     public bool Complete { get; set; }
 }
@@ -24,12 +24,12 @@ internal interface IViewModel
     Guid TournamentId { get; set; }
 
     decimal? CashRatio { get; set; }
-
+    
     decimal? FinalsRatio { get; set; }
 
     DateTime Date { get; set; }
 
-    int MaxPerPair { get; set; }
+    short MaxPerPair { get; set; }
 
     bool Complete { get; set; }
 }

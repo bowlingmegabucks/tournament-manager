@@ -13,7 +13,7 @@ internal class Squad
 
     public DateTime Date { get; set; }
     
-    public int MaxPerPair { get; set; }
+    public short MaxPerPair { get; set; }
 
     public bool Complete { get; set; }
 
