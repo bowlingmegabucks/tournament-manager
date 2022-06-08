@@ -33,7 +33,7 @@ internal class DataContext : DbContext, IDataContext
         optionsBuilder.EnableSensitiveDataLogging(true);
 #endif
 
-        optionsBuilder.UseMySql(_connectionString, serverVersion);
+        optionsBuilder.UseMySql(_connectionString, serverVersion, options => options.EnableRetryOnFailure(3));
     }
 
 #if DEBUG
