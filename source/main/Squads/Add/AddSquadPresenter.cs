@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace NewEnglandClassic.Squads.Add;
 
-namespace NewEnglandClassic.Squads.Add;
 internal class Presenter
 {
     private readonly IView _view;

@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace NewEnglandClassic.Squads.Add;
 
-namespace NewEnglandClassic.Squads.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;    
