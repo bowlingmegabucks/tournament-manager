@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions;
+﻿namespace NewEnglandClassic.Controls;
 
 partial class DivisionsGrid
 {

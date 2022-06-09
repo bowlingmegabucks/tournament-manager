@@ -20,7 +20,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     public void BindDivisions(IEnumerable<IViewModel> divisions)
-        => divisionsGrid1.Bind(divisions);
+        => DivisionsGrid.Bind(divisions);
 
     public void Disable() => throw new NotImplementedException();
 

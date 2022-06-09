@@ -25,6 +25,33 @@ internal class Validator
     }
 
     [Test]
+    public void Tournament_Null_HasError()
+    {
+        var squad = new NewEnglandClassic.Models.Squad
+        {
+            Tournament = null
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldHaveValidationErrorFor(squad => squad.Tournament).WithErrorMessage("Tournament is required");
+    }
+
+    [Test]
+    public void Tournament_NotNull_NoError()
+    {
+        var squad = new NewEnglandClassic.Models.Squad
+        {
+            Tournament = new NewEnglandClassic.Models.Tournament
+            {
+                Id = Guid.NewGuid()
+            }
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldNotHaveValidationErrorFor(squad => squad.Tournament);
+    }
+
+    [Test]
     public void TournamentId_NotEmpty_DoesNotMatchTournamentTournamentId_HasError()
     {
         var id1 = Guid.NewGuid();
