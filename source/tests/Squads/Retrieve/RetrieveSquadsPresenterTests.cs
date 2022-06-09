@@ -22,8 +22,9 @@ internal class Presenter
     public void Execute_GetSquadsAdapterForTournament_CalledCorrectly()
     {
         var tournamentId = Guid.NewGuid();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Execute(tournamentId);
+        _presenter.Execute();
 
         _getSquadsAdapter.Verify(a => a.ForTournament(tournamentId), Times.Once);
     }
@@ -35,9 +36,7 @@ internal class Presenter
 
         _getSquadsAdapter.SetupGet(getSquadsAdapter => getSquadsAdapter.Error).Returns(error);
 
-        var tournamentId = Guid.NewGuid();
-
-        _presenter.Execute(tournamentId);
+        _presenter.Execute();
 
         Assert.Multiple(() =>
         {
@@ -66,9 +65,7 @@ internal class Presenter
         var squads = new[] { squad1.Object, squad2.Object, squad3.Object };
         _getSquadsAdapter.Setup(getSquadsAdapter => getSquadsAdapter.ForTournament(It.IsAny<Guid>())).Returns(squads);
 
-        var tournamentId = Guid.NewGuid();
-
-        _presenter.Execute(tournamentId);
+        _presenter.Execute();
 
         Assert.Multiple(() =>
         {
@@ -76,5 +73,36 @@ internal class Presenter
             _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NewEnglandClassic.Squads.IViewModel>>(collection => collection.ToList()[1].MaxPerPair == 1)), Times.Once);
             _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NewEnglandClassic.Squads.IViewModel>>(collection => collection.ToList()[2].MaxPerPair == 2)), Times.Once);
         });
+    }
+
+    [Test]
+    public void AddSquad_ViewAddSquad_CalledCorrectly()
+    {
+        var tournamentId = Guid.NewGuid();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.AddSquad();
+
+        _view.Verify(view => view.AddSquad(tournamentId), Times.Once);
+    }
+
+    [Test]
+    public void AddSquad_ViewAddSquadReturnsNull_ViewRefreshSquads_NotCalled()
+    {
+        _view.Setup(view => view.AddSquad(It.IsAny<Guid>())).Returns((Guid?)null);
+
+        _presenter.AddSquad();
+
+        _view.Verify(view => view.RefreshSquads(), Times.Never);
+    }
+
+    [Test]
+    public void AddSquad_ViewAddSquadReturnsGuid_ViewRefreshSquads_Called()
+    {
+        _view.Setup(view => view.AddSquad(It.IsAny<Guid>())).Returns(Guid.NewGuid());
+
+        _presenter.AddSquad();
+
+        _view.Verify(view => view.RefreshSquads(), Times.Once);
     }
 }

@@ -52,6 +52,7 @@ partial class Form
             this.ButtonAdd.TabIndex = 4;
             this.ButtonAdd.Text = "Add";
             this.ButtonAdd.UseVisualStyleBackColor = true;
+            this.ButtonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // ButtonOpen
             // 

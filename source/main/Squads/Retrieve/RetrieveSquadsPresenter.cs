@@ -22,9 +22,9 @@ internal class Presenter
         _getSquadsAdapter = mockGetSquadsAdapter;
     }
 
-    public void Execute(Guid tournamentId)
+    public void Execute()
     {
-        var squads = _getSquadsAdapter.ForTournament(tournamentId);
+        var squads = _getSquadsAdapter.ForTournament(_view.TournamentId);
 
         if (_getSquadsAdapter.Error != null)
         {
@@ -34,6 +34,16 @@ internal class Presenter
         else
         {
             _view.BindSquads(squads.OrderBy(squad => squad.Date));
+        }
+    }
+
+    internal void AddSquad()
+    {
+        var squadId = _view.AddSquad(_view.TournamentId);
+        
+        if (squadId != null)
+        {
+            _view.RefreshSquads();
         }
     }
 }
