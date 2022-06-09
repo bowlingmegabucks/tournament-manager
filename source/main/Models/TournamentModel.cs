@@ -22,6 +22,8 @@ internal class Tournament
 
     public bool Completed { get; set; }
 
+    public IEnumerable<Squad> Squads { get; }
+
     internal Tournament(Database.Entities.Tournament entity)
     {
         Id = entity.Id;
@@ -34,6 +36,8 @@ internal class Tournament
         CashRatio = entity.CashRatio;
         BowlingCenter = entity.BowlingCenter;
         Completed = entity.Completed;
+        
+        Squads = entity.Squads?.Select(squad => new Squad(squad)).ToList() ?? Enumerable.Empty<Squad>();
     }
 
     internal Tournament(Tournaments.IViewModel viewModel)
@@ -48,6 +52,8 @@ internal class Tournament
         CashRatio = viewModel.CashRatio;
         BowlingCenter = viewModel.BowlingCenter;
         Completed = viewModel.Completed;
+
+        Squads = Enumerable.Empty<Squad>();
     }
 
     /// <summary>
@@ -55,6 +61,6 @@ internal class Tournament
     /// </summary>
     internal Tournament()
     {
-
+        Squads = Enumerable.Empty<Squad>();
     }
 }

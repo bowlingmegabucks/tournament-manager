@@ -49,4 +49,28 @@ internal class DataLayer
             Assert.That(actual.Any(tournament => tournament.Id == guid3), "tournament3 not returned");
         });
     }
+
+    [Test]
+    public void Execute_Id_RepositoryExecuteId_CalledCorrectly()
+    {
+        var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<Guid>())).Returns(tournament);
+
+        var guid = Guid.NewGuid();
+
+        _dataLayer.Execute(guid);
+
+        _repository.Verify(repository => repository.Retrieve(guid), Times.Once);
+    }
+
+    [Test]
+    public void Execute_Id_ReturnsTournament()
+    {
+        var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<Guid>())).Returns(tournament);
+
+        var actual = _dataLayer.Execute(tournament.Id);
+
+        Assert.That(actual.Id, Is.EqualTo(tournament.Id));
+    }
 }

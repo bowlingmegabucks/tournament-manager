@@ -27,6 +27,13 @@ internal class Adapter : IAdapter
 
         return tournaments.Select(tournament => new ViewModel(tournament)).ToList();
     }
+
+    public IViewModel? Execute(Guid tournamentId)
+    {
+        var tournament = BusinessLogic.Execute(tournamentId);
+
+        return tournament != null ? new ViewModel(tournament) : null;
+    }
 }
 
 internal interface IAdapter
@@ -34,4 +41,5 @@ internal interface IAdapter
     Models.ErrorDetail? Error { get; }
 
     IEnumerable<IViewModel> Execute();
+    IViewModel? Execute(Guid tournamentId);
 }

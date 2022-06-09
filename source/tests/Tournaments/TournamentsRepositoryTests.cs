@@ -41,6 +41,22 @@ internal class TournamentsRepositoryTests
     }
 
     [Test]
+    public void Retrieve_ReturnsTournament()
+    {
+        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
+        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
+        var tournament3 = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
+
+        var tournaments = new[] { tournament1, tournament2, tournament3 };
+
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(tournaments.SetUpDbContext());
+
+        var actual = _tournamentsRepository.Retrieve(tournament1.Id);
+
+        Assert.That(actual.Id, Is.EqualTo(tournament1.Id));
+    }
+
+    [Test]
     public void Add_TournamentAddedWithGuid()
     {
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Tournament>().SetUpDbContext());

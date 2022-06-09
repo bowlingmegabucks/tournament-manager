@@ -59,6 +59,7 @@ partial class Form
             this.ClientSize = new System.Drawing.Size(904, 443);
             this.Controls.Add(this.ButtonAdd);
             this.Controls.Add(this.divisionsGrid1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

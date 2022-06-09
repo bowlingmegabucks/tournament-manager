@@ -67,4 +67,33 @@ internal class Adapter
             Assert.That(actual.Any(tournament => tournament.EntryFee == 3), Is.True, "tournament3 Missing");
         });
     }
+
+    [Test]
+    public void Execute_TournamentId_BusinessLogicExecute_CalledCorrectly()
+    {
+        var tournamentId = Guid.NewGuid();
+
+        _adapter.Execute(tournamentId);
+
+        _businessLogic.Verify(businessLogic => businessLogic.Execute(tournamentId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_TournamentId_BusinessLogicExecuteReturnsNull_NullReturned()
+    {
+        var result = _adapter.Execute(Guid.NewGuid());
+
+        Assert.That(result, Is.Null);
+    }
+
+    [Test]
+    public void Execute_TournamentId_BusinessLogicExecuteReturnsTournament_TournamentReturned()
+    {
+        var tournament = new NewEnglandClassic.Models.Tournament { Id = Guid.NewGuid() };
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<Guid>())).Returns(tournament);
+
+        var result = _adapter.Execute(Guid.NewGuid());
+
+        Assert.That(result.Id, Is.EqualTo(tournament.Id));
+    }
 }

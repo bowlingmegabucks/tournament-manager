@@ -26,22 +26,18 @@ internal class DataContext : DbContext, IDataContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        MySqlServerVersion serverVersion;
+        var serverVersion = new MySqlServerVersion(new Version(10, 3, 35));
 
 #if DEBUG
-        serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
-        
-        optionsBuilder.UseLoggerFactory(ConsoleLogger);
+        optionsBuilder.UseLoggerFactory(_consoleLogger);
         optionsBuilder.EnableSensitiveDataLogging(true);
-#else
-        serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
 #endif
 
-        optionsBuilder.UseMySql(_connectionString, serverVersion);
+        optionsBuilder.UseMySql(_connectionString, serverVersion, options => options.EnableRetryOnFailure(3));
     }
 
 #if DEBUG
-    private static readonly ILoggerFactory ConsoleLogger = LoggerFactory.Create(builder => builder.AddConsole());
+    private static readonly ILoggerFactory _consoleLogger = LoggerFactory.Create(builder => builder.AddConsole());
 #endif
 
     bool IDataContext.Ping()
@@ -66,7 +62,9 @@ internal class DataContext : DbContext, IDataContext
 
     public DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
 
-    public DbSet<Entities.Division> Divisions { get; set; } = null!;    
+    public DbSet<Entities.Division> Divisions { get; set; } = null!;
+
+    public DbSet<Entities.TournamentSquad> Squads { get; set; } = null!;
 }
 
 internal interface IDataContext
@@ -76,6 +74,8 @@ internal interface IDataContext
     DbSet<Entities.Tournament> Tournaments { get; }
 
     DbSet<Entities.Division> Divisions { get; }
+
+    DbSet<Entities.TournamentSquad> Squads { get; }
 
     void SaveChanges();
 
