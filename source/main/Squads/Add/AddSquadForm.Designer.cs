@@ -44,7 +44,7 @@ partial class Form
             this.ButtonCancel.Location = new System.Drawing.Point(12, 352);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCancel.TabIndex = 6;
+            this.ButtonCancel.TabIndex = 2;
             this.ButtonCancel.Text = "Cancel";
             this.ButtonCancel.UseVisualStyleBackColor = true;
             // 
@@ -54,7 +54,7 @@ partial class Form
             this.ButtonSave.Location = new System.Drawing.Point(294, 352);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(75, 23);
-            this.ButtonSave.TabIndex = 5;
+            this.ButtonSave.TabIndex = 1;
             this.ButtonSave.Text = "Save";
             this.ButtonSave.UseVisualStyleBackColor = true;
             this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
@@ -70,7 +70,7 @@ partial class Form
             this.SquadNew.MaxPerPair = ((short)(0));
             this.SquadNew.Name = "SquadNew";
             this.SquadNew.Size = new System.Drawing.Size(357, 207);
-            this.SquadNew.TabIndex = 7;
+            this.SquadNew.TabIndex = 0;
             this.SquadNew.TournamentId = new System.Guid("00000000-0000-0000-0000-000000000000");
             // 
             // LabelDisclaimer
@@ -112,6 +112,7 @@ partial class Form
             this.TextboxTournamentFinalsRatio.ReadOnly = true;
             this.TextboxTournamentFinalsRatio.Size = new System.Drawing.Size(163, 27);
             this.TextboxTournamentFinalsRatio.TabIndex = 11;
+            this.TextboxTournamentFinalsRatio.TabStop = false;
             this.TextboxTournamentFinalsRatio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // TextboxTournamentCashRatio
@@ -122,6 +123,7 @@ partial class Form
             this.TextboxTournamentCashRatio.ReadOnly = true;
             this.TextboxTournamentCashRatio.Size = new System.Drawing.Size(156, 27);
             this.TextboxTournamentCashRatio.TabIndex = 12;
+            this.TextboxTournamentCashRatio.TabStop = false;
             this.TextboxTournamentCashRatio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // Form
@@ -129,6 +131,7 @@ partial class Form
             this.AcceptButton = this.ButtonSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.CancelButton = this.ButtonCancel;
             this.ClientSize = new System.Drawing.Size(391, 389);
             this.Controls.Add(this.TextboxTournamentCashRatio);

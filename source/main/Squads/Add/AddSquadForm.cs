@@ -9,7 +9,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
         InitializeComponent();
 
         _config = config;
+        
         SquadNew.TournamentId = tournamentId;
+        SquadNew.Date = DateTime.Today;
 
         new Presenter(config, this).GetTournamentRatios();
     }
