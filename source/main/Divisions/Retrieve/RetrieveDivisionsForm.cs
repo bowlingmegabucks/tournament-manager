@@ -22,7 +22,8 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void BindDivisions(IEnumerable<IViewModel> divisions)
         => DivisionsGrid.Bind(divisions);
 
-    public void Disable() => throw new NotImplementedException();
+    public void Disable()
+        => ButtonAdd.Enabled = false;
 
     private void ButtonAdd_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddDivision();
