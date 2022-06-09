@@ -5,7 +5,7 @@ internal class Squad
 
     public Guid TournamentId { get; set; }
 
-    internal Tournament Tournament { get; set; }
+    internal Tournament? Tournament { get; set; }
 
     public decimal? CashRatio { get; set; }
 
@@ -26,8 +26,6 @@ internal class Squad
         Date = squad.Date;
         MaxPerPair = squad.MaxPerPair;
         Complete = squad.Complete;
-
-        Tournament = new Tournament(squad.Tournament);
     }
 
     public Squad(Squads.IViewModel viewModel)
@@ -39,8 +37,6 @@ internal class Squad
         Date = viewModel.Date;
         MaxPerPair = viewModel.MaxPerPair;
         Complete = viewModel.Complete;
-
-        Tournament = new Tournament();
     }
 
     /// <summary>

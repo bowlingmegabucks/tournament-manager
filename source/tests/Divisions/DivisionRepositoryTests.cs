@@ -76,7 +76,7 @@ internal class Repository
         Assert.Multiple(() =>
         {
             Assert.That(actual.Count(), Is.EqualTo(2));
-            Assert.That(actual.Where(division => division.Name == "Yes").Count(), Is.EqualTo(2));
+            Assert.That(actual.Count(division => division.Name == "Yes"), Is.EqualTo(2));
         });
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System.Text;
 
-namespace NewEnglandClassic.Divisions;
+namespace NewEnglandClassic.Controls;
 internal partial class DivisionsGrid
 #if DEBUG
     : MiddleGrid
 #else
-    : Controls.DataGrid<IViewModel>
+    : Controls.DataGrid<Divisions.IViewModel>
 #endif
 {
     public DivisionsGrid()
@@ -13,12 +13,12 @@ internal partial class DivisionsGrid
         InitializeComponent();
     }
 
-    public IViewModel? SelectedDivision
+    public Divisions.IViewModel? SelectedDivision
         => SelectedRow;
 
     private void GridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
     {
-        var division = GridView.Rows[e.RowIndex].DataBoundItem as IViewModel;
+        var division = GridView.Rows[e.RowIndex].DataBoundItem as Divisions.IViewModel;
         
         switch (GridView.Columns[e.ColumnIndex].Name)
         {
@@ -37,7 +37,9 @@ internal partial class DivisionsGrid
                     handicap.Append($"{division.HandicapPercentage!.Value:N0}% of {division.HandicapBase!.Value}");
                     
                     if (division.MaximumHandicapPerGame.HasValue)
+                    {
                         handicap.Append($" ({division.MaximumHandicapPerGame.Value} pins max)");
+                    }
 
                     e.Value = handicap.ToString();
                 }
@@ -55,7 +57,7 @@ internal partial class DivisionsGrid
 
 #if DEBUG
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-internal class MiddleGrid : Controls.DataGrid<IViewModel>
+internal class MiddleGrid : Controls.DataGrid<Divisions.IViewModel>
 {
     public MiddleGrid()
     {

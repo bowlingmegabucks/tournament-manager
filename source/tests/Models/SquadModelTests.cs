@@ -177,14 +177,4 @@ internal class Squad
 
         Assert.That(model.Complete, Is.EqualTo(complete));
     }
-
-    [Test]
-    public void Constructor_SquadViewModel_TournamentNotNull()
-    {
-        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
-
-        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
-
-        Assert.That(model.Tournament, Is.Not.Null);
-    }
 }

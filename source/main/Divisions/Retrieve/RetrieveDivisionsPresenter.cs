@@ -43,6 +43,8 @@ internal class Presenter
         var divisionId = _view.AddDivision(_view.TournamentId);
 
         if (divisionId != null)
+        {
             _view.RefreshDivisions();
+        }
     }
 }
