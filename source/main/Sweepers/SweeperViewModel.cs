@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace NewEnglandClassic.Sweepers;
 internal class ViewModel
 {
@@ -44,5 +39,5 @@ internal interface IViewModel
 
     bool Complete { get; set; }
 
-    IDictionary<Guid, int?> Divisions { get; set; }
+    IDictionary<Guid, int?> Divisions { get; }
 }
