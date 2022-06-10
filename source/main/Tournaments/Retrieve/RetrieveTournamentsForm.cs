@@ -31,7 +31,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     
     public void OpenTournament(Guid id) 
     {   
-        var portal = new Tournaments.Portal.Form(_config, id);
+        var portal = new Portal.Form(_config, id);
 
         Hide();
 
@@ -45,4 +45,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void ButtonNew_Click(object sender, EventArgs e)
         => new Presenter(_config, this).NewTournament();
+
+    private void ButtonOpenTournament_Click(object sender, EventArgs e) 
+        => OpenTournament(TournamentsGrid.SelectedTournament!.Id);
 }

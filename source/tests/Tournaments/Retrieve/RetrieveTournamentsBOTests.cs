@@ -60,6 +60,64 @@ internal class BusinessLogic
         _dataLayer.Setup(dataLayer => dataLayer.Execute()).Throws(ex);
 
         _businessLogic.Execute();
+        
+        Assert.Multiple(() =>
+        {
+            Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
+            Assert.That(_businessLogic.Error.ReturnCode, Is.EqualTo(-1));
+        });
+    }
+
+    [Test]
+    public void Execute_Id_DataLayerExecute_Called()
+    {
+        var id = Guid.NewGuid();
+        _businessLogic.Execute(id);
+
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(id), Times.Once);
+    }
+
+    [Test]
+    public void Execute_Id_ReturnsResultFromDataLayer()
+    {
+        var tournament = new NewEnglandClassic.Models.Tournament();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<Guid>())).Returns(tournament);
+
+        var id = Guid.NewGuid();
+        var result = _businessLogic.Execute(id);
+
+        Assert.That(result, Is.EqualTo(tournament));
+    }
+
+    [Test]
+    public void Execute_Id_NoErrors_ErrorNull()
+    {
+        var id = Guid.NewGuid();
+        _businessLogic.Execute(id);
+
+        Assert.That(_businessLogic.Error, Is.Null);
+    }
+
+    [Test]
+    public void Execute_Id_DataLayerExecuteThrowsException_ReturnsNull()
+    {
+        var ex = new Exception();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<Guid>())).Throws(ex);
+
+        var id = Guid.NewGuid();
+        var result = _businessLogic.Execute(id);
+
+        Assert.That(result, Is.Null);
+    }
+
+    [Test]
+    public void Execute_Id_DataLayerExecuteThrowsException_ErrorPopulated()
+    {
+        var ex = new Exception("message");
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<Guid>())).Throws(ex);
+
+        var id = Guid.NewGuid();
+        _businessLogic.Execute(id);
 
         Assert.Multiple(() =>
         {

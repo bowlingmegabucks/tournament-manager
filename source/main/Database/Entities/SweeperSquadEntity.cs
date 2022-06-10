@@ -14,7 +14,7 @@ internal class SweeperSquad : Squad
 
     public ICollection<SweeperDivision> Divisions { get; set; } = null!;
 
-    internal class Configuration : IEntityTypeConfiguration<SweeperSquad>
+    internal new class Configuration : IEntityTypeConfiguration<SweeperSquad>
     {
         public void Configure(EntityTypeBuilder<SweeperSquad> builder)
             => builder.HasOne(squad=> squad.Tournament)

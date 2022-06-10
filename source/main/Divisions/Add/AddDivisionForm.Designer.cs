@@ -83,6 +83,7 @@ partial class Form
             this.Controls.Add(this.DivisionNew);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonSave);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

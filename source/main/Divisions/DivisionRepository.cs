@@ -22,7 +22,7 @@ internal class Repository : IRepository
         _dataContext.Divisions.Add(division);
         _dataContext.SaveChanges();
 
-        return division.Id; ;
+        return division.Id;
     }
 
     IEnumerable<Database.Entities.Division> IRepository.ForTournament(Guid tournamentId)

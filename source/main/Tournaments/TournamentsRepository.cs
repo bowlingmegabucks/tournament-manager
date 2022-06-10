@@ -15,9 +15,12 @@ internal class Repository : IRepository
     {
         _dataContext = mockDataContext;
     }
-
+    
     IEnumerable<Database.Entities.Tournament> IRepository.RetrieveAll()
         => _dataContext.Tournaments.AsEnumerable();
+
+    Database.Entities.Tournament IRepository.Retrieve(Guid id)
+        => _dataContext.Tournaments.Single(tournament=> tournament.Id == id);
 
     Guid IRepository.Add(Database.Entities.Tournament tournament)
     {   
@@ -31,6 +34,8 @@ internal class Repository : IRepository
 internal interface IRepository
 {
     IEnumerable<Database.Entities.Tournament> RetrieveAll();
+
+    Database.Entities.Tournament Retrieve(Guid id);
 
     Guid Add(Database.Entities.Tournament tournament);
 }

@@ -28,19 +28,19 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.divisionsGrid1 = new NewEnglandClassic.Divisions.DivisionsGrid();
+            this.DivisionsGrid = new NewEnglandClassic.Controls.DivisionsGrid();
             this.ButtonAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // divisionsGrid1
+            // DivisionsGrid
             // 
-            this.divisionsGrid1.AllowRowSelection = true;
-            this.divisionsGrid1.AlternateRowColors = true;
-            this.divisionsGrid1.Location = new System.Drawing.Point(12, 12);
-            this.divisionsGrid1.Name = "divisionsGrid1";
-            this.divisionsGrid1.SelectedRowContextMenu = null;
-            this.divisionsGrid1.Size = new System.Drawing.Size(884, 377);
-            this.divisionsGrid1.TabIndex = 0;
+            this.DivisionsGrid.AllowRowSelection = true;
+            this.DivisionsGrid.AlternateRowColors = true;
+            this.DivisionsGrid.Location = new System.Drawing.Point(12, 12);
+            this.DivisionsGrid.Name = "DivisionsGrid";
+            this.DivisionsGrid.SelectedRowContextMenu = null;
+            this.DivisionsGrid.Size = new System.Drawing.Size(884, 377);
+            this.DivisionsGrid.TabIndex = 0;
             // 
             // ButtonAdd
             // 
@@ -58,7 +58,8 @@ partial class Form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 443);
             this.Controls.Add(this.ButtonAdd);
-            this.Controls.Add(this.divisionsGrid1);
+            this.Controls.Add(this.DivisionsGrid);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -69,6 +70,6 @@ partial class Form
 
     #endregion
 
-    private DivisionsGrid divisionsGrid1;
+    private Controls.DivisionsGrid DivisionsGrid;
     private Button ButtonAdd;
 }

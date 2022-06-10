@@ -20,9 +20,10 @@ public partial class Form : System.Windows.Forms.Form, IView
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     public void BindDivisions(IEnumerable<IViewModel> divisions)
-        => divisionsGrid1.Bind(divisions);
+        => DivisionsGrid.Bind(divisions);
 
-    public void Disable() => throw new NotImplementedException();
+    public void Disable()
+        => ButtonAdd.Enabled = false;
 
     private void ButtonAdd_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddDivision();

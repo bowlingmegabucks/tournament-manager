@@ -33,6 +33,9 @@ partial class Form
             this.MenuItemDivision = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemDivisionAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemDivisionsView = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemSquads = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemSquadsAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemSquadsOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripPortal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,7 +43,8 @@ partial class Form
             // 
             this.MenuStripPortal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuItemFile,
-            this.MenuItemDivision});
+            this.MenuItemDivision,
+            this.MenuItemSquads});
             this.MenuStripPortal.Location = new System.Drawing.Point(0, 0);
             this.MenuStripPortal.Name = "MenuStripPortal";
             this.MenuStripPortal.Size = new System.Drawing.Size(800, 24);
@@ -65,16 +69,39 @@ partial class Form
             // MenuItemDivisionAdd
             // 
             this.MenuItemDivisionAdd.Name = "MenuItemDivisionAdd";
-            this.MenuItemDivisionAdd.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemDivisionAdd.Size = new System.Drawing.Size(99, 22);
             this.MenuItemDivisionAdd.Text = "Add";
             this.MenuItemDivisionAdd.Click += new System.EventHandler(this.MenuItemDivisionAdd_Click);
             // 
             // MenuItemDivisionsView
             // 
             this.MenuItemDivisionsView.Name = "MenuItemDivisionsView";
-            this.MenuItemDivisionsView.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemDivisionsView.Size = new System.Drawing.Size(99, 22);
             this.MenuItemDivisionsView.Text = "View";
             this.MenuItemDivisionsView.Click += new System.EventHandler(this.MenuItemDivisionsView_Click);
+            // 
+            // MenuItemSquads
+            // 
+            this.MenuItemSquads.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuItemSquadsAdd,
+            this.MenuItemSquadsOpen});
+            this.MenuItemSquads.Name = "MenuItemSquads";
+            this.MenuItemSquads.Size = new System.Drawing.Size(57, 20);
+            this.MenuItemSquads.Text = "Squads";
+            // 
+            // MenuItemSquadsAdd
+            // 
+            this.MenuItemSquadsAdd.Name = "MenuItemSquadsAdd";
+            this.MenuItemSquadsAdd.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemSquadsAdd.Text = "Add";
+            this.MenuItemSquadsAdd.Click += new System.EventHandler(this.MenuItemSquadsAdd_Click);
+            // 
+            // MenuItemSquadsOpen
+            // 
+            this.MenuItemSquadsOpen.Name = "MenuItemSquadsOpen";
+            this.MenuItemSquadsOpen.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemSquadsOpen.Text = "Open";
+            this.MenuItemSquadsOpen.Click += new System.EventHandler(this.MenuItemSquadsOpen_Click);
             // 
             // Form
             // 
@@ -100,4 +127,7 @@ partial class Form
     private ToolStripMenuItem MenuItemDivision;
     private ToolStripMenuItem MenuItemDivisionAdd;
     private ToolStripMenuItem MenuItemDivisionsView;
+    private ToolStripMenuItem MenuItemSquads;
+    private ToolStripMenuItem MenuItemSquadsAdd;
+    private ToolStripMenuItem MenuItemSquadsOpen;
 }

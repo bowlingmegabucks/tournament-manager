@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tests.Divisions.Retrieve;
+﻿namespace NewEnglandClassic.Tests.Divisions.Retrieve;
 internal class Presenter
 {
     private Mock<NewEnglandClassic.Divisions.Retrieve.IView> _view;
