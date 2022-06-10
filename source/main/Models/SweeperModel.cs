@@ -5,7 +5,9 @@ internal class Sweeper
     public Guid Id { get; set; }
 
     public Guid TournamentId { get; set; }
-    
+
+    internal Tournament? Tournament { get; set; }
+
     public decimal EntryFee { get; set; }
 
     public short Games { get; set; }

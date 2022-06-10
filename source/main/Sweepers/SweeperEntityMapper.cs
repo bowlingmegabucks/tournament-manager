@@ -1,5 +1,4 @@
-﻿
-namespace NewEnglandClassic.Sweepers.Add;
+﻿namespace NewEnglandClassic.Sweepers;
 internal class EntityMapper : IEntityMapper
 {
     public Database.Entities.SweeperSquad Execute(Models.Sweeper sweeper)

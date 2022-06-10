@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewEnglandClassic.Sweepers;
 
 namespace NewEnglandClassic.Tests.Sweepers.Add;
 
 [TestFixture]
 internal class EntityMapper
 {
-    private NewEnglandClassic.Sweepers.Add.IEntityMapper _mapper;
+    private IEntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new NewEnglandClassic.Sweepers.Add.EntityMapper();
+        => _mapper = new NewEnglandClassic.Sweepers.EntityMapper();
 
     [Test]
     public void Execute_IdMapped()

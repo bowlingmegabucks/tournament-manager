@@ -1,9 +1,11 @@
-﻿namespace NewEnglandClassic.Tests.Sweepers.Add;
+﻿using NewEnglandClassic.Sweepers;
+
+namespace NewEnglandClassic.Tests.Sweepers.Add;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Sweepers.Add.IEntityMapper> _mapper;
+    private Mock<IEntityMapper> _mapper;
     private Mock<NewEnglandClassic.Sweepers.IRepository> _repository;
     
     private NewEnglandClassic.Sweepers.Add.IDataLayer _dataLayer;
@@ -11,7 +13,7 @@ internal class DataLayer
     [SetUp]
     public void SetUp()
     {
-        _mapper = new Mock<NewEnglandClassic.Sweepers.Add.IEntityMapper>();
+        _mapper = new Mock<IEntityMapper>();
         _repository = new Mock<NewEnglandClassic.Sweepers.IRepository>();
 
         _dataLayer = new NewEnglandClassic.Sweepers.Add.DataLayer(_mapper.Object, _repository.Object);
