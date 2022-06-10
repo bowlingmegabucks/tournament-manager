@@ -20,5 +20,26 @@ internal class Sweeper
 
     public bool Complete { get; set; }
 
-    public IDictionary<Guid, int?> Divisions { get; set; } = new Dictionary<Guid, int?>();
+    public IDictionary<Guid, int?> Divisions { get; set; }
+
+    public Sweeper(Sweepers.IViewModel viewModel)
+    {
+        Id = viewModel.Id;
+        TournamentId = viewModel.TournamentId;
+        EntryFee = viewModel.EntryFee;
+        Games = viewModel.Games;
+        CashRatio = viewModel.CashRatio;
+        Date = viewModel.Date;
+        MaxPerPair = viewModel.MaxPerPair;
+        Complete = viewModel.Complete;
+        Divisions = viewModel.Divisions;
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal Sweeper()
+    {
+        Divisions = new Dictionary<Guid, int?>();
+    }
 }
