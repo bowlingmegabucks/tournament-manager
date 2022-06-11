@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
 public partial class SweeperControl : UserControl, Sweepers.IViewModel
@@ -99,6 +91,9 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
 
     public IDictionary<Guid, int?> Divisions
         => SweeperDivisions.Divisions;
+
+    public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions) 
+        => SweeperDivisions.BindDivisions(divisions);
 
     private void SweeperControl_Validated(object sender, EventArgs e)
         => ErrorProviderSweeper.SetError((Control)sender, string.Empty);

@@ -58,7 +58,7 @@ partial class SweeperControl
             this.GroupboxDivisions.Controls.Add(this.PanelDivisions);
             this.GroupboxDivisions.Location = new System.Drawing.Point(3, 134);
             this.GroupboxDivisions.Name = "GroupboxDivisions";
-            this.GroupboxDivisions.Size = new System.Drawing.Size(540, 241);
+            this.GroupboxDivisions.Size = new System.Drawing.Size(540, 314);
             this.GroupboxDivisions.TabIndex = 0;
             this.GroupboxDivisions.TabStop = false;
             this.GroupboxDivisions.Text = "Division Bonus Pins";
@@ -71,7 +71,7 @@ partial class SweeperControl
             this.PanelDivisions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelDivisions.Location = new System.Drawing.Point(3, 19);
             this.PanelDivisions.Name = "PanelDivisions";
-            this.PanelDivisions.Size = new System.Drawing.Size(534, 219);
+            this.PanelDivisions.Size = new System.Drawing.Size(534, 292);
             this.PanelDivisions.TabIndex = 0;
             // 
             // SweeperDivisions
@@ -79,7 +79,7 @@ partial class SweeperControl
             this.SweeperDivisions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SweeperDivisions.Location = new System.Drawing.Point(0, 0);
             this.SweeperDivisions.Name = "SweeperDivisions";
-            this.SweeperDivisions.Size = new System.Drawing.Size(534, 219);
+            this.SweeperDivisions.Size = new System.Drawing.Size(534, 292);
             this.SweeperDivisions.TabIndex = 1;
             // 
             // DatePickerSweeperDate
@@ -93,7 +93,7 @@ partial class SweeperControl
             this.DatePickerSweeperDate.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.DatePickerSweeperDate.Name = "DatePickerSweeperDate";
             this.DatePickerSweeperDate.Size = new System.Drawing.Size(217, 27);
-            this.DatePickerSweeperDate.TabIndex = 114;
+            this.DatePickerSweeperDate.TabIndex = 0;
             this.DatePickerSweeperDate.Validating += new System.ComponentModel.CancelEventHandler(this.DatePickerSquadDate_Validating);
             this.DatePickerSweeperDate.Validated += new System.EventHandler(this.SweeperControl_Validated);
             // 
@@ -127,7 +127,7 @@ partial class SweeperControl
             131072});
             this.NumericEntryFee.Name = "NumericEntryFee";
             this.NumericEntryFee.Size = new System.Drawing.Size(131, 27);
-            this.NumericEntryFee.TabIndex = 116;
+            this.NumericEntryFee.TabIndex = 1;
             this.NumericEntryFee.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumericEntryFee.Validating += new System.ComponentModel.CancelEventHandler(this.NumericEntryFee_Validating);
             this.NumericEntryFee.Validated += new System.EventHandler(this.SweeperControl_Validated);
@@ -156,7 +156,7 @@ partial class SweeperControl
             0});
             this.NumericGames.Name = "NumericGames";
             this.NumericGames.Size = new System.Drawing.Size(131, 27);
-            this.NumericGames.TabIndex = 118;
+            this.NumericGames.TabIndex = 2;
             this.NumericGames.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumericGames.Validating += new System.ComponentModel.CancelEventHandler(this.NumericGames_Validating);
             this.NumericGames.Validated += new System.EventHandler(this.SweeperControl_Validated);
@@ -186,7 +186,7 @@ partial class SweeperControl
             65536});
             this.NumericCashRatio.Name = "NumericCashRatio";
             this.NumericCashRatio.Size = new System.Drawing.Size(131, 27);
-            this.NumericCashRatio.TabIndex = 120;
+            this.NumericCashRatio.TabIndex = 3;
             this.NumericCashRatio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumericCashRatio.Validating += new System.ComponentModel.CancelEventHandler(this.NumericCashRatio_Validating);
             this.NumericCashRatio.Validated += new System.EventHandler(this.SweeperControl_Validated);
@@ -215,7 +215,7 @@ partial class SweeperControl
             0});
             this.NumericMaxPerPair.Name = "NumericMaxPerPair";
             this.NumericMaxPerPair.Size = new System.Drawing.Size(131, 27);
-            this.NumericMaxPerPair.TabIndex = 122;
+            this.NumericMaxPerPair.TabIndex = 4;
             this.NumericMaxPerPair.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumericMaxPerPair.Validating += new System.ComponentModel.CancelEventHandler(this.NumericMaxPerPair_Validating);
             this.NumericMaxPerPair.Validated += new System.EventHandler(this.SweeperControl_Validated);
@@ -249,7 +249,7 @@ partial class SweeperControl
             this.Controls.Add(this.LabelDate);
             this.Controls.Add(this.GroupboxDivisions);
             this.Name = "SweeperControl";
-            this.Size = new System.Drawing.Size(558, 397);
+            this.Size = new System.Drawing.Size(558, 465);
             this.GroupboxDivisions.ResumeLayout(false);
             this.GroupboxDivisions.PerformLayout();
             this.PanelDivisions.ResumeLayout(false);
