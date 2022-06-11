@@ -13,6 +13,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         TournamentId = tournamentId;
 
         SweeperControl.Date = DateTime.Today;
+        SweeperControl.TournamentId = tournamentId;
 
         new Presenter(_config, this).GetDivisions();
     }
@@ -23,6 +24,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+    public void DisplayMessage(string message)
+        => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
     public void KeepOpen()
         => DialogResult = DialogResult.None;
 
@@ -31,4 +35,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
         => SweeperControl.BindDivisions(divisions);
+
+    public bool IsValid()
+        => ValidateChildren();
+
+    private void ButtonSave_Click(object sender, EventArgs e)
+     => new Presenter(_config, this).Execute();
 }

@@ -6,6 +6,8 @@ internal interface IView
 
     void DisplayError(string message);
 
+    void DisplayMessage(string message);
+
     void Disable();
 
     void KeepOpen();
@@ -13,4 +15,8 @@ internal interface IView
     void BindDivisions(IEnumerable<Divisions.IViewModel> divisions);
 
     Guid TournamentId { get; }
+
+    bool IsValid();
+
+    void Close();
 }

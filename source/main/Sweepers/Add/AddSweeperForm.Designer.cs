@@ -76,6 +76,7 @@ partial class Form
             this.ButtonSave.TabIndex = 3;
             this.ButtonSave.Text = "Save";
             this.ButtonSave.UseVisualStyleBackColor = true;
+            this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // Form
             // 
@@ -84,7 +85,7 @@ partial class Form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.CancelButton = this.ButtonCancel;
-            this.ClientSize = new System.Drawing.Size(578, 562);
+            this.ClientSize = new System.Drawing.Size(578, 513);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonSave);
             this.Controls.Add(this.SweeperControl);

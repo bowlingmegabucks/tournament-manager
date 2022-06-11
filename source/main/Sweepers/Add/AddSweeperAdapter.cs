@@ -35,5 +35,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(IViewModel squad);
+    Guid? Execute(IViewModel sweeper);
 }

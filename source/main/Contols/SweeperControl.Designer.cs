@@ -59,7 +59,7 @@ partial class SweeperControl
             this.GroupboxDivisions.Location = new System.Drawing.Point(3, 134);
             this.GroupboxDivisions.Name = "GroupboxDivisions";
             this.GroupboxDivisions.Size = new System.Drawing.Size(540, 314);
-            this.GroupboxDivisions.TabIndex = 0;
+            this.GroupboxDivisions.TabIndex = 999;
             this.GroupboxDivisions.TabStop = false;
             this.GroupboxDivisions.Text = "Division Bonus Pins";
             // 
