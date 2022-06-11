@@ -36,6 +36,8 @@ partial class Form
             this.MenuItemSquads = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemSquadsAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemSquadsOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemSweepers = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemSweepersAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripPortal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +46,8 @@ partial class Form
             this.MenuStripPortal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuItemFile,
             this.MenuItemDivision,
-            this.MenuItemSquads});
+            this.MenuItemSquads,
+            this.MenuItemSweepers});
             this.MenuStripPortal.Location = new System.Drawing.Point(0, 0);
             this.MenuStripPortal.Name = "MenuStripPortal";
             this.MenuStripPortal.Size = new System.Drawing.Size(800, 24);
@@ -92,16 +95,31 @@ partial class Form
             // MenuItemSquadsAdd
             // 
             this.MenuItemSquadsAdd.Name = "MenuItemSquadsAdd";
-            this.MenuItemSquadsAdd.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemSquadsAdd.Size = new System.Drawing.Size(103, 22);
             this.MenuItemSquadsAdd.Text = "Add";
             this.MenuItemSquadsAdd.Click += new System.EventHandler(this.MenuItemSquadsAdd_Click);
             // 
             // MenuItemSquadsOpen
             // 
             this.MenuItemSquadsOpen.Name = "MenuItemSquadsOpen";
-            this.MenuItemSquadsOpen.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemSquadsOpen.Size = new System.Drawing.Size(103, 22);
             this.MenuItemSquadsOpen.Text = "Open";
             this.MenuItemSquadsOpen.Click += new System.EventHandler(this.MenuItemSquadsOpen_Click);
+            // 
+            // MenuItemSweepers
+            // 
+            this.MenuItemSweepers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuItemSweepersAdd});
+            this.MenuItemSweepers.Name = "MenuItemSweepers";
+            this.MenuItemSweepers.Size = new System.Drawing.Size(68, 20);
+            this.MenuItemSweepers.Text = "Sweepers";
+            // 
+            // MenuItemSweepersAdd
+            // 
+            this.MenuItemSweepersAdd.Name = "MenuItemSweepersAdd";
+            this.MenuItemSweepersAdd.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemSweepersAdd.Text = "Add";
+            this.MenuItemSweepersAdd.Click += new System.EventHandler(this.MenuItemSweepersAdd_Click);
             // 
             // Form
             // 
@@ -130,4 +148,6 @@ partial class Form
     private ToolStripMenuItem MenuItemSquads;
     private ToolStripMenuItem MenuItemSquadsAdd;
     private ToolStripMenuItem MenuItemSquadsOpen;
+    private ToolStripMenuItem MenuItemSweepers;
+    private ToolStripMenuItem MenuItemSweepersAdd;
 }
