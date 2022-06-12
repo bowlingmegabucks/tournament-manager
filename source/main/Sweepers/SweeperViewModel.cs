@@ -1,6 +1,6 @@
 ﻿
 namespace NewEnglandClassic.Sweepers;
-internal class ViewModel
+internal class ViewModel : IViewModel
 {
     public Guid Id { get; set; }
 
@@ -19,6 +19,19 @@ internal class ViewModel
     public bool Complete { get; set; }
 
     public IDictionary<Guid, int?> Divisions { get; set; } = new Dictionary<Guid, int?>();
+
+    public ViewModel(Models.Sweeper sweeper)
+    {
+        Id = sweeper.Id;
+        TournamentId = sweeper.TournamentId;
+        EntryFee = sweeper.EntryFee;
+        Games = sweeper.Games;
+        CashRatio = sweeper.CashRatio;
+        Date = sweeper.Date;
+        MaxPerPair = sweeper.MaxPerPair;
+        Complete = sweeper.Complete;
+        Divisions = sweeper.Divisions;
+    }
 }
 
 internal interface IViewModel

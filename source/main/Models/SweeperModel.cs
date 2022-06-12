@@ -35,6 +35,19 @@ internal class Sweeper
         Divisions = viewModel.Divisions;
     }
 
+    public Sweeper(Database.Entities.SweeperSquad sweeper)
+    {
+        Id = sweeper.Id;
+        TournamentId = sweeper.TournamentId;
+        EntryFee = sweeper.EntryFee;
+        Games = sweeper.Games;
+        CashRatio = sweeper.CashRatio!.Value;
+        Date = sweeper.Date;
+        MaxPerPair = sweeper.MaxPerPair;
+        Complete = sweeper.Complete;
+        Divisions = sweeper.Divisions.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame);
+    }
+
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
