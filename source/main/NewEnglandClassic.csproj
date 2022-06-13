@@ -52,6 +52,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Sweepers\Retrieve\RetrieveSweepersForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
