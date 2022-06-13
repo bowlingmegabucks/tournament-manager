@@ -2,7 +2,7 @@
 namespace NewEnglandClassic.Contols;
 internal partial class SquadsGrid
 #if DEBUG
-    : MiddleGrid
+    : SquadMiddleGrid
 #else
     : Controls.DataGrid<Squads.IViewModel>
 #endif
@@ -18,9 +18,9 @@ internal partial class SquadsGrid
 
 #if DEBUG
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-internal class MiddleGrid : Controls.DataGrid<Squads.IViewModel>
+internal class SquadMiddleGrid : Controls.DataGrid<Squads.IViewModel>
 {
-    public MiddleGrid()
+    public SquadMiddleGrid()
     {
 
     }
