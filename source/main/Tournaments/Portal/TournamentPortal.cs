@@ -47,4 +47,11 @@ public partial class Form : System.Windows.Forms.Form
 
         form.ShowDialog(this);
     }
+
+    private void MenuItemOpenSweeper_Click(object sender, EventArgs e)
+    {
+        using var form = new Sweepers.Retrieve.Form(_config, _id);
+
+        form.ShowDialog(this);
+    }
 }

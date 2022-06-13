@@ -48,6 +48,7 @@ partial class SweeperDivisionControl
             this.TextboxDivisionName.ReadOnly = true;
             this.TextboxDivisionName.Size = new System.Drawing.Size(299, 27);
             this.TextboxDivisionName.TabIndex = 104;
+            this.TextboxDivisionName.TabStop = false;
             // 
             // LabelName
             // 

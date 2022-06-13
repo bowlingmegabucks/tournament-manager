@@ -1,4 +1,6 @@
-﻿namespace NewEnglandClassic.Sweepers;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NewEnglandClassic.Sweepers;
 
 internal class Repository : IRepository
 {
@@ -26,7 +28,7 @@ internal class Repository : IRepository
     }
 
     public IEnumerable<Database.Entities.SweeperSquad> ForTournament(Guid tournamentId)
-        => _dataContext.Sweepers.Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
+        => _dataContext.Sweepers.Include(sweeper=> sweeper.Divisions).Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
 }
 
 internal interface IRepository

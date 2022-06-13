@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Squads.Retrieve;
+namespace NewEnglandClassic.Sweepers.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
@@ -16,8 +16,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         new Presenter(_config, this).Execute();
     }
 
-    public void BindSquads(IEnumerable<IViewModel> squads)
-        => SquadsGrid.Bind(squads);
+    public void BindSweepers(IEnumerable<IViewModel> sweepers)
+        => SweepersGrid.Bind(sweepers);
 
     public void Disable()
     {
@@ -31,19 +31,19 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private void ButtonOpen_Click(object sender, EventArgs e)
         => MessageBox.Show("Coming soon...");
 
-    private void SquadsGrid_GridRowDoubleClicked(object sender, Controls.GridRowDoubleClickEventArgs e)
+    private void SweepersGrid_GridRowDoubleClicked(object sender, Controls.GridRowDoubleClickEventArgs e)
         => ButtonOpen_Click(sender, e);
 
     private void ButtonAdd_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).AddSquad();
+        => new Presenter(_config, this).AddSweeper();
 
-    public Guid? AddSquad(Guid tournamentId)
+    public Guid? AddSweeper(Guid tournamentId)
     {
         using var form = new Add.Form(_config, tournamentId);
 
-        return form.ShowDialog() == DialogResult.OK ? form.Squad.Id : null;
+        return form.ShowDialog() == DialogResult.OK ? form.Sweeper.Id : null;
     }
 
-    public void RefreshSquads()
+    public void RefreshSweepers()
         => new Presenter(_config, this).Execute();
 }

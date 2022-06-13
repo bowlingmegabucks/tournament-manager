@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Retrieve;
+﻿namespace NewEnglandClassic.Sweepers.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
@@ -17,11 +17,11 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    public IEnumerable<Models.Squad> ForTournament(Guid tournamentId)
-        => _repository.ForTournament(tournamentId).Select(squad=> new Models.Squad(squad));
+    public IEnumerable<Models.Sweeper> ForTournament(Guid tournamentId)
+        => _repository.ForTournament(tournamentId).Select(sweeper=> new Models.Sweeper(sweeper));
 }
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.Squad> ForTournament(Guid tournamentId);
+    IEnumerable<Models.Sweeper> ForTournament(Guid tournamentId);
 }

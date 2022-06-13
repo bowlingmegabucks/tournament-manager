@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments;
+﻿namespace NewEnglandClassic.Controls;
 
 partial class TournamentsGrid
 {
