@@ -22,16 +22,16 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayErrorMessage(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
     
-    public Guid? CreateNewTournament()
+    public (Guid? id, string name) CreateNewTournament()
     {
         using var form = new Add.Form(_config);
 
-        return form.ShowDialog() == DialogResult.OK ? form.Tournament.Id : null;
+        return form.ShowDialog() == DialogResult.OK ? (form.Tournament.Id, form.Tournament.TournamentName) : (null, string.Empty);
     }
     
-    public void OpenTournament(Guid id) 
+    public void OpenTournament(Guid id, string tournamentName) 
     {   
-        var portal = new Portal.Form(_config, id);
+        var portal = new Portal.Form(_config, id, tournamentName);
 
         Hide();
 
@@ -41,11 +41,11 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     private void TournamentsGrid_GridRowDoubleClicked(object sender, Controls.GridRowDoubleClickEventArgs e)
-        => OpenTournament(TournamentsGrid.SelectedTournament!.Id);
+        => ButtonOpenTournament_Click(sender, e);
 
     private void ButtonNew_Click(object sender, EventArgs e)
         => new Presenter(_config, this).NewTournament();
 
     private void ButtonOpenTournament_Click(object sender, EventArgs e) 
-        => OpenTournament(TournamentsGrid.SelectedTournament!.Id);
+        => OpenTournament(TournamentsGrid.SelectedTournament!.Id, TournamentsGrid.SelectedTournament!.TournamentName);
 }

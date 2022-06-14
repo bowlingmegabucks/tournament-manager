@@ -96,14 +96,14 @@ partial class Form
             // MenuItemSquadsAdd
             // 
             this.MenuItemSquadsAdd.Name = "MenuItemSquadsAdd";
-            this.MenuItemSquadsAdd.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemSquadsAdd.Size = new System.Drawing.Size(103, 22);
             this.MenuItemSquadsAdd.Text = "Add";
             this.MenuItemSquadsAdd.Click += new System.EventHandler(this.MenuItemSquadsAdd_Click);
             // 
             // MenuItemSquadsOpen
             // 
             this.MenuItemSquadsOpen.Name = "MenuItemSquadsOpen";
-            this.MenuItemSquadsOpen.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemSquadsOpen.Size = new System.Drawing.Size(103, 22);
             this.MenuItemSquadsOpen.Text = "Open";
             this.MenuItemSquadsOpen.Click += new System.EventHandler(this.MenuItemSquadsOpen_Click);
             // 
@@ -119,14 +119,14 @@ partial class Form
             // MenuItemSweepersAdd
             // 
             this.MenuItemSweepersAdd.Name = "MenuItemSweepersAdd";
-            this.MenuItemSweepersAdd.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemSweepersAdd.Size = new System.Drawing.Size(103, 22);
             this.MenuItemSweepersAdd.Text = "Add";
             this.MenuItemSweepersAdd.Click += new System.EventHandler(this.MenuItemSweepersAdd_Click);
             // 
             // MenuItemOpenSweeper
             // 
             this.MenuItemOpenSweeper.Name = "MenuItemOpenSweeper";
-            this.MenuItemOpenSweeper.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemOpenSweeper.Size = new System.Drawing.Size(103, 22);
             this.MenuItemOpenSweeper.Text = "Open";
             this.MenuItemOpenSweeper.Click += new System.EventHandler(this.MenuItemOpenSweeper_Click);
             // 
@@ -137,6 +137,7 @@ partial class Form
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.MenuStripPortal);
             this.MainMenuStrip = this.MenuStripPortal;
+            this.MaximizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TournamentPortal";

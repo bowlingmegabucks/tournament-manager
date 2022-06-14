@@ -45,11 +45,11 @@ internal class Presenter
 
     public void NewTournament()
     {
-        var id = _view.CreateNewTournament();
+        var tournament = _view.CreateNewTournament();
 
-        if (id != null)
+        if (tournament.id != null)
         {
-            _view.OpenTournament(id.Value);
+            _view.OpenTournament(tournament.id.Value, tournament.name);
         }
     }
 }
