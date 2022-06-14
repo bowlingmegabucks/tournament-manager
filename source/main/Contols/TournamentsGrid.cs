@@ -1,25 +1,26 @@
-﻿namespace NewEnglandClassic.Tournaments;
+﻿namespace NewEnglandClassic.Controls;
+
 internal partial class TournamentsGrid
 #if DEBUG   
-    : MiddleGrid
+    : TournamentMiddleGrid
 #else
-    : Controls.DataGrid<IViewModel>
+    : DataGrid<Tournaments.IViewModel>
 #endif
 {
     public TournamentsGrid()
     {
         InitializeComponent();
     }
-
-    public IViewModel? SelectedTournament
+    
+    public Tournaments.IViewModel? SelectedTournament
         => SelectedRow;
 }
 
 #if DEBUG
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-internal class MiddleGrid : Controls.DataGrid<IViewModel>
+internal class TournamentMiddleGrid : DataGrid<Tournaments.IViewModel>
 {
-    public MiddleGrid()
+    public TournamentMiddleGrid()
     {
 
     }

@@ -65,6 +65,8 @@ internal class DataContext : DbContext, IDataContext
     public DbSet<Entities.Division> Divisions { get; set; } = null!;
 
     public DbSet<Entities.TournamentSquad> Squads { get; set; } = null!;
+
+    public DbSet<Entities.SweeperSquad> Sweepers { get; set; } = null!;
 }
 
 internal interface IDataContext
@@ -76,6 +78,8 @@ internal interface IDataContext
     DbSet<Entities.Division> Divisions { get; }
 
     DbSet<Entities.TournamentSquad> Squads { get; }
+
+    DbSet<Entities.SweeperSquad> Sweepers { get; }
 
     void SaveChanges();
 

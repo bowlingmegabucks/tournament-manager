@@ -1,0 +1,151 @@
+﻿using NewEnglandClassic.Sweepers;
+
+namespace NewEnglandClassic.Tests.Sweepers.Add;
+
+[TestFixture]
+internal class EntityMapper
+{
+    private IEntityMapper _mapper;
+
+    [OneTimeSetUp]
+    public void SetUp()
+        => _mapper = new NewEnglandClassic.Sweepers.EntityMapper();
+
+    [Test]
+    public void Execute_IdMapped()
+    {
+        var model = new NewEnglandClassic.Models.Sweeper
+        {
+            Id = Guid.NewGuid()
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.Id, Is.EqualTo(model.Id));
+    }
+
+    [Test]
+    public void Execute_TournamentIdMapped()
+    {
+        var model = new NewEnglandClassic.Models.Sweeper
+        {
+            TournamentId = Guid.NewGuid()
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.TournamentId, Is.EqualTo(model.TournamentId));
+    }
+
+    [Test]
+    public void Execute_CashRatioMapped()
+    {
+        var model = new NewEnglandClassic.Models.Sweeper
+        {
+            CashRatio = 5.5m
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.CashRatio, Is.EqualTo(model.CashRatio));
+    }
+
+    [Test]
+    public void Execute_DateMapped()
+    {
+        var model = new NewEnglandClassic.Models.Sweeper
+        {
+            Date = new DateTime(2018, 1, 1)
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.Date, Is.EqualTo(model.Date));
+    }
+
+    [Test]
+    public void Execute_MaxPerPairMapped()
+    {
+        var model = new NewEnglandClassic.Models.Sweeper
+        {
+            MaxPerPair = 1
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.MaxPerPair, Is.EqualTo(model.MaxPerPair));
+    }
+
+    [Test]
+    public void Execute_CompleteMapped([Values] bool complete)
+    {
+        var model = new NewEnglandClassic.Models.Sweeper
+        {
+            Complete = complete
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.Complete, Is.EqualTo(model.Complete));
+    }
+
+    [Test]
+    public void Execute_EntryFeeMapped()
+    {
+        var model = new NewEnglandClassic.Models.Sweeper
+        {
+            EntryFee = 123.45m
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.EntryFee, Is.EqualTo(model.EntryFee));
+    }
+
+    [Test]
+    public void Execute_GamesMapped()
+    {
+        var model = new NewEnglandClassic.Models.Sweeper
+        {
+            Games = 5
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.Games, Is.EqualTo(model.Games));
+    }
+
+    [Test]
+    public void Execute_DivisionsMapped()
+    {
+        var division0 = Guid.NewGuid();
+        var division1 = Guid.NewGuid();
+        var division2 = Guid.NewGuid();
+        var division3 = Guid.NewGuid();
+
+        var model = new NewEnglandClassic.Models.Sweeper
+        {
+            Id = Guid.NewGuid(),
+            Divisions = new Dictionary<Guid, int?>
+            {
+                { division0, null},
+                { division1, 1},
+                { division2, 2},
+                { division3, 3}
+            }
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(entity.Divisions.Count, Is.EqualTo(4));
+            Assert.That(entity.Divisions.All(division => division.SweeperId == model.Id));
+
+            Assert.That(entity.Divisions.Count(division => division.DivisionId == division0 && division.BonusPinsPerGame == null), Is.EqualTo(1));
+            Assert.That(entity.Divisions.Count(division => division.DivisionId == division1 && division.BonusPinsPerGame == 1), Is.EqualTo(1));
+            Assert.That(entity.Divisions.Count(division => division.DivisionId == division2 && division.BonusPinsPerGame == 2), Is.EqualTo(1));
+            Assert.That(entity.Divisions.Count(division => division.DivisionId == division3 && division.BonusPinsPerGame == 3), Is.EqualTo(1));
+        });
+    }
+}

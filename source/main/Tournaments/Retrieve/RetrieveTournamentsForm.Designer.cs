@@ -19,7 +19,7 @@ partial class Form
         }
         base.Dispose(disposing);
     }
-
+    
     #region Windows Form Designer generated code
 
     /// <summary>
@@ -29,7 +29,7 @@ partial class Form
     private void InitializeComponent()
     {
             this.ButtonOpenTournament = new System.Windows.Forms.Button();
-            this.TournamentsGrid = new NewEnglandClassic.Tournaments.TournamentsGrid();
+            this.TournamentsGrid = new NewEnglandClassic.Controls.TournamentsGrid();
             this.ButtonNew = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -85,6 +85,6 @@ partial class Form
     #endregion
 
     private Button ButtonOpenTournament;
-    private TournamentsGrid TournamentsGrid;
+    private Controls.TournamentsGrid TournamentsGrid;
     private Button ButtonNew;
 }

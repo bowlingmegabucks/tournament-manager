@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Squads.Retrieve;
+﻿namespace NewEnglandClassic.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal class Adapter
 {
-    private Mock<NewEnglandClassic.Squads.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<NewEnglandClassic.Sweepers.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NewEnglandClassic.Squads.Retrieve.IAdapter _adapter;
+    private NewEnglandClassic.Sweepers.Retrieve.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NewEnglandClassic.Squads.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<NewEnglandClassic.Sweepers.Retrieve.IBusinessLogic>();
 
-        _adapter = new NewEnglandClassic.Squads.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new NewEnglandClassic.Sweepers.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -39,13 +39,13 @@ internal class Adapter
     }
 
     [Test]
-    public void ForTournament_ReturnsSquadsFromBusinessLogic()
+    public void ForTournament_ReturnsSweepersFromBusinessLogic()
     {
-        var squad1 = new NewEnglandClassic.Models.Squad { MaxPerPair = 1 };
-        var squad2 = new NewEnglandClassic.Models.Squad { MaxPerPair = 2 };
-        var squads = new[] { squad1, squad2 };
+        var sweeper1 = new NewEnglandClassic.Models.Sweeper { MaxPerPair = 1 };
+        var sweeper2 = new NewEnglandClassic.Models.Sweeper { MaxPerPair = 2 };
+        var sweepers = new[] { sweeper1, sweeper2 };
 
-        _businessLogic.Setup(businessLogic => businessLogic.ForTournament(It.IsAny<Guid>())).Returns(squads);
+        _businessLogic.Setup(businessLogic => businessLogic.ForTournament(It.IsAny<Guid>())).Returns(sweepers);
 
         var tournamentId = Guid.NewGuid();
 
@@ -54,8 +54,8 @@ internal class Adapter
         Assert.Multiple(() =>
         {
             Assert.That(actual.Count, Is.EqualTo(2));
-            Assert.That(actual[0].MaxPerPair, Is.EqualTo(squad1.MaxPerPair));
-            Assert.That(actual[1].MaxPerPair, Is.EqualTo(squad2.MaxPerPair));
+            Assert.That(actual[0].MaxPerPair, Is.EqualTo(sweeper1.MaxPerPair));
+            Assert.That(actual[1].MaxPerPair, Is.EqualTo(sweeper2.MaxPerPair));
         });
     }
 }
