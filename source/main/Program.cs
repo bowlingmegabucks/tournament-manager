@@ -14,9 +14,10 @@ internal static class Program
 
         var config = new ConfigurationBuilder()
                             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                            .AddJsonFile("appsettings.json")
 #if DEBUG
                             .AddUserSecrets<Tournaments.Retrieve.Form>()
+#else
+                            .AddJsonFile("appsettings.Release.json")
 #endif
                             .Build();
 
