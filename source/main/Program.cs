@@ -1,3 +1,9 @@
+#if RELEASE
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+#endif
+
 namespace NewEnglandClassic.UI;
 
 internal static class Program
@@ -13,14 +19,25 @@ internal static class Program
         ApplicationConfiguration.Initialize();
 
         var config = new ConfigurationBuilder()
-                            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory);
 #if DEBUG
-                            .AddUserSecrets<Tournaments.Retrieve.Form>()
+        config.AddUserSecrets<Tournaments.Retrieve.Form>();                      
 #else
-                            .AddJsonFile("appsettings.Release.json")
-#endif
-                            .Build();
+        config.AddJsonFile("appsettings.json");
+        
+        var builtConfiguration = config.Build();
+        
+        var kvUrl = builtConfiguration["KeyVaultConfig:KVUrl"];
+        var tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
+        var clientId = builtConfiguration["KeyVaultConfig:ClientId"];
+        var clientSecret = builtConfiguration["KeyVaultConfig:ClientSecret"];
 
-        Application.Run(new Tournaments.Retrieve.Form(config));
+        var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+
+        var client = new SecretClient(new Uri(kvUrl), credential);
+        config.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
+#endif
+
+        Application.Run(new Tournaments.Retrieve.Form(config.Build()));
     }
 }

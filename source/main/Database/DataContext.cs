@@ -8,7 +8,7 @@ internal class DataContext : DbContext, IDataContext
     private readonly string _connectionString;
     internal DataContext(IConfiguration config)
     {
-        _connectionString = config.GetConnectionString("tournament-manager");
+        _connectionString = config.GetConnectionString("tournament-manager-db");
     }
 
 #if DEBUG
