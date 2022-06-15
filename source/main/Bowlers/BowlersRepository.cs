@@ -22,17 +22,17 @@ internal class Repository : IRepository
     {
         var bowlers = _dataContext.Bowlers.AsNoTracking();
 
-        if (searchCriteria.LastName != null)
+        if (!string.IsNullOrWhiteSpace(searchCriteria.LastName))
         {
             bowlers = bowlers.Where(b => b.LastName.StartsWith(searchCriteria.LastName));
         }
 
-        if (searchCriteria.FirstName != null)
+        if (!string.IsNullOrWhiteSpace(searchCriteria.FirstName))
         {
             bowlers = bowlers.Where(b => b.FirstName.StartsWith(searchCriteria.FirstName));
         }
 
-        if (searchCriteria.EmailAddress != null)
+        if (!string.IsNullOrWhiteSpace(searchCriteria.EmailAddress))
         {
             bowlers = bowlers.Where(b => b.EmailAddress == searchCriteria.EmailAddress);
         }

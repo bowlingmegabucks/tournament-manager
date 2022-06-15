@@ -18,7 +18,7 @@ internal class Repository
     }
 
     [Test]
-    public void Search_AllSearchCriteriaNull_ReturnsAllBowlers()
+    public void Search_AllSearchCriteriaNullOrWhitespace_ReturnsAllBowlers([Values(null,""," ")]string value)
     {
         var bowler1 = new NewEnglandClassic.Database.Entities.Bowler
         {
@@ -47,12 +47,12 @@ internal class Repository
         var bowlers = new[] { bowler1, bowler2, bowler3 };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
-
+        
         var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria()
         {
-            LastName = null,
-            FirstName = null,
-            EmailAddress = null
+            LastName = value,
+            FirstName = value,
+            EmailAddress = value
         };
 
         var actual = _repository.Search(searchCriteria);
@@ -68,7 +68,7 @@ internal class Repository
     }
 
     [Test]
-    public void Search_OnlyLastNameSetForSearchCriteria_CorrectBowlersReturned()
+    public void Search_OnlyLastNameSetForSearchCriteria_CorrectBowlersReturned([Values(null, "", " ")] string value)
     {
         var bowler1 = new NewEnglandClassic.Database.Entities.Bowler
         {
@@ -101,8 +101,8 @@ internal class Repository
         var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria()
         {
             LastName = "Do",
-            FirstName = null,
-            EmailAddress = null
+            FirstName = value,
+            EmailAddress = value
         };
 
         var actual = _repository.Search(searchCriteria);
@@ -117,7 +117,7 @@ internal class Repository
     }
 
     [Test]
-    public void Search_OnlyFirstNameSetForSearchCriteria_CorrectBowlersReturned()
+    public void Search_OnlyFirstNameSetForSearchCriteria_CorrectBowlersReturned([Values(null, "", " ")] string value)
     {
         var bowler1 = new NewEnglandClassic.Database.Entities.Bowler
         {
@@ -144,14 +144,14 @@ internal class Repository
         };
 
         var bowlers = new[] { bowler1, bowler2, bowler3 };
-
+        
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
 
         var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria()
         {
-            LastName = null,
+            LastName = value,
             FirstName = "Jo",
-            EmailAddress = null
+            EmailAddress = value
         };
 
         var actual = _repository.Search(searchCriteria);
@@ -166,7 +166,7 @@ internal class Repository
     }
 
     [Test]
-    public void Search_OnlyEmailAddressSetForSearchCriteria_CorrectBowlersReturned()
+    public void Search_OnlyEmailAddressSetForSearchCriteria_CorrectBowlersReturned([Values(null, "", " ")] string value)
     {
         var bowler1 = new NewEnglandClassic.Database.Entities.Bowler
         {
@@ -183,7 +183,7 @@ internal class Repository
             LastName = "Doe",
             EmailAddress = "janedoe@gmail.com"
         };
-
+        
         var bowler3 = new NewEnglandClassic.Database.Entities.Bowler
         {
             Id = Guid.NewGuid(),
@@ -195,11 +195,11 @@ internal class Repository
         var bowlers = new[] { bowler1, bowler2, bowler3 };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
-
+        
         var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria()
         {
-            LastName = null,
-            FirstName = null,
+            LastName = value,
+            FirstName = value,
             EmailAddress = "johnsmith@gmail.com"
         };
 
