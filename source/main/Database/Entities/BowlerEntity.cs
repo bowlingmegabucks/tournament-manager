@@ -32,11 +32,11 @@ internal class Bowler
     [Required]
     public string EmailAddress { get; set; } = string.Empty;
 
-    [Required]
-    public string USBCId { get; set; } = string.Empty;
-
     [MaxLength(10)]
     public string PhoneNumber { get; set; } = string.Empty;
+
+    [Required]
+    public string USBCId { get; set; } = string.Empty;
 
     public DateOnly? DateOfBirth { get; set; }
 
