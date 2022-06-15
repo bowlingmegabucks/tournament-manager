@@ -1,4 +1,6 @@
-﻿namespace NewEnglandClassic.Squads;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NewEnglandClassic.Squads;
 
 internal class Repository : IRepository
 {
@@ -26,7 +28,7 @@ internal class Repository : IRepository
     }
 
     public IEnumerable<Database.Entities.TournamentSquad> ForTournament(Guid tournamentId)
-        => _dataContext.Squads.Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
+        => _dataContext.Squads.AsNoTracking().Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
 }
 
 internal interface IRepository

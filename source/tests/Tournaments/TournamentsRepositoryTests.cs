@@ -3,7 +3,7 @@
 namespace NewEnglandClassic.Tests.Tournaments;
 
 [TestFixture]
-internal class TournamentsRepositoryTests
+internal class Repository
 {
     private Mock<NewEnglandClassic.Database.IDataContext> _dataContext;
 

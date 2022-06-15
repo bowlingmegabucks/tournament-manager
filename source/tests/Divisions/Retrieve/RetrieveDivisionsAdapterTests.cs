@@ -41,9 +41,9 @@ internal class Adapter
     [Test]
     public void ForTournament_ReturnsDivisionsFromBusinessLogic()
     {
-        var divison1 = new NewEnglandClassic.Models.Division { Name = "Division 1" };
-        var divison2 = new NewEnglandClassic.Models.Division { Name = "Division 2" };
-        var divisions = new[] { divison1, divison2 };
+        var division1 = new NewEnglandClassic.Models.Division { Name = "Division 1" };
+        var division2 = new NewEnglandClassic.Models.Division { Name = "Division 2" };
+        var divisions = new[] { division1, division2 };
 
         _businessLogic.Setup(businessLogic => businessLogic.ForTournament(It.IsAny<Guid>())).Returns(divisions);
 
@@ -54,8 +54,8 @@ internal class Adapter
         Assert.Multiple(() =>
         {
             Assert.That(actual.Count, Is.EqualTo(2));
-            Assert.That(actual[0].DivisionName, Is.EqualTo(divison1.Name));
-            Assert.That(actual[1].DivisionName, Is.EqualTo(divison2.Name));
+            Assert.That(actual[0].DivisionName, Is.EqualTo(division1.Name));
+            Assert.That(actual[1].DivisionName, Is.EqualTo(division2.Name));
         });
     }
 }

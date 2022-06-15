@@ -56,7 +56,9 @@ internal class DataContext : DbContext, IDataContext
         modelBuilder.ApplyConfiguration(new Entities.Squad.Configuration());
         modelBuilder.ApplyConfiguration(new Entities.TournamentSquad.Configuration());
         modelBuilder.ApplyConfiguration(new Entities.SweeperSquad.Configuration());
-        modelBuilder.ApplyConfiguration(new Entities.SweeperDivision.Configuration());        
+        modelBuilder.ApplyConfiguration(new Entities.SweeperDivision.Configuration());
+
+        modelBuilder.ApplyConfiguration(new Entities.Bowler.Configuration());
     }
         
 
@@ -67,6 +69,8 @@ internal class DataContext : DbContext, IDataContext
     public DbSet<Entities.TournamentSquad> Squads { get; set; } = null!;
 
     public DbSet<Entities.SweeperSquad> Sweepers { get; set; } = null!;
+
+    public DbSet<Entities.Bowler> Bowlers { get; set; } = null!;
 }
 
 internal interface IDataContext
@@ -80,6 +84,8 @@ internal interface IDataContext
     DbSet<Entities.TournamentSquad> Squads { get; }
 
     DbSet<Entities.SweeperSquad> Sweepers { get; }
+
+    DbSet<Entities.Bowler> Bowlers { get; }
 
     void SaveChanges();
 
