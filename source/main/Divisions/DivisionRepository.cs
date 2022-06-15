@@ -1,4 +1,6 @@
-﻿namespace NewEnglandClassic.Divisions;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NewEnglandClassic.Divisions;
 
 internal class Repository : IRepository
 {
@@ -26,7 +28,7 @@ internal class Repository : IRepository
     }
 
     IEnumerable<Database.Entities.Division> IRepository.ForTournament(Guid tournamentId)
-        => _dataContext.Divisions.Where(division => division.TournamentId == tournamentId).AsEnumerable();
+        => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId).AsEnumerable();
 }
 
 internal interface IRepository
