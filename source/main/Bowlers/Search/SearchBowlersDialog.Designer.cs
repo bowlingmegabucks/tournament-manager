@@ -67,6 +67,7 @@ partial class Dialog
             this.ButtonSearch.TabIndex = 110;
             this.ButtonSearch.Text = "Search";
             this.ButtonSearch.UseVisualStyleBackColor = true;
+            this.ButtonSearch.Click += new System.EventHandler(this.ButtonSearch_Click);
             // 
             // TextboxEmail
             // 

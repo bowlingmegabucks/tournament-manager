@@ -2,10 +2,12 @@
 namespace NewEnglandClassic.Bowlers.Search;
 internal partial class Dialog : Form, IView
 {
-    public Dialog(bool allowNewBowler)
+    private readonly IConfiguration _config; 
+    public Dialog(IConfiguration config, bool allowNewBowler)
     {
         InitializeComponent();
 
+        _config = config;
         SelectedBowlerId = null;
 
         ButtonNew.Visible = allowNewBowler;
@@ -38,4 +40,7 @@ internal partial class Dialog : Form, IView
 
     private void ButtonCancel_Click(object sender, EventArgs e)
         => SelectedBowlerId = null;
+
+    private void ButtonSearch_Click(object sender, EventArgs e)
+        => new Presenter(_config, this).Execute();
 }
