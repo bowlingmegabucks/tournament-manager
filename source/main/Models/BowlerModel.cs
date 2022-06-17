@@ -48,6 +48,24 @@ internal class Bowler
         Gender = bowler.Gender;
     }
 
+    public Bowler(Bowlers.Add.IViewModel viewModel)
+    {
+        Id = viewModel.Id;
+        FirstName = viewModel.FirstName;
+        MiddleInitial = viewModel.MiddleInitial;
+        LastName = viewModel.LastName;
+        Suffix = viewModel.Suffix;
+        StreetAddress = viewModel.StreetAddress;
+        CityAddress = viewModel.CityAddress;
+        StateAddress = viewModel.StateAddress;
+        ZipCode = viewModel.ZipCode;
+        EmailAddress = viewModel.EmailAddress;
+        PhoneNumber = viewModel.PhoneNumber;
+        USBCId = viewModel.USBCId;
+        DateOfBirth = viewModel.DateOfBirth;
+        Gender = viewModel.Gender;
+    }
+
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
