@@ -16,8 +16,77 @@ partial class DataContextModelSnapshot : ModelSnapshot
     {
 #pragma warning disable 612, 618
         modelBuilder
-            .HasAnnotation("ProductVersion", "6.0.5")
+            .HasAnnotation("ProductVersion", "6.0.6")
             .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+        modelBuilder.Entity("NewEnglandClassic.Database.Entities.Bowler", b =>
+            {
+                b.Property<Guid>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("char(36)");
+
+                b.Property<string>("CityAddress")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<DateTime?>("DateOfBirth")
+                    .HasColumnType("datetime(6)");
+
+                b.Property<string>("EmailAddress")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("FirstName")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<int?>("Gender")
+                    .HasColumnType("int");
+
+                b.Property<string>("LastName")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("MiddleInitial")
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .HasColumnType("char(1)")
+                    .IsFixedLength();
+
+                b.Property<string>("PhoneNumber")
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnType("char(10)")
+                    .IsFixedLength();
+
+                b.Property<string>("StateAddress")
+                    .IsRequired()
+                    .HasMaxLength(2)
+                    .HasColumnType("char(2)")
+                    .IsFixedLength();
+
+                b.Property<string>("StreetAddress")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("Suffix")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("USBCId")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("ZipCode")
+                    .IsRequired()
+                    .HasMaxLength(9)
+                    .HasColumnType("char(9)")
+                    .IsFixedLength();
+
+                b.HasKey("Id");
+
+                b.ToTable("Bowlers");
+            });
 
         modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
             {

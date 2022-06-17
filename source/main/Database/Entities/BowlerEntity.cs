@@ -40,9 +40,6 @@ internal class Bowler
 
     public DateOnly? DateOfBirth { get; set; }
 
-    //todo: this goes to a registration entity (bowlerid, divisionid, average)
-    //public int? Average { get; set; }
-
     public Models.Gender? Gender { get; set; }
 
     internal class Configuration : IEntityTypeConfiguration<Bowler>
