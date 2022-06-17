@@ -1,38 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace NewEnglandClassic.Bowlers.Add;
 
 internal interface IViewModel
 {
-    Guid Id { get; set; }
+    Guid Id { get; }
 
-    string FirstName { get; set; }
+    string FirstName { get; }
 
-    string MiddleInitial { get; set; }
+    string MiddleInitial { get; }
 
-    string LastName { get; set; }
+    string LastName { get; }
 
-    string Suffix { get; set; }
+    string Suffix { get; }
 
-    string StreetAddress { get; set; }
+    string StreetAddress { get; }
 
-    string CityAddress { get; set; }
+    string CityAddress { get; }
 
-    string StateAddress { get; set; }
+    string StateAddress { get; }
 
-    string ZipCode { get; set; }
+    string ZipCode { get; }
 
-    string EmailAddress { get; set; }
+    string EmailAddress { get; }
 
-    string PhoneNumber { get; set; }
+    string PhoneNumber { get; }
 
-    string USBCId { get; set; }
+    string USBCId { get; }
 
-    DateOnly? DateOfBirth { get; set; }
+    DateOnly? DateOfBirth { get; }
 
-    Models.Gender? Gender { get; set; }
+    Models.Gender? Gender { get; }
 }
