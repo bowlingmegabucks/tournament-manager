@@ -1,4 +1,6 @@
-﻿namespace NewEnglandClassic.Tournaments;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NewEnglandClassic.Tournaments;
 internal class Repository : IRepository
 {
     private readonly Database.IDataContext _dataContext;
@@ -17,7 +19,7 @@ internal class Repository : IRepository
     }
     
     IEnumerable<Database.Entities.Tournament> IRepository.RetrieveAll()
-        => _dataContext.Tournaments.AsEnumerable();
+        => _dataContext.Tournaments.AsNoTracking().AsEnumerable();
 
     Database.Entities.Tournament IRepository.Retrieve(Guid id)
         => _dataContext.Tournaments.Single(tournament=> tournament.Id == id);
