@@ -259,6 +259,54 @@ internal class Validator
     }
 
     [Test]
+    public void StartingLane_LessThanOrEqualToZero_HasError([Values(-1, 0)] short startingLane)
+    {
+        var squad = new NewEnglandClassic.Models.Sweeper
+        {
+            StartingLane = startingLane
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldHaveValidationErrorFor(squad => squad.StartingLane).WithErrorMessage("Starting lane must be greater than 0");
+    }
+
+    [Test]
+    public void StartingLane_GreaterThanZero_NoError()
+    {
+        var squad = new NewEnglandClassic.Models.Sweeper
+        {
+            StartingLane = 1
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldNotHaveValidationErrorFor(squad => squad.StartingLane);
+    }
+
+    [Test]
+    public void NumberOfLanes_LessThanOrEqualToZero_HasError([Values(-1, 0)] short numberOfLanes)
+    {
+        var squad = new NewEnglandClassic.Models.Sweeper
+        {
+            NumberOfLanes = numberOfLanes
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldHaveValidationErrorFor(squad => squad.NumberOfLanes).WithErrorMessage("Number of lanes must be greater than 0");
+    }
+
+    [Test]
+    public void NumberOfLanes_GreaterThanZero_NoError()
+    {
+        var squad = new NewEnglandClassic.Models.Sweeper
+        {
+            NumberOfLanes = 1
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldNotHaveValidationErrorFor(squad => squad.NumberOfLanes);
+    }
+
+    [Test]
     public void Complete_False_NoError()
     {
         var sweeper = new NewEnglandClassic.Models.Sweeper
