@@ -25,8 +25,44 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_DivisionsAdapterForTournament_CalledCorrectly()
+    public void Load_ViewSelectBowler_Called()
     {
+        _presenter.Load();
+
+        _view.Verify(view => view.SelectBowler(), Times.Once);
+    }
+
+    [Test]
+    public void Load_ViewSelectedBowlerReturnsNull_ExitFlow()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns((Guid?)null);
+
+        _presenter.Load();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.Close(), Times.Once);
+
+            _divisionsAdapter.Verify(adapter => adapter.ForTournament(It.IsAny<Guid>()), Times.Never);
+            _squadsAdapter.Verify(adapter => adapter.ForTournament(It.IsAny<Guid>()), Times.Never);
+            _sweepersAdapter.Verify(adapter => adapter.ForTournament(It.IsAny<Guid>()), Times.Never);
+            //_bowlersAdapter.Verify(adpater=> adapter.Execute(It.IsAny<Guid>()), Times.Never);
+
+            _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.Disable(), Times.Never);
+
+            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<NewEnglandClassic.Squads.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<NewEnglandClassic.Sweepers.IViewModel>>()), Times.Never);
+            //_view.Verify(view=> view.BindBowler(It.IsAny<NewEnglandClassic.Bowlers.Retrieve.IViewModel>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_DivisionsAdapterForTournament_CalledCorrectly()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
         var tournamentId = Guid.NewGuid();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
@@ -36,8 +72,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_SquadsAdapterForTournament_CalledCorrectly()
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_SquadsAdapterForTournament_CalledCorrectly()
     {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
         var tournamentId = Guid.NewGuid();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
@@ -47,8 +85,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_SweepersAdapterForTournament_CalledCorrectly()
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_SweepersAdapterForTournament_CalledCorrectly()
     {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
         var tournamentId = Guid.NewGuid();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
@@ -58,8 +98,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_AllAdaptersHaveErrors_DivisionAdapterErrorFlow()
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_AllAdaptersHaveErrors_DivisionAdapterErrorFlow()
     {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
         var divisionError = new NewEnglandClassic.Models.ErrorDetail("division");
         _divisionsAdapter.SetupGet(adapter => adapter.Error).Returns(divisionError);
 
@@ -82,8 +124,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_DivisionAdapterNoError_SweeperAndSquadAdapterError_SquadAdapterErrorFlow()
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_DivisionAdapterNoError_SweeperAndSquadAdapterError_SquadAdapterErrorFlow()
     {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
         var squadError = new NewEnglandClassic.Models.ErrorDetail("squad");
         _squadsAdapter.SetupGet(adapter => adapter.Error).Returns(squadError);
 
@@ -103,8 +147,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_DivisionAdapterAndSquadAdapterNoError_SweeperAdapterError_SweeperErrorFlow()
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_DivisionAdapterAndSquadAdapterNoError_SweeperAdapterError_SweeperErrorFlow()
     {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
         var sweeperError = new NewEnglandClassic.Models.ErrorDetail("sweeper");
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
@@ -121,8 +167,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_NoAdapterErrors_ViewBindDivisions_CalledSortedByDivisionNumber()
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_NoAdapterErrors_ViewBindDivisions_CalledSortedByDivisionNumber()
     {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
         var division1 = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         division1.SetupGet(division => division.Number).Returns(1);
 
@@ -151,8 +199,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_NoAdapterErrors_ViewBindSquads_CalledSortedByDate()
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_NoAdapterErrors_ViewBindSquads_CalledSortedByDate()
     {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
         var squad1 = new Mock<NewEnglandClassic.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1));
 
@@ -181,8 +231,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_NoAdapterErrors_ViewBindSweepers_CalledSortedByDate()
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_NoAdapterErrors_ViewBindSweepers_CalledSortedByDate()
     {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
         var sweeper1 = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
         sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1));
 

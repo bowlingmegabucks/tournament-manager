@@ -35,13 +35,30 @@ internal class Presenter
         _retrieveSweepersAdapter = mockSweeperAdapter;
     }
 
-        public void Load()
+    public void Load()
     {
+        var bowlerId = _view.SelectBowler();
+
+        if (bowlerId == null)
+        {
+            _view.Close();
+
+            return;
+        }
+
         var divisionsTask = Task.Run(() => _retrieveDivisionsAdapter.ForTournament(_view.TournamentId));
         var squadsTask = Task.Run(() => _retrieveSquadsAdapter.ForTournament(_view.TournamentId));
         var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.ForTournament(_view.TournamentId));
 
-        Task.WaitAll(divisionsTask, squadsTask, sweepersTask);
+        var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
+
+        //if (bowlerId != Guid.Empty)
+        //{
+        //    var bowlerTask = Task.Run(()=>  RetrieveBowlerAdapter.Execute(bowlerId));
+        //    tasks.Add(bowlerTask);
+        //}
+
+        Task.WaitAll(tasks.ToArray());
 
         if (_retrieveDivisionsAdapter.Error != null)
         {
@@ -58,9 +75,14 @@ internal class Presenter
             _view.DisplayError(_retrieveSweepersAdapter.Error.Message);
             _view.Disable();
         }
+        //else if (RetrieveBowlerAdapter.Error != null)
+        //{
+        //    _view.DisplayError(RetrieveBowlerAdapter.Error.Message);
+        //    _view.Disable();
+        //}
         else
         {
-            _view.BindDivisions(divisionsTask.Result.OrderBy(division=> division.Number));
+            _view.BindDivisions(divisionsTask.Result.OrderBy(division => division.Number));
 
             _view.BindSquads(squadsTask.Result.OrderBy(squad => squad.Date));
             _view.BindSweepers(sweepersTask.Result.OrderBy(sweeper => sweeper.Date));

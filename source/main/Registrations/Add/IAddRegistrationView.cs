@@ -13,4 +13,7 @@ internal interface IView
     void BindSquads(IEnumerable<Squads.IViewModel> squads);
     
     void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers);
+
+    Guid? SelectBowler();
+    void Close();
 }
