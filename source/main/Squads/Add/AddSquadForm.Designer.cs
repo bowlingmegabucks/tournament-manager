@@ -51,7 +51,7 @@ partial class Form
             // ButtonSave
             // 
             this.ButtonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonSave.Location = new System.Drawing.Point(294, 352);
+            this.ButtonSave.Location = new System.Drawing.Point(430, 352);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(75, 23);
             this.ButtonSave.TabIndex = 1;
@@ -69,7 +69,9 @@ partial class Form
             this.SquadNew.Location = new System.Drawing.Point(12, 139);
             this.SquadNew.MaxPerPair = ((short)(0));
             this.SquadNew.Name = "SquadNew";
-            this.SquadNew.Size = new System.Drawing.Size(357, 207);
+            this.SquadNew.NumberOfLanes = ((short)(1));
+            this.SquadNew.Size = new System.Drawing.Size(519, 207);
+            this.SquadNew.StartingLane = ((short)(1));
             this.SquadNew.TabIndex = 0;
             this.SquadNew.TournamentId = new System.Guid("00000000-0000-0000-0000-000000000000");
             // 
@@ -79,7 +81,7 @@ partial class Form
             this.LabelDisclaimer.Location = new System.Drawing.Point(12, 9);
             this.LabelDisclaimer.Name = "LabelDisclaimer";
             this.LabelDisclaimer.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.LabelDisclaimer.Size = new System.Drawing.Size(357, 77);
+            this.LabelDisclaimer.Size = new System.Drawing.Size(519, 77);
             this.LabelDisclaimer.TabIndex = 8;
             this.LabelDisclaimer.Text = "If the desire is to keep the Finals and/or Cash Ratio for this squad the same as " +
     "the tournament default, set the vaules for these fields to zero.";
@@ -98,7 +100,7 @@ partial class Form
             // 
             this.LabelTournamentCashRatio.AutoSize = true;
             this.LabelTournamentCashRatio.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.LabelTournamentCashRatio.Location = new System.Drawing.Point(213, 86);
+            this.LabelTournamentCashRatio.Location = new System.Drawing.Point(349, 86);
             this.LabelTournamentCashRatio.Name = "LabelTournamentCashRatio";
             this.LabelTournamentCashRatio.Size = new System.Drawing.Size(156, 17);
             this.LabelTournamentCashRatio.TabIndex = 10;
@@ -118,7 +120,7 @@ partial class Form
             // TextboxTournamentCashRatio
             // 
             this.TextboxTournamentCashRatio.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TextboxTournamentCashRatio.Location = new System.Drawing.Point(213, 106);
+            this.TextboxTournamentCashRatio.Location = new System.Drawing.Point(349, 106);
             this.TextboxTournamentCashRatio.Name = "TextboxTournamentCashRatio";
             this.TextboxTournamentCashRatio.ReadOnly = true;
             this.TextboxTournamentCashRatio.Size = new System.Drawing.Size(156, 27);
@@ -133,7 +135,7 @@ partial class Form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.CancelButton = this.ButtonCancel;
-            this.ClientSize = new System.Drawing.Size(391, 389);
+            this.ClientSize = new System.Drawing.Size(533, 390);
             this.Controls.Add(this.TextboxTournamentCashRatio);
             this.Controls.Add(this.TextboxTournamentFinalsRatio);
             this.Controls.Add(this.LabelTournamentCashRatio);
