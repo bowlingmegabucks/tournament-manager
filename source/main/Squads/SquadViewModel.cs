@@ -14,6 +14,10 @@ internal class ViewModel : IViewModel
 
     public short MaxPerPair { get; set; }
 
+    public short StartingLane { get; set; }
+
+    public short NumberOfLanes { get; set; }
+
     public bool Complete { get; set; }
 
     public ViewModel(Models.Squad squad)
@@ -24,6 +28,8 @@ internal class ViewModel : IViewModel
         FinalsRatio = squad.FinalsRatio;
         Date = squad.Date;
         MaxPerPair = squad.MaxPerPair;
+        StartingLane = squad.StartingLane;
+        NumberOfLanes = squad.NumberOfLanes;
         Complete = squad.Complete;
     }
 }
@@ -41,6 +47,10 @@ internal interface IViewModel
     DateTime Date { get; set; }
 
     short MaxPerPair { get; set; }
+
+    short StartingLane { get; set; }
+
+    short NumberOfLanes { get; set; }
 
     bool Complete { get; set; }
 }

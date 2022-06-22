@@ -18,6 +18,10 @@ internal class Sweeper
 
     public short MaxPerPair { get; set; }
 
+    public short StartingLane { get; set; }
+
+    public short NumberOfLanes { get;set; }
+
     public bool Complete { get; set; }
 
     public IDictionary<Guid, int?> Divisions { get; set; }
@@ -31,6 +35,8 @@ internal class Sweeper
         CashRatio = viewModel.CashRatio;
         Date = viewModel.Date;
         MaxPerPair = viewModel.MaxPerPair;
+        StartingLane = viewModel.StartingLane;
+        NumberOfLanes = viewModel.NumberOfLanes;
         Complete = viewModel.Complete;
         Divisions = viewModel.Divisions;
     }
@@ -44,6 +50,8 @@ internal class Sweeper
         CashRatio = sweeper.CashRatio!.Value;
         Date = sweeper.Date;
         MaxPerPair = sweeper.MaxPerPair;
+        StartingLane = sweeper.StartingLane;
+        NumberOfLanes = sweeper.NumberOfLanes;
         Complete = sweeper.Complete;
         Divisions = sweeper.Divisions.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame);
     }
