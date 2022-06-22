@@ -56,4 +56,14 @@ public partial class Form : System.Windows.Forms.Form
 
         form.ShowDialog(this);
     }
+
+    private void MenuItemRegistrationAdd_Click(object sender, EventArgs e)
+    {
+        using var form = new Registrations.Add.Form(_config, _id);
+
+        if (!form.IsDisposed)
+        {
+            form.ShowDialog(this);
+        }
+    }
 }

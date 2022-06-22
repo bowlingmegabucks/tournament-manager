@@ -15,5 +15,16 @@ internal interface IView
     void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers);
 
     Guid? SelectBowler();
+
     void Close();
+
+    Bowlers.Add.IViewModel Bowler { get; }
+
+    Guid Division { get; }
+
+    int? Average { get; }
+
+    IEnumerable<Controls.ISelectedIds> Squads { get; }
+
+    IEnumerable<Controls.ISelectedIds> Sweepers { get; }
 }

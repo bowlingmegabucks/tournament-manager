@@ -86,6 +86,7 @@ internal class Presenter
 
             _view.BindSquads(squadsTask.Result.OrderBy(squad => squad.Date));
             _view.BindSweepers(sweepersTask.Result.OrderBy(sweeper => sweeper.Date));
+            //_view.BindBowler(bowlerTask.Result);
         }
     }
 }

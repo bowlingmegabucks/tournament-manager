@@ -61,7 +61,10 @@ public partial class LabelControl : UserControl
 
     private void SetSize()
     {
-        if (!AutoSize) return;
+        if (!AutoSize)
+        {
+            return;
+        }
 
         LabelText.AutoSize = true;
 
