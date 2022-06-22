@@ -87,6 +87,18 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
         }
     }
 
+    public short StartingLane
+    {
+        get => (short)NumericStartingLane.Value;
+        set => NumericStartingLane.Value = value;
+    }
+
+    public short NumberOfLanes
+    {
+        get => (short)NumericNumberOfLanes.Value;
+        set => NumericNumberOfLanes.Value = value;
+    }
+
     public bool Complete { get; set; }
 
     public IDictionary<Guid, int?> Divisions

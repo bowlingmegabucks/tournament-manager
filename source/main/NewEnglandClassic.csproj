@@ -8,7 +8,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<RootNamespace>NewEnglandClassic</RootNamespace>
 		<UserSecretsId>745ea9ba-042a-436d-bfa8-5a5a19950236</UserSecretsId>
-		<Version>0.1.0</Version>
+		<Version>0.1.1</Version>
 		<ApplicationIcon>Resources\NEC.ico</ApplicationIcon>
 	</PropertyGroup>
 
@@ -40,8 +40,8 @@
 	
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

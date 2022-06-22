@@ -88,6 +88,34 @@ internal class Squad
     }
 
     [Test]
+    public void Constructor_SquadEntity_StartingLaneMapped()
+    {
+        var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
+        {
+            StartingLane = 1,
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
+        };
+
+        var model = new NewEnglandClassic.Models.Squad(entity);
+
+        Assert.That(model.StartingLane, Is.EqualTo(entity.StartingLane));
+    }
+
+    [Test]
+    public void Constructor_SquadEntity_NumberOfLanesMapped()
+    {
+        var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
+        {
+            NumberOfLanes = 32,
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
+        };
+
+        var model = new NewEnglandClassic.Models.Squad(entity);
+
+        Assert.That(model.NumberOfLanes, Is.EqualTo(entity.NumberOfLanes));
+    }
+
+    [Test]
     public void Constructor_SquadEntity_CompleteMapped([Values] bool complete)
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
@@ -165,6 +193,28 @@ internal class Squad
         var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
 
         Assert.That(model.MaxPerPair, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_StartingLaneMapped()
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.StartingLane).Returns(1);
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.StartingLane, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_NumberOfLanesMapped()
+    {
+        var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.NumberOfLanes).Returns(32);
+
+        var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
+
+        Assert.That(model.NumberOfLanes, Is.EqualTo(32));
     }
 
     [Test]
