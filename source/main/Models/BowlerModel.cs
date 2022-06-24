@@ -30,6 +30,25 @@ internal class Bowler
 
     public Gender? Gender { get; set; }
 
+    public int? Age => AgeOn(DateOnly.FromDateTime(DateTime.Today));
+
+    internal int? AgeOn(DateOnly date)
+    {
+        if (!DateOfBirth.HasValue)
+        {
+            return null;
+        }
+
+        var age = date.Year - DateOfBirth.Value.Year;
+
+        if (DateOfBirth > date.AddYears(-age))
+        {
+            age--;
+        }
+
+        return age;
+    }
+
     public Bowler(Database.Entities.Bowler bowler)
     {
         Id = bowler.Id;

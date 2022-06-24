@@ -12,6 +12,8 @@ internal class Registration
 
     public IEnumerable<Guid> Sweepers { get; set; }
 
+    internal DateOnly TournamentStartDate { get; init; }
+
     public Registration(Guid bowlerId, Guid divisionId, IEnumerable<Guid> squads, IEnumerable<Guid> sweepers, int? average)
     {
         Bowler = new Bowler { Id = bowlerId };
@@ -21,5 +23,17 @@ internal class Registration
         Sweepers = sweepers;
 
         Average = average;
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal Registration()
+    {
+        Bowler = new Bowler();
+        Division = new Division();
+
+        Squads = Enumerable.Empty<Guid>();
+        Sweepers = Enumerable.Empty<Guid>();
     }
 }
