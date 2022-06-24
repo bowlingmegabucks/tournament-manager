@@ -3,8 +3,6 @@
 namespace NewEnglandClassic.Registrations.Add;
 internal class Validator : AbstractValidator<Models.Registration>
 {
-
-    //todo: putting individual rules in for now, but need to handle case where bowler meets one requirement but not another (namely Over 55 / Women division)
     public Validator()
     {
         RuleFor(registration => registration.Bowler).SetValidator(new Bowlers.Add.Validator());
