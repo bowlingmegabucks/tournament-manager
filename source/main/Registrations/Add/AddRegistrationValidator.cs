@@ -31,7 +31,4 @@ internal class Validator : AbstractValidator<Models.Registration>
 
         RuleFor(registration => registration.Squads).NotEmpty().WithMessage("Bowler must enter at least one squad");
     }
-
-    private bool BowlerIsAgeAppropriate(int? age, int? minimumAge, int? maximumAge)
-        => age.HasValue && age.Value >= minimumAge.GetValueOrDefault(0) && age.Value <= maximumAge.GetValueOrDefault(999);
 }
