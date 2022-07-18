@@ -29,6 +29,9 @@ internal class Repository : IRepository
 
     IEnumerable<Database.Entities.Division> IRepository.ForTournament(Guid tournamentId)
         => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId).AsEnumerable();
+
+    Database.Entities.Division IRepository.Retrieve(Guid id)
+        => _dataContext.Divisions.Single(division => division.Id == id);
 }
 
 internal interface IRepository
@@ -36,4 +39,6 @@ internal interface IRepository
     Guid Add(Database.Entities.Division division);
 
     IEnumerable<Database.Entities.Division> ForTournament(Guid tournamentId);
+
+    Database.Entities.Division Retrieve(Guid id);
 }
