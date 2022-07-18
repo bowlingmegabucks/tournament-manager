@@ -76,12 +76,67 @@ COMMIT;
 
 START TRANSACTION;
 
+CREATE TABLE `Bowlers` (
+    `Id` char(36) COLLATE ascii_general_ci NOT NULL,
+    `FirstName` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `MiddleInitial` char(1) CHARACTER SET utf8mb4 NOT NULL,
+    `LastName` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `Suffix` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `StreetAddress` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `CityAddress` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `StateAddress` char(2) CHARACTER SET utf8mb4 NOT NULL,
+    `ZipCode` char(9) CHARACTER SET utf8mb4 NOT NULL,
+    `EmailAddress` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `PhoneNumber` char(10) CHARACTER SET utf8mb4 NOT NULL,
+    `USBCId` longtext CHARACTER SET utf8mb4 NOT NULL,
+    `DateOfBirth` datetime(6) NULL,
+    `Gender` int NULL,
+    CONSTRAINT `PK_Bowlers` PRIMARY KEY (`Id`)
+) CHARACTER SET=utf8mb4;
+
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20220615233907_BowlerEntity', '6.0.6');
+
+COMMIT;
+
+START TRANSACTION;
+
 ALTER TABLE `Squads` ADD `NumberOfLanes` smallint NOT NULL DEFAULT 0;
 
 ALTER TABLE `Squads` ADD `StartingLane` smallint NOT NULL DEFAULT 0;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('20220622145345_StartingAndNumberOfLanes', '6.0.6');
+
+COMMIT;
+
+START TRANSACTION;
+
+CREATE TABLE `Registration` (
+    `Id` char(36) COLLATE ascii_general_ci NOT NULL,
+    `BowlerId` char(36) COLLATE ascii_general_ci NOT NULL,
+    `DivisionId` char(36) COLLATE ascii_general_ci NOT NULL,
+    `Average` int NULL,
+    CONSTRAINT `PK_Registration` PRIMARY KEY (`Id`),
+    CONSTRAINT `AK_Registration_BowlerId_DivisionId` UNIQUE (`BowlerId`, `DivisionId`),
+    CONSTRAINT `FK_Registration_Bowlers_BowlerId` FOREIGN KEY (`BowlerId`) REFERENCES `Bowlers` (`Id`),
+    CONSTRAINT `FK_Registration_Divisions_DivisionId` FOREIGN KEY (`DivisionId`) REFERENCES `Divisions` (`Id`)
+) CHARACTER SET=utf8mb4;
+
+CREATE TABLE `SquadRegistration` (
+    `RegistrationId` char(36) COLLATE ascii_general_ci NOT NULL,
+    `SquadId` char(36) COLLATE ascii_general_ci NOT NULL,
+    CONSTRAINT `PK_SquadRegistration` PRIMARY KEY (`RegistrationId`, `SquadId`),
+    CONSTRAINT `FK_SquadRegistration_Registration_RegistrationId` FOREIGN KEY (`RegistrationId`) REFERENCES `Registration` (`Id`),
+    CONSTRAINT `FK_SquadRegistration_Squads_SquadId` FOREIGN KEY (`SquadId`) REFERENCES `Squads` (`Id`)
+) CHARACTER SET=utf8mb4;
+
+CREATE INDEX `IX_Registration_DivisionId` ON `Registration` (`DivisionId`);
+
+CREATE INDEX `IX_SquadRegistration_SquadId` ON `SquadRegistration` (`SquadId`);
+
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20220718150514_AddRegistration', '6.0.6');
 
 COMMIT;
 

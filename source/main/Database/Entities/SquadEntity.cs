@@ -31,6 +31,8 @@ internal abstract class Squad
     [Required]
     public short NumberOfLanes { get; set; }
 
+    public ICollection<SquadRegistration> Registrations { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<Squad>
     {
         public void Configure(EntityTypeBuilder<Squad> builder) 
