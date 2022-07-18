@@ -2,6 +2,8 @@
 namespace NewEnglandClassic.Models;
 internal class Registration
 {
+    public Guid Id { get; set; }
+
     public Bowler Bowler { get; set; }
 
     public Division Division { get; set; }

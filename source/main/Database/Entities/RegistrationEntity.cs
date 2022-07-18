@@ -20,7 +20,7 @@ internal class Registration
 
     public int? Average { get; set; }
 
-    public ICollection<SquadRegistration> Sqauds { get; set; } = null!;
+    public ICollection<SquadRegistration> Squads { get; set; } = null!;
 
     internal class Configuration : IEntityTypeConfiguration<Registration>
     {

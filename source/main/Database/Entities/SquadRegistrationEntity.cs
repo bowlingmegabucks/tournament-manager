@@ -27,7 +27,7 @@ internal class SquadRegistration
                    .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(squadRegistration => squadRegistration.Registration)
-                   .WithMany(registration => registration.Sqauds)
+                   .WithMany(registration => registration.Squads)
                    .HasForeignKey(squadRegistration => squadRegistration.RegistrationId)
                    .OnDelete(DeleteBehavior.NoAction);
         }
