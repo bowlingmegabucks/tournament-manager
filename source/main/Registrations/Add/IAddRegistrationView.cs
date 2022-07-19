@@ -14,6 +14,8 @@ internal interface IView
     
     void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers);
 
+    void BindBowler(Bowlers.Retrieve.IViewModel bowler);
+
     Guid? SelectBowler();
 
     void Close();

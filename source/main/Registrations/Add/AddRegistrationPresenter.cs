@@ -9,6 +9,9 @@ internal class Presenter
     private readonly Squads.Retrieve.IAdapter _retrieveSquadsAdapter;
     private readonly Sweepers.Retrieve.IAdapter _retrieveSweepersAdapter;
 
+    private readonly Lazy<Bowlers.Retrieve.IAdapter> _retrieveBowlerAdapter;
+    private Bowlers.Retrieve.IAdapter RetrieveBowlerAdapter => _retrieveBowlerAdapter.Value;
+
     public Presenter(IConfiguration config, IView view)
     {
         _view = view;
@@ -17,6 +20,8 @@ internal class Presenter
 
         _retrieveSquadsAdapter = new Squads.Retrieve.Adapter(config);
         _retrieveSweepersAdapter = new Sweepers.Retrieve.Adapter(config);
+
+        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => new Bowlers.Retrieve.Adapter());
     }
 
     /// <summary>
@@ -26,13 +31,14 @@ internal class Presenter
     /// <param name="mockDivisionAdapter"></param>
     /// <param name="mockSquadAdapter"></param>
     /// <param name="mockSweeperAdapter"></param>
-    internal Presenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter, Squads.Retrieve.IAdapter mockSquadAdapter, Sweepers.Retrieve.IAdapter mockSweeperAdapter)
+    internal Presenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter, Squads.Retrieve.IAdapter mockSquadAdapter, Sweepers.Retrieve.IAdapter mockSweeperAdapter, Bowlers.Retrieve.IAdapter mockBowlerAdapter)
     {
         _view = mockView;
 
         _retrieveDivisionsAdapter = mockDivisionAdapter;
         _retrieveSquadsAdapter = mockSquadAdapter;
         _retrieveSweepersAdapter = mockSweeperAdapter;
+        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => mockBowlerAdapter);
     }
 
     public void Load()
@@ -52,11 +58,12 @@ internal class Presenter
 
         var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
 
-        //if (bowlerId != Guid.Empty)
-        //{
-        //    var bowlerTask = Task.Run(()=>  RetrieveBowlerAdapter.Execute(bowlerId));
-        //    tasks.Add(bowlerTask);
-        //}
+        var bowlerTask = Task.Run(() => RetrieveBowlerAdapter.Execute(bowlerId.Value));
+
+        if (bowlerId != Guid.Empty)
+        {
+            tasks.Add(bowlerTask);
+        }
 
         Task.WaitAll(tasks.ToArray());
 
@@ -75,18 +82,22 @@ internal class Presenter
             _view.DisplayError(_retrieveSweepersAdapter.Error.Message);
             _view.Disable();
         }
-        //else if (RetrieveBowlerAdapter.Error != null)
-        //{
-        //    _view.DisplayError(RetrieveBowlerAdapter.Error.Message);
-        //    _view.Disable();
-        //}
+        else if (RetrieveBowlerAdapter.Error != null)
+        {
+            _view.DisplayError(RetrieveBowlerAdapter.Error.Message);
+            _view.Disable();
+        }
         else
         {
             _view.BindDivisions(divisionsTask.Result.OrderBy(division => division.Number));
 
             _view.BindSquads(squadsTask.Result.OrderBy(squad => squad.Date));
             _view.BindSweepers(sweepersTask.Result.OrderBy(sweeper => sweeper.Date));
-            //_view.BindBowler(bowlerTask.Result);
+
+            if (tasks.Contains(bowlerTask))
+            {
+                _view.BindBowler(bowlerTask.Result!);
+            }   
         }
     }
 }

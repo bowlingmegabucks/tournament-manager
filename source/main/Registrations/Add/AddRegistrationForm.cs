@@ -73,6 +73,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
+    public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
+    { }
+
     public void Disable()
     {
         BowlerControl.Enabled = false;

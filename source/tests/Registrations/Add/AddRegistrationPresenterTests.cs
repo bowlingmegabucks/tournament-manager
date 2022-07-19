@@ -9,6 +9,7 @@ internal class Presenter
     private Mock<NewEnglandClassic.Divisions.Retrieve.IAdapter> _divisionsAdapter;
     private Mock<NewEnglandClassic.Squads.Retrieve.IAdapter> _squadsAdapter;
     private Mock<NewEnglandClassic.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
+    private Mock<NewEnglandClassic.Bowlers.Retrieve.IAdapter> _bowlersAdapter;
 
     private NewEnglandClassic.Registrations.Add.Presenter _presenter;
 
@@ -20,8 +21,9 @@ internal class Presenter
         _divisionsAdapter = new Mock<NewEnglandClassic.Divisions.Retrieve.IAdapter>();
         _squadsAdapter = new Mock<NewEnglandClassic.Squads.Retrieve.IAdapter>();
         _sweepersAdapter = new Mock<NewEnglandClassic.Sweepers.Retrieve.IAdapter>();
+        _bowlersAdapter = new Mock<NewEnglandClassic.Bowlers.Retrieve.IAdapter>();
 
-        _presenter = new NewEnglandClassic.Registrations.Add.Presenter(_view.Object, _divisionsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object);
+        _presenter = new NewEnglandClassic.Registrations.Add.Presenter(_view.Object, _divisionsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _bowlersAdapter.Object);
     }
 
     [Test]
@@ -46,7 +48,7 @@ internal class Presenter
             _divisionsAdapter.Verify(adapter => adapter.ForTournament(It.IsAny<Guid>()), Times.Never);
             _squadsAdapter.Verify(adapter => adapter.ForTournament(It.IsAny<Guid>()), Times.Never);
             _sweepersAdapter.Verify(adapter => adapter.ForTournament(It.IsAny<Guid>()), Times.Never);
-            //_bowlersAdapter.Verify(adpater=> adapter.Execute(It.IsAny<Guid>()), Times.Never);
+            _bowlersAdapter.Verify(adapter=> adapter.Execute(It.IsAny<Guid>()), Times.Never);
 
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Disable(), Times.Never);
@@ -54,7 +56,7 @@ internal class Presenter
             _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>()), Times.Never);
             _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<NewEnglandClassic.Squads.IViewModel>>()), Times.Never);
             _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<NewEnglandClassic.Sweepers.IViewModel>>()), Times.Never);
-            //_view.Verify(view=> view.BindBowler(It.IsAny<NewEnglandClassic.Bowlers.Retrieve.IViewModel>()), Times.Never);
+            _view.Verify(view=> view.BindBowler(It.IsAny<NewEnglandClassic.Bowlers.Retrieve.IViewModel>()), Times.Never);
         });
     }
 
@@ -98,6 +100,34 @@ internal class Presenter
     }
 
     [Test]
+    [Ignore("Need to figure out how to test inside Task.Run")]
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_BowlerAdapterExecute_NotCalled()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
+        var tournamentId = Guid.NewGuid();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        _bowlersAdapter.Verify(adapter => adapter.Execute(It.IsAny<Guid>()), Times.Never);
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsGuid_BowlerAdapterExecute_CalledCorrectly()
+    {
+        var bowlerId = Guid.NewGuid();
+        _view.Setup(view => view.SelectBowler()).Returns(bowlerId);
+
+        var tournamentId = Guid.NewGuid();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        _bowlersAdapter.Verify(adapter => adapter.Execute(bowlerId), Times.Once);
+    }
+
+    [Test]
     public void Load_ViewSelectBowler_ReturnsEmptyGuid_AllAdaptersHaveErrors_DivisionAdapterErrorFlow()
     {
         _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
@@ -110,6 +140,9 @@ internal class Presenter
 
         var sweeperError = new NewEnglandClassic.Models.ErrorDetail("sweeper");
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
+
+        var bowlerError = new NewEnglandClassic.Models.ErrorDetail("bowler");
+        _bowlersAdapter.SetupGet(adapter=> adapter.Error).Returns(bowlerError);
 
         var tournamentId = Guid.NewGuid();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
@@ -260,5 +293,28 @@ internal class Presenter
 
             _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NewEnglandClassic.Sweepers.IViewModel>>(sweepers => sweepers.ToList().Count == 3)), Times.Once);
         });
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyGuid_NoAdapterErrors_ViewBindBowler_NotCalled()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.Empty);
+
+        _presenter.Load();
+
+        _view.Verify(view => view.BindBowler(It.IsAny<NewEnglandClassic.Bowlers.Retrieve.IViewModel>()), Times.Never);
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsGuid_NoAdapterErrors_ViewBindBowler_CalledCorrectly()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(Guid.NewGuid());
+
+        var bowler = new Mock<NewEnglandClassic.Bowlers.Retrieve.IViewModel>();
+        _bowlersAdapter.Setup(adapter => adapter.Execute(It.IsAny<Guid>())).Returns(bowler.Object);
+
+        _presenter.Load();
+
+        _view.Verify(view => view.BindBowler(bowler.Object), Times.Once);
     }
 }
