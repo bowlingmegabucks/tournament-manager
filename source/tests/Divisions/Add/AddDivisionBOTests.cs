@@ -43,7 +43,7 @@ internal class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("error");
+            _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(result, Is.Null);
 
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>()), Times.Never);
@@ -77,7 +77,7 @@ internal class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
-            _businessLogic.Errors.HasErrorMessage("exception");
+            _businessLogic.Errors.Assert_HasErrorMessage("exception");
         });
     }
 
