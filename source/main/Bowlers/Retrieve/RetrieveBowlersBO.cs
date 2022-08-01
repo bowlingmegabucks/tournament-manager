@@ -10,7 +10,7 @@ internal class BusinessLogic : IBusinessLogic
     }
 
     public Models.Bowler? Execute(Guid id)
-        => throw new NotImplementedException();
+        => null;
 }
 
 internal interface IBusinessLogic
