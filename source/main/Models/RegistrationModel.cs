@@ -14,7 +14,7 @@ internal class Registration
 
     public IEnumerable<Guid> Sweepers { get; set; }
 
-    internal DateOnly TournamentStartDate { get; init; }
+    internal DateOnly TournamentStartDate { get; set; }
 
     public Registration(Guid bowlerId, Guid divisionId, IEnumerable<Guid> squads, IEnumerable<Guid> sweepers, int? average)
     {

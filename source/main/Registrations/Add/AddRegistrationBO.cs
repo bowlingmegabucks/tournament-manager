@@ -4,6 +4,9 @@ internal class BusinessLogic : IBusinessLogic
 {
     private readonly Divisions.Retrieve.IBusinessLogic _getDivisionBO;
 
+    private readonly Lazy<Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
+    private Tournaments.Retrieve.IBusinessLogic GetTournamentBO => _getTournamentBO.Value;
+
     private readonly Lazy<Bowlers.Retrieve.IBusinessLogic> _getBowlerBO;
     private Bowlers.Retrieve.IBusinessLogic GetBowlerBO => _getBowlerBO.Value;
 
@@ -16,6 +19,7 @@ internal class BusinessLogic : IBusinessLogic
     public BusinessLogic(IConfiguration config)
     {
         _getDivisionBO = new Divisions.Retrieve.BusinessLogic(config);
+        _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
         _getBowlerBO = new Lazy<Bowlers.Retrieve.IBusinessLogic>(() => new Bowlers.Retrieve.BusinessLogic());
         _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(() => new Validator());
         _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
@@ -25,12 +29,14 @@ internal class BusinessLogic : IBusinessLogic
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockGetDivisionBO"></param>
+    /// <param name="mockGetTournamentBO"></param>
     /// <param name="mockGetBowlerBO"></param>
     /// <param name="mockValidator"></param>
     /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(Divisions.Retrieve.IBusinessLogic mockGetDivisionBO, Bowlers.Retrieve.IBusinessLogic mockGetBowlerBO, FluentValidation.IValidator<Models.Registration> mockValidator, IDataLayer mockDataLayer)
+    internal BusinessLogic(Divisions.Retrieve.IBusinessLogic mockGetDivisionBO, Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, Bowlers.Retrieve.IBusinessLogic mockGetBowlerBO, FluentValidation.IValidator<Models.Registration> mockValidator, IDataLayer mockDataLayer)
     {
         _getDivisionBO = mockGetDivisionBO;
+        _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => mockGetTournamentBO);
         _getBowlerBO = new Lazy<Bowlers.Retrieve.IBusinessLogic>(() => mockGetBowlerBO);
         _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(()=> mockValidator);
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
@@ -51,7 +57,16 @@ internal class BusinessLogic : IBusinessLogic
 
         registration.Division = division!;
 
-        //todo: get tournament start date
+        var tournament = GetTournamentBO.FromDivisionId(division!.Id);
+
+        if (GetTournamentBO.Error is not null)
+        {
+            Errors = new[] { GetTournamentBO.Error };
+
+            return null;
+        }
+
+        registration.TournamentStartDate = tournament!.Start;
 
         if (registration.Bowler.Id != Guid.Empty)
         {
