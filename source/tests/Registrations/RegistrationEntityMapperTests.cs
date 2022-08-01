@@ -4,11 +4,17 @@ namespace NewEnglandClassic.Tests.Registrations;
 [TestFixture]
 internal class EntityMapper
 {
+    private Mock<NewEnglandClassic.Bowlers.IEntityMapper> _bowlerEntityMapper;
+
     private NewEnglandClassic.Registrations.IEntityMapper _mapper;
 
-    [OneTimeSetUp]
+    [SetUp]
     public void SetUp()
-        => _mapper = new NewEnglandClassic.Registrations.EntityMapper();
+    { 
+        _bowlerEntityMapper = new Mock<NewEnglandClassic.Bowlers.IEntityMapper>();
+
+        _mapper = new NewEnglandClassic.Registrations.EntityMapper(_bowlerEntityMapper.Object);
+    }
 
     [Test]
     public void Execute_RegistrationIdMapped()
@@ -34,6 +40,35 @@ internal class EntityMapper
         var entity = _mapper.Execute(model);
 
         Assert.That(entity.BowlerId, Is.EqualTo(model.Bowler.Id));
+    }
+
+    [Test]
+    public void Execute_BowlerEntityMapperExecute_CalledCorrectly()
+    {
+        var model = new NewEnglandClassic.Models.Registration
+        {
+            Bowler = new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }
+        };
+
+        _mapper.Execute(model);
+
+        _bowlerEntityMapper.Verify(mapper => mapper.Execute(model.Bowler), Times.Once);
+    }
+
+    [Test]
+    public void Execute_BowlerMapped()
+    {
+        var bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = Guid.NewGuid()};
+        _bowlerEntityMapper.Setup(mapper => mapper.Execute(It.IsAny<NewEnglandClassic.Models.Bowler>())).Returns(bowler);
+
+        var model = new NewEnglandClassic.Models.Registration
+        {
+            Bowler = new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.Bowler, Is.EqualTo(bowler));
     }
 
     [Test]
