@@ -712,4 +712,47 @@ internal class Validator
         var results = _validator.TestValidate(registration);
         results.ShouldNotHaveValidationErrorFor(registration => registration.Squads);
     }
+
+    [Test]
+    [Category("Real")]
+    public void AshlieInWomensDivision_Allowed()
+    {
+        var squads = Enumerable.Repeat(Guid.NewGuid(), 2);
+
+        var division = new NewEnglandClassic.Models.Division
+        {
+            MinimumAge = 55,
+            Gender = NewEnglandClassic.Models.Gender.Female
+        };
+
+        var bowler = new NewEnglandClassic.Models.Bowler
+        {
+            FirstName = "Ashlie",
+            MiddleInitial = "S",
+            LastName = "Kipperman",
+            StreetAddress = "123 Anywhere Rd",
+            CityAddress = "Hartford",
+            StateAddress = "CT",
+            ZipCode = "12345",
+            EmailAddress = "email@gmail.com",
+            PhoneNumber = "1234567890",
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Now.AddYears(-30)),
+            Gender = NewEnglandClassic.Models.Gender.Female,
+            USBCId = "123-456"
+        };
+
+        var registration = new NewEnglandClassic.Models.Registration
+        {
+            Bowler = bowler,
+            Average = null,
+            Division = division,
+            Squads = squads,
+            Sweepers = Enumerable.Empty<Guid>(),
+            TournamentStartDate = new DateOnly(DateTime.Now.Year, 11, 24)
+        };
+
+        var results = _validator.Validate(registration);
+
+        Assert.That(results.IsValid, Is.True);
+    }
 }
