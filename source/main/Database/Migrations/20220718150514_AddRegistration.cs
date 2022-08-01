@@ -10,7 +10,7 @@ public partial class AddRegistration : Migration
     protected override void Up(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.CreateTable(
-            name: "Registration",
+            name: "Registrations",
             columns: table => new
             {
                 Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -20,15 +20,15 @@ public partial class AddRegistration : Migration
             },
             constraints: table =>
             {
-                table.PrimaryKey("PK_Registration", x => x.Id);
-                table.UniqueConstraint("AK_Registration_BowlerId_DivisionId", x => new { x.BowlerId, x.DivisionId });
+                table.PrimaryKey("PK_Registrations", x => x.Id);
+                table.UniqueConstraint("AK_Registrations_BowlerId_DivisionId", x => new { x.BowlerId, x.DivisionId });
                 table.ForeignKey(
-                    name: "FK_Registration_Bowlers_BowlerId",
+                    name: "FK_Registrations_Bowlers_BowlerId",
                     column: x => x.BowlerId,
                     principalTable: "Bowlers",
                     principalColumn: "Id");
                 table.ForeignKey(
-                    name: "FK_Registration_Divisions_DivisionId",
+                    name: "FK_Registrations_Divisions_DivisionId",
                     column: x => x.DivisionId,
                     principalTable: "Divisions",
                     principalColumn: "Id");
@@ -48,7 +48,7 @@ public partial class AddRegistration : Migration
                 table.ForeignKey(
                     name: "FK_SquadRegistration_Registration_RegistrationId",
                     column: x => x.RegistrationId,
-                    principalTable: "Registration",
+                    principalTable: "Registrations",
                     principalColumn: "Id");
                 table.ForeignKey(
                     name: "FK_SquadRegistration_Squads_SquadId",
@@ -59,8 +59,8 @@ public partial class AddRegistration : Migration
             .Annotation("MySql:CharSet", "utf8mb4");
 
         migrationBuilder.CreateIndex(
-            name: "IX_Registration_DivisionId",
-            table: "Registration",
+            name: "IX_Registrations_DivisionId",
+            table: "Registrations",
             column: "DivisionId");
 
         migrationBuilder.CreateIndex(
@@ -75,6 +75,6 @@ public partial class AddRegistration : Migration
             name: "SquadRegistration");
 
         migrationBuilder.DropTable(
-            name: "Registration");
+            name: "Registrations");
     }
 }
