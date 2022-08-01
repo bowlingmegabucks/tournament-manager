@@ -5,6 +5,24 @@ namespace NewEnglandClassic.Tests.Models;
 internal class Registration
 {
     [Test]
+    public void Constructor_BowlerSetToValue()
+    {
+        var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        bowler.SetupGet(b => b.LastName).Returns("lastName");
+
+        var divisionId = Guid.NewGuid();
+
+        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+
+        var average = 200;
+
+        var registration = new NewEnglandClassic.Models.Registration(new NewEnglandClassic.Models.Bowler(bowler.Object), divisionId, squads, sweepers, average);
+
+        Assert.That(registration.Bowler.LastName, Is.EqualTo("lastName"));
+    }
+
+    [Test]
     public void Constructor_BowlerInstanciatedWithId()
     {
         var bowlerId = Guid.NewGuid();
