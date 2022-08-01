@@ -38,9 +38,9 @@ partial class Form
             this.GroupboxSquads = new System.Windows.Forms.GroupBox();
             this.FlowLayoutPanelSquads = new System.Windows.Forms.FlowLayoutPanel();
             this.GroupboxSweepers = new System.Windows.Forms.GroupBox();
+            this.FlowLayoutPanelSweepers = new System.Windows.Forms.FlowLayoutPanel();
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.ButtonSave = new System.Windows.Forms.Button();
-            this.FlowLayoutPanelSweepers = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderRegistration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericAverage)).BeginInit();
             this.GroupboxSquads.SuspendLayout();
@@ -155,6 +155,15 @@ partial class Form
             this.GroupboxSweepers.TabStop = false;
             this.GroupboxSweepers.Text = "Sweepers";
             // 
+            // FlowLayoutPanelSweepers
+            // 
+            this.FlowLayoutPanelSweepers.AutoScroll = true;
+            this.FlowLayoutPanelSweepers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FlowLayoutPanelSweepers.Location = new System.Drawing.Point(3, 19);
+            this.FlowLayoutPanelSweepers.Name = "FlowLayoutPanelSweepers";
+            this.FlowLayoutPanelSweepers.Size = new System.Drawing.Size(270, 128);
+            this.FlowLayoutPanelSweepers.TabIndex = 116;
+            // 
             // ButtonCancel
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -174,15 +183,7 @@ partial class Form
             this.ButtonSave.TabIndex = 113;
             this.ButtonSave.Text = "Save";
             this.ButtonSave.UseVisualStyleBackColor = true;
-            // 
-            // FlowLayoutPanelSweepers
-            // 
-            this.FlowLayoutPanelSweepers.AutoScroll = true;
-            this.FlowLayoutPanelSweepers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FlowLayoutPanelSweepers.Location = new System.Drawing.Point(3, 19);
-            this.FlowLayoutPanelSweepers.Name = "FlowLayoutPanelSweepers";
-            this.FlowLayoutPanelSweepers.Size = new System.Drawing.Size(270, 128);
-            this.FlowLayoutPanelSweepers.TabIndex = 116;
+            this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // Form
             // 

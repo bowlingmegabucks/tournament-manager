@@ -95,4 +95,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }
+
+    private void ButtonSave_Click(object sender, EventArgs e)
+        => new Presenter(_config, this).Execute();
 }
