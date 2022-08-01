@@ -12,6 +12,9 @@ internal class Presenter
     private readonly Lazy<Bowlers.Retrieve.IAdapter> _retrieveBowlerAdapter;
     private Bowlers.Retrieve.IAdapter RetrieveBowlerAdapter => _retrieveBowlerAdapter.Value;
 
+    private readonly Lazy<IAdapter> _adapter;
+    private IAdapter Adapter => _adapter.Value;
+
     public Presenter(IConfiguration config, IView view)
     {
         _view = view;
@@ -22,6 +25,8 @@ internal class Presenter
         _retrieveSweepersAdapter = new Sweepers.Retrieve.Adapter(config);
 
         _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => new Bowlers.Retrieve.Adapter());
+
+        _adapter = new Lazy<IAdapter>(() => new Adapter(config));
     }
 
     /// <summary>
@@ -31,7 +36,9 @@ internal class Presenter
     /// <param name="mockDivisionAdapter"></param>
     /// <param name="mockSquadAdapter"></param>
     /// <param name="mockSweeperAdapter"></param>
-    internal Presenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter, Squads.Retrieve.IAdapter mockSquadAdapter, Sweepers.Retrieve.IAdapter mockSweeperAdapter, Bowlers.Retrieve.IAdapter mockBowlerAdapter)
+    /// <param name="mockBowlerAdapter"></param>
+    /// <param name="mockAdapter"></param>
+    internal Presenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter, Squads.Retrieve.IAdapter mockSquadAdapter, Sweepers.Retrieve.IAdapter mockSweeperAdapter, Bowlers.Retrieve.IAdapter mockBowlerAdapter, IAdapter mockAdapter)
     {
         _view = mockView;
 
@@ -39,6 +46,7 @@ internal class Presenter
         _retrieveSquadsAdapter = mockSquadAdapter;
         _retrieveSweepersAdapter = mockSweeperAdapter;
         _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => mockBowlerAdapter);
+        _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
     public void Load()
@@ -103,6 +111,23 @@ internal class Presenter
 
     public void Execute()
     {
+        if (!_view.IsValid())
+        {
+            _view.KeepOpen();
+            return;
+        }
 
+        Adapter.Execute(_view.Bowler, _view.Division, _view.Squads, _view.Sweepers, _view.Average);
+
+        if (Adapter.Errors.Any())
+        {
+            _view.KeepOpen();
+            _view.DisplayError(string.Join(Environment.NewLine, Adapter.Errors.Select(error => error.Message)));
+        }
+        else
+        {
+            _view.DisplayMessage("Registration added");
+            _view.Close();
+        }
     }
 }

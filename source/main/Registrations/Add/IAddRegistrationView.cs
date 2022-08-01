@@ -26,7 +26,13 @@ internal interface IView
 
     int? Average { get; }
 
-    IEnumerable<Controls.ISelectedIds> Squads { get; }
+    IEnumerable<Guid> Squads { get; }
 
-    IEnumerable<Controls.ISelectedIds> Sweepers { get; }
+    IEnumerable<Guid> Sweepers { get; }
+
+    bool IsValid();
+
+    void KeepOpen();
+
+    void DisplayMessage(string message);
 }

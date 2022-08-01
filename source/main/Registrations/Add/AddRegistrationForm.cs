@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace NewEnglandClassic.Registrations.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
@@ -40,13 +33,13 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => BowlerControl;
 
     public int? Average
-        => NumericAverage.Value == 0 ? (int?)null : (int)NumericAverage.Value;
+        => NumericAverage.Value == 0 ? null : (int)NumericAverage.Value;
 
-    public IEnumerable<Controls.ISelectedIds> Squads
-        => FlowLayoutPanelSquads.Controls.OfType<Controls.ISelectedIds>().AsEnumerable();
+    public IEnumerable<Guid> Squads
+        => FlowLayoutPanelSquads.Controls.OfType<Controls.ISelectedIds>().Select(control => control.Id).AsEnumerable();
 
-    public IEnumerable<Controls.ISelectedIds> Sweepers
-        => FlowLayoutPanelSweepers.Controls.OfType<Controls.ISelectedIds>().AsEnumerable();
+    public IEnumerable<Guid> Sweepers
+        => FlowLayoutPanelSweepers.Controls.OfType<Controls.ISelectedIds>().Select(control => control.Id).AsEnumerable();
 
     private void ComboBoxDivisions_Validating(object sender, CancelEventArgs e)
     {
@@ -87,7 +80,11 @@ internal partial class Form : System.Windows.Forms.Form, IView
         GroupboxSweepers.Enabled = false;
     }
 
-    public void DisplayError(string message) => throw new NotImplementedException();
+    public void DisplayError(string message)
+        => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+    public void DisplayMessage(string message)
+        => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
     public Guid? SelectBowler()
     {
@@ -95,6 +92,12 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }
+
+    public bool IsValid()
+        => ValidateChildren();
+
+    public void KeepOpen()
+        => DialogResult = DialogResult.None;
 
     private void ButtonSave_Click(object sender, EventArgs e)
         => new Presenter(_config, this).Execute();

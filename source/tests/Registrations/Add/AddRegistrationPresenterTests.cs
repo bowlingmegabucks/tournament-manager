@@ -10,6 +10,7 @@ internal class Presenter
     private Mock<NewEnglandClassic.Squads.Retrieve.IAdapter> _squadsAdapter;
     private Mock<NewEnglandClassic.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
     private Mock<NewEnglandClassic.Bowlers.Retrieve.IAdapter> _bowlersAdapter;
+    private Mock<NewEnglandClassic.Registrations.Add.IAdapter> _adapter;
 
     private NewEnglandClassic.Registrations.Add.Presenter _presenter;
 
@@ -22,8 +23,9 @@ internal class Presenter
         _squadsAdapter = new Mock<NewEnglandClassic.Squads.Retrieve.IAdapter>();
         _sweepersAdapter = new Mock<NewEnglandClassic.Sweepers.Retrieve.IAdapter>();
         _bowlersAdapter = new Mock<NewEnglandClassic.Bowlers.Retrieve.IAdapter>();
+        _adapter = new Mock<NewEnglandClassic.Registrations.Add.IAdapter>();
 
-        _presenter = new NewEnglandClassic.Registrations.Add.Presenter(_view.Object, _divisionsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _bowlersAdapter.Object);
+        _presenter = new NewEnglandClassic.Registrations.Add.Presenter(_view.Object, _divisionsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _bowlersAdapter.Object, _adapter.Object);
     }
 
     [Test]
@@ -316,5 +318,87 @@ internal class Presenter
         _presenter.Load();
 
         _view.Verify(view => view.BindBowler(bowler.Object), Times.Once);
+    }
+
+    [Test]
+    public void Execute_ViewIsValid_Called()
+    {
+        _presenter.Execute();
+
+        _view.Verify(view => view.IsValid(), Times.Once);
+    }
+
+    [Test]
+    public void Execute_ViewIsValidFalse_InvalidFlow()
+    {
+        _view.Setup(view => view.IsValid()).Returns(false);
+
+        _presenter.Execute();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.KeepOpen(), Times.Once);
+
+            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Bowlers.Add.IViewModel>(), It.IsAny<Guid>(), It.IsAny<IEnumerable<Guid>>(), It.IsAny<IEnumerable<Guid>>(), It.IsAny<int?>()), Times.Never);
+            _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.Close(), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Execute_ViewIsValidTrue_AdapterExecute_CalledCorrectly()
+    {
+        _view.Setup(view => view.IsValid()).Returns(true);
+
+        var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var divisionId = Guid.NewGuid();
+        var sweepers = new List<Guid>();
+        var squads = new List<Guid>();
+        var average = 200;
+
+        _view.SetupGet(view => view.Bowler).Returns(bowler.Object);
+        _view.SetupGet(view => view.Division).Returns(divisionId);
+        _view.SetupGet(view => view.Squads).Returns(squads);
+        _view.SetupGet(view => view.Sweepers).Returns(sweepers);
+        _view.SetupGet(view => view.Average).Returns(average);
+
+        _presenter.Execute();
+
+        _adapter.Verify(adapter => adapter.Execute(bowler.Object, divisionId, squads, sweepers, average), Times.Once);
+    }
+
+    [Test]
+    public void Execute_ViewIsValidTrue_AdapterHasErrors_ErrorFlow()
+    {
+        var errors = new[] { new NewEnglandClassic.Models.ErrorDetail("error1"), new NewEnglandClassic.Models.ErrorDetail("error2") };
+        _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);
+
+        _view.Setup(view => view.IsValid()).Returns(true);
+
+        _presenter.Execute();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.KeepOpen(), Times.Once);
+            _view.Verify(view => view.DisplayError($"error1{Environment.NewLine}error2"), Times.Once);
+
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.Close(), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Execute_ViewIsValidTrue_AdapterSuccessful_SuccessFlow()
+    {
+        _view.Setup(view => view.IsValid()).Returns(true);
+
+        _presenter.Execute();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayMessage("Registration added"), Times.Once);
+            _view.Verify(view => view.Close(), Times.Once);
+        });
     }
 }
