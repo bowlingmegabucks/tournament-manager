@@ -64,7 +64,7 @@ internal class BusinessLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<Guid>()), Times.Never);
+            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
             _getTournamentBO.Verify(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NewEnglandClassic.Models.Registration>()), Times.Never);
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Registration>()), Times.Never);
@@ -107,7 +107,7 @@ internal class BusinessLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<Guid>()), Times.Never);
+            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NewEnglandClassic.Models.Registration>()), Times.Never);
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Registration>()), Times.Never);
         });
@@ -169,7 +169,7 @@ internal class BusinessLogic
 
         _validator.Validate_IsValid();
 
-        var bowlerId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -192,7 +192,7 @@ internal class BusinessLogic
 
         _validator.Validate_IsValid();
 
-        var bowlerId = Guid.Empty;
+        var bowlerId = BowlerId.Empty;
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -201,7 +201,7 @@ internal class BusinessLogic
 
         _businessLogic.Execute(registration);
 
-        _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<Guid>()), Times.Never);
+        _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
     }
 
     [Test]
@@ -216,7 +216,7 @@ internal class BusinessLogic
         var error = new NewEnglandClassic.Models.ErrorDetail("error");
         _getBowlerBO.SetupGet(getBowlerBO => getBowlerBO.Error).Returns(error);
 
-        var bowlerId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -247,9 +247,9 @@ internal class BusinessLogic
         _validator.Validate_IsValid();
 
         var bowler = new NewEnglandClassic.Models.Bowler();
-        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.Execute(It.IsAny<Guid>())).Returns(bowler);
+        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>())).Returns(bowler);
 
-        var bowlerId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -277,9 +277,9 @@ internal class BusinessLogic
         _validator.Validate_IsValid();
 
         var bowler = new NewEnglandClassic.Models.Bowler();
-        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.Execute(It.IsAny<Guid>())).Returns(bowler);
+        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>())).Returns(bowler);
 
-        var bowlerId = Guid.Empty;
+        var bowlerId = BowlerId.Empty;
 
         var registration = new NewEnglandClassic.Models.Registration
         {

@@ -23,7 +23,7 @@ internal class Adapter : IAdapter
 
     public IViewModel? Execute(Guid bowlerId)
     {
-        var bowler = _businessLogic.Execute(bowlerId);
+        var bowler = _businessLogic.Execute(new BowlerId(bowlerId));
 
         return bowler != null ? new ViewModel(bowler) : null;
     }

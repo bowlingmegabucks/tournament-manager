@@ -8,7 +8,7 @@ internal class Bowler
     {
         var entity = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid()
+            Id = BowlerId.New()
         };
 
         var model = new NewEnglandClassic.Models.Bowler(entity);
@@ -206,7 +206,7 @@ internal class Bowler
 
         var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
 
-        Assert.That(model.Id, Is.EqualTo(viewModel.Object.Id));
+        Assert.That(model.Id.Value, Is.EqualTo(viewModel.Object.Id));
     }
 
     [Test]

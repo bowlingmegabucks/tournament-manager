@@ -1,8 +1,9 @@
 ﻿
 namespace NewEnglandClassic.Models;
+
 internal class Bowler
 {
-    public Guid Id { get; set; }
+    public BowlerId Id { get; set; }
 
     public string FirstName { get; set; } = string.Empty;
 
@@ -69,7 +70,7 @@ internal class Bowler
 
     public Bowler(Bowlers.Add.IViewModel viewModel)
     {
-        Id = viewModel.Id;
+        Id = new BowlerId(viewModel.Id);
         FirstName = viewModel.FirstName;
         MiddleInitial = viewModel.MiddleInitial;
         LastName = viewModel.LastName;

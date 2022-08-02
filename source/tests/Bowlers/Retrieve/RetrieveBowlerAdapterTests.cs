@@ -19,9 +19,9 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicExecute_CalledCorrectly()
     {
-        var bowlerId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
 
-        _adapter.Execute(bowlerId);
+        _adapter.Execute(bowlerId.Value);
 
         _businessLogic.Verify(businessLogic => businessLogic.Execute(bowlerId), Times.Once);
     }
@@ -49,14 +49,14 @@ internal class Adapter
     {
         var bowler = new NewEnglandClassic.Models.Bowler
         {
-            Id = Guid.NewGuid()
+            Id = BowlerId.New()
         };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<Guid>())).Returns(bowler);
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<BowlerId>())).Returns(bowler);
 
         var bowlerId = Guid.NewGuid();
 
         var actual = _adapter.Execute(bowlerId);
 
-        Assert.That(actual.Id, Is.EqualTo(bowler.Id));
+        Assert.That(actual.Id, Is.EqualTo(bowler.Id.Value));
     }
 }

@@ -16,7 +16,7 @@ internal class ViewModel : IViewModel
 
     public ViewModel(Models.Bowler bowler)
     {
-        Id = bowler.Id;
+        Id = bowler.Id.Value;
         FirstName = bowler.FirstName;
         LastName = bowler.LastName;
         EmailAddress = bowler.EmailAddress;

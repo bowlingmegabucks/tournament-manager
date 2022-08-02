@@ -9,11 +9,11 @@ internal class ViewModel
     {
         var model = new NewEnglandClassic.Models.Bowler
         {
-            Id = Guid.NewGuid()
+            Id = BowlerId.New()
         };
 
         var viewModel = new NewEnglandClassic.Bowlers.Retrieve.ViewModel(model);
 
-        Assert.That(viewModel.Id, Is.EqualTo(model.Id));
+        Assert.That(viewModel.Id, Is.EqualTo(model.Id.Value));
     }
 }

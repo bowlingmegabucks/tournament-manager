@@ -6,7 +6,7 @@ namespace NewEnglandClassic.Database.Entities;
 internal class Bowler
 {
     [Key]
-    public Guid Id { get; set; }
+    public BowlerId Id { get; set; }
 
     [Required]
     public string FirstName { get; set; } = string.Empty;
@@ -48,6 +48,8 @@ internal class Bowler
     {
         public void Configure(EntityTypeBuilder<Bowler> builder)
         {
+            builder.Property(bowler => bowler.Id).HasConversion(new BowlerIdConverter());
+
             builder.Property(bowler => bowler.DateOfBirth).HasConversion<DateOnlyConverter, DateOnlyComparer>();
 
             builder.Property(bowler => bowler.MiddleInitial).IsFixedLength();

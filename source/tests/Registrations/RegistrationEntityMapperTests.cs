@@ -34,7 +34,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Registration
         {
-            Bowler = new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }
+            Bowler = new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }
         };
 
         var entity = _mapper.Execute(model);
@@ -47,7 +47,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Registration
         {
-            Bowler = new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }
+            Bowler = new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }
         };
 
         _mapper.Execute(model);
@@ -58,12 +58,12 @@ internal class EntityMapper
     [Test]
     public void Execute_BowlerMapped()
     {
-        var bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = Guid.NewGuid()};
+        var bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() };
         _bowlerEntityMapper.Setup(mapper => mapper.Execute(It.IsAny<NewEnglandClassic.Models.Bowler>())).Returns(bowler);
 
         var model = new NewEnglandClassic.Models.Registration
         {
-            Bowler = new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }
+            Bowler = new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }
         };
 
         var entity = _mapper.Execute(model);

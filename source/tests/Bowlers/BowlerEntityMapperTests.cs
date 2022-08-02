@@ -18,7 +18,7 @@ internal class EntityMapper
     {
         var bowler = new NewEnglandClassic.Models.Bowler
         {
-            Id = Guid.NewGuid()
+            Id = new BowlerId(Guid.NewGuid())
         };
 
         var entity = _mapper.Execute(bowler);

@@ -68,7 +68,7 @@ internal class BusinessLogic : IBusinessLogic
 
         registration.TournamentStartDate = tournament!.Start;
 
-        if (registration.Bowler.Id != Guid.Empty)
+        if (registration.Bowler.Id.Value != Guid.Empty)
         {
             var bowler = GetBowlerBO.Execute(registration.Bowler.Id);
 
