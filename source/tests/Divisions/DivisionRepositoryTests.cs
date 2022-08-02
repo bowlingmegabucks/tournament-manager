@@ -79,4 +79,38 @@ internal class Repository
             Assert.That(actual.Count(division => division.Name == "Yes"), Is.EqualTo(2));
         });
     }
+
+    [Test]
+    public void Retrieve_ReturnsDivision()
+    {
+        var divisionId = Guid.NewGuid();
+
+        var division1 = new NewEnglandClassic.Database.Entities.Division
+        {
+            Id = divisionId,
+            TournamentId = Guid.NewGuid(),
+            Name = "Yes"
+        };
+
+        var division2 = new NewEnglandClassic.Database.Entities.Division
+        {
+            Id = Guid.NewGuid(),
+            TournamentId = Guid.NewGuid(),
+            Name = "No"
+        };
+
+        var division3 = new NewEnglandClassic.Database.Entities.Division
+        {
+            Id = Guid.NewGuid(),
+            TournamentId = Guid.NewGuid(),
+            Name = "No"
+        };
+
+        var divisions = new[] { division1, division2, division3 };
+        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(divisions.SetUpDbContext());
+
+        var division = _repository.Retrieve(divisionId);
+
+        Assert.That(division.Id, Is.EqualTo(divisionId));
+    }
 }

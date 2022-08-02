@@ -45,7 +45,7 @@ partial class SearchBowlersGrid
             this.ColumnCity,
             this.ColumnState});
             this.GridView.RowTemplate.Height = 25;
-            this.GridView.Size = new System.Drawing.Size(599, 377);
+            this.GridView.Size = new System.Drawing.Size(938, 377);
             // 
             // ColumnFirstName
             // 
@@ -53,6 +53,7 @@ partial class SearchBowlersGrid
             this.ColumnFirstName.HeaderText = "First Name";
             this.ColumnFirstName.Name = "ColumnFirstName";
             this.ColumnFirstName.ReadOnly = true;
+            this.ColumnFirstName.Width = 125;
             // 
             // ColumnLastName
             // 
@@ -60,7 +61,7 @@ partial class SearchBowlersGrid
             this.ColumnLastName.HeaderText = "Last Name";
             this.ColumnLastName.Name = "ColumnLastName";
             this.ColumnLastName.ReadOnly = true;
-            this.ColumnLastName.Width = 150;
+            this.ColumnLastName.Width = 175;
             // 
             // ColumnEmail
             // 
@@ -68,7 +69,7 @@ partial class SearchBowlersGrid
             this.ColumnEmail.HeaderText = "Email Address";
             this.ColumnEmail.Name = "ColumnEmail";
             this.ColumnEmail.ReadOnly = true;
-            this.ColumnEmail.Width = 125;
+            this.ColumnEmail.Width = 175;
             // 
             // ColumnCity
             // 
@@ -76,6 +77,7 @@ partial class SearchBowlersGrid
             this.ColumnCity.HeaderText = "City";
             this.ColumnCity.Name = "ColumnCity";
             this.ColumnCity.ReadOnly = true;
+            this.ColumnCity.Width = 135;
             // 
             // ColumnState
             // 
@@ -90,7 +92,7 @@ partial class SearchBowlersGrid
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "SearchBowlersGrid";
-            this.Size = new System.Drawing.Size(599, 377);
+            this.Size = new System.Drawing.Size(938, 377);
             ((System.ComponentModel.ISupportInitialize)(this.GridView)).EndInit();
             this.ResumeLayout(false);
 

@@ -38,10 +38,16 @@ partial class SquadControl
             this.LabelDate = new NewEnglandClassic.Controls.LabelControl();
             this.NumericMaxPerPair = new NewEnglandClassic.Controls.NumericControl();
             this.LabelMaxPerPair = new NewEnglandClassic.Controls.LabelControl();
+            this.NumericStartingLane = new NewEnglandClassic.Controls.NumericControl();
+            this.LabelStartingLane = new NewEnglandClassic.Controls.LabelControl();
+            this.NumericNumberOfLanes = new NewEnglandClassic.Controls.NumericControl();
+            this.LabelNumberOfLanes = new NewEnglandClassic.Controls.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.NumericCashRatio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericFinalsRatio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSquad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericMaxPerPair)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericStartingLane)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericNumberOfLanes)).BeginInit();
             this.SuspendLayout();
             // 
             // NumericCashRatio
@@ -139,7 +145,7 @@ partial class SquadControl
             // NumericMaxPerPair
             // 
             this.NumericMaxPerPair.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NumericMaxPerPair.Location = new System.Drawing.Point(3, 160);
+            this.NumericMaxPerPair.Location = new System.Drawing.Point(355, 160);
             this.NumericMaxPerPair.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
             this.NumericMaxPerPair.Maximum = new decimal(new int[] {
             99,
@@ -148,7 +154,7 @@ partial class SquadControl
             0});
             this.NumericMaxPerPair.Name = "NumericMaxPerPair";
             this.NumericMaxPerPair.Size = new System.Drawing.Size(131, 27);
-            this.NumericMaxPerPair.TabIndex = 3;
+            this.NumericMaxPerPair.TabIndex = 5;
             this.NumericMaxPerPair.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumericMaxPerPair.Validating += new System.ComponentModel.CancelEventHandler(this.NumericMaxPerPair_Validating);
             this.NumericMaxPerPair.Validated += new System.EventHandler(this.Controls_Validated);
@@ -157,7 +163,7 @@ partial class SquadControl
             // 
             this.LabelMaxPerPair.AutoSize = true;
             this.LabelMaxPerPair.Bold = false;
-            this.LabelMaxPerPair.Location = new System.Drawing.Point(3, 134);
+            this.LabelMaxPerPair.Location = new System.Drawing.Point(355, 134);
             this.LabelMaxPerPair.Name = "LabelMaxPerPair";
             this.LabelMaxPerPair.Required = true;
             this.LabelMaxPerPair.Size = new System.Drawing.Size(132, 19);
@@ -165,10 +171,88 @@ partial class SquadControl
             this.LabelMaxPerPair.TabStop = false;
             this.LabelMaxPerPair.Text = "Max Per Pair:";
             // 
+            // NumericStartingLane
+            // 
+            this.NumericStartingLane.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.NumericStartingLane.Location = new System.Drawing.Point(3, 160);
+            this.NumericStartingLane.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
+            this.NumericStartingLane.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.NumericStartingLane.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericStartingLane.Name = "NumericStartingLane";
+            this.NumericStartingLane.Size = new System.Drawing.Size(131, 27);
+            this.NumericStartingLane.TabIndex = 3;
+            this.NumericStartingLane.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericStartingLane.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // LabelStartingLane
+            // 
+            this.LabelStartingLane.AutoSize = true;
+            this.LabelStartingLane.Bold = false;
+            this.LabelStartingLane.Location = new System.Drawing.Point(3, 134);
+            this.LabelStartingLane.Name = "LabelStartingLane";
+            this.LabelStartingLane.Required = true;
+            this.LabelStartingLane.Size = new System.Drawing.Size(141, 19);
+            this.LabelStartingLane.TabIndex = 117;
+            this.LabelStartingLane.TabStop = false;
+            this.LabelStartingLane.Text = "Starting Lane:";
+            // 
+            // NumericNumberOfLanes
+            // 
+            this.NumericNumberOfLanes.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.NumericNumberOfLanes.Location = new System.Drawing.Point(189, 160);
+            this.NumericNumberOfLanes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
+            this.NumericNumberOfLanes.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.NumericNumberOfLanes.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericNumberOfLanes.Name = "NumericNumberOfLanes";
+            this.NumericNumberOfLanes.Size = new System.Drawing.Size(131, 27);
+            this.NumericNumberOfLanes.TabIndex = 4;
+            this.NumericNumberOfLanes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericNumberOfLanes.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // LabelNumberOfLanes
+            // 
+            this.LabelNumberOfLanes.AutoSize = true;
+            this.LabelNumberOfLanes.Bold = false;
+            this.LabelNumberOfLanes.Location = new System.Drawing.Point(167, 134);
+            this.LabelNumberOfLanes.Name = "LabelNumberOfLanes";
+            this.LabelNumberOfLanes.Required = true;
+            this.LabelNumberOfLanes.Size = new System.Drawing.Size(159, 19);
+            this.LabelNumberOfLanes.TabIndex = 119;
+            this.LabelNumberOfLanes.TabStop = false;
+            this.LabelNumberOfLanes.Text = "Number of Lanes:";
+            // 
             // SquadControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.NumericNumberOfLanes);
+            this.Controls.Add(this.LabelNumberOfLanes);
+            this.Controls.Add(this.NumericStartingLane);
+            this.Controls.Add(this.LabelStartingLane);
             this.Controls.Add(this.NumericMaxPerPair);
             this.Controls.Add(this.LabelMaxPerPair);
             this.Controls.Add(this.DatePickerSquadDate);
@@ -178,12 +262,14 @@ partial class SquadControl
             this.Controls.Add(this.NumericFinalsRatio);
             this.Controls.Add(this.LabelFinalsRatio);
             this.Name = "SquadControl";
-            this.Size = new System.Drawing.Size(357, 226);
+            this.Size = new System.Drawing.Size(527, 215);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.SquadControl_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.NumericCashRatio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericFinalsRatio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSquad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericMaxPerPair)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericStartingLane)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericNumberOfLanes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,4 +286,8 @@ partial class SquadControl
     private Controls.LabelControl LabelDate;
     private Controls.NumericControl NumericMaxPerPair;
     private Controls.LabelControl LabelMaxPerPair;
+    private Controls.NumericControl NumericNumberOfLanes;
+    private Controls.LabelControl LabelNumberOfLanes;
+    private Controls.NumericControl NumericStartingLane;
+    private Controls.LabelControl LabelStartingLane;
 }

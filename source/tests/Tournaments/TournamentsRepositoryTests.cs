@@ -79,4 +79,33 @@ internal class Repository
 
         _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once);
     }
+
+    [Test]
+    public void RetrieveByDivision_ReturnsTournamentWithDivision()
+    {
+        var division1 = new NewEnglandClassic.Database.Entities.Division { Id = Guid.NewGuid() };
+        var division2 = new NewEnglandClassic.Database.Entities.Division { Id = Guid.NewGuid() };
+        var division3 = new NewEnglandClassic.Database.Entities.Division { Id = Guid.NewGuid() };
+        var division4 = new NewEnglandClassic.Database.Entities.Division { Id = Guid.NewGuid() };
+
+        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament
+        {
+            Id = Guid.NewGuid(),
+            Divisions = new List<NewEnglandClassic.Database.Entities.Division> { division1, division2 }
+        };
+
+        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament
+        {
+            Id = Guid.NewGuid(),
+            Divisions = new List<NewEnglandClassic.Database.Entities.Division> { division3, division4 }
+        };
+
+        var tournaments = new List<NewEnglandClassic.Database.Entities.Tournament> { tournament1, tournament2 };
+
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(tournaments.SetUpDbContext());
+
+        var actual = _tournamentsRepository.RetrieveByDivision(division2.Id);
+
+        Assert.That(actual.Id, Is.EqualTo(tournament1.Id));
+    }
 }

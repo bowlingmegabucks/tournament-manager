@@ -16,6 +16,10 @@ internal class ViewModel : IViewModel
 
     public short MaxPerPair { get; set; }
 
+    public short StartingLane { get; set; }
+
+    public short NumberOfLanes { get; set; }
+
     public bool Complete { get; set; }
 
     public IDictionary<Guid, int?> Divisions { get; set; } = new Dictionary<Guid, int?>();
@@ -49,6 +53,10 @@ internal interface IViewModel
     DateTime Date { get; set; }
 
     short MaxPerPair { get; set; }
+
+    short StartingLane { get; set; }
+
+    short NumberOfLanes { get; set; }
 
     bool Complete { get; set; }
 

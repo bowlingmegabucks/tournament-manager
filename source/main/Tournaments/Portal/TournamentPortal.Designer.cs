@@ -39,6 +39,8 @@ partial class Form
             this.MenuItemSweepers = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemSweepersAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemOpenSweeper = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemRegistration = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemRegistrationAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripPortal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +50,8 @@ partial class Form
             this.MenuItemFile,
             this.MenuItemDivision,
             this.MenuItemSquads,
-            this.MenuItemSweepers});
+            this.MenuItemSweepers,
+            this.MenuItemRegistration});
             this.MenuStripPortal.Location = new System.Drawing.Point(0, 0);
             this.MenuStripPortal.Name = "MenuStripPortal";
             this.MenuStripPortal.Size = new System.Drawing.Size(800, 24);
@@ -130,6 +133,21 @@ partial class Form
             this.MenuItemOpenSweeper.Text = "Open";
             this.MenuItemOpenSweeper.Click += new System.EventHandler(this.MenuItemOpenSweeper_Click);
             // 
+            // MenuItemRegistration
+            // 
+            this.MenuItemRegistration.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuItemRegistrationAdd});
+            this.MenuItemRegistration.Name = "MenuItemRegistration";
+            this.MenuItemRegistration.Size = new System.Drawing.Size(82, 20);
+            this.MenuItemRegistration.Text = "Registration";
+            // 
+            // MenuItemRegistrationAdd
+            // 
+            this.MenuItemRegistrationAdd.Name = "MenuItemRegistrationAdd";
+            this.MenuItemRegistrationAdd.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemRegistrationAdd.Text = "Add";
+            this.MenuItemRegistrationAdd.Click += new System.EventHandler(this.MenuItemRegistrationAdd_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -161,4 +179,6 @@ partial class Form
     private ToolStripMenuItem MenuItemSweepers;
     private ToolStripMenuItem MenuItemSweepersAdd;
     private ToolStripMenuItem MenuItemOpenSweeper;
+    private ToolStripMenuItem MenuItemRegistration;
+    private ToolStripMenuItem MenuItemRegistrationAdd;
 }

@@ -75,6 +75,18 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         }
     }
 
+    public short StartingLane
+    {
+        get => (short)NumericStartingLane.Value;
+        set => NumericStartingLane.Value = value;
+    }
+
+    public short NumberOfLanes
+    {
+        get => (short)NumericNumberOfLanes.Value;
+        set => NumericNumberOfLanes.Value = value;
+    }
+
     public bool Complete { get; set; }
 
     private void SquadControl_Validating(object sender, CancelEventArgs e)

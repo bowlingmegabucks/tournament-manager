@@ -53,14 +53,16 @@ partial class Form
             this.SweeperControl.Location = new System.Drawing.Point(12, 12);
             this.SweeperControl.MaxPerPair = ((short)(0));
             this.SweeperControl.Name = "SweeperControl";
-            this.SweeperControl.Size = new System.Drawing.Size(546, 451);
+            this.SweeperControl.NumberOfLanes = ((short)(1));
+            this.SweeperControl.Size = new System.Drawing.Size(546, 516);
+            this.SweeperControl.StartingLane = ((short)(1));
             this.SweeperControl.TabIndex = 0;
             this.SweeperControl.TournamentId = new System.Guid("00000000-0000-0000-0000-000000000000");
             // 
             // ButtonCancel
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(12, 469);
+            this.ButtonCancel.Location = new System.Drawing.Point(12, 534);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.ButtonCancel.TabIndex = 4;
@@ -70,7 +72,7 @@ partial class Form
             // ButtonSave
             // 
             this.ButtonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonSave.Location = new System.Drawing.Point(483, 469);
+            this.ButtonSave.Location = new System.Drawing.Point(483, 534);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(75, 23);
             this.ButtonSave.TabIndex = 3;
@@ -85,7 +87,7 @@ partial class Form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.CancelButton = this.ButtonCancel;
-            this.ClientSize = new System.Drawing.Size(578, 513);
+            this.ClientSize = new System.Drawing.Size(578, 567);
             this.Controls.Add(this.ButtonCancel);
             this.Controls.Add(this.ButtonSave);
             this.Controls.Add(this.SweeperControl);

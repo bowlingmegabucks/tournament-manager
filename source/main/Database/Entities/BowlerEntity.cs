@@ -42,6 +42,8 @@ internal class Bowler
 
     public Models.Gender? Gender { get; set; }
 
+    public ICollection<Registration> Registrations { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<Bowler>
     {
         public void Configure(EntityTypeBuilder<Bowler> builder)

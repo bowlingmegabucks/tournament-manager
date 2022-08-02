@@ -362,4 +362,46 @@ internal class Bowler
 
         Assert.That(model.Gender, Is.EqualTo(viewModel.Object.Gender));
     }
+
+    [Test]
+    public void Age_BirthDayYesterday_Correct()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler()
+        {
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(-1).AddYears(-20))
+        };
+
+        var expected = 20;
+        var actual = bowler.Age;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Age_BirthDayToday_Correct()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler()
+        {
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20))
+        };
+
+        var expected = 20;
+        var actual = bowler.Age;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Age_BirthDayTomorrow_Correct()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler()
+        {
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(1).AddYears(-20))
+        };
+
+        var expected = 19;
+        var actual = bowler.Age;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
 }

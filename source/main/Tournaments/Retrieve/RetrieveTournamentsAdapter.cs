@@ -41,5 +41,6 @@ internal interface IAdapter
     Models.ErrorDetail? Error { get; }
 
     IEnumerable<IViewModel> Execute();
+
     IViewModel? Execute(Guid tournamentId);
 }

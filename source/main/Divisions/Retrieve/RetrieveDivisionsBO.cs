@@ -32,6 +32,20 @@ internal class BusinessLogic : IBusinessLogic
             return Enumerable.Empty<Models.Division>();
         }
     }
+
+    public Models.Division? Execute(Guid divisionId)
+    {
+        try
+        {
+            return _dataLayer.Execute(divisionId);
+        }
+        catch (Exception ex)
+        {
+            Error = new Models.ErrorDetail(ex);
+
+            return null;
+        }
+    }
 }
 
 internal interface IBusinessLogic
@@ -39,4 +53,6 @@ internal interface IBusinessLogic
     Models.ErrorDetail? Error { get; }
 
     IEnumerable<Models.Division> ForTournament(Guid tournamentId);
+
+    Models.Division? Execute(Guid divisionId);
 }

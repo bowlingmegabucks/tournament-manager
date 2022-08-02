@@ -51,7 +51,7 @@ internal class BusinesLogic
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("error");
+            _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
             _validator.Verify(validator => validator.Validate(It.IsAny<NewEnglandClassic.Models.Squad>()), Times.Never);
@@ -116,7 +116,7 @@ internal class BusinesLogic
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("invalid");
+            _businessLogic.Errors.Assert_HasErrorMessage("invalid");
             Assert.That(actual, Is.Null);
 
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>()), Times.Never);
@@ -161,7 +161,7 @@ internal class BusinesLogic
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("exception");
+            _businessLogic.Errors.Assert_HasErrorMessage("exception");
             Assert.That(actual, Is.Null);
         });
     }

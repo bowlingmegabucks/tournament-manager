@@ -38,6 +38,8 @@ internal class Division
 
     public ICollection<SweeperDivision> Sweepers { get; set; } = null!;
 
+    public ICollection<Registration> Registrations { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<Division>
     {
         public void Configure(EntityTypeBuilder<Division> builder)

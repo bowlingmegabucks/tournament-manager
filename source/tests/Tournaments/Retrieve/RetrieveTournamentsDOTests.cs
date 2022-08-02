@@ -73,4 +73,28 @@ internal class DataLayer
 
         Assert.That(actual.Id, Is.EqualTo(tournament.Id));
     }
+
+    [Test]
+    public void FromDivisionId_RepositoryRetrieveByDivisionId_CalledCorrectly()
+    {
+        var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
+        _repository.Setup(repository => repository.RetrieveByDivision(It.IsAny<Guid>())).Returns(tournament);
+
+        var guid = Guid.NewGuid();
+
+        _dataLayer.FromDivisionId(guid);
+
+        _repository.Verify(repository => repository.RetrieveByDivision(guid), Times.Once);
+    }
+
+    [Test]
+    public void FromDivisionId_ReturnsTournament()
+    {
+        var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
+        _repository.Setup(repository => repository.RetrieveByDivision(It.IsAny<Guid>())).Returns(tournament);
+
+        var actual = _dataLayer.FromDivisionId(tournament.Id);
+
+        Assert.That(actual.Id, Is.EqualTo(tournament.Id));
+    }
 }

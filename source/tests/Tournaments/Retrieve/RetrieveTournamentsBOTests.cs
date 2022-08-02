@@ -125,4 +125,62 @@ internal class BusinessLogic
             Assert.That(_businessLogic.Error.ReturnCode, Is.EqualTo(-1));
         });
     }
+
+    [Test]
+    public void FromDivisionId_DataLayerFromDivisionId_Called()
+    {
+        var id = Guid.NewGuid();
+        _businessLogic.FromDivisionId(id);
+
+        _dataLayer.Verify(dataLayer => dataLayer.FromDivisionId(id), Times.Once);
+    }
+
+    [Test]
+    public void FromDivisionId_ReturnsResultFromDataLayer()
+    {
+        var tournament = new NewEnglandClassic.Models.Tournament();
+        _dataLayer.Setup(dataLayer => dataLayer.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+
+        var id = Guid.NewGuid();
+        var result = _businessLogic.FromDivisionId(id);
+
+        Assert.That(result, Is.EqualTo(tournament));
+    }
+
+    [Test]
+    public void FromDivisionId_NoErrors_ErrorNull()
+    {
+        var id = Guid.NewGuid();
+        _businessLogic.FromDivisionId(id);
+
+        Assert.That(_businessLogic.Error, Is.Null);
+    }
+
+    [Test]
+    public void FromDivisionId_DataLayerFromDivisionIdThrowsException_ReturnsNull()
+    {
+        var ex = new Exception();
+        _dataLayer.Setup(dataLayer => dataLayer.FromDivisionId(It.IsAny<Guid>())).Throws(ex);
+
+        var id = Guid.NewGuid();
+        var result = _businessLogic.FromDivisionId(id);
+
+        Assert.That(result, Is.Null);
+    }
+
+    [Test]
+    public void FromDivisionId_DataLayerFromDivisionIdThrowsException_ErrorPopulated()
+    {
+        var ex = new Exception("message");
+        _dataLayer.Setup(dataLayer => dataLayer.FromDivisionId(It.IsAny<Guid>())).Throws(ex);
+
+        var id = Guid.NewGuid();
+        _businessLogic.FromDivisionId(id);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
+            Assert.That(_businessLogic.Error.ReturnCode, Is.EqualTo(-1));
+        });
+    }
 }
