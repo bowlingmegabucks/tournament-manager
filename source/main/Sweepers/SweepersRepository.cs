@@ -19,7 +19,7 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    public Guid Add(Database.Entities.SweeperSquad sweeper)
+    public SquadId Add(Database.Entities.SweeperSquad sweeper)
     {
         _dataContext.Sweepers.Add(sweeper);
         _dataContext.SaveChanges();
@@ -33,7 +33,7 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    Guid Add(Database.Entities.SweeperSquad sweeper);
+    SquadId Add(Database.Entities.SweeperSquad sweeper);
 
     IEnumerable<Database.Entities.SweeperSquad> ForTournament(Guid tournamentId);
 }

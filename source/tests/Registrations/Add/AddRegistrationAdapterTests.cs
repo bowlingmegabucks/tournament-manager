@@ -22,8 +22,8 @@ internal class Adapter
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
         var divisionId = DivisionId.New();
-        var squads = Enumerable.Empty<Guid>();
-        var sweepers = Enumerable.Empty<Guid>();
+        var squads = Enumerable.Empty<SquadId>();
+        var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
         _adapter.Execute(bowler.Object, divisionId, squads, sweepers, average);
@@ -43,8 +43,8 @@ internal class Adapter
 
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
         var divisionId = DivisionId.New();
-        var squads = Enumerable.Empty<Guid>();
-        var sweepers = Enumerable.Empty<Guid>();
+        var squads = Enumerable.Empty<SquadId>();
+        var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
         _adapter.Execute(bowler.Object, divisionId, squads, sweepers, average);
@@ -60,8 +60,8 @@ internal class Adapter
 
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
         var divisionId = DivisionId.New();
-        var squads = Enumerable.Empty<Guid>();
-        var sweepers = Enumerable.Empty<Guid>();
+        var squads = Enumerable.Empty<SquadId>();
+        var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
         var actual = _adapter.Execute(bowler.Object, divisionId, squads, sweepers, average);

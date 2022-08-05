@@ -47,21 +47,21 @@ internal class Repository
 
         var squad1 = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            Id = Guid.NewGuid(),
+            Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
         var squad2 = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            Id = Guid.NewGuid(),
+            Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
         var squad3 = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            Id = Guid.NewGuid(),
+            Id = SquadId.New(),
             TournamentId = Guid.NewGuid(),
             MaxPerPair = 2
         };

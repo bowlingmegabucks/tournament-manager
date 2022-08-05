@@ -18,14 +18,14 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicExecute_CalledCorrectly()
     {
-        var guid = Guid.NewGuid();
+        var id = SquadId.New();
 
         var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
-        viewModel.SetupGet(v => v.Id).Returns(guid);
+        viewModel.SetupGet(v => v.Id).Returns(id);
 
         _adapter.Execute(viewModel.Object);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NewEnglandClassic.Models.Sweeper>(sweeper => sweeper.Id == guid)), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NewEnglandClassic.Models.Sweeper>(sweeper => sweeper.Id == id)), Times.Once);
     }
 
     [Test]
@@ -44,7 +44,7 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicExecuteReturnsNull_NullReturned()
     {
-        Guid? noGuid = null;
+        SquadId? noGuid = null;
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(noGuid);
 
         var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
@@ -57,13 +57,13 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicExecuteReturnsGuid_GuidReturned()
     {
-        var guid = Guid.NewGuid();
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(guid);
+        var id = SquadId.New();
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(id);
 
         var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
 
         var actual = _adapter.Execute(viewModel.Object);
 
-        Assert.That(actual, Is.EqualTo(guid));
+        Assert.That(actual, Is.EqualTo(id));
     }
 }

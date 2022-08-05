@@ -688,7 +688,7 @@ internal class Validator
     [Test]
     public void Squads_SquadsEmpty_HasError()
     {
-        var squads = Enumerable.Empty<Guid>();
+        var squads = Enumerable.Empty<SquadId>();
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -702,7 +702,7 @@ internal class Validator
     [Test]
     public void Squads_SquadsNotEmpty_NoError([Range(1, 3)] int count)
     {
-        var squads = Enumerable.Repeat(new Guid(), count);
+        var squads = Enumerable.Repeat(SquadId.New(), count);
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -717,7 +717,7 @@ internal class Validator
     [Category("Real")]
     public void AshlieInWomensDivision_Allowed()
     {
-        var squads = Enumerable.Repeat(Guid.NewGuid(), 2);
+        var squads = Enumerable.Repeat(SquadId.New(), 2);
 
         var division = new NewEnglandClassic.Models.Division
         {
@@ -747,7 +747,7 @@ internal class Validator
             Average = null,
             Division = division,
             Squads = squads,
-            Sweepers = Enumerable.Empty<Guid>(),
+            Sweepers = Enumerable.Empty<SquadId>(),
             TournamentStartDate = new DateOnly(DateTime.Now.Year, 11, 24)
         };
 

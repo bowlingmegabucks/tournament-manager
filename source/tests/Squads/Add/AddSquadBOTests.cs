@@ -171,8 +171,8 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var guid = Guid.NewGuid();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>())).Returns(guid);
+        var id = SquadId.New();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>())).Returns(id);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
@@ -184,6 +184,6 @@ internal class BusinesLogic
 
         var actual = _businessLogic.Execute(squad);
 
-        Assert.That(actual, Is.EqualTo(guid));
+        Assert.That(actual, Is.EqualTo(id));
     }
 }

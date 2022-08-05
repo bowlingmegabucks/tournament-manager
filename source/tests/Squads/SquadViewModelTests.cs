@@ -9,7 +9,7 @@ internal class ViewModel
     {
         var model = new NewEnglandClassic.Models.Squad
         {
-            Id = Guid.NewGuid()
+            Id = SquadId.New()
         };
 
         var viewModel = new NewEnglandClassic.Squads.ViewModel(model);

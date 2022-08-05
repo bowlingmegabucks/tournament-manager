@@ -26,9 +26,9 @@ internal interface IView
 
     int? Average { get; }
 
-    IEnumerable<Guid> Squads { get; }
+    IEnumerable<SquadId> Squads { get; }
 
-    IEnumerable<Guid> Sweepers { get; }
+    IEnumerable<SquadId> Sweepers { get; }
 
     bool IsValid();
 

@@ -8,7 +8,7 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
         InitializeComponent();
     }
 
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
     public Guid TournamentId { get; set; }
 

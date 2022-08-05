@@ -12,3 +12,6 @@ internal partial struct DivisionId { }
 
 [StronglyTypedId]
 internal partial struct RegistrationId { }
+
+[StronglyTypedId]
+internal partial struct SquadId { }

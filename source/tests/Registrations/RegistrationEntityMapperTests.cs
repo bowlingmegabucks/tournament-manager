@@ -100,13 +100,13 @@ internal class EntityMapper
     [Test]
     public void Execute_SquadsMapped()
     {
-        var squad1 = Guid.NewGuid();
-        var squad2 = Guid.NewGuid();
-        var squad3 = Guid.NewGuid();
+        var squad1 = SquadId.New();
+        var squad2 = SquadId.New();
+        var squad3 = SquadId.New();
 
-        var sweeper1 = Guid.NewGuid();
-        var sweeper2 = Guid.NewGuid();
-        var sweeper3 = Guid.NewGuid();
+        var sweeper1 = SquadId.New();
+        var sweeper2 = SquadId.New();
+        var sweeper3 = SquadId.New();
 
         var id = RegistrationId.New();
 

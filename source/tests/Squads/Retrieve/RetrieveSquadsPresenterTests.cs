@@ -89,7 +89,7 @@ internal class Presenter
     [Test]
     public void AddSquad_ViewAddSquadReturnsNull_ViewRefreshSquads_NotCalled()
     {
-        _view.Setup(view => view.AddSquad(It.IsAny<Guid>())).Returns((Guid?)null);
+        _view.Setup(view => view.AddSquad(It.IsAny<Guid>())).Returns((SquadId?)null);
 
         _presenter.AddSquad();
 
@@ -99,7 +99,7 @@ internal class Presenter
     [Test]
     public void AddSquad_ViewAddSquadReturnsGuid_ViewRefreshSquads_Called()
     {
-        _view.Setup(view => view.AddSquad(It.IsAny<Guid>())).Returns(Guid.NewGuid());
+        _view.Setup(view => view.AddSquad(It.IsAny<Guid>())).Returns(SquadId.New());
 
         _presenter.AddSquad();
 

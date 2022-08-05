@@ -2,7 +2,7 @@
 namespace NewEnglandClassic.Models;
 internal class Sweeper
 {
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
     public Guid TournamentId { get; set; }
 

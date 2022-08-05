@@ -35,10 +35,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public int? Average
         => NumericAverage.Value == 0 ? null : (int)NumericAverage.Value;
 
-    public IEnumerable<Guid> Squads
+    public IEnumerable<SquadId> Squads
         => FlowLayoutPanelSquads.Controls.OfType<Controls.ISelectedIds>().Where(control=> control.Selected).Select(control => control.Id).AsEnumerable();
 
-    public IEnumerable<Guid> Sweepers
+    public IEnumerable<SquadId> Sweepers
         => FlowLayoutPanelSweepers.Controls.OfType<Controls.ISelectedIds>().Where(control => control.Selected).Select(control => control.Id).AsEnumerable();
 
     private void ComboBoxDivisions_Validating(object sender, CancelEventArgs e)

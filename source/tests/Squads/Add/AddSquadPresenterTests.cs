@@ -105,7 +105,7 @@ internal class Presenter
             _view.Verify(view => view.KeepOpen(), Times.Once);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
-            squad.VerifySet(s => s.Id = It.IsAny<Guid>(), Times.Never);
+            squad.VerifySet(s => s.Id = It.IsAny<SquadId>(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
@@ -118,7 +118,7 @@ internal class Presenter
         var squad = new Mock<NewEnglandClassic.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
-        var squadId = Guid.NewGuid();
+        var squadId = SquadId.New();
         _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.Execute(It.IsAny<NewEnglandClassic.Squads.IViewModel>())).Returns(squadId);
 
         _presenter.Execute();
@@ -151,7 +151,7 @@ internal class Presenter
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
-            squad.VerifySet(s => s.Id = It.IsAny<Guid>(), Times.Never);
+            squad.VerifySet(s => s.Id = It.IsAny<SquadId>(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
@@ -165,7 +165,7 @@ internal class Presenter
         squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 00));
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
-        var squadId = Guid.NewGuid();
+        var squadId = SquadId.New();
         _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.Execute(It.IsAny<NewEnglandClassic.Squads.IViewModel>())).Returns(squadId);
 
         _presenter.Execute();

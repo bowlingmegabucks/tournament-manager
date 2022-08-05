@@ -10,7 +10,7 @@ internal interface IView
     
     void DisplayError(string message);
 
-    Guid? AddSweeper(Guid tournamentId);
+    SquadId? AddSweeper(Guid tournamentId);
 
     void RefreshSweepers();
 }

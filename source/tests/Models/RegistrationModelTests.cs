@@ -12,8 +12,8 @@ internal class Registration
 
         var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -28,8 +28,8 @@ internal class Registration
         var bowlerId = BowlerId.New();
         var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -44,8 +44,8 @@ internal class Registration
         var bowlerId = BowlerId.New();
         var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -60,8 +60,8 @@ internal class Registration
         var bowlerId = BowlerId.New();
         var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -76,8 +76,8 @@ internal class Registration
         var bowlerId = BowlerId.New();
         var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -92,8 +92,8 @@ internal class Registration
         var bowlerId = BowlerId.New();
         var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var registration = new NewEnglandClassic.Models.Registration(bowlerId, divisionId, squads, sweepers, average);
 

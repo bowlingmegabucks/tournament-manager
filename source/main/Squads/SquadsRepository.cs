@@ -19,7 +19,7 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    public Guid Add(Database.Entities.TournamentSquad squad)
+    public SquadId Add(Database.Entities.TournamentSquad squad)
     {
         _dataContext.Squads.Add(squad);
         _dataContext.SaveChanges();
@@ -33,7 +33,7 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    Guid Add(Database.Entities.TournamentSquad squad);
+    SquadId Add(Database.Entities.TournamentSquad squad);
 
     IEnumerable<Database.Entities.TournamentSquad> ForTournament(Guid tournamentId);
 }

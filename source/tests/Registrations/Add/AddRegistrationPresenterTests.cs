@@ -339,7 +339,7 @@ internal class Presenter
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Bowlers.Add.IViewModel>(), It.IsAny<DivisionId>(), It.IsAny<IEnumerable<Guid>>(), It.IsAny<IEnumerable<Guid>>(), It.IsAny<int?>()), Times.Never);
+            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Bowlers.Add.IViewModel>(), It.IsAny<DivisionId>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<int?>()), Times.Never);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
@@ -353,8 +353,8 @@ internal class Presenter
 
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
         var divisionId = DivisionId.New();
-        var sweepers = new List<Guid>();
-        var squads = new List<Guid>();
+        var sweepers = new List<SquadId>();
+        var squads = new List<SquadId>();
         var average = 200;
 
         _view.SetupGet(view => view.Bowler).Returns(bowler.Object);

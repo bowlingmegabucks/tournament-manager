@@ -47,21 +47,21 @@ internal class Repository
 
         var sweeper1 = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
+            Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
         var sweeper2 = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
+            Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
         var sweeper3 = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
+            Id = SquadId.New(),
             TournamentId = Guid.NewGuid(),
             MaxPerPair = 2
         };

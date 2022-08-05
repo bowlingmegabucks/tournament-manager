@@ -1,8 +1,8 @@
 ﻿
 namespace NewEnglandClassic.Controls;
-public partial class SelectSquadControl : UserControl, ISelectedIds
+internal partial class SelectSquadControl : UserControl, ISelectedIds
 {
-    public SelectSquadControl(Guid id, string displayText, bool selected)
+    public SelectSquadControl(SquadId id, string displayText, bool selected)
     {
         InitializeComponent();
 
@@ -11,7 +11,7 @@ public partial class SelectSquadControl : UserControl, ISelectedIds
         Selected = selected;
     }
 
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
     public string DisplayText
     {
@@ -26,9 +26,9 @@ public partial class SelectSquadControl : UserControl, ISelectedIds
     }
 }
 
-public interface ISelectedIds
+internal interface ISelectedIds
 {
-    Guid Id { get; }
+    SquadId Id { get; }
 
     bool Selected { get; }
 }

@@ -37,7 +37,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private void ButtonAdd_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddSweeper();
 
-    public Guid? AddSweeper(Guid tournamentId)
+    public SquadId? AddSweeper(Guid tournamentId)
     {
         using var form = new Add.Form(_config, tournamentId);
 

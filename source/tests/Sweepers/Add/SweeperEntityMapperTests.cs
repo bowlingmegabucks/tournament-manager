@@ -16,7 +16,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Sweeper
         {
-            Id = Guid.NewGuid()
+            Id = SquadId.New()
         };
 
         var entity = _mapper.Execute(model);
@@ -125,7 +125,7 @@ internal class EntityMapper
 
         var model = new NewEnglandClassic.Models.Sweeper
         {
-            Id = Guid.NewGuid(),
+            Id = SquadId.New(),
             Divisions = new Dictionary<DivisionId, int?>
             {
                 { division0, null},

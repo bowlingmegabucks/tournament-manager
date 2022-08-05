@@ -28,7 +28,7 @@ internal class BusinessLogic
     [Test]
     public void ForTournament_ReturnsDataLayerForTournamentResults()
     {
-        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = Guid.NewGuid() }, 2);
+        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.ForTournament(It.IsAny<Guid>())).Returns(squads);
 
         var tournamentId = Guid.NewGuid();
@@ -41,7 +41,7 @@ internal class BusinessLogic
     [Test]
     public void ForTournament_DataLayerForTournamentNoException_ErrorNull()
     {
-        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = Guid.NewGuid() }, 2);
+        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.ForTournament(It.IsAny<Guid>())).Returns(squads);
 
         var tournamentId = Guid.NewGuid();

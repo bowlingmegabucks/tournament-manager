@@ -12,7 +12,7 @@ internal class SweeperViewModelTests
     {
         _model = new()
         {
-            Id = Guid.NewGuid(),
+            Id = SquadId.New(),
             TournamentId = Guid.NewGuid(),
             EntryFee = 100,
             Games = 3,

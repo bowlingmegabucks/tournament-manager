@@ -37,7 +37,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private void ButtonAdd_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddSquad();
 
-    public Guid? AddSquad(Guid tournamentId)
+    public SquadId? AddSquad(Guid tournamentId)
     {
         using var form = new Add.Form(_config, tournamentId);
 

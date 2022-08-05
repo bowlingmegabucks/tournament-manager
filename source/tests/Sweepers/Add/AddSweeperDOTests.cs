@@ -43,12 +43,12 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsRepositoryAddResponse()
     {
-        var guid = Guid.NewGuid();
-        _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.SweeperSquad>())).Returns(guid);
+        var id = SquadId.New();
+        _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.SweeperSquad>())).Returns(id);
 
         var model = new NewEnglandClassic.Models.Sweeper();
         var actual = _dataLayer.Execute(model);
 
-        Assert.That(actual, Is.EqualTo(guid));
+        Assert.That(actual, Is.EqualTo(id));
     }
 }

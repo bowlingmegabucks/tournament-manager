@@ -6,7 +6,7 @@ namespace NewEnglandClassic.Database.Entities;
 internal abstract class Squad
 {
     [Key]
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
     [Required]
     public Guid TournamentId { get; set; }
@@ -35,10 +35,14 @@ internal abstract class Squad
 
     internal class Configuration : IEntityTypeConfiguration<Squad>
     {
-        public void Configure(EntityTypeBuilder<Squad> builder) 
-            => builder.ToTable("Squads")
+        public void Configure(EntityTypeBuilder<Squad> builder)
+        {
+            builder.Property(squad => squad.Id).HasConversion(new SquadIdConverter());
+
+            builder.ToTable("Squads")
                       .HasDiscriminator<int>("SquadType")
                       .HasValue<TournamentSquad>(0)
                       .HasValue<SweeperSquad>(1);
+        }
     }
 }

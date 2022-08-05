@@ -90,7 +90,7 @@ internal class Presenter
             _view.Verify(view => view.KeepOpen(), Times.Once);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
-            sweeper.VerifySet(s => s.Id = It.IsAny<Guid>(), Times.Never);
+            sweeper.VerifySet(s => s.Id = It.IsAny<SquadId>(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
@@ -103,7 +103,7 @@ internal class Presenter
         var sweeper = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
         _view.SetupGet(view => view.Sweeper).Returns(sweeper.Object);
 
-        var sweeperId = Guid.NewGuid();
+        var sweeperId = SquadId.New();
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Sweepers.IViewModel>())).Returns(sweeperId);
 
         _presenter.Execute();
@@ -136,7 +136,7 @@ internal class Presenter
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
-            sweeper.VerifySet(s => s.Id = It.IsAny<Guid>(), Times.Never);
+            sweeper.VerifySet(s => s.Id = It.IsAny<SquadId>(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
@@ -150,7 +150,7 @@ internal class Presenter
         sweeper.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 00));
         _view.SetupGet(view => view.Sweeper).Returns(sweeper.Object);
 
-        var sweeperId = Guid.NewGuid();
+        var sweeperId = SquadId.New();
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Sweepers.IViewModel>())).Returns(sweeperId);
 
         _presenter.Execute();

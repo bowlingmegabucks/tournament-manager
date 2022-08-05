@@ -21,7 +21,7 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
     
-    public Guid Execute(Models.Sweeper sweeper)
+    public SquadId Execute(Models.Sweeper sweeper)
     {
         var entity = _mapper.Execute(sweeper);
         
@@ -31,5 +31,5 @@ internal class DataLayer : IDataLayer
 
 internal interface IDataLayer
 {
-    Guid Execute(Models.Sweeper sweeper);
+    SquadId Execute(Models.Sweeper sweeper);
 }

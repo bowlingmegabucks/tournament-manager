@@ -89,7 +89,7 @@ internal class Presenter
     [Test]
     public void AddSweeper_ViewAddSweeperReturnsNull_ViewRefreshSweepers_NotCalled()
     {
-        _view.Setup(view => view.AddSweeper(It.IsAny<Guid>())).Returns((Guid?)null);
+        _view.Setup(view => view.AddSweeper(It.IsAny<Guid>())).Returns((SquadId?)null);
 
         _presenter.AddSweeper();
 
@@ -99,7 +99,7 @@ internal class Presenter
     [Test]
     public void AddSweeper_ViewAddSweeperReturnsGuid_ViewRefreshSweepers_Called()
     {
-        _view.Setup(view => view.AddSweeper(It.IsAny<Guid>())).Returns(Guid.NewGuid());
+        _view.Setup(view => view.AddSweeper(It.IsAny<Guid>())).Returns(SquadId.New());
 
         _presenter.AddSweeper();
 
