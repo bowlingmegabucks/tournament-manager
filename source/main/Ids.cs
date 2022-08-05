@@ -6,3 +6,6 @@ namespace NewEnglandClassic;
 
 [StronglyTypedId]
 internal partial struct BowlerId { }
+
+[StronglyTypedId]
+internal partial struct DivisionId { }

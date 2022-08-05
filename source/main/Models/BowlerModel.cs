@@ -70,7 +70,7 @@ internal class Bowler
 
     public Bowler(Bowlers.Add.IViewModel viewModel)
     {
-        Id = new BowlerId(viewModel.Id);
+        Id = viewModel.Id;
         FirstName = viewModel.FirstName;
         MiddleInitial = viewModel.MiddleInitial;
         LastName = viewModel.LastName;

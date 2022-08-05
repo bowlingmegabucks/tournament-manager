@@ -24,8 +24,8 @@ internal class DataLayer : IDataLayer
     Models.Tournament IDataLayer.Execute(Guid id)
         => new(_repository.Retrieve(id));
 
-    Models.Tournament IDataLayer.FromDivisionId(Guid id)
-        => new(_repository.RetrieveByDivision(id));
+    Models.Tournament IDataLayer.Execute(DivisionId id)
+        => new(_repository.Retrieve(id));
 }
 
 internal interface IDataLayer
@@ -34,5 +34,5 @@ internal interface IDataLayer
 
     Models.Tournament Execute(Guid id);
 
-    Models.Tournament FromDivisionId(Guid divisionId);
+    Models.Tournament Execute(DivisionId id);
 }

@@ -1,5 +1,5 @@
 ﻿namespace NewEnglandClassic.Divisions.Add;
-public partial class Form : System.Windows.Forms.Form, IView
+internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
     

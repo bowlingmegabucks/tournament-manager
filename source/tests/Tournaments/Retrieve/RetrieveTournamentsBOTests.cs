@@ -127,55 +127,55 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void FromDivisionId_DataLayerFromDivisionId_Called()
+    public void Execute_DivisionIdDataLayerExecute_DivisionIdCalled()
     {
         var id = Guid.NewGuid();
-        _businessLogic.FromDivisionId(id);
+        _businessLogic.Execute(id);
 
-        _dataLayer.Verify(dataLayer => dataLayer.FromDivisionId(id), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(id), Times.Once);
     }
 
     [Test]
-    public void FromDivisionId_ReturnsResultFromDataLayer()
+    public void Execute_DivisionIdReturnsResultFromDataLayer()
     {
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _dataLayer.Setup(dataLayer => dataLayer.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<Guid>())).Returns(tournament);
 
         var id = Guid.NewGuid();
-        var result = _businessLogic.FromDivisionId(id);
+        var result = _businessLogic.Execute(id);
 
         Assert.That(result, Is.EqualTo(tournament));
     }
 
     [Test]
-    public void FromDivisionId_NoErrors_ErrorNull()
+    public void Execute_DivisionIdNoErrors_ErrorNull()
     {
         var id = Guid.NewGuid();
-        _businessLogic.FromDivisionId(id);
+        _businessLogic.Execute(id);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void FromDivisionId_DataLayerFromDivisionIdThrowsException_ReturnsNull()
+    public void Execute_DivisionIdDataLayerExecuteThrowsException_ReturnsNull()
     {
         var ex = new Exception();
-        _dataLayer.Setup(dataLayer => dataLayer.FromDivisionId(It.IsAny<Guid>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<Guid>())).Throws(ex);
 
         var id = Guid.NewGuid();
-        var result = _businessLogic.FromDivisionId(id);
+        var result = _businessLogic.Execute(id);
 
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void FromDivisionId_DataLayerFromDivisionIdThrowsException_ErrorPopulated()
+    public void Execute_DivisionIdDataLayerExecuteThrowsException_ErrorPopulated()
     {
         var ex = new Exception("message");
-        _dataLayer.Setup(dataLayer => dataLayer.FromDivisionId(It.IsAny<Guid>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<Guid>())).Throws(ex);
 
         var id = Guid.NewGuid();
-        _businessLogic.FromDivisionId(id);
+        _businessLogic.Execute(id);
 
         Assert.Multiple(() =>
         {

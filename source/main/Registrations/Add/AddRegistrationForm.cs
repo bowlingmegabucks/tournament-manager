@@ -26,8 +26,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         ComboBoxDivisions.DisplayMember = nameof(Divisions.IViewModel.DivisionName);
     }
 
-    public Guid Division 
-        => (Guid)ComboBoxDivisions.SelectedValue;
+    public DivisionId DivisionId
+        => (DivisionId)ComboBoxDivisions.SelectedValue;
 
     public Bowlers.Add.IViewModel Bowler
         => BowlerControl;

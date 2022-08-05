@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-public partial class SweeperDivisionControl : UserControl
+internal partial class SweeperDivisionControl : UserControl
 {
-    public Guid DivisionId { get; }
+    public DivisionId DivisionId { get; }
     
     public int? BonusPinsPerGame
     {

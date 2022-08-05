@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-public partial class SweeperControl : UserControl, Sweepers.IViewModel
+internal partial class SweeperControl : UserControl, Sweepers.IViewModel
 {
     public SweeperControl()
     {
@@ -101,7 +101,7 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
 
     public bool Complete { get; set; }
 
-    public IDictionary<Guid, int?> Divisions
+    public IDictionary<DivisionId, int?> Divisions
         => SweeperDivisions.Divisions;
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions) 

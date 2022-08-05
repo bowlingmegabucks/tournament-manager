@@ -10,7 +10,7 @@ internal interface IView
 
     void BindDivisions(IEnumerable<IViewModel> divisions);
 
-    Guid? AddDivision(Guid tournamentId);
+    DivisionId? AddDivision(Guid tournamentId);
 
     void RefreshDivisions();
 }

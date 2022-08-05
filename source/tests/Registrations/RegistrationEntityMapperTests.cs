@@ -76,7 +76,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Registration
         {
-            Division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() }
+            Division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() }
         };
 
         var entity = _mapper.Execute(model);

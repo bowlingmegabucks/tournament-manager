@@ -83,10 +83,10 @@ internal class Repository
     [Test]
     public void RetrieveByDivision_ReturnsTournamentWithDivision()
     {
-        var division1 = new NewEnglandClassic.Database.Entities.Division { Id = Guid.NewGuid() };
-        var division2 = new NewEnglandClassic.Database.Entities.Division { Id = Guid.NewGuid() };
-        var division3 = new NewEnglandClassic.Database.Entities.Division { Id = Guid.NewGuid() };
-        var division4 = new NewEnglandClassic.Database.Entities.Division { Id = Guid.NewGuid() };
+        var division1 = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() };
+        var division2 = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() };
+        var division3 = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() };
+        var division4 = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() };
 
         var tournament1 = new NewEnglandClassic.Database.Entities.Tournament
         {
@@ -104,7 +104,7 @@ internal class Repository
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(tournaments.SetUpDbContext());
 
-        var actual = _tournamentsRepository.RetrieveByDivision(division2.Id);
+        var actual = _tournamentsRepository.Retrieve(division2.Id);
 
         Assert.That(actual.Id, Is.EqualTo(tournament1.Id));
     }

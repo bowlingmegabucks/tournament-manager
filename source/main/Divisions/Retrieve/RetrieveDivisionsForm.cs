@@ -1,6 +1,6 @@
 ﻿
 namespace NewEnglandClassic.Divisions.Retrieve;
-public partial class Form : System.Windows.Forms.Form, IView
+internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
 
@@ -28,7 +28,7 @@ public partial class Form : System.Windows.Forms.Form, IView
     private void ButtonAdd_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddDivision();
 
-    public Guid? AddDivision(Guid tournamentId)
+    public DivisionId? AddDivision(Guid tournamentId)
     {
         using var form = new Add.Form(_config, tournamentId);
 

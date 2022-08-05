@@ -75,25 +75,25 @@ internal class DataLayer
     }
 
     [Test]
-    public void FromDivisionId_RepositoryRetrieveByDivisionId_CalledCorrectly()
+    public void Execute_DivisionIdRepositoryExecuteDivisionId_CalledCorrectly()
     {
         var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
-        _repository.Setup(repository => repository.RetrieveByDivision(It.IsAny<Guid>())).Returns(tournament);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<Guid>())).Returns(tournament);
 
         var guid = Guid.NewGuid();
 
-        _dataLayer.FromDivisionId(guid);
+        _dataLayer.Execute(guid);
 
-        _repository.Verify(repository => repository.RetrieveByDivision(guid), Times.Once);
+        _repository.Verify(repository => repository.Retrieve(guid), Times.Once);
     }
 
     [Test]
-    public void FromDivisionId_ReturnsTournament()
+    public void Execute_DivisionIdReturnsTournament()
     {
         var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
-        _repository.Setup(repository => repository.RetrieveByDivision(It.IsAny<Guid>())).Returns(tournament);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<Guid>())).Returns(tournament);
 
-        var actual = _dataLayer.FromDivisionId(tournament.Id);
+        var actual = _dataLayer.Execute(tournament.Id);
 
         Assert.That(actual.Id, Is.EqualTo(tournament.Id));
     }

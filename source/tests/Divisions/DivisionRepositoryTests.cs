@@ -49,21 +49,21 @@ internal class Repository
 
         var division1 = new NewEnglandClassic.Database.Entities.Division
         {
-            Id = Guid.NewGuid(),
+            Id = DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
         var division2 = new NewEnglandClassic.Database.Entities.Division
         {
-            Id = Guid.NewGuid(),
+            Id = DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
         var division3 = new NewEnglandClassic.Database.Entities.Division
         {
-            Id = Guid.NewGuid(),
+            Id = DivisionId.New(),
             TournamentId = Guid.NewGuid(),
             Name = "No"
         };
@@ -83,7 +83,7 @@ internal class Repository
     [Test]
     public void Retrieve_ReturnsDivision()
     {
-        var divisionId = Guid.NewGuid();
+        var divisionId = DivisionId.New();
 
         var division1 = new NewEnglandClassic.Database.Entities.Division
         {
@@ -94,14 +94,14 @@ internal class Repository
 
         var division2 = new NewEnglandClassic.Database.Entities.Division
         {
-            Id = Guid.NewGuid(),
+            Id = DivisionId.New(),
             TournamentId = Guid.NewGuid(),
             Name = "No"
         };
 
         var division3 = new NewEnglandClassic.Database.Entities.Division
         {
-            Id = Guid.NewGuid(),
+            Id = DivisionId.New(),
             TournamentId = Guid.NewGuid(),
             Name = "No"
         };

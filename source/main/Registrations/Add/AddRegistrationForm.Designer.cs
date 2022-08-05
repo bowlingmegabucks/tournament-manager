@@ -54,7 +54,7 @@ partial class Form
             this.BowlerControl.EmailAddress = "";
             this.BowlerControl.FirstName = "";
             this.BowlerControl.Gender = NewEnglandClassic.Models.Gender.Male;
-            this.BowlerControl.Id = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.BowlerControl.Id = BowlerId.Empty;
             this.BowlerControl.LastName = "";
             this.BowlerControl.Location = new System.Drawing.Point(2, 12);
             this.BowlerControl.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);

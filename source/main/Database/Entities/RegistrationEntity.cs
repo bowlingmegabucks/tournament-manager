@@ -14,7 +14,7 @@ internal class Registration
     public Bowler Bowler { get; set; } = null!;
 
     [Required]
-    public Guid DivisionId { get; set; }
+    public DivisionId DivisionId { get; set; }
 
     public Division Division { get; set; } = null!;
 
@@ -27,6 +27,7 @@ internal class Registration
         public void Configure(EntityTypeBuilder<Registration> builder)
         {
             builder.Property(registration => registration.BowlerId).HasConversion(new BowlerIdConverter());
+            builder.Property(registration => registration.DivisionId).HasConversion(new DivisionIdConverter());
 
             builder.HasAlternateKey(registration => new { registration.BowlerId, registration.DivisionId });
 

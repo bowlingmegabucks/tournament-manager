@@ -57,7 +57,7 @@ internal class BusinessLogic : IBusinessLogic
 
         registration.Division = division!;
 
-        var tournament = GetTournamentBO.FromDivisionId(division!.Id);
+        var tournament = GetTournamentBO.Execute(division!.Id);
 
         if (GetTournamentBO.Error is not null)
         {

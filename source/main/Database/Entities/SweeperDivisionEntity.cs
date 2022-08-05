@@ -8,7 +8,7 @@ internal class SweeperDivision
 
     public SweeperSquad Sweeper { get; set; } = null!;
 
-    public Guid DivisionId { get; set; }
+    public DivisionId DivisionId { get; set; }
 
     public Division Division { get; set; } = null!;
 
@@ -18,6 +18,8 @@ internal class SweeperDivision
     {
         public void Configure(EntityTypeBuilder<SweeperDivision> builder)
         {
+            builder.Property(builder => builder.DivisionId).HasConversion(new DivisionIdConverter());
+
             builder.HasKey(e => new { e.SweeperId, e.DivisionId });
             
             builder.HasOne(squad => squad.Sweeper)

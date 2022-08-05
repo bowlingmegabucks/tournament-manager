@@ -22,7 +22,7 @@ internal class ViewModel : IViewModel
 
     public bool Complete { get; set; }
 
-    public IDictionary<Guid, int?> Divisions { get; set; } = new Dictionary<Guid, int?>();
+    public IDictionary<DivisionId, int?> Divisions { get; set; } = new Dictionary<DivisionId, int?>();
 
     public ViewModel(Models.Sweeper sweeper)
     {
@@ -34,7 +34,7 @@ internal class ViewModel : IViewModel
         Date = sweeper.Date;
         MaxPerPair = sweeper.MaxPerPair;
         Complete = sweeper.Complete;
-        Divisions = sweeper.Divisions;
+        Divisions = sweeper.Divisions.ToDictionary(division=> division.Key, division=> division.Value);
     }
 }
 
@@ -60,5 +60,5 @@ internal interface IViewModel
 
     bool Complete { get; set; }
 
-    IDictionary<Guid, int?> Divisions { get; }
+    IDictionary<DivisionId, int?> Divisions { get; }
 }

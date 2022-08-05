@@ -68,7 +68,7 @@ internal class Presenter
     [Test]
     public void AddDivision_ViewAddDivisionReturnsId_ViewRefreshDivisions_Called()
     {
-        var id = Guid.NewGuid();
+        var id = DivisionId.New();
         _view.Setup(view => view.AddDivision(It.IsAny<Guid>())).Returns(id);
 
         _presenter.AddDivision();
@@ -79,7 +79,7 @@ internal class Presenter
     [Test]
     public void AddDivision_ViewAddDivisionReturnsNull_ViewRefreshDivisions_NotCalled()
     {
-        _view.Setup(view => view.AddDivision(It.IsAny<Guid>())).Returns((Guid?)null);
+        _view.Setup(view => view.AddDivision(It.IsAny<Guid>())).Returns((DivisionId?)null);
 
         _presenter.AddDivision();
 

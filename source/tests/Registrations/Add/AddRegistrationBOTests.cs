@@ -29,15 +29,15 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecute_CalledCorrectly()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
-        var divisionId = Guid.NewGuid();
+        var divisionId = DivisionId.New();
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -65,7 +65,7 @@ internal class BusinessLogic
             Assert.That(actual, Is.Null);
 
             _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
-            _getTournamentBO.Verify(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>()), Times.Never);
+            _getTournamentBO.Verify(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NewEnglandClassic.Models.Registration>()), Times.Never);
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Registration>()), Times.Never);
         });
@@ -74,11 +74,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionId_CalledCorrectly()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid()};
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
         
@@ -86,7 +86,7 @@ internal class BusinessLogic
 
         _businessLogic.Execute(registration);
 
-        _getTournamentBO.Verify(getTournamentBO => getTournamentBO.FromDivisionId(division.Id), Times.Once);
+        _getTournamentBO.Verify(getTournamentBO => getTournamentBO.Execute(division.Id), Times.Once);
     }
 
     [Test]
@@ -95,8 +95,8 @@ internal class BusinessLogic
         var error = new NewEnglandClassic.Models.ErrorDetail("error");
         _getTournamentBO.SetupGet(getDivisionBO => getDivisionBO.Error).Returns(error);
 
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var registration = new NewEnglandClassic.Models.Registration();
 
@@ -116,11 +116,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionIdSuccessful_ValueSetOnRegistration()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today)};
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -140,10 +140,10 @@ internal class BusinessLogic
     public void Execute_GetDivisonBOExecuteSuccessful_ValiationAndDataLayerCalledWithReturnedDivision()
     {
         var division = new NewEnglandClassic.Models.Division();
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today) };
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -161,11 +161,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_GetBowlerBOExecute_CalledCorrecctly()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -184,11 +184,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdEmpty_GetBowlerBOExecute_NotCalled()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -207,11 +207,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_GetBowlerBOExecuteHasError_ErrorFlow()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         var error = new NewEnglandClassic.Models.ErrorDetail("error");
         _getBowlerBO.SetupGet(getBowlerBO => getBowlerBO.Error).Returns(error);
@@ -238,11 +238,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_ValidatorAndDataLayerCalledWithReturnedBowler()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -268,11 +268,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdEmpty_ValidatorAndDataLayerNotCalledWithAResponseFromGetBowlerBO()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -298,11 +298,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_ValidatorIsValid_False_ErrorFlow()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsNotValid("propertyName", "errorMessage");
 
@@ -322,11 +322,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_ValidationIsValid_DataLayerExecuteThrowsException_ErrorFlow()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -347,11 +347,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_ValidationIsValid_ReeturnsDataLayerExecute()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<Guid>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 

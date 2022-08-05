@@ -202,11 +202,11 @@ internal class Bowler
     public void Constructor_IAddViewModel_IdMapped()
     {
         var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
-        viewModel.SetupGet(v => v.Id).Returns(Guid.NewGuid());
+        viewModel.SetupGet(v => v.Id).Returns(BowlerId.New());
 
         var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
 
-        Assert.That(model.Id.Value, Is.EqualTo(viewModel.Object.Id));
+        Assert.That(model.Id, Is.EqualTo(viewModel.Object.Id));
     }
 
     [Test]

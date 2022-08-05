@@ -24,7 +24,7 @@ internal class Repository : IRepository
     Database.Entities.Tournament IRepository.Retrieve(Guid id)
         => _dataContext.Tournaments.Single(tournament=> tournament.Id == id);
 
-    Database.Entities.Tournament IRepository.RetrieveByDivision(System.Guid divisionId)
+    Database.Entities.Tournament IRepository.Retrieve(DivisionId divisionId)
         => _dataContext.Tournaments.Include(tournament => tournament.Divisions).Single(tournament => tournament.Divisions.Any(division => division.Id == divisionId));
 
     Guid IRepository.Add(Database.Entities.Tournament tournament)
@@ -42,7 +42,7 @@ internal interface IRepository
 
     Database.Entities.Tournament Retrieve(Guid id);
 
-    Database.Entities.Tournament RetrieveByDivision(Guid divisionId);
+    Database.Entities.Tournament Retrieve(DivisionId divisionId);
 
     Guid Add(Database.Entities.Tournament tournament);
 }

@@ -60,7 +60,7 @@ partial class Form
             this.DivisionNew.Gender = null;
             this.DivisionNew.HandicapBase = null;
             this.DivisionNew.HandicapPercentage = null;
-            this.DivisionNew.Id = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.DivisionNew.Id = DivisionId.Empty;
             this.DivisionNew.Location = new System.Drawing.Point(1, 12);
             this.DivisionNew.MaximumAge = null;
             this.DivisionNew.MaximumAverage = null;

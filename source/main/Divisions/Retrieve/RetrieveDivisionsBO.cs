@@ -33,11 +33,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public Models.Division? Execute(Guid divisionId)
+    public Models.Division? Execute(DivisionId id)
     {
         try
         {
-            return _dataLayer.Execute(divisionId);
+            return _dataLayer.Execute(id);
         }
         catch (Exception ex)
         {
@@ -54,5 +54,5 @@ internal interface IBusinessLogic
 
     IEnumerable<Models.Division> ForTournament(Guid tournamentId);
 
-    Models.Division? Execute(Guid divisionId);
+    Models.Division? Execute(DivisionId id);
 }

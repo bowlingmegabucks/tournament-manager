@@ -44,13 +44,13 @@ internal class Adapter
     [Test]
     public void Execute_ReturnsBusinessLogicGuid()
     {
-        var guid = Guid.NewGuid();
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(guid);
+        var divisionId = DivisionId.New();
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(divisionId);
 
         var viewModel = new NewEnglandClassic.Divisions.ViewModel();
 
         var result = _adapter.Execute(viewModel);
 
-        Assert.That(result, Is.EqualTo(guid));
+        Assert.That(result, Is.EqualTo(divisionId));
     }
 }

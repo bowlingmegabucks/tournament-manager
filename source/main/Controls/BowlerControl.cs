@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace NewEnglandClassic.Contols;
-public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
+internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
 {
     private readonly static IDictionary<string, string> _states = new Dictionary<string, string>
     {
@@ -86,7 +86,7 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         ComboBoxGender.ValueMember = "Key";
     }
 
-    public Guid Id { get; set; }
+    public BowlerId Id { get; set; }
 
     public string FirstName
     {

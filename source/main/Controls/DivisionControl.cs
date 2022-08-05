@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-public partial class DivisionControl : UserControl, Divisions.IViewModel
+internal partial class DivisionControl : UserControl, Divisions.IViewModel
 {
     public DivisionControl()
     {
@@ -22,7 +22,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         ComboboxGender.DataSource = dictionary.ToList();
     }
 
-    public Guid Id { get; set; }
+    public DivisionId Id { get; set; }
 
     public short Number
     {
