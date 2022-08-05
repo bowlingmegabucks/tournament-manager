@@ -55,7 +55,7 @@ internal class Adapter
     [Test]
     public void Execute_AddBowlerView_ReturnsBusinessLogicExecute()
     {
-        var id = Guid.NewGuid();
+        var id = RegistrationId.New();
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Registration>())).Returns(id);
 
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();

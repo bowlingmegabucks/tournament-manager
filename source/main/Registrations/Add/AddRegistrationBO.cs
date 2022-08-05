@@ -44,7 +44,7 @@ internal class BusinessLogic : IBusinessLogic
 
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
 
-    public Guid? Execute(Models.Registration registration)
+    public RegistrationId? Execute(Models.Registration registration)
     {
         var division = _getDivisionBO.Execute(registration.Division.Id);
 
@@ -108,5 +108,5 @@ internal interface IBusinessLogic
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(Models.Registration registration);
+    RegistrationId? Execute(Models.Registration registration);
 }

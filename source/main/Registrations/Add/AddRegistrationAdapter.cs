@@ -21,10 +21,10 @@ internal class Adapter : IAdapter
         _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
     }
 
-    public Guid? Execute(Bowlers.Add.IViewModel bowler, DivisionId divisionId, IEnumerable<Guid> squads, IEnumerable<Guid> sweepers, int? average)
+    public RegistrationId? Execute(Bowlers.Add.IViewModel bowler, DivisionId divisionId, IEnumerable<Guid> squads, IEnumerable<Guid> sweepers, int? average)
         => Execute(new Models.Registration(new Models.Bowler(bowler), divisionId, squads, sweepers, average));
 
-    private Guid? Execute(Models.Registration registration)
+    private RegistrationId? Execute(Models.Registration registration)
     {
         var id = BusinessLogic.Execute(registration);
 
@@ -38,5 +38,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(Bowlers.Add.IViewModel bowler, DivisionId divisionId, IEnumerable<Guid> squads, IEnumerable<Guid> sweepers, int? average);
+    RegistrationId? Execute(Bowlers.Add.IViewModel bowler, DivisionId divisionId, IEnumerable<Guid> squads, IEnumerable<Guid> sweepers, int? average);
 }

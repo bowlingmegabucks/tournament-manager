@@ -9,3 +9,6 @@ internal partial struct BowlerId { }
 
 [StronglyTypedId]
 internal partial struct DivisionId { }
+
+[StronglyTypedId]
+internal partial struct RegistrationId { }

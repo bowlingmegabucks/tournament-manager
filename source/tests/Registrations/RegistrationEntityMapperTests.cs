@@ -21,7 +21,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Registration
         {
-            Id = Guid.NewGuid()
+            Id = RegistrationId.New()
         };
 
         var entity = _mapper.Execute(model);
@@ -108,7 +108,7 @@ internal class EntityMapper
         var sweeper2 = Guid.NewGuid();
         var sweeper3 = Guid.NewGuid();
 
-        var id = Guid.NewGuid();
+        var id = RegistrationId.New();
 
         var model = new NewEnglandClassic.Models.Registration
         {

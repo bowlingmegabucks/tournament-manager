@@ -6,7 +6,7 @@ namespace NewEnglandClassic.Database.Entities;
 internal class SquadRegistration
 {
     [Required]
-    public Guid RegistrationId { get; set; }
+    public RegistrationId RegistrationId { get; set; }
 
     public Registration Registration { get; set; } = null!;
 
@@ -19,6 +19,8 @@ internal class SquadRegistration
     {
         public void Configure(EntityTypeBuilder<SquadRegistration> builder)
         {
+            builder.Property(squadRegistration => squadRegistration.RegistrationId).HasConversion(new RegistrationIdConverter());
+
             builder.HasKey(squadRegistration => new { squadRegistration.RegistrationId, squadRegistration.SquadId });
 
             builder.HasOne(squadRegistration => squadRegistration.Squad)

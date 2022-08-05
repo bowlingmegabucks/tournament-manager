@@ -355,7 +355,7 @@ internal class BusinessLogic
 
         _validator.Validate_IsValid();
 
-        var id = Guid.NewGuid();
+        var id = RegistrationId.New();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Registration>())).Returns(id);
 
         var registration = new NewEnglandClassic.Models.Registration();
