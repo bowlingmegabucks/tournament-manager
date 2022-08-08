@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace NewEnglandClassic.Registrations;
+﻿namespace NewEnglandClassic.Registrations;
 
 internal class Repository : IRepository
 {

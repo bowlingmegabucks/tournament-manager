@@ -23,12 +23,12 @@ internal class Presenter
     [Test]
     public void GetDivisions_RetrieveDivisionsAdapter_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.GetDivisions();
 
-        _retrieveDivisionsAdapter.Verify(adapter => adapter.ForTournament(tournamentId));
+        _retrieveDivisionsAdapter.Verify(adapter => adapter.Execute(tournamentId));
     }
 
     [Test]
@@ -37,7 +37,7 @@ internal class Presenter
         var error = new NewEnglandClassic.Models.ErrorDetail("error");
         _retrieveDivisionsAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.GetDivisions();
@@ -55,9 +55,9 @@ internal class Presenter
     public void GetDivisions_RetrieveDivisionsAdapterHasNoError_ViewBindDivisions_CalledCorrectly()
     {
         var divisions = new Mock<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>();
-        _retrieveDivisionsAdapter.Setup(adapter => adapter.ForTournament(It.IsAny<Guid>())).Returns(divisions.Object);
+        _retrieveDivisionsAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(divisions.Object);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.GetDivisions();

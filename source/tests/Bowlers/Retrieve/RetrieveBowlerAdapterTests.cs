@@ -21,7 +21,7 @@ internal class Adapter
     {
         var bowlerId = BowlerId.New();
 
-        _adapter.Execute(bowlerId.Value);
+        _adapter.Execute(bowlerId);
 
         _businessLogic.Verify(businessLogic => businessLogic.Execute(bowlerId), Times.Once);
     }
@@ -32,7 +32,7 @@ internal class Adapter
         var error = new NewEnglandClassic.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        var bowlerId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
 
         var actual = _adapter.Execute(bowlerId);
 
@@ -53,7 +53,7 @@ internal class Adapter
         };
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<BowlerId>())).Returns(bowler);
 
-        var bowlerId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
 
         var actual = _adapter.Execute(bowlerId);
 

@@ -6,7 +6,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
 
-    public Form(IConfiguration config, Guid tournamentId)
+    public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
 
@@ -16,7 +16,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         new Presenter(config, this).Load();
     }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
     {
@@ -86,7 +86,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayMessage(string message)
         => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-    public Guid? SelectBowler()
+    public BowlerId? SelectBowler()
     {
         using var form = new Bowlers.Search.Dialog(_config, true);
 

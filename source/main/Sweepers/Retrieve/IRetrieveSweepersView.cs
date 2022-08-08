@@ -2,7 +2,7 @@
 namespace NewEnglandClassic.Sweepers.Retrieve;
 internal interface IView
 {
-    Guid TournamentId { get; }
+    TournamentId TournamentId { get; }
     
     void BindSweepers(IEnumerable<IViewModel> squads);
     
@@ -10,7 +10,7 @@ internal interface IView
     
     void DisplayError(string message);
 
-    SquadId? AddSweeper(Guid tournamentId);
+    SquadId? AddSweeper(TournamentId tournamentId);
 
     void RefreshSweepers();
 }

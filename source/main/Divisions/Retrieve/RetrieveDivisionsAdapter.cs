@@ -20,9 +20,9 @@ internal class Adapter : IAdapter
     public Models.ErrorDetail? Error
         => _businessLogic.Error;
 
-    public IEnumerable<IViewModel> ForTournament(Guid tournamentId)
+    public IEnumerable<IViewModel> Execute(TournamentId tournamentId)
     {
-        var divisions = _businessLogic.ForTournament(tournamentId);
+        var divisions = _businessLogic.Execute(tournamentId);
 
         return divisions.Select(division => new ViewModel(division));
     }
@@ -32,5 +32,5 @@ internal interface IAdapter
 { 
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IViewModel> ForTournament(Guid tournamentId);
+    IEnumerable<IViewModel> Execute(TournamentId tournamentId);
 }

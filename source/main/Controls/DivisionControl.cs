@@ -45,7 +45,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         }
     }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public short? MinimumAge
     {

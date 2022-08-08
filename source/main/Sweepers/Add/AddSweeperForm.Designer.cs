@@ -57,7 +57,7 @@ partial class Form
             this.SweeperControl.Size = new System.Drawing.Size(546, 516);
             this.SweeperControl.StartingLane = ((short)(1));
             this.SweeperControl.TabIndex = 0;
-            this.SweeperControl.TournamentId = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.SweeperControl.TournamentId = TournamentId.Empty;
             // 
             // ButtonCancel
             // 

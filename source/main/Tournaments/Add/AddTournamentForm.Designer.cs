@@ -53,7 +53,7 @@ partial class Form
             0,
             0});
             this.TournamentControlNew.Games = ((short)(0));
-            this.TournamentControlNew.Id = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.TournamentControlNew.Id = TournamentId.Empty;
             this.TournamentControlNew.Location = new System.Drawing.Point(12, 12);
             this.TournamentControlNew.Name = "TournamentControlNew";
             this.TournamentControlNew.Size = new System.Drawing.Size(354, 330);

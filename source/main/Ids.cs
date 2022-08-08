@@ -15,3 +15,6 @@ internal partial struct RegistrationId { }
 
 [StronglyTypedId]
 internal partial struct SquadId { }
+
+[StronglyTypedId]
+internal partial struct TournamentId { }

@@ -13,7 +13,7 @@ internal partial class SquadControl : UserControl, Squads.IViewModel
 
     public SquadId Id { get; set; }
     
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
     
     public decimal? CashRatio
     {

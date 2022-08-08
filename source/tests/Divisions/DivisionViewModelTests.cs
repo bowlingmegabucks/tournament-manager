@@ -47,7 +47,7 @@ internal class ViewModel
     {
         var model = new NewEnglandClassic.Models.Division
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);

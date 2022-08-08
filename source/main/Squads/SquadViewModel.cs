@@ -4,7 +4,7 @@ internal class ViewModel : IViewModel
 {
     public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public decimal? CashRatio { get; set; }
 
@@ -38,7 +38,7 @@ internal interface IViewModel
 {
     SquadId Id { get; set; }
 
-    Guid TournamentId { get; set; }
+    TournamentId TournamentId { get; set; }
 
     decimal? CashRatio { get; set; }
     

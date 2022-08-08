@@ -19,14 +19,14 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_GetSweepersAdapterForTournament_CalledCorrectly()
+    public void Execute_GetSweepersAdapterExecute_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.Execute();
 
-        _getSweepersAdapter.Verify(a => a.ForTournament(tournamentId), Times.Once);
+        _getSweepersAdapter.Verify(a => a.Execute(tournamentId), Times.Once);
     }
 
     [Test]
@@ -63,7 +63,7 @@ internal class Presenter
         sweeper3.SetupGet(sweeper => sweeper.MaxPerPair).Returns(3);
 
         var sweepers = new[] { sweeper1.Object, sweeper2.Object, sweeper3.Object };
-        _getSweepersAdapter.Setup(getSweepersAdapter => getSweepersAdapter.ForTournament(It.IsAny<Guid>())).Returns(sweepers);
+        _getSweepersAdapter.Setup(getSweepersAdapter => getSweepersAdapter.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
 
         _presenter.Execute();
 
@@ -78,7 +78,7 @@ internal class Presenter
     [Test]
     public void AddSweeper_ViewAddSweeper_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.AddSweeper();
@@ -89,7 +89,7 @@ internal class Presenter
     [Test]
     public void AddSweeper_ViewAddSweeperReturnsNull_ViewRefreshSweepers_NotCalled()
     {
-        _view.Setup(view => view.AddSweeper(It.IsAny<Guid>())).Returns((SquadId?)null);
+        _view.Setup(view => view.AddSweeper(It.IsAny<TournamentId>())).Returns((SquadId?)null);
 
         _presenter.AddSweeper();
 
@@ -97,9 +97,9 @@ internal class Presenter
     }
 
     [Test]
-    public void AddSweeper_ViewAddSweeperReturnsGuid_ViewRefreshSweepers_Called()
+    public void AddSweeper_ViewAddSweeperReturnsId_ViewRefreshSweepers_Called()
     {
-        _view.Setup(view => view.AddSweeper(It.IsAny<Guid>())).Returns(SquadId.New());
+        _view.Setup(view => view.AddSweeper(It.IsAny<TournamentId>())).Returns(SquadId.New());
 
         _presenter.AddSweeper();
 

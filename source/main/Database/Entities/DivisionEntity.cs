@@ -15,7 +15,7 @@ internal class Division
     public short Number { get; set; }
 
     [Required]
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public Tournament Tournament { get; set; } = null!;
 
@@ -45,6 +45,8 @@ internal class Division
         public void Configure(EntityTypeBuilder<Division> builder)
         {
             builder.Property(division => division.Id).HasConversion(new DivisionIdConverter());
+
+            builder.Property(division => division.TournamentId).HasConversion(new TournamentIdConverter());
 
             builder.HasOne(division => division.Tournament)
                       .WithMany(tournament => tournament.Divisions)

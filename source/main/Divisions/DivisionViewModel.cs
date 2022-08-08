@@ -8,7 +8,7 @@ internal class ViewModel : IViewModel
 
     public string DivisionName { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public short? MinimumAge { get; set; }
 
@@ -59,7 +59,7 @@ internal interface IViewModel
     
     string DivisionName { get; set; }
 
-    Guid TournamentId { get; set; }
+    TournamentId TournamentId { get; set; }
 
     short? MinimumAge { get; set; }
 

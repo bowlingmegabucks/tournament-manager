@@ -10,7 +10,7 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
 
     public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public decimal EntryFee
     {

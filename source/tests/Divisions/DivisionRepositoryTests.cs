@@ -19,15 +19,15 @@ internal class Repository
     }
 
     [Test]
-    public void Add_DivisionAddedWithGuid()
+    public void Add_DivisionAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Division>().SetUpDbContext());
 
         var division = new NewEnglandClassic.Database.Entities.Division();
 
-        var guid = _repository.Add(division);
+        var id = _repository.Add(division);
 
-        Assert.That(division.Id, Is.EqualTo(guid));
+        Assert.That(division.Id, Is.EqualTo(id));
     }
 
     [Test]
@@ -43,9 +43,9 @@ internal class Repository
     }
 
     [Test]
-    public void ForTournament_ReturnsDivisionsForSelectedTournament()
+    public void Execute_ReturnsDivisionsForSelectedTournament()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
         var division1 = new NewEnglandClassic.Database.Entities.Division
         {
@@ -64,14 +64,14 @@ internal class Repository
         var division3 = new NewEnglandClassic.Database.Entities.Division
         {
             Id = DivisionId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             Name = "No"
         };
 
         var divisions = new[] { division1, division2, division3 };
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(divisions.SetUpDbContext());
 
-        var actual = _repository.ForTournament(tournamentId);
+        var actual = _repository.Retrieve(tournamentId);
 
         Assert.Multiple(() =>
         {
@@ -88,21 +88,21 @@ internal class Repository
         var division1 = new NewEnglandClassic.Database.Entities.Division
         {
             Id = divisionId,
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             Name = "Yes"
         };
 
         var division2 = new NewEnglandClassic.Database.Entities.Division
         {
             Id = DivisionId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             Name = "No"
         };
 
         var division3 = new NewEnglandClassic.Database.Entities.Division
         {
             Id = DivisionId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             Name = "No"
         };
 

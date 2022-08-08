@@ -82,7 +82,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsGuid_GuidReturned()
+    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsId_IdReturned()
     {
         _validator.Validate_IsValid();
 

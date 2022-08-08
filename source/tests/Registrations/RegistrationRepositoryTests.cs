@@ -17,15 +17,15 @@ internal class Repository
     }
 
     [Test]
-    public void Add_RegistrationAddedWithGuid()
+    public void Add_RegistrationAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Registration>().SetUpDbContext());
 
         var registration = new NewEnglandClassic.Database.Entities.Registration();
 
-        var guid = _repository.Add(registration);
+        var id = _repository.Add(registration);
 
-        Assert.That(registration.Id, Is.EqualTo(guid));
+        Assert.That(registration.Id, Is.EqualTo(id));
     }
 
     [Test]

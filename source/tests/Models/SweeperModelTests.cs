@@ -19,7 +19,7 @@ internal class Sweeper
     public void Constructor_IViewModel_TournamentIdMapped()
     {
         var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
-        viewModel.SetupGet(v => v.TournamentId).Returns(Guid.NewGuid());
+        viewModel.SetupGet(v => v.TournamentId).Returns(TournamentId.New());
 
         var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
 
@@ -153,7 +153,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -194,7 +194,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -235,7 +235,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -276,7 +276,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -317,7 +317,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -358,7 +358,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -399,7 +399,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -440,7 +440,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -483,7 +483,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -526,7 +526,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -567,7 +567,7 @@ internal class Sweeper
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,

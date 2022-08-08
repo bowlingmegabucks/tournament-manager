@@ -22,7 +22,7 @@ internal class ViewModel
     {
         var model = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var viewModel = new NewEnglandClassic.Squads.ViewModel(model);

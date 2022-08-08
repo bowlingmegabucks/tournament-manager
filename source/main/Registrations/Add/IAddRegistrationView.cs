@@ -2,7 +2,7 @@
 namespace NewEnglandClassic.Registrations.Add;
 internal interface IView
 {
-    Guid TournamentId { get; }
+    TournamentId TournamentId { get; }
     
     void DisplayError(string message);
     
@@ -16,7 +16,7 @@ internal interface IView
 
     void BindBowler(Bowlers.Retrieve.IViewModel bowler);
 
-    Guid? SelectBowler();
+    BowlerId? SelectBowler();
 
     void Close();
 

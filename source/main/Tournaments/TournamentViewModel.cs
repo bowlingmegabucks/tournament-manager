@@ -2,7 +2,7 @@
 namespace NewEnglandClassic.Tournaments;
 internal class ViewModel : IViewModel
 {
-    public Guid Id { get; set; }
+    public TournamentId Id { get; set; }
 
     public string TournamentName { get; set; } = string.Empty;
 
@@ -47,7 +47,7 @@ internal class ViewModel : IViewModel
 
 internal interface IViewModel
 {
-    Guid Id { get; set; }
+    TournamentId Id { get; set; }
 
     string TournamentName { get; set; }
 

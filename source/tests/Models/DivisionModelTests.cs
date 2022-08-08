@@ -45,7 +45,7 @@ internal class Division
     [Test]
     public void Constructor_ViewModel_TournamentIdMapped()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
         var viewModel = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.TournamentId).Returns(tournamentId);
@@ -191,7 +191,7 @@ internal class Division
     [Test]
     public void Constructor_Entities_TournamentIdMapped()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
         var entity = new NewEnglandClassic.Database.Entities.Division
         {

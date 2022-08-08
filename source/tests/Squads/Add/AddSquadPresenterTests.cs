@@ -22,7 +22,7 @@ internal class Presenter
     [Test]
     public void GetTournamentRatios_RetrieveTournamentAdapterExecute_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         
         var squad = new Mock<NewEnglandClassic.Squads.IViewModel>();
         squad.SetupGet(s => s.TournamentId).Returns(tournamentId);
@@ -30,7 +30,7 @@ internal class Presenter
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         var tournament = new Mock<NewEnglandClassic.Tournaments.IViewModel>();
-        _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(It.IsAny<Guid>())).Returns(tournament.Object);
+        _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(It.IsAny<TournamentId>())).Returns(tournament.Object);
 
         _presenter.GetTournamentRatios();
 
@@ -64,7 +64,7 @@ internal class Presenter
         tournament.SetupGet(t => t.FinalsRatio).Returns(1m);
         tournament.SetupGet(t => t.CashRatio).Returns(3m);
 
-        _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(It.IsAny<Guid>())).Returns(tournament.Object);
+        _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(It.IsAny<TournamentId>())).Returns(tournament.Object);
 
         var squad = new Mock<NewEnglandClassic.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);

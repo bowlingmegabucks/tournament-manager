@@ -20,9 +20,9 @@ internal class Repository
     [Test]
     public void RetrieveAll_ReturnsAllTournaments()
     {
-        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
-        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
-        var tournament3 = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
+        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament3 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
@@ -43,9 +43,9 @@ internal class Repository
     [Test]
     public void Retrieve_ReturnsTournament()
     {
-        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
-        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
-        var tournament3 = new NewEnglandClassic.Database.Entities.Tournament { Id = Guid.NewGuid() };
+        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament3 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
@@ -57,15 +57,15 @@ internal class Repository
     }
 
     [Test]
-    public void Add_TournamentAddedWithGuid()
+    public void Add_TournamentAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Tournament>().SetUpDbContext());
 
         var tournament = new NewEnglandClassic.Database.Entities.Tournament();
 
-        var guid = _tournamentsRepository.Add(tournament);
+        var id = _tournamentsRepository.Add(tournament);
 
-        Assert.That(tournament.Id, Is.EqualTo(guid));
+        Assert.That(tournament.Id, Is.EqualTo(id));
     }
 
     [Test]
@@ -90,13 +90,13 @@ internal class Repository
 
         var tournament1 = new NewEnglandClassic.Database.Entities.Tournament
         {
-            Id = Guid.NewGuid(),
+            Id = TournamentId.New(),
             Divisions = new List<NewEnglandClassic.Database.Entities.Division> { division1, division2 }
         };
 
         var tournament2 = new NewEnglandClassic.Database.Entities.Tournament
         {
-            Id = Guid.NewGuid(),
+            Id = TournamentId.New(),
             Divisions = new List<NewEnglandClassic.Database.Entities.Division> { division3, division4 }
         };
 

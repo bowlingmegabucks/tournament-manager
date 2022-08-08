@@ -44,8 +44,8 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicExecuteReturnsNull_NullReturned()
     {
-        SquadId? noGuid = null;
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(noGuid);
+        SquadId? noId = null;
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(noId);
 
         var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
 
@@ -55,7 +55,7 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecuteReturnsGuid_GuidReturned()
+    public void Execute_BusinessLogicExecuteReturnsId_IdReturned()
     {
         var id = SquadId.New();
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(id);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tests.Bowlers;
+﻿namespace NewEnglandClassic.Tests.Bowlers;
 internal class EntityMapper
 {
     private NewEnglandClassic.Bowlers.IEntityMapper _mapper;

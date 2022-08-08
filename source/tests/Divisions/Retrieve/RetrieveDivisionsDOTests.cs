@@ -16,17 +16,17 @@ internal class DataLayer
     }
 
     [Test]
-    public void ForTournament_RepositoryForTournament_Called()
+    public void Execute_RepositoryRetrieve_Called()
     {
-        var guid = Guid.NewGuid();
+        var id = TournamentId.New();
 
-        _dataLayer.ForTournament(guid);
+        _dataLayer.Execute(id);
 
-        _repository.Verify(repository => repository.ForTournament(guid), Times.Once);
+        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
     }
 
     [Test]
-    public void ForTournament_ReturnsRepositoryForTournamentResponse()
+    public void Execute_ReturnsRepositoryRetrieveResponse()
     {
         var division1 = new NewEnglandClassic.Database.Entities.Division
         {
@@ -45,9 +45,9 @@ internal class DataLayer
 
         var divisions = new[] { division1, division2, division3 };
 
-        _repository.Setup(repository => repository.ForTournament(It.IsAny<Guid>())).Returns(divisions);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(divisions);
 
-        var actual = _dataLayer.ForTournament(Guid.NewGuid());
+        var actual = _dataLayer.Execute(TournamentId.New());
 
         Assert.Multiple(() =>
         {
@@ -73,7 +73,7 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_ReturnsRepositoryRetrieveResponse()
+    public void Execute_DivisionId_ReturnsRepositoryRetrieveResponse()
     {
         var division = new NewEnglandClassic.Database.Entities.Division { Name = "name"};
         _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(division);

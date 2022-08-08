@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-public partial class TournamentControl : UserControl, Tournaments.IViewModel
+internal partial class TournamentControl : UserControl, Tournaments.IViewModel
 {
     public TournamentControl()
     {
@@ -11,7 +11,7 @@ public partial class TournamentControl : UserControl, Tournaments.IViewModel
     private void Controls_Validated(object sender, EventArgs e)
         => ErrorProviderTournament.SetError((Control)sender, string.Empty);
 
-    public Guid Id { get; set; }
+    public TournamentId Id { get; set; }
 
     public string TournamentName
     {

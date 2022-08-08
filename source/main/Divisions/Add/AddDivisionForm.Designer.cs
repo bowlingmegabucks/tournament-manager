@@ -70,7 +70,7 @@ partial class Form
             this.DivisionNew.Name = "DivisionNew";
             this.DivisionNew.Size = new System.Drawing.Size(463, 484);
             this.DivisionNew.TabIndex = 5;
-            this.DivisionNew.TournamentId = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.DivisionNew.TournamentId = TournamentId.Empty;
             // 
             // Form
             // 

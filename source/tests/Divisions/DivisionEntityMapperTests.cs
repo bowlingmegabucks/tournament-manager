@@ -55,7 +55,7 @@ internal class EntityMapper
     [Test]
     public void TournamentId_Mapped()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         var model = new NewEnglandClassic.Models.Division
         {
             TournamentId = id

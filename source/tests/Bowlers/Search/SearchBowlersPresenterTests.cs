@@ -53,17 +53,17 @@ internal class Presenter
         var bowler1 = new Mock<NewEnglandClassic.Bowlers.Search.IViewModel>();
         bowler1.SetupGet(bowler => bowler.LastName).Returns("Smith");
         bowler1.SetupGet(bowler => bowler.FirstName).Returns("John");
-        bowler1.SetupGet(bowler => bowler.Id).Returns(Guid.NewGuid());
+        bowler1.SetupGet(bowler => bowler.Id).Returns(BowlerId.New());
 
         var bowler2 = new Mock<NewEnglandClassic.Bowlers.Search.IViewModel>();
         bowler2.SetupGet(bowler => bowler.LastName).Returns("Doe");
         bowler2.SetupGet(bowler => bowler.FirstName).Returns("John");
-        bowler2.SetupGet(bowler => bowler.Id).Returns(Guid.NewGuid());
+        bowler2.SetupGet(bowler => bowler.Id).Returns(BowlerId.New());
 
         var bowler3 = new Mock<NewEnglandClassic.Bowlers.Search.IViewModel>();
         bowler3.SetupGet(bowler => bowler.LastName).Returns("Doe");
         bowler3.SetupGet(bowler => bowler.FirstName).Returns("Jane");
-        bowler3.SetupGet(bowler => bowler.Id).Returns(Guid.NewGuid());
+        bowler3.SetupGet(bowler => bowler.Id).Returns(BowlerId.New());
 
         var bowlers = new[] { bowler1.Object, bowler2.Object, bowler3.Object };
 

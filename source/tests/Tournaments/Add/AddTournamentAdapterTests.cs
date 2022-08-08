@@ -42,15 +42,15 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_ReturnsBusinessLogicGuid()
+    public void Execute_ReturnsBusinessLogicId()
     {
-        var guid = Guid.NewGuid();
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Tournament>())).Returns(guid);
+        var id = TournamentId.New();
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Tournament>())).Returns(id);
 
         var viewModel = new NewEnglandClassic.Tournaments.ViewModel();
 
         var result = _adapter.Execute(viewModel);
 
-        Assert.That(result, Is.EqualTo(guid));
+        Assert.That(result, Is.EqualTo(id));
     }
 }

@@ -60,15 +60,15 @@ internal class Presenter
             return;
         }
 
-        var divisionsTask = Task.Run(() => _retrieveDivisionsAdapter.ForTournament(_view.TournamentId));
-        var squadsTask = Task.Run(() => _retrieveSquadsAdapter.ForTournament(_view.TournamentId));
-        var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.ForTournament(_view.TournamentId));
+        var divisionsTask = Task.Run(() => _retrieveDivisionsAdapter.Execute(_view.TournamentId));
+        var squadsTask = Task.Run(() => _retrieveSquadsAdapter.Execute(_view.TournamentId));
+        var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.Execute(_view.TournamentId));
 
         var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
 
         var bowlerTask = Task.Run(() => RetrieveBowlerAdapter.Execute(bowlerId.Value));
 
-        if (bowlerId != Guid.Empty)
+        if (bowlerId != BowlerId.Empty)
         {
             tasks.Add(bowlerTask);
         }

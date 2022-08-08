@@ -28,7 +28,7 @@ internal class BusinesLogic
         
         var sweeper = new NewEnglandClassic.Models.Sweeper
         { 
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(sweeper);
@@ -44,7 +44,7 @@ internal class BusinesLogic
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(sweeper);
@@ -65,11 +65,11 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(sweeper);
@@ -83,11 +83,11 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(sweeper);
@@ -105,11 +105,11 @@ internal class BusinesLogic
         _validator.Validate_IsNotValid("property", "invalid");
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(sweeper);
@@ -129,11 +129,11 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(sweeper);
@@ -150,11 +150,11 @@ internal class BusinesLogic
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Throws(ex);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(sweeper);
@@ -175,11 +175,11 @@ internal class BusinesLogic
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(id);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(sweeper);

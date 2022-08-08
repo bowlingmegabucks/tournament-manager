@@ -7,7 +7,7 @@ namespace NewEnglandClassic.Database.Entities;
 internal class Tournament
 {
     [Key]
-    public Guid Id { get; set; }
+    public TournamentId Id { get; set; }
 
     [Required]
     public string Name { get; set; } = string.Empty;
@@ -49,6 +49,8 @@ internal class Tournament
     {
         public void Configure(EntityTypeBuilder<Tournament> builder)
         {
+            builder.Property(tournament => tournament.Id).HasConversion(new TournamentIdConverter());
+
             builder.Property(tournament => tournament.Start).HasConversion<DateOnlyConverter, DateOnlyComparer>();
             builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();
         }

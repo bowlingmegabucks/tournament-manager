@@ -8,7 +8,7 @@ internal class Division
 
     public string Name { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public short? MinimumAge { get; set; }
 

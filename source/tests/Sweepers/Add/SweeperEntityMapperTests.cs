@@ -29,7 +29,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var entity = _mapper.Execute(model);

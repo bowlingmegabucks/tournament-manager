@@ -16,14 +16,14 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_AdapterForTournament_CalledCorrectly()
+    public void Execute_AdapterExecute_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.Execute();
 
-        _adapter.Verify(adapter => adapter.ForTournament(tournamentId), Times.Once);
+        _adapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
     }
 
     [Test]
@@ -47,7 +47,7 @@ internal class Presenter
     public void Execute_AdapterErrorNull_ViewBindDivisions_CalledCorrectly()
     {
         var divisions = new List<NewEnglandClassic.Divisions.IViewModel>();
-        _adapter.Setup(adapter => adapter.ForTournament(It.IsAny<Guid>())).Returns(divisions);
+        _adapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(divisions);
 
         _presenter.Execute();
 
@@ -57,7 +57,7 @@ internal class Presenter
     [Test]
     public void AddDivision_ViewAddDivision_Called()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(id);
         
         _presenter.AddDivision();
@@ -69,7 +69,7 @@ internal class Presenter
     public void AddDivision_ViewAddDivisionReturnsId_ViewRefreshDivisions_Called()
     {
         var id = DivisionId.New();
-        _view.Setup(view => view.AddDivision(It.IsAny<Guid>())).Returns(id);
+        _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns(id);
 
         _presenter.AddDivision();
 
@@ -79,7 +79,7 @@ internal class Presenter
     [Test]
     public void AddDivision_ViewAddDivisionReturnsNull_ViewRefreshDivisions_NotCalled()
     {
-        _view.Setup(view => view.AddDivision(It.IsAny<Guid>())).Returns((DivisionId?)null);
+        _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns((DivisionId?)null);
 
         _presenter.AddDivision();
 

@@ -1,5 +1,4 @@
 ﻿using NewEnglandClassic.Tests.Extensions;
-using FluentValidation.TestHelper;
 
 namespace NewEnglandClassic.Tests.Registrations.Add;
 

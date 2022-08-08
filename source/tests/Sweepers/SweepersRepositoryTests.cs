@@ -17,15 +17,15 @@ internal class Repository
     }
 
     [Test]
-    public void Add_SquadAddedWithGuid()
+    public void Add_SquadAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.SweeperSquad>().SetUpDbContext());
 
         var sweeper = new NewEnglandClassic.Database.Entities.SweeperSquad();
 
-        var guid = _repository.Add(sweeper);
+        var id = _repository.Add(sweeper);
 
-        Assert.That(sweeper.Id, Is.EqualTo(guid));
+        Assert.That(sweeper.Id, Is.EqualTo(id));
     }
 
     [Test]
@@ -41,9 +41,9 @@ internal class Repository
     }
 
     [Test]
-    public void ForTournament_ReturnsSquadsForSelectedTournament()
+    public void Execute_ReturnsSquadsForSelectedTournament()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
         var sweeper1 = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
@@ -62,14 +62,14 @@ internal class Repository
         var sweeper3 = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             MaxPerPair = 2
         };
 
         var sweepers = new[] { sweeper1, sweeper2, sweeper3 };
         _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(sweepers.SetUpDbContext());
 
-        var actual = _repository.ForTournament(tournamentId);
+        var actual = _repository.Retrieve(tournamentId);
 
         Assert.Multiple(() =>
         {

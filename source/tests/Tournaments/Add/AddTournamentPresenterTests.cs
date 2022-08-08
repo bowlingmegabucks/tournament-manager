@@ -40,7 +40,7 @@ internal class Presenter
 
             _view.Verify(view => view.DisplayErrors(It.IsAny<IEnumerable<string>>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
-            _view.VerifySet(view => view.Tournament.Id = It.IsAny<Guid>(), Times.Never);
+            _view.VerifySet(view => view.Tournament.Id = It.IsAny<TournamentId>(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
@@ -51,7 +51,7 @@ internal class Presenter
         var viewModel = new NewEnglandClassic.Tournaments.ViewModel();
         _view.SetupGet(view => view.Tournament).Returns(viewModel);
 
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Tournaments.IViewModel>())).Returns(Guid.Empty);
+        _adapter.Setup(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Tournaments.IViewModel>())).Returns(TournamentId.Empty);
 
         _view.Setup(view => view.IsValid()).Returns(true);
 
@@ -76,7 +76,7 @@ internal class Presenter
             _view.Verify(view => view.DisplayErrors(new[] { "message", "message", "message"}), Times.Once);
             
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
-            _view.VerifySet(view => view.Tournament.Id = It.IsAny<Guid>(), Times.Never);
+            _view.VerifySet(view => view.Tournament.Id = It.IsAny<TournamentId>(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
@@ -86,7 +86,7 @@ internal class Presenter
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Tournaments.IViewModel>())).Returns(id);
 
         var viewModel = new NewEnglandClassic.Tournaments.ViewModel

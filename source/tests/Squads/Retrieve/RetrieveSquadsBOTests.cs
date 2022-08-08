@@ -16,50 +16,50 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void ForTournament_DataLayerForTournament_CalledCorrectly()
+    public void Execute_DataLayerExecute_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        _businessLogic.ForTournament(tournamentId);
+        _businessLogic.Execute(tournamentId);
 
-        _dataLayer.Verify(dataLayer => dataLayer.ForTournament(tournamentId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(tournamentId), Times.Once);
     }
 
     [Test]
-    public void ForTournament_ReturnsDataLayerForTournamentResults()
+    public void Execute_ReturnsDataLayerExecuteResults()
     {
         var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.ForTournament(It.IsAny<Guid>())).Returns(squads);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        var actual = _businessLogic.ForTournament(tournamentId);
+        var actual = _businessLogic.Execute(tournamentId);
 
         Assert.That(actual, Is.EqualTo(squads));
     }
 
     [Test]
-    public void ForTournament_DataLayerForTournamentNoException_ErrorNull()
+    public void Execute_DataLayerExecuteNoException_ErrorNull()
     {
         var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.ForTournament(It.IsAny<Guid>())).Returns(squads);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-         _businessLogic.ForTournament(tournamentId);
+         _businessLogic.Execute(tournamentId);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void ForTournament_DataLayerForTournamentThrowsException_ErrorFlow()
+    public void Execute_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.ForTournament(It.IsAny<Guid>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        var actual = _businessLogic.ForTournament(tournamentId);
+        var actual = _businessLogic.Execute(tournamentId);
 
         Assert.Multiple(() =>
         {

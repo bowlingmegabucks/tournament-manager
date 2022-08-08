@@ -33,7 +33,7 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    Models.Tournament? IBusinessLogic.Execute(Guid id)
+    Models.Tournament? IBusinessLogic.Execute(TournamentId id)
     {
         try
         {
@@ -68,7 +68,7 @@ internal interface IBusinessLogic
 
     IEnumerable<Models.Tournament> Execute();
 
-    Models.Tournament? Execute(Guid id);
+    Models.Tournament? Execute(TournamentId id);
 
     Models.Tournament? Execute(DivisionId id);
 }

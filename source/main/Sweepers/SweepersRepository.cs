@@ -27,7 +27,7 @@ internal class Repository : IRepository
         return sweeper.Id;
     }
 
-    public IEnumerable<Database.Entities.SweeperSquad> ForTournament(Guid tournamentId)
+    public IEnumerable<Database.Entities.SweeperSquad> Retrieve(TournamentId tournamentId)
         => _dataContext.Sweepers.Include(sweeper=> sweeper.Divisions).AsNoTracking().Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
 }
 
@@ -35,5 +35,5 @@ internal interface IRepository
 {
     SquadId Add(Database.Entities.SweeperSquad sweeper);
 
-    IEnumerable<Database.Entities.SweeperSquad> ForTournament(Guid tournamentId);
+    IEnumerable<Database.Entities.SweeperSquad> Retrieve(TournamentId tournamentId);
 }

@@ -3,7 +3,7 @@ internal class Squad
 {
     public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     internal Tournament? Tournament { get; set; }
 

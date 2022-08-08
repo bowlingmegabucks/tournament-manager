@@ -73,7 +73,7 @@ partial class Form
             this.SquadNew.Size = new System.Drawing.Size(519, 207);
             this.SquadNew.StartingLane = ((short)(1));
             this.SquadNew.TabIndex = 0;
-            this.SquadNew.TournamentId = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.SquadNew.TournamentId = TournamentId.Empty;
             // 
             // LabelDisclaimer
             // 

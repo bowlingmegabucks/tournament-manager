@@ -9,7 +9,7 @@ internal abstract class Squad
     public SquadId Id { get; set; }
 
     [Required]
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public Tournament Tournament { get; set; } = null!;
 
@@ -38,6 +38,7 @@ internal abstract class Squad
         public void Configure(EntityTypeBuilder<Squad> builder)
         {
             builder.Property(squad => squad.Id).HasConversion(new SquadIdConverter());
+            builder.Property(squad => squad.TournamentId).HasConversion(new TournamentIdConverter());
 
             builder.ToTable("Squads")
                       .HasDiscriminator<int>("SquadType")

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tests.Bowlers.Search;
+﻿namespace NewEnglandClassic.Tests.Bowlers.Search;
 
 [TestFixture]
 internal class ViewModel
@@ -19,7 +13,7 @@ internal class ViewModel
 
         var viewModel = new NewEnglandClassic.Bowlers.Search.ViewModel(model);
 
-        Assert.That(viewModel.Id, Is.EqualTo(model.Id.Value));
+        Assert.That(viewModel.Id, Is.EqualTo(model.Id));
     }
 
     [Test]

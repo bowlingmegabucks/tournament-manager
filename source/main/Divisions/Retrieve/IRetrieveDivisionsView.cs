@@ -2,7 +2,7 @@
 
 internal interface IView
 {
-    Guid TournamentId { get; }
+    TournamentId TournamentId { get; }
 
     void DisplayError(string message);
     
@@ -10,7 +10,7 @@ internal interface IView
 
     void BindDivisions(IEnumerable<IViewModel> divisions);
 
-    DivisionId? AddDivision(Guid tournamentId);
+    DivisionId? AddDivision(TournamentId tournamentId);
 
     void RefreshDivisions();
 }

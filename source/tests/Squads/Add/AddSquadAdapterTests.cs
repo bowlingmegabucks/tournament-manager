@@ -55,7 +55,7 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecuteReturnsGuid_GuidReturned()
+    public void Execute_BusinessLogicExecuteReturnsId_IdReturned()
     {
         var id = SquadId.New();
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Squad>())).Returns(id);
