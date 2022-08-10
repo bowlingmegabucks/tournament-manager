@@ -57,6 +57,6 @@ internal class Adapter
 
         var actual = _adapter.Execute(bowlerId);
 
-        Assert.That(actual.Id, Is.EqualTo(bowler.Id.Value));
+        Assert.That(actual.Id, Is.EqualTo(bowler.Id));
     }
 }

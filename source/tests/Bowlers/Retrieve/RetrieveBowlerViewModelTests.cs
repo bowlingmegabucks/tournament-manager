@@ -14,6 +14,6 @@ internal class ViewModel
 
         var viewModel = new NewEnglandClassic.Bowlers.Retrieve.ViewModel(model);
 
-        Assert.That(viewModel.Id, Is.EqualTo(model.Id.Value));
+        Assert.That(viewModel.Id, Is.EqualTo(model.Id));
     }
 }
