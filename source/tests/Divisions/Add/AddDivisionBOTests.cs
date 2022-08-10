@@ -82,17 +82,17 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsGuid_GuidReturned()
+    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsId_IdReturned()
     {
         _validator.Validate_IsValid();
 
-        var guid = Guid.NewGuid();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(guid);
+        var divisionId = DivisionId.New();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(divisionId);
 
         var division = new NewEnglandClassic.Models.Division();
 
         var result = _businessLogic.Execute(division);
 
-        Assert.That(result, Is.EqualTo(guid));
+        Assert.That(result, Is.EqualTo(divisionId));
     }
 }

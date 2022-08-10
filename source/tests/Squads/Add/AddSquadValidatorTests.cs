@@ -17,7 +17,7 @@ internal class Validator
     {
         var squad = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.Empty
+            TournamentId = TournamentId.Empty
         };
 
         var result = _validator.TestValidate(squad);
@@ -43,7 +43,7 @@ internal class Validator
         {
             Tournament = new NewEnglandClassic.Models.Tournament
             {
-                Id = Guid.NewGuid()
+                Id = TournamentId.New()
             }
         };
 
@@ -54,8 +54,8 @@ internal class Validator
     [Test]
     public void TournamentId_NotEmpty_DoesNotMatchTournamentTournamentId_HasError()
     {
-        var id1 = Guid.NewGuid();
-        var id2 = Guid.NewGuid();
+        var id1 = TournamentId.New();
+        var id2 = TournamentId.New();
 
         var squad = new NewEnglandClassic.Models.Squad
         {
@@ -73,7 +73,7 @@ internal class Validator
     [Test]
     public void TournamentId_NotEmpty_MatchesTournamentTournamentId_NoError()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
 
         var squad = new NewEnglandClassic.Models.Squad
         {

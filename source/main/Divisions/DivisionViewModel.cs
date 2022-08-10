@@ -2,13 +2,13 @@
 namespace NewEnglandClassic.Divisions;
 internal class ViewModel : IViewModel
 {
-    public Guid Id { get; set; }
+    public DivisionId Id { get; set; }
 
     public short Number { get; set; }
 
     public string DivisionName { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public short? MinimumAge { get; set; }
 
@@ -51,15 +51,15 @@ internal class ViewModel : IViewModel
     }
 }
 
-public interface IViewModel
+internal interface IViewModel
 {
-    Guid Id { get; set; }
+    DivisionId Id { get; set; }
 
     short Number { get; set; }
     
     string DivisionName { get; set; }
 
-    Guid TournamentId { get; set; }
+    TournamentId TournamentId { get; set; }
 
     short? MinimumAge { get; set; }
 

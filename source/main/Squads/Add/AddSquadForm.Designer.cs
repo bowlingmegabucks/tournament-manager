@@ -65,7 +65,7 @@ partial class Form
             this.SquadNew.Complete = false;
             this.SquadNew.Date = new System.DateTime(2022, 6, 8, 10, 30, 39, 618);
             this.SquadNew.FinalsRatio = null;
-            this.SquadNew.Id = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.SquadNew.Id = SquadId.Empty;
             this.SquadNew.Location = new System.Drawing.Point(12, 139);
             this.SquadNew.MaxPerPair = ((short)(0));
             this.SquadNew.Name = "SquadNew";
@@ -73,7 +73,7 @@ partial class Form
             this.SquadNew.Size = new System.Drawing.Size(519, 207);
             this.SquadNew.StartingLane = ((short)(1));
             this.SquadNew.TabIndex = 0;
-            this.SquadNew.TournamentId = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.SquadNew.TournamentId = TournamentId.Empty;
             // 
             // LabelDisclaimer
             // 

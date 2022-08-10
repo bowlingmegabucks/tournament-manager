@@ -6,7 +6,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
 
-    public Form(IConfiguration config, Guid tournamentId)
+    public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
 
@@ -16,7 +16,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         new Presenter(config, this).Load();
     }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
     {
@@ -26,8 +26,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         ComboBoxDivisions.DisplayMember = nameof(Divisions.IViewModel.DivisionName);
     }
 
-    public Guid Division 
-        => (Guid)ComboBoxDivisions.SelectedValue;
+    public DivisionId DivisionId
+        => (DivisionId)ComboBoxDivisions.SelectedValue;
 
     public Bowlers.Add.IViewModel Bowler
         => BowlerControl;
@@ -35,10 +35,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public int? Average
         => NumericAverage.Value == 0 ? null : (int)NumericAverage.Value;
 
-    public IEnumerable<Guid> Squads
+    public IEnumerable<SquadId> Squads
         => FlowLayoutPanelSquads.Controls.OfType<Controls.ISelectedIds>().Where(control=> control.Selected).Select(control => control.Id).AsEnumerable();
 
-    public IEnumerable<Guid> Sweepers
+    public IEnumerable<SquadId> Sweepers
         => FlowLayoutPanelSweepers.Controls.OfType<Controls.ISelectedIds>().Where(control => control.Selected).Select(control => control.Id).AsEnumerable();
 
     private void ComboBoxDivisions_Validating(object sender, CancelEventArgs e)
@@ -86,7 +86,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayMessage(string message)
         => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-    public Guid? SelectBowler()
+    public BowlerId? SelectBowler()
     {
         using var form = new Bowlers.Search.Dialog(_config, true);
 

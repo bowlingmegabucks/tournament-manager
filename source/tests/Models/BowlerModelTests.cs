@@ -8,7 +8,7 @@ internal class Bowler
     {
         var entity = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid()
+            Id = BowlerId.New()
         };
 
         var model = new NewEnglandClassic.Models.Bowler(entity);
@@ -202,7 +202,7 @@ internal class Bowler
     public void Constructor_IAddViewModel_IdMapped()
     {
         var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
-        viewModel.SetupGet(v => v.Id).Returns(Guid.NewGuid());
+        viewModel.SetupGet(v => v.Id).Returns(BowlerId.New());
 
         var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
 

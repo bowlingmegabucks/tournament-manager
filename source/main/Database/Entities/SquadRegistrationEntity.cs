@@ -6,12 +6,12 @@ namespace NewEnglandClassic.Database.Entities;
 internal class SquadRegistration
 {
     [Required]
-    public Guid RegistrationId { get; set; }
+    public RegistrationId RegistrationId { get; set; }
 
     public Registration Registration { get; set; } = null!;
 
     [Required]
-    public Guid SquadId { get; set; }
+    public SquadId SquadId { get; set; }
 
     public Squad Squad { get; set; } = null!;
 
@@ -19,6 +19,10 @@ internal class SquadRegistration
     {
         public void Configure(EntityTypeBuilder<SquadRegistration> builder)
         {
+            builder.Property(squadRegistration => squadRegistration.RegistrationId).HasConversion(new RegistrationIdConverter());
+
+            builder.Property(squadRegistration => squadRegistration.SquadId).HasConversion(new SquadIdConverter());
+
             builder.HasKey(squadRegistration => new { squadRegistration.RegistrationId, squadRegistration.SquadId });
 
             builder.HasOne(squadRegistration => squadRegistration.Squad)

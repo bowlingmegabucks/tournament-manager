@@ -1,8 +1,9 @@
 ﻿
 namespace NewEnglandClassic.Models;
+
 internal class Bowler
 {
-    public Guid Id { get; set; }
+    public BowlerId Id { get; set; }
 
     public string FirstName { get; set; } = string.Empty;
 

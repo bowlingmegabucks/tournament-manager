@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace NewEnglandClassic.Registrations;
+﻿namespace NewEnglandClassic.Registrations;
 
 internal class Repository : IRepository
 {
@@ -19,7 +17,7 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    public Guid Add(Database.Entities.Registration registration)
+    public RegistrationId Add(Database.Entities.Registration registration)
     {
         _dataContext.Registrations.Add(registration);
         _dataContext.SaveChanges();
@@ -30,5 +28,5 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    Guid Add(Database.Entities.Registration registration);
+    RegistrationId Add(Database.Entities.Registration registration);
 }

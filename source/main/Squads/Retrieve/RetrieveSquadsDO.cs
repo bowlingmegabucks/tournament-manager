@@ -17,11 +17,11 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    public IEnumerable<Models.Squad> ForTournament(Guid tournamentId)
-        => _repository.ForTournament(tournamentId).Select(squad=> new Models.Squad(squad));
+    public IEnumerable<Models.Squad> Execute(TournamentId tournamentId)
+        => _repository.Retrieve(tournamentId).Select(squad=> new Models.Squad(squad));
 }
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.Squad> ForTournament(Guid tournamentId);
+    IEnumerable<Models.Squad> Execute(TournamentId tournamentId);
 }

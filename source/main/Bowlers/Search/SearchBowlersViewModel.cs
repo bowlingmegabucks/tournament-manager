@@ -2,7 +2,7 @@
 namespace NewEnglandClassic.Bowlers.Search;
 internal class ViewModel : IViewModel
 {
-    public Guid Id { get; set; }
+    public BowlerId Id { get; set; }
 
     public string FirstName { get; set; }
 
@@ -27,7 +27,7 @@ internal class ViewModel : IViewModel
 
 internal interface IViewModel
 {
-    Guid Id { get; }
+    BowlerId Id { get; }
     
     string FirstName { get; }
 

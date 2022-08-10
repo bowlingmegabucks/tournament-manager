@@ -8,7 +8,7 @@ internal class Sweeper
     public void Constructor_IViewModel_IdMapped()
     {
         var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
-        viewModel.SetupGet(v => v.Id).Returns(Guid.NewGuid());
+        viewModel.SetupGet(v => v.Id).Returns(SquadId.New());
 
         var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
 
@@ -19,7 +19,7 @@ internal class Sweeper
     public void Constructor_IViewModel_TournamentIdMapped()
     {
         var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
-        viewModel.SetupGet(v => v.TournamentId).Returns(Guid.NewGuid());
+        viewModel.SetupGet(v => v.TournamentId).Returns(TournamentId.New());
 
         var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
 
@@ -117,7 +117,7 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_DivisionsMapped()
     {
-        var divisions = new Mock<IDictionary<Guid, int?>>();
+        var divisions = new Mock<IDictionary<DivisionId, int?>>();
 
         var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Divisions).Returns(divisions.Object);
@@ -132,15 +132,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -152,8 +152,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -173,15 +173,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -193,8 +193,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -214,15 +214,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -234,8 +234,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -255,15 +255,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -275,8 +275,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -296,15 +296,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -316,8 +316,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -337,15 +337,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -357,8 +357,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -378,15 +378,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -398,8 +398,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -419,15 +419,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -439,8 +439,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -462,15 +462,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -482,8 +482,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -505,15 +505,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -525,8 +525,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,
@@ -546,15 +546,15 @@ internal class Sweeper
     {
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
-            SweeperId = Guid.NewGuid(),
-            DivisionId = Guid.NewGuid(),
+            SweeperId = SquadId.New(),
+            DivisionId = DivisionId.New(),
             BonusPinsPerGame = 2
         };
 
@@ -566,8 +566,8 @@ internal class Sweeper
 
         var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 123.45m,
             Games = 5,
             CashRatio = 1.3m,

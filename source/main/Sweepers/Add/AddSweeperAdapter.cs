@@ -19,7 +19,7 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
     
-    public Guid? Execute(IViewModel viewModel)
+    public SquadId? Execute(IViewModel viewModel)
     {
         var model = new Models.Sweeper(viewModel);
 
@@ -35,5 +35,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(IViewModel sweeper);
+    SquadId? Execute(IViewModel sweeper);
 }

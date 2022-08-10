@@ -33,7 +33,7 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    Models.Tournament? IBusinessLogic.Execute(Guid id)
+    Models.Tournament? IBusinessLogic.Execute(TournamentId id)
     {
         try
         {
@@ -47,11 +47,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    Models.Tournament? IBusinessLogic.FromDivisionId(Guid divisionId)
+    Models.Tournament? IBusinessLogic.Execute(DivisionId id)
     {
         try
         {
-            return _dataLayer.FromDivisionId(divisionId);
+            return _dataLayer.Execute(id);
         }
         catch (Exception ex)
         {
@@ -68,7 +68,7 @@ internal interface IBusinessLogic
 
     IEnumerable<Models.Tournament> Execute();
 
-    Models.Tournament? Execute(Guid id);
+    Models.Tournament? Execute(TournamentId id);
 
-    Models.Tournament? FromDivisionId(Guid divisionId);
+    Models.Tournament? Execute(DivisionId id);
 }

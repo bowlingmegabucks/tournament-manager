@@ -8,7 +8,7 @@ internal class Squad
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            Id = Guid.NewGuid(),
+            Id = SquadId.New(),
             Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         };
 
@@ -22,7 +22,7 @@ internal class Squad
     {
         var entity = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
-            TournamentId = Guid.NewGuid(),
+            TournamentId = TournamentId.New(),
             Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         };
 
@@ -133,7 +133,7 @@ internal class Squad
     public void Constructor_SquadViewModel_IdMapped()
     {
         var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
-        viewModel.SetupGet(v => v.Id).Returns(Guid.NewGuid());
+        viewModel.SetupGet(v => v.Id).Returns(SquadId.New());
 
         var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
 
@@ -144,7 +144,7 @@ internal class Squad
     public void Constructor_SquadViewModel_TournamentIdMapped()
     {
         var viewModel = new Mock<NewEnglandClassic.Squads.IViewModel>();
-        viewModel.SetupGet(v => v.TournamentId).Returns(Guid.NewGuid());
+        viewModel.SetupGet(v => v.TournamentId).Returns(TournamentId.New());
 
         var model = new NewEnglandClassic.Models.Squad(viewModel.Object);
 

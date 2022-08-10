@@ -21,7 +21,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Registration
         {
-            Id = Guid.NewGuid()
+            Id = RegistrationId.New()
         };
 
         var entity = _mapper.Execute(model);
@@ -34,7 +34,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Registration
         {
-            Bowler = new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }
+            Bowler = new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }
         };
 
         var entity = _mapper.Execute(model);
@@ -47,7 +47,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Registration
         {
-            Bowler = new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }
+            Bowler = new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }
         };
 
         _mapper.Execute(model);
@@ -58,12 +58,12 @@ internal class EntityMapper
     [Test]
     public void Execute_BowlerMapped()
     {
-        var bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = Guid.NewGuid()};
+        var bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() };
         _bowlerEntityMapper.Setup(mapper => mapper.Execute(It.IsAny<NewEnglandClassic.Models.Bowler>())).Returns(bowler);
 
         var model = new NewEnglandClassic.Models.Registration
         {
-            Bowler = new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }
+            Bowler = new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }
         };
 
         var entity = _mapper.Execute(model);
@@ -76,7 +76,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Registration
         {
-            Division = new NewEnglandClassic.Models.Division { Id = Guid.NewGuid() }
+            Division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() }
         };
 
         var entity = _mapper.Execute(model);
@@ -100,15 +100,15 @@ internal class EntityMapper
     [Test]
     public void Execute_SquadsMapped()
     {
-        var squad1 = Guid.NewGuid();
-        var squad2 = Guid.NewGuid();
-        var squad3 = Guid.NewGuid();
+        var squad1 = SquadId.New();
+        var squad2 = SquadId.New();
+        var squad3 = SquadId.New();
 
-        var sweeper1 = Guid.NewGuid();
-        var sweeper2 = Guid.NewGuid();
-        var sweeper3 = Guid.NewGuid();
+        var sweeper1 = SquadId.New();
+        var sweeper2 = SquadId.New();
+        var sweeper3 = SquadId.New();
 
-        var id = Guid.NewGuid();
+        var id = RegistrationId.New();
 
         var model = new NewEnglandClassic.Models.Registration
         {

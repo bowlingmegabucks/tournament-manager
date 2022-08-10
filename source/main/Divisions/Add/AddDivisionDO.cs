@@ -22,7 +22,7 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    Guid IDataLayer.Execute(Models.Division division)
+    DivisionId IDataLayer.Execute(Models.Division division)
     {
         var entity = _mapper.Execute(division);
         
@@ -32,5 +32,5 @@ internal class DataLayer : IDataLayer
 
 internal interface IDataLayer
 {
-    Guid Execute(Models.Division division);
+    DivisionId Execute(Models.Division division);
 }

@@ -28,7 +28,7 @@ internal class BusinesLogic
         
         var squad = new NewEnglandClassic.Models.Squad
         { 
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(squad);
@@ -44,7 +44,7 @@ internal class BusinesLogic
 
         var squad = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(squad);
@@ -65,11 +65,11 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var squad = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(squad);
@@ -83,11 +83,11 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var squad = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(squad);
@@ -105,11 +105,11 @@ internal class BusinesLogic
         _validator.Validate_IsNotValid("property", "invalid");
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var squad = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(squad);
@@ -129,11 +129,11 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var squad = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(squad);
@@ -150,11 +150,11 @@ internal class BusinesLogic
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>())).Throws(ex);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var squad = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(squad);
@@ -171,19 +171,19 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var guid = Guid.NewGuid();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>())).Returns(guid);
+        var id = SquadId.New();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>())).Returns(id);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var squad = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(squad);
 
-        Assert.That(actual, Is.EqualTo(guid));
+        Assert.That(actual, Is.EqualTo(id));
     }
 }

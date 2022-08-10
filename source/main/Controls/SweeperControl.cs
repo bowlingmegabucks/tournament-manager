@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-public partial class SweeperControl : UserControl, Sweepers.IViewModel
+internal partial class SweeperControl : UserControl, Sweepers.IViewModel
 {
     public SweeperControl()
     {
         InitializeComponent();
     }
 
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public decimal EntryFee
     {
@@ -101,7 +101,7 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
 
     public bool Complete { get; set; }
 
-    public IDictionary<Guid, int?> Divisions
+    public IDictionary<DivisionId, int?> Divisions
         => SweeperDivisions.Divisions;
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions) 

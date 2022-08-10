@@ -60,7 +60,7 @@ partial class Form
             this.DivisionNew.Gender = null;
             this.DivisionNew.HandicapBase = null;
             this.DivisionNew.HandicapPercentage = null;
-            this.DivisionNew.Id = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.DivisionNew.Id = DivisionId.Empty;
             this.DivisionNew.Location = new System.Drawing.Point(1, 12);
             this.DivisionNew.MaximumAge = null;
             this.DivisionNew.MaximumAverage = null;
@@ -70,7 +70,7 @@ partial class Form
             this.DivisionNew.Name = "DivisionNew";
             this.DivisionNew.Size = new System.Drawing.Size(463, 484);
             this.DivisionNew.TabIndex = 5;
-            this.DivisionNew.TournamentId = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.DivisionNew.TournamentId = TournamentId.Empty;
             // 
             // Form
             // 

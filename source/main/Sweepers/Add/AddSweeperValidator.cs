@@ -5,7 +5,7 @@ internal class Validator : AbstractValidator<Models.Sweeper>
 {
     public Validator()
     {
-        RuleFor(sweeper => sweeper.TournamentId).Must(id => id != Guid.Empty).WithMessage("Tournament Id is required");
+        RuleFor(sweeper => sweeper.TournamentId).Must(id => id != TournamentId.Empty).WithMessage("Tournament Id is required");
         RuleFor(sweeper => sweeper.Tournament).NotNull().WithMessage("Tournament is required");
         RuleFor(sweeper => sweeper.TournamentId).Equal(sweeper => sweeper.Tournament!.Id).When(sweeper => sweeper.Tournament != null).WithMessage("Tournament Id does not match");
 

@@ -24,7 +24,7 @@ internal class Presenter
 
     public void Execute()
     {
-        var squads = _getSquadsAdapter.ForTournament(_view.TournamentId);
+        var squads = _getSquadsAdapter.Execute(_view.TournamentId);
 
         if (_getSquadsAdapter.Error != null)
         {

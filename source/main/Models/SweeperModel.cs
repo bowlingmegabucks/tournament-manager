@@ -2,9 +2,9 @@
 namespace NewEnglandClassic.Models;
 internal class Sweeper
 {
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     internal Tournament? Tournament { get; set; }
 
@@ -24,7 +24,7 @@ internal class Sweeper
 
     public bool Complete { get; set; }
 
-    public IDictionary<Guid, int?> Divisions { get; set; }
+    public IDictionary<DivisionId, int?> Divisions { get; set; }
 
     public Sweeper(Sweepers.IViewModel viewModel)
     {
@@ -61,6 +61,6 @@ internal class Sweeper
     /// </summary>
     internal Sweeper()
     {
-        Divisions = new Dictionary<Guid, int?>();
+        Divisions = new Dictionary<DivisionId, int?>();
     }
 }

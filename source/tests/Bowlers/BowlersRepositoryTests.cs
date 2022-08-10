@@ -22,7 +22,7 @@ internal class Repository
     {
         var bowler1 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Doe",
             EmailAddress = "johndoe@gmail.com"
@@ -30,7 +30,7 @@ internal class Repository
 
         var bowler2 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "Jane",
             LastName = "Doe",
             EmailAddress = "janedoe@gmail.com"
@@ -38,7 +38,7 @@ internal class Repository
 
         var bowler3 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Smith",
             EmailAddress = "johnsmith@gmail.com"
@@ -72,7 +72,7 @@ internal class Repository
     {
         var bowler1 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Doe",
             EmailAddress = "johndoe@gmail.com"
@@ -80,7 +80,7 @@ internal class Repository
 
         var bowler2 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "Jane",
             LastName = "Doe",
             EmailAddress = "janedoe@gmail.com"
@@ -88,7 +88,7 @@ internal class Repository
 
         var bowler3 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Smith",
             EmailAddress = "johnsmith@gmail.com"
@@ -121,7 +121,7 @@ internal class Repository
     {
         var bowler1 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Doe",
             EmailAddress = "johndoe@gmail.com"
@@ -129,7 +129,7 @@ internal class Repository
 
         var bowler2 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "Jane",
             LastName = "Doe",
             EmailAddress = "janedoe@gmail.com"
@@ -137,7 +137,7 @@ internal class Repository
 
         var bowler3 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Smith",
             EmailAddress = "johnsmith@gmail.com"
@@ -170,7 +170,7 @@ internal class Repository
     {
         var bowler1 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Doe",
             EmailAddress = "johndoe@gmail.com"
@@ -178,7 +178,7 @@ internal class Repository
 
         var bowler2 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "Jane",
             LastName = "Doe",
             EmailAddress = "janedoe@gmail.com"
@@ -186,7 +186,7 @@ internal class Repository
         
         var bowler3 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Smith",
             EmailAddress = "johnsmith@gmail.com"
@@ -218,7 +218,7 @@ internal class Repository
     {
         var bowler1 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Doe",
             EmailAddress = "johndoe@gmail.com"
@@ -226,7 +226,7 @@ internal class Repository
 
         var bowler2 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "Jane",
             LastName = "Doe",
             EmailAddress = "janedoe@gmail.com"
@@ -234,7 +234,7 @@ internal class Repository
 
         var bowler3 = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid(),
+            Id = BowlerId.New(),
             FirstName = "John",
             LastName = "Smith",
             EmailAddress = "johnsmith@gmail.com"

@@ -1,7 +1,7 @@
 ﻿namespace NewEnglandClassic.Bowlers.Retrieve;
 internal class ViewModel : IViewModel
 {
-    public Guid Id { get; set; }
+    public BowlerId Id { get; set; }
 
     public ViewModel(Models.Bowler bowler)
     {
@@ -11,5 +11,5 @@ internal class ViewModel : IViewModel
 
 internal interface IViewModel
 {
-    Guid Id { get; }
+    BowlerId Id { get; }
 }

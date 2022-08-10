@@ -9,7 +9,7 @@ internal class ViewModel
     {
         var model = new NewEnglandClassic.Models.Bowler
         {
-            Id = Guid.NewGuid()
+            Id = BowlerId.New()
         };
 
         var viewModel = new NewEnglandClassic.Bowlers.Retrieve.ViewModel(model);

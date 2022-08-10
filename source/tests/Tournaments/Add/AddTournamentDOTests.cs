@@ -43,13 +43,13 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsNewGUID()
     {
-        var guid = Guid.NewGuid();
-        _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.Tournament>())).Returns(guid);
+        var id = TournamentId.New();
+        _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.Tournament>())).Returns(id);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
 
         var result = _dataLayer.Execute(tournament);
 
-        Assert.That(result, Is.EqualTo(guid));
+        Assert.That(result, Is.EqualTo(id));
     }
 }

@@ -13,7 +13,7 @@ internal partial class Dialog : Form, IView
         ButtonNew.Visible = allowNewBowler;
     }
 
-    public Guid? SelectedBowlerId { get; private set; }
+    public BowlerId? SelectedBowlerId { get; private set; }
 
     public Models.BowlerSearchCriteria SearchCriteria
         => new()
@@ -36,7 +36,7 @@ internal partial class Dialog : Form, IView
      => ButtonSelect_Click(sender, e);
 
     private void ButtonNew_Click(object sender, EventArgs e)
-        => SelectedBowlerId = Guid.Empty;
+        => SelectedBowlerId = BowlerId.Empty;
 
     private void ButtonCancel_Click(object sender, EventArgs e)
         => SelectedBowlerId = null;

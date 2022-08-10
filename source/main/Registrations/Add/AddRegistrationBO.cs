@@ -44,7 +44,7 @@ internal class BusinessLogic : IBusinessLogic
 
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
 
-    public Guid? Execute(Models.Registration registration)
+    public RegistrationId? Execute(Models.Registration registration)
     {
         var division = _getDivisionBO.Execute(registration.Division.Id);
 
@@ -57,7 +57,7 @@ internal class BusinessLogic : IBusinessLogic
 
         registration.Division = division!;
 
-        var tournament = GetTournamentBO.FromDivisionId(division!.Id);
+        var tournament = GetTournamentBO.Execute(division!.Id);
 
         if (GetTournamentBO.Error is not null)
         {
@@ -68,7 +68,7 @@ internal class BusinessLogic : IBusinessLogic
 
         registration.TournamentStartDate = tournament!.Start;
 
-        if (registration.Bowler.Id != Guid.Empty)
+        if (registration.Bowler.Id.Value != Guid.Empty)
         {
             var bowler = GetBowlerBO.Execute(registration.Bowler.Id);
 
@@ -108,5 +108,5 @@ internal interface IBusinessLogic
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(Models.Registration registration);
+    RegistrationId? Execute(Models.Registration registration);
 }

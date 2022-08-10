@@ -21,9 +21,9 @@ internal class Adapter
     {
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
-        var divisionId = Guid.NewGuid();
-        var squads = Enumerable.Empty<Guid>();
-        var sweepers = Enumerable.Empty<Guid>();
+        var divisionId = DivisionId.New();
+        var squads = Enumerable.Empty<SquadId>();
+        var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
         _adapter.Execute(bowler.Object, divisionId, squads, sweepers, average);
@@ -42,9 +42,9 @@ internal class Adapter
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
-        var divisionId = Guid.NewGuid();
-        var squads = Enumerable.Empty<Guid>();
-        var sweepers = Enumerable.Empty<Guid>();
+        var divisionId = DivisionId.New();
+        var squads = Enumerable.Empty<SquadId>();
+        var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
         _adapter.Execute(bowler.Object, divisionId, squads, sweepers, average);
@@ -55,13 +55,13 @@ internal class Adapter
     [Test]
     public void Execute_AddBowlerView_ReturnsBusinessLogicExecute()
     {
-        var id = Guid.NewGuid();
+        var id = RegistrationId.New();
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Registration>())).Returns(id);
 
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
-        var divisionId = Guid.NewGuid();
-        var squads = Enumerable.Empty<Guid>();
-        var sweepers = Enumerable.Empty<Guid>();
+        var divisionId = DivisionId.New();
+        var squads = Enumerable.Empty<SquadId>();
+        var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
         var actual = _adapter.Execute(bowler.Object, divisionId, squads, sweepers, average);

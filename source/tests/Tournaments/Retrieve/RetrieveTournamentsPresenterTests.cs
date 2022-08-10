@@ -78,18 +78,18 @@ internal class Presenters
 
         _presenter.NewTournament();
 
-        _view.Verify(view => view.OpenTournament(It.IsAny<Guid>(), It.IsAny<string>()), Times.Never);
+        _view.Verify(view => view.OpenTournament(It.IsAny<TournamentId>(), It.IsAny<string>()), Times.Never);
     }
 
     [Test]
     public void NewTournament_ViewCreateNewTournamentReturnsId_ViewOpenTournamentCalledCorrectly()
     {
-        var guid = Guid.NewGuid();
+        var id = TournamentId.New();
 
-        _view.Setup(view => view.CreateNewTournament()).Returns((guid, "tournamentName"));
+        _view.Setup(view => view.CreateNewTournament()).Returns((id, "tournamentName"));
 
         _presenter.NewTournament();
 
-        _view.Verify(view => view.OpenTournament(guid, "tournamentName"), Times.Once);
+        _view.Verify(view => view.OpenTournament(id, "tournamentName"), Times.Once);
     }
 }

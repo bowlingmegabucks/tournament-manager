@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-public partial class SquadControl : UserControl, Squads.IViewModel
+internal partial class SquadControl : UserControl, Squads.IViewModel
 {
     public SquadControl()
     {
@@ -11,9 +11,9 @@ public partial class SquadControl : UserControl, Squads.IViewModel
     private void Controls_Validated(object sender, EventArgs e)
         => ErrorProviderSquad.SetError((Control)sender, string.Empty);
 
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
     
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
     
     public decimal? CashRatio
     {

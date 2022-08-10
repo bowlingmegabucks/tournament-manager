@@ -6,7 +6,7 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentEntity_IdMapped()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         var entity = new NewEnglandClassic.Database.Entities.Tournament { Id = id };
 
         var model = new NewEnglandClassic.Models.Tournament(entity);
@@ -119,7 +119,7 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentEntity_SquadsNotNull_SquadsCollectionMapped()
     {
-        var squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.TournamentSquad { Id = Guid.NewGuid(), Tournament = new NewEnglandClassic.Database.Entities.Tournament()
+        var squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.TournamentSquad { Id = SquadId.New(), Tournament = new NewEnglandClassic.Database.Entities.Tournament()
         }, 3).ToList();
         
         var entity = new NewEnglandClassic.Database.Entities.Tournament { Squads = squads };
@@ -132,7 +132,7 @@ internal class Tournament
     [Test]
     public void Constructor_TournamentViewModel_IdMapped()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         var viewModel = new NewEnglandClassic.Tournaments.ViewModel { Id = id };
 
         var model = new NewEnglandClassic.Models.Tournament(viewModel);

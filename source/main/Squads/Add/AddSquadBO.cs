@@ -32,7 +32,7 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
-    public Guid? Execute(Models.Squad squad)
+    public SquadId? Execute(Models.Squad squad)
     {
         var tournament = _getTournamentBO.Execute(squad.TournamentId);
 
@@ -71,5 +71,5 @@ internal interface IBusinessLogic
 { 
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(Models.Squad squad);
+    SquadId? Execute(Models.Squad squad);
 }

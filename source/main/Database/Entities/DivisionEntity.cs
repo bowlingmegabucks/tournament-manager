@@ -6,7 +6,7 @@ namespace NewEnglandClassic.Database.Entities;
 internal class Division
 {
     [Key]
-    public Guid Id { get; set; }
+    public DivisionId Id { get; set; }
 
     [Required]
     public string Name { get; set; } = string.Empty;
@@ -15,7 +15,7 @@ internal class Division
     public short Number { get; set; }
 
     [Required]
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public Tournament Tournament { get; set; } = null!;
 
@@ -43,11 +43,17 @@ internal class Division
     internal class Configuration : IEntityTypeConfiguration<Division>
     {
         public void Configure(EntityTypeBuilder<Division> builder)
-            => builder.HasOne(division => division.Tournament)
+        {
+            builder.Property(division => division.Id).HasConversion(new DivisionIdConverter());
+
+            builder.Property(division => division.TournamentId).HasConversion(new TournamentIdConverter());
+
+            builder.HasOne(division => division.Tournament)
                       .WithMany(tournament => tournament.Divisions)
                       .HasForeignKey(division => division.TournamentId)
                       .OnDelete(DeleteBehavior.Cascade)
                       .IsRequired();
+        }
 
     }
 }

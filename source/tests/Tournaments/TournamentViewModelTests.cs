@@ -7,7 +7,7 @@ internal class ViewModel
     [Test]
     public void Constructor_TournamentModel_IdMapped()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         var model = new NewEnglandClassic.Models.Tournament
         {
             Id = id

@@ -1,11 +1,11 @@
 ﻿namespace NewEnglandClassic.Tournaments.Portal;
-public partial class Form : System.Windows.Forms.Form
+internal partial class Form : System.Windows.Forms.Form
 {
     private readonly IConfiguration _config;
-    private readonly Guid _id;
+    private readonly TournamentId _id;
 
     
-    public Form(IConfiguration config, Guid id, string tournamentName)
+    public Form(IConfiguration config, TournamentId id, string tournamentName)
     {
         InitializeComponent();
 

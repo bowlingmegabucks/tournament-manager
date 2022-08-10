@@ -19,7 +19,7 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicExecute_CalledCorrectly()
     {
-        var bowlerId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
 
         _adapter.Execute(bowlerId);
 
@@ -32,7 +32,7 @@ internal class Adapter
         var error = new NewEnglandClassic.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        var bowlerId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
 
         var actual = _adapter.Execute(bowlerId);
 
@@ -49,11 +49,11 @@ internal class Adapter
     {
         var bowler = new NewEnglandClassic.Models.Bowler
         {
-            Id = Guid.NewGuid()
+            Id = BowlerId.New()
         };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<Guid>())).Returns(bowler);
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<BowlerId>())).Returns(bowler);
 
-        var bowlerId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
 
         var actual = _adapter.Execute(bowlerId);
 

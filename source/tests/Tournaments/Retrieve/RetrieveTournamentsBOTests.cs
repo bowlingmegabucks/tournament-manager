@@ -71,7 +71,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_Id_DataLayerExecute_Called()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         _businessLogic.Execute(id);
 
         _dataLayer.Verify(dataLayer => dataLayer.Execute(id), Times.Once);
@@ -81,9 +81,9 @@ internal class BusinessLogic
     public void Execute_Id_ReturnsResultFromDataLayer()
     {
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         var result = _businessLogic.Execute(id);
 
         Assert.That(result, Is.EqualTo(tournament));
@@ -92,7 +92,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_Id_NoErrors_ErrorNull()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         _businessLogic.Execute(id);
 
         Assert.That(_businessLogic.Error, Is.Null);
@@ -102,9 +102,9 @@ internal class BusinessLogic
     public void Execute_Id_DataLayerExecuteThrowsException_ReturnsNull()
     {
         var ex = new Exception();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<Guid>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
 
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         var result = _businessLogic.Execute(id);
 
         Assert.That(result, Is.Null);
@@ -114,9 +114,9 @@ internal class BusinessLogic
     public void Execute_Id_DataLayerExecuteThrowsException_ErrorPopulated()
     {
         var ex = new Exception("message");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<Guid>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
 
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         _businessLogic.Execute(id);
 
         Assert.Multiple(() =>
@@ -127,55 +127,55 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void FromDivisionId_DataLayerFromDivisionId_Called()
+    public void Execute_DivisionIdDataLayerExecute_DivisionIdCalled()
     {
-        var id = Guid.NewGuid();
-        _businessLogic.FromDivisionId(id);
+        var id = TournamentId.New();
+        _businessLogic.Execute(id);
 
-        _dataLayer.Verify(dataLayer => dataLayer.FromDivisionId(id), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(id), Times.Once);
     }
 
     [Test]
-    public void FromDivisionId_ReturnsResultFromDataLayer()
+    public void Execute_DivisionIdReturnsResultFromDataLayer()
     {
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _dataLayer.Setup(dataLayer => dataLayer.FromDivisionId(It.IsAny<Guid>())).Returns(tournament);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var id = Guid.NewGuid();
-        var result = _businessLogic.FromDivisionId(id);
+        var id = TournamentId.New();
+        var result = _businessLogic.Execute(id);
 
         Assert.That(result, Is.EqualTo(tournament));
     }
 
     [Test]
-    public void FromDivisionId_NoErrors_ErrorNull()
+    public void Execute_DivisionIdNoErrors_ErrorNull()
     {
-        var id = Guid.NewGuid();
-        _businessLogic.FromDivisionId(id);
+        var id = TournamentId.New();
+        _businessLogic.Execute(id);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void FromDivisionId_DataLayerFromDivisionIdThrowsException_ReturnsNull()
+    public void Execute_DivisionIdDataLayerExecuteThrowsException_ReturnsNull()
     {
         var ex = new Exception();
-        _dataLayer.Setup(dataLayer => dataLayer.FromDivisionId(It.IsAny<Guid>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
 
-        var id = Guid.NewGuid();
-        var result = _businessLogic.FromDivisionId(id);
+        var id = TournamentId.New();
+        var result = _businessLogic.Execute(id);
 
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void FromDivisionId_DataLayerFromDivisionIdThrowsException_ErrorPopulated()
+    public void Execute_DivisionIdDataLayerExecuteThrowsException_ErrorPopulated()
     {
         var ex = new Exception("message");
-        _dataLayer.Setup(dataLayer => dataLayer.FromDivisionId(It.IsAny<Guid>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
 
-        var id = Guid.NewGuid();
-        _businessLogic.FromDivisionId(id);
+        var id = TournamentId.New();
+        _businessLogic.Execute(id);
 
         Assert.Multiple(() =>
         {

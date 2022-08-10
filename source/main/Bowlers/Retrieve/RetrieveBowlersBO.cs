@@ -9,7 +9,7 @@ internal class BusinessLogic : IBusinessLogic
 
     }
 
-    public Models.Bowler? Execute(Guid id)
+    public Models.Bowler? Execute(BowlerId id)
         => null;
 }
 
@@ -17,5 +17,5 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    Models.Bowler? Execute(Guid id);
+    Models.Bowler? Execute(BowlerId id);
 }

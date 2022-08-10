@@ -3,7 +3,7 @@ namespace NewEnglandClassic.Bowlers.Add;
 
 internal interface IViewModel
 {
-    Guid Id { get; }
+    BowlerId Id { get; }
 
     string FirstName { get; }
 

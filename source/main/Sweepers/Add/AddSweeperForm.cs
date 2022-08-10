@@ -3,9 +3,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
     
-    public Guid TournamentId { get; }
+    public TournamentId TournamentId { get; }
     
-    public Form(IConfiguration config, Guid tournamentId)
+    public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
 

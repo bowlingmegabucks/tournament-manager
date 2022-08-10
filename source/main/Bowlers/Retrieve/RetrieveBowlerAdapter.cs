@@ -21,7 +21,7 @@ internal class Adapter : IAdapter
     public Models.ErrorDetail? Error
         => _businessLogic.Error;
 
-    public IViewModel? Execute(Guid bowlerId)
+    public IViewModel? Execute(BowlerId bowlerId)
     {
         var bowler = _businessLogic.Execute(bowlerId);
 
@@ -33,5 +33,5 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IViewModel? Execute(Guid bowlerId);
+    IViewModel? Execute(BowlerId bowlerId);
 }

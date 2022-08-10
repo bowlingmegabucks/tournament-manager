@@ -10,10 +10,10 @@ internal class Registration
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
 
-        var divisionId = Guid.NewGuid();
+        var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -25,11 +25,11 @@ internal class Registration
     [Test]
     public void Constructor_BowlerInstanciatedWithId()
     {
-        var bowlerId = Guid.NewGuid();
-        var divisionId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
+        var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -41,11 +41,11 @@ internal class Registration
     [Test]
     public void Constructor_DivisionInstanciatedWithId()
     {
-        var bowlerId = Guid.NewGuid();
-        var divisionId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
+        var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -57,11 +57,11 @@ internal class Registration
     [Test]
     public void Constructor_SquadsMapped()
     {
-        var bowlerId = Guid.NewGuid();
-        var divisionId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
+        var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -73,11 +73,11 @@ internal class Registration
     [Test]
     public void Constructor_SweepersMapped()
     {
-        var bowlerId = Guid.NewGuid();
-        var divisionId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
+        var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
@@ -89,11 +89,11 @@ internal class Registration
     [Test]
     public void Constructor_AverageMapped([Values(null, 200)] int? average)
     {
-        var bowlerId = Guid.NewGuid();
-        var divisionId = Guid.NewGuid();
+        var bowlerId = BowlerId.New();
+        var divisionId = DivisionId.New();
 
-        var squads = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
-        var sweepers = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() };
+        var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
+        var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var registration = new NewEnglandClassic.Models.Registration(bowlerId, divisionId, squads, sweepers, average);
 
