@@ -28,64 +28,64 @@ partial class SearchBowlersGrid
     /// </summary>
     private void InitializeComponent()
     {
-            this.ColumnFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnState = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.firstNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.emailColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
             this.SuspendLayout();
             // 
             // GridView
             // 
             this.GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnFirstName,
-            this.ColumnLastName,
-            this.ColumnEmail,
-            this.ColumnCity,
-            this.ColumnState});
+            this.firstNameColumn,
+            this.lastNameColumn,
+            this.emailColumn,
+            this.cityColumn,
+            this.stateColumn});
             this.GridView.RowTemplate.Height = 25;
             this.GridView.Size = new System.Drawing.Size(938, 377);
             // 
-            // ColumnFirstName
+            // firstNameColumn
             // 
-            this.ColumnFirstName.DataPropertyName = "FirstName";
-            this.ColumnFirstName.HeaderText = "First Name";
-            this.ColumnFirstName.Name = "ColumnFirstName";
-            this.ColumnFirstName.ReadOnly = true;
-            this.ColumnFirstName.Width = 125;
+            this.firstNameColumn.DataPropertyName = "FirstName";
+            this.firstNameColumn.HeaderText = "First Name";
+            this.firstNameColumn.Name = "firstNameColumn";
+            this.firstNameColumn.ReadOnly = true;
+            this.firstNameColumn.Width = 125;
             // 
-            // ColumnLastName
+            // lastNameColumn
             // 
-            this.ColumnLastName.DataPropertyName = "LastName";
-            this.ColumnLastName.HeaderText = "Last Name";
-            this.ColumnLastName.Name = "ColumnLastName";
-            this.ColumnLastName.ReadOnly = true;
-            this.ColumnLastName.Width = 175;
+            this.lastNameColumn.DataPropertyName = "LastName";
+            this.lastNameColumn.HeaderText = "Last Name";
+            this.lastNameColumn.Name = "lastNameColumn";
+            this.lastNameColumn.ReadOnly = true;
+            this.lastNameColumn.Width = 175;
             // 
-            // ColumnEmail
+            // emailColumn
             // 
-            this.ColumnEmail.DataPropertyName = "EmailAddress";
-            this.ColumnEmail.HeaderText = "Email Address";
-            this.ColumnEmail.Name = "ColumnEmail";
-            this.ColumnEmail.ReadOnly = true;
-            this.ColumnEmail.Width = 175;
+            this.emailColumn.DataPropertyName = "EmailAddress";
+            this.emailColumn.HeaderText = "Email Address";
+            this.emailColumn.Name = "emailColumn";
+            this.emailColumn.ReadOnly = true;
+            this.emailColumn.Width = 175;
             // 
-            // ColumnCity
+            // cityColumn
             // 
-            this.ColumnCity.DataPropertyName = "City";
-            this.ColumnCity.HeaderText = "City";
-            this.ColumnCity.Name = "ColumnCity";
-            this.ColumnCity.ReadOnly = true;
-            this.ColumnCity.Width = 135;
+            this.cityColumn.DataPropertyName = "City";
+            this.cityColumn.HeaderText = "City";
+            this.cityColumn.Name = "cityColumn";
+            this.cityColumn.ReadOnly = true;
+            this.cityColumn.Width = 135;
             // 
-            // ColumnState
+            // stateColumn
             // 
-            this.ColumnState.DataPropertyName = "State";
-            this.ColumnState.HeaderText = "State";
-            this.ColumnState.Name = "ColumnState";
-            this.ColumnState.ReadOnly = true;
-            this.ColumnState.Width = 50;
+            this.stateColumn.DataPropertyName = "State";
+            this.stateColumn.HeaderText = "State";
+            this.stateColumn.Name = "stateColumn";
+            this.stateColumn.ReadOnly = true;
+            this.stateColumn.Width = 50;
             // 
             // SearchBowlersGrid
             // 
@@ -100,9 +100,9 @@ partial class SearchBowlersGrid
 
     #endregion
 
-    private DataGridViewTextBoxColumn ColumnFirstName;
-    private DataGridViewTextBoxColumn ColumnLastName;
-    private DataGridViewTextBoxColumn ColumnEmail;
-    private DataGridViewTextBoxColumn ColumnCity;
-    private DataGridViewTextBoxColumn ColumnState;
+    private DataGridViewTextBoxColumn firstNameColumn;
+    private DataGridViewTextBoxColumn lastNameColumn;
+    private DataGridViewTextBoxColumn emailColumn;
+    private DataGridViewTextBoxColumn cityColumn;
+    private DataGridViewTextBoxColumn stateColumn;
 }
