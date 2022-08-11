@@ -22,7 +22,7 @@ internal partial class DivisionsGrid
         
         switch (GridView.Columns[e.ColumnIndex].Name)
         {
-            case "ColumnGender":
+            case nameof(genderColumn):
                 if (division!.Gender != null)
                 {
                     e.Value = division.Gender == NewEnglandClassic.Models.Gender.Male ? "Men" : "Women";
@@ -30,7 +30,7 @@ internal partial class DivisionsGrid
                 }
                 
                 break;
-            case "ColumnHandicap":
+            case nameof(handicapColumn):
                 if (division!.HandicapBase != null)
                 {
                     var handicap = new StringBuilder();
