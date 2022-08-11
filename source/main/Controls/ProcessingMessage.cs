@@ -14,15 +14,15 @@ public partial class ProcessingMessage : UserControl
         InitializeComponent();
         _cancelToken = cancelToken;
 
-        LabelMessage.Text = message;
+        messageLabel.Text = message;
 
         if (string.IsNullOrWhiteSpace(message))
         {
-            LabelMessage.Visible = false;
-            PictureBoxProcessing.Location = new Point(PictureBoxProcessing.Location.X, PictureBoxProcessing.Location.Y - LabelMessage.Height / 2);
+            messageLabel.Visible = false;
+            processingPicture.Location = new Point(processingPicture.Location.X, processingPicture.Location.Y - messageLabel.Height / 2);
         }
     }
 
-    private void ButtonCancel_Click(object sender, EventArgs e)
+    private void CancelButton_Click(object sender, EventArgs e)
         => _cancelToken.Cancel();
 }
