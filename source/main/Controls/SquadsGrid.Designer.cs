@@ -28,91 +28,91 @@ partial class SquadsGrid
     /// </summary>
     private void InitializeComponent()
     {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.ColumnComplete = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnSquadDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSquadTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnFinalsRatio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCashRatio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnMaxPerPair = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.completeColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.squadDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.squadTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.finalsRatioColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cashRatioColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maxPerPairColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
             this.SuspendLayout();
             // 
             // GridView
             // 
             this.GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnComplete,
-            this.ColumnSquadDate,
-            this.ColumnSquadTime,
-            this.ColumnFinalsRatio,
-            this.ColumnCashRatio,
-            this.ColumnMaxPerPair});
+            this.completeColumn,
+            this.squadDateColumn,
+            this.squadTimeColumn,
+            this.finalsRatioColumn,
+            this.cashRatioColumn,
+            this.maxPerPairColumn});
             this.GridView.RowTemplate.Height = 25;
             this.GridView.Size = new System.Drawing.Size(654, 377);
             // 
-            // ColumnComplete
+            // completeColumn
             // 
-            this.ColumnComplete.DataPropertyName = "Complete";
-            this.ColumnComplete.HeaderText = "Complete";
-            this.ColumnComplete.Name = "ColumnComplete";
-            this.ColumnComplete.ReadOnly = true;
-            this.ColumnComplete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColumnComplete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ColumnComplete.Width = 80;
+            this.completeColumn.DataPropertyName = "Complete";
+            this.completeColumn.HeaderText = "Complete";
+            this.completeColumn.Name = "completeColumn";
+            this.completeColumn.ReadOnly = true;
+            this.completeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.completeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.completeColumn.Width = 80;
             // 
-            // ColumnSquadDate
+            // squadDateColumn
             // 
-            this.ColumnSquadDate.DataPropertyName = "Date";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.ColumnSquadDate.DefaultCellStyle = dataGridViewCellStyle1;
-            this.ColumnSquadDate.HeaderText = "Squad Date";
-            this.ColumnSquadDate.Name = "ColumnSquadDate";
-            this.ColumnSquadDate.ReadOnly = true;
+            this.squadDateColumn.DataPropertyName = "Date";
+            dataGridViewCellStyle6.Format = "d";
+            dataGridViewCellStyle6.NullValue = null;
+            this.squadDateColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.squadDateColumn.HeaderText = "Squad Date";
+            this.squadDateColumn.Name = "squadDateColumn";
+            this.squadDateColumn.ReadOnly = true;
             // 
-            // ColumnSquadTime
+            // squadTimeColumn
             // 
-            this.ColumnSquadTime.DataPropertyName = "Date";
-            dataGridViewCellStyle2.Format = "t";
-            dataGridViewCellStyle2.NullValue = null;
-            this.ColumnSquadTime.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColumnSquadTime.HeaderText = "Squad Time";
-            this.ColumnSquadTime.Name = "ColumnSquadTime";
-            this.ColumnSquadTime.ReadOnly = true;
+            this.squadTimeColumn.DataPropertyName = "Date";
+            dataGridViewCellStyle7.Format = "t";
+            dataGridViewCellStyle7.NullValue = null;
+            this.squadTimeColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            this.squadTimeColumn.HeaderText = "Squad Time";
+            this.squadTimeColumn.Name = "squadTimeColumn";
+            this.squadTimeColumn.ReadOnly = true;
             // 
-            // ColumnFinalsRatio
+            // finalsRatioColumn
             // 
-            this.ColumnFinalsRatio.DataPropertyName = "FinalsRatio";
-            dataGridViewCellStyle3.Format = "N1";
-            dataGridViewCellStyle3.NullValue = "Default";
-            this.ColumnFinalsRatio.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ColumnFinalsRatio.HeaderText = "Finals Ratio";
-            this.ColumnFinalsRatio.Name = "ColumnFinalsRatio";
-            this.ColumnFinalsRatio.ReadOnly = true;
+            this.finalsRatioColumn.DataPropertyName = "FinalsRatio";
+            dataGridViewCellStyle8.Format = "N1";
+            dataGridViewCellStyle8.NullValue = "Default";
+            this.finalsRatioColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            this.finalsRatioColumn.HeaderText = "Finals Ratio";
+            this.finalsRatioColumn.Name = "finalsRatioColumn";
+            this.finalsRatioColumn.ReadOnly = true;
             // 
-            // ColumnCashRatio
+            // cashRatioColumn
             // 
-            this.ColumnCashRatio.DataPropertyName = "CashRatio";
-            dataGridViewCellStyle4.Format = "N1";
-            dataGridViewCellStyle4.NullValue = "Default";
-            this.ColumnCashRatio.DefaultCellStyle = dataGridViewCellStyle4;
-            this.ColumnCashRatio.HeaderText = "Cash Ratio";
-            this.ColumnCashRatio.Name = "ColumnCashRatio";
-            this.ColumnCashRatio.ReadOnly = true;
+            this.cashRatioColumn.DataPropertyName = "CashRatio";
+            dataGridViewCellStyle9.Format = "N1";
+            dataGridViewCellStyle9.NullValue = "Default";
+            this.cashRatioColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            this.cashRatioColumn.HeaderText = "Cash Ratio";
+            this.cashRatioColumn.Name = "cashRatioColumn";
+            this.cashRatioColumn.ReadOnly = true;
             // 
-            // ColumnMaxPerPair
+            // maxPerPairColumn
             // 
-            this.ColumnMaxPerPair.DataPropertyName = "MaxPerPair";
-            dataGridViewCellStyle5.Format = "N0";
-            dataGridViewCellStyle5.NullValue = null;
-            this.ColumnMaxPerPair.DefaultCellStyle = dataGridViewCellStyle5;
-            this.ColumnMaxPerPair.HeaderText = "Max Per Pair";
-            this.ColumnMaxPerPair.Name = "ColumnMaxPerPair";
-            this.ColumnMaxPerPair.ReadOnly = true;
+            this.maxPerPairColumn.DataPropertyName = "MaxPerPair";
+            dataGridViewCellStyle10.Format = "N0";
+            dataGridViewCellStyle10.NullValue = null;
+            this.maxPerPairColumn.DefaultCellStyle = dataGridViewCellStyle10;
+            this.maxPerPairColumn.HeaderText = "Max Per Pair";
+            this.maxPerPairColumn.Name = "maxPerPairColumn";
+            this.maxPerPairColumn.ReadOnly = true;
             // 
             // SquadsGrid
             // 
@@ -127,10 +127,10 @@ partial class SquadsGrid
 
     #endregion
 
-    private DataGridViewCheckBoxColumn ColumnComplete;
-    private DataGridViewTextBoxColumn ColumnSquadDate;
-    private DataGridViewTextBoxColumn ColumnSquadTime;
-    private DataGridViewTextBoxColumn ColumnFinalsRatio;
-    private DataGridViewTextBoxColumn ColumnCashRatio;
-    private DataGridViewTextBoxColumn ColumnMaxPerPair;
+    private DataGridViewCheckBoxColumn completeColumn;
+    private DataGridViewTextBoxColumn squadDateColumn;
+    private DataGridViewTextBoxColumn squadTimeColumn;
+    private DataGridViewTextBoxColumn finalsRatioColumn;
+    private DataGridViewTextBoxColumn cashRatioColumn;
+    private DataGridViewTextBoxColumn maxPerPairColumn;
 }
