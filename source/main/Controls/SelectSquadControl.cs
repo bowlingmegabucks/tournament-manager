@@ -15,14 +15,14 @@ internal partial class SelectSquadControl : UserControl, ISelectedIds
 
     public string DisplayText
     {
-        get => CheckboxName.Text;
-        set => CheckboxName.Text = value;
+        get => nameCheckBox.Text;
+        set => nameCheckBox.Text = value;
     }
 
     public bool Selected
     {
-        get => CheckboxName.Checked;
-        set => CheckboxName.Checked = value;
+        get => nameCheckBox.Checked;
+        set => nameCheckBox.Checked = value;
     }
 }
 

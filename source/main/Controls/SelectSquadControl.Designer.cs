@@ -28,28 +28,28 @@ partial class SelectSquadControl
     /// </summary>
     private void InitializeComponent()
     {
-            this.CheckboxName = new System.Windows.Forms.CheckBox();
+            this.nameCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // CheckboxName
+            // nameCheckBox
             // 
-            this.CheckboxName.AutoSize = true;
-            this.CheckboxName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CheckboxName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.CheckboxName.Location = new System.Drawing.Point(0, 0);
-            this.CheckboxName.Name = "CheckboxName";
-            this.CheckboxName.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.CheckboxName.Size = new System.Drawing.Size(237, 45);
-            this.CheckboxName.TabIndex = 0;
-            this.CheckboxName.Text = "DisplayText";
-            this.CheckboxName.UseVisualStyleBackColor = true;
+            this.nameCheckBox.AutoSize = true;
+            this.nameCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nameCheckBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.nameCheckBox.Location = new System.Drawing.Point(0, 0);
+            this.nameCheckBox.Name = "nameCheckBox";
+            this.nameCheckBox.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.nameCheckBox.Size = new System.Drawing.Size(237, 45);
+            this.nameCheckBox.TabIndex = 0;
+            this.nameCheckBox.Text = "DisplayText";
+            this.nameCheckBox.UseVisualStyleBackColor = true;
             // 
-            // SelectIdControl
+            // SelectSquadControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.CheckboxName);
-            this.Name = "SelectIdControl";
+            this.Controls.Add(this.nameCheckBox);
+            this.Name = "SelectSquadControl";
             this.Size = new System.Drawing.Size(237, 45);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -58,5 +58,5 @@ partial class SelectSquadControl
 
     #endregion
 
-    private CheckBox CheckboxName;
+    private CheckBox nameCheckBox;
 }
