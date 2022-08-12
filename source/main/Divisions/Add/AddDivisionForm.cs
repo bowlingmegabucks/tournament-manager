@@ -14,14 +14,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         new Presenter(config, this).GetNextDivisionNumber();
         
-        DivisionNew.Focus();
+        newDivision.Focus();
     }
 
     public bool IsValid()
         => ValidateChildren();
 
     public IViewModel Division
-        => DivisionNew;
+        => newDivision;
     
     public void KeepOpen()
         => DialogResult = DialogResult.None;
@@ -32,6 +32,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayMessage(string message)
         => MessageBox.Show(message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-    private void ButtonSave_Click(object sender, EventArgs e)
+    private void SaveButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).Execute();
 }
