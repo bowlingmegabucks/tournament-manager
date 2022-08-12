@@ -15,29 +15,29 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
 
     public string TournamentName
     {
-        get => TextboxTournament.Text;
-        set => TextboxTournament.Text = value;
+        get => nameText.Text;
+        set => nameText.Text = value;
     }
 
-    private void TextboxTournament_Validating(object sender, CancelEventArgs e)
+    private void TournamentText_Validating(object sender, CancelEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(TournamentName))
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(TextboxTournament, "Tournament name is required");
+            ErrorProviderTournament.SetError(nameText, "Tournament name is required");
         }
     }
 
     public DateOnly Start
     {
-        get => DateOnly.FromDateTime(DatePickerStart.Value);
-        set => DatePickerStart.Value = new DateTime(value.Year, value.Month, value.Day);
+        get => DateOnly.FromDateTime(startDatePicker.Value);
+        set => startDatePicker.Value = new DateTime(value.Year, value.Month, value.Day);
     }
 
     public DateOnly End
     {
-        get => DateOnly.FromDateTime(DatePickerEnd.Value);
-        set => DatePickerEnd.Value = new DateTime(value.Year, value.Month, value.Day);
+        get => DateOnly.FromDateTime(endDatePicker.Value);
+        set => endDatePicker.Value = new DateTime(value.Year, value.Month, value.Day);
     }
 
     private void TournamentDates_Validating(object sender, CancelEventArgs e)
@@ -51,76 +51,76 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
 
     public decimal EntryFee
     {
-        get => NumericEntryFee.Value;
-        set => NumericEntryFee.Value = value;
+        get => entryFeeValue.Value;
+        set => entryFeeValue.Value = value;
     }
 
-    private void NumericEntryFee_Validating(object sender, CancelEventArgs e)
+    private void EntryFeeValue_Validating(object sender, CancelEventArgs e)
     {
         if (EntryFee <= 0)
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(NumericEntryFee, "Entry fee must be greater than $0");
+            ErrorProviderTournament.SetError(entryFeeValue, "Entry fee must be greater than $0");
         }
     }
 
     public short Games
     {
-        get => (short)NumericGames.Value;
-        set => NumericGames.Value = value;
+        get => (short)gamesValue.Value;
+        set => gamesValue.Value = value;
     }
 
-    private void NumericGames_Validating(object sender, CancelEventArgs e)
+    private void GamesValue_Validating(object sender, CancelEventArgs e)
     {
         if (Games <= 0)
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(NumericGames, "Games must be greater than 0");
+            ErrorProviderTournament.SetError(gamesValue, "Games must be greater than 0");
         }
     }
 
     public decimal FinalsRatio
     {
-        get => NumericFinalsRatio.Value;
-        set => NumericFinalsRatio.Value = value;
+        get => finalsRatioValue.Value;
+        set => finalsRatioValue.Value = value;
     }
 
-    private void NumericFinalsRatio_Validating(object sender, CancelEventArgs e)
+    private void FinalsRatioValue_Validating(object sender, CancelEventArgs e)
     {
         if (FinalsRatio <= 1)
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(NumericFinalsRatio, "Finals ratio must be greater than 1");
+            ErrorProviderTournament.SetError(finalsRatioValue, "Finals ratio must be greater than 1");
         }
     }
 
     public decimal CashRatio
     {
-        get => NumericCashRatio.Value;
-        set => NumericCashRatio.Value = value;
+        get => cashRatioValue.Value;
+        set => cashRatioValue.Value = value;
     }
 
-    private void NumericCashRatio_Validating(object sender, CancelEventArgs e)
+    private void CashRatioValue_Validating(object sender, CancelEventArgs e)
     {
         if (CashRatio <= 1)
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(NumericCashRatio, "Cash ratio must be greater than 1");
+            ErrorProviderTournament.SetError(cashRatioValue, "Cash ratio must be greater than 1");
         }
     }
 
     public string BowlingCenter
     {
-        get => TextboxBowlingCenter.Text;
-        set => TextboxBowlingCenter.Text = value;
+        get => bowlingCenterValue.Text;
+        set => bowlingCenterValue.Text = value;
     }
 
-    private void TextboxBowlingCenter_Validating(object sender, CancelEventArgs e)
+    private void BowlingCenterText_Validating(object sender, CancelEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(BowlingCenter))
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(TextboxBowlingCenter, "Bowling center is required");
+            ErrorProviderTournament.SetError(bowlingCenterValue, "Bowling center is required");
         }
     }
 
