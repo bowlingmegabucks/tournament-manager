@@ -29,85 +29,85 @@ partial class SweeperDivisionControl
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            this.TextboxDivisionName = new System.Windows.Forms.TextBox();
-            this.LabelName = new NewEnglandClassic.Controls.LabelControl();
-            this.LabelMaximumHandicapPerGame = new NewEnglandClassic.Controls.LabelControl();
-            this.NumericBonusPinsPerGame = new NewEnglandClassic.Controls.NumericControl();
-            this.ErrorProviderSweeperDivision = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.NumericBonusPinsPerGame)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSweeperDivision)).BeginInit();
+            this.nameText = new System.Windows.Forms.TextBox();
+            this.nameLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.bonusPinsPerGameLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.bonusPinsPerGameValue = new NewEnglandClassic.Controls.NumericControl();
+            this.sweeperDivisionErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.bonusPinsPerGameValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sweeperDivisionErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // TextboxDivisionName
+            // nameText
             // 
-            this.TextboxDivisionName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TextboxDivisionName.Location = new System.Drawing.Point(3, 28);
-            this.TextboxDivisionName.Margin = new System.Windows.Forms.Padding(3, 3, 10, 10);
-            this.TextboxDivisionName.Name = "TextboxDivisionName";
-            this.TextboxDivisionName.PlaceholderText = "Division Description";
-            this.TextboxDivisionName.ReadOnly = true;
-            this.TextboxDivisionName.Size = new System.Drawing.Size(299, 27);
-            this.TextboxDivisionName.TabIndex = 104;
-            this.TextboxDivisionName.TabStop = false;
+            this.nameText.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.nameText.Location = new System.Drawing.Point(3, 28);
+            this.nameText.Margin = new System.Windows.Forms.Padding(3, 3, 10, 10);
+            this.nameText.Name = "nameText";
+            this.nameText.PlaceholderText = "Division Description";
+            this.nameText.ReadOnly = true;
+            this.nameText.Size = new System.Drawing.Size(299, 27);
+            this.nameText.TabIndex = 104;
+            this.nameText.TabStop = false;
             // 
-            // LabelName
+            // nameLabel
             // 
-            this.LabelName.AutoSize = true;
-            this.LabelName.Bold = false;
-            this.LabelName.Location = new System.Drawing.Point(3, 3);
-            this.LabelName.Name = "LabelName";
-            this.LabelName.Required = false;
-            this.LabelName.Size = new System.Drawing.Size(117, 19);
-            this.LabelName.TabIndex = 105;
-            this.LabelName.TabStop = false;
-            this.LabelName.Text = "Name:";
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Bold = false;
+            this.nameLabel.Location = new System.Drawing.Point(3, 3);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Required = false;
+            this.nameLabel.Size = new System.Drawing.Size(117, 19);
+            this.nameLabel.TabIndex = 105;
+            this.nameLabel.TabStop = false;
+            this.nameLabel.Text = "Name:";
             // 
-            // LabelMaximumHandicapPerGame
+            // bonusPinsPerGameLabel
             // 
-            this.LabelMaximumHandicapPerGame.AutoSize = true;
-            this.LabelMaximumHandicapPerGame.Bold = false;
-            this.LabelMaximumHandicapPerGame.Location = new System.Drawing.Point(315, 3);
-            this.LabelMaximumHandicapPerGame.Name = "LabelMaximumHandicapPerGame";
-            this.LabelMaximumHandicapPerGame.Required = false;
-            this.LabelMaximumHandicapPerGame.Size = new System.Drawing.Size(189, 19);
-            this.LabelMaximumHandicapPerGame.TabIndex = 115;
-            this.LabelMaximumHandicapPerGame.TabStop = false;
-            this.LabelMaximumHandicapPerGame.Text = "Bonus Pins Per Game:";
+            this.bonusPinsPerGameLabel.AutoSize = true;
+            this.bonusPinsPerGameLabel.Bold = false;
+            this.bonusPinsPerGameLabel.Location = new System.Drawing.Point(315, 3);
+            this.bonusPinsPerGameLabel.Name = "bonusPinsPerGameLabel";
+            this.bonusPinsPerGameLabel.Required = false;
+            this.bonusPinsPerGameLabel.Size = new System.Drawing.Size(189, 19);
+            this.bonusPinsPerGameLabel.TabIndex = 115;
+            this.bonusPinsPerGameLabel.TabStop = false;
+            this.bonusPinsPerGameLabel.Text = "Bonus Pins Per Game:";
             // 
-            // NumericBonusPinsPerGame
+            // bonusPinsPerGameValue
             // 
-            this.NumericBonusPinsPerGame.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NumericBonusPinsPerGame.Location = new System.Drawing.Point(357, 28);
-            this.NumericBonusPinsPerGame.Margin = new System.Windows.Forms.Padding(3, 4, 30, 10);
-            this.NumericBonusPinsPerGame.Maximum = new decimal(new int[] {
+            this.bonusPinsPerGameValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bonusPinsPerGameValue.Location = new System.Drawing.Point(357, 28);
+            this.bonusPinsPerGameValue.Margin = new System.Windows.Forms.Padding(3, 4, 30, 10);
+            this.bonusPinsPerGameValue.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-            this.NumericBonusPinsPerGame.Name = "NumericBonusPinsPerGame";
-            this.NumericBonusPinsPerGame.Size = new System.Drawing.Size(147, 27);
-            this.NumericBonusPinsPerGame.TabIndex = 114;
-            this.NumericBonusPinsPerGame.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.NumericBonusPinsPerGame.Validating += new System.ComponentModel.CancelEventHandler(this.NumericBonusPinsPerGame_Validating);
-            this.NumericBonusPinsPerGame.Validated += new System.EventHandler(this.NumericBonusPinsPerGame_Validated);
+            this.bonusPinsPerGameValue.Name = "bonusPinsPerGameValue";
+            this.bonusPinsPerGameValue.Size = new System.Drawing.Size(147, 27);
+            this.bonusPinsPerGameValue.TabIndex = 114;
+            this.bonusPinsPerGameValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.bonusPinsPerGameValue.Validating += new System.ComponentModel.CancelEventHandler(this.BonusPinsPerGameValue_Validating);
+            this.bonusPinsPerGameValue.Validated += new System.EventHandler(this.BonusPinsPerGameValue_Validated);
             // 
-            // ErrorProviderSweeperDivision
+            // sweeperDivisionErrorProvider
             // 
-            this.ErrorProviderSweeperDivision.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.ErrorProviderSweeperDivision.ContainerControl = this;
+            this.sweeperDivisionErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.sweeperDivisionErrorProvider.ContainerControl = this;
             // 
             // SweeperDivisionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.LabelMaximumHandicapPerGame);
-            this.Controls.Add(this.NumericBonusPinsPerGame);
-            this.Controls.Add(this.TextboxDivisionName);
-            this.Controls.Add(this.LabelName);
+            this.Controls.Add(this.bonusPinsPerGameLabel);
+            this.Controls.Add(this.bonusPinsPerGameValue);
+            this.Controls.Add(this.nameText);
+            this.Controls.Add(this.nameLabel);
             this.Name = "SweeperDivisionControl";
             this.Size = new System.Drawing.Size(535, 65);
-            ((System.ComponentModel.ISupportInitialize)(this.NumericBonusPinsPerGame)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSweeperDivision)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bonusPinsPerGameValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sweeperDivisionErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -115,9 +115,9 @@ partial class SweeperDivisionControl
 
     #endregion
 
-    private TextBox TextboxDivisionName;
-    private Controls.LabelControl LabelName;
-    private Controls.LabelControl LabelMaximumHandicapPerGame;
-    private Controls.NumericControl NumericBonusPinsPerGame;
-    private ErrorProvider ErrorProviderSweeperDivision;
+    private TextBox nameText;
+    private Controls.LabelControl nameLabel;
+    private Controls.LabelControl bonusPinsPerGameLabel;
+    private Controls.NumericControl bonusPinsPerGameValue;
+    private ErrorProvider sweeperDivisionErrorProvider;
 }

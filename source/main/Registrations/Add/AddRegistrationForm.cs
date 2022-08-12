@@ -20,33 +20,33 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
     {
-        ComboBoxDivisions.DataSource = divisions.ToList();
+        divisionsDropdown.DataSource = divisions.ToList();
 
-        ComboBoxDivisions.ValueMember = nameof(Divisions.IViewModel.Id);
-        ComboBoxDivisions.DisplayMember = nameof(Divisions.IViewModel.DivisionName);
+        divisionsDropdown.ValueMember = nameof(Divisions.IViewModel.Id);
+        divisionsDropdown.DisplayMember = nameof(Divisions.IViewModel.DivisionName);
     }
 
     public DivisionId DivisionId
-        => (DivisionId)ComboBoxDivisions.SelectedValue;
+        => (DivisionId)divisionsDropdown.SelectedValue;
 
     public Bowlers.Add.IViewModel Bowler
-        => BowlerControl;
+        => bowlerControl;
 
     public int? Average
-        => NumericAverage.Value == 0 ? null : (int)NumericAverage.Value;
+        => averageValue.Value == 0 ? null : (int)averageValue.Value;
 
     public IEnumerable<SquadId> Squads
-        => FlowLayoutPanelSquads.Controls.OfType<Controls.ISelectedIds>().Where(control=> control.Selected).Select(control => control.Id).AsEnumerable();
+        => squadsFlowPanelLayout.Controls.OfType<Controls.ISelectedIds>().Where(control=> control.Selected).Select(control => control.Id).AsEnumerable();
 
     public IEnumerable<SquadId> Sweepers
-        => FlowLayoutPanelSweepers.Controls.OfType<Controls.ISelectedIds>().Where(control => control.Selected).Select(control => control.Id).AsEnumerable();
+        => sweepersFlowLayoutPanel.Controls.OfType<Controls.ISelectedIds>().Where(control => control.Selected).Select(control => control.Id).AsEnumerable();
 
-    private void ComboBoxDivisions_Validating(object sender, CancelEventArgs e)
+    private void DivisionsDropDown_Validating(object sender, CancelEventArgs e)
     {
-        if (ComboBoxDivisions.SelectedIndex == -1)
+        if (divisionsDropdown.SelectedIndex == -1)
         {
             e.Cancel = true;
-            ErrorProviderRegistration.SetError(ComboBoxDivisions, "Division is required");
+            registrationErrorProvider.SetError(divisionsDropdown, "Division is required");
         }
     }
 
@@ -54,7 +54,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     {
         foreach (var squad in squads)
         {
-            FlowLayoutPanelSquads.Controls.Add(new Controls.SelectSquadControl(squad.Id, $"{squad.Date:d} ({squad.Date:t})", false));
+            squadsFlowPanelLayout.Controls.Add(new Controls.SelectSquadControl(squad.Id, $"{squad.Date:d} ({squad.Date:t})", false));
         }
     }
 
@@ -62,7 +62,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     {
         foreach (var sweeper in sweepers)
         {
-            FlowLayoutPanelSweepers.Controls.Add(new Controls.SelectSquadControl(sweeper.Id, $"{sweeper.Date:d} ({sweeper.Date:t})", false));
+            sweepersFlowLayoutPanel.Controls.Add(new Controls.SelectSquadControl(sweeper.Id, $"{sweeper.Date:d} ({sweeper.Date:t})", false));
         }
     }
 
@@ -71,13 +71,13 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public void Disable()
     {
-        BowlerControl.Enabled = false;
+        bowlerControl.Enabled = false;
         
-        ComboBoxDivisions.Enabled = false;
-        NumericAverage.Enabled = false;
+        divisionsDropdown.Enabled = false;
+        averageValue.Enabled = false;
 
-        GroupboxSquads.Enabled = false;
-        GroupboxSweepers.Enabled = false;
+        squadsGroupbox.Enabled = false;
+        sweepersGroupbox.Enabled = false;
     }
 
     public void DisplayError(string message)
@@ -99,6 +99,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void KeepOpen()
         => DialogResult = DialogResult.None;
 
-    private void ButtonSave_Click(object sender, EventArgs e)
+    private void SaveButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).Execute();
 }

@@ -61,147 +61,147 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     {
         InitializeComponent();
 
-        ComboBoxStateUS.DataSource = _states.ToList();
-        ComboBoxStateUS.DisplayMember = "Value";
-        ComboBoxStateUS.ValueMember = "Key";
+        stateDropdown.DataSource = _states.ToList();
+        stateDropdown.DisplayMember = "Value";
+        stateDropdown.ValueMember = "Key";
 
-        DatePickerDateOfBirth.MaxDate = new DateTime(DateTime.Today.Year - 1, 12, 31);
-        DatePickerDateOfBirth.Value = new DateTime(1900, 1, 1);
-        DatePickerDateOfBirth.Checked = false;
+        dateOfBirthPicker.MaxDate = new DateTime(DateTime.Today.Year - 1, 12, 31);
+        dateOfBirthPicker.Value = new DateTime(1900, 1, 1);
+        dateOfBirthPicker.Checked = false;
 
         var genders = Enum.GetNames(typeof(Models.Gender)).ToDictionary(e => (int)Enum.Parse(typeof(Models.Gender), e), e => e);
 
-        ComboBoxGender.DataSource = genders.ToList();
-        ComboBoxGender.DisplayMember = "Value";
-        ComboBoxGender.ValueMember = "Key";
+        genderDropdown.DataSource = genders.ToList();
+        genderDropdown.DisplayMember = "Value";
+        genderDropdown.ValueMember = "Key";
     }
 
     public BowlerId Id { get; set; }
 
     public string FirstName
     {
-        get => TextboxFirstName.Text;
-        set => TextboxFirstName.Text = value;
+        get => firstNameText.Text;
+        set => firstNameText.Text = value;
     }
 
-    private void TextboxFirstName_Validating(object sender, CancelEventArgs e)
+    private void FirstNameText_Validating(object sender, CancelEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(FirstName))
         {
-            ErrorProviderBowler.SetError(TextboxFirstName, "First name is required");
+            bowlerErrorProvider.SetError(firstNameText, "First name is required");
         }
     }
 
     public string MiddleInitial
     {
-        get => TextboxMiddleInitial.Text;
-        set => TextboxMiddleInitial.Text = value;
+        get => middleInitialText.Text;
+        set => middleInitialText.Text = value;
     }
 
     public string LastName
     {
-        get => TextboxLastName.Text;
-        set => TextboxLastName.Text = value;
+        get => lastNameText.Text;
+        set => lastNameText.Text = value;
     }
 
-    private void TextboxLastName_Validating(object sender, CancelEventArgs e)
+    private void LastNameText_Validating(object sender, CancelEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(LastName))
         {
-            ErrorProviderBowler.SetError(TextboxLastName, "Last name is required");
+            bowlerErrorProvider.SetError(lastNameText, "Last name is required");
         }
     }
 
     public string Suffix
     {
-        get => TextboxSuffix.Text;
-        set => TextboxSuffix.Text = value;
+        get => suffixText.Text;
+        set => suffixText.Text = value;
     }
     
     public string StreetAddress
     {
-        get => TextboxStreet.Text;
-        set => TextboxStreet.Text = value;
+        get => streetText.Text;
+        set => streetText.Text = value;
     }
 
     public string CityAddress
     {
-        get => TextboxCity.Text;
-        set => TextboxCity.Text = value;
+        get => cityText.Text;
+        set => cityText.Text = value;
     }
     
     public string StateAddress
     {
-        get => ComboBoxStateUS.SelectedValue?.ToString() ?? string.Empty;
-        set => ComboBoxStateUS.SelectedValue = value;
+        get => stateDropdown.SelectedValue?.ToString() ?? string.Empty;
+        set => stateDropdown.SelectedValue = value;
     }
 
     public string ZipCode
     {
-        get => TextboxZipCodeUS.Text;
-        set => TextboxZipCodeUS.Text = value;
+        get => zipCodeText.Text;
+        set => zipCodeText.Text = value;
     }
 
     public string EmailAddress
     {
-        get => TextboxEmail.Text;
-        set => TextboxEmail.Text = value;
+        get => emailText.Text;
+        set => emailText.Text = value;
     }
 
-    private void TextboxEmail_Validating(object sender, CancelEventArgs e)
+    private void EmailText_Validating(object sender, CancelEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(EmailAddress))
         {
-            ErrorProviderBowler.SetError(TextboxEmail, "Email is required");
+            bowlerErrorProvider.SetError(emailText, "Email is required");
         }
     }
 
     public string PhoneNumber
     {
-        get => TextboxPhoneNumber.Text;
-        set => TextboxPhoneNumber.Text = value;
+        get => phoneNumberText.Text;
+        set => phoneNumberText.Text = value;
     }
 
     public string USBCId
     {
-        get => TextboxUSBCId.Text;
-        set => TextboxUSBCId.Text = value;
+        get => usbcIdText.Text;
+        set => usbcIdText.Text = value;
     }
 
-    private void TextboxUSBCId_Validating(object sender, CancelEventArgs e)
+    private void USBCIdText_Validating(object sender, CancelEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(USBCId))
         {
-            ErrorProviderBowler.SetError(TextboxFirstName, "USBC id is required");
+            bowlerErrorProvider.SetError(firstNameText, "USBC id is required");
         }
     }
 
     public DateOnly? DateOfBirth
     {
-        get => DatePickerDateOfBirth.Checked ? DateOnly.FromDateTime(DatePickerDateOfBirth.Value.Date) : null;
+        get => dateOfBirthPicker.Checked ? DateOnly.FromDateTime(dateOfBirthPicker.Value.Date) : null;
         set
         {
             if (value.HasValue)
             {
-                DatePickerDateOfBirth.Checked = true;
-                DatePickerDateOfBirth.Value = new DateTime(value.Value.Year, value.Value.Month, value.Value.Day);
+                dateOfBirthPicker.Checked = true;
+                dateOfBirthPicker.Value = new DateTime(value.Value.Year, value.Value.Month, value.Value.Day);
             }
             else
             {
-                DatePickerDateOfBirth.Checked = false;
-                DatePickerDateOfBirth.Value = new DateTime(1900, 1, 1);
+                dateOfBirthPicker.Checked = false;
+                dateOfBirthPicker.Value = new DateTime(1900, 1, 1);
             }
         }
     }
     
     public Models.Gender? Gender
     {
-        get => ComboBoxGender.SelectedIndex == -1 ? null: (Models.Gender)ComboBoxGender.SelectedValue;
-        set => ComboBoxGender.SelectedValue = (int?)value ?? null;
+        get => genderDropdown.SelectedIndex == -1 ? null: (Models.Gender)genderDropdown.SelectedValue;
+        set => genderDropdown.SelectedValue = (int?)value ?? null;
     }
     
     private void Control_Validated(object sender, EventArgs e)
-        => ErrorProviderBowler.SetError((Control)sender, string.Empty);
+        => bowlerErrorProvider.SetError((Control)sender, string.Empty);
 
     private void BowlerControl_Validating(object sender, CancelEventArgs e)
         => e.Cancel = !ValidateChildren();

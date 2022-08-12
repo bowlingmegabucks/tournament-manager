@@ -14,10 +14,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     public void BindTournaments(ICollection<IViewModel> viewModels)
-        => TournamentsGrid.Bind(viewModels);
+        => tournamentsGrid.Bind(viewModels);
 
     public void DisableOpenTournament() 
-        => ButtonOpenTournament.Enabled = false;
+        => openButton.Enabled = false;
 
     public void DisplayErrorMessage(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -41,11 +41,11 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     private void TournamentsGrid_GridRowDoubleClicked(object sender, Controls.GridRowDoubleClickEventArgs e)
-        => ButtonOpenTournament_Click(sender, e);
+        => OpenButton_Click(sender, e);
 
-    private void ButtonNew_Click(object sender, EventArgs e)
+    private void NewButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).NewTournament();
 
-    private void ButtonOpenTournament_Click(object sender, EventArgs e) 
-        => OpenTournament(TournamentsGrid.SelectedTournament!.Id, TournamentsGrid.SelectedTournament!.TournamentName);
+    private void OpenButton_Click(object sender, EventArgs e) 
+        => OpenTournament(tournamentsGrid.SelectedTournament!.Id, tournamentsGrid.SelectedTournament!.TournamentName);
 }

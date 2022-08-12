@@ -28,122 +28,120 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.ButtonCancel = new System.Windows.Forms.Button();
-            this.ButtonSave = new System.Windows.Forms.Button();
-            this.SquadNew = new NewEnglandClassic.Contols.SquadControl();
-            this.LabelDisclaimer = new System.Windows.Forms.Label();
-            this.LabelTournamentFinalsRatio = new System.Windows.Forms.Label();
-            this.LabelTournamentCashRatio = new System.Windows.Forms.Label();
-            this.TextboxTournamentFinalsRatio = new System.Windows.Forms.TextBox();
-            this.TextboxTournamentCashRatio = new System.Windows.Forms.TextBox();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.newSquad = new NewEnglandClassic.Contols.SquadControl();
+            this.disclaimerLabel = new System.Windows.Forms.Label();
+            this.tournamentFinalsRatioLabel = new System.Windows.Forms.Label();
+            this.tournamentCashRatioLabel = new System.Windows.Forms.Label();
+            this.tournamentFinalsRatioValue = new System.Windows.Forms.TextBox();
+            this.tournamentCashRatioValue = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // ButtonCancel
+            // cancelButton
             // 
-            this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(12, 352);
-            this.ButtonCancel.Name = "ButtonCancel";
-            this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCancel.TabIndex = 2;
-            this.ButtonCancel.Text = "Cancel";
-            this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(12, 352);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 2;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
             // 
-            // ButtonSave
+            // saveButton
             // 
-            this.ButtonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonSave.Location = new System.Drawing.Point(430, 352);
-            this.ButtonSave.Name = "ButtonSave";
-            this.ButtonSave.Size = new System.Drawing.Size(75, 23);
-            this.ButtonSave.TabIndex = 1;
-            this.ButtonSave.Text = "Save";
-            this.ButtonSave.UseVisualStyleBackColor = true;
-            this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
+            this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.saveButton.Location = new System.Drawing.Point(430, 352);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 1;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // SquadNew
+            // newSquad
             // 
-            this.SquadNew.CashRatio = null;
-            this.SquadNew.Complete = false;
-            this.SquadNew.Date = new System.DateTime(2022, 6, 8, 10, 30, 39, 618);
-            this.SquadNew.FinalsRatio = null;
-            this.SquadNew.Id = SquadId.Empty;
-            this.SquadNew.Location = new System.Drawing.Point(12, 139);
-            this.SquadNew.MaxPerPair = ((short)(0));
-            this.SquadNew.Name = "SquadNew";
-            this.SquadNew.NumberOfLanes = ((short)(1));
-            this.SquadNew.Size = new System.Drawing.Size(519, 207);
-            this.SquadNew.StartingLane = ((short)(1));
-            this.SquadNew.TabIndex = 0;
-            this.SquadNew.TournamentId = TournamentId.Empty;
+            this.newSquad.CashRatio = null;
+            this.newSquad.Complete = false;
+            this.newSquad.Date = new System.DateTime(2022, 6, 8, 10, 30, 39, 618);
+            this.newSquad.FinalsRatio = null;
+            this.newSquad.Location = new System.Drawing.Point(12, 139);
+            this.newSquad.MaxPerPair = ((short)(0));
+            this.newSquad.Name = "newSquad";
+            this.newSquad.NumberOfLanes = ((short)(1));
+            this.newSquad.Size = new System.Drawing.Size(519, 207);
+            this.newSquad.StartingLane = ((short)(1));
+            this.newSquad.TabIndex = 0;
             // 
-            // LabelDisclaimer
+            // disclaimerLabel
             // 
-            this.LabelDisclaimer.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LabelDisclaimer.Location = new System.Drawing.Point(12, 9);
-            this.LabelDisclaimer.Name = "LabelDisclaimer";
-            this.LabelDisclaimer.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.LabelDisclaimer.Size = new System.Drawing.Size(519, 77);
-            this.LabelDisclaimer.TabIndex = 8;
-            this.LabelDisclaimer.Text = "If the desire is to keep the Finals and/or Cash Ratio for this squad the same as " +
+            this.disclaimerLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.disclaimerLabel.Location = new System.Drawing.Point(12, 9);
+            this.disclaimerLabel.Name = "disclaimerLabel";
+            this.disclaimerLabel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.disclaimerLabel.Size = new System.Drawing.Size(519, 77);
+            this.disclaimerLabel.TabIndex = 8;
+            this.disclaimerLabel.Text = "If the desire is to keep the Finals and/or Cash Ratio for this squad the same as " +
     "the tournament default, set the vaules for these fields to zero.";
             // 
-            // LabelTournamentFinalsRatio
+            // tournamentFinalsRatioLabel
             // 
-            this.LabelTournamentFinalsRatio.AutoSize = true;
-            this.LabelTournamentFinalsRatio.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.LabelTournamentFinalsRatio.Location = new System.Drawing.Point(12, 86);
-            this.LabelTournamentFinalsRatio.Name = "LabelTournamentFinalsRatio";
-            this.LabelTournamentFinalsRatio.Size = new System.Drawing.Size(163, 17);
-            this.LabelTournamentFinalsRatio.TabIndex = 9;
-            this.LabelTournamentFinalsRatio.Text = "Tournament Finals Ratio:";
+            this.tournamentFinalsRatioLabel.AutoSize = true;
+            this.tournamentFinalsRatioLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.tournamentFinalsRatioLabel.Location = new System.Drawing.Point(12, 86);
+            this.tournamentFinalsRatioLabel.Name = "tournamentFinalsRatioLabel";
+            this.tournamentFinalsRatioLabel.Size = new System.Drawing.Size(163, 17);
+            this.tournamentFinalsRatioLabel.TabIndex = 9;
+            this.tournamentFinalsRatioLabel.Text = "Tournament Finals Ratio:";
             // 
-            // LabelTournamentCashRatio
+            // tournamentCashRatioLabel
             // 
-            this.LabelTournamentCashRatio.AutoSize = true;
-            this.LabelTournamentCashRatio.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.LabelTournamentCashRatio.Location = new System.Drawing.Point(349, 86);
-            this.LabelTournamentCashRatio.Name = "LabelTournamentCashRatio";
-            this.LabelTournamentCashRatio.Size = new System.Drawing.Size(156, 17);
-            this.LabelTournamentCashRatio.TabIndex = 10;
-            this.LabelTournamentCashRatio.Text = "Tournament Cash Ratio:";
+            this.tournamentCashRatioLabel.AutoSize = true;
+            this.tournamentCashRatioLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.tournamentCashRatioLabel.Location = new System.Drawing.Point(349, 86);
+            this.tournamentCashRatioLabel.Name = "tournamentCashRatioLabel";
+            this.tournamentCashRatioLabel.Size = new System.Drawing.Size(156, 17);
+            this.tournamentCashRatioLabel.TabIndex = 10;
+            this.tournamentCashRatioLabel.Text = "Tournament Cash Ratio:";
             // 
-            // TextboxTournamentFinalsRatio
+            // tournamentFinalsRatioValue
             // 
-            this.TextboxTournamentFinalsRatio.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TextboxTournamentFinalsRatio.Location = new System.Drawing.Point(12, 106);
-            this.TextboxTournamentFinalsRatio.Name = "TextboxTournamentFinalsRatio";
-            this.TextboxTournamentFinalsRatio.ReadOnly = true;
-            this.TextboxTournamentFinalsRatio.Size = new System.Drawing.Size(163, 27);
-            this.TextboxTournamentFinalsRatio.TabIndex = 11;
-            this.TextboxTournamentFinalsRatio.TabStop = false;
-            this.TextboxTournamentFinalsRatio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tournamentFinalsRatioValue.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tournamentFinalsRatioValue.Location = new System.Drawing.Point(12, 106);
+            this.tournamentFinalsRatioValue.Name = "tournamentFinalsRatioValue";
+            this.tournamentFinalsRatioValue.ReadOnly = true;
+            this.tournamentFinalsRatioValue.Size = new System.Drawing.Size(163, 27);
+            this.tournamentFinalsRatioValue.TabIndex = 11;
+            this.tournamentFinalsRatioValue.TabStop = false;
+            this.tournamentFinalsRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // TextboxTournamentCashRatio
+            // tournamentCashRatioValue
             // 
-            this.TextboxTournamentCashRatio.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TextboxTournamentCashRatio.Location = new System.Drawing.Point(349, 106);
-            this.TextboxTournamentCashRatio.Name = "TextboxTournamentCashRatio";
-            this.TextboxTournamentCashRatio.ReadOnly = true;
-            this.TextboxTournamentCashRatio.Size = new System.Drawing.Size(156, 27);
-            this.TextboxTournamentCashRatio.TabIndex = 12;
-            this.TextboxTournamentCashRatio.TabStop = false;
-            this.TextboxTournamentCashRatio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tournamentCashRatioValue.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tournamentCashRatioValue.Location = new System.Drawing.Point(349, 106);
+            this.tournamentCashRatioValue.Name = "tournamentCashRatioValue";
+            this.tournamentCashRatioValue.ReadOnly = true;
+            this.tournamentCashRatioValue.Size = new System.Drawing.Size(156, 27);
+            this.tournamentCashRatioValue.TabIndex = 12;
+            this.tournamentCashRatioValue.TabStop = false;
+            this.tournamentCashRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // Form
             // 
-            this.AcceptButton = this.ButtonSave;
+            this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.CancelButton = this.ButtonCancel;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(533, 390);
-            this.Controls.Add(this.TextboxTournamentCashRatio);
-            this.Controls.Add(this.TextboxTournamentFinalsRatio);
-            this.Controls.Add(this.LabelTournamentCashRatio);
-            this.Controls.Add(this.LabelTournamentFinalsRatio);
-            this.Controls.Add(this.LabelDisclaimer);
-            this.Controls.Add(this.SquadNew);
-            this.Controls.Add(this.ButtonCancel);
-            this.Controls.Add(this.ButtonSave);
+            this.Controls.Add(this.tournamentCashRatioValue);
+            this.Controls.Add(this.tournamentFinalsRatioValue);
+            this.Controls.Add(this.tournamentCashRatioLabel);
+            this.Controls.Add(this.tournamentFinalsRatioLabel);
+            this.Controls.Add(this.disclaimerLabel);
+            this.Controls.Add(this.newSquad);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.saveButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form";
@@ -156,12 +154,12 @@ partial class Form
 
     #endregion
 
-    private Button ButtonCancel;
-    private Button ButtonSave;
-    private Contols.SquadControl SquadNew;
-    private Label LabelDisclaimer;
-    private Label LabelTournamentFinalsRatio;
-    private Label LabelTournamentCashRatio;
-    private TextBox TextboxTournamentFinalsRatio;
-    private TextBox TextboxTournamentCashRatio;
+    private Button cancelButton;
+    private Button saveButton;
+    private Contols.SquadControl newSquad;
+    private Label disclaimerLabel;
+    private Label tournamentFinalsRatioLabel;
+    private Label tournamentCashRatioLabel;
+    private TextBox tournamentFinalsRatioValue;
+    private TextBox tournamentCashRatioValue;
 }

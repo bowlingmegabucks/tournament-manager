@@ -28,22 +28,22 @@ partial class SweeperDivisionsControl
     /// </summary>
     private void InitializeComponent()
     {
-            this.FlowLayoutPanelSweeperDivisions = new System.Windows.Forms.FlowLayoutPanel();
+            this.sweeperDivisionsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
-            // FlowLayoutPanelSweeperDivisions
+            // sweeperDivisionsFlowLayoutPanel
             // 
-            this.FlowLayoutPanelSweeperDivisions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FlowLayoutPanelSweeperDivisions.Location = new System.Drawing.Point(0, 0);
-            this.FlowLayoutPanelSweeperDivisions.Name = "FlowLayoutPanelSweeperDivisions";
-            this.FlowLayoutPanelSweeperDivisions.Size = new System.Drawing.Size(535, 369);
-            this.FlowLayoutPanelSweeperDivisions.TabIndex = 0;
+            this.sweeperDivisionsFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sweeperDivisionsFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.sweeperDivisionsFlowLayoutPanel.Name = "sweeperDivisionsFlowLayoutPanel";
+            this.sweeperDivisionsFlowLayoutPanel.Size = new System.Drawing.Size(535, 369);
+            this.sweeperDivisionsFlowLayoutPanel.TabIndex = 0;
             // 
             // SweeperDivisionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.FlowLayoutPanelSweeperDivisions);
+            this.Controls.Add(this.sweeperDivisionsFlowLayoutPanel);
             this.Name = "SweeperDivisionsControl";
             this.Size = new System.Drawing.Size(535, 369);
             this.ResumeLayout(false);
@@ -52,5 +52,5 @@ partial class SweeperDivisionsControl
 
     #endregion
 
-    private FlowLayoutPanel FlowLayoutPanelSweeperDivisions;
+    private FlowLayoutPanel sweeperDivisionsFlowLayoutPanel;
 }

@@ -28,50 +28,50 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.SweepersGrid = new NewEnglandClassic.Contols.SweepersGrid();
-            this.ButtonAdd = new System.Windows.Forms.Button();
-            this.ButtonOpen = new System.Windows.Forms.Button();
+            this.sweepersGrid = new NewEnglandClassic.Contols.SweepersGrid();
+            this.addButton = new System.Windows.Forms.Button();
+            this.openButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // SweepersGrid
+            // sweepersGrid
             // 
-            this.SweepersGrid.AllowRowSelection = true;
-            this.SweepersGrid.AlternateRowColors = true;
-            this.SweepersGrid.Location = new System.Drawing.Point(12, 12);
-            this.SweepersGrid.Name = "SweepersGrid";
-            this.SweepersGrid.SelectedRowContextMenu = null;
-            this.SweepersGrid.Size = new System.Drawing.Size(654, 377);
-            this.SweepersGrid.TabIndex = 0;
-            this.SweepersGrid.GridRowDoubleClicked += new System.EventHandler<NewEnglandClassic.Controls.GridRowDoubleClickEventArgs>(this.SweepersGrid_GridRowDoubleClicked);
+            this.sweepersGrid.AllowRowSelection = true;
+            this.sweepersGrid.AlternateRowColors = true;
+            this.sweepersGrid.Location = new System.Drawing.Point(12, 12);
+            this.sweepersGrid.Name = "sweepersGrid";
+            this.sweepersGrid.SelectedRowContextMenu = null;
+            this.sweepersGrid.Size = new System.Drawing.Size(654, 377);
+            this.sweepersGrid.TabIndex = 0;
+            this.sweepersGrid.GridRowDoubleClicked += new System.EventHandler<NewEnglandClassic.Controls.GridRowDoubleClickEventArgs>(this.SweepersGrid_GridRowDoubleClicked);
             // 
-            // ButtonAdd
+            // addButton
             // 
-            this.ButtonAdd.Location = new System.Drawing.Point(12, 395);
-            this.ButtonAdd.Name = "ButtonAdd";
-            this.ButtonAdd.Size = new System.Drawing.Size(75, 23);
-            this.ButtonAdd.TabIndex = 4;
-            this.ButtonAdd.Text = "Add";
-            this.ButtonAdd.UseVisualStyleBackColor = true;
-            this.ButtonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
+            this.addButton.Location = new System.Drawing.Point(12, 395);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.TabIndex = 4;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // ButtonOpen
+            // openButton
             // 
-            this.ButtonOpen.Location = new System.Drawing.Point(591, 395);
-            this.ButtonOpen.Name = "ButtonOpen";
-            this.ButtonOpen.Size = new System.Drawing.Size(75, 23);
-            this.ButtonOpen.TabIndex = 5;
-            this.ButtonOpen.Text = "Open";
-            this.ButtonOpen.UseVisualStyleBackColor = true;
-            this.ButtonOpen.Click += new System.EventHandler(this.ButtonOpen_Click);
+            this.openButton.Location = new System.Drawing.Point(591, 395);
+            this.openButton.Name = "openButton";
+            this.openButton.Size = new System.Drawing.Size(75, 23);
+            this.openButton.TabIndex = 5;
+            this.openButton.Text = "Open";
+            this.openButton.UseVisualStyleBackColor = true;
+            this.openButton.Click += new System.EventHandler(this.OpenButton_Click);
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 463);
-            this.Controls.Add(this.ButtonOpen);
-            this.Controls.Add(this.ButtonAdd);
-            this.Controls.Add(this.SweepersGrid);
+            this.Controls.Add(this.openButton);
+            this.Controls.Add(this.addButton);
+            this.Controls.Add(this.sweepersGrid);
             this.MaximizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -82,7 +82,7 @@ partial class Form
 
     #endregion
 
-    private Contols.SweepersGrid SweepersGrid;
-    private Button ButtonAdd;
-    private Button ButtonOpen;
+    private Contols.SweepersGrid sweepersGrid;
+    private Button addButton;
+    private Button openButton;
 }

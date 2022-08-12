@@ -28,69 +28,67 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.SweeperControl = new NewEnglandClassic.Contols.SweeperControl();
-            this.ButtonCancel = new System.Windows.Forms.Button();
-            this.ButtonSave = new System.Windows.Forms.Button();
+            this.newSweeper = new NewEnglandClassic.Contols.SweeperControl();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // SweeperControl
+            // newSweeper
             // 
-            this.SweeperControl.AutoSize = true;
-            this.SweeperControl.CashRatio = new decimal(new int[] {
+            this.newSweeper.AutoSize = true;
+            this.newSweeper.CashRatio = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.SweeperControl.Complete = false;
-            this.SweeperControl.Date = new System.DateTime(2022, 6, 10, 20, 43, 13, 850);
-            this.SweeperControl.EntryFee = new decimal(new int[] {
+            this.newSweeper.Complete = false;
+            this.newSweeper.Date = new System.DateTime(2022, 6, 10, 20, 43, 13, 850);
+            this.newSweeper.EntryFee = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.SweeperControl.Games = ((short)(0));
-            this.SweeperControl.Id = SquadId.Empty;
-            this.SweeperControl.Location = new System.Drawing.Point(12, 12);
-            this.SweeperControl.MaxPerPair = ((short)(0));
-            this.SweeperControl.Name = "SweeperControl";
-            this.SweeperControl.NumberOfLanes = ((short)(1));
-            this.SweeperControl.Size = new System.Drawing.Size(546, 516);
-            this.SweeperControl.StartingLane = ((short)(1));
-            this.SweeperControl.TabIndex = 0;
-            this.SweeperControl.TournamentId = TournamentId.Empty;
+            this.newSweeper.Games = ((short)(0));
+            this.newSweeper.Location = new System.Drawing.Point(12, 12);
+            this.newSweeper.MaxPerPair = ((short)(0));
+            this.newSweeper.Name = "newSweeper";
+            this.newSweeper.NumberOfLanes = ((short)(1));
+            this.newSweeper.Size = new System.Drawing.Size(546, 516);
+            this.newSweeper.StartingLane = ((short)(1));
+            this.newSweeper.TabIndex = 0;
             // 
-            // ButtonCancel
+            // cancelButton
             // 
-            this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(12, 534);
-            this.ButtonCancel.Name = "ButtonCancel";
-            this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCancel.TabIndex = 4;
-            this.ButtonCancel.Text = "Cancel";
-            this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(12, 534);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 4;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
             // 
-            // ButtonSave
+            // saveButton
             // 
-            this.ButtonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonSave.Location = new System.Drawing.Point(483, 534);
-            this.ButtonSave.Name = "ButtonSave";
-            this.ButtonSave.Size = new System.Drawing.Size(75, 23);
-            this.ButtonSave.TabIndex = 3;
-            this.ButtonSave.Text = "Save";
-            this.ButtonSave.UseVisualStyleBackColor = true;
-            this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
+            this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.saveButton.Location = new System.Drawing.Point(483, 534);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 3;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // Form
             // 
-            this.AcceptButton = this.ButtonSave;
+            this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.CancelButton = this.ButtonCancel;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(578, 567);
-            this.Controls.Add(this.ButtonCancel);
-            this.Controls.Add(this.ButtonSave);
-            this.Controls.Add(this.SweeperControl);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.newSweeper);
             this.MaximizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -102,7 +100,7 @@ partial class Form
 
     #endregion
 
-    private Contols.SweeperControl SweeperControl;
-    private Button ButtonCancel;
-    private Button ButtonSave;
+    private Contols.SweeperControl newSweeper;
+    private Button cancelButton;
+    private Button saveButton;
 }

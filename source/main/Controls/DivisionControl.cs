@@ -19,29 +19,29 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
             {(int)Models.Gender.Female, "Women" }
         };
 
-        ComboboxGender.DataSource = dictionary.ToList();
+        genderDropdown.DataSource = dictionary.ToList();
     }
 
     public DivisionId Id { get; set; }
 
     public short Number
     {
-        get => Convert.ToInt16(TextboxNumber.Text);
-        set => TextboxNumber.Text = value.ToString();
+        get => Convert.ToInt16(numberText.Text);
+        set => numberText.Text = value.ToString();
     }
 
     public string DivisionName
     {
-        get => TextboxDivisionName.Text;
-        set => TextboxDivisionName.Text = value;
+        get => nameText.Text;
+        set => nameText.Text = value;
     }
 
-    private void TextboxDivisionName_Validating(object sender, CancelEventArgs e)
+    private void NameText_Validating(object sender, CancelEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(DivisionName))
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(TextboxDivisionName, "Division name is required");
+            divisionErrorProvider.SetError(nameText, "Division name is required");
         }
     }
 
@@ -49,116 +49,116 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
 
     public short? MinimumAge
     {
-        get => NumericMinimumAge.Value == 0 ? null : Convert.ToInt16(NumericMinimumAge.Value);
-        set => NumericMinimumAge.Value = value ?? 0;
+        get => minimumAgeValue.Value == 0 ? null : Convert.ToInt16(minimumAgeValue.Value);
+        set => minimumAgeValue.Value = value ?? 0;
     }
 
-    private void NumericMinimumAge_Validating(object sender, CancelEventArgs e)
+    private void MinimumAgeValue_Validating(object sender, CancelEventArgs e)
     {
         if (MinimumAge.HasValue && MinimumAge.Value < 0)
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(NumericMinimumAge, "Minimum age must be greater than or equal to 0");
+            divisionErrorProvider.SetError(minimumAgeValue, "Minimum age must be greater than or equal to 0");
         }
     }        
 
     public short? MaximumAge
     {
-        get => NumericMaximumAge.Value == 0 ? null : Convert.ToInt16(NumericMaximumAge.Value);
-        set => NumericMaximumAge.Value = value ?? 0;
+        get => maximumAgeValue.Value == 0 ? null : Convert.ToInt16(maximumAgeValue.Value);
+        set => maximumAgeValue.Value = value ?? 0;
     }
     
     
-    private void NumericMaximumAge_Validating(object sender, CancelEventArgs e)
+    private void MaximumAgeValue_Validating(object sender, CancelEventArgs e)
     {
         if (MaximumAge.HasValue && MaximumAge.Value < 0)
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(NumericMaximumAge, "Maximum age must be greater than or equal to 0");
+            divisionErrorProvider.SetError(maximumAgeValue, "Maximum age must be greater than or equal to 0");
         }
     } 
 
     public int? MinimumAverage
     {
-        get => NumericMinimumAverage.Value == 0 ? null : Convert.ToInt32(NumericMinimumAverage.Value);
-        set => NumericMinimumAverage.Value = value ?? 0;
+        get => minimumAverageValue.Value == 0 ? null : Convert.ToInt32(minimumAverageValue.Value);
+        set => minimumAverageValue.Value = value ?? 0;
     }
 
-    private void NumericMinimumAverage_Validating(object sender, CancelEventArgs e)
+    private void MinimumAverage_Validating(object sender, CancelEventArgs e)
     {
         if (MinimumAverage.HasValue && (MinimumAverage.Value < 0 || MinimumAverage.Value > 300))
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(NumericMinimumAverage, "Minimum average must be between 0 and 300");
+            divisionErrorProvider.SetError(minimumAverageValue, "Minimum average must be between 0 and 300");
         }
     }
 
     public int? MaximumAverage
     {
-        get => NumericMaximumAverage.Value == 0 ? null : Convert.ToInt32(NumericMaximumAverage.Value);
-        set => NumericMaximumAverage.Value = value ?? 0;
+        get => maximumAverageValue.Value == 0 ? null : Convert.ToInt32(maximumAverageValue.Value);
+        set => maximumAverageValue.Value = value ?? 0;
     }
 
-    private void NumericMaximumAverage_Validating(object sender, CancelEventArgs e)
+    private void MaximumAverage_Validating(object sender, CancelEventArgs e)
     {
         if (MaximumAverage.HasValue && (MaximumAverage.Value < 0 || MaximumAverage.Value > 300))
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(NumericMaximumAverage, "Maximum average must be between 0 and 300");
+            divisionErrorProvider.SetError(maximumAverageValue, "Maximum average must be between 0 and 300");
         }
     }    
 
     public decimal? HandicapPercentage
     {
-        get => NumericHandicapPercentage.Value == 0 ? null : Convert.ToDecimal(NumericHandicapPercentage.Value);
-        set => NumericHandicapPercentage.Value = value ?? 0;
+        get => handicapPercentageValue.Value == 0 ? null : Convert.ToDecimal(handicapPercentageValue.Value);
+        set => handicapPercentageValue.Value = value ?? 0;
     }
 
-    private void NumericHandicapPercentage_Validating(object sender, CancelEventArgs e)
+    private void HandicapPercentageValue_Validating(object sender, CancelEventArgs e)
     {
         if (HandicapPercentage.HasValue && HandicapPercentage.Value < 0)
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(NumericHandicapPercentage, "Handicap percentage must be greater than or equal to 0");
+            divisionErrorProvider.SetError(handicapPercentageValue, "Handicap percentage must be greater than or equal to 0");
         }
     }
 
     public int? HandicapBase
     {
-        get => NumericHandicapBase.Value == 0 ? null : Convert.ToInt32(NumericHandicapBase.Value);
-        set => NumericHandicapBase.Value = value ?? 0;
+        get => handicapBaseValue.Value == 0 ? null : Convert.ToInt32(handicapBaseValue.Value);
+        set => handicapBaseValue.Value = value ?? 0;
     }
 
-    private void NumericHandicapBase_Validating(object sender, CancelEventArgs e)
+    private void HandicapBaseValue_Validating(object sender, CancelEventArgs e)
     {
         if (HandicapBase.HasValue && (HandicapBase.Value < 0 || HandicapBase.Value > 300))
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(NumericHandicapBase, "Handicap base must be between 0 and 300");
+            divisionErrorProvider.SetError(handicapBaseValue, "Handicap base must be between 0 and 300");
         }
     }
 
     public int? MaximumHandicapPerGame
     {
-        get => NumericMaximumHandicapPerGame.Value == 0 ? null : Convert.ToInt32(NumericMaximumHandicapPerGame.Value);
-        set => NumericMaximumHandicapPerGame.Value = value ?? 0;
+        get => maximumHandicapPerGameValue.Value == 0 ? null : Convert.ToInt32(maximumHandicapPerGameValue.Value);
+        set => maximumHandicapPerGameValue.Value = value ?? 0;
     }
 
-    private void NumericMaximumHandicapPerGame_Validating(object sender, CancelEventArgs e)
+    private void MaximumHandicapPerGameValue_Validating(object sender, CancelEventArgs e)
     {
         if (MaximumHandicapPerGame.HasValue && MaximumHandicapPerGame.Value < 0)
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(NumericMaximumHandicapPerGame, "Maximum handicap per game must be greater than 0");
+            divisionErrorProvider.SetError(maximumHandicapPerGameValue, "Maximum handicap per game must be greater than 0");
         }
     }
 
     public Models.Gender? Gender
     {
-        get => (int)ComboboxGender.SelectedValue == -1 ? null : (Models.Gender)ComboboxGender.SelectedValue;
-        set => ComboboxGender.SelectedValue = value.HasValue ? (int)value.Value : -1;
+        get => (int)genderDropdown.SelectedValue == -1 ? null : (Models.Gender)genderDropdown.SelectedValue;
+        set => genderDropdown.SelectedValue = value.HasValue ? (int)value.Value : -1;
     }
 
     private void DivisionControl_Validated(object sender, EventArgs e)
-        => ErrorProviderDivision.SetError((Control)sender, string.Empty);
+        => divisionErrorProvider.SetError((Control)sender, string.Empty);
 }

@@ -15,49 +15,49 @@ internal partial class Form : System.Windows.Forms.Form
         Text = tournamentName;
     }
 
-    private void MenuItemDivisionAdd_Click(object sender, EventArgs e)
+    private void AddDivisionMenuItem_Click(object sender, EventArgs e)
     {
         using var form = new Divisions.Add.Form(_config, _id);
 
         form.ShowDialog(this);
     }
 
-    private void MenuItemDivisionsView_Click(object sender, EventArgs e)
+    private void ViewDivisionsMenuItem_Click(object sender, EventArgs e)
     {
         using var form = new Divisions.Retrieve.Form(_config, _id);
 
         form.ShowDialog(this);
     }
 
-    private void MenuItemSquadsAdd_Click(object sender, EventArgs e)
+    private void AddSquadMenuItem_Click(object sender, EventArgs e)
     {
         using var form = new Squads.Add.Form(_config, _id);
 
         form.ShowDialog(this);
     }
 
-    private void MenuItemSquadsOpen_Click(object sender, EventArgs e)
+    private void OpenSquadMenuItem_Click(object sender, EventArgs e)
     {
         using var form = new Squads.Retrieve.Form(_config, _id);
 
         form.ShowDialog(this);
     }
 
-    private void MenuItemSweepersAdd_Click(object sender, EventArgs e)
+    private void AddSweeperMenuItem_Click(object sender, EventArgs e)
     {
         using var form = new Sweepers.Add.Form(_config, _id);
 
         form.ShowDialog(this);
     }
 
-    private void MenuItemOpenSweeper_Click(object sender, EventArgs e)
+    private void OpenSweeperMenuItem_Click(object sender, EventArgs e)
     {
         using var form = new Sweepers.Retrieve.Form(_config, _id);
 
         form.ShowDialog(this);
     }
 
-    private void MenuItemRegistrationAdd_Click(object sender, EventArgs e)
+    private void AddRegistrationMenuItem_Click(object sender, EventArgs e)
     {
         using var form = new Registrations.Add.Form(_config, _id);
 
