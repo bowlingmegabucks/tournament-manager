@@ -28,72 +28,72 @@ partial class SweepersGrid
     /// </summary>
     private void InitializeComponent()
     {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.ColumnComplete = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ColumnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnGames = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCashRatio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.completeColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gamesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cashRatioColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
             this.SuspendLayout();
             // 
             // GridView
             // 
             this.GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnComplete,
-            this.ColumnDate,
-            this.ColumnTime,
-            this.ColumnGames,
-            this.ColumnCashRatio});
+            this.completeColumn,
+            this.dateColumn,
+            this.timeColumn,
+            this.gamesColumn,
+            this.cashRatioColumn});
             this.GridView.RowTemplate.Height = 25;
             this.GridView.Size = new System.Drawing.Size(608, 377);
             // 
-            // ColumnComplete
+            // completeColumn
             // 
-            this.ColumnComplete.DataPropertyName = "Complete";
-            this.ColumnComplete.HeaderText = "Complete";
-            this.ColumnComplete.Name = "ColumnComplete";
-            this.ColumnComplete.ReadOnly = true;
-            this.ColumnComplete.Width = 85;
+            this.completeColumn.DataPropertyName = "Complete";
+            this.completeColumn.HeaderText = "Complete";
+            this.completeColumn.Name = "completeColumn";
+            this.completeColumn.ReadOnly = true;
+            this.completeColumn.Width = 85;
             // 
-            // ColumnDate
+            // dateColumn
             // 
-            this.ColumnDate.DataPropertyName = "Date";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.ColumnDate.DefaultCellStyle = dataGridViewCellStyle1;
-            this.ColumnDate.HeaderText = "Sweeper Date";
-            this.ColumnDate.Name = "ColumnDate";
-            this.ColumnDate.ReadOnly = true;
-            this.ColumnDate.Width = 125;
+            this.dateColumn.DataPropertyName = "Date";
+            dataGridViewCellStyle3.Format = "d";
+            dataGridViewCellStyle3.NullValue = null;
+            this.dateColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dateColumn.HeaderText = "Sweeper Date";
+            this.dateColumn.Name = "dateColumn";
+            this.dateColumn.ReadOnly = true;
+            this.dateColumn.Width = 125;
             // 
-            // ColumnTime
+            // timeColumn
             // 
-            this.ColumnTime.DataPropertyName = "Date";
-            dataGridViewCellStyle2.Format = "t";
-            dataGridViewCellStyle2.NullValue = null;
-            this.ColumnTime.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ColumnTime.HeaderText = "Sweeper Time";
-            this.ColumnTime.Name = "ColumnTime";
-            this.ColumnTime.ReadOnly = true;
-            this.ColumnTime.Width = 125;
+            this.timeColumn.DataPropertyName = "Date";
+            dataGridViewCellStyle4.Format = "t";
+            dataGridViewCellStyle4.NullValue = null;
+            this.timeColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.timeColumn.HeaderText = "Sweeper Time";
+            this.timeColumn.Name = "timeColumn";
+            this.timeColumn.ReadOnly = true;
+            this.timeColumn.Width = 125;
             // 
-            // ColumnGames
+            // gamesColumn
             // 
-            this.ColumnGames.DataPropertyName = "Games";
-            this.ColumnGames.HeaderText = "Games";
-            this.ColumnGames.Name = "ColumnGames";
-            this.ColumnGames.ReadOnly = true;
-            this.ColumnGames.Width = 75;
+            this.gamesColumn.DataPropertyName = "Games";
+            this.gamesColumn.HeaderText = "Games";
+            this.gamesColumn.Name = "gamesColumn";
+            this.gamesColumn.ReadOnly = true;
+            this.gamesColumn.Width = 75;
             // 
-            // ColumnCashRatio
+            // cashRatioColumn
             // 
-            this.ColumnCashRatio.DataPropertyName = "CashRatio";
-            this.ColumnCashRatio.HeaderText = "Cashing Ratio";
-            this.ColumnCashRatio.Name = "ColumnCashRatio";
-            this.ColumnCashRatio.ReadOnly = true;
-            this.ColumnCashRatio.Width = 125;
+            this.cashRatioColumn.DataPropertyName = "CashRatio";
+            this.cashRatioColumn.HeaderText = "Cashing Ratio";
+            this.cashRatioColumn.Name = "cashRatioColumn";
+            this.cashRatioColumn.ReadOnly = true;
+            this.cashRatioColumn.Width = 125;
             // 
             // SweepersGrid
             // 
@@ -108,9 +108,9 @@ partial class SweepersGrid
 
     #endregion
 
-    private DataGridViewCheckBoxColumn ColumnComplete;
-    private DataGridViewTextBoxColumn ColumnDate;
-    private DataGridViewTextBoxColumn ColumnTime;
-    private DataGridViewTextBoxColumn ColumnGames;
-    private DataGridViewTextBoxColumn ColumnCashRatio;
+    private DataGridViewCheckBoxColumn completeColumn;
+    private DataGridViewTextBoxColumn dateColumn;
+    private DataGridViewTextBoxColumn timeColumn;
+    private DataGridViewTextBoxColumn gamesColumn;
+    private DataGridViewTextBoxColumn cashRatioColumn;
 }

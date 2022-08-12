@@ -9,7 +9,7 @@ internal partial class SweepersGrid
 { 
     public SweepersGrid()
     {
-    InitializeComponent();
+        InitializeComponent();
     }
 
     public Sweepers.IViewModel? SelectedSquad
