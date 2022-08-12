@@ -88,7 +88,7 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     {
         if (string.IsNullOrWhiteSpace(FirstName))
         {
-            ErrorProviderBowler.SetError(firstNameText, "First name is required");
+            bowlerErrorProvider.SetError(firstNameText, "First name is required");
         }
     }
 
@@ -108,7 +108,7 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     {
         if (string.IsNullOrWhiteSpace(LastName))
         {
-            ErrorProviderBowler.SetError(lastNameText, "Last name is required");
+            bowlerErrorProvider.SetError(lastNameText, "Last name is required");
         }
     }
 
@@ -152,7 +152,7 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     {
         if (string.IsNullOrWhiteSpace(EmailAddress))
         {
-            ErrorProviderBowler.SetError(emailText, "Email is required");
+            bowlerErrorProvider.SetError(emailText, "Email is required");
         }
     }
 
@@ -172,7 +172,7 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     {
         if (string.IsNullOrWhiteSpace(USBCId))
         {
-            ErrorProviderBowler.SetError(firstNameText, "USBC id is required");
+            bowlerErrorProvider.SetError(firstNameText, "USBC id is required");
         }
     }
 
@@ -201,7 +201,7 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     }
     
     private void Control_Validated(object sender, EventArgs e)
-        => ErrorProviderBowler.SetError((Control)sender, string.Empty);
+        => bowlerErrorProvider.SetError((Control)sender, string.Empty);
 
     private void BowlerControl_Validating(object sender, CancelEventArgs e)
         => e.Cancel = !ValidateChildren();

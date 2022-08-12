@@ -41,7 +41,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         if (string.IsNullOrWhiteSpace(DivisionName))
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(nameText, "Division name is required");
+            divisionErrorProvider.SetError(nameText, "Division name is required");
         }
     }
 
@@ -58,7 +58,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         if (MinimumAge.HasValue && MinimumAge.Value < 0)
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(minimumAgeValue, "Minimum age must be greater than or equal to 0");
+            divisionErrorProvider.SetError(minimumAgeValue, "Minimum age must be greater than or equal to 0");
         }
     }        
 
@@ -74,7 +74,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         if (MaximumAge.HasValue && MaximumAge.Value < 0)
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(maximumAgeValue, "Maximum age must be greater than or equal to 0");
+            divisionErrorProvider.SetError(maximumAgeValue, "Maximum age must be greater than or equal to 0");
         }
     } 
 
@@ -89,7 +89,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         if (MinimumAverage.HasValue && (MinimumAverage.Value < 0 || MinimumAverage.Value > 300))
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(minimumAverageValue, "Minimum average must be between 0 and 300");
+            divisionErrorProvider.SetError(minimumAverageValue, "Minimum average must be between 0 and 300");
         }
     }
 
@@ -104,7 +104,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         if (MaximumAverage.HasValue && (MaximumAverage.Value < 0 || MaximumAverage.Value > 300))
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(maximumAverageValue, "Maximum average must be between 0 and 300");
+            divisionErrorProvider.SetError(maximumAverageValue, "Maximum average must be between 0 and 300");
         }
     }    
 
@@ -119,7 +119,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         if (HandicapPercentage.HasValue && HandicapPercentage.Value < 0)
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(handicapPercentageValue, "Handicap percentage must be greater than or equal to 0");
+            divisionErrorProvider.SetError(handicapPercentageValue, "Handicap percentage must be greater than or equal to 0");
         }
     }
 
@@ -134,7 +134,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         if (HandicapBase.HasValue && (HandicapBase.Value < 0 || HandicapBase.Value > 300))
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(handicapBaseValue, "Handicap base must be between 0 and 300");
+            divisionErrorProvider.SetError(handicapBaseValue, "Handicap base must be between 0 and 300");
         }
     }
 
@@ -149,7 +149,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         if (MaximumHandicapPerGame.HasValue && MaximumHandicapPerGame.Value < 0)
         {
             e.Cancel = true;
-            ErrorProviderDivision.SetError(maximumHandicapPerGameValue, "Maximum handicap per game must be greater than 0");
+            divisionErrorProvider.SetError(maximumHandicapPerGameValue, "Maximum handicap per game must be greater than 0");
         }
     }
 
@@ -160,5 +160,5 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
     }
 
     private void DivisionControl_Validated(object sender, EventArgs e)
-        => ErrorProviderDivision.SetError((Control)sender, string.Empty);
+        => divisionErrorProvider.SetError((Control)sender, string.Empty);
 }

@@ -9,7 +9,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
     }
 
     private void Controls_Validated(object sender, EventArgs e)
-        => ErrorProviderTournament.SetError((Control)sender, string.Empty);
+        => tournamentErrorProvider.SetError((Control)sender, string.Empty);
 
     public TournamentId Id { get; set; }
 
@@ -24,7 +24,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         if (string.IsNullOrWhiteSpace(TournamentName))
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(nameText, "Tournament name is required");
+            tournamentErrorProvider.SetError(nameText, "Tournament name is required");
         }
     }
 
@@ -45,7 +45,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         if (Start > End)
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError((Control)sender, "Start date must be before end date");
+            tournamentErrorProvider.SetError((Control)sender, "Start date must be before end date");
         }
     }
 
@@ -60,7 +60,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         if (EntryFee <= 0)
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(entryFeeValue, "Entry fee must be greater than $0");
+            tournamentErrorProvider.SetError(entryFeeValue, "Entry fee must be greater than $0");
         }
     }
 
@@ -75,7 +75,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         if (Games <= 0)
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(gamesValue, "Games must be greater than 0");
+            tournamentErrorProvider.SetError(gamesValue, "Games must be greater than 0");
         }
     }
 
@@ -90,7 +90,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         if (FinalsRatio <= 1)
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(finalsRatioValue, "Finals ratio must be greater than 1");
+            tournamentErrorProvider.SetError(finalsRatioValue, "Finals ratio must be greater than 1");
         }
     }
 
@@ -105,7 +105,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         if (CashRatio <= 1)
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(cashRatioValue, "Cash ratio must be greater than 1");
+            tournamentErrorProvider.SetError(cashRatioValue, "Cash ratio must be greater than 1");
         }
     }
 
@@ -120,7 +120,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         if (string.IsNullOrWhiteSpace(BowlingCenter))
         {
             e.Cancel = true;
-            ErrorProviderTournament.SetError(bowlingCenterValue, "Bowling center is required");
+            tournamentErrorProvider.SetError(bowlingCenterValue, "Bowling center is required");
         }
     }
 

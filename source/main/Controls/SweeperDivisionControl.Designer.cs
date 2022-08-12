@@ -33,9 +33,9 @@ partial class SweeperDivisionControl
             this.nameLabel = new NewEnglandClassic.Controls.LabelControl();
             this.bonusPinsPerGameLabel = new NewEnglandClassic.Controls.LabelControl();
             this.bonusPinsPerGameValue = new NewEnglandClassic.Controls.NumericControl();
-            this.ErrorProviderSweeperDivision = new System.Windows.Forms.ErrorProvider(this.components);
+            this.sweeperDivisionErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bonusPinsPerGameValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSweeperDivision)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sweeperDivisionErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // nameText
@@ -91,10 +91,10 @@ partial class SweeperDivisionControl
             this.bonusPinsPerGameValue.Validating += new System.ComponentModel.CancelEventHandler(this.BonusPinsPerGameValue_Validating);
             this.bonusPinsPerGameValue.Validated += new System.EventHandler(this.BonusPinsPerGameValue_Validated);
             // 
-            // ErrorProviderSweeperDivision
+            // sweeperDivisionErrorProvider
             // 
-            this.ErrorProviderSweeperDivision.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.ErrorProviderSweeperDivision.ContainerControl = this;
+            this.sweeperDivisionErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.sweeperDivisionErrorProvider.ContainerControl = this;
             // 
             // SweeperDivisionControl
             // 
@@ -107,7 +107,7 @@ partial class SweeperDivisionControl
             this.Name = "SweeperDivisionControl";
             this.Size = new System.Drawing.Size(535, 65);
             ((System.ComponentModel.ISupportInitialize)(this.bonusPinsPerGameValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSweeperDivision)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sweeperDivisionErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -119,5 +119,5 @@ partial class SweeperDivisionControl
     private Controls.LabelControl nameLabel;
     private Controls.LabelControl bonusPinsPerGameLabel;
     private Controls.NumericControl bonusPinsPerGameValue;
-    private ErrorProvider ErrorProviderSweeperDivision;
+    private ErrorProvider sweeperDivisionErrorProvider;
 }

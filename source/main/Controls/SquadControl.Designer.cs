@@ -33,7 +33,7 @@ partial class SquadControl
             this.cashRatioLabel = new NewEnglandClassic.Controls.LabelControl();
             this.finalsRatioValue = new NewEnglandClassic.Controls.NumericControl();
             this.finalsRatioLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.ErrorProviderSquad = new System.Windows.Forms.ErrorProvider(this.components);
+            this.squadErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.dateLabel = new NewEnglandClassic.Controls.LabelControl();
             this.masPerPairValue = new NewEnglandClassic.Controls.NumericControl();
@@ -44,7 +44,7 @@ partial class SquadControl
             this.numberOfLanesLabel = new NewEnglandClassic.Controls.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSquad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.squadErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.masPerPairValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.startingLaneValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfLanesValue)).BeginInit();
@@ -110,10 +110,10 @@ partial class SquadControl
             this.finalsRatioLabel.TabStop = false;
             this.finalsRatioLabel.Text = "Finals Ratio:";
             // 
-            // ErrorProviderSquad
+            // squadErrorProvider
             // 
-            this.ErrorProviderSquad.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.ErrorProviderSquad.ContainerControl = this;
+            this.squadErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.squadErrorProvider.ContainerControl = this;
             // 
             // datePicker
             // 
@@ -266,7 +266,7 @@ partial class SquadControl
             this.Validating += new System.ComponentModel.CancelEventHandler(this.SquadControl_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSquad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.squadErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.masPerPairValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.startingLaneValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfLanesValue)).EndInit();
@@ -281,7 +281,7 @@ partial class SquadControl
     private Controls.LabelControl cashRatioLabel;
     private Controls.NumericControl finalsRatioValue;
     private Controls.LabelControl finalsRatioLabel;
-    private ErrorProvider ErrorProviderSquad;
+    private ErrorProvider squadErrorProvider;
     private DateTimePicker datePicker;
     private Controls.LabelControl dateLabel;
     private Controls.NumericControl masPerPairValue;

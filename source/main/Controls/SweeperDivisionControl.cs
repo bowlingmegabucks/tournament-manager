@@ -24,10 +24,10 @@ internal partial class SweeperDivisionControl : UserControl
         if (BonusPinsPerGame < 0)
         {
             e.Cancel = true;
-            ErrorProviderSweeperDivision.SetError(bonusPinsPerGameValue, "Bonus pins per game must be greater than or equal to 0.");
+            sweeperDivisionErrorProvider.SetError(bonusPinsPerGameValue, "Bonus pins per game must be greater than or equal to 0.");
         }
     }
 
     private void BonusPinsPerGameValue_Validated(object sender, EventArgs e) 
-        => ErrorProviderSweeperDivision.SetError(bonusPinsPerGameValue, string.Empty);
+        => sweeperDivisionErrorProvider.SetError(bonusPinsPerGameValue, string.Empty);
 }

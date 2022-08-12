@@ -55,8 +55,8 @@ partial class BowlerControl
             this.genderLabel = new NewEnglandClassic.Controls.LabelControl();
             this.phoneNumberLabel = new NewEnglandClassic.Controls.LabelControl();
             this.usbcIdLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.ErrorProviderBowler = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderBowler)).BeginInit();
+            this.bowlerErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.bowlerErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // firstNameText
@@ -245,7 +245,7 @@ partial class BowlerControl
             this.suffixLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.suffixLabel.Name = "suffixLabel";
             this.suffixLabel.Required = false;
-            this.suffixLabel.Size = new System.Drawing.Size(91, 19);
+            this.suffixLabel.Size = new System.Drawing.Size(117, 19);
             this.suffixLabel.TabIndex = 21;
             this.suffixLabel.TabStop = false;
             this.suffixLabel.Text = "Suffix:";
@@ -380,10 +380,10 @@ partial class BowlerControl
             this.usbcIdLabel.TabStop = false;
             this.usbcIdLabel.Text = "USBC Id:";
             // 
-            // ErrorProviderBowler
+            // bowlerErrorProvider
             // 
-            this.ErrorProviderBowler.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.ErrorProviderBowler.ContainerControl = this;
+            this.bowlerErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.bowlerErrorProvider.ContainerControl = this;
             // 
             // BowlerControl
             // 
@@ -419,7 +419,7 @@ partial class BowlerControl
             this.Name = "BowlerControl";
             this.Size = new System.Drawing.Size(597, 326);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.BowlerControl_Validating);
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderBowler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bowlerErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -453,5 +453,5 @@ partial class BowlerControl
     private Controls.LabelControl genderLabel;
     private Controls.LabelControl phoneNumberLabel;
     private Controls.LabelControl usbcIdLabel;
-    private ErrorProvider ErrorProviderBowler;
+    private ErrorProvider bowlerErrorProvider;
 }

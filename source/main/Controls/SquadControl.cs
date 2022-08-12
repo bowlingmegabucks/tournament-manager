@@ -9,7 +9,7 @@ internal partial class SquadControl : UserControl, Squads.IViewModel
     }
 
     private void Controls_Validated(object sender, EventArgs e)
-        => ErrorProviderSquad.SetError((Control)sender, string.Empty);
+        => squadErrorProvider.SetError((Control)sender, string.Empty);
 
     public SquadId Id { get; set; }
     
@@ -26,7 +26,7 @@ internal partial class SquadControl : UserControl, Squads.IViewModel
         if (CashRatio.HasValue && CashRatio <= 1)
         {
             e.Cancel = true;
-            ErrorProviderSquad.SetError(cashRatioValue, "Cash ratio must be greater than 1");
+            squadErrorProvider.SetError(cashRatioValue, "Cash ratio must be greater than 1");
         }
     }
 
@@ -41,7 +41,7 @@ internal partial class SquadControl : UserControl, Squads.IViewModel
         if (FinalsRatio.HasValue && FinalsRatio <= 1)
         {
             e.Cancel = true;
-            ErrorProviderSquad.SetError(finalsRatioValue, "Finals ratio must be greater than 1");
+            squadErrorProvider.SetError(finalsRatioValue, "Finals ratio must be greater than 1");
         }
     }
 
@@ -56,7 +56,7 @@ internal partial class SquadControl : UserControl, Squads.IViewModel
         if (Date < DateTime.Now)
         {
             e.Cancel = true;
-            ErrorProviderSquad.SetError(datePicker, "Date cannot be in past");
+            squadErrorProvider.SetError(datePicker, "Date cannot be in past");
         }
     }
 
@@ -71,7 +71,7 @@ internal partial class SquadControl : UserControl, Squads.IViewModel
         if (MaxPerPair is <= 0 or > 10)
         {
             e.Cancel = true;
-            ErrorProviderSquad.SetError(masPerPairValue, "Max per pair must be between 1 and 10");
+            squadErrorProvider.SetError(masPerPairValue, "Max per pair must be between 1 and 10");
         }
     }
 

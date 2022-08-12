@@ -31,7 +31,7 @@ partial class DivisionControl
             this.components = new System.ComponentModel.Container();
             this.nameText = new System.Windows.Forms.TextBox();
             this.nameLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.ErrorProviderDivision = new System.Windows.Forms.ErrorProvider(this.components);
+            this.divisionErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.numberLabel = new NewEnglandClassic.Controls.LabelControl();
             this.numberText = new System.Windows.Forms.TextBox();
             this.minimumAgeValue = new NewEnglandClassic.Controls.NumericControl();
@@ -53,7 +53,7 @@ partial class DivisionControl
             this.handicapPercentageValue = new NewEnglandClassic.Controls.NumericControl();
             this.genderLabel = new NewEnglandClassic.Controls.LabelControl();
             this.genderDropdown = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderDivision)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.divisionErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumAgeValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximumAgeValue)).BeginInit();
             this.ageGroupBox.SuspendLayout();
@@ -90,10 +90,10 @@ partial class DivisionControl
             this.nameLabel.TabStop = false;
             this.nameLabel.Text = "Name:";
             // 
-            // ErrorProviderDivision
+            // divisionErrorProvider
             // 
-            this.ErrorProviderDivision.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.ErrorProviderDivision.ContainerControl = this;
+            this.divisionErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.divisionErrorProvider.ContainerControl = this;
             // 
             // numberLabel
             // 
@@ -403,7 +403,7 @@ partial class DivisionControl
             this.Controls.Add(this.nameLabel);
             this.Name = "DivisionControl";
             this.Size = new System.Drawing.Size(463, 484);
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderDivision)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.divisionErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumAgeValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximumAgeValue)).EndInit();
             this.ageGroupBox.ResumeLayout(false);
@@ -426,7 +426,7 @@ partial class DivisionControl
 
     private TextBox nameText;
     private Controls.LabelControl nameLabel;
-    private ErrorProvider ErrorProviderDivision;
+    private ErrorProvider divisionErrorProvider;
     private TextBox numberText;
     private Controls.LabelControl numberLabel;
     private Controls.NumericControl minimumAgeValue;

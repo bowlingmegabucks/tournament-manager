@@ -23,7 +23,7 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
         if (EntryFee <= 0)
         {
             e.Cancel = true;
-            ErrorProviderSweeper.SetError(entryFeeValue, "Entry fee must be greater than $0");
+            sweeperErrorProvider.SetError(entryFeeValue, "Entry fee must be greater than $0");
         }
     }
 
@@ -38,7 +38,7 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
         if (Games <= 0)
         {
             e.Cancel = true;
-            ErrorProviderSweeper.SetError(gamesValue, "Games must be greater than 0");
+            sweeperErrorProvider.SetError(gamesValue, "Games must be greater than 0");
         }
     }
 
@@ -53,7 +53,7 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
         if (CashRatio <= 1)
         {
             e.Cancel = true;
-            ErrorProviderSweeper.SetError(cashRatioValue, "Cash ratio must be greater than 1");
+            sweeperErrorProvider.SetError(cashRatioValue, "Cash ratio must be greater than 1");
         }
     }
 
@@ -68,7 +68,7 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
         if (Date < DateTime.Now)
         {
             e.Cancel = true;
-            ErrorProviderSweeper.SetError(squadDatePicker, "Date cannot be in past");
+            sweeperErrorProvider.SetError(squadDatePicker, "Date cannot be in past");
         }
     }
 
@@ -83,7 +83,7 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
         if (MaxPerPair is <= 0 or > 10)
         {
             e.Cancel = true;
-            ErrorProviderSweeper.SetError(maxPerPairValue, "Max per pair must be between 1 and 10");
+            sweeperErrorProvider.SetError(maxPerPairValue, "Max per pair must be between 1 and 10");
         }
     }
 
@@ -108,5 +108,5 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
         => sweeperDivisions.BindDivisions(divisions);
 
     private void SweeperControl_Validated(object sender, EventArgs e)
-        => ErrorProviderSweeper.SetError((Control)sender, string.Empty);
+        => sweeperErrorProvider.SetError((Control)sender, string.Empty);
 }

@@ -34,7 +34,7 @@ partial class SweeperControl
             this.sweeperDivisions = new NewEnglandClassic.Contols.SweeperDivisionsControl();
             this.squadDatePicker = new System.Windows.Forms.DateTimePicker();
             this.dateLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.ErrorProviderSweeper = new System.Windows.Forms.ErrorProvider(this.components);
+            this.sweeperErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.entryFeeValue = new NewEnglandClassic.Controls.NumericControl();
             this.entryFeeLabel = new NewEnglandClassic.Controls.LabelControl();
             this.gamesValue = new NewEnglandClassic.Controls.NumericControl();
@@ -49,7 +49,7 @@ partial class SweeperControl
             this.startingLaneLabel = new NewEnglandClassic.Controls.LabelControl();
             this.divisionsGroupBox.SuspendLayout();
             this.PanelDivisions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSweeper)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sweeperErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).BeginInit();
@@ -88,7 +88,7 @@ partial class SweeperControl
             this.sweeperDivisions.Size = new System.Drawing.Size(534, 292);
             this.sweeperDivisions.TabIndex = 1;
             // 
-            // datePicker
+            // squadDatePicker
             // 
             this.squadDatePicker.CustomFormat = "MM/dd/yyyy    hh:mm tt";
             this.squadDatePicker.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -97,7 +97,7 @@ partial class SweeperControl
             this.squadDatePicker.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.squadDatePicker.MaxDate = new System.DateTime(2200, 12, 31, 0, 0, 0, 0);
             this.squadDatePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.squadDatePicker.Name = "datePicker";
+            this.squadDatePicker.Name = "squadDatePicker";
             this.squadDatePicker.Size = new System.Drawing.Size(217, 27);
             this.squadDatePicker.TabIndex = 0;
             this.squadDatePicker.Validating += new System.ComponentModel.CancelEventHandler(this.SquadDatePicker_Validating);
@@ -115,10 +115,10 @@ partial class SweeperControl
             this.dateLabel.TabStop = false;
             this.dateLabel.Text = "Date:";
             // 
-            // ErrorProviderSweeper
+            // sweeperErrorProvider
             // 
-            this.ErrorProviderSweeper.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.ErrorProviderSweeper.ContainerControl = this;
+            this.sweeperErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.sweeperErrorProvider.ContainerControl = this;
             // 
             // entryFeeValue
             // 
@@ -337,7 +337,7 @@ partial class SweeperControl
             this.divisionsGroupBox.ResumeLayout(false);
             this.divisionsGroupBox.PerformLayout();
             this.PanelDivisions.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderSweeper)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sweeperErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).EndInit();
@@ -356,7 +356,7 @@ partial class SweeperControl
     private SweeperDivisionsControl sweeperDivisions;
     private DateTimePicker squadDatePicker;
     private Controls.LabelControl dateLabel;
-    private ErrorProvider ErrorProviderSweeper;
+    private ErrorProvider sweeperErrorProvider;
     private Controls.NumericControl entryFeeValue;
     private Controls.LabelControl entryFeeLabel;
     private Controls.NumericControl gamesValue;

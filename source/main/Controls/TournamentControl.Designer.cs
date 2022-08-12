@@ -30,7 +30,7 @@ partial class TournamentControl
     {
             this.components = new System.ComponentModel.Container();
             this.nameLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.ErrorProviderTournament = new System.Windows.Forms.ErrorProvider(this.components);
+            this.tournamentErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.nameText = new System.Windows.Forms.TextBox();
             this.startDateLabel = new NewEnglandClassic.Controls.LabelControl();
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
@@ -47,7 +47,7 @@ partial class TournamentControl
             this.bowlingCenterValue = new System.Windows.Forms.TextBox();
             this.bowlingCenterLabel = new NewEnglandClassic.Controls.LabelControl();
             this.CheckboxComplete = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderTournament)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tournamentErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).BeginInit();
@@ -66,10 +66,10 @@ partial class TournamentControl
             this.nameLabel.TabStop = false;
             this.nameLabel.Text = "Name:";
             // 
-            // ErrorProviderTournament
+            // tournamentErrorProvider
             // 
-            this.ErrorProviderTournament.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.ErrorProviderTournament.ContainerControl = this;
+            this.tournamentErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.tournamentErrorProvider.ContainerControl = this;
             // 
             // nameText
             // 
@@ -314,7 +314,7 @@ partial class TournamentControl
             this.Name = "TournamentControl";
             this.Size = new System.Drawing.Size(354, 330);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.TournamentControl_Validating);
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProviderTournament)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tournamentErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).EndInit();
@@ -327,7 +327,7 @@ partial class TournamentControl
     #endregion
 
     private Controls.LabelControl nameLabel;
-    private ErrorProvider ErrorProviderTournament;
+    private ErrorProvider tournamentErrorProvider;
     private CheckBox CheckboxComplete;
     private TextBox bowlingCenterValue;
     private Controls.LabelControl bowlingCenterLabel;
