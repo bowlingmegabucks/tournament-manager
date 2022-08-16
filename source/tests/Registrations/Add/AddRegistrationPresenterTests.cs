@@ -339,7 +339,7 @@ internal class Presenter
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Bowlers.Add.IViewModel>(), It.IsAny<DivisionId>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<int?>()), Times.Never);
+            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Bowlers.Add.IViewModel>(), It.IsAny<DivisionId>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>()), Times.Never);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
@@ -347,7 +347,7 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterExecute_CalledCorrectly()
+    public void Execute_ViewIsValidTrue_AdapterExecute_CalledCorrectly([Values] bool superSweeper)
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
@@ -362,10 +362,11 @@ internal class Presenter
         _view.SetupGet(view => view.Squads).Returns(squads);
         _view.SetupGet(view => view.Sweepers).Returns(sweepers);
         _view.SetupGet(view => view.Average).Returns(average);
+        _view.SetupGet(view => view.SuperSweeper).Returns(superSweeper);
 
         _presenter.Execute();
 
-        _adapter.Verify(adapter => adapter.Execute(bowler.Object, divisionId, squads, sweepers, average), Times.Once);
+        _adapter.Verify(adapter => adapter.Execute(bowler.Object, divisionId, squads, sweepers, superSweeper, average), Times.Once);
     }
 
     [Test]

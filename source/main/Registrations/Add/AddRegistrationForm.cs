@@ -41,6 +41,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public IEnumerable<SquadId> Sweepers
         => sweepersFlowLayoutPanel.Controls.OfType<Controls.ISelectedIds>().Where(control => control.Selected).Select(control => control.Id).AsEnumerable();
 
+    public bool SuperSweeper
+        => superSweeperCheckBox.Checked;
+
     private void DivisionsDropDown_Validating(object sender, CancelEventArgs e)
     {
         if (divisionsDropdown.SelectedIndex == -1)

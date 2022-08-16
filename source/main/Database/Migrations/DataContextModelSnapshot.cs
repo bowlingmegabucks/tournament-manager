@@ -19,75 +19,6 @@ namespace NewEnglandClassic.Database.Migrations
                 .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Bowler", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("CityAddress")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("MiddleInitial")
-                        .IsRequired()
-                        .HasMaxLength(1)
-                        .HasColumnType("char(1)")
-                        .IsFixedLength();
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("char(10)")
-                        .IsFixedLength();
-
-                    b.Property<string>("StateAddress")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("char(2)")
-                        .IsFixedLength();
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Suffix")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("USBCId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("char(9)")
-                        .IsFixedLength();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Bowlers");
-                });
-
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
                 {
                     b.Property<Guid>("Id")
@@ -133,31 +64,7 @@ namespace NewEnglandClassic.Database.Migrations
 
                     b.HasIndex("TournamentId");
 
-                    b.ToTable("Divisions");
-                });
-
-            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Registration", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<int?>("Average")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("BowlerId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("DivisionId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("BowlerId", "DivisionId");
-
-                    b.HasIndex("DivisionId");
-
-                    b.ToTable("Registration");
+                    b.ToTable("Divisions", (string)null);
                 });
 
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.Squad", b =>
@@ -198,21 +105,6 @@ namespace NewEnglandClassic.Database.Migrations
                     b.HasDiscriminator<int>("SquadType");
                 });
 
-            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SquadRegistration", b =>
-                {
-                    b.Property<Guid>("RegistrationId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("SquadId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("RegistrationId", "SquadId");
-
-                    b.HasIndex("SquadId");
-
-                    b.ToTable("SquadRegistration");
-                });
-
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperDivision", b =>
                 {
                     b.Property<Guid>("SweeperId")
@@ -228,7 +120,7 @@ namespace NewEnglandClassic.Database.Migrations
 
                     b.HasIndex("DivisionId");
 
-                    b.ToTable("SweeperDivision");
+                    b.ToTable("SweeperDivision", (string)null);
                 });
 
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
@@ -271,7 +163,7 @@ namespace NewEnglandClassic.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tournaments");
+                    b.ToTable("Tournaments", (string)null);
                 });
 
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperSquad", b =>
@@ -286,8 +178,6 @@ namespace NewEnglandClassic.Database.Migrations
                         .HasColumnType("smallint");
 
                     b.HasIndex("TournamentId");
-
-                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.TournamentSquad", b =>
@@ -312,44 +202,6 @@ namespace NewEnglandClassic.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Tournament");
-                });
-
-            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Registration", b =>
-                {
-                    b.HasOne("NewEnglandClassic.Database.Entities.Bowler", "Bowler")
-                        .WithMany("Registrations")
-                        .HasForeignKey("BowlerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("NewEnglandClassic.Database.Entities.Division", "Division")
-                        .WithMany("Registrations")
-                        .HasForeignKey("DivisionId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Bowler");
-
-                    b.Navigation("Division");
-                });
-
-            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SquadRegistration", b =>
-                {
-                    b.HasOne("NewEnglandClassic.Database.Entities.Registration", "Registration")
-                        .WithMany("Sqauds")
-                        .HasForeignKey("RegistrationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("NewEnglandClassic.Database.Entities.Squad", "Squad")
-                        .WithMany("Registrations")
-                        .HasForeignKey("SquadId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Registration");
-
-                    b.Navigation("Squad");
                 });
 
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperDivision", b =>
@@ -393,26 +245,9 @@ namespace NewEnglandClassic.Database.Migrations
                     b.Navigation("Tournament");
                 });
 
-            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Bowler", b =>
-                {
-                    b.Navigation("Registrations");
-                });
-
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
                 {
-                    b.Navigation("Registrations");
-
                     b.Navigation("Sweepers");
-                });
-
-            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Registration", b =>
-                {
-                    b.Navigation("Sqauds");
-                });
-
-            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Squad", b =>
-                {
-                    b.Navigation("Registrations");
                 });
 
             modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
