@@ -130,6 +130,32 @@ internal class Tournament
     }
 
     [Test]
+    public void Constructor_TournamentEntity_SweepersNull_EmptySweepersCollection()
+    {
+        var entity = new NewEnglandClassic.Database.Entities.Tournament { Sweepers = null };
+
+        var model = new NewEnglandClassic.Models.Tournament(entity);
+
+        Assert.That(model.Sweepers, Is.Empty);
+    }
+
+    [Test]
+    public void Constructor_TournamentEntity_SweepersNotNull_SweepersCollectionMapped()
+    {
+        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.SweeperSquad
+        {
+            Id = SquadId.New(),
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
+        }, 3).ToList();
+
+        var entity = new NewEnglandClassic.Database.Entities.Tournament { Sweepers = sweepers };
+
+        var model = new NewEnglandClassic.Models.Tournament(entity);
+
+        Assert.That(model.Squads, Is.Not.Empty);
+    }
+
+    [Test]
     public void Constructor_TournamentViewModel_IdMapped()
     {
         var id = TournamentId.New();

@@ -24,6 +24,8 @@ internal class Tournament
 
     public IEnumerable<Squad> Squads { get; }
 
+    public IEnumerable<Sweeper> Sweepers { get; }
+
     internal Tournament(Database.Entities.Tournament entity)
     {
         Id = entity.Id;
@@ -38,6 +40,7 @@ internal class Tournament
         Completed = entity.Completed;
         
         Squads = entity.Squads?.Select(squad => new Squad(squad)).ToList() ?? Enumerable.Empty<Squad>();
+        Sweepers = entity.Sweepers?.Select(sweeper => new Sweeper(sweeper)).ToList() ?? Enumerable.Empty<Sweeper>();
     }
 
     internal Tournament(Tournaments.IViewModel viewModel)
