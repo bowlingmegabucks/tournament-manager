@@ -33,5 +33,9 @@ internal class Validator : AbstractValidator<Models.Registration>
             .WithMessage("Invalid gender for selected division");
 
         RuleFor(registration => registration.Squads).NotEmpty().WithMessage("Bowler must enter at least one squad");
+
+        RuleFor(registration => registration.SuperSweeper).Must(superSweeper => !superSweeper)
+            .When(registration => registration.Sweepers.Count() != registration.SweeperCount)
+            .WithMessage("Must enter all sweepers to enter Super Sweeper");
     }
 }

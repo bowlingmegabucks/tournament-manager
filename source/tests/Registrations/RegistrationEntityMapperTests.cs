@@ -133,4 +133,17 @@ internal class EntityMapper
             Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(sweeper3));
         });
     }
+
+    [Test]
+    public void Execute_SuperSweeperMapped([Values] bool superSweeper)
+    {
+        var model = new NewEnglandClassic.Models.Registration
+        {
+            SuperSweeper = superSweeper
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.SuperSweeper, Is.EqualTo(superSweeper));
+    }
 }

@@ -70,7 +70,7 @@ CREATE INDEX `IX_Squads_TournamentId` ON `Squads` (`TournamentId`);
 CREATE INDEX `IX_SweeperDivision_DivisionId` ON `SweeperDivision` (`DivisionId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220527183020_TournamentEntities', '6.0.6');
+VALUES ('20220527183020_TournamentEntities', '6.0.7');
 
 COMMIT;
 
@@ -95,7 +95,7 @@ CREATE TABLE `Bowlers` (
 ) CHARACTER SET=utf8mb4;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220615233907_BowlerEntity', '6.0.6');
+VALUES ('20220615233907_BowlerEntity', '6.0.7');
 
 COMMIT;
 
@@ -106,7 +106,7 @@ ALTER TABLE `Squads` ADD `NumberOfLanes` smallint NOT NULL DEFAULT 0;
 ALTER TABLE `Squads` ADD `StartingLane` smallint NOT NULL DEFAULT 0;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220622145345_StartingAndNumberOfLanes', '6.0.6');
+VALUES ('20220622145345_StartingAndNumberOfLanes', '6.0.7');
 
 COMMIT;
 
@@ -117,6 +117,7 @@ CREATE TABLE `Registrations` (
     `BowlerId` char(36) COLLATE ascii_general_ci NOT NULL,
     `DivisionId` char(36) COLLATE ascii_general_ci NOT NULL,
     `Average` int NULL,
+    `SuperSweeper` tinyint(1) NOT NULL,
     CONSTRAINT `PK_Registrations` PRIMARY KEY (`Id`),
     CONSTRAINT `AK_Registrations_BowlerId_DivisionId` UNIQUE (`BowlerId`, `DivisionId`),
     CONSTRAINT `FK_Registrations_Bowlers_BowlerId` FOREIGN KEY (`BowlerId`) REFERENCES `Bowlers` (`Id`),
@@ -127,7 +128,7 @@ CREATE TABLE `SquadRegistration` (
     `RegistrationId` char(36) COLLATE ascii_general_ci NOT NULL,
     `SquadId` char(36) COLLATE ascii_general_ci NOT NULL,
     CONSTRAINT `PK_SquadRegistration` PRIMARY KEY (`RegistrationId`, `SquadId`),
-    CONSTRAINT `FK_SquadRegistration_Registration_RegistrationId` FOREIGN KEY (`RegistrationId`) REFERENCES `Registrations` (`Id`),
+    CONSTRAINT `FK_SquadRegistration_Registrations_RegistrationId` FOREIGN KEY (`RegistrationId`) REFERENCES `Registrations` (`Id`),
     CONSTRAINT `FK_SquadRegistration_Squads_SquadId` FOREIGN KEY (`SquadId`) REFERENCES `Squads` (`Id`)
 ) CHARACTER SET=utf8mb4;
 
@@ -136,7 +137,7 @@ CREATE INDEX `IX_Registrations_DivisionId` ON `Registrations` (`DivisionId`);
 CREATE INDEX `IX_SquadRegistration_SquadId` ON `SquadRegistration` (`SquadId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220718150514_AddRegistration', '6.0.6');
+VALUES ('20220816235947_AddRegistration', '6.0.7');
 
 COMMIT;
 

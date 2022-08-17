@@ -31,7 +31,8 @@ internal class EntityMapper : IEntityMapper
                 {
                     RegistrationId = registration.Id,
                     SquadId = id
-                }).ToList()
+                }).ToList(),
+            SuperSweeper = registration.SuperSweeper
         };
 }
 

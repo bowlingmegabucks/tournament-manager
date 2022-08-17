@@ -118,7 +118,7 @@ internal class BusinessLogic
         var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
         _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<DivisionId>())).Returns(division);
 
-        var tournament = new NewEnglandClassic.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today)};
+        var tournament = new NewEnglandClassic.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today), Sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper(), 4)};
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
@@ -131,7 +131,7 @@ internal class BusinessLogic
         {
             Assert.That(registration.TournamentStartDate, Is.EqualTo(tournament.Start));
 
-            _validator.Verify(validator => validator.Validate(It.Is<NewEnglandClassic.Models.Registration>(r => r.TournamentStartDate == tournament.Start)), Times.Once);
+            _validator.Verify(validator => validator.Validate(It.Is<NewEnglandClassic.Models.Registration>(r => r.TournamentStartDate == tournament.Start && registration.SweeperCount == 4)), Times.Once);
         });
     }
 

@@ -20,6 +20,8 @@ internal class Registration
 
     public int? Average { get; set; }
 
+    public bool SuperSweeper { get; set; }
+
     public ICollection<SquadRegistration> Squads { get; set; } = null!;
 
     internal class Configuration : IEntityTypeConfiguration<Registration>

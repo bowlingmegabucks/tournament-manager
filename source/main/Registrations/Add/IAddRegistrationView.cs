@@ -30,6 +30,8 @@ internal interface IView
 
     IEnumerable<SquadId> Sweepers { get; }
 
+    bool SuperSweeper { get; }
+
     bool IsValid();
 
     void KeepOpen();

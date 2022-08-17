@@ -14,13 +14,17 @@ internal class Registration
 
     public IEnumerable<SquadId> Sweepers { get; set; }
 
+    public bool SuperSweeper { get; set; }
+
     internal DateOnly TournamentStartDate { get; set; }
 
-    public Registration(BowlerId bowlerId, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, int? average)
-        : this(new Bowler { Id = bowlerId }, divisionId, squads, sweepers, average)
+    internal int SweeperCount { get; set; }
+
+    public Registration(BowlerId bowlerId, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+        : this(new Bowler { Id = bowlerId }, divisionId, squads, sweepers, superSweeper, average)
     { }
 
-    public Registration(Bowler bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, int? average)
+    public Registration(Bowler bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
     {
         Bowler = bowler;
         Division = new Division { Id = divisionId };
@@ -29,6 +33,7 @@ internal class Registration
         Sweepers = sweepers;
 
         Average = average;
+        SuperSweeper = superSweeper;
     }
 
     /// <summary>

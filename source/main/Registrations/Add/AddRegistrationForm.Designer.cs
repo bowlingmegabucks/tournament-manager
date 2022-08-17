@@ -41,6 +41,7 @@ partial class Form
             this.sweepersFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
+            this.superSweeperCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.registrationErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.averageValue)).BeginInit();
             this.squadsGroupbox.SuspendLayout();
@@ -184,6 +185,16 @@ partial class Form
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
+            // superSweeperCheckBox
+            // 
+            this.superSweeperCheckBox.AutoSize = true;
+            this.superSweeperCheckBox.Location = new System.Drawing.Point(496, 366);
+            this.superSweeperCheckBox.Name = "superSweeperCheckBox";
+            this.superSweeperCheckBox.Size = new System.Drawing.Size(103, 19);
+            this.superSweeperCheckBox.TabIndex = 3;
+            this.superSweeperCheckBox.Text = "Super Sweeper";
+            this.superSweeperCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Form
             // 
             this.AcceptButton = this.saveButton;
@@ -192,6 +203,7 @@ partial class Form
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(909, 428);
+            this.Controls.Add(this.superSweeperCheckBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.sweepersGroupbox);
@@ -229,4 +241,5 @@ partial class Form
     private Button saveButton;
     private FlowLayoutPanel squadsFlowPanelLayout;
     private FlowLayoutPanel sweepersFlowLayoutPanel;
+    private CheckBox superSweeperCheckBox;
 }
