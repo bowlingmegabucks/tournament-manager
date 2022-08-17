@@ -100,13 +100,13 @@ internal class EntityMapper
     [Test]
     public void Execute_SquadsMapped()
     {
-        var squad1 = SquadId.New();
-        var squad2 = SquadId.New();
-        var squad3 = SquadId.New();
+        var squad1 = new NewEnglandClassic.Models.Squad { Id = SquadId.New() };
+        var squad2 = new NewEnglandClassic.Models.Squad { Id = SquadId.New() };
+        var squad3 = new NewEnglandClassic.Models.Squad { Id = SquadId.New() };
 
-        var sweeper1 = SquadId.New();
-        var sweeper2 = SquadId.New();
-        var sweeper3 = SquadId.New();
+        var sweeper1 = new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() };
+        var sweeper2 = new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() };
+        var sweeper3 = new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() };
 
         var id = RegistrationId.New();
 
@@ -124,13 +124,13 @@ internal class EntityMapper
             Assert.That(entity.Squads.All(squad => squad.RegistrationId == id));
             Assert.That(entity.Squads, Has.Count.EqualTo(6));
 
-            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(squad1));
-            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(squad2));
-            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(squad3));
+            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(squad1.Id));
+            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(squad2.Id));
+            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(squad3.Id));
 
-            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(sweeper1));
-            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(sweeper2));
-            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(sweeper3));
+            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(sweeper1.Id));
+            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(sweeper2.Id));
+            Assert.That(entity.Squads.Select(squad => squad.SquadId), Has.Member(sweeper3.Id));
         });
     }
 

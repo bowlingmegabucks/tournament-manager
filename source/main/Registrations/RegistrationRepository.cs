@@ -29,7 +29,7 @@ internal class Repository : IRepository
 
     IEnumerable<Database.Entities.Registration> IRepository.Retrieve(TournamentId tournamentId)
         => _dataContext.Registrations.Include(registration => registration.Division)
-            .Include(registration => registration.Squads)
+            .Include(registration => registration.Squads).ThenInclude(squadRegistration=> squadRegistration.Squad)
             .Include(registration => registration.Bowler)
             .Where(registration => registration.Division.TournamentId == tournamentId);
 }

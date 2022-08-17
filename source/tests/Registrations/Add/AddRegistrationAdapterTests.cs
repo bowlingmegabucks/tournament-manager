@@ -30,9 +30,9 @@ internal class Adapter
 
         _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NewEnglandClassic.Models.Registration>(registration => registration.Bowler.LastName == "lastName" &&
                                                                                                                                 registration.Division.Id == divisionId &&
-                                                                                                                                registration.Sweepers == sweepers &&
+                                                                                                                                registration.Sweepers.Select(sweeper=> sweeper.Id) == sweepers &&
                                                                                                                                 registration.SuperSweeper == superSweeper &&
-                                                                                                                                registration.Squads == squads &&
+                                                                                                                                registration.Squads.Select(squad=> squad.Id) == squads &&
                                                                                                                                 registration.Average == average)), Times.Once);
     }
 
