@@ -713,6 +713,54 @@ internal class Validator
     }
 
     [Test]
+    public void SuperSweeper_BowlerEntersZeroToAllSweepers_DoesNotEnterSuperSweeper_NoError([Range(0, 3)] int count)
+    {
+        var sweepers = Enumerable.Repeat(SquadId.New(), count);
+
+        var registration = new NewEnglandClassic.Models.Registration
+        {
+            Sweepers = sweepers,
+            SweeperCount = 3,
+            SuperSweeper = false
+        };
+
+        var results = _validator.TestValidate(registration);
+        results.ShouldNotHaveValidationErrorFor(registration => registration.SuperSweeper);
+    }
+
+    [Test]
+    public void SuperSweeper_BowlerEntersZeroToAllButOneSweeper_EntersSuperSweeper_HasError([Range(0, 2)] int count)
+    {
+        var sweepers = Enumerable.Repeat(SquadId.New(), count);
+
+        var registration = new NewEnglandClassic.Models.Registration
+        {
+            Sweepers = sweepers,
+            SweeperCount = 3,
+            SuperSweeper = true
+        };
+
+        var results = _validator.TestValidate(registration);
+        results.ShouldHaveValidationErrorFor(registration => registration.SuperSweeper).WithErrorMessage("Must enter all sweepers to enter Super Sweeper");
+    }
+
+    [Test]
+    public void SuperSweeper_BowlerEntersAllSweepers_EntersSuperSweeper_NoError()
+    {
+        var sweepers = Enumerable.Repeat(SquadId.New(), 3);
+
+        var registration = new NewEnglandClassic.Models.Registration
+        {
+            Sweepers = sweepers,
+            SweeperCount = 3,
+            SuperSweeper = true
+        };
+
+        var results = _validator.TestValidate(registration);
+        results.ShouldNotHaveValidationErrorFor(registration => registration.SuperSweeper);
+    }
+
+    [Test]
     [Category("Real")]
     public void AshlieInWomensDivision_Allowed()
     {

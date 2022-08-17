@@ -117,7 +117,7 @@ internal class Presenter
             return;
         }
 
-        Adapter.Execute(_view.Bowler, _view.DivisionId, _view.Squads, _view.Sweepers, false, _view.Average);
+        Adapter.Execute(_view.Bowler, _view.DivisionId, _view.Squads, _view.Sweepers, _view.SuperSweeper, _view.Average);
 
         if (Adapter.Errors.Any())
         {

@@ -22,9 +22,9 @@ internal class Tournament
 
     public bool Completed { get; set; }
 
-    public IEnumerable<Squad> Squads { get; }
+    public IEnumerable<Squad> Squads { get; init; }
 
-    public IEnumerable<Sweeper> Sweepers { get; }
+    public IEnumerable<Sweeper> Sweepers { get; init; }
 
     internal Tournament(Database.Entities.Tournament entity)
     {
@@ -57,6 +57,7 @@ internal class Tournament
         Completed = viewModel.Completed;
 
         Squads = Enumerable.Empty<Squad>();
+        Sweepers = Enumerable.Empty<Sweeper>();
     }
 
     /// <summary>
@@ -65,5 +66,6 @@ internal class Tournament
     internal Tournament()
     {
         Squads = Enumerable.Empty<Squad>();
+        Sweepers = Enumerable.Empty<Sweeper>();
     }
 }

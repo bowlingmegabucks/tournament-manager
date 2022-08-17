@@ -145,14 +145,16 @@ internal class Tournament
         var sweepers = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
-            Tournament = new NewEnglandClassic.Database.Entities.Tournament()
+            Tournament = new NewEnglandClassic.Database.Entities.Tournament(),
+            CashRatio = 5,
+            Divisions = Enumerable.Empty<NewEnglandClassic.Database.Entities.SweeperDivision>().ToList() 
         }, 3).ToList();
 
         var entity = new NewEnglandClassic.Database.Entities.Tournament { Sweepers = sweepers };
 
         var model = new NewEnglandClassic.Models.Tournament(entity);
 
-        Assert.That(model.Squads, Is.Not.Empty);
+        Assert.That(model.Sweepers, Is.Not.Empty);
     }
 
     [Test]

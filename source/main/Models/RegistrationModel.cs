@@ -18,6 +18,8 @@ internal class Registration
 
     internal DateOnly TournamentStartDate { get; set; }
 
+    internal int SweeperCount { get; set; }
+
     public Registration(BowlerId bowlerId, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
         : this(new Bowler { Id = bowlerId }, divisionId, squads, sweepers, superSweeper, average)
     { }

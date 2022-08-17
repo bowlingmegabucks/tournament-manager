@@ -25,7 +25,7 @@ internal class Repository : IRepository
         => _dataContext.Tournaments.Single(tournament=> tournament.Id == id);
 
     Database.Entities.Tournament IRepository.Retrieve(DivisionId divisionId)
-        => _dataContext.Tournaments.Include(tournament => tournament.Divisions).Include(tournament=> tournament.Sweepers).Single(tournament => tournament.Divisions.Any(division => division.Id == divisionId));
+        => _dataContext.Tournaments.Include(tournament => tournament.Divisions).Include(tournament=> tournament.Sweepers).ThenInclude(sweeper=> sweeper.Divisions).Single(tournament => tournament.Divisions.Any(division => division.Id == divisionId));
 
     TournamentId IRepository.Add(Database.Entities.Tournament tournament)
     {   
