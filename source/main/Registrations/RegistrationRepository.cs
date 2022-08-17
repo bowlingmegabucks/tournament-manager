@@ -1,4 +1,6 @@
-﻿namespace NewEnglandClassic.Registrations;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NewEnglandClassic.Registrations;
 
 internal class Repository : IRepository
 {
@@ -17,16 +19,24 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    public RegistrationId Add(Database.Entities.Registration registration)
+    RegistrationId IRepository.Add(Database.Entities.Registration registration)
     {
         _dataContext.Registrations.Add(registration);
         _dataContext.SaveChanges();
 
         return registration.Id;
     }
+
+    IEnumerable<Database.Entities.Registration> IRepository.Retrieve(TournamentId tournamentId)
+        => _dataContext.Registrations.Include(registration => registration.Division)
+            .Include(registration => registration.Squads)
+            .Include(registration => registration.Bowler)
+            .Where(registration => registration.Division.TournamentId == tournamentId);
 }
 
 internal interface IRepository
 {
     RegistrationId Add(Database.Entities.Registration registration);
+
+    IEnumerable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
 }
