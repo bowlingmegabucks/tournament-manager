@@ -1,4 +1,6 @@
 ﻿
+using System.Text;
+
 namespace NewEnglandClassic.Models;
 
 internal class Bowler
@@ -92,5 +94,17 @@ internal class Bowler
     internal Bowler()
     {
 
+    }
+
+    public override string ToString()
+    {
+        var name = new StringBuilder($"{FirstName} {LastName}");
+
+        if (!string.IsNullOrEmpty(Suffix))
+        {
+            name.Append($", {Suffix}");
+        }
+
+        return name.ToString();
     }
 }

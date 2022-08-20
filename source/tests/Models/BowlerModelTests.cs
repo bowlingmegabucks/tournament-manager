@@ -404,4 +404,37 @@ internal class Bowler
 
         Assert.That(actual, Is.EqualTo(expected));
     }
+
+    [Test]
+    public void ToString_NoSuffix_ReturnsFirstLastName()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler
+        {
+            FirstName = "first",
+            MiddleInitial = "m",
+            LastName = "last"
+        };
+
+        var expected = "first last";
+        var actual = bowler.ToString();
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void ToString_Suffix_ReturnsFirstLastCommaSuffix()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler
+        {
+            FirstName = "first",
+            MiddleInitial = "m",
+            LastName = "last",
+            Suffix = "suffix"
+        };
+
+        var expected = "first last, suffix";
+        var actual = bowler.ToString();
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
 }
