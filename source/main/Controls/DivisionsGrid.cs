@@ -3,7 +3,7 @@
 namespace NewEnglandClassic.Controls;
 internal partial class DivisionsGrid
 #if DEBUG
-    : MiddleGrid
+    : DivisionsMiddleGrid
 #else
     : Controls.DataGrid<Divisions.IViewModel>
 #endif
@@ -57,9 +57,9 @@ internal partial class DivisionsGrid
 
 #if DEBUG
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-internal class MiddleGrid : Controls.DataGrid<Divisions.IViewModel>
+internal class DivisionsMiddleGrid : Controls.DataGrid<Divisions.IViewModel>
 {
-    public MiddleGrid()
+    public DivisionsMiddleGrid()
     {
 
     }
