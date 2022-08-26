@@ -50,7 +50,7 @@ internal class Bowler
         {
             builder.Property(bowler => bowler.Id)
                 .HasConversion<BowlerId.EfCoreValueConverter>()
-                .ValueGeneratedOnAdd();
+                .HasValueGenerator<BowlerIdValueGenerator>();
 
             builder.Property(bowler => bowler.DateOfBirth).HasConversion<DateOnlyConverter, DateOnlyComparer>();
 

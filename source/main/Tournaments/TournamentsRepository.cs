@@ -29,8 +29,6 @@ internal class Repository : IRepository
 
     TournamentId IRepository.Add(Database.Entities.Tournament tournament)
     {
-        tournament.Id = TournamentId.New();
-
         _dataContext.Tournaments.Add(tournament);
         _dataContext.SaveChanges();
         
