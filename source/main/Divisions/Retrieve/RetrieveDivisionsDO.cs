@@ -20,7 +20,7 @@ internal class DataLayer : IDataLayer
     public IEnumerable<Models.Division> Execute(TournamentId tournamentId)
         => _repository.Retrieve(tournamentId).Select(division=> new Models.Division(division));
 
-    public Models.Division? Execute(DivisionId id)
+    public Models.Division? Execute(NewEnglandClassic.Divisions.Id id)
         => new(_repository.Retrieve(id));
 }
 
@@ -28,5 +28,5 @@ internal interface IDataLayer
 {
     IEnumerable<Models.Division> Execute(TournamentId tournamentId);
 
-    Models.Division? Execute(DivisionId id);
+    Models.Division? Execute(NewEnglandClassic.Divisions.Id id);
 }

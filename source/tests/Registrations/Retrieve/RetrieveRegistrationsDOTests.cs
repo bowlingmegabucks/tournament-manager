@@ -33,7 +33,7 @@ internal class DataLayer
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
@@ -43,7 +43,7 @@ internal class DataLayer
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
@@ -53,7 +53,7 @@ internal class DataLayer
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200

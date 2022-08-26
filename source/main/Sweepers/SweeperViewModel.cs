@@ -22,7 +22,7 @@ internal class ViewModel : IViewModel
 
     public bool Complete { get; set; }
 
-    public IDictionary<DivisionId, int?> Divisions { get; set; } = new Dictionary<DivisionId, int?>();
+    public IDictionary<NewEnglandClassic.Divisions.Id, int?> Divisions { get; set; } = new Dictionary<NewEnglandClassic.Divisions.Id, int?>();
 
     public ViewModel(Models.Sweeper sweeper)
     {
@@ -60,5 +60,5 @@ public interface IViewModel
 
     bool Complete { get; set; }
 
-    IDictionary<DivisionId, int?> Divisions { get; }
+    IDictionary<NewEnglandClassic.Divisions.Id, int?> Divisions { get; }
 }

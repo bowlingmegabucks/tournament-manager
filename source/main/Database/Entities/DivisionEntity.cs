@@ -6,7 +6,7 @@ namespace NewEnglandClassic.Database.Entities;
 internal class Division
 {
     [Key]
-    public DivisionId Id { get; set; }
+    public Divisions.Id Id { get; set; }
 
     [Required]
     public string Name { get; set; } = string.Empty;
@@ -44,7 +44,9 @@ internal class Division
     {
         public void Configure(EntityTypeBuilder<Division> builder)
         {
-            builder.Property(division => division.Id).HasConversion<DivisionId.EfCoreValueConverter>();
+            builder.Property(division => division.Id)
+                .HasConversion<Divisions.Id.EfCoreValueConverter>()
+                .HasValueGenerator<Divisions.IdValueGenerator>();
 
             builder.Property(division => division.TournamentId).HasConversion<TournamentId.EfCoreValueConverter>();
 

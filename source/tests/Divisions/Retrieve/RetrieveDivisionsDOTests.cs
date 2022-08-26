@@ -63,9 +63,9 @@ internal class DataLayer
     public void Execute_RepositoryRetrieve_CalledCorrectly()
     {
         var division = new NewEnglandClassic.Database.Entities.Division();
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(division);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<NewEnglandClassic.Divisions.Id>())).Returns(division);
 
-        var id = DivisionId.New();
+        var id = NewEnglandClassic.Divisions.Id.New();
 
         _dataLayer.Execute(id);
 
@@ -76,9 +76,9 @@ internal class DataLayer
     public void Execute_DivisionId_ReturnsRepositoryRetrieveResponse()
     {
         var division = new NewEnglandClassic.Database.Entities.Division { Name = "name"};
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(division);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<NewEnglandClassic.Divisions.Id>())).Returns(division);
 
-        var id = DivisionId.New();
+        var id = NewEnglandClassic.Divisions.Id.New();
 
         var actual = _dataLayer.Execute(id);
 

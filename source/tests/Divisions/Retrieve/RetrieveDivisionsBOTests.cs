@@ -28,7 +28,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_ReturnsDataLayerExecuteResults()
     {
-        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Division { Id = DivisionId.New() }, 2);
+        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Division { Id = NewEnglandClassic.Divisions.Id.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(divisions);
 
         var tournamentId = TournamentId.New();
@@ -41,7 +41,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_DataLayerExecuteNoException_ErrorNull()
     {
-        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Division { Id = DivisionId.New() }, 2);
+        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Division { Id = NewEnglandClassic.Divisions.Id.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(divisions);
 
         var tournamentId = TournamentId.New();
@@ -71,7 +71,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_DivisionId_DataLayerExecute_CalledCorrectly()
     {
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         _businessLogic.Execute(divisionId);
 
@@ -81,10 +81,10 @@ internal class BusinessLogic
     [Test]
     public void Execute_ReturnsDataLayerExecuteResult()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = NewEnglandClassic.Divisions.Id.New() };
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Divisions.Id>())).Returns(division);
 
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         var actual = _businessLogic.Execute(divisionId);
 
@@ -94,10 +94,10 @@ internal class BusinessLogic
     [Test]
     public void Execute_DataLayerExecutetNoException_ErrorNull()
     {
-        var division = new NewEnglandClassic.Models.Division { Id = DivisionId.New() };
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Returns(division);
+        var division = new NewEnglandClassic.Models.Division { Id = NewEnglandClassic.Divisions.Id.New() };
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Divisions.Id>())).Returns(division);
 
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         _businessLogic.Execute(divisionId);
 
@@ -108,9 +108,9 @@ internal class BusinessLogic
     public void Execute_DivisionId_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Divisions.Id>())).Throws(ex);
 
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         var actual = _businessLogic.Execute(divisionId);
 

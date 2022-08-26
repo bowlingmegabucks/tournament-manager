@@ -3,7 +3,7 @@
 namespace NewEnglandClassic.Contols;
 public partial class SweeperDivisionControl : UserControl
 {
-    public DivisionId DivisionId { get; }
+    public Divisions.Id DivisionId { get; }
     
     public int? BonusPinsPerGame
     {

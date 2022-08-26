@@ -26,8 +26,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         divisionsDropdown.DisplayMember = nameof(Divisions.IViewModel.DivisionName);
     }
 
-    public DivisionId DivisionId
-        => (DivisionId)divisionsDropdown.SelectedValue;
+    public NewEnglandClassic.Divisions.Id DivisionId
+        => (NewEnglandClassic.Divisions.Id)divisionsDropdown.SelectedValue;
 
     public Bowlers.Add.IViewModel Bowler
         => bowlerControl;

@@ -44,7 +44,7 @@ internal class Adapter
     [Test]
     public void Execute_ReturnsBusinessLogicId()
     {
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(divisionId);
 
         var viewModel = new NewEnglandClassic.Divisions.ViewModel();

@@ -83,10 +83,10 @@ internal class Repository
     [Test]
     public void RetrieveByDivision_ReturnsTournamentWithDivision()
     {
-        var division1 = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() };
-        var division2 = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() };
-        var division3 = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() };
-        var division4 = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() };
+        var division1 = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() };
+        var division2 = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() };
+        var division3 = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() };
+        var division4 = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() };
 
         var tournament1 = new NewEnglandClassic.Database.Entities.Tournament
         {

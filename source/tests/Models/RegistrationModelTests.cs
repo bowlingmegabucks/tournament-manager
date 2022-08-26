@@ -10,7 +10,7 @@ internal class Registration
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
 
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
@@ -26,7 +26,7 @@ internal class Registration
     public void Constructor_BowlerInstanciatedWithId([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
@@ -42,7 +42,7 @@ internal class Registration
     public void Constructor_DivisionInstanciatedWithId([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
@@ -58,7 +58,7 @@ internal class Registration
     public void Constructor_SquadsMapped([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
@@ -74,7 +74,7 @@ internal class Registration
     public void Constructor_SweepersMapped([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
@@ -90,7 +90,7 @@ internal class Registration
     public void Constructor_AverageMapped([Values(null, 200)] int? average, [Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
@@ -104,7 +104,7 @@ internal class Registration
     public void Constructor_SuperSweeperMapped([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
@@ -128,7 +128,7 @@ internal class Registration
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Average = 200,
             Squads = new[]
             {
@@ -157,7 +157,7 @@ internal class Registration
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Average = 200,
             Squads = new[]
             {
@@ -186,7 +186,7 @@ internal class Registration
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Average = 200,
             Squads = new[]
             {
@@ -215,7 +215,7 @@ internal class Registration
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Average = average,
             Squads = new[]
             {
@@ -244,7 +244,7 @@ internal class Registration
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Average = 200,
             Squads = new[]
             {
@@ -279,7 +279,7 @@ internal class Registration
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Average = 200,
             Squads = new[]
             {
@@ -314,7 +314,7 @@ internal class Registration
         {
             Id = RegistrationId.New(),
             Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = DivisionId.New() },
+            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
             Average = 200,
             Squads = new[]
             {

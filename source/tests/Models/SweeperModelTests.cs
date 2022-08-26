@@ -117,7 +117,7 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_DivisionsMapped()
     {
-        var divisions = new Mock<IDictionary<DivisionId, int?>>();
+        var divisions = new Mock<IDictionary<NewEnglandClassic.Divisions.Id, int?>>();
 
         var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Divisions).Returns(divisions.Object);
@@ -133,14 +133,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -174,14 +174,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -215,14 +215,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -256,14 +256,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -297,14 +297,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -338,14 +338,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -379,14 +379,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -420,14 +420,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -463,14 +463,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -506,14 +506,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
@@ -547,14 +547,14 @@ internal class Sweeper
         var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
         var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = DivisionId.New(),
+            DivisionId = NewEnglandClassic.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 

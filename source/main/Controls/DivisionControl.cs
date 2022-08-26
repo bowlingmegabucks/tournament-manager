@@ -22,7 +22,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         genderDropdown.DataSource = dictionary.ToList();
     }
 
-    public DivisionId Id { get; set; }
+    public Divisions.Id Id { get; set; }
 
     public short Number
     {

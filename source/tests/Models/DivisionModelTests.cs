@@ -6,7 +6,7 @@ internal class Division
     [Test]
     public void Constructor_ViewModel_IdMapped()
     {
-        var id = DivisionId.New();
+        var id = NewEnglandClassic.Divisions.Id.New();
 
         var viewModel = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(id);
@@ -146,7 +146,7 @@ internal class Division
     [Test]
     public void Constructor_Entities_IdMapped()
     {
-        var id = DivisionId.New();
+        var id = NewEnglandClassic.Divisions.Id.New();
 
         var entity = new NewEnglandClassic.Database.Entities.Division
         {

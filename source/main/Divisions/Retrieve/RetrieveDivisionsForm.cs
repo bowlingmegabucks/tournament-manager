@@ -28,7 +28,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private void AddButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddDivision();
 
-    public DivisionId? AddDivision(TournamentId tournamentId)
+    public NewEnglandClassic.Divisions.Id? AddDivision(TournamentId tournamentId)
     {
         using var form = new Add.Form(_config, tournamentId);
 

@@ -2,7 +2,7 @@
 namespace NewEnglandClassic.Models;
 internal class Division
 {
-    public DivisionId Id { get; set; }
+    public NewEnglandClassic.Divisions.Id Id { get; set; }
 
     public short Number { get; set; }
 
