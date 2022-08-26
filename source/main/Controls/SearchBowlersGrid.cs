@@ -1,6 +1,6 @@
 ﻿
 namespace NewEnglandClassic.Contols;
-internal partial class SearchBowlersGrid
+public partial class SearchBowlersGrid
 #if DEBUG
     : SearchBowlersMiddleGrid
 #else
@@ -18,7 +18,7 @@ internal partial class SearchBowlersGrid
 
 #if DEBUG
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-internal class SearchBowlersMiddleGrid : Controls.DataGrid<Bowlers.Search.IViewModel>
+public class SearchBowlersMiddleGrid : Controls.DataGrid<Bowlers.Search.IViewModel>
 {
     public SearchBowlersMiddleGrid()
     {

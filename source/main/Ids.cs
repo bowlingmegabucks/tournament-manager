@@ -5,16 +5,16 @@
 namespace NewEnglandClassic;
 
 [StronglyTypedId]
-internal partial struct BowlerId { }
+public partial struct BowlerId { }
 
 [StronglyTypedId]
-internal partial struct DivisionId { }
+public partial struct DivisionId { }
 
 [StronglyTypedId]
-internal partial struct RegistrationId { }
+public partial struct RegistrationId { }
 
 [StronglyTypedId]
-internal partial struct SquadId { }
+public partial struct SquadId { }
 
 [StronglyTypedId]
-internal partial struct TournamentId { }
+public partial struct TournamentId { }

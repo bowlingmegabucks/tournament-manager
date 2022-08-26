@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-internal partial class DivisionControl : UserControl, Divisions.IViewModel
+public partial class DivisionControl : UserControl, Divisions.IViewModel
 {
     public DivisionControl()
     {

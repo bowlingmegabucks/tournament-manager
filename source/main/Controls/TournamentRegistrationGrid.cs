@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NewEnglandClassic.Controls;
-internal partial class TournamentRegistrationGrid
+public partial class TournamentRegistrationGrid
 #if DEBUG
     : TournamentRegistrationMiddleGrid
 #else
@@ -24,7 +24,7 @@ internal partial class TournamentRegistrationGrid
 
 #if DEBUG
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-internal class TournamentRegistrationMiddleGrid : Controls.DataGrid<Registrations.Retrieve.ITournamentRegistrationViewModel>
+public class TournamentRegistrationMiddleGrid : Controls.DataGrid<Registrations.Retrieve.ITournamentRegistrationViewModel>
 {
     public TournamentRegistrationMiddleGrid()
     {

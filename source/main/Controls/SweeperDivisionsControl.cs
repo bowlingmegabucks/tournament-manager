@@ -1,6 +1,6 @@
 ﻿
 namespace NewEnglandClassic.Contols;
-internal partial class SweeperDivisionsControl : UserControl
+public partial class SweeperDivisionsControl : UserControl
 {
     public SweeperDivisionsControl()
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-internal partial class SweeperControl : UserControl, Sweepers.IViewModel
+public partial class SweeperControl : UserControl, Sweepers.IViewModel
 {
     public SweeperControl()
     {

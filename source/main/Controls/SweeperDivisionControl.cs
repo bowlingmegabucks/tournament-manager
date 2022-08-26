@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-internal partial class SweeperDivisionControl : UserControl
+public partial class SweeperDivisionControl : UserControl
 {
     public DivisionId DivisionId { get; }
     

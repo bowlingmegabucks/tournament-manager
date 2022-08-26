@@ -31,7 +31,7 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
     }
 }
 
-internal interface ITournamentRegistrationViewModel
+public interface ITournamentRegistrationViewModel
 {
     RegistrationId Id { get; }
 

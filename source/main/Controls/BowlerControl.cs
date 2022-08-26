@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
+public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
 {
     private readonly static IDictionary<string, string> _states = new Dictionary<string, string>
     {
