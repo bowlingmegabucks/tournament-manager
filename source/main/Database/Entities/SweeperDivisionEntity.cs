@@ -18,9 +18,9 @@ internal class SweeperDivision
     {
         public void Configure(EntityTypeBuilder<SweeperDivision> builder)
         {
-            builder.Property(sweeperDivision => sweeperDivision.SweeperId).HasConversion(new SquadIdConverter());
+            builder.Property(sweeperDivision => sweeperDivision.SweeperId).HasConversion<SquadId.EfCoreValueConverter>();
 
-            builder.Property(builder => builder.DivisionId).HasConversion(new DivisionIdConverter());
+            builder.Property(builder => builder.DivisionId).HasConversion<DivisionId.EfCoreValueConverter>();
 
             builder.HasKey(e => new { e.SweeperId, e.DivisionId });
             

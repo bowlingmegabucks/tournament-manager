@@ -37,8 +37,8 @@ internal abstract class Squad
     {
         public void Configure(EntityTypeBuilder<Squad> builder)
         {
-            builder.Property(squad => squad.Id).HasConversion(new SquadIdConverter());
-            builder.Property(squad => squad.TournamentId).HasConversion(new TournamentIdConverter());
+            builder.Property(squad => squad.Id).HasConversion<SquadId.EfCoreValueConverter>();
+            builder.Property(squad => squad.TournamentId).HasConversion<TournamentId.EfCoreValueConverter>();
 
             builder.ToTable("Squads")
                       .HasDiscriminator<int>("SquadType")

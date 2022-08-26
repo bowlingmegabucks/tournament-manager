@@ -24,7 +24,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         foreach (var entry in divisionEntries)
         {
-            entries.AppendLine($"{entry.Key}:\t{entry.Value} Entries");
+            entries.AppendLine($"{entry.Key}: {entry.Value} Entries");
         }
 
         divisionEntriesLabel.Text = entries.ToString();
@@ -35,7 +35,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         foreach (var entry in squadEntries)
         {
-            entries.AppendLine($"{entry.Key}:\t{entry.Value} Entries");
+            entries.AppendLine($"{entry.Key}: {entry.Value} Entries");
         }
 
         squadEntriesLabel.Text = entries.ToString();
@@ -46,7 +46,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         foreach (var entry in sweeperEntries)
         {
-            entries.AppendLine($"{entry.Key}:\t{entry.Value} Entries");
+            entries.AppendLine($"{entry.Key}: {entry.Value} Entries");
         }
 
         sweeperEntriesLabel.Text = entries.ToString();

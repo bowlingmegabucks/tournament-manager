@@ -21,6 +21,8 @@ internal class Repository : IRepository
 
     DivisionId IRepository.Add(Database.Entities.Division division)
     {
+        division.Id = DivisionId.New();
+
         _dataContext.Divisions.Add(division);
         _dataContext.SaveChanges();
 

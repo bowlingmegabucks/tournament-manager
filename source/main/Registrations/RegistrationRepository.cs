@@ -21,6 +21,13 @@ internal class Repository : IRepository
 
     RegistrationId IRepository.Add(Database.Entities.Registration registration)
     {
+        if (registration.BowlerId == BowlerId.Empty)
+        {
+            registration.Bowler.Id = BowlerId.New();
+        }
+
+        registration.Id = RegistrationId.New();
+
         _dataContext.Registrations.Add(registration);
         _dataContext.SaveChanges();
 

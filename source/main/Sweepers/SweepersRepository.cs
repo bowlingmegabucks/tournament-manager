@@ -21,6 +21,8 @@ internal class Repository : IRepository
 
     public SquadId Add(Database.Entities.SweeperSquad sweeper)
     {
+        sweeper.Id = SquadId.New();
+
         _dataContext.Sweepers.Add(sweeper);
         _dataContext.SaveChanges();
 

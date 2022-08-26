@@ -44,9 +44,9 @@ internal class Division
     {
         public void Configure(EntityTypeBuilder<Division> builder)
         {
-            builder.Property(division => division.Id).HasConversion(new DivisionIdConverter());
+            builder.Property(division => division.Id).HasConversion<DivisionId.EfCoreValueConverter>();
 
-            builder.Property(division => division.TournamentId).HasConversion(new TournamentIdConverter());
+            builder.Property(division => division.TournamentId).HasConversion<TournamentId.EfCoreValueConverter>();
 
             builder.HasOne(division => division.Tournament)
                       .WithMany(tournament => tournament.Divisions)
@@ -54,6 +54,5 @@ internal class Division
                       .OnDelete(DeleteBehavior.Cascade)
                       .IsRequired();
         }
-
     }
 }

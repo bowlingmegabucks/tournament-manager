@@ -1,6 +1,6 @@
 ﻿using StronglyTypedIds;
 
-[assembly:StronglyTypedIdDefaults(StronglyTypedIdBackingType.Guid, StronglyTypedIdConverter.SystemTextJson)]
+[assembly:StronglyTypedIdDefaults(StronglyTypedIdBackingType.Guid, StronglyTypedIdConverter.SystemTextJson | StronglyTypedIdConverter.EfCoreValueConverter)]
 
 namespace NewEnglandClassic;
 

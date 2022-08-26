@@ -21,6 +21,8 @@ internal class Repository : IRepository
 
     public SquadId Add(Database.Entities.TournamentSquad squad)
     {
+        squad.Id = SquadId.New();
+
         _dataContext.Squads.Add(squad);
         _dataContext.SaveChanges();
 

@@ -45,7 +45,7 @@ partial class TournamentRegistrationGrid
             this.sweepersEnteredColumn,
             this.superSweeperColumn});
             this.GridView.RowTemplate.Height = 25;
-            this.GridView.Size = new System.Drawing.Size(697, 377);
+            this.GridView.Size = new System.Drawing.Size(853, 377);
             // 
             // bowlerNameColumn
             // 
@@ -61,7 +61,7 @@ partial class TournamentRegistrationGrid
             this.divisionNameColumn.HeaderText = "Division";
             this.divisionNameColumn.Name = "divisionNameColumn";
             this.divisionNameColumn.ReadOnly = true;
-            this.divisionNameColumn.Width = 125;
+            this.divisionNameColumn.Width = 180;
             // 
             // squadsEnteredColumn
             // 
@@ -91,7 +91,7 @@ partial class TournamentRegistrationGrid
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "TournamentRegistrationGrid";
-            this.Size = new System.Drawing.Size(697, 377);
+            this.Size = new System.Drawing.Size(853, 377);
             ((System.ComponentModel.ISupportInitialize)(this.GridView)).EndInit();
             this.ResumeLayout(false);
 
