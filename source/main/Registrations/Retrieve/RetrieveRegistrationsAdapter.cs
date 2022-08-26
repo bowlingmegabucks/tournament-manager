@@ -20,7 +20,7 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    IEnumerable<TournamentRegistrationViewModel> IAdapter.Execute(TournamentId tournamentId)
+    IEnumerable<ITournamentRegistrationViewModel> IAdapter.Execute(TournamentId tournamentId)
     {
         var registrations = _businessLogic.Execute(tournamentId);
 
@@ -34,5 +34,5 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<TournamentRegistrationViewModel> Execute(TournamentId tournamentId);
+    IEnumerable<ITournamentRegistrationViewModel> Execute(TournamentId tournamentId);
 }
