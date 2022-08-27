@@ -4,9 +4,9 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
 {
     public RegistrationId Id { get; }
 
-    public string FirstName { get; }
+    public string FirstName { get; init; }
 
-    public string LastName { get; }
+    public string LastName { get; init; }
 
     public string BowlerName { get; }
 
@@ -34,6 +34,19 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
         SquadsEntered = registration.Squads.Select(squad => squad.Id).ToList();
         SweepersEntered = registration.Sweepers.Select(sweeper => sweeper.Id).ToList();
         SuperSweeperEntered = registration.SuperSweeper;
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal TournamentRegistrationViewModel() 
+    {
+        FirstName = string.Empty;
+        LastName = string.Empty;
+        BowlerName = string.Empty;
+        DivisionName = string.Empty;
+        SquadsEntered = Enumerable.Empty<SquadId>();
+        SweepersEntered = Enumerable.Empty<SquadId>();
     }
 }
 

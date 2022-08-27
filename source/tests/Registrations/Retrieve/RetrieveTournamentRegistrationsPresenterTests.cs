@@ -106,12 +106,35 @@ internal class TournamentRegistrationsPresenter
     [Test]
     public void Execute_AdapterCallsHaveNoErrors_ViewBindRegistrationsCalledCorrectly()
     {
-        var registrations = new List<NewEnglandClassic.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registrations = new List<NewEnglandClassic.Registrations.Retrieve.ITournamentRegistrationViewModel>
+        {
+            new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel
+            { 
+                FirstName = "Joe",
+                LastName = "Bowler"
+            },
+            new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel
+            { 
+                FirstName = "John",
+                LastName = "Apples"
+            },
+            new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel
+            { 
+                FirstName = "Jane",
+                LastName = "Bowler"
+            }
+        };
+
         _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<NewEnglandClassic.TournamentId>())).Returns(registrations);
 
         _presenter.Execute();
 
-        _view.Verify(view=> view.BindRegistrations(registrations), Times.Once);
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<NewEnglandClassic.Registrations.Retrieve.ITournamentRegistrationViewModel>>(r => r.First().FirstName == "John")), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<NewEnglandClassic.Registrations.Retrieve.ITournamentRegistrationViewModel>>(r => r.Last().FirstName == "Joe")), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<NewEnglandClassic.Registrations.Retrieve.ITournamentRegistrationViewModel>>(r => r.ToList()[1].FirstName == "Jane")), Times.Once);
+        });
     }
 
     [Test]
