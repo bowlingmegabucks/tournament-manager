@@ -47,6 +47,22 @@ internal class TournamentRegistrationViewModel
     }
 
     [Test]
+    public void Constructor_FirstNameMapped()
+    {
+        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+
+        Assert.That(viewModel.FirstName, Is.EqualTo(_registration.Bowler.FirstName));
+    }
+
+    [Test]
+    public void Constructor_LastNameMapped()
+    {
+        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+
+        Assert.That(viewModel.LastName, Is.EqualTo(_registration.Bowler.LastName));
+    }
+
+    [Test]
     public void Constructor_BowlerNameMapped()
     {
         var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
