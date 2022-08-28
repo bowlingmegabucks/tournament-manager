@@ -10,7 +10,7 @@ internal interface IView
 
     void BindDivisions(IEnumerable<IViewModel> divisions);
 
-    DivisionId? AddDivision(TournamentId tournamentId);
+    NewEnglandClassic.Divisions.Id? AddDivision(TournamentId tournamentId);
 
     void RefreshDivisions();
 }

@@ -19,7 +19,7 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    DivisionId IRepository.Add(Database.Entities.Division division)
+    Id IRepository.Add(Database.Entities.Division division)
     {
         _dataContext.Divisions.Add(division);
         _dataContext.SaveChanges();
@@ -30,15 +30,15 @@ internal class Repository : IRepository
     IEnumerable<Database.Entities.Division> IRepository.Retrieve(TournamentId tournamentId)
         => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId).AsEnumerable();
 
-    Database.Entities.Division IRepository.Retrieve(DivisionId id)
+    Database.Entities.Division IRepository.Retrieve(NewEnglandClassic.Divisions.Id id)
         => _dataContext.Divisions.Single(division => division.Id == id);
 }
 
 internal interface IRepository
 {
-    DivisionId Add(Database.Entities.Division division);
+    Id Add(Database.Entities.Division division);
 
     IEnumerable<Database.Entities.Division> Retrieve(TournamentId tournamentId);
 
-    Database.Entities.Division Retrieve(DivisionId id);
+    Database.Entities.Division Retrieve(Id id);
 }

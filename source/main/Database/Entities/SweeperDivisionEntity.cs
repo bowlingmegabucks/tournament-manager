@@ -8,7 +8,7 @@ internal class SweeperDivision
 
     public SweeperSquad Sweeper { get; set; } = null!;
 
-    public DivisionId DivisionId { get; set; }
+    public Divisions.Id DivisionId { get; set; }
 
     public Division Division { get; set; } = null!;
 
@@ -18,9 +18,9 @@ internal class SweeperDivision
     {
         public void Configure(EntityTypeBuilder<SweeperDivision> builder)
         {
-            builder.Property(sweeperDivision => sweeperDivision.SweeperId).HasConversion(new SquadIdConverter());
+            builder.Property(sweeperDivision => sweeperDivision.SweeperId).HasConversion<SquadId.EfCoreValueConverter>();
 
-            builder.Property(builder => builder.DivisionId).HasConversion(new DivisionIdConverter());
+            builder.Property(builder => builder.DivisionId).HasConversion<Divisions.Id.EfCoreValueConverter>();
 
             builder.HasKey(e => new { e.SweeperId, e.DivisionId });
             

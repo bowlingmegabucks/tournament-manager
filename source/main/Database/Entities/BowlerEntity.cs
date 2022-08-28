@@ -48,7 +48,9 @@ internal class Bowler
     {
         public void Configure(EntityTypeBuilder<Bowler> builder)
         {
-            builder.Property(bowler => bowler.Id).HasConversion(new BowlerIdConverter());
+            builder.Property(bowler => bowler.Id)
+                .HasConversion<BowlerId.EfCoreValueConverter>()
+                .HasValueGenerator<BowlerIdValueGenerator>();
 
             builder.Property(bowler => bowler.DateOfBirth).HasConversion<DateOnlyConverter, DateOnlyComparer>();
 

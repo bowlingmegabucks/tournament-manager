@@ -1,6 +1,6 @@
 ﻿
 namespace NewEnglandClassic.Controls;
-internal partial class SelectSquadControl : UserControl, ISelectedIds
+public partial class SelectSquadControl : UserControl, ISelectedIds
 {
     public SelectSquadControl(SquadId id, string displayText, bool selected)
     {

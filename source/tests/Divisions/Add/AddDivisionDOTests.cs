@@ -43,7 +43,7 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsNewGUID()
     {
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
         _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.Division>())).Returns(divisionId);
 
         var division = new NewEnglandClassic.Models.Division();

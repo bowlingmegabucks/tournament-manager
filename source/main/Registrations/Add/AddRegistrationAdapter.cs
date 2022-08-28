@@ -21,7 +21,7 @@ internal class Adapter : IAdapter
         _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
     }
 
-    public RegistrationId? Execute(Bowlers.Add.IViewModel bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+    public RegistrationId? Execute(Bowlers.Add.IViewModel bowler, NewEnglandClassic.Divisions.Id divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
         => Execute(new Models.Registration(new Models.Bowler(bowler), divisionId, squads, sweepers, superSweeper, average));
 
     private RegistrationId? Execute(Models.Registration registration)
@@ -38,5 +38,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    RegistrationId? Execute(Bowlers.Add.IViewModel bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average);
+    RegistrationId? Execute(Bowlers.Add.IViewModel bowler, NewEnglandClassic.Divisions.Id divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average);
 }

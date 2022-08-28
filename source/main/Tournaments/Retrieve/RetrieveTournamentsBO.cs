@@ -47,7 +47,7 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    Models.Tournament? IBusinessLogic.Execute(DivisionId id)
+    Models.Tournament? IBusinessLogic.Execute(NewEnglandClassic.Divisions.Id id)
     {
         try
         {
@@ -70,5 +70,5 @@ internal interface IBusinessLogic
 
     Models.Tournament? Execute(TournamentId id);
 
-    Models.Tournament? Execute(DivisionId id);
+    Models.Tournament? Execute(NewEnglandClassic.Divisions.Id id);
 }

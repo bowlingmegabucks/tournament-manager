@@ -33,7 +33,7 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public Models.Division? Execute(DivisionId id)
+    public Models.Division? Execute(NewEnglandClassic.Divisions.Id id)
     {
         try
         {
@@ -54,5 +54,5 @@ internal interface IBusinessLogic
 
     IEnumerable<Models.Division> Execute(TournamentId tournamentId);
 
-    Models.Division? Execute(DivisionId id);
+    Models.Division? Execute(NewEnglandClassic.Divisions.Id id);
 }

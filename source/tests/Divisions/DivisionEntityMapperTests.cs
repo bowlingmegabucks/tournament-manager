@@ -13,7 +13,7 @@ internal class EntityMapper
     [Test]
     public void Id_Mapped()
     {
-        var id = DivisionId.New();
+        var id = NewEnglandClassic.Divisions.Id.New();
         var model = new NewEnglandClassic.Models.Division
         {
             Id = id

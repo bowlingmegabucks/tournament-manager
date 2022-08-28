@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-internal partial class DivisionControl : UserControl, Divisions.IViewModel
+public partial class DivisionControl : UserControl, Divisions.IViewModel
 {
     public DivisionControl()
     {
@@ -22,7 +22,7 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
         genderDropdown.DataSource = dictionary.ToList();
     }
 
-    public DivisionId Id { get; set; }
+    public Divisions.Id Id { get; set; }
 
     public short Number
     {

@@ -21,7 +21,7 @@ internal class Adapter
     {
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
@@ -30,9 +30,9 @@ internal class Adapter
 
         _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NewEnglandClassic.Models.Registration>(registration => registration.Bowler.LastName == "lastName" &&
                                                                                                                                 registration.Division.Id == divisionId &&
-                                                                                                                                registration.Sweepers == sweepers &&
+                                                                                                                                registration.Sweepers.Select(sweeper=> sweeper.Id) == sweepers &&
                                                                                                                                 registration.SuperSweeper == superSweeper &&
-                                                                                                                                registration.Squads == squads &&
+                                                                                                                                registration.Squads.Select(squad=> squad.Id) == squads &&
                                                                                                                                 registration.Average == average)), Times.Once);
     }
 
@@ -43,7 +43,7 @@ internal class Adapter
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
@@ -60,7 +60,7 @@ internal class Adapter
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Registration>())).Returns(id);
 
         var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;

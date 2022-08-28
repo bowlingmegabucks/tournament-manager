@@ -86,7 +86,7 @@ internal class BusinessLogic
     {
         _validator.Validate_IsValid();
 
-        var divisionId = DivisionId.New();
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(divisionId);
 
         var division = new NewEnglandClassic.Models.Division();

@@ -1,6 +1,6 @@
 ﻿
 namespace NewEnglandClassic.Contols;
-internal partial class SweepersGrid
+public partial class SweepersGrid
 #if DEBUG
     : SweeperMiddleGrid
 #else
@@ -18,7 +18,7 @@ internal partial class SweepersGrid
 
 #if DEBUG
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-internal class SweeperMiddleGrid : Controls.DataGrid<Sweepers.IViewModel>
+public class SweeperMiddleGrid : Controls.DataGrid<Sweepers.IViewModel>
 {
     public SweeperMiddleGrid()
     {

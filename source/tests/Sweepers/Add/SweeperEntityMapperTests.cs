@@ -118,15 +118,15 @@ internal class EntityMapper
     [Test]
     public void Execute_DivisionsMapped()
     {
-        var division0 = DivisionId.New();
-        var division1 = DivisionId.New();
-        var division2 = DivisionId.New();
-        var division3 = DivisionId.New();
+        var division0 = NewEnglandClassic.Divisions.Id.New();
+        var division1 = NewEnglandClassic.Divisions.Id.New();
+        var division2 = NewEnglandClassic.Divisions.Id.New();
+        var division3 = NewEnglandClassic.Divisions.Id.New();
 
         var model = new NewEnglandClassic.Models.Sweeper
         {
             Id = SquadId.New(),
-            Divisions = new Dictionary<DivisionId, int?>
+            Divisions = new Dictionary<NewEnglandClassic.Divisions.Id, int?>
             {
                 { division0, null},
                 { division1, 1},

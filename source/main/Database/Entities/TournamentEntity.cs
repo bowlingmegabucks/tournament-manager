@@ -49,7 +49,9 @@ internal class Tournament
     {
         public void Configure(EntityTypeBuilder<Tournament> builder)
         {
-            builder.Property(tournament => tournament.Id).HasConversion(new TournamentIdConverter());
+            builder.Property(tournament => tournament.Id)
+                .HasConversion<TournamentId.EfCoreValueConverter>()
+                .HasValueGenerator<TournamentIdValueGenerator>();
 
             builder.Property(tournament => tournament.Start).HasConversion<DateOnlyConverter, DateOnlyComparer>();
             builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();

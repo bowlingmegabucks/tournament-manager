@@ -687,7 +687,7 @@ internal class Validator
     [Test]
     public void Squads_SquadsEmpty_HasError()
     {
-        var squads = Enumerable.Empty<SquadId>();
+        var squads = Enumerable.Empty<NewEnglandClassic.Models.Squad>();
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -701,7 +701,7 @@ internal class Validator
     [Test]
     public void Squads_SquadsNotEmpty_NoError([Range(1, 3)] int count)
     {
-        var squads = Enumerable.Repeat(SquadId.New(), count);
+        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, count);
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -715,7 +715,7 @@ internal class Validator
     [Test]
     public void SuperSweeper_BowlerEntersZeroToAllSweepers_DoesNotEnterSuperSweeper_NoError([Range(0, 3)] int count)
     {
-        var sweepers = Enumerable.Repeat(SquadId.New(), count);
+        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() }, count);
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -731,7 +731,7 @@ internal class Validator
     [Test]
     public void SuperSweeper_BowlerEntersZeroToAllButOneSweeper_EntersSuperSweeper_HasError([Range(0, 2)] int count)
     {
-        var sweepers = Enumerable.Repeat(SquadId.New(), count);
+        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() }, count);
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -747,7 +747,7 @@ internal class Validator
     [Test]
     public void SuperSweeper_BowlerEntersAllSweepers_EntersSuperSweeper_NoError()
     {
-        var sweepers = Enumerable.Repeat(SquadId.New(), 3);
+        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() }, 3);
 
         var registration = new NewEnglandClassic.Models.Registration
         {
@@ -764,7 +764,7 @@ internal class Validator
     [Category("Real")]
     public void AshlieInWomensDivision_Allowed()
     {
-        var squads = Enumerable.Repeat(SquadId.New(), 2);
+        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, 2);
 
         var division = new NewEnglandClassic.Models.Division
         {
@@ -794,7 +794,7 @@ internal class Validator
             Average = null,
             Division = division,
             Squads = squads,
-            Sweepers = Enumerable.Empty<SquadId>(),
+            Sweepers = Enumerable.Empty<NewEnglandClassic.Models.Sweeper>(),
             TournamentStartDate = new DateOnly(DateTime.Now.Year, 11, 24)
         };
 

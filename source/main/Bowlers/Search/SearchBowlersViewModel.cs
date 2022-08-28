@@ -25,7 +25,7 @@ internal class ViewModel : IViewModel
     }
 }
 
-internal interface IViewModel
+public interface IViewModel
 {
     BowlerId Id { get; }
     

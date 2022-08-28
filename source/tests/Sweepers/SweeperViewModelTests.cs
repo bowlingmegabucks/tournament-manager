@@ -20,11 +20,11 @@ internal class SweeperViewModelTests
             Date = DateTime.Now,
             MaxPerPair = 11,
             Complete = true,
-            Divisions = new Dictionary<DivisionId, int?>
+            Divisions = new Dictionary<NewEnglandClassic.Divisions.Id, int?>
             {
-                { DivisionId.New(), 1 },
-                { DivisionId.New(), 2 },
-                { DivisionId.New(), 3 },
+                { NewEnglandClassic.Divisions.Id.New(), 1 },
+                { NewEnglandClassic.Divisions.Id.New(), 2 },
+                { NewEnglandClassic.Divisions.Id.New(), 3 },
             }
         };
 

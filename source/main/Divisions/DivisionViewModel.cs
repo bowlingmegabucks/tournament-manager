@@ -2,7 +2,7 @@
 namespace NewEnglandClassic.Divisions;
 internal class ViewModel : IViewModel
 {
-    public DivisionId Id { get; set; }
+    public Id Id { get; set; }
 
     public short Number { get; set; }
 
@@ -51,9 +51,9 @@ internal class ViewModel : IViewModel
     }
 }
 
-internal interface IViewModel
+public interface IViewModel
 {
-    DivisionId Id { get; set; }
+    Id Id { get; set; }
 
     short Number { get; set; }
     

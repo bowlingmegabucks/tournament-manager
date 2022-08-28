@@ -19,9 +19,9 @@ internal class SquadRegistration
     {
         public void Configure(EntityTypeBuilder<SquadRegistration> builder)
         {
-            builder.Property(squadRegistration => squadRegistration.RegistrationId).HasConversion(new RegistrationIdConverter());
+            builder.Property(squadRegistration => squadRegistration.RegistrationId).HasConversion<RegistrationId.EfCoreValueConverter>();
 
-            builder.Property(squadRegistration => squadRegistration.SquadId).HasConversion(new SquadIdConverter());
+            builder.Property(squadRegistration => squadRegistration.SquadId).HasConversion<SquadId.EfCoreValueConverter>();
 
             builder.HasKey(squadRegistration => new { squadRegistration.RegistrationId, squadRegistration.SquadId });
 

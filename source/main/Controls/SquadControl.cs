@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NewEnglandClassic.Contols;
-internal partial class SquadControl : UserControl, Squads.IViewModel
+public partial class SquadControl : UserControl, Squads.IViewModel
 {
     public SquadControl()
     {
