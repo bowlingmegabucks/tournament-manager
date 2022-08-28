@@ -13,7 +13,7 @@ internal class EntityMapper
     [Test]
     public void Id_Mapped()
     {
-        var id = Guid.NewGuid();
+        var id = NewEnglandClassic.Divisions.Id.New();
         var model = new NewEnglandClassic.Models.Division
         {
             Id = id
@@ -55,7 +55,7 @@ internal class EntityMapper
     [Test]
     public void TournamentId_Mapped()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
         var model = new NewEnglandClassic.Models.Division
         {
             TournamentId = id

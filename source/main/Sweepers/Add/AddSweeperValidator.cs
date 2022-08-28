@@ -5,7 +5,7 @@ internal class Validator : AbstractValidator<Models.Sweeper>
 {
     public Validator()
     {
-        RuleFor(sweeper => sweeper.TournamentId).Must(id => id != Guid.Empty).WithMessage("Tournament Id is required");
+        RuleFor(sweeper => sweeper.TournamentId).Must(id => id != TournamentId.Empty).WithMessage("Tournament Id is required");
         RuleFor(sweeper => sweeper.Tournament).NotNull().WithMessage("Tournament is required");
         RuleFor(sweeper => sweeper.TournamentId).Equal(sweeper => sweeper.Tournament!.Id).When(sweeper => sweeper.Tournament != null).WithMessage("Tournament Id does not match");
 
@@ -15,6 +15,10 @@ internal class Validator : AbstractValidator<Models.Sweeper>
         RuleFor(sweeper => sweeper.Date).LessThanOrEqualTo(sweeper => sweeper.Tournament!.End.ToDateTime(TimeOnly.MaxValue)).When(sweeper => sweeper.Tournament != null).WithMessage("Sweeper date must be before tournament end");
 
         RuleFor(sweeper => sweeper.MaxPerPair).Must(maxPerPair => maxPerPair > 0).WithMessage("Max per pair must be greater than 0");
+
+        RuleFor(sweeper => sweeper.NumberOfLanes).Must(numberOfLanes => numberOfLanes > 0).WithMessage("Number of lanes must be greater than 0");
+
+        RuleFor(sweeper => sweeper.StartingLane).Must(startingLanes => startingLanes > 0).WithMessage("Starting lane must be greater than 0");
 
         RuleFor(sweeper => sweeper.Complete).Must(complete => !complete).WithMessage("Cannot add a completed sweeper");
 

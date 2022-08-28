@@ -1,9 +1,9 @@
 ﻿namespace NewEnglandClassic.Models;
 internal class Squad
 {
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     internal Tournament? Tournament { get; set; }
 
@@ -15,6 +15,10 @@ internal class Squad
     
     public short MaxPerPair { get; set; }
 
+    public short StartingLane { get; set; }
+
+    public short NumberOfLanes { get; set; }
+
     public bool Complete { get; set; }
 
     public Squad(Database.Entities.TournamentSquad squad)
@@ -25,6 +29,8 @@ internal class Squad
         FinalsRatio = squad.FinalsRatio;
         Date = squad.Date;
         MaxPerPair = squad.MaxPerPair;
+        StartingLane = squad.StartingLane;
+        NumberOfLanes = squad.NumberOfLanes;
         Complete = squad.Complete;
     }
 
@@ -36,6 +42,8 @@ internal class Squad
         FinalsRatio = viewModel.FinalsRatio;
         Date = viewModel.Date;
         MaxPerPair = viewModel.MaxPerPair;
+        StartingLane = viewModel.StartingLane;
+        NumberOfLanes = viewModel.NumberOfLanes;
         Complete = viewModel.Complete;
     }
 

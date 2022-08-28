@@ -14,7 +14,7 @@ internal interface IView
 
     void BindDivisions(IEnumerable<Divisions.IViewModel> divisions);
 
-    Guid TournamentId { get; }
+    TournamentId TournamentId { get; }
 
     bool IsValid();
 

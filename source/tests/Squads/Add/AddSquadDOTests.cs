@@ -41,12 +41,12 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsRepositoryAddResponse()
     {
-        var guid = Guid.NewGuid();
-        _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.TournamentSquad>())).Returns(guid);
+        var id = SquadId.New();
+        _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.TournamentSquad>())).Returns(id);
 
         var model = new NewEnglandClassic.Models.Squad();
         var actual = _dataLayer.Execute(model);
 
-        Assert.That(actual, Is.EqualTo(guid));
+        Assert.That(actual, Is.EqualTo(id));
     }
 }

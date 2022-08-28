@@ -7,327 +7,426 @@ using NewEnglandClassic.Database;
 
 #nullable disable
 
-namespace NewEnglandClassic.Database.Migrations;
-
-[DbContext(typeof(DataContext))]
-partial class DataContextModelSnapshot : ModelSnapshot
+namespace NewEnglandClassic.Database.Migrations
 {
-    protected override void BuildModel(ModelBuilder modelBuilder)
+    [DbContext(typeof(DataContext))]
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
+        protected override void BuildModel(ModelBuilder modelBuilder)
+        {
 #pragma warning disable 612, 618
-        modelBuilder
-            .HasAnnotation("ProductVersion", "6.0.6")
-            .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.Bowler", b =>
-            {
-                b.Property<Guid>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("char(36)");
-
-                b.Property<string>("CityAddress")
-                    .IsRequired()
-                    .HasColumnType("longtext");
-
-                b.Property<DateTime?>("DateOfBirth")
-                    .HasColumnType("datetime(6)");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-                b.Property<string>("EmailAddress")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Bowler", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.Property<string>("FirstName")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("CityAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<int?>("Gender")
-                    .HasColumnType("int");
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime(6)");
 
-                b.Property<string>("LastName")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<string>("MiddleInitial")
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .HasColumnType("char(1)")
-                    .IsFixedLength();
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<string>("PhoneNumber")
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .HasColumnType("char(10)")
-                    .IsFixedLength();
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
 
-                b.Property<string>("StateAddress")
-                    .IsRequired()
-                    .HasMaxLength(2)
-                    .HasColumnType("char(2)")
-                    .IsFixedLength();
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<string>("StreetAddress")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("MiddleInitial")
+                        .IsRequired()
+                        .HasMaxLength(1)
+                        .HasColumnType("char(1)")
+                        .IsFixedLength();
 
-                b.Property<string>("Suffix")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("char(10)")
+                        .IsFixedLength();
 
-                b.Property<string>("USBCId")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("StateAddress")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("char(2)")
+                        .IsFixedLength();
 
-                b.Property<string>("ZipCode")
-                    .IsRequired()
-                    .HasMaxLength(9)
-                    .HasColumnType("char(9)")
-                    .IsFixedLength();
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.HasKey("Id");
+                    b.Property<string>("Suffix")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.ToTable("Bowlers");
-            });
+                    b.Property<string>("USBCId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
-            {
-                b.Property<Guid>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("char(36)");
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("char(9)")
+                        .IsFixedLength();
 
-                b.Property<int?>("Gender")
-                    .HasColumnType("int");
+                    b.HasKey("Id");
 
-                b.Property<int?>("HandicapBase")
-                    .HasColumnType("int");
+                    b.ToTable("Bowlers");
+                });
 
-                b.Property<decimal?>("HandicapPercentage")
-                    .HasPrecision(3, 2)
-                    .HasColumnType("decimal(3,2)");
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.Property<short?>("MaximumAge")
-                    .HasColumnType("smallint");
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
 
-                b.Property<int?>("MaximumAverage")
-                    .HasColumnType("int");
+                    b.Property<int?>("HandicapBase")
+                        .HasColumnType("int");
 
-                b.Property<int?>("MaximumHandicapPerGame")
-                    .HasColumnType("int");
+                    b.Property<decimal?>("HandicapPercentage")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
 
-                b.Property<short?>("MinimumAge")
-                    .HasColumnType("smallint");
+                    b.Property<short?>("MaximumAge")
+                        .HasColumnType("smallint");
 
-                b.Property<int?>("MinimumAverage")
-                    .HasColumnType("int");
+                    b.Property<int?>("MaximumAverage")
+                        .HasColumnType("int");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<int?>("MaximumHandicapPerGame")
+                        .HasColumnType("int");
 
-                b.Property<short>("Number")
-                    .HasColumnType("smallint");
+                    b.Property<short?>("MinimumAge")
+                        .HasColumnType("smallint");
 
-                b.Property<Guid>("TournamentId")
-                    .HasColumnType("char(36)");
+                    b.Property<int?>("MinimumAverage")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.HasIndex("TournamentId");
+                    b.Property<short>("Number")
+                        .HasColumnType("smallint");
 
-                b.ToTable("Divisions");
-            });
+                    b.Property<Guid>("TournamentId")
+                        .HasColumnType("char(36)");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.Squad", b =>
-            {
-                b.Property<Guid>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("char(36)");
+                    b.HasKey("Id");
 
-                b.Property<decimal?>("CashRatio")
-                    .HasPrecision(3, 1)
-                    .HasColumnType("decimal(3,1)");
+                    b.HasIndex("TournamentId");
 
-                b.Property<bool>("Complete")
-                    .HasColumnType("tinyint(1)");
+                    b.ToTable("Divisions");
+                });
 
-                b.Property<DateTime>("Date")
-                    .HasColumnType("datetime(6)");
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Registration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.Property<short>("MaxPerPair")
-                    .HasColumnType("smallint");
+                    b.Property<int?>("Average")
+                        .HasColumnType("int");
 
-                b.Property<int>("SquadType")
-                    .HasColumnType("int");
+                    b.Property<Guid>("BowlerId")
+                        .HasColumnType("char(36)");
 
-                b.Property<Guid>("TournamentId")
-                    .HasColumnType("char(36)");
+                    b.Property<Guid>("DivisionId")
+                        .HasColumnType("char(36)");
 
-                b.HasKey("Id");
+                    b.Property<bool>("SuperSweeper")
+                        .HasColumnType("tinyint(1)");
 
-                b.ToTable("Squads", (string)null);
+                    b.HasKey("Id");
 
-                b.HasDiscriminator<int>("SquadType");
-            });
+                    b.HasAlternateKey("BowlerId", "DivisionId");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperDivision", b =>
-            {
-                b.Property<Guid>("SweeperId")
-                    .HasColumnType("char(36)");
+                    b.HasIndex("DivisionId");
 
-                b.Property<Guid>("DivisionId")
-                    .HasColumnType("char(36)");
+                    b.ToTable("Registrations");
+                });
 
-                b.Property<int?>("BonusPinsPerGame")
-                    .HasColumnType("int");
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Squad", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.HasKey("SweeperId", "DivisionId");
+                    b.Property<decimal?>("CashRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
-                b.HasIndex("DivisionId");
+                    b.Property<bool>("Complete")
+                        .HasColumnType("tinyint(1)");
 
-                b.ToTable("SweeperDivision");
-            });
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
-            {
-                b.Property<Guid>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("char(36)");
+                    b.Property<short>("MaxPerPair")
+                        .HasColumnType("smallint");
 
-                b.Property<string>("BowlingCenter")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<short>("NumberOfLanes")
+                        .HasColumnType("smallint");
 
-                b.Property<decimal>("CashRatio")
-                    .HasPrecision(3, 1)
-                    .HasColumnType("decimal(3,1)");
+                    b.Property<int>("SquadType")
+                        .HasColumnType("int");
 
-                b.Property<bool>("Completed")
-                    .HasColumnType("tinyint(1)");
+                    b.Property<short>("StartingLane")
+                        .HasColumnType("smallint");
 
-                b.Property<DateTime>("End")
-                    .HasColumnType("datetime(6)");
+                    b.Property<Guid>("TournamentId")
+                        .HasColumnType("char(36)");
 
-                b.Property<decimal>("EntryFee")
-                    .HasPrecision(5, 2)
-                    .HasColumnType("decimal(5,2)");
+                    b.HasKey("Id");
 
-                b.Property<decimal>("FinalsRatio")
-                    .HasPrecision(3, 1)
-                    .HasColumnType("decimal(3,1)");
+                    b.ToTable("Squads", (string)null);
 
-                b.Property<short>("Games")
-                    .HasColumnType("smallint");
+                    b.HasDiscriminator<int>("SquadType");
+                });
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SquadRegistration", b =>
+                {
+                    b.Property<Guid>("RegistrationId")
+                        .HasColumnType("char(36)");
 
-                b.Property<DateTime>("Start")
-                    .HasColumnType("datetime(6)");
+                    b.Property<Guid>("SquadId")
+                        .HasColumnType("char(36)");
 
-                b.HasKey("Id");
+                    b.HasKey("RegistrationId", "SquadId");
 
-                b.ToTable("Tournaments");
-            });
+                    b.HasIndex("SquadId");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperSquad", b =>
-            {
-                b.HasBaseType("NewEnglandClassic.Database.Entities.Squad");
+                    b.ToTable("SquadRegistration");
+                });
 
-                b.Property<decimal>("EntryFee")
-                    .HasPrecision(5, 2)
-                    .HasColumnType("decimal(5,2)");
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperDivision", b =>
+                {
+                    b.Property<Guid>("SweeperId")
+                        .HasColumnType("char(36)");
 
-                b.Property<short>("Games")
-                    .HasColumnType("smallint");
+                    b.Property<Guid>("DivisionId")
+                        .HasColumnType("char(36)");
 
-                b.HasIndex("TournamentId");
+                    b.Property<int?>("BonusPinsPerGame")
+                        .HasColumnType("int");
 
-                b.HasDiscriminator().HasValue(1);
-            });
+                    b.HasKey("SweeperId", "DivisionId");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.TournamentSquad", b =>
-            {
-                b.HasBaseType("NewEnglandClassic.Database.Entities.Squad");
+                    b.HasIndex("DivisionId");
 
-                b.Property<decimal?>("FinalsRatio")
-                    .HasPrecision(3, 1)
-                    .HasColumnType("decimal(3,1)");
+                    b.ToTable("SweeperDivision");
+                });
 
-                b.HasIndex("TournamentId");
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.HasDiscriminator().HasValue(0);
-            });
+                    b.Property<string>("BowlingCenter")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
-            {
-                b.HasOne("NewEnglandClassic.Database.Entities.Tournament", "Tournament")
-                    .WithMany("Divisions")
-                    .HasForeignKey("TournamentId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.Property<decimal>("CashRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
-                b.Navigation("Tournament");
-            });
+                    b.Property<bool>("Completed")
+                        .HasColumnType("tinyint(1)");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperDivision", b =>
-            {
-                b.HasOne("NewEnglandClassic.Database.Entities.Division", "Division")
-                    .WithMany("Sweepers")
-                    .HasForeignKey("DivisionId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime(6)");
 
-                b.HasOne("NewEnglandClassic.Database.Entities.SweeperSquad", "Sweeper")
-                    .WithMany("Divisions")
-                    .HasForeignKey("SweeperId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.Property<decimal>("EntryFee")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
-                b.Navigation("Division");
+                    b.Property<decimal>("FinalsRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
-                b.Navigation("Sweeper");
-            });
+                    b.Property<short>("Games")
+                        .HasColumnType("smallint");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperSquad", b =>
-            {
-                b.HasOne("NewEnglandClassic.Database.Entities.Tournament", "Tournament")
-                    .WithMany("Sweepers")
-                    .HasForeignKey("TournamentId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Navigation("Tournament");
-            });
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime(6)");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.TournamentSquad", b =>
-            {
-                b.HasOne("NewEnglandClassic.Database.Entities.Tournament", "Tournament")
-                    .WithMany("Squads")
-                    .HasForeignKey("TournamentId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasKey("Id");
 
-                b.Navigation("Tournament");
-            });
+                    b.ToTable("Tournaments");
+                });
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
-            {
-                b.Navigation("Sweepers");
-            });
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperSquad", b =>
+                {
+                    b.HasBaseType("NewEnglandClassic.Database.Entities.Squad");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
-            {
-                b.Navigation("Divisions");
+                    b.Property<decimal>("EntryFee")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
-                b.Navigation("Squads");
+                    b.Property<short>("Games")
+                        .HasColumnType("smallint");
 
-                b.Navigation("Sweepers");
-            });
+                    b.HasIndex("TournamentId");
 
-        modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperSquad", b =>
-            {
-                b.Navigation("Divisions");
-            });
+                    b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.TournamentSquad", b =>
+                {
+                    b.HasBaseType("NewEnglandClassic.Database.Entities.Squad");
+
+                    b.Property<decimal?>("FinalsRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
+
+                    b.HasIndex("TournamentId");
+
+                    b.HasDiscriminator().HasValue(0);
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
+                {
+                    b.HasOne("NewEnglandClassic.Database.Entities.Tournament", "Tournament")
+                        .WithMany("Divisions")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tournament");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Registration", b =>
+                {
+                    b.HasOne("NewEnglandClassic.Database.Entities.Bowler", "Bowler")
+                        .WithMany("Registrations")
+                        .HasForeignKey("BowlerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("NewEnglandClassic.Database.Entities.Division", "Division")
+                        .WithMany("Registrations")
+                        .HasForeignKey("DivisionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Bowler");
+
+                    b.Navigation("Division");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SquadRegistration", b =>
+                {
+                    b.HasOne("NewEnglandClassic.Database.Entities.Registration", "Registration")
+                        .WithMany("Squads")
+                        .HasForeignKey("RegistrationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("NewEnglandClassic.Database.Entities.Squad", "Squad")
+                        .WithMany("Registrations")
+                        .HasForeignKey("SquadId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Registration");
+
+                    b.Navigation("Squad");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperDivision", b =>
+                {
+                    b.HasOne("NewEnglandClassic.Database.Entities.Division", "Division")
+                        .WithMany("Sweepers")
+                        .HasForeignKey("DivisionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NewEnglandClassic.Database.Entities.SweeperSquad", "Sweeper")
+                        .WithMany("Divisions")
+                        .HasForeignKey("SweeperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Division");
+
+                    b.Navigation("Sweeper");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperSquad", b =>
+                {
+                    b.HasOne("NewEnglandClassic.Database.Entities.Tournament", "Tournament")
+                        .WithMany("Sweepers")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tournament");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.TournamentSquad", b =>
+                {
+                    b.HasOne("NewEnglandClassic.Database.Entities.Tournament", "Tournament")
+                        .WithMany("Squads")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tournament");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Bowler", b =>
+                {
+                    b.Navigation("Registrations");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Division", b =>
+                {
+                    b.Navigation("Registrations");
+
+                    b.Navigation("Sweepers");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Registration", b =>
+                {
+                    b.Navigation("Squads");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Squad", b =>
+                {
+                    b.Navigation("Registrations");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.Tournament", b =>
+                {
+                    b.Navigation("Divisions");
+
+                    b.Navigation("Squads");
+
+                    b.Navigation("Sweepers");
+                });
+
+            modelBuilder.Entity("NewEnglandClassic.Database.Entities.SweeperSquad", b =>
+                {
+                    b.Navigation("Divisions");
+                });
 #pragma warning restore 612, 618
+        }
     }
 }

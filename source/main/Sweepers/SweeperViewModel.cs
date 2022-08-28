@@ -2,9 +2,9 @@
 namespace NewEnglandClassic.Sweepers;
 internal class ViewModel : IViewModel
 {
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public decimal EntryFee { get; set; }
 
@@ -16,9 +16,13 @@ internal class ViewModel : IViewModel
 
     public short MaxPerPair { get; set; }
 
+    public short StartingLane { get; set; }
+
+    public short NumberOfLanes { get; set; }
+
     public bool Complete { get; set; }
 
-    public IDictionary<Guid, int?> Divisions { get; set; } = new Dictionary<Guid, int?>();
+    public IDictionary<NewEnglandClassic.Divisions.Id, int?> Divisions { get; set; } = new Dictionary<NewEnglandClassic.Divisions.Id, int?>();
 
     public ViewModel(Models.Sweeper sweeper)
     {
@@ -30,15 +34,15 @@ internal class ViewModel : IViewModel
         Date = sweeper.Date;
         MaxPerPair = sweeper.MaxPerPair;
         Complete = sweeper.Complete;
-        Divisions = sweeper.Divisions;
+        Divisions = sweeper.Divisions.ToDictionary(division=> division.Key, division=> division.Value);
     }
 }
 
-internal interface IViewModel
+public interface IViewModel
 {
-    Guid Id { get; set; }
+    SquadId Id { get; set; }
 
-    Guid TournamentId { get; set; }
+    TournamentId TournamentId { get; set; }
 
     decimal EntryFee { get; set; }
 
@@ -50,7 +54,11 @@ internal interface IViewModel
 
     short MaxPerPair { get; set; }
 
+    short StartingLane { get; set; }
+
+    short NumberOfLanes { get; set; }
+
     bool Complete { get; set; }
 
-    IDictionary<Guid, int?> Divisions { get; }
+    IDictionary<NewEnglandClassic.Divisions.Id, int?> Divisions { get; }
 }

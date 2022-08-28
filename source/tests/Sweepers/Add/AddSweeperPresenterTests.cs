@@ -23,12 +23,12 @@ internal class Presenter
     [Test]
     public void GetDivisions_RetrieveDivisionsAdapter_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.GetDivisions();
 
-        _retrieveDivisionsAdapter.Verify(adapter => adapter.ForTournament(tournamentId));
+        _retrieveDivisionsAdapter.Verify(adapter => adapter.Execute(tournamentId));
     }
 
     [Test]
@@ -37,7 +37,7 @@ internal class Presenter
         var error = new NewEnglandClassic.Models.ErrorDetail("error");
         _retrieveDivisionsAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.GetDivisions();
@@ -55,9 +55,9 @@ internal class Presenter
     public void GetDivisions_RetrieveDivisionsAdapterHasNoError_ViewBindDivisions_CalledCorrectly()
     {
         var divisions = new Mock<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>();
-        _retrieveDivisionsAdapter.Setup(adapter => adapter.ForTournament(It.IsAny<Guid>())).Returns(divisions.Object);
+        _retrieveDivisionsAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(divisions.Object);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.GetDivisions();
@@ -90,7 +90,7 @@ internal class Presenter
             _view.Verify(view => view.KeepOpen(), Times.Once);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
-            sweeper.VerifySet(s => s.Id = It.IsAny<Guid>(), Times.Never);
+            sweeper.VerifySet(s => s.Id = It.IsAny<SquadId>(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
@@ -103,7 +103,7 @@ internal class Presenter
         var sweeper = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
         _view.SetupGet(view => view.Sweeper).Returns(sweeper.Object);
 
-        var sweeperId = Guid.NewGuid();
+        var sweeperId = SquadId.New();
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Sweepers.IViewModel>())).Returns(sweeperId);
 
         _presenter.Execute();
@@ -136,7 +136,7 @@ internal class Presenter
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
-            sweeper.VerifySet(s => s.Id = It.IsAny<Guid>(), Times.Never);
+            sweeper.VerifySet(s => s.Id = It.IsAny<SquadId>(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
@@ -150,7 +150,7 @@ internal class Presenter
         sweeper.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 00));
         _view.SetupGet(view => view.Sweeper).Returns(sweeper.Object);
 
-        var sweeperId = Guid.NewGuid();
+        var sweeperId = SquadId.New();
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Sweepers.IViewModel>())).Returns(sweeperId);
 
         _presenter.Execute();

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 namespace NewEnglandClassic.Database.Entities;
 internal class SweeperDivision
 {
-    public Guid SweeperId { get; set; }
+    public SquadId SweeperId { get; set; }
 
     public SweeperSquad Sweeper { get; set; } = null!;
 
-    public Guid DivisionId { get; set; }
+    public Divisions.Id DivisionId { get; set; }
 
     public Division Division { get; set; } = null!;
 
@@ -18,6 +18,10 @@ internal class SweeperDivision
     {
         public void Configure(EntityTypeBuilder<SweeperDivision> builder)
         {
+            builder.Property(sweeperDivision => sweeperDivision.SweeperId).HasConversion<SquadId.EfCoreValueConverter>();
+
+            builder.Property(builder => builder.DivisionId).HasConversion<Divisions.Id.EfCoreValueConverter>();
+
             builder.HasKey(e => new { e.SweeperId, e.DivisionId });
             
             builder.HasOne(squad => squad.Sweeper)

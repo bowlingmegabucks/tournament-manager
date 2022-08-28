@@ -28,61 +28,59 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.ButtonCancel = new System.Windows.Forms.Button();
-            this.ButtonSave = new System.Windows.Forms.Button();
-            this.DivisionNew = new NewEnglandClassic.Contols.DivisionControl();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.newDivision = new NewEnglandClassic.Contols.DivisionControl();
             this.SuspendLayout();
             // 
-            // ButtonCancel
+            // cancelButton
             // 
-            this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(12, 502);
-            this.ButtonCancel.Name = "ButtonCancel";
-            this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCancel.TabIndex = 4;
-            this.ButtonCancel.Text = "Cancel";
-            this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(12, 502);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 4;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
             // 
-            // ButtonSave
+            // saveButton
             // 
-            this.ButtonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonSave.Location = new System.Drawing.Point(357, 502);
-            this.ButtonSave.Name = "ButtonSave";
-            this.ButtonSave.Size = new System.Drawing.Size(75, 23);
-            this.ButtonSave.TabIndex = 3;
-            this.ButtonSave.Text = "Save";
-            this.ButtonSave.UseVisualStyleBackColor = true;
-            this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
+            this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.saveButton.Location = new System.Drawing.Point(357, 502);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 3;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
-            // DivisionNew
+            // newDivision
             // 
-            this.DivisionNew.DivisionName = "";
-            this.DivisionNew.Gender = null;
-            this.DivisionNew.HandicapBase = null;
-            this.DivisionNew.HandicapPercentage = null;
-            this.DivisionNew.Id = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.DivisionNew.Location = new System.Drawing.Point(1, 12);
-            this.DivisionNew.MaximumAge = null;
-            this.DivisionNew.MaximumAverage = null;
-            this.DivisionNew.MaximumHandicapPerGame = null;
-            this.DivisionNew.MinimumAge = null;
-            this.DivisionNew.MinimumAverage = null;
-            this.DivisionNew.Name = "DivisionNew";
-            this.DivisionNew.Size = new System.Drawing.Size(463, 484);
-            this.DivisionNew.TabIndex = 5;
-            this.DivisionNew.TournamentId = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.newDivision.DivisionName = "";
+            this.newDivision.Gender = null;
+            this.newDivision.HandicapBase = null;
+            this.newDivision.HandicapPercentage = null;
+            this.newDivision.Location = new System.Drawing.Point(1, 12);
+            this.newDivision.MaximumAge = null;
+            this.newDivision.MaximumAverage = null;
+            this.newDivision.MaximumHandicapPerGame = null;
+            this.newDivision.MinimumAge = null;
+            this.newDivision.MinimumAverage = null;
+            this.newDivision.Name = "newDivision";
+            this.newDivision.Size = new System.Drawing.Size(463, 484);
+            this.newDivision.TabIndex = 5;
             // 
             // Form
             // 
-            this.AcceptButton = this.ButtonSave;
+            this.AcceptButton = this.saveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.CancelButton = this.ButtonCancel;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(476, 542);
-            this.Controls.Add(this.DivisionNew);
-            this.Controls.Add(this.ButtonCancel);
-            this.Controls.Add(this.ButtonSave);
+            this.Controls.Add(this.newDivision);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.saveButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form";
@@ -93,7 +91,7 @@ partial class Form
     }
 
     #endregion
-    private Button ButtonCancel;
-    private Button ButtonSave;
-    private Contols.DivisionControl DivisionNew;
+    private Button cancelButton;
+    private Button saveButton;
+    private Contols.DivisionControl newDivision;
 }

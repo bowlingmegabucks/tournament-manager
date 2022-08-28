@@ -16,7 +16,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Sweeper
         {
-            Id = Guid.NewGuid()
+            Id = SquadId.New()
         };
 
         var entity = _mapper.Execute(model);
@@ -29,7 +29,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var entity = _mapper.Execute(model);
@@ -118,15 +118,15 @@ internal class EntityMapper
     [Test]
     public void Execute_DivisionsMapped()
     {
-        var division0 = Guid.NewGuid();
-        var division1 = Guid.NewGuid();
-        var division2 = Guid.NewGuid();
-        var division3 = Guid.NewGuid();
+        var division0 = NewEnglandClassic.Divisions.Id.New();
+        var division1 = NewEnglandClassic.Divisions.Id.New();
+        var division2 = NewEnglandClassic.Divisions.Id.New();
+        var division3 = NewEnglandClassic.Divisions.Id.New();
 
         var model = new NewEnglandClassic.Models.Sweeper
         {
-            Id = Guid.NewGuid(),
-            Divisions = new Dictionary<Guid, int?>
+            Id = SquadId.New(),
+            Divisions = new Dictionary<NewEnglandClassic.Divisions.Id, int?>
             {
                 { division0, null},
                 { division1, 1},

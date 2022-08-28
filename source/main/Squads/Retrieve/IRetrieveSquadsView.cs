@@ -2,7 +2,7 @@
 namespace NewEnglandClassic.Squads.Retrieve;
 internal interface IView
 {
-    Guid TournamentId { get; }
+    TournamentId TournamentId { get; }
     
     void BindSquads(IEnumerable<IViewModel> squads);
     
@@ -10,7 +10,7 @@ internal interface IView
     
     void DisplayError(string message);
 
-    Guid? AddSquad(Guid tournamentId);
+    SquadId? AddSquad(TournamentId tournamentId);
 
     void RefreshSquads();
 }

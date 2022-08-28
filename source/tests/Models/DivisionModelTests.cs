@@ -6,14 +6,14 @@ internal class Division
     [Test]
     public void Constructor_ViewModel_IdMapped()
     {
-        var guid = Guid.NewGuid();
+        var id = NewEnglandClassic.Divisions.Id.New();
 
         var viewModel = new Mock<NewEnglandClassic.Divisions.IViewModel>();
-        viewModel.SetupGet(v => v.Id).Returns(guid);
+        viewModel.SetupGet(v => v.Id).Returns(id);
 
         var model = new NewEnglandClassic.Models.Division(viewModel.Object);
 
-        Assert.That(model.Id, Is.EqualTo(guid));
+        Assert.That(model.Id, Is.EqualTo(id));
     }
 
     [Test]
@@ -45,7 +45,7 @@ internal class Division
     [Test]
     public void Constructor_ViewModel_TournamentIdMapped()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
         var viewModel = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.TournamentId).Returns(tournamentId);
@@ -146,16 +146,16 @@ internal class Division
     [Test]
     public void Constructor_Entities_IdMapped()
     {
-        var guid = Guid.NewGuid();
+        var id = NewEnglandClassic.Divisions.Id.New();
 
         var entity = new NewEnglandClassic.Database.Entities.Division
         {
-            Id = guid
+            Id = id
         };
 
         var model = new NewEnglandClassic.Models.Division(entity);
 
-        Assert.That(model.Id, Is.EqualTo(guid));
+        Assert.That(model.Id, Is.EqualTo(id));
     }
 
     [Test]
@@ -191,7 +191,7 @@ internal class Division
     [Test]
     public void Constructor_Entities_TournamentIdMapped()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
         var entity = new NewEnglandClassic.Database.Entities.Division
         {

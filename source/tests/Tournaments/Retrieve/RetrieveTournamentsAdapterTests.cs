@@ -71,7 +71,7 @@ internal class Adapter
     [Test]
     public void Execute_TournamentId_BusinessLogicExecute_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
         _adapter.Execute(tournamentId);
 
@@ -81,7 +81,7 @@ internal class Adapter
     [Test]
     public void Execute_TournamentId_BusinessLogicExecuteReturnsNull_NullReturned()
     {
-        var result = _adapter.Execute(Guid.NewGuid());
+        var result = _adapter.Execute(TournamentId.New());
 
         Assert.That(result, Is.Null);
     }
@@ -89,10 +89,10 @@ internal class Adapter
     [Test]
     public void Execute_TournamentId_BusinessLogicExecuteReturnsTournament_TournamentReturned()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament { Id = Guid.NewGuid() };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<Guid>())).Returns(tournament);
+        var tournament = new NewEnglandClassic.Models.Tournament { Id = TournamentId.New() };
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var result = _adapter.Execute(Guid.NewGuid());
+        var result = _adapter.Execute(TournamentId.New());
 
         Assert.That(result.Id, Is.EqualTo(tournament.Id));
     }

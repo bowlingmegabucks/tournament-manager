@@ -2,9 +2,9 @@
 namespace NewEnglandClassic.Models;
 internal class Sweeper
 {
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     internal Tournament? Tournament { get; set; }
 
@@ -18,9 +18,13 @@ internal class Sweeper
 
     public short MaxPerPair { get; set; }
 
+    public short StartingLane { get; set; }
+
+    public short NumberOfLanes { get;set; }
+
     public bool Complete { get; set; }
 
-    public IDictionary<Guid, int?> Divisions { get; set; }
+    public IDictionary<NewEnglandClassic.Divisions.Id, int?> Divisions { get; set; }
 
     public Sweeper(Sweepers.IViewModel viewModel)
     {
@@ -31,6 +35,8 @@ internal class Sweeper
         CashRatio = viewModel.CashRatio;
         Date = viewModel.Date;
         MaxPerPair = viewModel.MaxPerPair;
+        StartingLane = viewModel.StartingLane;
+        NumberOfLanes = viewModel.NumberOfLanes;
         Complete = viewModel.Complete;
         Divisions = viewModel.Divisions;
     }
@@ -44,8 +50,10 @@ internal class Sweeper
         CashRatio = sweeper.CashRatio!.Value;
         Date = sweeper.Date;
         MaxPerPair = sweeper.MaxPerPair;
+        StartingLane = sweeper.StartingLane;
+        NumberOfLanes = sweeper.NumberOfLanes;
         Complete = sweeper.Complete;
-        Divisions = sweeper.Divisions.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame);
+        Divisions = sweeper.Divisions?.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame) ?? new Dictionary<NewEnglandClassic.Divisions.Id, int?>();
     }
 
     /// <summary>
@@ -53,6 +61,6 @@ internal class Sweeper
     /// </summary>
     internal Sweeper()
     {
-        Divisions = new Dictionary<Guid, int?>();
+        Divisions = new Dictionary<NewEnglandClassic.Divisions.Id, int?>();
     }
 }

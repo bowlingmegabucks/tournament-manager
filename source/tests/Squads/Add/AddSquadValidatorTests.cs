@@ -17,7 +17,7 @@ internal class Validator
     {
         var squad = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.Empty
+            TournamentId = TournamentId.Empty
         };
 
         var result = _validator.TestValidate(squad);
@@ -43,7 +43,7 @@ internal class Validator
         {
             Tournament = new NewEnglandClassic.Models.Tournament
             {
-                Id = Guid.NewGuid()
+                Id = TournamentId.New()
             }
         };
 
@@ -54,8 +54,8 @@ internal class Validator
     [Test]
     public void TournamentId_NotEmpty_DoesNotMatchTournamentTournamentId_HasError()
     {
-        var id1 = Guid.NewGuid();
-        var id2 = Guid.NewGuid();
+        var id1 = TournamentId.New();
+        var id2 = TournamentId.New();
 
         var squad = new NewEnglandClassic.Models.Squad
         {
@@ -73,7 +73,7 @@ internal class Validator
     [Test]
     public void TournamentId_NotEmpty_MatchesTournamentTournamentId_NoError()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
 
         var squad = new NewEnglandClassic.Models.Squad
         {
@@ -280,6 +280,54 @@ internal class Validator
 
         var result = _validator.TestValidate(squad);
         result.ShouldNotHaveValidationErrorFor(squad => squad.MaxPerPair);
+    }
+
+    [Test]
+    public void StartingLane_LessThanOrEqualToZero_HasError([Values(-1, 0)] short startingLane)
+    {
+        var squad = new NewEnglandClassic.Models.Squad
+        {
+            StartingLane = startingLane
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldHaveValidationErrorFor(squad => squad.StartingLane).WithErrorMessage("Starting lane must be greater than 0");
+    }
+
+    [Test]
+    public void StartingLane_GreaterThanZero_NoError()
+    {
+        var squad = new NewEnglandClassic.Models.Squad
+        {
+            StartingLane = 1
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldNotHaveValidationErrorFor(squad => squad.StartingLane);
+    }
+
+    [Test]
+    public void NumberOfLanes_LessThanOrEqualToZero_HasError([Values(-1, 0)] short numberOfLanes)
+    {
+        var squad = new NewEnglandClassic.Models.Squad
+        {
+            NumberOfLanes = numberOfLanes
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldHaveValidationErrorFor(squad => squad.NumberOfLanes).WithErrorMessage("Number of lanes must be greater than 0");
+    }
+
+    [Test]
+    public void NumberOfLanes_GreaterThanZero_NoError()
+    {
+        var squad = new NewEnglandClassic.Models.Squad
+        {
+            NumberOfLanes = 1
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldNotHaveValidationErrorFor(squad => squad.NumberOfLanes);
     }
 
     [Test]

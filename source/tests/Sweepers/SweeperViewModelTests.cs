@@ -12,19 +12,19 @@ internal class SweeperViewModelTests
     {
         _model = new()
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
             EntryFee = 100,
             Games = 3,
             CashRatio = 0.5m,
             Date = DateTime.Now,
             MaxPerPair = 11,
             Complete = true,
-            Divisions = new Dictionary<Guid, int?>
+            Divisions = new Dictionary<NewEnglandClassic.Divisions.Id, int?>
             {
-                { Guid.NewGuid(), 1 },
-                { Guid.NewGuid(), 2 },
-                { Guid.NewGuid(), 3 },
+                { NewEnglandClassic.Divisions.Id.New(), 1 },
+                { NewEnglandClassic.Divisions.Id.New(), 2 },
+                { NewEnglandClassic.Divisions.Id.New(), 3 },
             }
         };
 

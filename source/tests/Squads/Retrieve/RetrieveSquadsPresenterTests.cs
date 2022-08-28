@@ -19,14 +19,14 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_GetSquadsAdapterForTournament_CalledCorrectly()
+    public void Execute_GetSquadsAdapterExecute_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.Execute();
 
-        _getSquadsAdapter.Verify(a => a.ForTournament(tournamentId), Times.Once);
+        _getSquadsAdapter.Verify(a => a.Execute(tournamentId), Times.Once);
     }
 
     [Test]
@@ -63,7 +63,7 @@ internal class Presenter
         squad3.SetupGet(squad => squad.MaxPerPair).Returns(3);
 
         var squads = new[] { squad1.Object, squad2.Object, squad3.Object };
-        _getSquadsAdapter.Setup(getSquadsAdapter => getSquadsAdapter.ForTournament(It.IsAny<Guid>())).Returns(squads);
+        _getSquadsAdapter.Setup(getSquadsAdapter => getSquadsAdapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
         _presenter.Execute();
 
@@ -78,7 +78,7 @@ internal class Presenter
     [Test]
     public void AddSquad_ViewAddSquad_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         _presenter.AddSquad();
@@ -89,7 +89,7 @@ internal class Presenter
     [Test]
     public void AddSquad_ViewAddSquadReturnsNull_ViewRefreshSquads_NotCalled()
     {
-        _view.Setup(view => view.AddSquad(It.IsAny<Guid>())).Returns((Guid?)null);
+        _view.Setup(view => view.AddSquad(It.IsAny<TournamentId>())).Returns((SquadId?)null);
 
         _presenter.AddSquad();
 
@@ -97,9 +97,9 @@ internal class Presenter
     }
 
     [Test]
-    public void AddSquad_ViewAddSquadReturnsGuid_ViewRefreshSquads_Called()
+    public void AddSquad_ViewAddSquadReturnsId_ViewRefreshSquads_Called()
     {
-        _view.Setup(view => view.AddSquad(It.IsAny<Guid>())).Returns(Guid.NewGuid());
+        _view.Setup(view => view.AddSquad(It.IsAny<TournamentId>())).Returns(SquadId.New());
 
         _presenter.AddSquad();
 

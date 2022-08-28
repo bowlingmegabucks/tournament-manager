@@ -24,7 +24,7 @@ internal class Presenter
 
     public void Execute()
     {
-        var sweepers = _getSweepersAdapter.ForTournament(_view.TournamentId);
+        var sweepers = _getSweepersAdapter.Execute(_view.TournamentId);
 
         if (_getSweepersAdapter.Error != null)
         {

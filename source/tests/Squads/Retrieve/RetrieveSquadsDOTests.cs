@@ -16,17 +16,17 @@ internal class DataLayer
     }
 
     [Test]
-    public void ForTournament_RepositoryForTournament_Called()
+    public void Execute_RepositoryRetrieve_Called()
     {
-        var guid = Guid.NewGuid();
+        var id = TournamentId.New();
 
-        _dataLayer.ForTournament(guid);
+        _dataLayer.Execute(id);
 
-        _repository.Verify(repository => repository.ForTournament(guid), Times.Once);
+        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
     }
 
     [Test]
-    public void ForTournament_ReturnsRepositoryForTournamentResponse()
+    public void Execute_ReturnsRepositoryRetrieveResponse()
     {
         var squad1 = new NewEnglandClassic.Database.Entities.TournamentSquad
         {
@@ -45,9 +45,9 @@ internal class DataLayer
 
         var squads = new[] { squad1, squad2, squad3 };
 
-        _repository.Setup(repository => repository.ForTournament(It.IsAny<Guid>())).Returns(squads);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(squads);
 
-        var actual = _dataLayer.ForTournament(Guid.NewGuid());
+        var actual = _dataLayer.Execute(TournamentId.New());
 
         Assert.Multiple(() =>
         {

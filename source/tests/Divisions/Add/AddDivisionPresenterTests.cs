@@ -20,17 +20,17 @@ internal class Presenter
     }
 
     [Test]
-    public void GetNextDivisionNumber_RetrieveDivisionsAdapterForTournament_CalledCorrectly()
+    public void GetNextDivisionNumber_RetrieveDivisionsAdapterExecute_CalledCorrectly()
     {
         var division = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
         
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 
         _presenter.GetNextDivisionNumber();
 
-        _retrieveAdapter.Verify(adapter => adapter.ForTournament(tournamentId), Times.Once);
+        _retrieveAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
     }
 
     [Test]
@@ -39,7 +39,7 @@ internal class Presenter
         var division = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 
         var error = new NewEnglandClassic.Models.ErrorDetail("error");
@@ -62,11 +62,11 @@ internal class Presenter
         var division = new Mock<NewEnglandClassic.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
         division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 
         var divisions = Enumerable.Repeat(new Mock<NewEnglandClassic.Divisions.IViewModel>(), divisionCount).Select(mock => mock.Object).ToList();
-        _retrieveAdapter.Setup(retrieveAdapter => retrieveAdapter.ForTournament(It.IsAny<Guid>())).Returns(divisions);
+        _retrieveAdapter.Setup(retrieveAdapter => retrieveAdapter.Execute(It.IsAny<TournamentId>())).Returns(divisions);
 
         _presenter.GetNextDivisionNumber();
 

@@ -1,8 +1,11 @@
 ﻿
+using System.Text;
+
 namespace NewEnglandClassic.Models;
+
 internal class Bowler
 {
-    public Guid Id { get; set; }
+    public BowlerId Id { get; set; }
 
     public string FirstName { get; set; } = string.Empty;
 
@@ -29,6 +32,25 @@ internal class Bowler
     public DateOnly? DateOfBirth { get; set; }
 
     public Gender? Gender { get; set; }
+
+    public int? Age => AgeOn(DateOnly.FromDateTime(DateTime.Today));
+
+    internal int? AgeOn(DateOnly date)
+    {
+        if (!DateOfBirth.HasValue)
+        {
+            return null;
+        }
+
+        var age = date.Year - DateOfBirth.Value.Year;
+
+        if (DateOfBirth > date.AddYears(-age))
+        {
+            age--;
+        }
+
+        return age;
+    }
 
     public Bowler(Database.Entities.Bowler bowler)
     {
@@ -72,5 +94,17 @@ internal class Bowler
     internal Bowler()
     {
 
+    }
+
+    public override string ToString()
+    {
+        var name = new StringBuilder($"{FirstName} {LastName}");
+
+        if (!string.IsNullOrEmpty(Suffix))
+        {
+            name.Append($", {Suffix}");
+        }
+
+        return name.ToString();
     }
 }

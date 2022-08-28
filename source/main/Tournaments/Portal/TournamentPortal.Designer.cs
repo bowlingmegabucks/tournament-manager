@@ -1,164 +1,1 @@
-﻿namespace NewEnglandClassic.Tournaments.Portal;
-
-partial class Form
-{
-    /// <summary>
-    /// Required designer variable.
-    /// </summary>
-    private System.ComponentModel.IContainer components = null;
-
-    /// <summary>
-    /// Clean up any resources being used.
-    /// </summary>
-    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing && (components != null))
-        {
-            components.Dispose();
-        }
-        base.Dispose(disposing);
-    }
-
-    #region Windows Form Designer generated code
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
-            this.MenuStripPortal = new System.Windows.Forms.MenuStrip();
-            this.MenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemDivision = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemDivisionAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemDivisionsView = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemSquads = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemSquadsAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemSquadsOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemSweepers = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemSweepersAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemOpenSweeper = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuStripPortal.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // MenuStripPortal
-            // 
-            this.MenuStripPortal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemFile,
-            this.MenuItemDivision,
-            this.MenuItemSquads,
-            this.MenuItemSweepers});
-            this.MenuStripPortal.Location = new System.Drawing.Point(0, 0);
-            this.MenuStripPortal.Name = "MenuStripPortal";
-            this.MenuStripPortal.Size = new System.Drawing.Size(800, 24);
-            this.MenuStripPortal.TabIndex = 0;
-            this.MenuStripPortal.Text = "menuStrip1";
-            // 
-            // MenuItemFile
-            // 
-            this.MenuItemFile.Name = "MenuItemFile";
-            this.MenuItemFile.Size = new System.Drawing.Size(37, 20);
-            this.MenuItemFile.Text = "File";
-            // 
-            // MenuItemDivision
-            // 
-            this.MenuItemDivision.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemDivisionAdd,
-            this.MenuItemDivisionsView});
-            this.MenuItemDivision.Name = "MenuItemDivision";
-            this.MenuItemDivision.Size = new System.Drawing.Size(66, 20);
-            this.MenuItemDivision.Text = "Divisions";
-            // 
-            // MenuItemDivisionAdd
-            // 
-            this.MenuItemDivisionAdd.Name = "MenuItemDivisionAdd";
-            this.MenuItemDivisionAdd.Size = new System.Drawing.Size(99, 22);
-            this.MenuItemDivisionAdd.Text = "Add";
-            this.MenuItemDivisionAdd.Click += new System.EventHandler(this.MenuItemDivisionAdd_Click);
-            // 
-            // MenuItemDivisionsView
-            // 
-            this.MenuItemDivisionsView.Name = "MenuItemDivisionsView";
-            this.MenuItemDivisionsView.Size = new System.Drawing.Size(99, 22);
-            this.MenuItemDivisionsView.Text = "View";
-            this.MenuItemDivisionsView.Click += new System.EventHandler(this.MenuItemDivisionsView_Click);
-            // 
-            // MenuItemSquads
-            // 
-            this.MenuItemSquads.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemSquadsAdd,
-            this.MenuItemSquadsOpen});
-            this.MenuItemSquads.Name = "MenuItemSquads";
-            this.MenuItemSquads.Size = new System.Drawing.Size(57, 20);
-            this.MenuItemSquads.Text = "Squads";
-            // 
-            // MenuItemSquadsAdd
-            // 
-            this.MenuItemSquadsAdd.Name = "MenuItemSquadsAdd";
-            this.MenuItemSquadsAdd.Size = new System.Drawing.Size(103, 22);
-            this.MenuItemSquadsAdd.Text = "Add";
-            this.MenuItemSquadsAdd.Click += new System.EventHandler(this.MenuItemSquadsAdd_Click);
-            // 
-            // MenuItemSquadsOpen
-            // 
-            this.MenuItemSquadsOpen.Name = "MenuItemSquadsOpen";
-            this.MenuItemSquadsOpen.Size = new System.Drawing.Size(103, 22);
-            this.MenuItemSquadsOpen.Text = "Open";
-            this.MenuItemSquadsOpen.Click += new System.EventHandler(this.MenuItemSquadsOpen_Click);
-            // 
-            // MenuItemSweepers
-            // 
-            this.MenuItemSweepers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemSweepersAdd,
-            this.MenuItemOpenSweeper});
-            this.MenuItemSweepers.Name = "MenuItemSweepers";
-            this.MenuItemSweepers.Size = new System.Drawing.Size(68, 20);
-            this.MenuItemSweepers.Text = "Sweepers";
-            // 
-            // MenuItemSweepersAdd
-            // 
-            this.MenuItemSweepersAdd.Name = "MenuItemSweepersAdd";
-            this.MenuItemSweepersAdd.Size = new System.Drawing.Size(103, 22);
-            this.MenuItemSweepersAdd.Text = "Add";
-            this.MenuItemSweepersAdd.Click += new System.EventHandler(this.MenuItemSweepersAdd_Click);
-            // 
-            // MenuItemOpenSweeper
-            // 
-            this.MenuItemOpenSweeper.Name = "MenuItemOpenSweeper";
-            this.MenuItemOpenSweeper.Size = new System.Drawing.Size(103, 22);
-            this.MenuItemOpenSweeper.Text = "Open";
-            this.MenuItemOpenSweeper.Click += new System.EventHandler(this.MenuItemOpenSweeper_Click);
-            // 
-            // Form
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.MenuStripPortal);
-            this.MainMenuStrip = this.MenuStripPortal;
-            this.MaximizeBox = false;
-            this.Name = "Form";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TournamentPortal";
-            this.MenuStripPortal.ResumeLayout(false);
-            this.MenuStripPortal.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
-    }
-
-    #endregion
-
-    private MenuStrip MenuStripPortal;
-    private ToolStripMenuItem MenuItemFile;
-    private ToolStripMenuItem MenuItemDivision;
-    private ToolStripMenuItem MenuItemDivisionAdd;
-    private ToolStripMenuItem MenuItemDivisionsView;
-    private ToolStripMenuItem MenuItemSquads;
-    private ToolStripMenuItem MenuItemSquadsAdd;
-    private ToolStripMenuItem MenuItemSquadsOpen;
-    private ToolStripMenuItem MenuItemSweepers;
-    private ToolStripMenuItem MenuItemSweepersAdd;
-    private ToolStripMenuItem MenuItemOpenSweeper;
-}
+﻿namespace NewEnglandClassic.Tournaments.Portal;partial class Form{    /// <summary>    /// Required designer variable.    /// </summary>    private System.ComponentModel.IContainer components = null;    /// <summary>    /// Clean up any resources being used.    /// </summary>    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>    protected override void Dispose(bool disposing)    {        if (disposing && (components != null))        {            components.Dispose();        }        base.Dispose(disposing);    }    #region Windows Form Designer generated code    /// <summary>    /// Required method for Designer support - do not modify    /// the contents of this method with the code editor.    /// </summary>    private void InitializeComponent()    {            this.portalMenuStrip = new System.Windows.Forms.MenuStrip();            this.fieMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.divisionMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.addDivisionMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.viewDivisionMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.squadsMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.addSquadMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.openSquadMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.sweepersMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.addSweeperMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.openSweeperMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.registrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.addRegistrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.viewTournamentRegistrationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();            this.portalMenuStrip.SuspendLayout();            this.SuspendLayout();            //             // portalMenuStrip            //             this.portalMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {            this.fieMenuItem,            this.divisionMenuItem,            this.squadsMenuItem,            this.sweepersMenuItem,            this.registrationMenuItem});            this.portalMenuStrip.Location = new System.Drawing.Point(0, 0);            this.portalMenuStrip.Name = "portalMenuStrip";            this.portalMenuStrip.Size = new System.Drawing.Size(800, 24);            this.portalMenuStrip.TabIndex = 0;            this.portalMenuStrip.Text = "menuStrip1";            //             // fieMenuItem            //             this.fieMenuItem.Name = "fieMenuItem";            this.fieMenuItem.Size = new System.Drawing.Size(37, 20);            this.fieMenuItem.Text = "File";            //             // divisionMenuItem            //             this.divisionMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {            this.addDivisionMenuItem,            this.viewDivisionMenuItem});            this.divisionMenuItem.Name = "divisionMenuItem";            this.divisionMenuItem.Size = new System.Drawing.Size(66, 20);            this.divisionMenuItem.Text = "Divisions";            //             // addDivisionMenuItem            //             this.addDivisionMenuItem.Name = "addDivisionMenuItem";            this.addDivisionMenuItem.Size = new System.Drawing.Size(99, 22);            this.addDivisionMenuItem.Text = "Add";            this.addDivisionMenuItem.Click += new System.EventHandler(this.AddDivisionMenuItem_Click);            //             // viewDivisionMenuItem            //             this.viewDivisionMenuItem.Name = "viewDivisionMenuItem";            this.viewDivisionMenuItem.Size = new System.Drawing.Size(99, 22);            this.viewDivisionMenuItem.Text = "View";            this.viewDivisionMenuItem.Click += new System.EventHandler(this.ViewDivisionsMenuItem_Click);            //             // squadsMenuItem            //             this.squadsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {            this.addSquadMenuItem,            this.openSquadMenuItem});            this.squadsMenuItem.Name = "squadsMenuItem";            this.squadsMenuItem.Size = new System.Drawing.Size(57, 20);            this.squadsMenuItem.Text = "Squads";            //             // addSquadMenuItem            //             this.addSquadMenuItem.Name = "addSquadMenuItem";            this.addSquadMenuItem.Size = new System.Drawing.Size(103, 22);            this.addSquadMenuItem.Text = "Add";            this.addSquadMenuItem.Click += new System.EventHandler(this.AddSquadMenuItem_Click);            //             // openSquadMenuItem            //             this.openSquadMenuItem.Name = "openSquadMenuItem";            this.openSquadMenuItem.Size = new System.Drawing.Size(103, 22);            this.openSquadMenuItem.Text = "Open";            this.openSquadMenuItem.Click += new System.EventHandler(this.OpenSquadMenuItem_Click);            //             // sweepersMenuItem            //             this.sweepersMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {            this.addSweeperMenuItem,            this.openSweeperMenuItem});            this.sweepersMenuItem.Name = "sweepersMenuItem";            this.sweepersMenuItem.Size = new System.Drawing.Size(68, 20);            this.sweepersMenuItem.Text = "Sweepers";            //             // addSweeperMenuItem            //             this.addSweeperMenuItem.Name = "addSweeperMenuItem";            this.addSweeperMenuItem.Size = new System.Drawing.Size(103, 22);            this.addSweeperMenuItem.Text = "Add";            this.addSweeperMenuItem.Click += new System.EventHandler(this.AddSweeperMenuItem_Click);            //             // openSweeperMenuItem            //             this.openSweeperMenuItem.Name = "openSweeperMenuItem";            this.openSweeperMenuItem.Size = new System.Drawing.Size(103, 22);            this.openSweeperMenuItem.Text = "Open";            this.openSweeperMenuItem.Click += new System.EventHandler(this.OpenSweeperMenuItem_Click);            //             // registrationMenuItem            //             this.registrationMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {            this.addRegistrationMenuItem,            this.viewTournamentRegistrationsMenuItem});            this.registrationMenuItem.Name = "registrationMenuItem";            this.registrationMenuItem.Size = new System.Drawing.Size(82, 20);            this.registrationMenuItem.Text = "Registration";            //             // addRegistrationMenuItem            //             this.addRegistrationMenuItem.Name = "addRegistrationMenuItem";            this.addRegistrationMenuItem.Size = new System.Drawing.Size(180, 22);            this.addRegistrationMenuItem.Text = "Add";            this.addRegistrationMenuItem.Click += new System.EventHandler(this.AddRegistrationMenuItem_Click);            //             // viewTournamentRegistrationsMenuItem            //             this.viewTournamentRegistrationsMenuItem.Name = "viewTournamentRegistrationsMenuItem";            this.viewTournamentRegistrationsMenuItem.Size = new System.Drawing.Size(180, 22);            this.viewTournamentRegistrationsMenuItem.Text = "View";            this.viewTournamentRegistrationsMenuItem.Click += new System.EventHandler(this.ViewTournamentRegistrationsMenuItem_Click);            //             // Form            //             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;            this.ClientSize = new System.Drawing.Size(800, 450);            this.Controls.Add(this.portalMenuStrip);            this.MainMenuStrip = this.portalMenuStrip;            this.MaximizeBox = false;            this.Name = "Form";            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;            this.Text = "TournamentPortal";            this.portalMenuStrip.ResumeLayout(false);            this.portalMenuStrip.PerformLayout();            this.ResumeLayout(false);            this.PerformLayout();    }    #endregion    private MenuStrip portalMenuStrip;    private ToolStripMenuItem fieMenuItem;    private ToolStripMenuItem divisionMenuItem;    private ToolStripMenuItem addDivisionMenuItem;    private ToolStripMenuItem viewDivisionMenuItem;    private ToolStripMenuItem squadsMenuItem;    private ToolStripMenuItem addSquadMenuItem;    private ToolStripMenuItem openSquadMenuItem;    private ToolStripMenuItem sweepersMenuItem;    private ToolStripMenuItem addSweeperMenuItem;    private ToolStripMenuItem openSweeperMenuItem;    private ToolStripMenuItem registrationMenuItem;    private ToolStripMenuItem addRegistrationMenuItem;    private ToolStripMenuItem viewTournamentRegistrationsMenuItem;}

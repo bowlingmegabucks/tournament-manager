@@ -3,23 +3,23 @@ internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
     
-    public Guid TournamentId { get; }
+    public TournamentId TournamentId { get; }
     
-    public Form(IConfiguration config, Guid tournamentId)
+    public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
 
         _config = config;
         TournamentId = tournamentId;
 
-        SweeperControl.Date = DateTime.Today;
-        SweeperControl.TournamentId = tournamentId;
+        newSweeper.Date = DateTime.Today;
+        newSweeper.TournamentId = tournamentId;
 
         new Presenter(_config, this).GetDivisions();
     }
 
     public IViewModel Sweeper
-        => SweeperControl;
+        => newSweeper;
 
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -31,14 +31,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => DialogResult = DialogResult.None;
 
     public void Disable()
-        => ButtonSave.Enabled = false;
+        => saveButton.Enabled = false;
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
-        => SweeperControl.BindDivisions(divisions);
+        => newSweeper.BindDivisions(divisions);
 
     public bool IsValid()
         => ValidateChildren();
 
-    private void ButtonSave_Click(object sender, EventArgs e)
+    private void SaveButton_Click(object sender, EventArgs e)
      => new Presenter(_config, this).Execute();
 }

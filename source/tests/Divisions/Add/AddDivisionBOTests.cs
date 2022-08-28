@@ -43,7 +43,7 @@ internal class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("error");
+            _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(result, Is.Null);
 
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>()), Times.Never);
@@ -77,22 +77,22 @@ internal class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
-            _businessLogic.Errors.HasErrorMessage("exception");
+            _businessLogic.Errors.Assert_HasErrorMessage("exception");
         });
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsGuid_GuidReturned()
+    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsId_IdReturned()
     {
         _validator.Validate_IsValid();
 
-        var guid = Guid.NewGuid();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(guid);
+        var divisionId = NewEnglandClassic.Divisions.Id.New();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(divisionId);
 
         var division = new NewEnglandClassic.Models.Division();
 
         var result = _businessLogic.Execute(division);
 
-        Assert.That(result, Is.EqualTo(guid));
+        Assert.That(result, Is.EqualTo(divisionId));
     }
 }

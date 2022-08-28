@@ -19,11 +19,11 @@ internal class BusinessLogic : IBusinessLogic
 
     public Models.ErrorDetail? Error { get; private set; }
 
-    public IEnumerable<Models.Division> ForTournament(Guid tournamentId)
+    public IEnumerable<Models.Division> Execute(TournamentId tournamentId)
     {
         try
         {
-            return _dataLayer.ForTournament(tournamentId).ToList();
+            return _dataLayer.Execute(tournamentId).ToList();
         }
         catch (Exception ex)
         {
@@ -32,11 +32,27 @@ internal class BusinessLogic : IBusinessLogic
             return Enumerable.Empty<Models.Division>();
         }
     }
+
+    public Models.Division? Execute(NewEnglandClassic.Divisions.Id id)
+    {
+        try
+        {
+            return _dataLayer.Execute(id);
+        }
+        catch (Exception ex)
+        {
+            Error = new Models.ErrorDetail(ex);
+
+            return null;
+        }
+    }
 }
 
 internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.Division> ForTournament(Guid tournamentId);
+    IEnumerable<Models.Division> Execute(TournamentId tournamentId);
+
+    Models.Division? Execute(NewEnglandClassic.Divisions.Id id);
 }

@@ -28,7 +28,7 @@ internal class BusinesLogic
         
         var sweeper = new NewEnglandClassic.Models.Sweeper
         { 
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(sweeper);
@@ -44,14 +44,14 @@ internal class BusinesLogic
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(sweeper);
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("error");
+            _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
             _validator.Verify(validator => validator.Validate(It.IsAny<NewEnglandClassic.Models.Sweeper>()), Times.Never);
@@ -65,11 +65,11 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(sweeper);
@@ -83,11 +83,11 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(sweeper);
@@ -105,18 +105,18 @@ internal class BusinesLogic
         _validator.Validate_IsNotValid("property", "invalid");
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(sweeper);
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("invalid");
+            _businessLogic.Errors.Assert_HasErrorMessage("invalid");
             Assert.That(actual, Is.Null);
 
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>()), Times.Never);
@@ -129,11 +129,11 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(sweeper);
@@ -150,18 +150,18 @@ internal class BusinesLogic
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Throws(ex);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(sweeper);
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("exception");
+            _businessLogic.Errors.Assert_HasErrorMessage("exception");
             Assert.That(actual, Is.Null);
         });
     }
@@ -171,19 +171,19 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var guid = Guid.NewGuid();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(guid);
+        var id = SquadId.New();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(id);
 
         var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var sweeper = new NewEnglandClassic.Models.Sweeper
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(sweeper);
 
-        Assert.That(actual, Is.EqualTo(guid));
+        Assert.That(actual, Is.EqualTo(id));
     }
 }

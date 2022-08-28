@@ -1,0 +1,73 @@
+﻿
+namespace NewEnglandClassic.Registrations.Retrieve;
+internal class TournamentRegistrationViewModel : ITournamentRegistrationViewModel
+{
+    public RegistrationId Id { get; }
+
+    public string FirstName { get; init; }
+
+    public string LastName { get; init; }
+
+    public string BowlerName { get; }
+
+    public string DivisionName { get; }
+
+    public IEnumerable<SquadId> SquadsEntered { get; }
+
+    public short SquadsEnteredCount
+        => (short)SquadsEntered.Count();
+
+    public IEnumerable<SquadId> SweepersEntered { get; }
+
+    public short SweepersEnteredCount
+        => (short)SweepersEntered.Count();
+
+    public bool SuperSweeperEntered { get; }
+
+    public TournamentRegistrationViewModel(Models.Registration registration)
+    {
+        Id = registration.Id;
+        FirstName = registration.Bowler.FirstName;
+        LastName = registration.Bowler.LastName;
+        BowlerName = registration.Bowler.ToString();
+        DivisionName = registration.Division.Name;
+        SquadsEntered = registration.Squads.Select(squad => squad.Id).ToList();
+        SweepersEntered = registration.Sweepers.Select(sweeper => sweeper.Id).ToList();
+        SuperSweeperEntered = registration.SuperSweeper;
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal TournamentRegistrationViewModel() 
+    {
+        FirstName = string.Empty;
+        LastName = string.Empty;
+        BowlerName = string.Empty;
+        DivisionName = string.Empty;
+        SquadsEntered = Enumerable.Empty<SquadId>();
+        SweepersEntered = Enumerable.Empty<SquadId>();
+    }
+}
+
+public interface ITournamentRegistrationViewModel
+{
+    string FirstName { get; }
+
+    string LastName { get; }
+    RegistrationId Id { get; }
+
+    string BowlerName { get; }
+
+    string DivisionName { get; }
+
+    IEnumerable<SquadId> SquadsEntered { get; }
+
+    short SquadsEnteredCount { get; }
+
+    IEnumerable<SquadId> SweepersEntered { get; }
+
+    short SweepersEnteredCount { get; }
+
+    bool SuperSweeperEntered { get; }
+}

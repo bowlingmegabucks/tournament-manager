@@ -21,7 +21,7 @@ internal class Adapter : IAdapter
         _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
     }
 
-    public Guid? Execute(IViewModel viewModel)
+    public NewEnglandClassic.Divisions.Id? Execute(IViewModel viewModel)
     {
         var model = new Models.Division(viewModel);
 
@@ -37,5 +37,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(IViewModel viewModel);
+    NewEnglandClassic.Divisions.Id? Execute(IViewModel viewModel);
 }

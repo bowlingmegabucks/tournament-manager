@@ -2,9 +2,9 @@
 
 internal class ViewModel : IViewModel
 {
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public decimal? CashRatio { get; set; }
 
@@ -13,6 +13,10 @@ internal class ViewModel : IViewModel
     public DateTime Date { get; set; }
 
     public short MaxPerPair { get; set; }
+
+    public short StartingLane { get; set; }
+
+    public short NumberOfLanes { get; set; }
 
     public bool Complete { get; set; }
 
@@ -24,15 +28,17 @@ internal class ViewModel : IViewModel
         FinalsRatio = squad.FinalsRatio;
         Date = squad.Date;
         MaxPerPair = squad.MaxPerPair;
+        StartingLane = squad.StartingLane;
+        NumberOfLanes = squad.NumberOfLanes;
         Complete = squad.Complete;
     }
 }
 
-internal interface IViewModel
+public interface IViewModel
 {
-    Guid Id { get; set; }
+    SquadId Id { get; set; }
 
-    Guid TournamentId { get; set; }
+    TournamentId TournamentId { get; set; }
 
     decimal? CashRatio { get; set; }
     
@@ -41,6 +47,10 @@ internal interface IViewModel
     DateTime Date { get; set; }
 
     short MaxPerPair { get; set; }
+
+    short StartingLane { get; set; }
+
+    short NumberOfLanes { get; set; }
 
     bool Complete { get; set; }
 }

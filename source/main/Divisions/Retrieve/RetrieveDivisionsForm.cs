@@ -1,12 +1,12 @@
 ﻿
 namespace NewEnglandClassic.Divisions.Retrieve;
-public partial class Form : System.Windows.Forms.Form, IView
+internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
 
-    public Guid TournamentId { get; }
+    public TournamentId TournamentId { get; }
 
-    public Form(IConfiguration config, Guid tournamentId)
+    public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
 
@@ -20,15 +20,15 @@ public partial class Form : System.Windows.Forms.Form, IView
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     public void BindDivisions(IEnumerable<IViewModel> divisions)
-        => DivisionsGrid.Bind(divisions);
+        => divisionsGrid.Bind(divisions);
 
     public void Disable()
-        => ButtonAdd.Enabled = false;
+        => addButton.Enabled = false;
 
-    private void ButtonAdd_Click(object sender, EventArgs e)
+    private void AddButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddDivision();
 
-    public Guid? AddDivision(Guid tournamentId)
+    public NewEnglandClassic.Divisions.Id? AddDivision(TournamentId tournamentId)
     {
         using var form = new Add.Form(_config, tournamentId);
 

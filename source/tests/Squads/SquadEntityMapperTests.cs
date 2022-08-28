@@ -14,7 +14,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Squad
         {
-            Id = Guid.NewGuid()
+            Id = SquadId.New()
         };
 
         var entity = _mapper.Execute(model);
@@ -27,7 +27,7 @@ internal class EntityMapper
     {
         var model = new NewEnglandClassic.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var entity = _mapper.Execute(model);

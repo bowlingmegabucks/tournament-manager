@@ -6,7 +6,7 @@ internal class Validator : AbstractValidator<Models.Squad>
 {
     internal Validator()
     {
-        RuleFor(squad => squad.TournamentId).Must(id => id != Guid.Empty).WithMessage("Tournament Id is required");
+        RuleFor(squad => squad.TournamentId).Must(id => id != TournamentId.Empty).WithMessage("Tournament Id is required");
         RuleFor(squad => squad.Tournament).NotNull().WithMessage("Tournament is required");
         RuleFor(squad => squad.TournamentId).Equal(squad => squad.Tournament!.Id).When(squad => squad.Tournament != null).WithMessage("Tournament Id does not match");
 
@@ -18,6 +18,10 @@ internal class Validator : AbstractValidator<Models.Squad>
         RuleFor(squad => squad.Date).LessThanOrEqualTo(squad => squad.Tournament!.End.ToDateTime(TimeOnly.MaxValue)).When(squad => squad.Tournament != null).WithMessage("Squad date must be before tournament end");
 
         RuleFor(squad => squad.MaxPerPair).Must(maxPerPair=> maxPerPair > 0).WithMessage("Max per pair must be greater than 0");
+
+        RuleFor(squad => squad.NumberOfLanes).Must(numberOfLanes => numberOfLanes > 0).WithMessage("Number of lanes must be greater than 0");
+
+        RuleFor(squad => squad.StartingLane).Must(startingLanes => startingLanes > 0).WithMessage("Starting lane must be greater than 0");
 
         RuleFor(squad => squad.Complete).Must(complete => !complete).WithMessage("Cannot add a completed squad");
     }

@@ -12,13 +12,13 @@ internal class EntityMapperTests
     [Test]
     public void Execute_IdMapped()
     {
-        var guid = Guid.NewGuid();
+        var id = TournamentId.New();
 
-        var model = new NewEnglandClassic.Models.Tournament { Id = guid };
+        var model = new NewEnglandClassic.Models.Tournament { Id = id };
 
         var entity = _mapper.Execute(model);
 
-        Assert.That(entity.Id, Is.EqualTo(guid));
+        Assert.That(entity.Id, Is.EqualTo(id));
     }
 
     [Test]

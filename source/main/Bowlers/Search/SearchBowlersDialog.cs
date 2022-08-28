@@ -10,37 +10,37 @@ internal partial class Dialog : Form, IView
         _config = config;
         SelectedBowlerId = null;
 
-        ButtonNew.Visible = allowNewBowler;
+        newBowlerButton.Visible = allowNewBowler;
     }
 
-    public Guid? SelectedBowlerId { get; private set; }
+    public BowlerId? SelectedBowlerId { get; private set; }
 
     public Models.BowlerSearchCriteria SearchCriteria
         => new()
         {
-            FirstName = TextboxFirstName.Text,
-            LastName = TextboxLastName.Text,
-            EmailAddress = TextboxEmail.Text
+            FirstName = firstNameText.Text,
+            LastName = lastNameText.Text,
+            EmailAddress = emailText.Text
         };
 
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     public void BindResults(IEnumerable<IViewModel> bowlers)
-        => SearchResultsGrid.Bind(bowlers);
+        => searchResultsGrid.Bind(bowlers);
 
-    private void ButtonSelect_Click(object sender, EventArgs e) 
-        => SelectedBowlerId = SearchResultsGrid.SelectedBowler!.Id;
+    private void SelectButton_Click(object sender, EventArgs e) 
+        => SelectedBowlerId = searchResultsGrid.SelectedBowler!.Id;
 
     private void SearchResultsGrid_GridRowDoubleClicked(object sender, Controls.GridRowDoubleClickEventArgs e)
-     => ButtonSelect_Click(sender, e);
+     => SelectButton_Click(sender, e);
 
-    private void ButtonNew_Click(object sender, EventArgs e)
-        => SelectedBowlerId = Guid.Empty;
+    private void NewButton_Click(object sender, EventArgs e)
+        => SelectedBowlerId = BowlerId.Empty;
 
-    private void ButtonCancel_Click(object sender, EventArgs e)
+    private void CancelButton_Click(object sender, EventArgs e)
         => SelectedBowlerId = null;
 
-    private void ButtonSearch_Click(object sender, EventArgs e)
+    private void SearchButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).Execute();
 }

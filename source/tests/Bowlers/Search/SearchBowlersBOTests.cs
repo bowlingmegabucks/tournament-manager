@@ -28,7 +28,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_ReturnsDataLayerExecuteResults()
     {
-        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }, 2);
+        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.BowlerSearchCriteria>())).Returns(divisions);
 
         var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria();
@@ -41,7 +41,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_DataLayerExecuteNoException_ErrorNull()
     {
-        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Bowler { Id = Guid.NewGuid() }, 2);
+        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.BowlerSearchCriteria>())).Returns(divisions);
 
         var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria();

@@ -8,7 +8,7 @@ internal class Bowler
     {
         var entity = new NewEnglandClassic.Database.Entities.Bowler
         {
-            Id = Guid.NewGuid()
+            Id = BowlerId.New()
         };
 
         var model = new NewEnglandClassic.Models.Bowler(entity);
@@ -202,7 +202,7 @@ internal class Bowler
     public void Constructor_IAddViewModel_IdMapped()
     {
         var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
-        viewModel.SetupGet(v => v.Id).Returns(Guid.NewGuid());
+        viewModel.SetupGet(v => v.Id).Returns(BowlerId.New());
 
         var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
 
@@ -361,5 +361,80 @@ internal class Bowler
         var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
 
         Assert.That(model.Gender, Is.EqualTo(viewModel.Object.Gender));
+    }
+
+    [Test]
+    public void Age_BirthDayYesterday_Correct()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler()
+        {
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(-1).AddYears(-20))
+        };
+
+        var expected = 20;
+        var actual = bowler.Age;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Age_BirthDayToday_Correct()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler()
+        {
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20))
+        };
+
+        var expected = 20;
+        var actual = bowler.Age;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void Age_BirthDayTomorrow_Correct()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler()
+        {
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(1).AddYears(-20))
+        };
+
+        var expected = 19;
+        var actual = bowler.Age;
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void ToString_NoSuffix_ReturnsFirstLastName()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler
+        {
+            FirstName = "first",
+            MiddleInitial = "m",
+            LastName = "last"
+        };
+
+        var expected = "first last";
+        var actual = bowler.ToString();
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void ToString_Suffix_ReturnsFirstLastCommaSuffix()
+    {
+        var bowler = new NewEnglandClassic.Models.Bowler
+        {
+            FirstName = "first",
+            MiddleInitial = "m",
+            LastName = "last",
+            Suffix = "suffix"
+        };
+
+        var expected = "first last, suffix";
+        var actual = bowler.ToString();
+
+        Assert.That(actual, Is.EqualTo(expected));
     }
 }

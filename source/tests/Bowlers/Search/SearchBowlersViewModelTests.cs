@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewEnglandClassic.Tests.Bowlers.Search;
+﻿namespace NewEnglandClassic.Tests.Bowlers.Search;
 
 [TestFixture]
 internal class ViewModel
@@ -14,7 +8,7 @@ internal class ViewModel
     {
         var model = new NewEnglandClassic.Models.Bowler
         {
-            Id = Guid.NewGuid()
+            Id = BowlerId.New()
         };
 
         var viewModel = new NewEnglandClassic.Bowlers.Search.ViewModel(model);

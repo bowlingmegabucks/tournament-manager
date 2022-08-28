@@ -21,11 +21,14 @@ internal class Repository : IRepository
     IEnumerable<Database.Entities.Tournament> IRepository.RetrieveAll()
         => _dataContext.Tournaments.AsNoTracking().AsEnumerable();
 
-    Database.Entities.Tournament IRepository.Retrieve(Guid id)
+    Database.Entities.Tournament IRepository.Retrieve(TournamentId id)
         => _dataContext.Tournaments.Single(tournament=> tournament.Id == id);
 
-    Guid IRepository.Add(Database.Entities.Tournament tournament)
-    {   
+    Database.Entities.Tournament IRepository.Retrieve(Divisions.Id divisionId)
+        => _dataContext.Tournaments.Include(tournament => tournament.Divisions).Include(tournament=> tournament.Sweepers).ThenInclude(sweeper=> sweeper.Divisions).Single(tournament => tournament.Divisions.Any(division => division.Id == divisionId));
+
+    TournamentId IRepository.Add(Database.Entities.Tournament tournament)
+    {
         _dataContext.Tournaments.Add(tournament);
         _dataContext.SaveChanges();
         
@@ -37,7 +40,9 @@ internal interface IRepository
 {
     IEnumerable<Database.Entities.Tournament> RetrieveAll();
 
-    Database.Entities.Tournament Retrieve(Guid id);
+    Database.Entities.Tournament Retrieve(TournamentId id);
 
-    Guid Add(Database.Entities.Tournament tournament);
+    Database.Entities.Tournament Retrieve(Divisions.Id divisionId);
+
+    TournamentId Add(Database.Entities.Tournament tournament);
 }

@@ -4,14 +4,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;    
     
-    public Form(IConfiguration config, Guid tournamentId)
+    public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
 
         _config = config;
         
-        SquadNew.TournamentId = tournamentId;
-        SquadNew.Date = DateTime.Today;
+        newSquad.TournamentId = tournamentId;
+        newSquad.Date = DateTime.Today;
 
         new Presenter(config, this).GetTournamentRatios();
     }
@@ -29,14 +29,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => MessageBox.Show(message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);    
 
     public void SetTournamentFinalsRatio(string ratio)
-        => TextboxTournamentFinalsRatio.Text = ratio;
+        => tournamentFinalsRatioValue.Text = ratio;
 
     public void SetTournamentCashRatio(string ratio)
-        => TextboxTournamentCashRatio.Text = ratio;
+        => tournamentCashRatioValue.Text = ratio;
 
     public IViewModel Squad
-        => SquadNew;
+        => newSquad;
 
-    private void ButtonSave_Click(object sender, EventArgs e)
+    private void SaveButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).Execute();
 }
