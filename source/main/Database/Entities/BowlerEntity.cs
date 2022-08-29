@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace NewEnglandClassic.Database.Entities;
+namespace NortheastMegabuck.Database.Entities;
 internal class Bowler
 {
     [Key]

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Add;
+﻿namespace NortheastMegabuck.Sweepers.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Squads.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

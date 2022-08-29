@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Validators;
 using FluentValidation;
 
-namespace NewEnglandClassic.Validators;
+namespace NortheastMegabuck.Validators;
 internal class ZipCode<T> : PropertyValidator<T, string>
 {
     public override string Name => "ZipCodeValidator";

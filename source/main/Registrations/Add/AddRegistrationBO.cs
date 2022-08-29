@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Registrations.Add;
+namespace NortheastMegabuck.Registrations.Add;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly Divisions.Retrieve.IBusinessLogic _getDivisionBO;

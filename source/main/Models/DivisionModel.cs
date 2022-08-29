@@ -1,8 +1,8 @@
 ﻿
-namespace NewEnglandClassic.Models;
+namespace NortheastMegabuck.Models;
 internal class Division
 {
-    public NewEnglandClassic.Divisions.Id Id { get; set; }
+    public NortheastMegabuck.Divisions.Id Id { get; set; }
 
     public short Number { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Registrations.Retrieve;
+namespace NortheastMegabuck.Registrations.Retrieve;
 internal class TournamentRegistrationViewModel : ITournamentRegistrationViewModel
 {
     public RegistrationId Id { get; }

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Divisions.Add;
+namespace NortheastMegabuck.Divisions.Add;
 internal class BusinessLogic : IBusinessLogic
 {
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();

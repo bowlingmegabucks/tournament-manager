@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace NewEnglandClassic.Registrations.Retrieve;
+namespace NortheastMegabuck.Registrations.Retrieve;
 internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRegistrationsView
 {
     public RetrieveTournamentRegistrationsForm(IConfiguration config, TournamentId tournamentId)

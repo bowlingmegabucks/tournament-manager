@@ -1,30 +1,30 @@
 ﻿using FluentValidation.TestHelper;
 
-namespace NewEnglandClassic.Tests.Registrations.Add;
+namespace NortheastMegabuck.Tests.Registrations.Add;
 
 [TestFixture]
 internal class Validator
 {
-    private NewEnglandClassic.Registrations.Add.Validator _validator;
+    private NortheastMegabuck.Registrations.Add.Validator _validator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _validator = new NewEnglandClassic.Registrations.Add.Validator();
+        => _validator = new NortheastMegabuck.Registrations.Add.Validator();
 
     [Test]
     public void Bowler_HasAddBowlerValidator()
-        => _validator.ShouldHaveChildValidator(registration => registration.Bowler, typeof(NewEnglandClassic.Bowlers.Add.Validator));
+        => _validator.ShouldHaveChildValidator(registration => registration.Bowler, typeof(NortheastMegabuck.Bowlers.Add.Validator));
 
     [Test]
     public void AverageNull_MinimumAverageAndMaximumAverageForDivsionNull_NoError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = null,
             MaximumAverage = null
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = null,
             Division = division
@@ -37,13 +37,13 @@ internal class Validator
     [Test]
     public void AverageNull_MinimumAverageNull_MaximumAverageNotNull_HasError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = null,
             MaximumAverage = 200
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = null,
             Division = division
@@ -56,13 +56,13 @@ internal class Validator
     [Test]
     public void AverageNull_MinimumAverageNotNull_MaximumAverageNull_HasError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = 175,
             MaximumAverage = null
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = null,
             Division = division
@@ -75,13 +75,13 @@ internal class Validator
     [Test]
     public void AverageNull_MinimumAverageNotNull_MaximumAverageNotNull_HasError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = 175,
             MaximumAverage = 200
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = null,
             Division = division
@@ -94,13 +94,13 @@ internal class Validator
     [Test]
     public void AverageNotNull_MinimumAverageAndMaximumAverageForDivsionNull_NoError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = null,
             MaximumAverage = null
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = 200,
             Division = division
@@ -113,13 +113,13 @@ internal class Validator
     [Test]
     public void AverageNotNull_MinimumAverageNull_MaximumAverageNotNull_AverageLessThanOrEqualToMaximumAverage_NoError([Values(199, 200)] int average)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = null,
             MaximumAverage = 200
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = average,
             Division = division
@@ -132,13 +132,13 @@ internal class Validator
     [Test]
     public void AverageNotNull_MinimumAverageNull_MaximumAverageNotNull_AverageGreaterThanMaximumAverage_HasError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = null,
             MaximumAverage = 200
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = 201,
             Division = division
@@ -151,13 +151,13 @@ internal class Validator
     [Test]
     public void AverageNotNull_MinimumAverageNotNull_MaximumAverageNull_AverageLessThanMinimumAverage_HasError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = 200,
             MaximumAverage = null
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = 199,
             Division = division
@@ -170,13 +170,13 @@ internal class Validator
     [Test]
     public void AverageNotNull_MinimumAverageNotNull_MaximumAverageNull_AverageGreaterThanOrEqualToMinimumAverage_NoError([Values(200, 201)] int average)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = 200,
             MaximumAverage = null
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = average,
             Division = division
@@ -189,13 +189,13 @@ internal class Validator
     [Test]
     public void AverageNotNull_MinimumAverageNotNull_MaximumAverageNotNull_AverageLessThanMinimumAverage_HasError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = 200,
             MaximumAverage = 202
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = 199,
             Division = division
@@ -208,13 +208,13 @@ internal class Validator
     [Test]
     public void AverageNotNull_MinimumAverageNotNull_MaximumAverageNotNull_AverageBetweenMinimumAndMaximumAverage_NoError([Values(200, 202)] int average)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = 200,
             MaximumAverage = 202
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = average,
             Division = division
@@ -227,13 +227,13 @@ internal class Validator
     [Test]
     public void AverageNotNull_MinimumAverageNotNull_MaximumAverageNotNull_AverageGreaterThanMaximumAverage_HasError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = 200,
             MaximumAverage = 202
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Average = 203,
             Division = division
@@ -246,18 +246,18 @@ internal class Validator
     [Test]
     public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNull_NoError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = null,
             MaximumAge = null
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = null
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -269,21 +269,21 @@ internal class Validator
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError([Values]NewEnglandClassic.Models.Gender gender)
+    public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError([Values]NortheastMegabuck.Models.Gender gender)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = null,
             MaximumAge = null,
             Gender = gender
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = null
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -297,18 +297,18 @@ internal class Validator
     [Test]
     public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeNull_NoError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = null,
             MaximumAge = null
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20))
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -322,18 +322,18 @@ internal class Validator
     [Test]
     public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNotNull_DivisionMaxiumAgeNotNullOrValid_AgeTooYoung_HasError([Values(null, 99)] short? maximumAge)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = 40,
             MaximumAge = maximumAge
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20))
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -347,18 +347,18 @@ internal class Validator
     [Test]
     public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNullOrValid_DivisionMaxiumAgeNotNull_AgeTooOld_HasError([Values(null, 40)] short? minimumAge)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = minimumAge,
             MaximumAge = 65
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-75))
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -372,18 +372,18 @@ internal class Validator
     [Test]
     public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNotNull_DivisionMaxiumAgeNotNull_AgeValid_NoError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = 40,
             MaximumAge = 50
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-45))
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -395,22 +395,22 @@ internal class Validator
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeNotValid_GenderIsValid_NoError([Values] NewEnglandClassic.Models.Gender gender)
+    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeNotValid_GenderIsValid_NoError([Values] NortheastMegabuck.Models.Gender gender)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = 40,
             MaximumAge = 50,
             Gender = gender
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-55)),
             Gender = gender
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -429,20 +429,20 @@ internal class Validator
     [Test]
     public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeValid_GenderIsNotValid_NoError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = 40,
             MaximumAge = 50,
-            Gender = NewEnglandClassic.Models.Gender.Female
+            Gender = NortheastMegabuck.Models.Gender.Female
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-45)),
-            Gender = NewEnglandClassic.Models.Gender.Male
+            Gender = NortheastMegabuck.Models.Gender.Male
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -461,20 +461,20 @@ internal class Validator
     [Test]
     public void BowlerDateOfBirth_DateOfBirthNotNull_GenderNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeAndGenderAreNotValid_HasError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = 40,
             MaximumAge = 50,
-            Gender = NewEnglandClassic.Models.Gender.Female
+            Gender = NortheastMegabuck.Models.Gender.Female
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-55)),
-            Gender = NewEnglandClassic.Models.Gender.Male
+            Gender = NortheastMegabuck.Models.Gender.Male
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -488,17 +488,17 @@ internal class Validator
     [Test]
     public void BowlerGender_GenderNull_DivisionGenderNull_NoError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             Gender = null
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             Gender = null
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division
@@ -509,20 +509,20 @@ internal class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError([Values]NewEnglandClassic.Models.Gender gender)
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError([Values]NortheastMegabuck.Models.Gender gender)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             Gender = gender,
             MinimumAge = 55
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-65))
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -534,20 +534,20 @@ internal class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNull_DivisionGenderNotNull_MaximumAgeMet_NoError([Values] NewEnglandClassic.Models.Gender gender)
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_MaximumAgeMet_NoError([Values] NortheastMegabuck.Models.Gender gender)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             Gender = gender,
             MaximumAge = 55
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-45))
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -558,25 +558,25 @@ internal class Validator
         results.ShouldNotHaveValidationErrorFor(registration => registration.Bowler.Gender);
     }
 
-    [TestCase(NewEnglandClassic.Models.Gender.Male)]
+    [TestCase(NortheastMegabuck.Models.Gender.Male)]
     [TestCase(null)]
-    public void BowlerGender_GenderNullOrDoesNotMatch_DivisionGenderNotNullAndDoesNotMatch_AgeReqiurementNotMet_ErrorOnAgeNotGender(NewEnglandClassic.Models.Gender? gender)
+    public void BowlerGender_GenderNullOrDoesNotMatch_DivisionGenderNotNullAndDoesNotMatch_AgeReqiurementNotMet_ErrorOnAgeNotGender(NortheastMegabuck.Models.Gender? gender)
 
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
-            Gender = NewEnglandClassic.Models.Gender.Female,
+            Gender = NortheastMegabuck.Models.Gender.Female,
             MinimumAge = 50,
             MaximumAge = 55
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-45)),
             Gender = gender
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division,
@@ -593,19 +593,19 @@ internal class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNotNull_DivisionGenderNull_NoError([Values] NewEnglandClassic.Models.Gender gender)
+    public void BowlerGender_GenderNotNull_DivisionGenderNull_NoError([Values] NortheastMegabuck.Models.Gender gender)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             Gender = null
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             Gender = gender
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division
@@ -616,19 +616,19 @@ internal class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNull_DivisionGenderNotNull_HasError([Values] NewEnglandClassic.Models.Gender gender)
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_HasError([Values] NortheastMegabuck.Models.Gender gender)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             Gender = gender
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             Gender = null
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division
@@ -639,19 +639,19 @@ internal class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersMatch_NoError([Values] NewEnglandClassic.Models.Gender gender)
+    public void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersMatch_NoError([Values] NortheastMegabuck.Models.Gender gender)
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             Gender = gender
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             Gender = gender
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division
@@ -664,17 +664,17 @@ internal class Validator
     [Test]
     public void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersDontMatch_HasError()
     {
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
-            Gender = NewEnglandClassic.Models.Gender.Male
+            Gender = NortheastMegabuck.Models.Gender.Male
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
-            Gender = NewEnglandClassic.Models.Gender.Female
+            Gender = NortheastMegabuck.Models.Gender.Female
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Division = division
@@ -687,9 +687,9 @@ internal class Validator
     [Test]
     public void Squads_SquadsEmpty_HasError()
     {
-        var squads = Enumerable.Empty<NewEnglandClassic.Models.Squad>();
+        var squads = Enumerable.Empty<NortheastMegabuck.Models.Squad>();
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Squads = squads
         };
@@ -701,9 +701,9 @@ internal class Validator
     [Test]
     public void Squads_SquadsNotEmpty_NoError([Range(1, 3)] int count)
     {
-        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, count);
+        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, count);
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Squads = squads
         };
@@ -715,9 +715,9 @@ internal class Validator
     [Test]
     public void SuperSweeper_BowlerEntersZeroToAllSweepers_DoesNotEnterSuperSweeper_NoError([Range(0, 3)] int count)
     {
-        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() }, count);
+        var sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, count);
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Sweepers = sweepers,
             SweeperCount = 3,
@@ -731,9 +731,9 @@ internal class Validator
     [Test]
     public void SuperSweeper_BowlerEntersZeroToAllButOneSweeper_EntersSuperSweeper_HasError([Range(0, 2)] int count)
     {
-        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() }, count);
+        var sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, count);
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Sweepers = sweepers,
             SweeperCount = 3,
@@ -747,9 +747,9 @@ internal class Validator
     [Test]
     public void SuperSweeper_BowlerEntersAllSweepers_EntersSuperSweeper_NoError()
     {
-        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() }, 3);
+        var sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, 3);
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Sweepers = sweepers,
             SweeperCount = 3,
@@ -764,15 +764,15 @@ internal class Validator
     [Category("Real")]
     public void AshlieInWomensDivision_Allowed()
     {
-        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, 2);
+        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, 2);
 
-        var division = new NewEnglandClassic.Models.Division
+        var division = new NortheastMegabuck.Models.Division
         {
             MinimumAge = 55,
-            Gender = NewEnglandClassic.Models.Gender.Female
+            Gender = NortheastMegabuck.Models.Gender.Female
         };
 
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             FirstName = "Ashlie",
             MiddleInitial = "S",
@@ -784,17 +784,17 @@ internal class Validator
             EmailAddress = "email@gmail.com",
             PhoneNumber = "1234567890",
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now.AddYears(-30)),
-            Gender = NewEnglandClassic.Models.Gender.Female,
+            Gender = NortheastMegabuck.Models.Gender.Female,
             USBCId = "123-456"
         };
 
-        var registration = new NewEnglandClassic.Models.Registration
+        var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = bowler,
             Average = null,
             Division = division,
             Squads = squads,
-            Sweepers = Enumerable.Empty<NewEnglandClassic.Models.Sweeper>(),
+            Sweepers = Enumerable.Empty<NortheastMegabuck.Models.Sweeper>(),
             TournamentStartDate = new DateOnly(DateTime.Now.Year, 11, 24)
         };
 

@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Models;
+namespace NortheastMegabuck.Models;
 internal class ErrorDetail
 {
     public string Message { get; internal set; }

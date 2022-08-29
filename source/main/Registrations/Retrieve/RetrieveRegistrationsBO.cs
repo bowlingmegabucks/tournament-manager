@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Registrations.Retrieve;
+namespace NortheastMegabuck.Registrations.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     public Models.ErrorDetail? Error { get; private set; }

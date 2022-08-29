@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tests.Models;
+﻿namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal class Bowler
@@ -6,12 +6,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_IdMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             Id = BowlerId.New()
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.Id, Is.EqualTo(entity.Id));
     }
@@ -19,12 +19,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_FirstNameMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             FirstName = "John"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.FirstName, Is.EqualTo(entity.FirstName));
     }
@@ -32,12 +32,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_MiddleInitialMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             MiddleInitial = "J"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.MiddleInitial, Is.EqualTo(entity.MiddleInitial));
     }
@@ -45,12 +45,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_LastNameMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             LastName = "Doe"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.LastName, Is.EqualTo(entity.LastName));
     }
@@ -58,12 +58,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_SuffixMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             Suffix = "III"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.Suffix, Is.EqualTo(entity.Suffix));
     }
@@ -71,12 +71,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_StreetAddressMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             StreetAddress = "123 Main St"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.StreetAddress, Is.EqualTo(entity.StreetAddress));
     }
@@ -84,12 +84,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_CityAddressMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             CityAddress = "New York"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.CityAddress, Is.EqualTo(entity.CityAddress));
     }
@@ -97,12 +97,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_StateAddressMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             StateAddress = "NY"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.StateAddress, Is.EqualTo(entity.StateAddress));
     }
@@ -110,12 +110,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_ZipCodeMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             ZipCode = "12345"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.ZipCode, Is.EqualTo(entity.ZipCode));
     }
@@ -123,12 +123,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_EmailAddressMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             EmailAddress = "test@gmail.com"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.EmailAddress, Is.EqualTo(entity.EmailAddress));
     }
@@ -136,12 +136,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_PhoneNumberMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             PhoneNumber = "1234567890"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.PhoneNumber, Is.EqualTo(entity.PhoneNumber));
     }
@@ -149,12 +149,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_USBCIdMapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             USBCId = "123-4567"
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.USBCId, Is.EqualTo(entity.USBCId));
     }
@@ -162,12 +162,12 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_DateOfBirthHasValue_Mapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             DateOfBirth = new DateOnly(1980, 1, 1)
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.DateOfBirth, Is.EqualTo(entity.DateOfBirth));
     }
@@ -175,25 +175,25 @@ internal class Bowler
     [Test]
     public void Constructor_Entity_DateOfBirthNull_Mapped()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             DateOfBirth = null
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.DateOfBirth, Is.Null);
     }
 
     [Test]
-    public void Constructor_Entity_GenderMapped([Values] NewEnglandClassic.Models.Gender? gender)
+    public void Constructor_Entity_GenderMapped([Values] NortheastMegabuck.Models.Gender? gender)
     {
-        var entity = new NewEnglandClassic.Database.Entities.Bowler
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
             Gender = gender
         };
 
-        var model = new NewEnglandClassic.Models.Bowler(entity);
+        var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.Gender, Is.EqualTo(entity.Gender));
     }
@@ -201,10 +201,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_IdMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(BowlerId.New());
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.Id, Is.EqualTo(viewModel.Object.Id));
     }
@@ -212,10 +212,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_FirstNameMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.FirstName).Returns("John");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.FirstName, Is.EqualTo(viewModel.Object.FirstName));
     }
@@ -223,10 +223,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_MiddleInitialMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.MiddleInitial).Returns("J");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.MiddleInitial, Is.EqualTo(viewModel.Object.MiddleInitial));
     }
@@ -234,10 +234,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_LastNameMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.LastName).Returns("Doe");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.LastName, Is.EqualTo(viewModel.Object.LastName));
     }
@@ -245,10 +245,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_SuffixMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.Suffix).Returns("III");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.Suffix, Is.EqualTo(viewModel.Object.Suffix));
     }
@@ -256,10 +256,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_StreetAddressMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.StreetAddress).Returns("123 Main St");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.StreetAddress, Is.EqualTo(viewModel.Object.StreetAddress));
     }
@@ -267,10 +267,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_CityAddressMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.CityAddress).Returns("New York");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.CityAddress, Is.EqualTo(viewModel.Object.CityAddress));
     }
@@ -278,10 +278,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_StateAddressMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.StateAddress).Returns("NY");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.StateAddress, Is.EqualTo(viewModel.Object.StateAddress));
     }
@@ -289,10 +289,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_ZipCodeMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.ZipCode).Returns("12345");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.ZipCode, Is.EqualTo(viewModel.Object.ZipCode));
     }
@@ -300,10 +300,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_PhoneNumberMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.PhoneNumber).Returns("1234567890");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.PhoneNumber, Is.EqualTo(viewModel.Object.PhoneNumber));
     }
@@ -311,10 +311,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_EmailAddressMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.EmailAddress).Returns("test@gmail.com");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.EmailAddress, Is.EqualTo(viewModel.Object.EmailAddress));
     }
@@ -322,10 +322,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_DateOfBirthMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.DateOfBirth).Returns(new DateOnly(2000, 1, 1));
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.DateOfBirth, Is.EqualTo(viewModel.Object.DateOfBirth));
     }
@@ -333,10 +333,10 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_DateOfBirthNull_Mapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.DateOfBirth).Returns((DateOnly?)null);
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.DateOfBirth, Is.Null);
     }
@@ -344,21 +344,21 @@ internal class Bowler
     [Test]
     public void Constructor_IAddViewModel_USBCIdMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.USBCId).Returns("123-4567");
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.USBCId, Is.EqualTo(viewModel.Object.USBCId));
     }
 
     [Test]
-    public void Constructor_IAddViewModel_GenderMapped([Values] NewEnglandClassic.Models.Gender? gender)
+    public void Constructor_IAddViewModel_GenderMapped([Values] NortheastMegabuck.Models.Gender? gender)
     {
-        var viewModel = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         viewModel.SetupGet(v => v.Gender).Returns(gender);
 
-        var model = new NewEnglandClassic.Models.Bowler(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.Gender, Is.EqualTo(viewModel.Object.Gender));
     }
@@ -366,7 +366,7 @@ internal class Bowler
     [Test]
     public void Age_BirthDayYesterday_Correct()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler()
+        var bowler = new NortheastMegabuck.Models.Bowler()
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(-1).AddYears(-20))
         };
@@ -380,7 +380,7 @@ internal class Bowler
     [Test]
     public void Age_BirthDayToday_Correct()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler()
+        var bowler = new NortheastMegabuck.Models.Bowler()
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20))
         };
@@ -394,7 +394,7 @@ internal class Bowler
     [Test]
     public void Age_BirthDayTomorrow_Correct()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler()
+        var bowler = new NortheastMegabuck.Models.Bowler()
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(1).AddYears(-20))
         };
@@ -408,7 +408,7 @@ internal class Bowler
     [Test]
     public void ToString_NoSuffix_ReturnsFirstLastName()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             FirstName = "first",
             MiddleInitial = "m",
@@ -424,7 +424,7 @@ internal class Bowler
     [Test]
     public void ToString_Suffix_ReturnsFirstLastCommaSuffix()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             FirstName = "first",
             MiddleInitial = "m",

@@ -1,25 +1,25 @@
 ﻿
-namespace NewEnglandClassic.Tests.Registrations.Retrieve;
+namespace NortheastMegabuck.Tests.Registrations.Retrieve;
 
 [TestFixture]
 internal class Adapter
 {
-    private Mock<NewEnglandClassic.Registrations.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<NortheastMegabuck.Registrations.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NewEnglandClassic.Registrations.Retrieve.IAdapter _adapter;
+    private NortheastMegabuck.Registrations.Retrieve.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NewEnglandClassic.Registrations.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<NortheastMegabuck.Registrations.Retrieve.IBusinessLogic>();
 
-        _adapter = new NewEnglandClassic.Registrations.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new NortheastMegabuck.Registrations.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
     public void Execute_TournamentId_BusinessLogicExecute_CalledCorrectly()
     {
-        var tournamentId = NewEnglandClassic.TournamentId.New();
+        var tournamentId = NortheastMegabuck.TournamentId.New();
 
         _adapter.Execute(tournamentId);
 
@@ -29,7 +29,7 @@ internal class Adapter
     [Test]
     public void Execute_TournamentId_ErrorSetToBusinessLogicError([Range(0, 1)] int errorCount)
     {
-        var error = Enumerable.Repeat(new NewEnglandClassic.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var tournamentId = TournamentId.New();
@@ -44,11 +44,11 @@ internal class Adapter
     {
         var registrations = new[]
         {
-            new NewEnglandClassic.Models.Registration{ Id = RegistrationId.New()},
-            new NewEnglandClassic.Models.Registration{ Id = RegistrationId.New()}
+            new NortheastMegabuck.Models.Registration{ Id = RegistrationId.New()},
+            new NortheastMegabuck.Models.Registration{ Id = RegistrationId.New()}
         };
 
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.TournamentId>())).Returns(registrations);
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(registrations);
 
         var tournamentId = TournamentId.New();
 

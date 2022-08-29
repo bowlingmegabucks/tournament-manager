@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Controls;
+﻿namespace NortheastMegabuck.Controls;
 
 public partial class ProcessingMessage : UserControl
 {

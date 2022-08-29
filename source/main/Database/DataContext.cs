@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace NewEnglandClassic.Database;
+namespace NortheastMegabuck.Database;
 
 internal class DataContext : DbContext, IDataContext
 {

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Squads.Retrieve;
 
 partial class Form
 {
@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.squadsGrid = new NewEnglandClassic.Contols.SquadsGrid();
+            this.squadsGrid = new NortheastMegabuck.Contols.SquadsGrid();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonOpen = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -42,7 +42,7 @@ partial class Form
             this.squadsGrid.SelectedRowContextMenu = null;
             this.squadsGrid.Size = new System.Drawing.Size(654, 377);
             this.squadsGrid.TabIndex = 0;
-            this.squadsGrid.GridRowDoubleClicked += new System.EventHandler<NewEnglandClassic.Controls.GridRowDoubleClickEventArgs>(this.SquadsGrid_GridRowDoubleClicked);
+            this.squadsGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.GridRowDoubleClickEventArgs>(this.SquadsGrid_GridRowDoubleClicked);
             // 
             // buttonAdd
             // 

@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Bowlers.Search;
+namespace NortheastMegabuck.Bowlers.Search;
 internal class ViewModel : IViewModel
 {
     public BowlerId Id { get; set; }

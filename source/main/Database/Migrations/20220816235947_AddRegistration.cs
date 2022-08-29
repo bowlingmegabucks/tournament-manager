@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace NewEnglandClassic.Database.Migrations;
+namespace NortheastMegabuck.Database.Migrations;
 
 public partial class AddRegistration : Migration
 {

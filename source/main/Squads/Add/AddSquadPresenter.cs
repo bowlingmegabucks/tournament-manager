@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Add;
+﻿namespace NortheastMegabuck.Squads.Add;
 
 internal class Presenter
 {

@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Controls;
+namespace NortheastMegabuck.Controls;
 public partial class SelectSquadControl : UserControl, ISelectedIds
 {
     public SelectSquadControl(SquadId id, string displayText, bool selected)

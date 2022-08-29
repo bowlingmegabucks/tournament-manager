@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Registrations.Retrieve;
+namespace NortheastMegabuck.Registrations.Retrieve;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error { get; private set; }

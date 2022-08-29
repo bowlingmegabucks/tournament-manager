@@ -1,25 +1,25 @@
 ﻿
-namespace NewEnglandClassic.Tests.Registrations;
+namespace NortheastMegabuck.Tests.Registrations;
 
 [TestFixture]
 internal class EntityMapper
 {
-    private Mock<NewEnglandClassic.Bowlers.IEntityMapper> _bowlerEntityMapper;
+    private Mock<NortheastMegabuck.Bowlers.IEntityMapper> _bowlerEntityMapper;
 
-    private NewEnglandClassic.Registrations.IEntityMapper _mapper;
+    private NortheastMegabuck.Registrations.IEntityMapper _mapper;
 
     [SetUp]
     public void SetUp()
     { 
-        _bowlerEntityMapper = new Mock<NewEnglandClassic.Bowlers.IEntityMapper>();
+        _bowlerEntityMapper = new Mock<NortheastMegabuck.Bowlers.IEntityMapper>();
 
-        _mapper = new NewEnglandClassic.Registrations.EntityMapper(_bowlerEntityMapper.Object);
+        _mapper = new NortheastMegabuck.Registrations.EntityMapper(_bowlerEntityMapper.Object);
     }
 
     [Test]
     public void Execute_RegistrationIdMapped()
     {
-        var model = new NewEnglandClassic.Models.Registration
+        var model = new NortheastMegabuck.Models.Registration
         {
             Id = RegistrationId.New()
         };
@@ -32,9 +32,9 @@ internal class EntityMapper
     [Test]
     public void Execute_BowlerIdMapped()
     {
-        var model = new NewEnglandClassic.Models.Registration
+        var model = new NortheastMegabuck.Models.Registration
         {
-            Bowler = new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         var entity = _mapper.Execute(model);
@@ -45,9 +45,9 @@ internal class EntityMapper
     [Test]
     public void Execute_BowlerEntityMapperExecute_CalledCorrectly()
     {
-        var model = new NewEnglandClassic.Models.Registration
+        var model = new NortheastMegabuck.Models.Registration
         {
-            Bowler = new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         _mapper.Execute(model);
@@ -58,12 +58,12 @@ internal class EntityMapper
     [Test]
     public void Execute_BowlerMapped()
     {
-        var bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() };
-        _bowlerEntityMapper.Setup(mapper => mapper.Execute(It.IsAny<NewEnglandClassic.Models.Bowler>())).Returns(bowler);
+        var bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() };
+        _bowlerEntityMapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Bowler>())).Returns(bowler);
 
-        var model = new NewEnglandClassic.Models.Registration
+        var model = new NortheastMegabuck.Models.Registration
         {
-            Bowler = new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         var entity = _mapper.Execute(model);
@@ -74,9 +74,9 @@ internal class EntityMapper
     [Test]
     public void Execute_DivisionIdMapped()
     {
-        var model = new NewEnglandClassic.Models.Registration
+        var model = new NortheastMegabuck.Models.Registration
         {
-            Division = new NewEnglandClassic.Models.Division { Id = NewEnglandClassic.Divisions.Id.New() }
+            Division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() }
         };
 
         var entity = _mapper.Execute(model);
@@ -87,7 +87,7 @@ internal class EntityMapper
     [Test]
     public void Execute_AverageMapped([Values(null, 200)] int? average)
     {
-        var model = new NewEnglandClassic.Models.Registration
+        var model = new NortheastMegabuck.Models.Registration
         {
             Average = average
         };
@@ -100,17 +100,17 @@ internal class EntityMapper
     [Test]
     public void Execute_SquadsMapped()
     {
-        var squad1 = new NewEnglandClassic.Models.Squad { Id = SquadId.New() };
-        var squad2 = new NewEnglandClassic.Models.Squad { Id = SquadId.New() };
-        var squad3 = new NewEnglandClassic.Models.Squad { Id = SquadId.New() };
+        var squad1 = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
+        var squad2 = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
+        var squad3 = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
 
-        var sweeper1 = new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() };
-        var sweeper2 = new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() };
-        var sweeper3 = new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() };
+        var sweeper1 = new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() };
+        var sweeper2 = new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() };
+        var sweeper3 = new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() };
 
         var id = RegistrationId.New();
 
-        var model = new NewEnglandClassic.Models.Registration
+        var model = new NortheastMegabuck.Models.Registration
         {
             Squads = new[] { squad1, squad2, squad3 },
             Sweepers = new[] { sweeper1, sweeper2, sweeper3 },
@@ -137,7 +137,7 @@ internal class EntityMapper
     [Test]
     public void Execute_SuperSweeperMapped([Values] bool superSweeper)
     {
-        var model = new NewEnglandClassic.Models.Registration
+        var model = new NortheastMegabuck.Models.Registration
         {
             SuperSweeper = superSweeper
         };

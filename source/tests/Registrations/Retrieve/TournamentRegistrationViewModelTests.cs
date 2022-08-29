@@ -1,38 +1,38 @@
 ﻿
-namespace NewEnglandClassic.Tests.Registrations.Retrieve;
+namespace NortheastMegabuck.Tests.Registrations.Retrieve;
 
 [TestFixture]
 internal class TournamentRegistrationViewModel
 {
-    private NewEnglandClassic.Models.Registration _registration;
+    private NortheastMegabuck.Models.Registration _registration;
 
     [OneTimeSetUp]
     public void SetUp()
     {
-        _registration = new NewEnglandClassic.Models.Registration
+        _registration = new NortheastMegabuck.Models.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NewEnglandClassic.Models.Bowler
+            Bowler = new NortheastMegabuck.Models.Bowler
             {
                 FirstName = "first",
                 MiddleInitial = "m",
                 LastName = "last"
             },
-            Division = new NewEnglandClassic.Models.Division
+            Division = new NortheastMegabuck.Models.Division
             {
                 Number = 5,
                 Name = "divisionName"
             },
             Squads = new[]
             {
-                new NewEnglandClassic.Models.Squad{ Id = SquadId.New()},
-                new NewEnglandClassic.Models.Squad{ Id = SquadId.New()}
+                new NortheastMegabuck.Models.Squad{ Id = SquadId.New()},
+                new NortheastMegabuck.Models.Squad{ Id = SquadId.New()}
             },
             Sweepers = new[]
             {
-                new NewEnglandClassic.Models.Sweeper { Id = SquadId.New()},
-                new NewEnglandClassic.Models.Sweeper { Id = SquadId.New()},
-                new NewEnglandClassic.Models.Sweeper { Id = SquadId.New()}
+                new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()},
+                new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()},
+                new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()}
             },
             SuperSweeper = true
         };
@@ -41,7 +41,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_IdMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.Id, Is.EqualTo(_registration.Id));
     }
@@ -49,7 +49,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_FirstNameMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.FirstName, Is.EqualTo(_registration.Bowler.FirstName));
     }
@@ -57,7 +57,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_LastNameMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.LastName, Is.EqualTo(_registration.Bowler.LastName));
     }
@@ -65,7 +65,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_BowlerNameMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo(_registration.Bowler.ToString()));
     }
@@ -73,7 +73,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_DivisionNameMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.DivisionName, Is.EqualTo(_registration.Division.Name));
     }
@@ -81,7 +81,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SquadsEnteredMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.Multiple(() =>
         {
@@ -93,7 +93,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SquadsEnteredCountMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.SquadsEnteredCount, Is.EqualTo(_registration.Squads.Count()));
     }
@@ -101,7 +101,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SweepersEnteredMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.Multiple(() =>
         {
@@ -114,7 +114,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SweepersEnteredCountMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.SweepersEnteredCount, Is.EqualTo(_registration.Sweepers.Count()));
     }
@@ -122,7 +122,7 @@ internal class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SuperSweeperEnteredMapped()
     {
-        var viewModel = new NewEnglandClassic.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.SuperSweeperEntered, Is.EqualTo(_registration.SuperSweeper));
     }

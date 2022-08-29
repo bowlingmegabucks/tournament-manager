@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Contols;
+﻿namespace NortheastMegabuck.Contols;
 
 partial class SquadControl
 {
@@ -29,19 +29,19 @@ partial class SquadControl
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            this.cashRatioValue = new NewEnglandClassic.Controls.NumericControl();
-            this.cashRatioLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.finalsRatioValue = new NewEnglandClassic.Controls.NumericControl();
-            this.finalsRatioLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.cashRatioValue = new NortheastMegabuck.Controls.NumericControl();
+            this.cashRatioLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.finalsRatioValue = new NortheastMegabuck.Controls.NumericControl();
+            this.finalsRatioLabel = new NortheastMegabuck.Controls.LabelControl();
             this.squadErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.datePicker = new System.Windows.Forms.DateTimePicker();
-            this.dateLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.masPerPairValue = new NewEnglandClassic.Controls.NumericControl();
-            this.maxPerPairLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.startingLaneValue = new NewEnglandClassic.Controls.NumericControl();
-            this.startingLaneLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.numberOfLanesValue = new NewEnglandClassic.Controls.NumericControl();
-            this.numberOfLanesLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.dateLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.masPerPairValue = new NortheastMegabuck.Controls.NumericControl();
+            this.maxPerPairLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.startingLaneValue = new NortheastMegabuck.Controls.NumericControl();
+            this.startingLaneLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.numberOfLanesValue = new NortheastMegabuck.Controls.NumericControl();
+            this.numberOfLanesLabel = new NortheastMegabuck.Controls.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.squadErrorProvider)).BeginInit();

@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Tests.Models;
+namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal class Sweeper
@@ -7,10 +7,10 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_IdMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(SquadId.New());
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.Id, Is.EqualTo(viewModel.Object.Id));
     }
@@ -18,10 +18,10 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_TournamentIdMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.TournamentId).Returns(TournamentId.New());
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.TournamentId, Is.EqualTo(viewModel.Object.TournamentId));
     }
@@ -29,10 +29,10 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_EntryFeeMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.EntryFee).Returns(123.45m);
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.EntryFee, Is.EqualTo(123.45m));
     }
@@ -40,10 +40,10 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_GamesMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Games).Returns(5);
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.Games, Is.EqualTo(5));
     }
@@ -51,10 +51,10 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_CashRatioMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.CashRatio).Returns(1.3m);
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.CashRatio, Is.EqualTo(1.3m));
     }
@@ -62,10 +62,10 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_DateMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Date).Returns(DateTime.Now);
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.Date, Is.EqualTo(viewModel.Object.Date));
     }
@@ -73,10 +73,10 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_MaxPerPairMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.MaxPerPair).Returns(3);
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.MaxPerPair, Is.EqualTo(3));
     }
@@ -84,10 +84,10 @@ internal class Sweeper
     [Test]
     public void Constructor_SquadViewModel_StartingLaneMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.StartingLane).Returns(1);
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.StartingLane, Is.EqualTo(1));
     }
@@ -95,10 +95,10 @@ internal class Sweeper
     [Test]
     public void Constructor_SquadViewModel_NumberOfLanesMapped()
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.NumberOfLanes).Returns(32);
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.NumberOfLanes, Is.EqualTo(32));
     }
@@ -106,10 +106,10 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_CompleteMapped([Values] bool complete)
     {
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Complete).Returns(complete);
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.Complete, Is.EqualTo(complete));
     }
@@ -117,12 +117,12 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_DivisionsMapped()
     {
-        var divisions = new Mock<IDictionary<NewEnglandClassic.Divisions.Id, int?>>();
+        var divisions = new Mock<IDictionary<NortheastMegabuck.Divisions.Id, int?>>();
 
-        var viewModel = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Divisions).Returns(divisions.Object);
 
-        var model = new NewEnglandClassic.Models.Sweeper(viewModel.Object);
+        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
 
         Assert.That(model.Divisions, Is.EqualTo(divisions.Object));
     }
@@ -130,27 +130,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_IdMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -163,7 +163,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.Id, Is.EqualTo(entity.Id));
     }
@@ -171,27 +171,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_TournamentIdMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -204,7 +204,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.TournamentId, Is.EqualTo(entity.TournamentId));
     }
@@ -212,27 +212,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_EntryFeeMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -245,7 +245,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.EntryFee, Is.EqualTo(entity.EntryFee));
     }
@@ -253,27 +253,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_GamesMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -286,7 +286,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.Games, Is.EqualTo(entity.Games));
     }
@@ -294,27 +294,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_CashRatioMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -327,7 +327,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.CashRatio, Is.EqualTo(entity.CashRatio));
     }
@@ -335,27 +335,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_DateMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -368,7 +368,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.Date, Is.EqualTo(entity.Date));
     }
@@ -376,27 +376,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_MaxPerPairMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -409,7 +409,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.MaxPerPair, Is.EqualTo(entity.MaxPerPair));
     }
@@ -417,27 +417,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_StartingLaneMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -452,7 +452,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.StartingLane, Is.EqualTo(entity.StartingLane));
     }
@@ -460,27 +460,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_NumberOfLanesMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -495,7 +495,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.NumberOfLanes, Is.EqualTo(entity.NumberOfLanes));
     }
@@ -503,27 +503,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_CompleteMapped([Values]bool complete)
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -536,7 +536,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.That(model.Complete, Is.EqualTo(entity.Complete));
     }
@@ -544,27 +544,27 @@ internal class Sweeper
     [Test]
     public void Contructor_Entity_DivisionsMapped()
     {
-        var sweeperDivision1 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 1
         };
 
-        var sweeperDivision2 = new NewEnglandClassic.Database.Entities.SweeperDivision
+        var sweeperDivision2 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
             SweeperId = SquadId.New(),
-            DivisionId = NewEnglandClassic.Divisions.Id.New(),
+            DivisionId = NortheastMegabuck.Divisions.Id.New(),
             BonusPinsPerGame = 2
         };
 
-        var sweeperDivisions = new List<NewEnglandClassic.Database.Entities.SweeperDivision>
+        var sweeperDivisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>
         {
             sweeperDivision1,
             sweeperDivision2
         };
 
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -577,7 +577,7 @@ internal class Sweeper
             Divisions = sweeperDivisions
         };
 
-        var model = new NewEnglandClassic.Models.Sweeper(entity);
+        var model = new NortheastMegabuck.Models.Sweeper(entity);
 
         Assert.Multiple(() =>
         {

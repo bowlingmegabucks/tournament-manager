@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Squads.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;

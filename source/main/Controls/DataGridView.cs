@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NewEnglandClassic.Controls;
+namespace NortheastMegabuck.Controls;
 
 /// <summary>
 ///

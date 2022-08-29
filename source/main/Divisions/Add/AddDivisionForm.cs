@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Add;
+﻿namespace NortheastMegabuck.Divisions.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;

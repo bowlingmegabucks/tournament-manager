@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Tests.Tournaments;
+namespace NortheastMegabuck.Tests.Tournaments;
 
 [TestFixture]
 internal class ViewModel
@@ -8,12 +8,12 @@ internal class ViewModel
     public void Constructor_TournamentModel_IdMapped()
     {
         var id = TournamentId.New();
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             Id = id
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.Id, Is.EqualTo(id));
     }
@@ -21,12 +21,12 @@ internal class ViewModel
     [Test]
     public void Constructor_TournamentModel_NameMapped()
     {
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             Name = "name"
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.TournamentName, Is.EqualTo("name"));
     }
@@ -35,12 +35,12 @@ internal class ViewModel
     public void Constructor_TournamentModel_StartMapped()
     {
         var start = new DateOnly(2000, 1, 2);
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             Start = start
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.Start, Is.EqualTo(start));
     }
@@ -49,12 +49,12 @@ internal class ViewModel
     public void Constructor_TournamentModel_EndMapped()
     {
         var end = new DateOnly(2000, 1, 2);
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             End = end
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.End, Is.EqualTo(end));
     }
@@ -62,12 +62,12 @@ internal class ViewModel
     [Test]
     public void Constructor_TournamentModel_EntryFeeMapped()
     {
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             EntryFee = 123.45m
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.EntryFee, Is.EqualTo(123.45m));
     }
@@ -75,12 +75,12 @@ internal class ViewModel
     [Test]
     public void Constructor_TournamentModel_GamesMapped()
     {
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             Games = 5
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.Games, Is.EqualTo(5));
     }
@@ -88,12 +88,12 @@ internal class ViewModel
     [Test]
     public void Constructor_TournamentModel_FinalsRatioMapped()
     {
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             FinalsRatio = 12.3m
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.FinalsRatio, Is.EqualTo(12.3m));
     }
@@ -101,12 +101,12 @@ internal class ViewModel
     [Test]
     public void Constructor_TournamentModel_CashRatioMapped()
     {
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             CashRatio = 45.6m
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.CashRatio, Is.EqualTo(45.6m));
     }
@@ -114,12 +114,12 @@ internal class ViewModel
     [Test]
     public void Constructor_TournamentModel_BowlingCenterMapped()
     {
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             BowlingCenter = "bowlingCenter"
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.BowlingCenter, Is.EqualTo("bowlingCenter"));
     }
@@ -127,12 +127,12 @@ internal class ViewModel
     [Test]
     public void Constructor_TournamentModel_CompletedMapped([Values] bool completed)
     {
-        var model = new NewEnglandClassic.Models.Tournament
+        var model = new NortheastMegabuck.Models.Tournament
         {
             Completed = completed
         };
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
 
         Assert.That(viewModel.Completed, Is.EqualTo(completed));
     }

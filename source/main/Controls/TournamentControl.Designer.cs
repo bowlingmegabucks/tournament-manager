@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Contols;
+﻿namespace NortheastMegabuck.Contols;
 
 partial class TournamentControl
 {
@@ -29,23 +29,23 @@ partial class TournamentControl
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            this.nameLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.nameLabel = new NortheastMegabuck.Controls.LabelControl();
             this.tournamentErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.nameText = new System.Windows.Forms.TextBox();
-            this.startDateLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.startDateLabel = new NortheastMegabuck.Controls.LabelControl();
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.endDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.endDateLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.entryFeeLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.entryFeeValue = new NewEnglandClassic.Controls.NumericControl();
-            this.gamesLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.gamesValue = new NewEnglandClassic.Controls.NumericControl();
-            this.finalsRatioLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.finalsRatioValue = new NewEnglandClassic.Controls.NumericControl();
-            this.cashRatioValue = new NewEnglandClassic.Controls.NumericControl();
-            this.cashRatioLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.endDateLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.entryFeeLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.entryFeeValue = new NortheastMegabuck.Controls.NumericControl();
+            this.gamesLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.gamesValue = new NortheastMegabuck.Controls.NumericControl();
+            this.finalsRatioLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.finalsRatioValue = new NortheastMegabuck.Controls.NumericControl();
+            this.cashRatioValue = new NortheastMegabuck.Controls.NumericControl();
+            this.cashRatioLabel = new NortheastMegabuck.Controls.LabelControl();
             this.bowlingCenterValue = new System.Windows.Forms.TextBox();
-            this.bowlingCenterLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.bowlingCenterLabel = new NortheastMegabuck.Controls.LabelControl();
             this.CheckboxComplete = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.tournamentErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).BeginInit();

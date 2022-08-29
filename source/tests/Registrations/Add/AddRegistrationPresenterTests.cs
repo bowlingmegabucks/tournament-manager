@@ -1,31 +1,31 @@
 ﻿
-namespace NewEnglandClassic.Tests.Registrations.Add;
+namespace NortheastMegabuck.Tests.Registrations.Add;
 
 [TestFixture]
 internal class Presenter
 {
-    private Mock<NewEnglandClassic.Registrations.Add.IView> _view;
+    private Mock<NortheastMegabuck.Registrations.Add.IView> _view;
 
-    private Mock<NewEnglandClassic.Divisions.Retrieve.IAdapter> _divisionsAdapter;
-    private Mock<NewEnglandClassic.Squads.Retrieve.IAdapter> _squadsAdapter;
-    private Mock<NewEnglandClassic.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
-    private Mock<NewEnglandClassic.Bowlers.Retrieve.IAdapter> _bowlersAdapter;
-    private Mock<NewEnglandClassic.Registrations.Add.IAdapter> _adapter;
+    private Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter> _divisionsAdapter;
+    private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _squadsAdapter;
+    private Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
+    private Mock<NortheastMegabuck.Bowlers.Retrieve.IAdapter> _bowlersAdapter;
+    private Mock<NortheastMegabuck.Registrations.Add.IAdapter> _adapter;
 
-    private NewEnglandClassic.Registrations.Add.Presenter _presenter;
+    private NortheastMegabuck.Registrations.Add.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NewEnglandClassic.Registrations.Add.IView>();
+        _view = new Mock<NortheastMegabuck.Registrations.Add.IView>();
 
-        _divisionsAdapter = new Mock<NewEnglandClassic.Divisions.Retrieve.IAdapter>();
-        _squadsAdapter = new Mock<NewEnglandClassic.Squads.Retrieve.IAdapter>();
-        _sweepersAdapter = new Mock<NewEnglandClassic.Sweepers.Retrieve.IAdapter>();
-        _bowlersAdapter = new Mock<NewEnglandClassic.Bowlers.Retrieve.IAdapter>();
-        _adapter = new Mock<NewEnglandClassic.Registrations.Add.IAdapter>();
+        _divisionsAdapter = new Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter>();
+        _squadsAdapter = new Mock<NortheastMegabuck.Squads.Retrieve.IAdapter>();
+        _sweepersAdapter = new Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter>();
+        _bowlersAdapter = new Mock<NortheastMegabuck.Bowlers.Retrieve.IAdapter>();
+        _adapter = new Mock<NortheastMegabuck.Registrations.Add.IAdapter>();
 
-        _presenter = new NewEnglandClassic.Registrations.Add.Presenter(_view.Object, _divisionsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _bowlersAdapter.Object, _adapter.Object);
+        _presenter = new NortheastMegabuck.Registrations.Add.Presenter(_view.Object, _divisionsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _bowlersAdapter.Object, _adapter.Object);
     }
 
     [Test]
@@ -55,10 +55,10 @@ internal class Presenter
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Disable(), Times.Never);
 
-            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>()), Times.Never);
-            _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<NewEnglandClassic.Squads.IViewModel>>()), Times.Never);
-            _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<NewEnglandClassic.Sweepers.IViewModel>>()), Times.Never);
-            _view.Verify(view=> view.BindBowler(It.IsAny<NewEnglandClassic.Bowlers.Retrieve.IViewModel>()), Times.Never);
+            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<NortheastMegabuck.Squads.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>()), Times.Never);
+            _view.Verify(view=> view.BindBowler(It.IsAny<NortheastMegabuck.Bowlers.Retrieve.IViewModel>()), Times.Never);
         });
     }
 
@@ -134,16 +134,16 @@ internal class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var divisionError = new NewEnglandClassic.Models.ErrorDetail("division");
+        var divisionError = new NortheastMegabuck.Models.ErrorDetail("division");
         _divisionsAdapter.SetupGet(adapter => adapter.Error).Returns(divisionError);
 
-        var squadError = new NewEnglandClassic.Models.ErrorDetail("squad");
+        var squadError = new NortheastMegabuck.Models.ErrorDetail("squad");
         _squadsAdapter.SetupGet(adapter => adapter.Error).Returns(squadError);
 
-        var sweeperError = new NewEnglandClassic.Models.ErrorDetail("sweeper");
+        var sweeperError = new NortheastMegabuck.Models.ErrorDetail("sweeper");
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
-        var bowlerError = new NewEnglandClassic.Models.ErrorDetail("bowler");
+        var bowlerError = new NortheastMegabuck.Models.ErrorDetail("bowler");
         _bowlersAdapter.SetupGet(adapter=> adapter.Error).Returns(bowlerError);
 
         var tournamentId = TournamentId.New();
@@ -163,10 +163,10 @@ internal class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var squadError = new NewEnglandClassic.Models.ErrorDetail("squad");
+        var squadError = new NortheastMegabuck.Models.ErrorDetail("squad");
         _squadsAdapter.SetupGet(adapter => adapter.Error).Returns(squadError);
 
-        var sweeperError = new NewEnglandClassic.Models.ErrorDetail("sweeper");
+        var sweeperError = new NortheastMegabuck.Models.ErrorDetail("sweeper");
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
         var tournamentId = TournamentId.New();
@@ -186,7 +186,7 @@ internal class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var sweeperError = new NewEnglandClassic.Models.ErrorDetail("sweeper");
+        var sweeperError = new NortheastMegabuck.Models.ErrorDetail("sweeper");
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
         var tournamentId = TournamentId.New();
@@ -206,13 +206,13 @@ internal class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var division1 = new Mock<NewEnglandClassic.Divisions.IViewModel>();
+        var division1 = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         division1.SetupGet(division => division.Number).Returns(1);
 
-        var division2 = new Mock<NewEnglandClassic.Divisions.IViewModel>();
+        var division2 = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         division2.SetupGet(division => division.Number).Returns(2);
 
-        var division3 = new Mock<NewEnglandClassic.Divisions.IViewModel>();
+        var division3 = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         division3.SetupGet(division => division.Number).Returns(3);
 
         var divisions = new[] { division3.Object, division1.Object, division2.Object };
@@ -225,11 +225,11 @@ internal class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>(divisions => divisions.ToList()[0].Number == 1)), Times.Once);
-            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>(divisions => divisions.ToList()[1].Number == 2)), Times.Once);
-            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>(divisions => divisions.ToList()[2].Number == 3)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>(divisions => divisions.ToList()[0].Number == 1)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>(divisions => divisions.ToList()[1].Number == 2)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>(divisions => divisions.ToList()[2].Number == 3)), Times.Once);
 
-            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>(divisions => divisions.ToList().Count == 3)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>(divisions => divisions.ToList().Count == 3)), Times.Once);
         });
     }
 
@@ -238,13 +238,13 @@ internal class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var squad1 = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1));
 
-        var squad2 = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        var squad2 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2));
 
-        var squad3 = new Mock<NewEnglandClassic.Squads.IViewModel>();
+        var squad3 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
 
         var squads = new[] { squad3.Object, squad1.Object, squad2.Object };
@@ -257,11 +257,11 @@ internal class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NewEnglandClassic.Squads.IViewModel>>(squads => squads.ToList()[0].Date == new DateTime(2015, 1, 1))), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NewEnglandClassic.Squads.IViewModel>>(squads => squads.ToList()[1].Date == new DateTime(2015, 1, 2))), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NewEnglandClassic.Squads.IViewModel>>(squads => squads.ToList()[2].Date == new DateTime(2015, 1, 3))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[0].Date == new DateTime(2015, 1, 1))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[1].Date == new DateTime(2015, 1, 2))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[2].Date == new DateTime(2015, 1, 3))), Times.Once);
 
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NewEnglandClassic.Squads.IViewModel>>(squads => squads.ToList().Count == 3)), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList().Count == 3)), Times.Once);
         });
     }
 
@@ -270,13 +270,13 @@ internal class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var sweeper1 = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var sweeper1 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1));
 
-        var sweeper2 = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var sweeper2 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2));
 
-        var sweeper3 = new Mock<NewEnglandClassic.Sweepers.IViewModel>();
+        var sweeper3 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
 
         var sweepers = new[] { sweeper3.Object, sweeper1.Object, sweeper2.Object };
@@ -289,11 +289,11 @@ internal class Presenter
         
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NewEnglandClassic.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].Date == new DateTime(2015, 1, 1))), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NewEnglandClassic.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[1].Date == new DateTime(2015, 1, 2))), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NewEnglandClassic.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[2].Date == new DateTime(2015, 1, 3))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].Date == new DateTime(2015, 1, 1))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[1].Date == new DateTime(2015, 1, 2))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[2].Date == new DateTime(2015, 1, 3))), Times.Once);
 
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NewEnglandClassic.Sweepers.IViewModel>>(sweepers => sweepers.ToList().Count == 3)), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList().Count == 3)), Times.Once);
         });
     }
 
@@ -304,7 +304,7 @@ internal class Presenter
 
         _presenter.Load();
 
-        _view.Verify(view => view.BindBowler(It.IsAny<NewEnglandClassic.Bowlers.Retrieve.IViewModel>()), Times.Never);
+        _view.Verify(view => view.BindBowler(It.IsAny<NortheastMegabuck.Bowlers.Retrieve.IViewModel>()), Times.Never);
     }
 
     [Test]
@@ -312,7 +312,7 @@ internal class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.New());
 
-        var bowler = new Mock<NewEnglandClassic.Bowlers.Retrieve.IViewModel>();
+        var bowler = new Mock<NortheastMegabuck.Bowlers.Retrieve.IViewModel>();
         _bowlersAdapter.Setup(adapter => adapter.Execute(It.IsAny<BowlerId>())).Returns(bowler.Object);
 
         _presenter.Load();
@@ -339,7 +339,7 @@ internal class Presenter
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NewEnglandClassic.Bowlers.Add.IViewModel>(), It.IsAny<NewEnglandClassic.Divisions.Id>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>()), Times.Never);
+            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Bowlers.Add.IViewModel>(), It.IsAny<NortheastMegabuck.Divisions.Id>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>()), Times.Never);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
@@ -351,8 +351,8 @@ internal class Presenter
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
-        var bowler = new Mock<NewEnglandClassic.Bowlers.Add.IViewModel>();
-        var divisionId = NewEnglandClassic.Divisions.Id.New();
+        var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var divisionId = NortheastMegabuck.Divisions.Id.New();
         var sweepers = new List<SquadId>();
         var squads = new List<SquadId>();
         var average = 200;
@@ -372,7 +372,7 @@ internal class Presenter
     [Test]
     public void Execute_ViewIsValidTrue_AdapterHasErrors_ErrorFlow()
     {
-        var errors = new[] { new NewEnglandClassic.Models.ErrorDetail("error1"), new NewEnglandClassic.Models.ErrorDetail("error2") };
+        var errors = new[] { new NortheastMegabuck.Models.ErrorDetail("error1"), new NortheastMegabuck.Models.ErrorDetail("error2") };
         _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
         _view.Setup(view => view.IsValid()).Returns(true);

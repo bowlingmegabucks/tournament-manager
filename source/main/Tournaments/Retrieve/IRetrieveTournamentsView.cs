@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tournaments.Retrieve;
 
 internal interface IView
 {

@@ -1,27 +1,27 @@
-﻿using NewEnglandClassic.Tests.Extensions;
+﻿using NortheastMegabuck.Tests.Extensions;
 
-namespace NewEnglandClassic.Tests.Registrations;
+namespace NortheastMegabuck.Tests.Registrations;
 
 [TestFixture]
 internal class Repository
 {
-    private Mock<NewEnglandClassic.Database.IDataContext> _dataContext;
+    private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
-    private NewEnglandClassic.Registrations.IRepository _repository;
+    private NortheastMegabuck.Registrations.IRepository _repository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<NewEnglandClassic.Database.IDataContext>();
-        _repository = new NewEnglandClassic.Registrations.Repository(_dataContext.Object);
+        _dataContext = new Mock<NortheastMegabuck.Database.IDataContext>();
+        _repository = new NortheastMegabuck.Registrations.Repository(_dataContext.Object);
     }
 
     [Test]
     public void Add_RegistrationAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Registration>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Registration>().SetUpDbContext());
 
-        var registration = new NewEnglandClassic.Database.Entities.Registration();
+        var registration = new NortheastMegabuck.Database.Entities.Registration();
 
         var id = _repository.Add(registration);
 
@@ -31,9 +31,9 @@ internal class Repository
     [Test]
     public void Add_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Registration>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Registration>().SetUpDbContext());
 
-        var registration = new NewEnglandClassic.Database.Entities.Registration();
+        var registration = new NortheastMegabuck.Database.Entities.Registration();
 
         _repository.Add(registration);
 
@@ -50,22 +50,22 @@ internal class Repository
         var registrationId2 = RegistrationId.New();
         var registrationId3 = RegistrationId.New();
 
-        var registration1 = new NewEnglandClassic.Database.Entities.Registration
+        var registration1 = new NortheastMegabuck.Database.Entities.Registration
         {
             Id = registrationId1,
-            Division = new NewEnglandClassic.Database.Entities.Division { TournamentId = tournament1 }
+            Division = new NortheastMegabuck.Database.Entities.Division { TournamentId = tournament1 }
         };
 
-        var registration2 = new NewEnglandClassic.Database.Entities.Registration
+        var registration2 = new NortheastMegabuck.Database.Entities.Registration
         {
             Id = registrationId2,
-            Division = new NewEnglandClassic.Database.Entities.Division { TournamentId = tournament2 }
+            Division = new NortheastMegabuck.Database.Entities.Division { TournamentId = tournament2 }
         };
 
-        var registration3 = new NewEnglandClassic.Database.Entities.Registration
+        var registration3 = new NortheastMegabuck.Database.Entities.Registration
         {
             Id = registrationId3,
-            Division = new NewEnglandClassic.Database.Entities.Division { TournamentId = tournament1 }
+            Division = new NortheastMegabuck.Database.Entities.Division { TournamentId = tournament1 }
         };
 
         var registrations = new[] { registration1, registration2, registration3 };

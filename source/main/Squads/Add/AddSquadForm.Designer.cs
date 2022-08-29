@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Add;
+﻿namespace NortheastMegabuck.Squads.Add;
 
 partial class Form
 {
@@ -30,7 +30,7 @@ partial class Form
     {
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
-            this.newSquad = new NewEnglandClassic.Contols.SquadControl();
+            this.newSquad = new NortheastMegabuck.Contols.SquadControl();
             this.disclaimerLabel = new System.Windows.Forms.Label();
             this.tournamentFinalsRatioLabel = new System.Windows.Forms.Label();
             this.tournamentCashRatioLabel = new System.Windows.Forms.Label();

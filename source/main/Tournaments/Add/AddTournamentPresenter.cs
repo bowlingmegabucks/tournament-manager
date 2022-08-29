@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Add;
+﻿namespace NortheastMegabuck.Tournaments.Add;
 internal class Presenter
 {
     private readonly IView _view;

@@ -1,23 +1,23 @@
 ﻿using FluentValidation;
-using NewEnglandClassic.Tests.Extensions;
+using NortheastMegabuck.Tests.Extensions;
 
-namespace NewEnglandClassic.Tests.Tournaments.Add;
+namespace NortheastMegabuck.Tests.Tournaments.Add;
 
 [TestFixture]
 internal class BusinessLogic
 {
-    private Mock<IValidator<NewEnglandClassic.Models.Tournament>> _validator;
-    private Mock<NewEnglandClassic.Tournaments.Add.IDataLayer> _dataLayer;
+    private Mock<IValidator<NortheastMegabuck.Models.Tournament>> _validator;
+    private Mock<NortheastMegabuck.Tournaments.Add.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Tournaments.Add.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Tournaments.Add.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _validator = new Mock<IValidator<NewEnglandClassic.Models.Tournament>>();
-        _dataLayer = new Mock<NewEnglandClassic.Tournaments.Add.IDataLayer>();
+        _validator = new Mock<IValidator<NortheastMegabuck.Models.Tournament>>();
+        _dataLayer = new Mock<NortheastMegabuck.Tournaments.Add.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Tournaments.Add.BusinessLogic(_validator.Object, _dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Tournaments.Add.BusinessLogic(_validator.Object, _dataLayer.Object);
     }
 
     [Test]
@@ -25,7 +25,7 @@ internal class BusinessLogic
     {
         _validator.Validate_IsValid();
         
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
 
         _businessLogic.Execute(tournament);
 
@@ -37,7 +37,7 @@ internal class BusinessLogic
     {
         _validator.Validate_IsNotValid("property", "error");
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
 
         var result = _businessLogic.Execute(tournament);
 
@@ -46,7 +46,7 @@ internal class BusinessLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(result, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Tournament>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>()), Times.Never);
         });
     }
 
@@ -55,7 +55,7 @@ internal class BusinessLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
 
         _businessLogic.Execute(tournament);
 
@@ -68,9 +68,9 @@ internal class BusinessLogic
         _validator.Validate_IsValid();
         
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Tournament>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>())).Throws(ex);
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
 
         var result = _businessLogic.Execute(tournament);
 
@@ -87,9 +87,9 @@ internal class BusinessLogic
         _validator.Validate_IsValid();
 
         var id = TournamentId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Tournament>())).Returns(id);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>())).Returns(id);
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
 
         var result = _businessLogic.Execute(tournament);
 

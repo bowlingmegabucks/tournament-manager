@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Contols;
+﻿namespace NortheastMegabuck.Contols;
 
 partial class SquadsGrid
 {

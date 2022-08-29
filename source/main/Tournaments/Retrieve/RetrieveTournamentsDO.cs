@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tournaments.Retrieve;
 
 internal class DataLayer : IDataLayer
 {
@@ -24,7 +24,7 @@ internal class DataLayer : IDataLayer
     Models.Tournament IDataLayer.Execute(TournamentId id)
         => new(_repository.Retrieve(id));
 
-    Models.Tournament IDataLayer.Execute(NewEnglandClassic.Divisions.Id id)
+    Models.Tournament IDataLayer.Execute(NortheastMegabuck.Divisions.Id id)
         => new(_repository.Retrieve(id));
 }
 
@@ -34,5 +34,5 @@ internal interface IDataLayer
 
     Models.Tournament Execute(TournamentId id);
 
-    Models.Tournament Execute(NewEnglandClassic.Divisions.Id id);
+    Models.Tournament Execute(NortheastMegabuck.Divisions.Id id);
 }

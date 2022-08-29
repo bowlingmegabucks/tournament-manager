@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tests.Divisions;
+﻿namespace NortheastMegabuck.Tests.Divisions;
 
 [TestFixture]
 internal class ViewModel
@@ -6,12 +6,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_IdMapped()
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
-            Id = NewEnglandClassic.Divisions.Id.New()
+            Id = NortheastMegabuck.Divisions.Id.New()
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.Id, Is.EqualTo(model.Id));
     }
@@ -19,12 +19,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_NumberMapped()
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             Number = 1
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.Number, Is.EqualTo(model.Number));
     }
@@ -32,12 +32,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_DivisionNameMapped()
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             Name = "Test Division"
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.DivisionName, Is.EqualTo(model.Name));
     }
@@ -45,12 +45,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_TournamentIdMapped()
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             TournamentId = TournamentId.New()
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.TournamentId, Is.EqualTo(model.TournamentId));
     }
@@ -58,12 +58,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_MinimumAgeMapped([Values(null, 5)] short? minimumAge)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MinimumAge = minimumAge
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.MinimumAge, Is.EqualTo(model.MinimumAge));
     }
@@ -71,12 +71,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_MaximumAgeMapped([Values(null, 5)] short? maximumAge)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MaximumAge = maximumAge
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.MaximumAge, Is.EqualTo(model.MaximumAge));
     }
@@ -84,12 +84,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_MinimumAverageMapped([Values(null, 200)] int? minimumAverage)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = minimumAverage
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.MinimumAverage, Is.EqualTo(model.MinimumAverage));
     }
@@ -97,12 +97,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_MaximumAverageMapped([Values(null, 200)] int? maximumAverage)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MaximumAverage = maximumAverage
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.MaximumAverage, Is.EqualTo(model.MaximumAverage));
     }
@@ -110,12 +110,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_HandicapPercentageMapped([Values(null, .7, 1)] decimal? handicapPercentage)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             HandicapPercentage = handicapPercentage
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.HandicapPercentage, Is.EqualTo(model.HandicapPercentage * 100m));
     }
@@ -123,12 +123,12 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_HandicapBaseMapped([Values(null, 200)] int? handicapBase)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             HandicapBase = handicapBase
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.HandicapBase, Is.EqualTo(model.HandicapBase));
     }
@@ -136,25 +136,25 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_MaximumHandicapPerGameMapped([Values(null, 20)] int? maximumHandicapPerGame)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MaximumHandicapPerGame = maximumHandicapPerGame
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.MaximumHandicapPerGame, Is.EqualTo(model.MaximumHandicapPerGame));
     }
 
     [Test]
-    public void Constructor_Model_GenderMapped([Values] NewEnglandClassic.Models.Gender gender)
+    public void Constructor_Model_GenderMapped([Values] NortheastMegabuck.Models.Gender gender)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             Gender = gender
         };
 
-        var viewModel = new NewEnglandClassic.Divisions.ViewModel(model);
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 
         Assert.That(viewModel.Gender, Is.EqualTo(model.Gender));
     }

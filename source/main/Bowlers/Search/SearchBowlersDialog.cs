@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Bowlers.Search;
+namespace NortheastMegabuck.Bowlers.Search;
 internal partial class Dialog : Form, IView
 {
     private readonly IConfiguration _config; 

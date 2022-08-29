@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NewEnglandClassic.Contols;
+namespace NortheastMegabuck.Contols;
 public partial class SweeperControl : UserControl, Sweepers.IViewModel
 {
     public SweeperControl()

@@ -1,40 +1,40 @@
-﻿namespace NewEnglandClassic.Tests.Tournaments.Add;
+﻿namespace NortheastMegabuck.Tests.Tournaments.Add;
 
 [TestFixture]
 internal class Adapter
 {
-    private Mock<NewEnglandClassic.Tournaments.Add.IBusinessLogic> _businessLogic;
+    private Mock<NortheastMegabuck.Tournaments.Add.IBusinessLogic> _businessLogic;
 
-    private NewEnglandClassic.Tournaments.Add.IAdapter _adapter;
+    private NortheastMegabuck.Tournaments.Add.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NewEnglandClassic.Tournaments.Add.IBusinessLogic>();
+        _businessLogic = new Mock<NortheastMegabuck.Tournaments.Add.IBusinessLogic>();
 
-        _adapter = new NewEnglandClassic.Tournaments.Add.Adapter(_businessLogic.Object);
+        _adapter = new NortheastMegabuck.Tournaments.Add.Adapter(_businessLogic.Object);
     }
 
     [Test]
     public void Execute_BusinessLogicExecute_CalledCorrectly()
     {
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel
         { 
             TournamentName = "name"
         };
 
         _adapter.Execute(viewModel);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NewEnglandClassic.Models.Tournament>(tournament => tournament.Name == "name")), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NortheastMegabuck.Models.Tournament>(tournament => tournament.Name == "name")), Times.Once);
     }
 
     [Test]
     public void Execute_Errors_SetToBusinessLogicErrors([Range(0, 2)] int count)
     {
-        var errors = Enumerable.Repeat(new NewEnglandClassic.Models.ErrorDetail("error"), count);
+        var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), count);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel();
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel();
 
         _adapter.Execute(viewModel);
 
@@ -45,9 +45,9 @@ internal class Adapter
     public void Execute_ReturnsBusinessLogicId()
     {
         var id = TournamentId.New();
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NewEnglandClassic.Models.Tournament>())).Returns(id);
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>())).Returns(id);
 
-        var viewModel = new NewEnglandClassic.Tournaments.ViewModel();
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel();
 
         var result = _adapter.Execute(viewModel);
 

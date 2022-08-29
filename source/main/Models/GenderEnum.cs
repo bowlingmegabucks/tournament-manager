@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Models;
+﻿namespace NortheastMegabuck.Models;
 public enum Gender
 {
     Male = 0,

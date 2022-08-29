@@ -1,11 +1,11 @@
 ﻿
-namespace NewEnglandClassic.Tests.Sweepers;
+namespace NortheastMegabuck.Tests.Sweepers;
 
 [TestFixture]
 internal class SweeperViewModelTests
 {
-    private NewEnglandClassic.Models.Sweeper _model;
-    private NewEnglandClassic.Sweepers.IViewModel _viewModel;
+    private NortheastMegabuck.Models.Sweeper _model;
+    private NortheastMegabuck.Sweepers.IViewModel _viewModel;
 
     [OneTimeSetUp]
     public void SetUp()
@@ -20,15 +20,15 @@ internal class SweeperViewModelTests
             Date = DateTime.Now,
             MaxPerPair = 11,
             Complete = true,
-            Divisions = new Dictionary<NewEnglandClassic.Divisions.Id, int?>
+            Divisions = new Dictionary<NortheastMegabuck.Divisions.Id, int?>
             {
-                { NewEnglandClassic.Divisions.Id.New(), 1 },
-                { NewEnglandClassic.Divisions.Id.New(), 2 },
-                { NewEnglandClassic.Divisions.Id.New(), 3 },
+                { NortheastMegabuck.Divisions.Id.New(), 1 },
+                { NortheastMegabuck.Divisions.Id.New(), 2 },
+                { NortheastMegabuck.Divisions.Id.New(), 3 },
             }
         };
 
-        _viewModel = new NewEnglandClassic.Sweepers.ViewModel(_model);
+        _viewModel = new NortheastMegabuck.Sweepers.ViewModel(_model);
     }
 
     [Test]

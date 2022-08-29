@@ -1,24 +1,24 @@
-﻿using NewEnglandClassic.Tests.Extensions;
+﻿using NortheastMegabuck.Tests.Extensions;
 
-namespace NewEnglandClassic.Tests.Sweepers.Add;
+namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
 internal class BusinesLogic
 {
-    private Mock<NewEnglandClassic.Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
-    private Mock<FluentValidation.IValidator<NewEnglandClassic.Models.Sweeper>> _validator;
-    private Mock<NewEnglandClassic.Sweepers.Add.IDataLayer> _dataLayer;
+    private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
+    private Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Sweeper>> _validator;
+    private Mock<NortheastMegabuck.Sweepers.Add.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Sweepers.Add.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Sweepers.Add.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _getTournamentBO = new Mock<NewEnglandClassic.Tournaments.Retrieve.IBusinessLogic>();
-        _validator = new Mock<FluentValidation.IValidator<NewEnglandClassic.Models.Sweeper>>();
-        _dataLayer = new Mock<NewEnglandClassic.Sweepers.Add.IDataLayer>();
+        _getTournamentBO = new Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic>();
+        _validator = new Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Sweeper>>();
+        _dataLayer = new Mock<NortheastMegabuck.Sweepers.Add.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Sweepers.Add.BusinessLogic(_getTournamentBO.Object, _validator.Object, _dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Sweepers.Add.BusinessLogic(_getTournamentBO.Object, _validator.Object, _dataLayer.Object);
     }
 
     [Test]
@@ -26,7 +26,7 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
         
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         { 
             TournamentId = TournamentId.New()
         };
@@ -39,10 +39,10 @@ internal class BusinesLogic
     [Test]
     public void Execute_GetTournamentBOHasError_ErrorFlow()
     {
-        var error = new NewEnglandClassic.Models.ErrorDetail("error");
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _getTournamentBO.SetupGet(getTournamentBO => getTournamentBO.Error).Returns(error);
 
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -54,8 +54,8 @@ internal class BusinesLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _validator.Verify(validator => validator.Validate(It.IsAny<NewEnglandClassic.Models.Sweeper>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>()), Times.Never);
+            _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Sweeper>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>()), Times.Never);
         });
     }
 
@@ -64,10 +64,10 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -82,10 +82,10 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -95,7 +95,7 @@ internal class BusinesLogic
         Assert.Multiple(() =>
         {
             _validator.Verify(validator => validator.Validate(sweeper), Times.Once);
-            _validator.Verify(validator => validator.Validate(It.Is<NewEnglandClassic.Models.Sweeper>(s => s.Tournament == tournament)), Times.Once);
+            _validator.Verify(validator => validator.Validate(It.Is<NortheastMegabuck.Models.Sweeper>(s => s.Tournament == tournament)), Times.Once);
         });
     }
 
@@ -104,10 +104,10 @@ internal class BusinesLogic
     {
         _validator.Validate_IsNotValid("property", "invalid");
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -119,7 +119,7 @@ internal class BusinesLogic
             _businessLogic.Errors.Assert_HasErrorMessage("invalid");
             Assert.That(actual, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>()), Times.Never);
         });
     }
 
@@ -128,10 +128,10 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -147,12 +147,12 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>())).Throws(ex);
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -172,12 +172,12 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var id = SquadId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(id);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>())).Returns(id);
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };

@@ -1,21 +1,21 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
 
-namespace NewEnglandClassic.Tests.Tournaments.Add;
+namespace NortheastMegabuck.Tests.Tournaments.Add;
 
 [TestFixture]
 internal class Validation
 {
-    private IValidator<NewEnglandClassic.Models.Tournament> _validator;
+    private IValidator<NortheastMegabuck.Models.Tournament> _validator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _validator = new NewEnglandClassic.Tournaments.Add.Validator();
+        => _validator = new NortheastMegabuck.Tournaments.Add.Validator();
 
     [Test]
     public void Name_NullEmptyWhitespace_HasError([Values(null, "", " ")] string name)
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Name = name
         };
@@ -28,7 +28,7 @@ internal class Validation
     [Test]
     public void Name_HasValue_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Name = "name"
         };
@@ -41,7 +41,7 @@ internal class Validation
     [Test]
     public void Start_StartBeforeEnd_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Start = new DateOnly(2000,1,1),
             End = new DateOnly(2000,1,2)
@@ -55,7 +55,7 @@ internal class Validation
     [Test]
     public void Start_StartEqualsEnd_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Start = new DateOnly(2000, 1, 1),
             End = new DateOnly(2000, 1, 1)
@@ -69,7 +69,7 @@ internal class Validation
     [Test]
     public void Start_StartAfterEnd_HasError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Start = new DateOnly(2000, 1, 2),
             End = new DateOnly(2000, 1, 1)
@@ -83,7 +83,7 @@ internal class Validation
     [Test]
     public void End_StartBeforeEnd_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Start = new DateOnly(2000, 1, 1),
             End = new DateOnly(2000, 1, 2)
@@ -97,7 +97,7 @@ internal class Validation
     [Test]
     public void End_StartEqualsEnd_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Start = new DateOnly(2000, 1, 1),
             End = new DateOnly(2000, 1, 1)
@@ -111,7 +111,7 @@ internal class Validation
     [Test]
     public void End_StartAfterEnd_HasError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Start = new DateOnly(2000, 1, 2),
             End = new DateOnly(2000, 1, 1)
@@ -125,7 +125,7 @@ internal class Validation
     [Test]
     public void EntryFee_LessThanZero_HasError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             EntryFee = -1
         };
@@ -138,7 +138,7 @@ internal class Validation
     [Test]
     public void EntryFee_Zero_HasError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             EntryFee = 0
         };
@@ -151,7 +151,7 @@ internal class Validation
     [Test]
     public void EntryFee_GreaterThanZero_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             EntryFee = 1
         };
@@ -164,7 +164,7 @@ internal class Validation
     [Test]
     public void Games_LessThanZero_HasError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Games = -1
         };
@@ -177,7 +177,7 @@ internal class Validation
     [Test]
     public void Games_Zero_HasError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Games = 0
         };
@@ -190,7 +190,7 @@ internal class Validation
     [Test]
     public void Games_GreaterThanZero_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Games = 1
         };
@@ -203,7 +203,7 @@ internal class Validation
     [Test]
     public void FinalsRatio_LessThanOne_HasError([Values(-1,0,.9)]decimal finalsRatio)
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             FinalsRatio = finalsRatio
         };
@@ -216,7 +216,7 @@ internal class Validation
     [Test]
     public void FinalsRatio_One_HasError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             FinalsRatio = 1
         };
@@ -229,7 +229,7 @@ internal class Validation
     [Test]
     public void FinalsRatio_GreaterThanOne_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             FinalsRatio = 1.1m
         };
@@ -242,7 +242,7 @@ internal class Validation
     [Test]
     public void CashRatio_LessThanOne_HasError([Values(-1, 0, .9)] decimal cashRatio)
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             CashRatio = cashRatio
         };
@@ -255,7 +255,7 @@ internal class Validation
     [Test]
     public void CashRatio_One_HasError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             CashRatio = 1
         };
@@ -268,7 +268,7 @@ internal class Validation
     [Test]
     public void CashRatio_GreaterThanOne_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             CashRatio = 1.1m
         };
@@ -281,7 +281,7 @@ internal class Validation
     [Test]
     public void BowlingCenter_NullEmptyWhitespace_HasError([Values(null, "", " ")] string bowlingCenter)
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             BowlingCenter = bowlingCenter
         };
@@ -294,7 +294,7 @@ internal class Validation
     [Test]
     public void BowlingCenter_HasValue_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             BowlingCenter = "bowlingCenter"
         };
@@ -307,7 +307,7 @@ internal class Validation
     [Test]
     public void Completed_True_HasError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Completed = true
         };
@@ -320,7 +320,7 @@ internal class Validation
     [Test]
     public void Completed_False_NoError()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament
+        var tournament = new NortheastMegabuck.Models.Tournament
         {
             Completed = false
         };

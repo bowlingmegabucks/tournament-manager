@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Squads.Retrieve;
+namespace NortheastMegabuck.Squads.Retrieve;
 internal interface IView
 {
     TournamentId TournamentId { get; }

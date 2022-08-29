@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewEnglandClassic.Registrations.Retrieve;
+namespace NortheastMegabuck.Registrations.Retrieve;
 internal class TournamentRegistrationsPresenter
 {
     private readonly ITournamentRegistrationsView _view;

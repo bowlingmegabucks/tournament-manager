@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

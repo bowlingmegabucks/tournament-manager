@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Registrations.Add;
+namespace NortheastMegabuck.Registrations.Add;
 internal interface IView
 {
     TournamentId TournamentId { get; }
@@ -22,7 +22,7 @@ internal interface IView
 
     Bowlers.Add.IViewModel Bowler { get; }
 
-    NewEnglandClassic.Divisions.Id DivisionId { get; }
+    NortheastMegabuck.Divisions.Id DivisionId { get; }
 
     int? Average { get; }
 

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Add;
+﻿namespace NortheastMegabuck.Divisions.Add;
 internal class Presenter
 {
     private readonly Lazy<Retrieve.IAdapter> _retrieveDivisionsAdapter;

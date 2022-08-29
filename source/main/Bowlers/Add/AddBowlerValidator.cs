@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using NewEnglandClassic.Validators;
+using NortheastMegabuck.Validators;
 
-namespace NewEnglandClassic.Bowlers.Add;
+namespace NortheastMegabuck.Bowlers.Add;
 internal class Validator : AbstractValidator<Models.Bowler>
 {
     public Validator()

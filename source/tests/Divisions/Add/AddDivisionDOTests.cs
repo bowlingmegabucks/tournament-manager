@@ -1,26 +1,26 @@
-﻿namespace NewEnglandClassic.Tests.Divisions.Add;
+﻿namespace NortheastMegabuck.Tests.Divisions.Add;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Divisions.IEntityMapper> _mapper;
-    private Mock<NewEnglandClassic.Divisions.IRepository> _repository;
+    private Mock<NortheastMegabuck.Divisions.IEntityMapper> _mapper;
+    private Mock<NortheastMegabuck.Divisions.IRepository> _repository;
 
-    private NewEnglandClassic.Divisions.Add.IDataLayer _dataLayer;
+    private NortheastMegabuck.Divisions.Add.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _mapper = new Mock<NewEnglandClassic.Divisions.IEntityMapper>();
-        _repository = new Mock<NewEnglandClassic.Divisions.IRepository>();
+        _mapper = new Mock<NortheastMegabuck.Divisions.IEntityMapper>();
+        _repository = new Mock<NortheastMegabuck.Divisions.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Divisions.Add.DataLayer(_mapper.Object, _repository.Object);
+        _dataLayer = new NortheastMegabuck.Divisions.Add.DataLayer(_mapper.Object, _repository.Object);
     }
 
     [Test]
     public void Execute_MapperExecute_CalledCorrectly()
     {
-        var division = new NewEnglandClassic.Models.Division();
+        var division = new NortheastMegabuck.Models.Division();
 
         _dataLayer.Execute(division);
 
@@ -30,10 +30,10 @@ internal class DataLayer
     [Test]
     public void Execute_RepositoryAdd_CalledCorrectly()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Division();
-        _mapper.Setup(mapper => mapper.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(entity);
+        var entity = new NortheastMegabuck.Database.Entities.Division();
+        _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Division>())).Returns(entity);
 
-        var division = new NewEnglandClassic.Models.Division();
+        var division = new NortheastMegabuck.Models.Division();
 
         _dataLayer.Execute(division);
 
@@ -43,10 +43,10 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsNewGUID()
     {
-        var divisionId = NewEnglandClassic.Divisions.Id.New();
-        _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.Division>())).Returns(divisionId);
+        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.Division>())).Returns(divisionId);
 
-        var division = new NewEnglandClassic.Models.Division();
+        var division = new NortheastMegabuck.Models.Division();
 
         var result = _dataLayer.Execute(division);
 

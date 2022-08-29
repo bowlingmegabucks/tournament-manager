@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Registrations.Add;
+﻿namespace NortheastMegabuck.Registrations.Add;
 internal class DataLayer : IDataLayer
 {
     private readonly IEntityMapper _mapper;

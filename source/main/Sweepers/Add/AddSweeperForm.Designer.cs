@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Add;
+﻿namespace NortheastMegabuck.Sweepers.Add;
 
 partial class Form
 {
@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.newSweeper = new NewEnglandClassic.Contols.SweeperControl();
+            this.newSweeper = new NortheastMegabuck.Contols.SweeperControl();
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();

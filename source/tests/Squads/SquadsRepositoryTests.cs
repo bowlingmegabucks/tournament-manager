@@ -1,27 +1,27 @@
-﻿using NewEnglandClassic.Tests.Extensions;
+﻿using NortheastMegabuck.Tests.Extensions;
 
-namespace NewEnglandClassic.Tests.Squads;
+namespace NortheastMegabuck.Tests.Squads;
 
 [TestFixture]
 internal class Repository
 {
-    private Mock<NewEnglandClassic.Database.IDataContext> _dataContext;
+    private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
-    private NewEnglandClassic.Squads.IRepository _repository;
+    private NortheastMegabuck.Squads.IRepository _repository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<NewEnglandClassic.Database.IDataContext>();
-        _repository = new NewEnglandClassic.Squads.Repository(_dataContext.Object);
+        _dataContext = new Mock<NortheastMegabuck.Database.IDataContext>();
+        _repository = new NortheastMegabuck.Squads.Repository(_dataContext.Object);
     }
 
     [Test]
     public void Add_SquadAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.TournamentSquad>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.TournamentSquad>().SetUpDbContext());
 
-        var squad = new NewEnglandClassic.Database.Entities.TournamentSquad();
+        var squad = new NortheastMegabuck.Database.Entities.TournamentSquad();
 
         var id = _repository.Add(squad);
 
@@ -31,9 +31,9 @@ internal class Repository
     [Test]
     public void Add_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.TournamentSquad>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.TournamentSquad>().SetUpDbContext());
 
-        var squad = new NewEnglandClassic.Database.Entities.TournamentSquad();
+        var squad = new NortheastMegabuck.Database.Entities.TournamentSquad();
 
         _repository.Add(squad);
 
@@ -45,21 +45,21 @@ internal class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var squad1 = new NewEnglandClassic.Database.Entities.TournamentSquad
+        var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
-        var squad2 = new NewEnglandClassic.Database.Entities.TournamentSquad
+        var squad2 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
-        var squad3 = new NewEnglandClassic.Database.Entities.TournamentSquad
+        var squad3 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),

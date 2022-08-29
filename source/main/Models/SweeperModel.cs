@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Models;
+namespace NortheastMegabuck.Models;
 internal class Sweeper
 {
     public SquadId Id { get; set; }
@@ -24,7 +24,7 @@ internal class Sweeper
 
     public bool Complete { get; set; }
 
-    public IDictionary<NewEnglandClassic.Divisions.Id, int?> Divisions { get; set; }
+    public IDictionary<NortheastMegabuck.Divisions.Id, int?> Divisions { get; set; }
 
     public Sweeper(Sweepers.IViewModel viewModel)
     {
@@ -53,7 +53,7 @@ internal class Sweeper
         StartingLane = sweeper.StartingLane;
         NumberOfLanes = sweeper.NumberOfLanes;
         Complete = sweeper.Complete;
-        Divisions = sweeper.Divisions?.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame) ?? new Dictionary<NewEnglandClassic.Divisions.Id, int?>();
+        Divisions = sweeper.Divisions?.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame) ?? new Dictionary<NortheastMegabuck.Divisions.Id, int?>();
     }
 
     /// <summary>
@@ -61,6 +61,6 @@ internal class Sweeper
     /// </summary>
     internal Sweeper()
     {
-        Divisions = new Dictionary<NewEnglandClassic.Divisions.Id, int?>();
+        Divisions = new Dictionary<NortheastMegabuck.Divisions.Id, int?>();
     }
 }

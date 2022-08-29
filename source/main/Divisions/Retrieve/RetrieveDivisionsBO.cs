@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Retrieve;
+﻿namespace NortheastMegabuck.Divisions.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;
@@ -33,7 +33,7 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public Models.Division? Execute(NewEnglandClassic.Divisions.Id id)
+    public Models.Division? Execute(NortheastMegabuck.Divisions.Id id)
     {
         try
         {
@@ -54,5 +54,5 @@ internal interface IBusinessLogic
 
     IEnumerable<Models.Division> Execute(TournamentId tournamentId);
 
-    Models.Division? Execute(NewEnglandClassic.Divisions.Id id);
+    Models.Division? Execute(NortheastMegabuck.Divisions.Id id);
 }

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Add;
+﻿namespace NortheastMegabuck.Tournaments.Add;
 
 partial class Form
 {
@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.newTournament = new NewEnglandClassic.Contols.TournamentControl();
+            this.newTournament = new NortheastMegabuck.Contols.TournamentControl();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();

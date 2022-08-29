@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tournaments.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly Lazy<IBusinessLogic> _businessLogic;

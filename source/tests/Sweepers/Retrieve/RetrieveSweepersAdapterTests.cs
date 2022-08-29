@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal class Adapter
 {
-    private Mock<NewEnglandClassic.Sweepers.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NewEnglandClassic.Sweepers.Retrieve.IAdapter _adapter;
+    private NortheastMegabuck.Sweepers.Retrieve.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NewEnglandClassic.Sweepers.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic>();
 
-        _adapter = new NewEnglandClassic.Sweepers.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new NortheastMegabuck.Sweepers.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -28,7 +28,7 @@ internal class Adapter
     [Test]
     public void Execute_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
-        var error = Enumerable.Repeat(new NewEnglandClassic.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var tournamentId = TournamentId.New();
@@ -41,8 +41,8 @@ internal class Adapter
     [Test]
     public void Execute_ReturnsSweepersFromBusinessLogic()
     {
-        var sweeper1 = new NewEnglandClassic.Models.Sweeper { MaxPerPair = 1 };
-        var sweeper2 = new NewEnglandClassic.Models.Sweeper { MaxPerPair = 2 };
+        var sweeper1 = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 1 };
+        var sweeper2 = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 2 };
         var sweepers = new[] { sweeper1, sweeper2 };
 
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(sweepers);

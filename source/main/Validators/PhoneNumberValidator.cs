@@ -2,7 +2,7 @@
 using FluentValidation.Validators;
 using FluentValidation;
 
-namespace NewEnglandClassic.Validators;
+namespace NortheastMegabuck.Validators;
 
 internal class PhoneNumber<T> : PropertyValidator<T, string>
 {

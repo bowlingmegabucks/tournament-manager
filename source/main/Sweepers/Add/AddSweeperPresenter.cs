@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Sweepers.Add;
+namespace NortheastMegabuck.Sweepers.Add;
 internal class Presenter
 {
     private readonly IView _view;

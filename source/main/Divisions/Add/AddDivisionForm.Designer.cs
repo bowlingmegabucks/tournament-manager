@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Add;
+﻿namespace NortheastMegabuck.Divisions.Add;
 
 partial class Form
 {
@@ -30,7 +30,7 @@ partial class Form
     {
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
-            this.newDivision = new NewEnglandClassic.Contols.DivisionControl();
+            this.newDivision = new NortheastMegabuck.Contols.DivisionControl();
             this.SuspendLayout();
             // 
             // cancelButton

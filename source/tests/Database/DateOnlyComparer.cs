@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tests.Database;
+﻿namespace NortheastMegabuck.Tests.Database;
 
 [TestFixture]
 internal class DateOnlyComparer
@@ -6,7 +6,7 @@ internal class DateOnlyComparer
     [Test]
     public void Comparer_SameValues_ReturnsTrue()
     {
-        var comparer = new NewEnglandClassic.Database.DateOnlyComparer();
+        var comparer = new NortheastMegabuck.Database.DateOnlyComparer();
 
         var equals = comparer.EqualsExpression.Compile();
 
@@ -19,7 +19,7 @@ internal class DateOnlyComparer
     [Test]
     public void Comparer_DifferentValues_ReturnsFalse()
     {
-        var comparer = new NewEnglandClassic.Database.DateOnlyComparer();
+        var comparer = new NortheastMegabuck.Database.DateOnlyComparer();
 
         var equals = comparer.EqualsExpression.Compile();
 
@@ -32,7 +32,7 @@ internal class DateOnlyComparer
     [Test]
     public void Comparer_GetHashCode_ReturnsDateOnlyHashCode()
     {
-        var comparer = new NewEnglandClassic.Database.DateOnlyComparer();
+        var comparer = new NortheastMegabuck.Database.DateOnlyComparer();
 
         var hashCode = comparer.HashCodeExpression.Compile();
 

@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Bowlers.Retrieve;
+namespace NortheastMegabuck.Bowlers.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

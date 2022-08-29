@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Squads.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

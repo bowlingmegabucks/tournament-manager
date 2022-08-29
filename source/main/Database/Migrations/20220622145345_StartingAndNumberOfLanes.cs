@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace NewEnglandClassic.Database.Migrations;
+namespace NortheastMegabuck.Database.Migrations;
 
 public partial class StartingAndNumberOfLanes : Migration
 {

@@ -33,6 +33,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\main\NewEnglandClassic.csproj" />
+	  <ProjectReference Include="..\main\NortheastMegabuck.csproj" />
 	</ItemGroup>
 </Project>

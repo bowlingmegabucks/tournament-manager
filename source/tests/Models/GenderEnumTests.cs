@@ -1,10 +1,10 @@
-﻿namespace NewEnglandClassic.Tests.Models;
+﻿namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal class Gender
 {
-    [TestCase(NewEnglandClassic.Models.Gender.Male, 0)]
-    [TestCase(NewEnglandClassic.Models.Gender.Female, 1)]
-    public void Enum_MapsToCorrectBackingInteger(NewEnglandClassic.Models.Gender gender, int backingInt)
+    [TestCase(NortheastMegabuck.Models.Gender.Male, 0)]
+    [TestCase(NortheastMegabuck.Models.Gender.Female, 1)]
+    public void Enum_MapsToCorrectBackingInteger(NortheastMegabuck.Models.Gender gender, int backingInt)
         => Assert.That((int)gender, Is.EqualTo(backingInt));
 }

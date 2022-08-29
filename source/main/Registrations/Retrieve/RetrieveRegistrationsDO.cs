@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Registrations.Retrieve;
+namespace NortheastMegabuck.Registrations.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

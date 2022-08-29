@@ -1,6 +1,6 @@
-﻿using NewEnglandClassic.Sweepers;
+﻿using NortheastMegabuck.Sweepers;
 
-namespace NewEnglandClassic.Tests.Sweepers.Add;
+namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
 internal class EntityMapper
@@ -9,12 +9,12 @@ internal class EntityMapper
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new NewEnglandClassic.Sweepers.EntityMapper();
+        => _mapper = new NortheastMegabuck.Sweepers.EntityMapper();
 
     [Test]
     public void Execute_IdMapped()
     {
-        var model = new NewEnglandClassic.Models.Sweeper
+        var model = new NortheastMegabuck.Models.Sweeper
         {
             Id = SquadId.New()
         };
@@ -27,7 +27,7 @@ internal class EntityMapper
     [Test]
     public void Execute_TournamentIdMapped()
     {
-        var model = new NewEnglandClassic.Models.Sweeper
+        var model = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -40,7 +40,7 @@ internal class EntityMapper
     [Test]
     public void Execute_CashRatioMapped()
     {
-        var model = new NewEnglandClassic.Models.Sweeper
+        var model = new NortheastMegabuck.Models.Sweeper
         {
             CashRatio = 5.5m
         };
@@ -53,7 +53,7 @@ internal class EntityMapper
     [Test]
     public void Execute_DateMapped()
     {
-        var model = new NewEnglandClassic.Models.Sweeper
+        var model = new NortheastMegabuck.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 1)
         };
@@ -66,7 +66,7 @@ internal class EntityMapper
     [Test]
     public void Execute_MaxPerPairMapped()
     {
-        var model = new NewEnglandClassic.Models.Sweeper
+        var model = new NortheastMegabuck.Models.Sweeper
         {
             MaxPerPair = 1
         };
@@ -79,7 +79,7 @@ internal class EntityMapper
     [Test]
     public void Execute_CompleteMapped([Values] bool complete)
     {
-        var model = new NewEnglandClassic.Models.Sweeper
+        var model = new NortheastMegabuck.Models.Sweeper
         {
             Complete = complete
         };
@@ -92,7 +92,7 @@ internal class EntityMapper
     [Test]
     public void Execute_EntryFeeMapped()
     {
-        var model = new NewEnglandClassic.Models.Sweeper
+        var model = new NortheastMegabuck.Models.Sweeper
         {
             EntryFee = 123.45m
         };
@@ -105,7 +105,7 @@ internal class EntityMapper
     [Test]
     public void Execute_GamesMapped()
     {
-        var model = new NewEnglandClassic.Models.Sweeper
+        var model = new NortheastMegabuck.Models.Sweeper
         {
             Games = 5
         };
@@ -118,15 +118,15 @@ internal class EntityMapper
     [Test]
     public void Execute_DivisionsMapped()
     {
-        var division0 = NewEnglandClassic.Divisions.Id.New();
-        var division1 = NewEnglandClassic.Divisions.Id.New();
-        var division2 = NewEnglandClassic.Divisions.Id.New();
-        var division3 = NewEnglandClassic.Divisions.Id.New();
+        var division0 = NortheastMegabuck.Divisions.Id.New();
+        var division1 = NortheastMegabuck.Divisions.Id.New();
+        var division2 = NortheastMegabuck.Divisions.Id.New();
+        var division3 = NortheastMegabuck.Divisions.Id.New();
 
-        var model = new NewEnglandClassic.Models.Sweeper
+        var model = new NortheastMegabuck.Models.Sweeper
         {
             Id = SquadId.New(),
-            Divisions = new Dictionary<NewEnglandClassic.Divisions.Id, int?>
+            Divisions = new Dictionary<NortheastMegabuck.Divisions.Id, int?>
             {
                 { division0, null},
                 { division1, 1},

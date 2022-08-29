@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal class BusinessLogic
 {
-    private Mock<NewEnglandClassic.Sweepers.Retrieve.IDataLayer> _dataLayer;
+    private Mock<NortheastMegabuck.Sweepers.Retrieve.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Sweepers.Retrieve.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NewEnglandClassic.Sweepers.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<NortheastMegabuck.Sweepers.Retrieve.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Sweepers.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Sweepers.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -28,7 +28,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_ReturnsDataLayerExecuteResults()
     {
-        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() }, 2);
+        var sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
 
         var tournamentId = TournamentId.New();
@@ -41,7 +41,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_DataLayerExecuteNoException_ErrorNull()
     {
-        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = SquadId.New() }, 2);
+        var sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
 
         var tournamentId = TournamentId.New();

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tournaments.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;

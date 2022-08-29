@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace NewEnglandClassic.Database.Entities;
+namespace NortheastMegabuck.Database.Entities;
 internal class SweeperDivision
 {
     public SquadId SweeperId { get; set; }

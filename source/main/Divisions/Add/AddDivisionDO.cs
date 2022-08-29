@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Add;
+﻿namespace NortheastMegabuck.Divisions.Add;
 
 internal class DataLayer : IDataLayer
 {
@@ -22,7 +22,7 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    NewEnglandClassic.Divisions.Id IDataLayer.Execute(Models.Division division)
+    NortheastMegabuck.Divisions.Id IDataLayer.Execute(Models.Division division)
     {
         var entity = _mapper.Execute(division);
         
@@ -32,5 +32,5 @@ internal class DataLayer : IDataLayer
 
 internal interface IDataLayer
 {
-    NewEnglandClassic.Divisions.Id Execute(Models.Division division);
+    NortheastMegabuck.Divisions.Id Execute(Models.Division division);
 }

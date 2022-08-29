@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions;
+﻿namespace NortheastMegabuck.Divisions;
 internal class EntityMapper : IEntityMapper
 {
     Database.Entities.Division IEntityMapper.Execute(Models.Division division)
