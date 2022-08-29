@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;NortheastMegabuckNortheastMegabuck
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-NortheastMegabuck
-namespace NewEnglandClassic.Database.Entities;
+
+namespace NortheastMegabuck.Database.Entities;
 internal class Registration
 {
     [Key]
@@ -14,7 +14,7 @@ internal class Registration
     public Bowler Bowler { get; set; } = null!;
 
     [Required]
-    public NewEnglandClassic.Divisions.Id DivisionId { get; set; }
+    public Divisions.Id DivisionId { get; set; }
 
     public Division Division { get; set; } = null!;
 
@@ -33,7 +33,7 @@ internal class Registration
                 .HasValueGenerator<RegistrationIdValueGenerator>();
 
             builder.Property(registration => registration.BowlerId).HasConversion<BowlerId.EfCoreValueConverter>();
-            builder.Property(registration => registration.DivisionId).HasConversion<NewEnglandClassic.Divisions.Id.EfCoreValueConverter>();
+            builder.Property(registration => registration.DivisionId).HasConversion<Divisions.Id.EfCoreValueConverter>();
 
             builder.HasAlternateKey(registration => new { registration.BowlerId, registration.DivisionId });
 
