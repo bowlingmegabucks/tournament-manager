@@ -486,6 +486,75 @@ internal class Validator
     }
 
     [Test]
+    public void BowlerUSBCId_HasValue_DivisionHandicapOrScratch_NoError([Values(null, .8)] decimal? handicapPercentage)
+    {
+        var division = new NortheastMegabuck.Models.Division
+        {
+            HandicapPercentage = handicapPercentage
+        };
+
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            USBCId = "123-456"
+        };
+
+        var registration = new NortheastMegabuck.Models.Registration
+        {
+            Bowler = bowler,
+            Division = division
+        };
+
+        var result = _validator.TestValidate(registration);
+        result.ShouldNotHaveValidationErrorFor(registration => registration.Bowler.USBCId);
+    }
+
+    [Test]
+    public void BowlerUSBCId_HasNoValue_DivisionScratch_NoError()
+    {
+        var division = new NortheastMegabuck.Models.Division
+        {
+            HandicapPercentage = null
+        };
+
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            USBCId = null
+        };
+
+        var registration = new NortheastMegabuck.Models.Registration
+        {
+            Bowler = bowler,
+            Division = division
+        };
+
+        var result = _validator.TestValidate(registration);
+        result.ShouldNotHaveValidationErrorFor(registration => registration.Bowler.USBCId);
+    }
+
+    [Test]
+    public void BowlerUSBCId_HasNoValue_DivisionHandicap_HasError()
+    {
+        var division = new NortheastMegabuck.Models.Division
+        {
+            HandicapPercentage = .8m
+        };
+
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            USBCId = null
+        };
+
+        var registration = new NortheastMegabuck.Models.Registration
+        {
+            Bowler = bowler,
+            Division = division
+        };
+
+        var result = _validator.TestValidate(registration);
+        result.ShouldHaveValidationErrorFor(registration => registration.Bowler.USBCId).WithErrorMessage("USBC Id is required for Handicap Divisions");
+    }
+
+    [Test]
     public void BowlerGender_GenderNull_DivisionGenderNull_NoError()
     {
         var division = new NortheastMegabuck.Models.Division
