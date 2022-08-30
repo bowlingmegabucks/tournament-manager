@@ -63,9 +63,9 @@ namespace NortheastMegabuck.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon NEC {
+        internal static System.Drawing.Icon NMT {
             get {
-                object obj = ResourceManager.GetObject("NEC", resourceCulture);
+                object obj = ResourceManager.GetObject("NMT", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
