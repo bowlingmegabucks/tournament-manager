@@ -30,7 +30,7 @@ internal class Validator : AbstractValidator<Models.Bowler>
 
         RuleFor(bowler => bowler.DateOfBirth).PastDate().When(bowler => bowler.DateOfBirth.HasValue).WithMessage("Date of Birth must be in the past");
 
-        RuleFor(bowler => bowler.USBCId).Matches(@"^\d+-\d+$").WithMessage("Invalid USBC Id");
+        RuleFor(bowler => bowler.USBCId).Matches(@"^\d+-\d+$").When(bowler=> !string.IsNullOrEmpty(bowler.USBCId)).WithMessage("Invalid USBC Id");
     }
 
     private bool StreetIsGiven(Models.Bowler bowler) => !string.IsNullOrWhiteSpace(bowler.StreetAddress);

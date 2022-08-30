@@ -152,8 +152,6 @@ partial class BowlerControl
             this.usbcIdText.PlaceholderText = "1234-5678";
             this.usbcIdText.Size = new System.Drawing.Size(112, 26);
             this.usbcIdText.TabIndex = 12;
-            this.usbcIdText.Validating += new System.ComponentModel.CancelEventHandler(this.USBCIdText_Validating);
-            this.usbcIdText.Validated += new System.EventHandler(this.Control_Validated);
             // 
             // cityText
             // 
@@ -374,8 +372,8 @@ partial class BowlerControl
             this.usbcIdLabel.Location = new System.Drawing.Point(430, 255);
             this.usbcIdLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.usbcIdLabel.Name = "usbcIdLabel";
-            this.usbcIdLabel.Required = true;
-            this.usbcIdLabel.Size = new System.Drawing.Size(87, 19);
+            this.usbcIdLabel.Required = false;
+            this.usbcIdLabel.Size = new System.Drawing.Size(81, 19);
             this.usbcIdLabel.TabIndex = 31;
             this.usbcIdLabel.TabStop = false;
             this.usbcIdLabel.Text = "USBC Id:";

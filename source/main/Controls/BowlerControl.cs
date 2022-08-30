@@ -168,14 +168,6 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         set => usbcIdText.Text = value;
     }
 
-    private void USBCIdText_Validating(object sender, CancelEventArgs e)
-    {
-        if (string.IsNullOrWhiteSpace(USBCId))
-        {
-            bowlerErrorProvider.SetError(firstNameText, "USBC id is required");
-        }
-    }
-
     public DateOnly? DateOfBirth
     {
         get => dateOfBirthPicker.Checked ? DateOnly.FromDateTime(dateOfBirthPicker.Value.Date) : null;
