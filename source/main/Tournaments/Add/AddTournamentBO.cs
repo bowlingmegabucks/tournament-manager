@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Tournaments.Add;
+namespace NortheastMegabuck.Tournaments.Add;
 internal class BusinessLogic : IBusinessLogic
 {
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
@@ -27,7 +27,7 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
-    public Guid? Execute(Models.Tournament tournament)
+    public TournamentId? Execute(Models.Tournament tournament)
     {
         var validation = _validator.Validate(tournament);
 
@@ -53,5 +53,5 @@ internal interface IBusinessLogic
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(Models.Tournament tournament);
+    TournamentId? Execute(Models.Tournament tournament);
 }

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Add;
+﻿namespace NortheastMegabuck.Tournaments.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
@@ -7,8 +7,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
     {
         InitializeComponent();
 
-        TournamentControlNew.Start = new DateOnly(DateTime.Now.Year, 1, 1);
-        TournamentControlNew.End = new DateOnly(DateTime.Now.Year, 12, 31);
+        newTournament.Start = new DateOnly(DateTime.Now.Year, 1, 1);
+        newTournament.End = new DateOnly(DateTime.Now.Year, 12, 31);
 
         _config = config;
     }
@@ -17,7 +17,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => ValidateChildren();
 
     public IViewModel Tournament
-        => TournamentControlNew;
+        => newTournament;
 
     public void KeepOpen()
         => DialogResult = DialogResult.None;
@@ -28,6 +28,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayMessage(string message)
         => MessageBox.Show(message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-    private void ButtonSave_Click(object sender, EventArgs e)
+    private void SaveButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).Execute();
 }

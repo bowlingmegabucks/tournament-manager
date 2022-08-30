@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
@@ -20,9 +20,9 @@ internal class Adapter : IAdapter
     public Models.ErrorDetail? Error
         => _businessLogic.Error;
 
-    public IEnumerable<IViewModel> ForTournament(Guid tournamentId)
+    public IEnumerable<IViewModel> Execute(TournamentId tournamentId)
     {
-        var sweepers = _businessLogic.ForTournament(tournamentId);
+        var sweepers = _businessLogic.Execute(tournamentId);
 
         return sweepers.Select(sweeper => new ViewModel(sweeper));
     }
@@ -32,5 +32,5 @@ internal interface IAdapter
 { 
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IViewModel> ForTournament(Guid tournamentId);
+    IEnumerable<IViewModel> Execute(TournamentId tournamentId);
 }

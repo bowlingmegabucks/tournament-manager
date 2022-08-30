@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tournaments.Retrieve;
 
 internal interface IView
 {
@@ -8,7 +8,7 @@ internal interface IView
     
     void BindTournaments(ICollection<IViewModel> viewModels);
 
-    (Guid? id, string name) CreateNewTournament();
+    (TournamentId? id, string name) CreateNewTournament();
 
-    void OpenTournament(Guid id, string tournamentName);
+    void OpenTournament(TournamentId id, string tournamentName);
 }

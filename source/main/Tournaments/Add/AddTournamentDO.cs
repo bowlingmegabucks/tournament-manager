@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Add;
+﻿namespace NortheastMegabuck.Tournaments.Add;
 
 internal class DataLayer : IDataLayer
 {
@@ -22,7 +22,7 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    Guid IDataLayer.Execute(Models.Tournament tournament)
+    TournamentId IDataLayer.Execute(Models.Tournament tournament)
     {
         var entity = _mapper.Execute(tournament);
         
@@ -32,5 +32,5 @@ internal class DataLayer : IDataLayer
 
 internal interface IDataLayer
 {
-    Guid Execute(Models.Tournament tournament);
+    TournamentId Execute(Models.Tournament tournament);
 }

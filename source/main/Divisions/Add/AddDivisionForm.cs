@@ -1,9 +1,9 @@
-﻿namespace NewEnglandClassic.Divisions.Add;
-public partial class Form : System.Windows.Forms.Form, IView
+﻿namespace NortheastMegabuck.Divisions.Add;
+internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
     
-    public Form(IConfiguration config, Guid tournamentId)
+    public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
         
@@ -14,14 +14,14 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         new Presenter(config, this).GetNextDivisionNumber();
         
-        DivisionNew.Focus();
+        newDivision.Focus();
     }
 
     public bool IsValid()
         => ValidateChildren();
 
     public IViewModel Division
-        => DivisionNew;
+        => newDivision;
     
     public void KeepOpen()
         => DialogResult = DialogResult.None;
@@ -32,6 +32,6 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void DisplayMessage(string message)
         => MessageBox.Show(message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-    private void ButtonSave_Click(object sender, EventArgs e)
+    private void SaveButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).Execute();
 }

@@ -1,41 +1,41 @@
-﻿using NewEnglandClassic.Tests.Extensions;
+﻿using NortheastMegabuck.Tests.Extensions;
 
-namespace NewEnglandClassic.Tests.Divisions;
+namespace NortheastMegabuck.Tests.Divisions;
 
 [TestFixture]
 internal class Repository
 {
 
-    private Mock<NewEnglandClassic.Database.IDataContext> _dataContext;
+    private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
-    private NewEnglandClassic.Divisions.IRepository _repository;
+    private NortheastMegabuck.Divisions.IRepository _repository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<NewEnglandClassic.Database.IDataContext>();
+        _dataContext = new Mock<NortheastMegabuck.Database.IDataContext>();
 
-        _repository = new NewEnglandClassic.Divisions.Repository(_dataContext.Object);
+        _repository = new NortheastMegabuck.Divisions.Repository(_dataContext.Object);
     }
 
     [Test]
-    public void Add_DivisionAddedWithGuid()
+    public void Add_DivisionAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Division>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Division>().SetUpDbContext());
 
-        var division = new NewEnglandClassic.Database.Entities.Division();
+        var division = new NortheastMegabuck.Database.Entities.Division();
 
-        var guid = _repository.Add(division);
+        var id = _repository.Add(division);
 
-        Assert.That(division.Id, Is.EqualTo(guid));
+        Assert.That(division.Id, Is.EqualTo(id));
     }
 
     [Test]
     public void Add_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Division>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Division>().SetUpDbContext());
 
-        var division = new NewEnglandClassic.Database.Entities.Division();
+        var division = new NortheastMegabuck.Database.Entities.Division();
 
         _repository.Add(division);
 
@@ -43,40 +43,74 @@ internal class Repository
     }
 
     [Test]
-    public void ForTournament_ReturnsDivisionsForSelectedTournament()
+    public void Execute_ReturnsDivisionsForSelectedTournament()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        var division1 = new NewEnglandClassic.Database.Entities.Division
+        var division1 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = Guid.NewGuid(),
+            Id = NortheastMegabuck.Divisions.Id.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
-        var division2 = new NewEnglandClassic.Database.Entities.Division
+        var division2 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = Guid.NewGuid(),
+            Id = NortheastMegabuck.Divisions.Id.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
-        var division3 = new NewEnglandClassic.Database.Entities.Division
+        var division3 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = Guid.NewGuid(),
-            TournamentId = Guid.NewGuid(),
+            Id = NortheastMegabuck.Divisions.Id.New(),
+            TournamentId = TournamentId.New(),
             Name = "No"
         };
 
         var divisions = new[] { division1, division2, division3 };
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(divisions.SetUpDbContext());
 
-        var actual = _repository.ForTournament(tournamentId);
+        var actual = _repository.Retrieve(tournamentId);
 
         Assert.Multiple(() =>
         {
             Assert.That(actual.Count(), Is.EqualTo(2));
             Assert.That(actual.Count(division => division.Name == "Yes"), Is.EqualTo(2));
         });
+    }
+
+    [Test]
+    public void Retrieve_ReturnsDivision()
+    {
+        var divisionId = NortheastMegabuck.Divisions.Id.New();
+
+        var division1 = new NortheastMegabuck.Database.Entities.Division
+        {
+            Id = divisionId,
+            TournamentId = TournamentId.New(),
+            Name = "Yes"
+        };
+
+        var division2 = new NortheastMegabuck.Database.Entities.Division
+        {
+            Id = NortheastMegabuck.Divisions.Id.New(),
+            TournamentId = TournamentId.New(),
+            Name = "No"
+        };
+
+        var division3 = new NortheastMegabuck.Database.Entities.Division
+        {
+            Id = NortheastMegabuck.Divisions.Id.New(),
+            TournamentId = TournamentId.New(),
+            Name = "No"
+        };
+
+        var divisions = new[] { division1, division2, division3 };
+        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(divisions.SetUpDbContext());
+
+        var division = _repository.Retrieve(divisionId);
+
+        Assert.That(division.Id, Is.EqualTo(divisionId));
     }
 }

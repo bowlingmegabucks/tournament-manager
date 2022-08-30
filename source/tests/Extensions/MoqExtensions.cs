@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 
-namespace NewEnglandClassic.Tests.Extensions;
+namespace NortheastMegabuck.Tests.Extensions;
 internal static class Moq
 {
     internal static DbSet<TEntity> SetUpDbContext<TEntity>(this IEnumerable<TEntity> items) where TEntity : class

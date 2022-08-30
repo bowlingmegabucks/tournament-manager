@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Divisions.Add;
+namespace NortheastMegabuck.Divisions.Add;
 internal class Validator : AbstractValidator<Models.Division>
 {
     public Validator()
@@ -9,7 +9,7 @@ internal class Validator : AbstractValidator<Models.Division>
 
         RuleFor(division => division.Name).NotEmpty().WithMessage("Division name is required");
 
-        RuleFor(division => division.TournamentId).Must(tournamentId => tournamentId != Guid.Empty).WithMessage("Tournament Id is required");
+        RuleFor(division => division.TournamentId).Must(tournamentId => tournamentId != TournamentId.Empty).WithMessage("Tournament Id is required");
 
         RuleFor(division => division.MinimumAge).Must(minimumAge => minimumAge > 0)
                                                 .When(division=> division.MinimumAge.HasValue)

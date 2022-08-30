@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Tournaments.Add;
+namespace NortheastMegabuck.Tournaments.Add;
 
 internal class Validator : AbstractValidator<Models.Tournament>
 {

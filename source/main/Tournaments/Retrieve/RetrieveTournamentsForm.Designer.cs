@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tournaments.Retrieve;
 
 partial class Form
 {
@@ -28,50 +28,50 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.ButtonOpenTournament = new System.Windows.Forms.Button();
-            this.TournamentsGrid = new NewEnglandClassic.Controls.TournamentsGrid();
-            this.ButtonNew = new System.Windows.Forms.Button();
+            this.openButton = new System.Windows.Forms.Button();
+            this.tournamentsGrid = new NortheastMegabuck.Controls.TournamentsGrid();
+            this.newButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // ButtonOpenTournament
+            // openButton
             // 
-            this.ButtonOpenTournament.Location = new System.Drawing.Point(595, 383);
-            this.ButtonOpenTournament.Name = "ButtonOpenTournament";
-            this.ButtonOpenTournament.Size = new System.Drawing.Size(75, 23);
-            this.ButtonOpenTournament.TabIndex = 0;
-            this.ButtonOpenTournament.Text = "Open";
-            this.ButtonOpenTournament.UseVisualStyleBackColor = true;
-            this.ButtonOpenTournament.Click += new System.EventHandler(this.ButtonOpenTournament_Click);
+            this.openButton.Location = new System.Drawing.Point(595, 383);
+            this.openButton.Name = "openButton";
+            this.openButton.Size = new System.Drawing.Size(75, 23);
+            this.openButton.TabIndex = 0;
+            this.openButton.Text = "Open";
+            this.openButton.UseVisualStyleBackColor = true;
+            this.openButton.Click += new System.EventHandler(this.OpenButton_Click);
             // 
-            // TournamentsGrid
+            // tournamentsGrid
             // 
-            this.TournamentsGrid.AllowRowSelection = true;
-            this.TournamentsGrid.AlternateRowColors = true;
-            this.TournamentsGrid.Location = new System.Drawing.Point(0, 0);
-            this.TournamentsGrid.Name = "TournamentsGrid";
-            this.TournamentsGrid.SelectedRowContextMenu = null;
-            this.TournamentsGrid.Size = new System.Drawing.Size(670, 377);
-            this.TournamentsGrid.TabIndex = 1;
-            this.TournamentsGrid.GridRowDoubleClicked += new System.EventHandler<NewEnglandClassic.Controls.GridRowDoubleClickEventArgs>(this.TournamentsGrid_GridRowDoubleClicked);
+            this.tournamentsGrid.AllowRowSelection = true;
+            this.tournamentsGrid.AlternateRowColors = true;
+            this.tournamentsGrid.Location = new System.Drawing.Point(0, 0);
+            this.tournamentsGrid.Name = "tournamentsGrid";
+            this.tournamentsGrid.SelectedRowContextMenu = null;
+            this.tournamentsGrid.Size = new System.Drawing.Size(670, 377);
+            this.tournamentsGrid.TabIndex = 1;
+            this.tournamentsGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.GridRowDoubleClickEventArgs>(this.TournamentsGrid_GridRowDoubleClicked);
             // 
-            // ButtonNew
+            // newButton
             // 
-            this.ButtonNew.Location = new System.Drawing.Point(12, 383);
-            this.ButtonNew.Name = "ButtonNew";
-            this.ButtonNew.Size = new System.Drawing.Size(75, 23);
-            this.ButtonNew.TabIndex = 2;
-            this.ButtonNew.Text = "New";
-            this.ButtonNew.UseVisualStyleBackColor = true;
-            this.ButtonNew.Click += new System.EventHandler(this.ButtonNew_Click);
+            this.newButton.Location = new System.Drawing.Point(12, 383);
+            this.newButton.Name = "newButton";
+            this.newButton.Size = new System.Drawing.Size(75, 23);
+            this.newButton.TabIndex = 2;
+            this.newButton.Text = "New";
+            this.newButton.UseVisualStyleBackColor = true;
+            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 415);
-            this.Controls.Add(this.ButtonNew);
-            this.Controls.Add(this.TournamentsGrid);
-            this.Controls.Add(this.ButtonOpenTournament);
+            this.Controls.Add(this.newButton);
+            this.Controls.Add(this.tournamentsGrid);
+            this.Controls.Add(this.openButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -84,7 +84,7 @@ partial class Form
 
     #endregion
 
-    private Button ButtonOpenTournament;
-    private Controls.TournamentsGrid TournamentsGrid;
-    private Button ButtonNew;
+    private Button openButton;
+    private Controls.TournamentsGrid tournamentsGrid;
+    private Button newButton;
 }

@@ -1,26 +1,26 @@
-﻿namespace NewEnglandClassic.Tests.Tournaments.Add;
+﻿namespace NortheastMegabuck.Tests.Tournaments.Add;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Tournaments.IEntityMapper> _mapper;
-    private Mock<NewEnglandClassic.Tournaments.IRepository> _repository;
+    private Mock<NortheastMegabuck.Tournaments.IEntityMapper> _mapper;
+    private Mock<NortheastMegabuck.Tournaments.IRepository> _repository;
 
-    private NewEnglandClassic.Tournaments.Add.IDataLayer _dataLayer;
+    private NortheastMegabuck.Tournaments.Add.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _mapper = new Mock<NewEnglandClassic.Tournaments.IEntityMapper>();
-        _repository = new Mock<NewEnglandClassic.Tournaments.IRepository>();
+        _mapper = new Mock<NortheastMegabuck.Tournaments.IEntityMapper>();
+        _repository = new Mock<NortheastMegabuck.Tournaments.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Tournaments.Add.DataLayer(_mapper.Object, _repository.Object);
+        _dataLayer = new NortheastMegabuck.Tournaments.Add.DataLayer(_mapper.Object, _repository.Object);
     }
 
     [Test]
     public void Execute_MapperExecute_CalledCorrectly()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
 
         _dataLayer.Execute(tournament);
         
@@ -30,10 +30,10 @@ internal class DataLayer
     [Test]
     public void Execute_RepositoryAdd_CalledCorrectly()
     {
-        var entity = new NewEnglandClassic.Database.Entities.Tournament();
-        _mapper.Setup(mapper => mapper.Execute(It.IsAny<NewEnglandClassic.Models.Tournament>())).Returns(entity);
+        var entity = new NortheastMegabuck.Database.Entities.Tournament();
+        _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>())).Returns(entity);
         
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
 
         _dataLayer.Execute(tournament);
 
@@ -43,13 +43,13 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsNewGUID()
     {
-        var guid = Guid.NewGuid();
-        _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.Tournament>())).Returns(guid);
+        var id = TournamentId.New();
+        _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.Tournament>())).Returns(id);
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
 
         var result = _dataLayer.Execute(tournament);
 
-        Assert.That(result, Is.EqualTo(guid));
+        Assert.That(result, Is.EqualTo(id));
     }
 }

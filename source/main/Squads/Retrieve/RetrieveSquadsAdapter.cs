@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Squads.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
@@ -20,9 +20,9 @@ internal class Adapter : IAdapter
     public Models.ErrorDetail? Error
         => _businessLogic.Error;
 
-    public IEnumerable<IViewModel> ForTournament(Guid tournamentId)
+    public IEnumerable<IViewModel> Execute(TournamentId tournamentId)
     {
-        var squads = _businessLogic.ForTournament(tournamentId);
+        var squads = _businessLogic.Execute(tournamentId);
 
         return squads.Select(squad => new ViewModel(squad));
     }
@@ -32,5 +32,5 @@ internal interface IAdapter
 { 
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IViewModel> ForTournament(Guid tournamentId);
+    IEnumerable<IViewModel> Execute(TournamentId tournamentId);
 }

@@ -1,23 +1,23 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
 
-namespace NewEnglandClassic.Tests.Sweepers.Add;
+namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
 internal class Validator
 {
-    private IValidator<NewEnglandClassic.Models.Sweeper> _validator;
+    private IValidator<NortheastMegabuck.Models.Sweeper> _validator;
 
     [SetUp]
     public void SetUp()
-        => _validator = new NewEnglandClassic.Sweepers.Add.Validator();
+        => _validator = new NortheastMegabuck.Sweepers.Add.Validator();
 
     [Test]
     public void TournamentId_Empty_HasError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
-            TournamentId = Guid.Empty
+            TournamentId = TournamentId.Empty
         };
 
         var result = _validator.TestValidate(sweeper);
@@ -27,7 +27,7 @@ internal class Validator
     [Test]
     public void Tournament_Null_HasError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Tournament = null
         };
@@ -39,11 +39,11 @@ internal class Validator
     [Test]
     public void Tournament_NotNull_NoError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
-            Tournament = new NewEnglandClassic.Models.Tournament
+            Tournament = new NortheastMegabuck.Models.Tournament
             {
-                Id = Guid.NewGuid()
+                Id = TournamentId.New()
             }
         };
 
@@ -54,13 +54,13 @@ internal class Validator
     [Test]
     public void TournamentId_NotEmpty_DoesNotMatchTournamentTournamentId_HasError()
     {
-        var id1 = Guid.NewGuid();
-        var id2 = Guid.NewGuid();
+        var id1 = TournamentId.New();
+        var id2 = TournamentId.New();
 
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = id1,
-            Tournament = new NewEnglandClassic.Models.Tournament
+            Tournament = new NortheastMegabuck.Models.Tournament
             {
                 Id = id2
             }
@@ -73,12 +73,12 @@ internal class Validator
     [Test]
     public void TournamentId_NotEmpty_MatchesTournamentTournamentId_NoError()
     {
-        var id = Guid.NewGuid();
+        var id = TournamentId.New();
 
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             TournamentId = id,
-            Tournament = new NewEnglandClassic.Models.Tournament
+            Tournament = new NortheastMegabuck.Models.Tournament
             {
                 Id = id
             }
@@ -91,7 +91,7 @@ internal class Validator
     [Test]
     public void Games_LessThan1_HasError([Values(-1, 0)] short games)
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Games = games
         };
@@ -103,7 +103,7 @@ internal class Validator
     [Test]
     public void FinalsRatio_GreaterThanOrEqualTo1_NoError([Values(1,2)]short games)
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Games = games
         };
@@ -115,7 +115,7 @@ internal class Validator
     [Test]
     public void CashRatio_LessThanOrEqualTo1_HasError([Values(-1, 0, .5, 1)] decimal cashRatio)
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             CashRatio = cashRatio
         };
@@ -127,7 +127,7 @@ internal class Validator
     [Test]
     public void CashRatio_GreaterThan1_NoError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             CashRatio = 1.1m
         };
@@ -139,10 +139,10 @@ internal class Validator
     [Test]
     public void Date_BeforeTournamentStart_HasError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 1),
-            Tournament = new NewEnglandClassic.Models.Tournament
+            Tournament = new NortheastMegabuck.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2)
             }
@@ -155,10 +155,10 @@ internal class Validator
     [Test]
     public void Date_OnTournamentStart_NoError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 2),
-            Tournament = new NewEnglandClassic.Models.Tournament
+            Tournament = new NortheastMegabuck.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2),
                 End = new DateOnly(2018, 1, 3)
@@ -172,10 +172,10 @@ internal class Validator
     [Test]
     public void Date_AfterTournamentStart_NoError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 3),
-            Tournament = new NewEnglandClassic.Models.Tournament
+            Tournament = new NortheastMegabuck.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2),
                 End = new DateOnly(2018, 1, 4)
@@ -189,10 +189,10 @@ internal class Validator
     [Test]
     public void Date_BeforeTournamentEnd_NoError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 1),
-            Tournament = new NewEnglandClassic.Models.Tournament
+            Tournament = new NortheastMegabuck.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
             }
@@ -205,10 +205,10 @@ internal class Validator
     [Test]
     public void Date_OnTournamentEnd_NoError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 2),
-            Tournament = new NewEnglandClassic.Models.Tournament
+            Tournament = new NortheastMegabuck.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
             }
@@ -221,10 +221,10 @@ internal class Validator
     [Test]
     public void Date_AfterTournamentEnd_HasError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 3),
-            Tournament = new NewEnglandClassic.Models.Tournament
+            Tournament = new NortheastMegabuck.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
             }
@@ -237,7 +237,7 @@ internal class Validator
     [Test]
     public void MaxPerPair_LessThanOrEqualToZero_HasError([Values(-1, 0)] short maxPerPair)
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             MaxPerPair = maxPerPair
         };
@@ -249,7 +249,7 @@ internal class Validator
     [Test]
     public void MaxPerPair_GreaterThanZero_NoError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             MaxPerPair = 1
         };
@@ -261,7 +261,7 @@ internal class Validator
     [Test]
     public void StartingLane_LessThanOrEqualToZero_HasError([Values(-1, 0)] short startingLane)
     {
-        var squad = new NewEnglandClassic.Models.Sweeper
+        var squad = new NortheastMegabuck.Models.Sweeper
         {
             StartingLane = startingLane
         };
@@ -273,7 +273,7 @@ internal class Validator
     [Test]
     public void StartingLane_GreaterThanZero_NoError()
     {
-        var squad = new NewEnglandClassic.Models.Sweeper
+        var squad = new NortheastMegabuck.Models.Sweeper
         {
             StartingLane = 1
         };
@@ -285,7 +285,7 @@ internal class Validator
     [Test]
     public void NumberOfLanes_LessThanOrEqualToZero_HasError([Values(-1, 0)] short numberOfLanes)
     {
-        var squad = new NewEnglandClassic.Models.Sweeper
+        var squad = new NortheastMegabuck.Models.Sweeper
         {
             NumberOfLanes = numberOfLanes
         };
@@ -297,7 +297,7 @@ internal class Validator
     [Test]
     public void NumberOfLanes_GreaterThanZero_NoError()
     {
-        var squad = new NewEnglandClassic.Models.Sweeper
+        var squad = new NortheastMegabuck.Models.Sweeper
         {
             NumberOfLanes = 1
         };
@@ -309,7 +309,7 @@ internal class Validator
     [Test]
     public void Complete_False_NoError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Complete = false
         };
@@ -321,7 +321,7 @@ internal class Validator
     [Test]
     public void Complete_True_HasError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             Complete = true
         };
@@ -333,7 +333,7 @@ internal class Validator
     [Test]
     public void EntryFee_LessThanOrEqualToZero_HasError([Values(-1, 0)] decimal entryFee)
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             EntryFee = entryFee
         };
@@ -345,7 +345,7 @@ internal class Validator
     [Test]
     public void EntryFee_GreaterThanZero_NoError()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper
+        var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             EntryFee = .1m
         };

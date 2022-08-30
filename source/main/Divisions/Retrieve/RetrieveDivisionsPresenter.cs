@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Retrieve;
+﻿namespace NortheastMegabuck.Divisions.Retrieve;
 
 internal class Presenter
 {
@@ -25,7 +25,7 @@ internal class Presenter
 
     public void Execute()
     {
-        var divisions = _adapter.ForTournament(_view.TournamentId);
+        var divisions = _adapter.Execute(_view.TournamentId);
 
         if (_adapter.Error != null)
         {

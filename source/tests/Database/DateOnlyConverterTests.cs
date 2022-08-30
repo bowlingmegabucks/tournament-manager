@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tests.Database;
+﻿namespace NortheastMegabuck.Tests.Database;
 
 [TestFixture]
 internal class DateOnlyConverterTests
@@ -6,7 +6,7 @@ internal class DateOnlyConverterTests
     [Test]
     public void DateOnlyToDateTime_MappedCorrectly()
     {
-        var dateOnlyConverter = new NewEnglandClassic.Database.DateOnlyConverter();
+        var dateOnlyConverter = new NortheastMegabuck.Database.DateOnlyConverter();
 
         var dateOnly = new DateOnly(2000, 1, 2);
 
@@ -20,7 +20,7 @@ internal class DateOnlyConverterTests
     [Test]
     public void DateTimeToDateOnly_MappedCorrectly()
     {
-        var dateOnlyConverter = new NewEnglandClassic.Database.DateOnlyConverter();
+        var dateOnlyConverter = new NortheastMegabuck.Database.DateOnlyConverter();
 
         var dateTime = new DateTime(2000, 1, 2,3,4,5);
 

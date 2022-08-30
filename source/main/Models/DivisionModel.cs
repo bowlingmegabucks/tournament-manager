@@ -1,14 +1,14 @@
 ﻿
-namespace NewEnglandClassic.Models;
+namespace NortheastMegabuck.Models;
 internal class Division
 {
-    public Guid Id { get; set; }
+    public NortheastMegabuck.Divisions.Id Id { get; set; }
 
     public short Number { get; set; }
 
     public string Name { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public short? MinimumAge { get; set; }
 

@@ -1,10 +1,10 @@
 ﻿
-namespace NewEnglandClassic.Sweepers;
+namespace NortheastMegabuck.Sweepers;
 internal class ViewModel : IViewModel
 {
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public decimal EntryFee { get; set; }
 
@@ -22,7 +22,7 @@ internal class ViewModel : IViewModel
 
     public bool Complete { get; set; }
 
-    public IDictionary<Guid, int?> Divisions { get; set; } = new Dictionary<Guid, int?>();
+    public IDictionary<NortheastMegabuck.Divisions.Id, int?> Divisions { get; set; } = new Dictionary<NortheastMegabuck.Divisions.Id, int?>();
 
     public ViewModel(Models.Sweeper sweeper)
     {
@@ -34,15 +34,15 @@ internal class ViewModel : IViewModel
         Date = sweeper.Date;
         MaxPerPair = sweeper.MaxPerPair;
         Complete = sweeper.Complete;
-        Divisions = sweeper.Divisions;
+        Divisions = sweeper.Divisions.ToDictionary(division=> division.Key, division=> division.Value);
     }
 }
 
-internal interface IViewModel
+public interface IViewModel
 {
-    Guid Id { get; set; }
+    SquadId Id { get; set; }
 
-    Guid TournamentId { get; set; }
+    TournamentId TournamentId { get; set; }
 
     decimal EntryFee { get; set; }
 
@@ -60,5 +60,5 @@ internal interface IViewModel
 
     bool Complete { get; set; }
 
-    IDictionary<Guid, int?> Divisions { get; }
+    IDictionary<NortheastMegabuck.Divisions.Id, int?> Divisions { get; }
 }

@@ -1,59 +1,59 @@
-﻿namespace NewEnglandClassic.Tests.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Sweepers.IRepository> _repository;
+    private Mock<NortheastMegabuck.Sweepers.IRepository> _repository;
 
-    private NewEnglandClassic.Sweepers.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Sweepers.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NewEnglandClassic.Sweepers.IRepository>();
+        _repository = new Mock<NortheastMegabuck.Sweepers.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Sweepers.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Sweepers.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
-    public void ForTournament_RepositoryForTournament_Called()
+    public void Execute_RepositoryRetrieve_Called()
     {
-        var guid = Guid.NewGuid();
+        var id = TournamentId.New();
 
-        _dataLayer.ForTournament(guid);
+        _dataLayer.Execute(id);
 
-        _repository.Verify(repository => repository.ForTournament(guid), Times.Once);
+        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
     }
 
     [Test]
-    public void ForTournament_ReturnsRepositoryForTournamentResponse()
+    public void Execute_ReturnsRepositoryRetrieveResponse()
     {
-        var sweeper1 = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var sweeper1 = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             MaxPerPair = 1,
             CashRatio = 2,
-            Divisions = Enumerable.Empty<NewEnglandClassic.Database.Entities.SweeperDivision>().ToList()
+            Divisions = Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperDivision>().ToList()
         };
 
-        var sweeper2 = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var sweeper2 = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             MaxPerPair = 2,
             CashRatio = 3,
-            Divisions = Enumerable.Empty<NewEnglandClassic.Database.Entities.SweeperDivision>().ToList()
+            Divisions = Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperDivision>().ToList()
         };
 
-        var sweeper3 = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var sweeper3 = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             MaxPerPair = 3,
             CashRatio = 4,
-            Divisions = Enumerable.Empty<NewEnglandClassic.Database.Entities.SweeperDivision>().ToList()
+            Divisions = Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperDivision>().ToList()
         };
 
         var sweepers = new[] { sweeper1, sweeper2, sweeper3 };
 
-        _repository.Setup(repository => repository.ForTournament(It.IsAny<Guid>())).Returns(sweepers);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(sweepers);
 
-        var actual = _dataLayer.ForTournament(Guid.NewGuid());
+        var actual = _dataLayer.Execute(TournamentId.New());
 
         Assert.Multiple(() =>
         {

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Add;
+﻿namespace NortheastMegabuck.Tournaments.Add;
 internal class Adapter : IAdapter
 {
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
@@ -19,7 +19,7 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public Guid? Execute(IViewModel viewModel)
+    public TournamentId? Execute(IViewModel viewModel)
     {
         var model = new Models.Tournament(viewModel);
 
@@ -35,5 +35,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(IViewModel viewModel);
+    TournamentId? Execute(IViewModel viewModel);
 }

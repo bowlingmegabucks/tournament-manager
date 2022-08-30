@@ -1,24 +1,24 @@
-﻿using NewEnglandClassic.Tests.Extensions;
+﻿using NortheastMegabuck.Tests.Extensions;
 
-namespace NewEnglandClassic.Tests.Squads.Add;
+namespace NortheastMegabuck.Tests.Squads.Add;
 
 [TestFixture]
 internal class BusinesLogic
 {
-    private Mock<NewEnglandClassic.Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
-    private Mock<FluentValidation.IValidator<NewEnglandClassic.Models.Squad>> _validator;
-    private Mock<NewEnglandClassic.Squads.Add.IDataLayer> _dataLayer;
+    private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
+    private Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Squad>> _validator;
+    private Mock<NortheastMegabuck.Squads.Add.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Squads.Add.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Squads.Add.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _getTournamentBO = new Mock<NewEnglandClassic.Tournaments.Retrieve.IBusinessLogic>();
-        _validator = new Mock<FluentValidation.IValidator<NewEnglandClassic.Models.Squad>>();
-        _dataLayer = new Mock<NewEnglandClassic.Squads.Add.IDataLayer>();
+        _getTournamentBO = new Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic>();
+        _validator = new Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Squad>>();
+        _dataLayer = new Mock<NortheastMegabuck.Squads.Add.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Squads.Add.BusinessLogic(_getTournamentBO.Object, _validator.Object, _dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Squads.Add.BusinessLogic(_getTournamentBO.Object, _validator.Object, _dataLayer.Object);
     }
 
     [Test]
@@ -26,9 +26,9 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
         
-        var squad = new NewEnglandClassic.Models.Squad
+        var squad = new NortheastMegabuck.Models.Squad
         { 
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(squad);
@@ -39,23 +39,23 @@ internal class BusinesLogic
     [Test]
     public void Execute_GetTournamentBOHasError_ErrorFlow()
     {
-        var error = new NewEnglandClassic.Models.ErrorDetail("error");
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _getTournamentBO.SetupGet(getTournamentBO => getTournamentBO.Error).Returns(error);
 
-        var squad = new NewEnglandClassic.Models.Squad
+        var squad = new NortheastMegabuck.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(squad);
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("error");
+            _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _validator.Verify(validator => validator.Validate(It.IsAny<NewEnglandClassic.Models.Squad>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>()), Times.Never);
+            _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Squad>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Squad>()), Times.Never);
         });
     }
 
@@ -64,12 +64,12 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        var tournament = new NortheastMegabuck.Models.Tournament();
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var squad = new NewEnglandClassic.Models.Squad
+        var squad = new NortheastMegabuck.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(squad);
@@ -82,12 +82,12 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        var tournament = new NortheastMegabuck.Models.Tournament();
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var squad = new NewEnglandClassic.Models.Squad
+        var squad = new NortheastMegabuck.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(squad);
@@ -95,7 +95,7 @@ internal class BusinesLogic
         Assert.Multiple(() =>
         {
             _validator.Verify(validator => validator.Validate(squad), Times.Once);
-            _validator.Verify(validator => validator.Validate(It.Is<NewEnglandClassic.Models.Squad>(s => s.Tournament == tournament)), Times.Once);
+            _validator.Verify(validator => validator.Validate(It.Is<NortheastMegabuck.Models.Squad>(s => s.Tournament == tournament)), Times.Once);
         });
     }
 
@@ -104,22 +104,22 @@ internal class BusinesLogic
     {
         _validator.Validate_IsNotValid("property", "invalid");
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        var tournament = new NortheastMegabuck.Models.Tournament();
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var squad = new NewEnglandClassic.Models.Squad
+        var squad = new NortheastMegabuck.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(squad);
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("invalid");
+            _businessLogic.Errors.Assert_HasErrorMessage("invalid");
             Assert.That(actual, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Squad>()), Times.Never);
         });
     }
 
@@ -128,12 +128,12 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        var tournament = new NortheastMegabuck.Models.Tournament();
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var squad = new NewEnglandClassic.Models.Squad
+        var squad = new NortheastMegabuck.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         _businessLogic.Execute(squad);
@@ -147,21 +147,21 @@ internal class BusinesLogic
         _validator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Squad>())).Throws(ex);
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        var tournament = new NortheastMegabuck.Models.Tournament();
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var squad = new NewEnglandClassic.Models.Squad
+        var squad = new NortheastMegabuck.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(squad);
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("exception");
+            _businessLogic.Errors.Assert_HasErrorMessage("exception");
             Assert.That(actual, Is.Null);
         });
     }
@@ -171,19 +171,19 @@ internal class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var guid = Guid.NewGuid();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Squad>())).Returns(guid);
+        var id = SquadId.New();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Squad>())).Returns(id);
 
-        var tournament = new NewEnglandClassic.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<Guid>())).Returns(tournament);
+        var tournament = new NortheastMegabuck.Models.Tournament();
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var squad = new NewEnglandClassic.Models.Squad
+        var squad = new NortheastMegabuck.Models.Squad
         {
-            TournamentId = Guid.NewGuid()
+            TournamentId = TournamentId.New()
         };
 
         var actual = _businessLogic.Execute(squad);
 
-        Assert.That(actual, Is.EqualTo(guid));
+        Assert.That(actual, Is.EqualTo(id));
     }
 }

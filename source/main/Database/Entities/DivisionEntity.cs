@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 
-namespace NewEnglandClassic.Database.Entities;
+namespace NortheastMegabuck.Database.Entities;
 internal class Division
 {
     [Key]
-    public Guid Id { get; set; }
+    public Divisions.Id Id { get; set; }
 
     [Required]
     public string Name { get; set; } = string.Empty;
@@ -15,7 +15,7 @@ internal class Division
     public short Number { get; set; }
 
     [Required]
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public Tournament Tournament { get; set; } = null!;
 
@@ -38,14 +38,23 @@ internal class Division
 
     public ICollection<SweeperDivision> Sweepers { get; set; } = null!;
 
+    public ICollection<Registration> Registrations { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<Division>
     {
         public void Configure(EntityTypeBuilder<Division> builder)
-            => builder.HasOne(division => division.Tournament)
+        {
+            builder.Property(division => division.Id)
+                .HasConversion<Divisions.Id.EfCoreValueConverter>()
+                .HasValueGenerator<Divisions.IdValueGenerator>();
+
+            builder.Property(division => division.TournamentId).HasConversion<TournamentId.EfCoreValueConverter>();
+
+            builder.HasOne(division => division.Tournament)
                       .WithMany(tournament => tournament.Divisions)
                       .HasForeignKey(division => division.TournamentId)
                       .OnDelete(DeleteBehavior.Cascade)
                       .IsRequired();
-
+        }
     }
 }

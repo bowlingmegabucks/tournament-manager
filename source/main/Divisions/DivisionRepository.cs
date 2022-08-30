@@ -1,4 +1,6 @@
-﻿namespace NewEnglandClassic.Divisions;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NortheastMegabuck.Divisions;
 
 internal class Repository : IRepository
 {
@@ -17,7 +19,7 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    Guid IRepository.Add(Database.Entities.Division division)
+    Id IRepository.Add(Database.Entities.Division division)
     {
         _dataContext.Divisions.Add(division);
         _dataContext.SaveChanges();
@@ -25,13 +27,18 @@ internal class Repository : IRepository
         return division.Id;
     }
 
-    IEnumerable<Database.Entities.Division> IRepository.ForTournament(Guid tournamentId)
-        => _dataContext.Divisions.Where(division => division.TournamentId == tournamentId).AsEnumerable();
+    IEnumerable<Database.Entities.Division> IRepository.Retrieve(TournamentId tournamentId)
+        => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId).AsEnumerable();
+
+    Database.Entities.Division IRepository.Retrieve(NortheastMegabuck.Divisions.Id id)
+        => _dataContext.Divisions.Single(division => division.Id == id);
 }
 
 internal interface IRepository
 {
-    Guid Add(Database.Entities.Division division);
+    Id Add(Database.Entities.Division division);
 
-    IEnumerable<Database.Entities.Division> ForTournament(Guid tournamentId);
+    IEnumerable<Database.Entities.Division> Retrieve(TournamentId tournamentId);
+
+    Database.Entities.Division Retrieve(Id id);
 }

@@ -1,9 +1,9 @@
-﻿namespace NewEnglandClassic.Models;
+﻿namespace NortheastMegabuck.Models;
 internal class Squad
 {
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     internal Tournament? Tournament { get; set; }
 

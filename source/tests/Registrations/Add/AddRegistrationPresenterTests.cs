@@ -1,0 +1,405 @@
+﻿
+namespace NortheastMegabuck.Tests.Registrations.Add;
+
+[TestFixture]
+internal class Presenter
+{
+    private Mock<NortheastMegabuck.Registrations.Add.IView> _view;
+
+    private Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter> _divisionsAdapter;
+    private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _squadsAdapter;
+    private Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
+    private Mock<NortheastMegabuck.Bowlers.Retrieve.IAdapter> _bowlersAdapter;
+    private Mock<NortheastMegabuck.Registrations.Add.IAdapter> _adapter;
+
+    private NortheastMegabuck.Registrations.Add.Presenter _presenter;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _view = new Mock<NortheastMegabuck.Registrations.Add.IView>();
+
+        _divisionsAdapter = new Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter>();
+        _squadsAdapter = new Mock<NortheastMegabuck.Squads.Retrieve.IAdapter>();
+        _sweepersAdapter = new Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter>();
+        _bowlersAdapter = new Mock<NortheastMegabuck.Bowlers.Retrieve.IAdapter>();
+        _adapter = new Mock<NortheastMegabuck.Registrations.Add.IAdapter>();
+
+        _presenter = new NortheastMegabuck.Registrations.Add.Presenter(_view.Object, _divisionsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _bowlersAdapter.Object, _adapter.Object);
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_Called()
+    {
+        _presenter.Load();
+
+        _view.Verify(view => view.SelectBowler(), Times.Once);
+    }
+
+    [Test]
+    public void Load_ViewSelectedBowlerReturnsNull_ExitFlow()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns((BowlerId?)null);
+
+        _presenter.Load();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.Close(), Times.Once);
+
+            _divisionsAdapter.Verify(adapter => adapter.Execute(It.IsAny<TournamentId>()), Times.Never);
+            _squadsAdapter.Verify(adapter => adapter.Execute(It.IsAny<TournamentId>()), Times.Never);
+            _sweepersAdapter.Verify(adapter => adapter.Execute(It.IsAny<TournamentId>()), Times.Never);
+            _bowlersAdapter.Verify(adapter=> adapter.Execute(It.IsAny<BowlerId>()), Times.Never);
+
+            _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.Disable(), Times.Never);
+
+            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<NortheastMegabuck.Squads.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>()), Times.Never);
+            _view.Verify(view=> view.BindBowler(It.IsAny<NortheastMegabuck.Bowlers.Retrieve.IViewModel>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_DivisionsAdapterExecute_CalledCorrectly()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        _divisionsAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_SquadsAdapterExecute_CalledCorrectly()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        _squadsAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_SweepersAdapterExecute_CalledCorrectly()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        _sweepersAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
+    }
+
+    [Test]
+    [Ignore("Need to figure out how to test inside Task.Run")]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_BowlerAdapterExecute_NotCalled()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        _bowlersAdapter.Verify(adapter => adapter.Execute(It.IsAny<BowlerId>()), Times.Never);
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsId_BowlerAdapterExecute_CalledCorrectly()
+    {
+        var bowlerId = BowlerId.New();
+        _view.Setup(view => view.SelectBowler()).Returns(bowlerId);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        _bowlersAdapter.Verify(adapter => adapter.Execute(bowlerId), Times.Once);
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_AllAdaptersHaveErrors_DivisionAdapterErrorFlow()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var divisionError = new NortheastMegabuck.Models.ErrorDetail("division");
+        _divisionsAdapter.SetupGet(adapter => adapter.Error).Returns(divisionError);
+
+        var squadError = new NortheastMegabuck.Models.ErrorDetail("squad");
+        _squadsAdapter.SetupGet(adapter => adapter.Error).Returns(squadError);
+
+        var sweeperError = new NortheastMegabuck.Models.ErrorDetail("sweeper");
+        _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
+
+        var bowlerError = new NortheastMegabuck.Models.ErrorDetail("bowler");
+        _bowlersAdapter.SetupGet(adapter=> adapter.Error).Returns(bowlerError);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("division"), Times.Once);
+            _view.Verify(view => view.Disable(), Times.Once);
+        });
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_DivisionAdapterNoError_SweeperAndSquadAdapterError_SquadAdapterErrorFlow()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var squadError = new NortheastMegabuck.Models.ErrorDetail("squad");
+        _squadsAdapter.SetupGet(adapter => adapter.Error).Returns(squadError);
+
+        var sweeperError = new NortheastMegabuck.Models.ErrorDetail("sweeper");
+        _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("squad"), Times.Once);
+            _view.Verify(view => view.Disable(), Times.Once);
+        });
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_DivisionAdapterAndSquadAdapterNoError_SweeperAdapterError_SweeperErrorFlow()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var sweeperError = new NortheastMegabuck.Models.ErrorDetail("sweeper");
+        _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("sweeper"), Times.Once);
+            _view.Verify(view => view.Disable(), Times.Once);
+        });
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindDivisions_CalledSortedByDivisionNumber()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var division1 = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        division1.SetupGet(division => division.Number).Returns(1);
+
+        var division2 = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        division2.SetupGet(division => division.Number).Returns(2);
+
+        var division3 = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        division3.SetupGet(division => division.Number).Returns(3);
+
+        var divisions = new[] { division3.Object, division1.Object, division2.Object };
+        _divisionsAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(divisions);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>(divisions => divisions.ToList()[0].Number == 1)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>(divisions => divisions.ToList()[1].Number == 2)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>(divisions => divisions.ToList()[2].Number == 3)), Times.Once);
+
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>(divisions => divisions.ToList().Count == 3)), Times.Once);
+        });
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindSquads_CalledSortedByDate()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1));
+
+        var squad2 = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2));
+
+        var squad3 = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        squad3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
+
+        var squads = new[] { squad3.Object, squad1.Object, squad2.Object };
+        _squadsAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[0].Date == new DateTime(2015, 1, 1))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[1].Date == new DateTime(2015, 1, 2))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[2].Date == new DateTime(2015, 1, 3))), Times.Once);
+
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList().Count == 3)), Times.Once);
+        });
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindSweepers_CalledSortedByDate()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        var sweeper1 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
+        sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1));
+
+        var sweeper2 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
+        sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2));
+
+        var sweeper3 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
+        sweeper3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
+
+        var sweepers = new[] { sweeper3.Object, sweeper1.Object, sweeper2.Object };
+        _sweepersAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
+
+        var tournamentId = TournamentId.New();
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+
+        _presenter.Load();
+        
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].Date == new DateTime(2015, 1, 1))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[1].Date == new DateTime(2015, 1, 2))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[2].Date == new DateTime(2015, 1, 3))), Times.Once);
+
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList().Count == 3)), Times.Once);
+        });
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindBowler_NotCalled()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
+
+        _presenter.Load();
+
+        _view.Verify(view => view.BindBowler(It.IsAny<NortheastMegabuck.Bowlers.Retrieve.IViewModel>()), Times.Never);
+    }
+
+    [Test]
+    public void Load_ViewSelectBowler_ReturnsId_NoAdapterErrors_ViewBindBowler_CalledCorrectly()
+    {
+        _view.Setup(view => view.SelectBowler()).Returns(BowlerId.New());
+
+        var bowler = new Mock<NortheastMegabuck.Bowlers.Retrieve.IViewModel>();
+        _bowlersAdapter.Setup(adapter => adapter.Execute(It.IsAny<BowlerId>())).Returns(bowler.Object);
+
+        _presenter.Load();
+
+        _view.Verify(view => view.BindBowler(bowler.Object), Times.Once);
+    }
+
+    [Test]
+    public void Execute_ViewIsValid_Called()
+    {
+        _presenter.Execute();
+
+        _view.Verify(view => view.IsValid(), Times.Once);
+    }
+
+    [Test]
+    public void Execute_ViewIsValidFalse_InvalidFlow()
+    {
+        _view.Setup(view => view.IsValid()).Returns(false);
+
+        _presenter.Execute();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.KeepOpen(), Times.Once);
+
+            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Bowlers.Add.IViewModel>(), It.IsAny<NortheastMegabuck.Divisions.Id>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>()), Times.Never);
+            _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.Close(), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Execute_ViewIsValidTrue_AdapterExecute_CalledCorrectly([Values] bool superSweeper)
+    {
+        _view.Setup(view => view.IsValid()).Returns(true);
+
+        var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        var sweepers = new List<SquadId>();
+        var squads = new List<SquadId>();
+        var average = 200;
+
+        _view.SetupGet(view => view.Bowler).Returns(bowler.Object);
+        _view.SetupGet(view => view.DivisionId).Returns(divisionId);
+        _view.SetupGet(view => view.Squads).Returns(squads);
+        _view.SetupGet(view => view.Sweepers).Returns(sweepers);
+        _view.SetupGet(view => view.Average).Returns(average);
+        _view.SetupGet(view => view.SuperSweeper).Returns(superSweeper);
+
+        _presenter.Execute();
+
+        _adapter.Verify(adapter => adapter.Execute(bowler.Object, divisionId, squads, sweepers, superSweeper, average), Times.Once);
+    }
+
+    [Test]
+    public void Execute_ViewIsValidTrue_AdapterHasErrors_ErrorFlow()
+    {
+        var errors = new[] { new NortheastMegabuck.Models.ErrorDetail("error1"), new NortheastMegabuck.Models.ErrorDetail("error2") };
+        _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);
+
+        _view.Setup(view => view.IsValid()).Returns(true);
+
+        _presenter.Execute();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.KeepOpen(), Times.Once);
+            _view.Verify(view => view.DisplayError($"error1{Environment.NewLine}error2"), Times.Once);
+
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.Close(), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Execute_ViewIsValidTrue_AdapterSuccessful_SuccessFlow()
+    {
+        _view.Setup(view => view.IsValid()).Returns(true);
+
+        _presenter.Execute();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayMessage("Registration added"), Times.Once);
+            _view.Verify(view => view.Close(), Times.Once);
+        });
+    }
+}

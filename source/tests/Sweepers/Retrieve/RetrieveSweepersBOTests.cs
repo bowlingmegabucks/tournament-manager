@@ -1,65 +1,65 @@
-﻿namespace NewEnglandClassic.Tests.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal class BusinessLogic
 {
-    private Mock<NewEnglandClassic.Sweepers.Retrieve.IDataLayer> _dataLayer;
+    private Mock<NortheastMegabuck.Sweepers.Retrieve.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Sweepers.Retrieve.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NewEnglandClassic.Sweepers.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<NortheastMegabuck.Sweepers.Retrieve.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Sweepers.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Sweepers.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
-    public void ForTournament_DataLayerForTournament_CalledCorrectly()
+    public void Execute_DataLayerExecute_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        _businessLogic.ForTournament(tournamentId);
+        _businessLogic.Execute(tournamentId);
 
-        _dataLayer.Verify(dataLayer => dataLayer.ForTournament(tournamentId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(tournamentId), Times.Once);
     }
 
     [Test]
-    public void ForTournament_ReturnsDataLayerForTournamentResults()
+    public void Execute_ReturnsDataLayerExecuteResults()
     {
-        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = Guid.NewGuid() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.ForTournament(It.IsAny<Guid>())).Returns(sweepers);
+        var sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, 2);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        var actual = _businessLogic.ForTournament(tournamentId);
+        var actual = _businessLogic.Execute(tournamentId);
 
         Assert.That(actual, Is.EqualTo(sweepers));
     }
 
     [Test]
-    public void ForTournament_DataLayerForTournamentNoException_ErrorNull()
+    public void Execute_DataLayerExecuteNoException_ErrorNull()
     {
-        var sweepers = Enumerable.Repeat(new NewEnglandClassic.Models.Sweeper { Id = Guid.NewGuid() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.ForTournament(It.IsAny<Guid>())).Returns(sweepers);
+        var sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, 2);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-         _businessLogic.ForTournament(tournamentId);
+         _businessLogic.Execute(tournamentId);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void ForTournament_DataLayerForTournamentThrowsException_ErrorFlow()
+    public void Execute_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.ForTournament(It.IsAny<Guid>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        var actual = _businessLogic.ForTournament(tournamentId);
+        var actual = _businessLogic.Execute(tournamentId);
 
         Assert.Multiple(() =>
         {

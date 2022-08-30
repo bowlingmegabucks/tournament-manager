@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 
-namespace NewEnglandClassic.Database.Entities;
+namespace NortheastMegabuck.Database.Entities;
 internal abstract class Squad
 {
     [Key]
-    public Guid Id { get; set; }
+    public SquadId Id { get; set; }
 
     [Required]
-    public Guid TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; }
 
     public Tournament Tournament { get; set; } = null!;
 
@@ -31,12 +31,22 @@ internal abstract class Squad
     [Required]
     public short NumberOfLanes { get; set; }
 
+    public ICollection<SquadRegistration> Registrations { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<Squad>
     {
-        public void Configure(EntityTypeBuilder<Squad> builder) 
-            => builder.ToTable("Squads")
+        public void Configure(EntityTypeBuilder<Squad> builder)
+        {
+            builder.Property(squad => squad.Id)
+                .HasConversion<SquadId.EfCoreValueConverter>()
+                .HasValueGenerator<SquadIdValueGenerator>();
+
+            builder.Property(squad => squad.TournamentId).HasConversion<TournamentId.EfCoreValueConverter>();
+
+            builder.ToTable("Squads")
                       .HasDiscriminator<int>("SquadType")
                       .HasValue<TournamentSquad>(0)
                       .HasValue<SweeperSquad>(1);
+        }
     }
 }

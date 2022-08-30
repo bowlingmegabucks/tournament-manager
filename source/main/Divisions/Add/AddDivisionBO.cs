@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Divisions.Add;
+namespace NortheastMegabuck.Divisions.Add;
 internal class BusinessLogic : IBusinessLogic
 {
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
@@ -27,7 +27,7 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
-    public Guid? Execute(Models.Division division)
+    public Id? Execute(Models.Division division)
     {
         var validation = _validator.Validate(division);
 
@@ -53,5 +53,5 @@ internal interface IBusinessLogic
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(Models.Division division);
+    Id? Execute(Models.Division division);
 }

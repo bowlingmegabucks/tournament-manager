@@ -1,23 +1,23 @@
 ﻿using FluentValidation;
-using NewEnglandClassic.Tests.Extensions;
+using NortheastMegabuck.Tests.Extensions;
 
-namespace NewEnglandClassic.Tests.Divisions.Add;
+namespace NortheastMegabuck.Tests.Divisions.Add;
 
 [TestFixture]
 internal class BusinessLogic
 {
-    private Mock<IValidator<NewEnglandClassic.Models.Division>> _validator;
-    private Mock<NewEnglandClassic.Divisions.Add.IDataLayer> _dataLayer;
+    private Mock<IValidator<NortheastMegabuck.Models.Division>> _validator;
+    private Mock<NortheastMegabuck.Divisions.Add.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Divisions.Add.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Divisions.Add.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _validator = new Mock<IValidator<NewEnglandClassic.Models.Division>>();
-        _dataLayer = new Mock<NewEnglandClassic.Divisions.Add.IDataLayer>();
+        _validator = new Mock<IValidator<NortheastMegabuck.Models.Division>>();
+        _dataLayer = new Mock<NortheastMegabuck.Divisions.Add.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Divisions.Add.BusinessLogic(_validator.Object, _dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Divisions.Add.BusinessLogic(_validator.Object, _dataLayer.Object);
     }
 
     [Test]
@@ -25,7 +25,7 @@ internal class BusinessLogic
     {
         _validator.Validate_IsValid();
         
-        var division = new NewEnglandClassic.Models.Division();
+        var division = new NortheastMegabuck.Models.Division();
 
         _businessLogic.Execute(division);
 
@@ -37,16 +37,16 @@ internal class BusinessLogic
     {
         _validator.Validate_IsNotValid("property", "error");
 
-        var division = new NewEnglandClassic.Models.Division();
+        var division = new NortheastMegabuck.Models.Division();
 
         var result = _businessLogic.Execute(division);
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Errors.HasErrorMessage("error");
+            _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(result, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Division>()), Times.Never);
         });
     }
 
@@ -55,7 +55,7 @@ internal class BusinessLogic
     {
         _validator.Validate_IsValid();
 
-        var division = new NewEnglandClassic.Models.Division();
+        var division = new NortheastMegabuck.Models.Division();
 
         _businessLogic.Execute(division);
 
@@ -68,31 +68,31 @@ internal class BusinessLogic
         _validator.Validate_IsValid();
         
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Division>())).Throws(ex);
 
-        var division = new NewEnglandClassic.Models.Division();
+        var division = new NortheastMegabuck.Models.Division();
 
         var result = _businessLogic.Execute(division);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
-            _businessLogic.Errors.HasErrorMessage("exception");
+            _businessLogic.Errors.Assert_HasErrorMessage("exception");
         });
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsGuid_GuidReturned()
+    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsId_IdReturned()
     {
         _validator.Validate_IsValid();
 
-        var guid = Guid.NewGuid();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.Division>())).Returns(guid);
+        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Division>())).Returns(divisionId);
 
-        var division = new NewEnglandClassic.Models.Division();
+        var division = new NortheastMegabuck.Models.Division();
 
         var result = _businessLogic.Execute(division);
 
-        Assert.That(result, Is.EqualTo(guid));
+        Assert.That(result, Is.EqualTo(divisionId));
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Add;
+﻿namespace NortheastMegabuck.Sweepers.Add;
 
 internal class BusinessLogic : IBusinessLogic
 {
@@ -32,7 +32,7 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
-    public Guid? Execute(Models.Sweeper sweeper)
+    public SquadId? Execute(Models.Sweeper sweeper)
     {
         var tournament = _getTournamentBO.Execute(sweeper.TournamentId);
 
@@ -71,5 +71,5 @@ internal interface IBusinessLogic
 { 
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(Models.Sweeper sweeper);
+    SquadId? Execute(Models.Sweeper sweeper);
 }

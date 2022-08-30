@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Add;
+﻿namespace NortheastMegabuck.Squads.Add;
 internal class Adapter : IAdapter
 {
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
@@ -19,15 +19,15 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
     
-    public Guid? Execute(IViewModel viewModel)
+    public SquadId? Execute(IViewModel viewModel)
     {
         var model = new Models.Squad(viewModel);
 
-        var guid = _businessLogic.Execute(model);
+        var id = _businessLogic.Execute(model);
 
         Errors = _businessLogic.Errors;
 
-        return guid;
+        return id;
     }
 }
 
@@ -35,5 +35,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Guid? Execute(IViewModel squad);
+    SquadId? Execute(IViewModel squad);
 }

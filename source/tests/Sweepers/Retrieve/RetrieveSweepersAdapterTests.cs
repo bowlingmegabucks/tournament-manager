@@ -1,55 +1,55 @@
-﻿namespace NewEnglandClassic.Tests.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal class Adapter
 {
-    private Mock<NewEnglandClassic.Sweepers.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NewEnglandClassic.Sweepers.Retrieve.IAdapter _adapter;
+    private NortheastMegabuck.Sweepers.Retrieve.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NewEnglandClassic.Sweepers.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic>();
 
-        _adapter = new NewEnglandClassic.Sweepers.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new NortheastMegabuck.Sweepers.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
-    public void ForTournament_BusinessLogicForTournament_CalledCorrectly()
+    public void Execute_BusinessLogicExecute_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        _adapter.ForTournament(tournamentId);
+        _adapter.Execute(tournamentId);
 
-        _businessLogic.Verify(businessLogic => businessLogic.ForTournament(tournamentId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.Execute(tournamentId), Times.Once);
     }
 
     [Test]
-    public void ForTournament_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
+    public void Execute_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
-        var error = Enumerable.Repeat(new NewEnglandClassic.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        _adapter.ForTournament(tournamentId);
+        _adapter.Execute(tournamentId);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }
 
     [Test]
-    public void ForTournament_ReturnsSweepersFromBusinessLogic()
+    public void Execute_ReturnsSweepersFromBusinessLogic()
     {
-        var sweeper1 = new NewEnglandClassic.Models.Sweeper { MaxPerPair = 1 };
-        var sweeper2 = new NewEnglandClassic.Models.Sweeper { MaxPerPair = 2 };
+        var sweeper1 = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 1 };
+        var sweeper2 = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 2 };
         var sweepers = new[] { sweeper1, sweeper2 };
 
-        _businessLogic.Setup(businessLogic => businessLogic.ForTournament(It.IsAny<Guid>())).Returns(sweepers);
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
 
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
-        var actual = _adapter.ForTournament(tournamentId).ToList();
+        var actual = _adapter.Execute(tournamentId).ToList();
 
         Assert.Multiple(() =>
         {

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
@@ -17,11 +17,11 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    public IEnumerable<Models.Sweeper> ForTournament(Guid tournamentId)
-        => _repository.ForTournament(tournamentId).Select(sweeper=> new Models.Sweeper(sweeper));
+    public IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId)
+        => _repository.Retrieve(tournamentId).Select(sweeper=> new Models.Sweeper(sweeper));
 }
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.Sweeper> ForTournament(Guid tournamentId);
+    IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId);
 }

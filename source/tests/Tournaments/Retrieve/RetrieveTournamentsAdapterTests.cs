@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal class Adapter
 {
-    private Mock<NewEnglandClassic.Tournaments.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NewEnglandClassic.Tournaments.Retrieve.IAdapter _adapter;
+    private NortheastMegabuck.Tournaments.Retrieve.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NewEnglandClassic.Tournaments.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic>();
 
-        _adapter = new NewEnglandClassic.Tournaments.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new NortheastMegabuck.Tournaments.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -26,7 +26,7 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicErrorDetailNull_AdapterErrorDetailNull()
     {
-        _businessLogic.Setup(businessLogic => businessLogic.Error).Returns((NewEnglandClassic.Models.ErrorDetail)null);
+        _businessLogic.Setup(businessLogic => businessLogic.Error).Returns((NortheastMegabuck.Models.ErrorDetail)null);
 
         _adapter.Execute();
 
@@ -36,7 +36,7 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicErrorDetailNotNull_AdapterErrorDetailEqualToBusinessLogicErrorDetail()
     {
-        var errorDetail = new NewEnglandClassic.Models.ErrorDetail("message");
+        var errorDetail = new NortheastMegabuck.Models.ErrorDetail("message");
         _businessLogic.Setup(businessLogic => businessLogic.Error).Returns(errorDetail);
 
         _adapter.Execute();
@@ -47,9 +47,9 @@ internal class Adapter
     [Test]
     public void Execute_ReturnsBusinessLogicResponse()
     {
-        var tournament1 = new NewEnglandClassic.Models.Tournament { EntryFee = 1 };
-        var tournament2 = new NewEnglandClassic.Models.Tournament { EntryFee = 2 };
-        var tournament3 = new NewEnglandClassic.Models.Tournament { EntryFee = 3 };
+        var tournament1 = new NortheastMegabuck.Models.Tournament { EntryFee = 1 };
+        var tournament2 = new NortheastMegabuck.Models.Tournament { EntryFee = 2 };
+        var tournament3 = new NortheastMegabuck.Models.Tournament { EntryFee = 3 };
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
@@ -59,7 +59,7 @@ internal class Adapter
 
         Assert.Multiple(() =>
         {
-            Assert.That(actual, Is.TypeOf<List<NewEnglandClassic.Tournaments.ViewModel>>());
+            Assert.That(actual, Is.TypeOf<List<NortheastMegabuck.Tournaments.ViewModel>>());
             Assert.That(actual.Count(), Is.EqualTo(3));
 
             Assert.That(actual.Any(tournament => tournament.EntryFee == 1), Is.True, "tournament1 Missing");
@@ -71,7 +71,7 @@ internal class Adapter
     [Test]
     public void Execute_TournamentId_BusinessLogicExecute_CalledCorrectly()
     {
-        var tournamentId = Guid.NewGuid();
+        var tournamentId = TournamentId.New();
 
         _adapter.Execute(tournamentId);
 
@@ -81,7 +81,7 @@ internal class Adapter
     [Test]
     public void Execute_TournamentId_BusinessLogicExecuteReturnsNull_NullReturned()
     {
-        var result = _adapter.Execute(Guid.NewGuid());
+        var result = _adapter.Execute(TournamentId.New());
 
         Assert.That(result, Is.Null);
     }
@@ -89,10 +89,10 @@ internal class Adapter
     [Test]
     public void Execute_TournamentId_BusinessLogicExecuteReturnsTournament_TournamentReturned()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament { Id = Guid.NewGuid() };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<Guid>())).Returns(tournament);
+        var tournament = new NortheastMegabuck.Models.Tournament { Id = TournamentId.New() };
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        var result = _adapter.Execute(Guid.NewGuid());
+        var result = _adapter.Execute(TournamentId.New());
 
         Assert.That(result.Id, Is.EqualTo(tournament.Id));
     }

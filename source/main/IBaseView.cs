@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic;
+namespace NortheastMegabuck;
 
 internal interface IView
 {

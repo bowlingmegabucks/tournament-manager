@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Squads.Retrieve;
 internal class Presenter
 {
     private readonly IView _view;
@@ -24,7 +24,7 @@ internal class Presenter
 
     public void Execute()
     {
-        var squads = _getSquadsAdapter.ForTournament(_view.TournamentId);
+        var squads = _getSquadsAdapter.Execute(_view.TournamentId);
 
         if (_getSquadsAdapter.Error != null)
         {

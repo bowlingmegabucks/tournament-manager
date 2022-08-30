@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;
@@ -19,11 +19,11 @@ internal class BusinessLogic : IBusinessLogic
 
     public Models.ErrorDetail? Error { get; private set; }
 
-    public IEnumerable<Models.Sweeper> ForTournament(Guid tournamentId)
+    public IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId)
     {
         try
         {
-            return _dataLayer.ForTournament(tournamentId).ToList();
+            return _dataLayer.Execute(tournamentId).ToList();
         }
         catch (Exception ex)
         {
@@ -38,5 +38,5 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.Sweeper> ForTournament(Guid tournamentId);
+    IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId);
 }

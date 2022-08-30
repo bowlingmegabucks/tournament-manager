@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 
-namespace NewEnglandClassic.Database.Entities;
+namespace NortheastMegabuck.Database.Entities;
 
 internal class Tournament
 {
     [Key]
-    public Guid Id { get; set; }
+    public TournamentId Id { get; set; }
 
     [Required]
     public string Name { get; set; } = string.Empty;
@@ -49,6 +49,10 @@ internal class Tournament
     {
         public void Configure(EntityTypeBuilder<Tournament> builder)
         {
+            builder.Property(tournament => tournament.Id)
+                .HasConversion<TournamentId.EfCoreValueConverter>()
+                .HasValueGenerator<TournamentIdValueGenerator>();
+
             builder.Property(tournament => tournament.Start).HasConversion<DateOnlyConverter, DateOnlyComparer>();
             builder.Property(tournament => tournament.End).HasConversion<DateOnlyConverter, DateOnlyComparer>();
         }

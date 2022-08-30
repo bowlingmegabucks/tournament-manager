@@ -1,53 +1,53 @@
-﻿namespace NewEnglandClassic.Tests.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Squads.Retrieve;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Squads.IRepository> _repository;
+    private Mock<NortheastMegabuck.Squads.IRepository> _repository;
 
-    private NewEnglandClassic.Squads.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Squads.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NewEnglandClassic.Squads.IRepository>();
+        _repository = new Mock<NortheastMegabuck.Squads.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Squads.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Squads.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
-    public void ForTournament_RepositoryForTournament_Called()
+    public void Execute_RepositoryRetrieve_Called()
     {
-        var guid = Guid.NewGuid();
+        var id = TournamentId.New();
 
-        _dataLayer.ForTournament(guid);
+        _dataLayer.Execute(id);
 
-        _repository.Verify(repository => repository.ForTournament(guid), Times.Once);
+        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
     }
 
     [Test]
-    public void ForTournament_ReturnsRepositoryForTournamentResponse()
+    public void Execute_ReturnsRepositoryRetrieveResponse()
     {
-        var squad1 = new NewEnglandClassic.Database.Entities.TournamentSquad
+        var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             MaxPerPair = 1
         };
 
-        var squad2 = new NewEnglandClassic.Database.Entities.TournamentSquad
+        var squad2 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             MaxPerPair = 2
         };
 
-        var squad3 = new NewEnglandClassic.Database.Entities.TournamentSquad
+        var squad3 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             MaxPerPair = 3
         };
 
         var squads = new[] { squad1, squad2, squad3 };
 
-        _repository.Setup(repository => repository.ForTournament(It.IsAny<Guid>())).Returns(squads);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(squads);
 
-        var actual = _dataLayer.ForTournament(Guid.NewGuid());
+        var actual = _dataLayer.Execute(TournamentId.New());
 
         Assert.Multiple(() =>
         {

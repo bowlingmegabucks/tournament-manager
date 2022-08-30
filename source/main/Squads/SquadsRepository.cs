@@ -1,4 +1,6 @@
-﻿namespace NewEnglandClassic.Squads;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NortheastMegabuck.Squads;
 
 internal class Repository : IRepository
 {
@@ -17,7 +19,7 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    public Guid Add(Database.Entities.TournamentSquad squad)
+    public SquadId Add(Database.Entities.TournamentSquad squad)
     {
         _dataContext.Squads.Add(squad);
         _dataContext.SaveChanges();
@@ -25,13 +27,13 @@ internal class Repository : IRepository
         return squad.Id;
     }
 
-    public IEnumerable<Database.Entities.TournamentSquad> ForTournament(Guid tournamentId)
-        => _dataContext.Squads.Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
+    public IEnumerable<Database.Entities.TournamentSquad> Retrieve(TournamentId tournamentId)
+        => _dataContext.Squads.AsNoTracking().Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
 }
 
 internal interface IRepository
 {
-    Guid Add(Database.Entities.TournamentSquad squad);
+    SquadId Add(Database.Entities.TournamentSquad squad);
 
-    IEnumerable<Database.Entities.TournamentSquad> ForTournament(Guid tournamentId);
+    IEnumerable<Database.Entities.TournamentSquad> Retrieve(TournamentId tournamentId);
 }

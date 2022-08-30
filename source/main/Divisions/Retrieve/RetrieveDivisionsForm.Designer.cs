@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Retrieve;
+﻿namespace NortheastMegabuck.Divisions.Retrieve;
 
 partial class Form
 {
@@ -28,37 +28,37 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.DivisionsGrid = new NewEnglandClassic.Controls.DivisionsGrid();
-            this.ButtonAdd = new System.Windows.Forms.Button();
+            this.divisionsGrid = new NortheastMegabuck.Controls.DivisionsGrid();
+            this.addButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // DivisionsGrid
+            // divisionsGrid
             // 
-            this.DivisionsGrid.AllowRowSelection = true;
-            this.DivisionsGrid.AlternateRowColors = true;
-            this.DivisionsGrid.Location = new System.Drawing.Point(12, 12);
-            this.DivisionsGrid.Name = "DivisionsGrid";
-            this.DivisionsGrid.SelectedRowContextMenu = null;
-            this.DivisionsGrid.Size = new System.Drawing.Size(884, 377);
-            this.DivisionsGrid.TabIndex = 0;
+            this.divisionsGrid.AllowRowSelection = true;
+            this.divisionsGrid.AlternateRowColors = true;
+            this.divisionsGrid.Location = new System.Drawing.Point(12, 12);
+            this.divisionsGrid.Name = "divisionsGrid";
+            this.divisionsGrid.SelectedRowContextMenu = null;
+            this.divisionsGrid.Size = new System.Drawing.Size(884, 377);
+            this.divisionsGrid.TabIndex = 0;
             // 
-            // ButtonAdd
+            // addButton
             // 
-            this.ButtonAdd.Location = new System.Drawing.Point(12, 395);
-            this.ButtonAdd.Name = "ButtonAdd";
-            this.ButtonAdd.Size = new System.Drawing.Size(75, 23);
-            this.ButtonAdd.TabIndex = 3;
-            this.ButtonAdd.Text = "Add";
-            this.ButtonAdd.UseVisualStyleBackColor = true;
-            this.ButtonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
+            this.addButton.Location = new System.Drawing.Point(12, 395);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.TabIndex = 3;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 443);
-            this.Controls.Add(this.ButtonAdd);
-            this.Controls.Add(this.DivisionsGrid);
+            this.Controls.Add(this.addButton);
+            this.Controls.Add(this.divisionsGrid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form";
@@ -70,6 +70,6 @@ partial class Form
 
     #endregion
 
-    private Controls.DivisionsGrid DivisionsGrid;
-    private Button ButtonAdd;
+    private Controls.DivisionsGrid divisionsGrid;
+    private Button addButton;
 }

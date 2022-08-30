@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Squads.Add;
+namespace NortheastMegabuck.Squads.Add;
 
 internal class Validator : AbstractValidator<Models.Squad>
 {
     internal Validator()
     {
-        RuleFor(squad => squad.TournamentId).Must(id => id != Guid.Empty).WithMessage("Tournament Id is required");
+        RuleFor(squad => squad.TournamentId).Must(id => id != TournamentId.Empty).WithMessage("Tournament Id is required");
         RuleFor(squad => squad.Tournament).NotNull().WithMessage("Tournament is required");
         RuleFor(squad => squad.TournamentId).Equal(squad => squad.Tournament!.Id).When(squad => squad.Tournament != null).WithMessage("Tournament Id does not match");
 

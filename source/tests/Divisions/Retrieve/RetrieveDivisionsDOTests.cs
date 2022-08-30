@@ -1,53 +1,53 @@
-﻿namespace NewEnglandClassic.Tests.Divisions.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Divisions.Retrieve;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Divisions.IRepository> _repository;
+    private Mock<NortheastMegabuck.Divisions.IRepository> _repository;
 
-    private NewEnglandClassic.Divisions.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Divisions.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NewEnglandClassic.Divisions.IRepository>();
+        _repository = new Mock<NortheastMegabuck.Divisions.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Divisions.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Divisions.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
-    public void ForTournament_RepositoryForTournament_Called()
+    public void Execute_RepositoryRetrieve_Called()
     {
-        var guid = Guid.NewGuid();
+        var id = TournamentId.New();
 
-        _dataLayer.ForTournament(guid);
+        _dataLayer.Execute(id);
 
-        _repository.Verify(repository => repository.ForTournament(guid), Times.Once);
+        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
     }
 
     [Test]
-    public void ForTournament_ReturnsRepositoryForTournamentResponse()
+    public void Execute_ReturnsRepositoryRetrieveResponse()
     {
-        var division1 = new NewEnglandClassic.Database.Entities.Division
+        var division1 = new NortheastMegabuck.Database.Entities.Division
         {
             Name = "Division 1"
         };
 
-        var division2 = new NewEnglandClassic.Database.Entities.Division
+        var division2 = new NortheastMegabuck.Database.Entities.Division
         {
             Name = "Division 2"
         };
 
-        var division3 = new NewEnglandClassic.Database.Entities.Division
+        var division3 = new NortheastMegabuck.Database.Entities.Division
         {
             Name = "Division 3"
         };
 
         var divisions = new[] { division1, division2, division3 };
 
-        _repository.Setup(repository => repository.ForTournament(It.IsAny<Guid>())).Returns(divisions);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(divisions);
 
-        var actual = _dataLayer.ForTournament(Guid.NewGuid());
+        var actual = _dataLayer.Execute(TournamentId.New());
 
         Assert.Multiple(() =>
         {
@@ -57,5 +57,31 @@ internal class DataLayer
             Assert.That(actual.Count(division => division.Name == "Division 2"), Is.EqualTo(1));
             Assert.That(actual.Count(division => division.Name == "Division 3"), Is.EqualTo(1));
         });
+    }
+
+    [Test]
+    public void Execute_RepositoryRetrieve_CalledCorrectly()
+    {
+        var division = new NortheastMegabuck.Database.Entities.Division();
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+
+        var id = NortheastMegabuck.Divisions.Id.New();
+
+        _dataLayer.Execute(id);
+
+        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
+    }
+
+    [Test]
+    public void Execute_DivisionId_ReturnsRepositoryRetrieveResponse()
+    {
+        var division = new NortheastMegabuck.Database.Entities.Division { Name = "name"};
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+
+        var id = NortheastMegabuck.Divisions.Id.New();
+
+        var actual = _dataLayer.Execute(id);
+
+        Assert.That(actual.Name, Is.EqualTo(division.Name));
     }
 }

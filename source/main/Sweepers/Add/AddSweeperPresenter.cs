@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Sweepers.Add;
+namespace NortheastMegabuck.Sweepers.Add;
 internal class Presenter
 {
     private readonly IView _view;
@@ -32,7 +32,7 @@ internal class Presenter
 
     public void GetDivisions()
     {
-        var divisions = _retrieveDivisionsAdapter.ForTournament(_view.TournamentId);
+        var divisions = _retrieveDivisionsAdapter.Execute(_view.TournamentId);
 
         if (_retrieveDivisionsAdapter.Error != null)
         {

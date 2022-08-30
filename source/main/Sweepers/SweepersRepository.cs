@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NewEnglandClassic.Sweepers;
+namespace NortheastMegabuck.Sweepers;
 
 internal class Repository : IRepository
 {
@@ -19,7 +19,7 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    public Guid Add(Database.Entities.SweeperSquad sweeper)
+    public SquadId Add(Database.Entities.SweeperSquad sweeper)
     {
         _dataContext.Sweepers.Add(sweeper);
         _dataContext.SaveChanges();
@@ -27,13 +27,13 @@ internal class Repository : IRepository
         return sweeper.Id;
     }
 
-    public IEnumerable<Database.Entities.SweeperSquad> ForTournament(Guid tournamentId)
-        => _dataContext.Sweepers.Include(sweeper=> sweeper.Divisions).Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
+    public IEnumerable<Database.Entities.SweeperSquad> Retrieve(TournamentId tournamentId)
+        => _dataContext.Sweepers.Include(sweeper=> sweeper.Divisions).AsNoTracking().Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
 }
 
 internal interface IRepository
 {
-    Guid Add(Database.Entities.SweeperSquad sweeper);
+    SquadId Add(Database.Entities.SweeperSquad sweeper);
 
-    IEnumerable<Database.Entities.SweeperSquad> ForTournament(Guid tournamentId);
+    IEnumerable<Database.Entities.SweeperSquad> Retrieve(TournamentId tournamentId);
 }

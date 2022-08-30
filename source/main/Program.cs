@@ -4,7 +4,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 #endif
 
-namespace NewEnglandClassic.UI;
+namespace NortheastMegabuck.UI;
 
 internal static class Program
 {

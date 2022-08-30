@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Add;
+﻿namespace NortheastMegabuck.Divisions.Add;
 internal class Presenter
 {
     private readonly Lazy<Retrieve.IAdapter> _retrieveDivisionsAdapter;
@@ -32,7 +32,7 @@ internal class Presenter
     
     public void GetNextDivisionNumber()
     {
-        var divisions = RetrieveDivisionsAdapter.ForTournament(_view.Division.TournamentId);
+        var divisions = RetrieveDivisionsAdapter.Execute(_view.Division.TournamentId);
 
         if (RetrieveDivisionsAdapter.Error != null)
         {
