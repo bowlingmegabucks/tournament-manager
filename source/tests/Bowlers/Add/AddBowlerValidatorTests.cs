@@ -418,4 +418,16 @@ internal class Validator
         var result = _validator.TestValidate(bowler);
         result.ShouldHaveValidationErrorFor(bowler => bowler.USBCId).WithErrorMessage("Invalid USBC Id");
     }
+
+    [Test]
+    public void USBCId_EmptyNull_NoValidationError([Values(null, "")] string usbcId)
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            USBCId = usbcId
+        };
+
+        var result = _validator.TestValidate(bowler);
+        result.ShouldNotHaveValidationErrorFor(bowler => bowler.USBCId);
+    }
 }
