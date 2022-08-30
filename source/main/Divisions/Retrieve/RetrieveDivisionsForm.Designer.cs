@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Retrieve;
+﻿namespace NortheastMegabuck.Divisions.Retrieve;
 
 partial class Form
 {
@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.divisionsGrid = new NewEnglandClassic.Controls.DivisionsGrid();
+            this.divisionsGrid = new NortheastMegabuck.Controls.DivisionsGrid();
             this.addButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 

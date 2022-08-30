@@ -1,20 +1,20 @@
-﻿namespace NewEnglandClassic.Tests.Tournaments;
+﻿namespace NortheastMegabuck.Tests.Tournaments;
 
 [TestFixture]
 internal class EntityMapperTests
 {
-    private NewEnglandClassic.Tournaments.IEntityMapper _mapper;
+    private NortheastMegabuck.Tournaments.IEntityMapper _mapper;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
-        => _mapper = new NewEnglandClassic.Tournaments.EntityMapper();
+        => _mapper = new NortheastMegabuck.Tournaments.EntityMapper();
 
     [Test]
     public void Execute_IdMapped()
     {
         var id = TournamentId.New();
 
-        var model = new NewEnglandClassic.Models.Tournament { Id = id };
+        var model = new NortheastMegabuck.Models.Tournament { Id = id };
 
         var entity = _mapper.Execute(model);
 
@@ -26,7 +26,7 @@ internal class EntityMapperTests
     {
         var name = "Test Tournament";
 
-        var model = new NewEnglandClassic.Models.Tournament { Name = name };
+        var model = new NortheastMegabuck.Models.Tournament { Name = name };
 
         var entity = _mapper.Execute(model);
 
@@ -38,7 +38,7 @@ internal class EntityMapperTests
     {
         var startDate = new DateOnly(2000,1,1);
 
-        var model = new NewEnglandClassic.Models.Tournament { Start = startDate };
+        var model = new NortheastMegabuck.Models.Tournament { Start = startDate };
 
         var entity = _mapper.Execute(model);
 
@@ -50,7 +50,7 @@ internal class EntityMapperTests
     {
         var endDate = new DateOnly(2000, 1, 1);
 
-        var model = new NewEnglandClassic.Models.Tournament { End = endDate };
+        var model = new NortheastMegabuck.Models.Tournament { End = endDate };
 
         var entity = _mapper.Execute(model);
 
@@ -62,7 +62,7 @@ internal class EntityMapperTests
     {
         var entryFee = 100.50m;
 
-        var model = new NewEnglandClassic.Models.Tournament { EntryFee = entryFee };
+        var model = new NortheastMegabuck.Models.Tournament { EntryFee = entryFee };
 
         var entity = _mapper.Execute(model);
 
@@ -74,7 +74,7 @@ internal class EntityMapperTests
     {
         short games = 5;
 
-        var model = new NewEnglandClassic.Models.Tournament { Games = games };
+        var model = new NortheastMegabuck.Models.Tournament { Games = games };
 
         var entity = _mapper.Execute(model);
 
@@ -86,7 +86,7 @@ internal class EntityMapperTests
     {
         var finalsRatio = 0.5m;
 
-        var model = new NewEnglandClassic.Models.Tournament { FinalsRatio = finalsRatio };
+        var model = new NortheastMegabuck.Models.Tournament { FinalsRatio = finalsRatio };
 
         var entity = _mapper.Execute(model);
 
@@ -98,7 +98,7 @@ internal class EntityMapperTests
     {
         var cashRatio = 0.5m;
 
-        var model = new NewEnglandClassic.Models.Tournament { CashRatio = cashRatio };
+        var model = new NortheastMegabuck.Models.Tournament { CashRatio = cashRatio };
 
         var entity = _mapper.Execute(model);
 
@@ -110,7 +110,7 @@ internal class EntityMapperTests
     {
         var bowlingCenter = "Test Bowling Center";
 
-        var model = new NewEnglandClassic.Models.Tournament { BowlingCenter = bowlingCenter };
+        var model = new NortheastMegabuck.Models.Tournament { BowlingCenter = bowlingCenter };
 
         var entity = _mapper.Execute(model);
 
@@ -120,7 +120,7 @@ internal class EntityMapperTests
     [Test]
     public void Execute_CompletedMapped([Values] bool completed)
     {
-        var model = new NewEnglandClassic.Models.Tournament { Completed = completed };
+        var model = new NortheastMegabuck.Models.Tournament { Completed = completed };
 
         var entity = _mapper.Execute(model);
 

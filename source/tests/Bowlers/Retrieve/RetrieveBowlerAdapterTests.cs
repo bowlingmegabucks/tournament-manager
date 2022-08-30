@@ -1,19 +1,19 @@
 ﻿
-namespace NewEnglandClassic.Tests.Bowlers.Retrieve;
+namespace NortheastMegabuck.Tests.Bowlers.Retrieve;
 
 [TestFixture]
 internal class Adapter
 {
-    private Mock<NewEnglandClassic.Bowlers.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<NortheastMegabuck.Bowlers.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NewEnglandClassic.Bowlers.Retrieve.IAdapter _adapter;
+    private NortheastMegabuck.Bowlers.Retrieve.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NewEnglandClassic.Bowlers.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<NortheastMegabuck.Bowlers.Retrieve.IBusinessLogic>();
 
-        _adapter = new NewEnglandClassic.Bowlers.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new NortheastMegabuck.Bowlers.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicHasError_ErrorFlow()
     {
-        var error = new NewEnglandClassic.Models.ErrorDetail("error");
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var bowlerId = BowlerId.New();
@@ -47,7 +47,7 @@ internal class Adapter
     [Test]
     public void Execute_BusinessLogicSuccess_ReturnsMappedViewModel()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             Id = BowlerId.New()
         };

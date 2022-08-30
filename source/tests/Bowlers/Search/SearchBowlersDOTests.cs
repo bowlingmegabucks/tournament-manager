@@ -1,24 +1,24 @@
-﻿namespace NewEnglandClassic.Tests.Bowlers.Search;
+﻿namespace NortheastMegabuck.Tests.Bowlers.Search;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Bowlers.IRepository> _repository;
+    private Mock<NortheastMegabuck.Bowlers.IRepository> _repository;
 
-    private NewEnglandClassic.Bowlers.Search.IDataLayer _dataLayer;
+    private NortheastMegabuck.Bowlers.Search.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NewEnglandClassic.Bowlers.IRepository>();
+        _repository = new Mock<NortheastMegabuck.Bowlers.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Bowlers.Search.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Bowlers.Search.DataLayer(_repository.Object);
     }
 
     [Test]
     public void Execute_RepositorySearch_CalledCorrectly()
     {
-        var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria();
+        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
         _dataLayer.Execute(searchCriteria);
 
@@ -28,30 +28,30 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsCorrectResult()
     {
-        var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria();
+        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
-        var bowlers = new List<NewEnglandClassic.Database.Entities.Bowler>
+        var bowlers = new List<NortheastMegabuck.Database.Entities.Bowler>
         {
-            new NewEnglandClassic.Database.Entities.Bowler
+            new NortheastMegabuck.Database.Entities.Bowler
             {
                 FirstName = "John",
                 LastName = "Doe"
             },
             
-            new NewEnglandClassic.Database.Entities.Bowler
+            new NortheastMegabuck.Database.Entities.Bowler
             {
                 FirstName = "Jane",
                 LastName = "Doe"
             },
             
-            new NewEnglandClassic.Database.Entities.Bowler
+            new NortheastMegabuck.Database.Entities.Bowler
             {
                 FirstName = "John",
                 LastName = "Smith"
             }
         };
 
-        _repository.Setup(repository => repository.Search(It.IsAny<NewEnglandClassic.Models.BowlerSearchCriteria>())).Returns(bowlers);
+        _repository.Setup(repository => repository.Search(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(bowlers);
 
         var actual = _dataLayer.Execute(searchCriteria).ToList();
 

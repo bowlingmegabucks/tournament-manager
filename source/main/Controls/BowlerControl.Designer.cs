@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Contols;
+﻿namespace NortheastMegabuck.Contols;
 
 partial class BowlerControl
 {
@@ -42,19 +42,19 @@ partial class BowlerControl
             this.stateDropdown = new System.Windows.Forms.ComboBox();
             this.zipCodeText = new System.Windows.Forms.MaskedTextBox();
             this.emailText = new System.Windows.Forms.TextBox();
-            this.firstNameLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.lastNameLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.suffixLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.middleInitialLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.streetLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.cityLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.stateLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.zipCodeLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.emailLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.dateOfBirthLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.genderLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.phoneNumberLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.usbcIdLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.firstNameLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.lastNameLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.suffixLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.middleInitialLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.streetLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.cityLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.stateLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.zipCodeLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.emailLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.dateOfBirthLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.genderLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.phoneNumberLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.usbcIdLabel = new NortheastMegabuck.Controls.LabelControl();
             this.bowlerErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bowlerErrorProvider)).BeginInit();
             this.SuspendLayout();
@@ -206,7 +206,7 @@ partial class BowlerControl
             this.emailText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
             this.emailText.MaxLength = 50;
             this.emailText.Name = "emailText";
-            this.emailText.PlaceholderText = "sample@newenglandclassic.com";
+            this.emailText.PlaceholderText = "sample@NortheastMegabuck.com";
             this.emailText.Size = new System.Drawing.Size(539, 26);
             this.emailText.TabIndex = 8;
             this.emailText.Validating += new System.ComponentModel.CancelEventHandler(this.EmailText_Validating);

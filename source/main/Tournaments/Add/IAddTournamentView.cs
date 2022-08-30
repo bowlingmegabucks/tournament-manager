@@ -1,5 +1,5 @@
-﻿namespace NewEnglandClassic.Tournaments.Add;
-internal interface IView : NewEnglandClassic.IView
+﻿namespace NortheastMegabuck.Tournaments.Add;
+internal interface IView : NortheastMegabuck.IView
 {
     void DisplayErrors(IEnumerable<string> errors);
     

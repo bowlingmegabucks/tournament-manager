@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Squads.Add;
+namespace NortheastMegabuck.Squads.Add;
 
 internal class Validator : AbstractValidator<Models.Squad>
 {

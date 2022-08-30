@@ -1,6 +1,6 @@
 ﻿#pragma warning disable CS1591
 
-namespace NewEnglandClassic.Controls;
+namespace NortheastMegabuck.Controls;
 
 partial class DataGrid<TModel>
 {
@@ -31,7 +31,7 @@ partial class DataGrid<TModel>
     private void InitializeComponent()
     {
         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-        this.GridView = new NewEnglandClassic.Controls.DataGridView();
+        this.GridView = new NortheastMegabuck.Controls.DataGridView();
         ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
         this.SuspendLayout();
         // 
@@ -77,5 +77,5 @@ partial class DataGrid<TModel>
 
     #endregion
 
-    protected NewEnglandClassic.Controls.DataGridView GridView;
+    protected NortheastMegabuck.Controls.DataGridView GridView;
 }

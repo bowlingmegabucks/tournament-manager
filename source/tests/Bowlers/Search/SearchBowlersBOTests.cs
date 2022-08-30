@@ -1,24 +1,24 @@
-﻿namespace NewEnglandClassic.Tests.Bowlers.Search;
+﻿namespace NortheastMegabuck.Tests.Bowlers.Search;
 
 [TestFixture]
 internal class BusinessLogic
 {
-    private Mock<NewEnglandClassic.Bowlers.Search.IDataLayer> _dataLayer;
+    private Mock<NortheastMegabuck.Bowlers.Search.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Bowlers.Search.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Bowlers.Search.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NewEnglandClassic.Bowlers.Search.IDataLayer>();
+        _dataLayer = new Mock<NortheastMegabuck.Bowlers.Search.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Bowlers.Search.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Bowlers.Search.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
     public void Execute_DataLayerExecute_CalledCorrectly()
     {
-        var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria();
+        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
         _businessLogic.Execute(searchCriteria);
 
@@ -28,10 +28,10 @@ internal class BusinessLogic
     [Test]
     public void Execute_ReturnsDataLayerExecuteResults()
     {
-        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.BowlerSearchCriteria>())).Returns(divisions);
+        var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }, 2);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(divisions);
 
-        var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria();
+        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
         var actual = _businessLogic.Execute(searchCriteria);
 
@@ -41,10 +41,10 @@ internal class BusinessLogic
     [Test]
     public void Execute_DataLayerExecuteNoException_ErrorNull()
     {
-        var divisions = Enumerable.Repeat(new NewEnglandClassic.Models.Bowler { Id = BowlerId.New() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.BowlerSearchCriteria>())).Returns(divisions);
+        var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }, 2);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(divisions);
 
-        var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria();
+        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
          _businessLogic.Execute(searchCriteria);
 
@@ -55,9 +55,9 @@ internal class BusinessLogic
     public void Execute_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.Models.BowlerSearchCriteria>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Throws(ex);
 
-        var searchCriteria = new NewEnglandClassic.Models.BowlerSearchCriteria();
+        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
         var actual = _businessLogic.Execute(searchCriteria);
 

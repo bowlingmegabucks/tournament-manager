@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Bowlers.Add;
+namespace NortheastMegabuck.Bowlers.Add;
 
 internal interface IViewModel
 {

@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Tournaments.IRepository> _repository;
+    private Mock<NortheastMegabuck.Tournaments.IRepository> _repository;
 
-    private NewEnglandClassic.Tournaments.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Tournaments.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NewEnglandClassic.Tournaments.IRepository>();
+        _repository = new Mock<NortheastMegabuck.Tournaments.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Tournaments.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Tournaments.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
@@ -30,9 +30,9 @@ internal class DataLayer
         var id2 = TournamentId.New();
         var id3 = TournamentId.New();
 
-        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament { Id = id1 };
-        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament { Id = id2 };
-        var tournament3 = new NewEnglandClassic.Database.Entities.Tournament { Id = id3 };
+        var tournament1 = new NortheastMegabuck.Database.Entities.Tournament { Id = id1 };
+        var tournament2 = new NortheastMegabuck.Database.Entities.Tournament { Id = id2 };
+        var tournament3 = new NortheastMegabuck.Database.Entities.Tournament { Id = id3 };
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
@@ -53,7 +53,7 @@ internal class DataLayer
     [Test]
     public void Execute_Id_RepositoryExecuteId_CalledCorrectly()
     {
-        var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(tournament);
 
         var id = TournamentId.New();
@@ -66,7 +66,7 @@ internal class DataLayer
     [Test]
     public void Execute_Id_ReturnsTournament()
     {
-        var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(tournament);
 
         var actual = _dataLayer.Execute(tournament.Id);
@@ -77,7 +77,7 @@ internal class DataLayer
     [Test]
     public void Execute_DivisionIdRepositoryExecuteDivisionId_CalledCorrectly()
     {
-        var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(tournament);
 
         var id = TournamentId.New();
@@ -90,7 +90,7 @@ internal class DataLayer
     [Test]
     public void Execute_DivisionIdReturnsTournament()
     {
-        var tournament = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(tournament);
 
         var actual = _dataLayer.Execute(tournament.Id);

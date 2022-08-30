@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Squads.Retrieve;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Squads.IRepository> _repository;
+    private Mock<NortheastMegabuck.Squads.IRepository> _repository;
 
-    private NewEnglandClassic.Squads.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Squads.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NewEnglandClassic.Squads.IRepository>();
+        _repository = new Mock<NortheastMegabuck.Squads.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Squads.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Squads.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
@@ -28,17 +28,17 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsRepositoryRetrieveResponse()
     {
-        var squad1 = new NewEnglandClassic.Database.Entities.TournamentSquad
+        var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             MaxPerPair = 1
         };
 
-        var squad2 = new NewEnglandClassic.Database.Entities.TournamentSquad
+        var squad2 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             MaxPerPair = 2
         };
 
-        var squad3 = new NewEnglandClassic.Database.Entities.TournamentSquad
+        var squad3 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             MaxPerPair = 3
         };

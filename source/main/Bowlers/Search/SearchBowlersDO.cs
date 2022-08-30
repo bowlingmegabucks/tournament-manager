@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Bowlers.Search;
+namespace NortheastMegabuck.Bowlers.Search;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

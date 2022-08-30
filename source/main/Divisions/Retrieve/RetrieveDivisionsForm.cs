@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Divisions.Retrieve;
+namespace NortheastMegabuck.Divisions.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
@@ -28,7 +28,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private void AddButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddDivision();
 
-    public NewEnglandClassic.Divisions.Id? AddDivision(TournamentId tournamentId)
+    public NortheastMegabuck.Divisions.Id? AddDivision(TournamentId tournamentId)
     {
         using var form = new Add.Form(_config, tournamentId);
 

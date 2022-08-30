@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Contols;
+﻿namespace NortheastMegabuck.Contols;
 
 partial class SweeperControl
 {
@@ -31,22 +31,22 @@ partial class SweeperControl
             this.components = new System.ComponentModel.Container();
             this.divisionsGroupBox = new System.Windows.Forms.GroupBox();
             this.PanelDivisions = new System.Windows.Forms.Panel();
-            this.sweeperDivisions = new NewEnglandClassic.Contols.SweeperDivisionsControl();
+            this.sweeperDivisions = new NortheastMegabuck.Contols.SweeperDivisionsControl();
             this.squadDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.dateLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.dateLabel = new NortheastMegabuck.Controls.LabelControl();
             this.sweeperErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.entryFeeValue = new NewEnglandClassic.Controls.NumericControl();
-            this.entryFeeLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.gamesValue = new NewEnglandClassic.Controls.NumericControl();
-            this.gamesLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.cashRatioValue = new NewEnglandClassic.Controls.NumericControl();
-            this.cashRatioLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.maxPerPairValue = new NewEnglandClassic.Controls.NumericControl();
-            this.maxPerPairLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.numberOfLanesValue = new NewEnglandClassic.Controls.NumericControl();
-            this.numberOfLanesLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.startingLaneValue = new NewEnglandClassic.Controls.NumericControl();
-            this.startingLaneLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.entryFeeValue = new NortheastMegabuck.Controls.NumericControl();
+            this.entryFeeLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.gamesValue = new NortheastMegabuck.Controls.NumericControl();
+            this.gamesLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.cashRatioValue = new NortheastMegabuck.Controls.NumericControl();
+            this.cashRatioLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.maxPerPairValue = new NortheastMegabuck.Controls.NumericControl();
+            this.maxPerPairLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.numberOfLanesValue = new NortheastMegabuck.Controls.NumericControl();
+            this.numberOfLanesLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.startingLaneValue = new NortheastMegabuck.Controls.NumericControl();
+            this.startingLaneLabel = new NortheastMegabuck.Controls.LabelControl();
             this.divisionsGroupBox.SuspendLayout();
             this.PanelDivisions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sweeperErrorProvider)).BeginInit();

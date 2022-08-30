@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Models;
+namespace NortheastMegabuck.Models;
 internal class BowlerSearchCriteria
 {
     public string? FirstName { get; set; }

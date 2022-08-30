@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Registrations.Add;
+namespace NortheastMegabuck.Registrations.Add;
 internal class Validator : AbstractValidator<Models.Registration>
 {
     public Validator()

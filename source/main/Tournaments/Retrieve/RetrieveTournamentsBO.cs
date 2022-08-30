@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tournaments.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     public Models.ErrorDetail? Error { get; private set; }
@@ -47,7 +47,7 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    Models.Tournament? IBusinessLogic.Execute(NewEnglandClassic.Divisions.Id id)
+    Models.Tournament? IBusinessLogic.Execute(NortheastMegabuck.Divisions.Id id)
     {
         try
         {
@@ -70,5 +70,5 @@ internal interface IBusinessLogic
 
     Models.Tournament? Execute(TournamentId id);
 
-    Models.Tournament? Execute(NewEnglandClassic.Divisions.Id id);
+    Models.Tournament? Execute(NortheastMegabuck.Divisions.Id id);
 }

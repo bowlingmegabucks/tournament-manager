@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal class BusinessLogic
 {
-    private Mock<NewEnglandClassic.Tournaments.Retrieve.IDataLayer> _dataLayer;
+    private Mock<NortheastMegabuck.Tournaments.Retrieve.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Tournaments.Retrieve.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NewEnglandClassic.Tournaments.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<NortheastMegabuck.Tournaments.Retrieve.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Tournaments.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Tournaments.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -26,7 +26,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_ReturnsResultFromDataLayer()
     {
-        var tournaments = new Mock<IEnumerable<NewEnglandClassic.Models.Tournament>>();
+        var tournaments = new Mock<IEnumerable<NortheastMegabuck.Models.Tournament>>();
         _dataLayer.Setup(dataLayer => dataLayer.Execute()).Returns(tournaments.Object);
 
         var result = _businessLogic.Execute();
@@ -80,7 +80,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_Id_ReturnsResultFromDataLayer()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var id = TournamentId.New();
@@ -138,7 +138,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_DivisionIdReturnsResultFromDataLayer()
     {
-        var tournament = new NewEnglandClassic.Models.Tournament();
+        var tournament = new NortheastMegabuck.Models.Tournament();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var id = TournamentId.New();

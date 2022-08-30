@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads;
+﻿namespace NortheastMegabuck.Squads;
 
 internal class ViewModel : IViewModel
 {

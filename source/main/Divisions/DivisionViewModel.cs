@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Divisions;
+namespace NortheastMegabuck.Divisions;
 internal class ViewModel : IViewModel
 {
     public Id Id { get; set; }

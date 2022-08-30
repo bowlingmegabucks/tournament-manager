@@ -1,28 +1,28 @@
-﻿using NewEnglandClassic.Tests.Extensions;
+﻿using NortheastMegabuck.Tests.Extensions;
 
-namespace NewEnglandClassic.Tests.Tournaments;
+namespace NortheastMegabuck.Tests.Tournaments;
 
 [TestFixture]
 internal class Repository
 {
-    private Mock<NewEnglandClassic.Database.IDataContext> _dataContext;
+    private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
-    private NewEnglandClassic.Tournaments.IRepository _tournamentsRepository;
+    private NortheastMegabuck.Tournaments.IRepository _tournamentsRepository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<NewEnglandClassic.Database.IDataContext>();
+        _dataContext = new Mock<NortheastMegabuck.Database.IDataContext>();
 
-        _tournamentsRepository = new NewEnglandClassic.Tournaments.Repository(_dataContext.Object);
+        _tournamentsRepository = new NortheastMegabuck.Tournaments.Repository(_dataContext.Object);
     }
 
     [Test]
     public void RetrieveAll_ReturnsAllTournaments()
     {
-        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
-        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
-        var tournament3 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament1 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament2 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament3 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
@@ -43,9 +43,9 @@ internal class Repository
     [Test]
     public void Retrieve_ReturnsTournament()
     {
-        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
-        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
-        var tournament3 = new NewEnglandClassic.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament1 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament2 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament3 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
@@ -59,9 +59,9 @@ internal class Repository
     [Test]
     public void Add_TournamentAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Tournament>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Tournament>().SetUpDbContext());
 
-        var tournament = new NewEnglandClassic.Database.Entities.Tournament();
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament();
 
         var id = _tournamentsRepository.Add(tournament);
 
@@ -71,9 +71,9 @@ internal class Repository
     [Test]
     public void Add_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NewEnglandClassic.Database.Entities.Tournament>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Tournament>().SetUpDbContext());
 
-        var tournament = new NewEnglandClassic.Database.Entities.Tournament();
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament();
 
         _tournamentsRepository.Add(tournament);
 
@@ -83,24 +83,24 @@ internal class Repository
     [Test]
     public void RetrieveByDivision_ReturnsTournamentWithDivision()
     {
-        var division1 = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() };
-        var division2 = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() };
-        var division3 = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() };
-        var division4 = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() };
+        var division1 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
+        var division2 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
+        var division3 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
+        var division4 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
 
-        var tournament1 = new NewEnglandClassic.Database.Entities.Tournament
+        var tournament1 = new NortheastMegabuck.Database.Entities.Tournament
         {
             Id = TournamentId.New(),
-            Divisions = new List<NewEnglandClassic.Database.Entities.Division> { division1, division2 }
+            Divisions = new List<NortheastMegabuck.Database.Entities.Division> { division1, division2 }
         };
 
-        var tournament2 = new NewEnglandClassic.Database.Entities.Tournament
+        var tournament2 = new NortheastMegabuck.Database.Entities.Tournament
         {
             Id = TournamentId.New(),
-            Divisions = new List<NewEnglandClassic.Database.Entities.Division> { division3, division4 }
+            Divisions = new List<NortheastMegabuck.Database.Entities.Division> { division3, division4 }
         };
 
-        var tournaments = new List<NewEnglandClassic.Database.Entities.Tournament> { tournament1, tournament2 };
+        var tournaments = new List<NortheastMegabuck.Database.Entities.Tournament> { tournament1, tournament2 };
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(tournaments.SetUpDbContext());
 

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Bowlers.Search;
+﻿namespace NortheastMegabuck.Bowlers.Search;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;

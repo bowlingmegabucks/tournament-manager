@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Bowlers.Retrieve;
+﻿namespace NortheastMegabuck.Bowlers.Retrieve;
 internal class ViewModel : IViewModel
 {
     public BowlerId Id { get; set; }

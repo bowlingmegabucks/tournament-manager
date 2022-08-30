@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Bowlers.Retrieve;
+namespace NortheastMegabuck.Bowlers.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     public Models.ErrorDetail? Error { get; private set; }

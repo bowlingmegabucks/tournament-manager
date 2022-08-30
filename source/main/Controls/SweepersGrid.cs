@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Contols;
+namespace NortheastMegabuck.Contols;
 public partial class SweepersGrid
 #if DEBUG
     : SweeperMiddleGrid

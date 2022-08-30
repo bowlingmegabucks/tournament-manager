@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NewEnglandClassic.Sweepers;
+namespace NortheastMegabuck.Sweepers;
 
 internal class Repository : IRepository
 {

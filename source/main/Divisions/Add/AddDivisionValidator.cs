@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Divisions.Add;
+namespace NortheastMegabuck.Divisions.Add;
 internal class Validator : AbstractValidator<Models.Division>
 {
     public Validator()

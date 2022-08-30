@@ -1,16 +1,16 @@
-﻿namespace NewEnglandClassic.Tests.Bowlers;
+﻿namespace NortheastMegabuck.Tests.Bowlers;
 internal class EntityMapper
 {
-    private NewEnglandClassic.Bowlers.IEntityMapper _mapper;
+    private NortheastMegabuck.Bowlers.IEntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new NewEnglandClassic.Bowlers.EntityMapper();
+        => _mapper = new NortheastMegabuck.Bowlers.EntityMapper();
 
     [Test]
     public void Execute_IdMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             Id = BowlerId.New()
         };
@@ -23,7 +23,7 @@ internal class EntityMapper
     [Test]
     public void Execute_FirstNameMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             FirstName = "firstName"
         };
@@ -36,7 +36,7 @@ internal class EntityMapper
     [Test]
     public void Execute_MiddleInitialMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             MiddleInitial = "middleInitial"
         };
@@ -49,7 +49,7 @@ internal class EntityMapper
     [Test]
     public void Execute_LastNameMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             LastName = "lastName"
         };
@@ -62,7 +62,7 @@ internal class EntityMapper
     [Test]
     public void Execute_SuffixMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             Suffix = "suffix"
         };
@@ -75,7 +75,7 @@ internal class EntityMapper
     [Test]
     public void Execute_StreetAddressMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             StreetAddress = "streetAddress"
         };
@@ -88,7 +88,7 @@ internal class EntityMapper
     [Test]
     public void Execute_StreetCityMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             CityAddress = "cityAddress"
         };
@@ -101,7 +101,7 @@ internal class EntityMapper
     [Test]
     public void Execute_StateAddressMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             StateAddress = "stateAddress"
         };
@@ -114,7 +114,7 @@ internal class EntityMapper
     [Test]
     public void Execute_ZipCodeMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             ZipCode = "zipCode"
         };
@@ -127,7 +127,7 @@ internal class EntityMapper
     [Test]
     public void Execute_EmailAddressMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             EmailAddress = "emailAddress"
         };
@@ -140,7 +140,7 @@ internal class EntityMapper
     [Test]
     public void Execute_DateOfBirthMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now)
         };
@@ -151,9 +151,9 @@ internal class EntityMapper
     }
 
     [Test]
-    public void Execute_GenderMapped([Values] NewEnglandClassic.Models.Gender gender)
+    public void Execute_GenderMapped([Values] NortheastMegabuck.Models.Gender gender)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             Gender = gender
         };
@@ -166,7 +166,7 @@ internal class EntityMapper
     [Test]
     public void Execute_USBCIdMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             USBCId = "usbcId"
         };
@@ -179,7 +179,7 @@ internal class EntityMapper
     [Test]
     public void Execute_PhoneNumberMapped()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             PhoneNumber = "phoneNumber"
         };

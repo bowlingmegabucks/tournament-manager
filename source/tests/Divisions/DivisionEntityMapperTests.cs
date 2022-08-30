@@ -1,20 +1,20 @@
 ﻿
-namespace NewEnglandClassic.Tests.Divisions;
+namespace NortheastMegabuck.Tests.Divisions;
 
 [TestFixture]
 internal class EntityMapper
 {
-    private NewEnglandClassic.Divisions.IEntityMapper _mapper;
+    private NortheastMegabuck.Divisions.IEntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new NewEnglandClassic.Divisions.EntityMapper();
+        => _mapper = new NortheastMegabuck.Divisions.EntityMapper();
 
     [Test]
     public void Id_Mapped()
     {
-        var id = NewEnglandClassic.Divisions.Id.New();
-        var model = new NewEnglandClassic.Models.Division
+        var id = NortheastMegabuck.Divisions.Id.New();
+        var model = new NortheastMegabuck.Models.Division
         {
             Id = id
         };
@@ -28,7 +28,7 @@ internal class EntityMapper
     public void Number_Mapped()
     {
         short number = 123;
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             Number = number
         };
@@ -42,7 +42,7 @@ internal class EntityMapper
     public void Name_Mapped()
     {
         var name = "Test Division";
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             Name = name
         };
@@ -56,7 +56,7 @@ internal class EntityMapper
     public void TournamentId_Mapped()
     {
         var id = TournamentId.New();
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             TournamentId = id
         };
@@ -69,7 +69,7 @@ internal class EntityMapper
     [Test]
     public void MinimumAge_Mapped([Values(null, 50)] short? minimumAge)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MinimumAge = minimumAge
         };
@@ -82,7 +82,7 @@ internal class EntityMapper
     [Test]
     public void MaximumAge_Mapped([Values(null, 50)] short? maximumAge)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MaximumAge = maximumAge
         };
@@ -95,7 +95,7 @@ internal class EntityMapper
     [Test]
     public void MinimumAverage_Mapped([Values(null, 200)] int? minimumAverage)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MinimumAverage = minimumAverage
         };
@@ -108,7 +108,7 @@ internal class EntityMapper
     [Test]
     public void MaximumAverage_Mapped([Values(null, 200)] int? maximumAverage)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MaximumAverage = maximumAverage
         };
@@ -121,7 +121,7 @@ internal class EntityMapper
     [Test]
     public void HandicapPercentage_Mapped([Values(null, .5, 1)] decimal? handicapPercentage)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             HandicapPercentage = handicapPercentage
         };
@@ -134,7 +134,7 @@ internal class EntityMapper
     [Test]
     public void HandicapBase_Mapped([Values(null, 200)] int? handicapBase)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             HandicapBase = handicapBase
         };
@@ -147,7 +147,7 @@ internal class EntityMapper
     [Test]
     public void MaximumHandicapPerGame_Mapped([Values(null, 0, 50)] int? maximumHandicap)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             MaximumHandicapPerGame = maximumHandicap
         };
@@ -158,9 +158,9 @@ internal class EntityMapper
     }
 
     [Test]
-    public void Gender_Mapped([Values] NewEnglandClassic.Models.Gender gender)
+    public void Gender_Mapped([Values] NortheastMegabuck.Models.Gender gender)
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             Gender = gender
         };
@@ -173,7 +173,7 @@ internal class EntityMapper
     [Test]
     public void Gender_Mapped()
     {
-        var model = new NewEnglandClassic.Models.Division
+        var model = new NortheastMegabuck.Models.Division
         {
             Gender = null
         };

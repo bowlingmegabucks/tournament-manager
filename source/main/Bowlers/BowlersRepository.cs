@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NewEnglandClassic.Bowlers;
+namespace NortheastMegabuck.Bowlers;
 internal class Repository : IRepository
 {
     private readonly Database.IDataContext _dataContext;

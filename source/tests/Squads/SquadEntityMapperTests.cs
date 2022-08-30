@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Squads;
+﻿namespace NortheastMegabuck.Tests.Squads;
 
 [TestFixture]
 internal class EntityMapper
 {
-    private NewEnglandClassic.Squads.IEntityMapper _mapper;
+    private NortheastMegabuck.Squads.IEntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new NewEnglandClassic.Squads.EntityMapper();
+        => _mapper = new NortheastMegabuck.Squads.EntityMapper();
 
     [Test]
     public void Execute_IdMapped()
     {
-        var model = new NewEnglandClassic.Models.Squad
+        var model = new NortheastMegabuck.Models.Squad
         {
             Id = SquadId.New()
         };
@@ -25,7 +25,7 @@ internal class EntityMapper
     [Test]
     public void Execute_TournamentIdMapped()
     {
-        var model = new NewEnglandClassic.Models.Squad
+        var model = new NortheastMegabuck.Models.Squad
         {
             TournamentId = TournamentId.New()
         };
@@ -38,7 +38,7 @@ internal class EntityMapper
     [Test]
     public void Execute_CashRatioMapped([Values(null, 4.5)] decimal? cashRatio)
     {
-        var model = new NewEnglandClassic.Models.Squad
+        var model = new NortheastMegabuck.Models.Squad
         {
             CashRatio = cashRatio
         };
@@ -51,7 +51,7 @@ internal class EntityMapper
     [Test]
     public void Execute_FinalsRatioMapped([Values(null, 5.5)] decimal? finalsRatio)
     {
-        var model = new NewEnglandClassic.Models.Squad
+        var model = new NortheastMegabuck.Models.Squad
         {
             FinalsRatio = finalsRatio
         };
@@ -64,7 +64,7 @@ internal class EntityMapper
     [Test]
     public void Execute_DateMapped()
     {
-        var model = new NewEnglandClassic.Models.Squad
+        var model = new NortheastMegabuck.Models.Squad
         {
             Date = DateTime.Now
         };
@@ -77,7 +77,7 @@ internal class EntityMapper
     [Test]
     public void Execute_MaxPerPairMapped()
     {
-        var model = new NewEnglandClassic.Models.Squad
+        var model = new NortheastMegabuck.Models.Squad
         {
             MaxPerPair = 5
         };
@@ -90,7 +90,7 @@ internal class EntityMapper
     [Test]
     public void Execute_CompleteMapped([Values] bool complete)
     {
-        var model = new NewEnglandClassic.Models.Squad
+        var model = new NortheastMegabuck.Models.Squad
         {
             Complete = complete
         };

@@ -1,19 +1,19 @@
 ﻿
-namespace NewEnglandClassic.Tests.Registrations.Retrieve;
+namespace NortheastMegabuck.Tests.Registrations.Retrieve;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Registrations.IRepository> _repository;
+    private Mock<NortheastMegabuck.Registrations.IRepository> _repository;
 
-    private NewEnglandClassic.Registrations.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Registrations.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NewEnglandClassic.Registrations.IRepository>();
+        _repository = new Mock<NortheastMegabuck.Registrations.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Registrations.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Registrations.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
@@ -29,32 +29,32 @@ internal class DataLayer
     [Test]
     public void Execute_TournamentId_ReturnsRepositoryRetrieve()
     {
-        var registration1 = new NewEnglandClassic.Database.Entities.Registration
+        var registration1 = new NortheastMegabuck.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
-            Squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.SquadRegistration(), 2).ToList(),
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() },
+            Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
         };
 
-        var registration2 = new NewEnglandClassic.Database.Entities.Registration
+        var registration2 = new NortheastMegabuck.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
-            Squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.SquadRegistration(), 2).ToList(),
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() },
+            Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
         };
 
-        var registration3 = new NewEnglandClassic.Database.Entities.Registration
+        var registration3 = new NortheastMegabuck.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NewEnglandClassic.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NewEnglandClassic.Database.Entities.Division { Id = NewEnglandClassic.Divisions.Id.New() },
-            Squads = Enumerable.Repeat(new NewEnglandClassic.Database.Entities.SquadRegistration(), 2).ToList(),
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() },
+            Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
         };

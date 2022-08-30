@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace NewEnglandClassic.Controls;
+namespace NortheastMegabuck.Controls;
 public partial class DivisionsGrid
 #if DEBUG
     : DivisionsMiddleGrid
@@ -25,7 +25,7 @@ public partial class DivisionsGrid
             case nameof(genderColumn):
                 if (division!.Gender != null)
                 {
-                    e.Value = division.Gender == NewEnglandClassic.Models.Gender.Male ? "Men" : "Women";
+                    e.Value = division.Gender == NortheastMegabuck.Models.Gender.Male ? "Men" : "Women";
                     e.FormattingApplied = true;
                 }
                 

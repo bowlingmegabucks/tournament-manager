@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Bowlers.Search;
+﻿namespace NortheastMegabuck.Bowlers.Search;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

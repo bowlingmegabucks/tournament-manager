@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Sweepers.Retrieve;
+namespace NortheastMegabuck.Sweepers.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NewEnglandClassic.Controls;
+namespace NortheastMegabuck.Controls;
 public partial class TournamentRegistrationGrid
 #if DEBUG
     : TournamentRegistrationMiddleGrid

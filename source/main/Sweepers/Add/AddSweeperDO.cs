@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Add;
+﻿namespace NortheastMegabuck.Sweepers.Add;
 internal class DataLayer : IDataLayer
 {
     private readonly IEntityMapper _mapper;

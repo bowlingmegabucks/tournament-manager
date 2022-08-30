@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Contols;
+﻿namespace NortheastMegabuck.Contols;
 
 partial class DivisionControl
 {
@@ -30,28 +30,28 @@ partial class DivisionControl
     {
             this.components = new System.ComponentModel.Container();
             this.nameText = new System.Windows.Forms.TextBox();
-            this.nameLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.nameLabel = new NortheastMegabuck.Controls.LabelControl();
             this.divisionErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.numberLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.numberLabel = new NortheastMegabuck.Controls.LabelControl();
             this.numberText = new System.Windows.Forms.TextBox();
-            this.minimumAgeValue = new NewEnglandClassic.Controls.NumericControl();
-            this.minimumAgeLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.maximumAgeValue = new NewEnglandClassic.Controls.NumericControl();
-            this.maximumAgeLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.minimumAgeValue = new NortheastMegabuck.Controls.NumericControl();
+            this.minimumAgeLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.maximumAgeValue = new NortheastMegabuck.Controls.NumericControl();
+            this.maximumAgeLabel = new NortheastMegabuck.Controls.LabelControl();
             this.ageGroupBox = new System.Windows.Forms.GroupBox();
             this.averageGroupBox = new System.Windows.Forms.GroupBox();
-            this.minimumAverageLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.maximumAverageValue = new NewEnglandClassic.Controls.NumericControl();
-            this.minimumAverageValue = new NewEnglandClassic.Controls.NumericControl();
-            this.maximumAverageLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.minimumAverageLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.maximumAverageValue = new NortheastMegabuck.Controls.NumericControl();
+            this.minimumAverageValue = new NortheastMegabuck.Controls.NumericControl();
+            this.maximumAverageLabel = new NortheastMegabuck.Controls.LabelControl();
             this.handicapGroupBox = new System.Windows.Forms.GroupBox();
-            this.maximumHandicapPerGameLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.maximumHandicapPerGameValue = new NewEnglandClassic.Controls.NumericControl();
-            this.handicapBaseLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.handicapBaseValue = new NewEnglandClassic.Controls.NumericControl();
-            this.handicapPercentageLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.handicapPercentageValue = new NewEnglandClassic.Controls.NumericControl();
-            this.genderLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.maximumHandicapPerGameLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.maximumHandicapPerGameValue = new NortheastMegabuck.Controls.NumericControl();
+            this.handicapBaseLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.handicapBaseValue = new NortheastMegabuck.Controls.NumericControl();
+            this.handicapPercentageLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.handicapPercentageValue = new NortheastMegabuck.Controls.NumericControl();
+            this.genderLabel = new NortheastMegabuck.Controls.LabelControl();
             this.genderDropdown = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.divisionErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumAgeValue)).BeginInit();

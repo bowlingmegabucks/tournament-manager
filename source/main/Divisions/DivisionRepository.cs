@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NewEnglandClassic.Divisions;
+namespace NortheastMegabuck.Divisions;
 
 internal class Repository : IRepository
 {
@@ -30,7 +30,7 @@ internal class Repository : IRepository
     IEnumerable<Database.Entities.Division> IRepository.Retrieve(TournamentId tournamentId)
         => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId).AsEnumerable();
 
-    Database.Entities.Division IRepository.Retrieve(NewEnglandClassic.Divisions.Id id)
+    Database.Entities.Division IRepository.Retrieve(NortheastMegabuck.Divisions.Id id)
         => _dataContext.Divisions.Single(division => division.Id == id);
 }
 

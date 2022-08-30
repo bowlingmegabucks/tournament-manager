@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Divisions.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Divisions.Retrieve;
 
 [TestFixture]
 internal class Adapter
 {
-    private Mock<NewEnglandClassic.Divisions.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<NortheastMegabuck.Divisions.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NewEnglandClassic.Divisions.Retrieve.IAdapter _adapter;
+    private NortheastMegabuck.Divisions.Retrieve.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NewEnglandClassic.Divisions.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<NortheastMegabuck.Divisions.Retrieve.IBusinessLogic>();
 
-        _adapter = new NewEnglandClassic.Divisions.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new NortheastMegabuck.Divisions.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -28,7 +28,7 @@ internal class Adapter
     [Test]
     public void Execute_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
-        var error = Enumerable.Repeat(new NewEnglandClassic.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var tournamentId = TournamentId.New();
@@ -41,8 +41,8 @@ internal class Adapter
     [Test]
     public void Execute_ReturnsDivisionsFromBusinessLogic()
     {
-        var division1 = new NewEnglandClassic.Models.Division { Name = "Division 1" };
-        var division2 = new NewEnglandClassic.Models.Division { Name = "Division 2" };
+        var division1 = new NortheastMegabuck.Models.Division { Name = "Division 1" };
+        var division2 = new NortheastMegabuck.Models.Division { Name = "Division 2" };
         var divisions = new[] { division1, division2 };
 
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(divisions);

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Sweepers.Retrieve;
 
 partial class Form
 {
@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.sweepersGrid = new NewEnglandClassic.Contols.SweepersGrid();
+            this.sweepersGrid = new NortheastMegabuck.Contols.SweepersGrid();
             this.addButton = new System.Windows.Forms.Button();
             this.openButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -42,7 +42,7 @@ partial class Form
             this.sweepersGrid.SelectedRowContextMenu = null;
             this.sweepersGrid.Size = new System.Drawing.Size(654, 377);
             this.sweepersGrid.TabIndex = 0;
-            this.sweepersGrid.GridRowDoubleClicked += new System.EventHandler<NewEnglandClassic.Controls.GridRowDoubleClickEventArgs>(this.SweepersGrid_GridRowDoubleClicked);
+            this.sweepersGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.GridRowDoubleClickEventArgs>(this.SweepersGrid_GridRowDoubleClicked);
             // 
             // addButton
             // 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NewEnglandClassic.Contols;
+namespace NortheastMegabuck.Contols;
 public partial class SweeperDivisionControl : UserControl
 {
     public Divisions.Id DivisionId { get; }

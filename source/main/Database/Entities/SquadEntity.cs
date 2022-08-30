@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 
-namespace NewEnglandClassic.Database.Entities;
+namespace NortheastMegabuck.Database.Entities;
 internal abstract class Squad
 {
     [Key]

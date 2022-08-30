@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NewEnglandClassic.Sweepers.Add;
+namespace NortheastMegabuck.Sweepers.Add;
 internal class Validator : AbstractValidator<Models.Sweeper>
 {
     public Validator()

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Add;
+﻿namespace NortheastMegabuck.Divisions.Add;
 
 internal class Adapter : IAdapter
 {
@@ -21,7 +21,7 @@ internal class Adapter : IAdapter
         _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
     }
 
-    public NewEnglandClassic.Divisions.Id? Execute(IViewModel viewModel)
+    public NortheastMegabuck.Divisions.Id? Execute(IViewModel viewModel)
     {
         var model = new Models.Division(viewModel);
 
@@ -37,5 +37,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    NewEnglandClassic.Divisions.Id? Execute(IViewModel viewModel);
+    NortheastMegabuck.Divisions.Id? Execute(IViewModel viewModel);
 }

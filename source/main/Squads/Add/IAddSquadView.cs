@@ -1,6 +1,6 @@
-﻿namespace NewEnglandClassic.Squads.Add;
+﻿namespace NortheastMegabuck.Squads.Add;
 
-internal interface IView : NewEnglandClassic.IView
+internal interface IView : NortheastMegabuck.IView
 {
     void SetTournamentFinalsRatio(string ratio);
 

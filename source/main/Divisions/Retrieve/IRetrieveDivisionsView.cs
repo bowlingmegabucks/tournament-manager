@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Divisions.Retrieve;
+﻿namespace NortheastMegabuck.Divisions.Retrieve;
 
 internal interface IView
 {
@@ -10,7 +10,7 @@ internal interface IView
 
     void BindDivisions(IEnumerable<IViewModel> divisions);
 
-    NewEnglandClassic.Divisions.Id? AddDivision(TournamentId tournamentId);
+    NortheastMegabuck.Divisions.Id? AddDivision(TournamentId tournamentId);
 
     void RefreshDivisions();
 }

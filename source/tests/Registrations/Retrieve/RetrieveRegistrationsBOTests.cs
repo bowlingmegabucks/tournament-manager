@@ -4,27 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewEnglandClassic.Tests.Registrations.Retrieve;
+namespace NortheastMegabuck.Tests.Registrations.Retrieve;
 
 [TestFixture]
 internal class BusinessLogic
 {
-    private Mock<NewEnglandClassic.Registrations.Retrieve.IDataLayer> _dataLayer;
+    private Mock<NortheastMegabuck.Registrations.Retrieve.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Registrations.Retrieve.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Registrations.Retrieve.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NewEnglandClassic.Registrations.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<NortheastMegabuck.Registrations.Retrieve.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Registrations.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Registrations.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
     public void Execute_TournamentId_DataLayerExecute_CalledCorrectly()
     {
-        var tournamentId = NewEnglandClassic.TournamentId.New();
+        var tournamentId = NortheastMegabuck.TournamentId.New();
 
         _businessLogic.Execute(tournamentId);
 
@@ -34,10 +34,10 @@ internal class BusinessLogic
     [Test]
     public void Execute_TournamentId_ReturnsDataLayerExecute()
     {
-        var registrations = Enumerable.Repeat(new NewEnglandClassic.Models.Registration(), 2);
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.TournamentId>())).Returns(registrations);
+        var registrations = Enumerable.Repeat(new NortheastMegabuck.Models.Registration(), 2);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(registrations);
 
-        var tournamentId = NewEnglandClassic.TournamentId.New();
+        var tournamentId = NortheastMegabuck.TournamentId.New();
 
         var actual = _businessLogic.Execute(tournamentId);
 
@@ -47,9 +47,9 @@ internal class BusinessLogic
     [Test]
     public void Execute_TournamentId_DataLayerExecuteThrowsException_ExceptionFlow()
     {
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NewEnglandClassic.TournamentId>())).Throws(new Exception("exception"));
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Throws(new Exception("exception"));
 
-        var tournamentId = NewEnglandClassic.TournamentId.New();
+        var tournamentId = NortheastMegabuck.TournamentId.New();
 
         var actual = _businessLogic.Execute(tournamentId);
 

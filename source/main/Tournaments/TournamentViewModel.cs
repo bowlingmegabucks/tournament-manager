@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Tournaments;
+namespace NortheastMegabuck.Tournaments;
 internal class ViewModel : IViewModel
 {
     public TournamentId Id { get; set; }

@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Squads.Retrieve;
+namespace NortheastMegabuck.Squads.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;

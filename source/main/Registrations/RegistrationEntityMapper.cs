@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Registrations;
+namespace NortheastMegabuck.Registrations;
 internal class EntityMapper : IEntityMapper
 {
     private readonly Bowlers.IEntityMapper _bowlerMapper;

@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Registrations.Add;
+﻿namespace NortheastMegabuck.Registrations.Add;
 
 partial class Form
 {
@@ -29,12 +29,12 @@ partial class Form
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            this.bowlerControl = new NewEnglandClassic.Contols.BowlerControl();
+            this.bowlerControl = new NortheastMegabuck.Contols.BowlerControl();
             this.divisionsDropdown = new System.Windows.Forms.ComboBox();
-            this.divisionLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.divisionLabel = new NortheastMegabuck.Controls.LabelControl();
             this.registrationErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.averageValue = new NewEnglandClassic.Controls.NumericControl();
-            this.averageLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.averageValue = new NortheastMegabuck.Controls.NumericControl();
+            this.averageLabel = new NortheastMegabuck.Controls.LabelControl();
             this.squadsGroupbox = new System.Windows.Forms.GroupBox();
             this.squadsFlowPanelLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.sweepersGroupbox = new System.Windows.Forms.GroupBox();
@@ -54,7 +54,7 @@ partial class Form
             this.bowlerControl.DateOfBirth = null;
             this.bowlerControl.EmailAddress = "";
             this.bowlerControl.FirstName = "";
-            this.bowlerControl.Gender = NewEnglandClassic.Models.Gender.Male;
+            this.bowlerControl.Gender = NortheastMegabuck.Models.Gender.Male;
             this.bowlerControl.LastName = "";
             this.bowlerControl.Location = new System.Drawing.Point(2, 12);
             this.bowlerControl.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);

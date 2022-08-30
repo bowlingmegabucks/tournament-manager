@@ -1,28 +1,28 @@
-﻿using NewEnglandClassic.Sweepers;
+﻿using NortheastMegabuck.Sweepers;
 
-namespace NewEnglandClassic.Tests.Sweepers.Add;
+namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
 internal class DataLayer
 {
     private Mock<IEntityMapper> _mapper;
-    private Mock<NewEnglandClassic.Sweepers.IRepository> _repository;
+    private Mock<NortheastMegabuck.Sweepers.IRepository> _repository;
     
-    private NewEnglandClassic.Sweepers.Add.IDataLayer _dataLayer;
+    private NortheastMegabuck.Sweepers.Add.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
         _mapper = new Mock<IEntityMapper>();
-        _repository = new Mock<NewEnglandClassic.Sweepers.IRepository>();
+        _repository = new Mock<NortheastMegabuck.Sweepers.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Sweepers.Add.DataLayer(_mapper.Object, _repository.Object);
+        _dataLayer = new NortheastMegabuck.Sweepers.Add.DataLayer(_mapper.Object, _repository.Object);
     }
 
     [Test]
     public void Execute_MapperExecute_CalledCorrectly()
     {
-        var sweeper = new NewEnglandClassic.Models.Sweeper();
+        var sweeper = new NortheastMegabuck.Models.Sweeper();
         _dataLayer.Execute(sweeper);
 
         _mapper.Verify(mapper => mapper.Execute(sweeper), Times.Once);
@@ -31,10 +31,10 @@ internal class DataLayer
     [Test]
     public void Execute_RepositoryExecute_CalledCorrectly()
     {
-        var entity = new NewEnglandClassic.Database.Entities.SweeperSquad();
-        _mapper.Setup(mapper => mapper.Execute(It.IsAny<NewEnglandClassic.Models.Sweeper>())).Returns(entity);
+        var entity = new NortheastMegabuck.Database.Entities.SweeperSquad();
+        _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>())).Returns(entity);
 
-        var model = new NewEnglandClassic.Models.Sweeper();
+        var model = new NortheastMegabuck.Models.Sweeper();
         _dataLayer.Execute(model);
 
         _repository.Verify(repository => repository.Add(entity), Times.Once);
@@ -44,9 +44,9 @@ internal class DataLayer
     public void Execute_ReturnsRepositoryAddResponse()
     {
         var id = SquadId.New();
-        _repository.Setup(repository => repository.Add(It.IsAny<NewEnglandClassic.Database.Entities.SweeperSquad>())).Returns(id);
+        _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.SweeperSquad>())).Returns(id);
 
-        var model = new NewEnglandClassic.Models.Sweeper();
+        var model = new NortheastMegabuck.Models.Sweeper();
         var actual = _dataLayer.Execute(model);
 
         Assert.That(actual, Is.EqualTo(id));

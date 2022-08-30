@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

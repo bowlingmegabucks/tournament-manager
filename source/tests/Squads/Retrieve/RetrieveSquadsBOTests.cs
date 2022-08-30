@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Squads.Retrieve;
 
 [TestFixture]
 internal class BusinessLogic
 {
-    private Mock<NewEnglandClassic.Squads.Retrieve.IDataLayer> _dataLayer;
+    private Mock<NortheastMegabuck.Squads.Retrieve.IDataLayer> _dataLayer;
 
-    private NewEnglandClassic.Squads.Retrieve.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Squads.Retrieve.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NewEnglandClassic.Squads.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<NortheastMegabuck.Squads.Retrieve.IDataLayer>();
 
-        _businessLogic = new NewEnglandClassic.Squads.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Squads.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -28,7 +28,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_ReturnsDataLayerExecuteResults()
     {
-        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, 2);
+        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
         var tournamentId = TournamentId.New();
@@ -41,7 +41,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_DataLayerExecuteNoException_ErrorNull()
     {
-        var squads = Enumerable.Repeat(new NewEnglandClassic.Models.Squad { Id = SquadId.New() }, 2);
+        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
         var tournamentId = TournamentId.New();

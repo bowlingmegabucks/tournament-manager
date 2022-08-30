@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Tests.Models;
+﻿namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal class ErrorDetailModelTests
@@ -8,7 +8,7 @@ internal class ErrorDetailModelTests
     {
         var ex = new Exception("message");
 
-        var errorDetail = new NewEnglandClassic.Models.ErrorDetail(ex);
+        var errorDetail = new NortheastMegabuck.Models.ErrorDetail(ex);
 
         Assert.Multiple(() =>
         {
@@ -22,7 +22,7 @@ internal class ErrorDetailModelTests
     {
         var message = "message";
 
-        var errorDetail = new NewEnglandClassic.Models.ErrorDetail(message);
+        var errorDetail = new NortheastMegabuck.Models.ErrorDetail(message);
 
         Assert.Multiple(() =>
         {
@@ -37,7 +37,7 @@ internal class ErrorDetailModelTests
         var message = "message";
         var returnCode = 5;
 
-        var errorDetail = new NewEnglandClassic.Models.ErrorDetail(message, returnCode);
+        var errorDetail = new NortheastMegabuck.Models.ErrorDetail(message, returnCode);
 
         Assert.Multiple(() =>
         {

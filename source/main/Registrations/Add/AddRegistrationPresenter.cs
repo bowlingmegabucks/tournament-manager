@@ -1,5 +1,5 @@
 ﻿
-namespace NewEnglandClassic.Registrations.Add;
+namespace NortheastMegabuck.Registrations.Add;
 internal class Presenter
 {
     private readonly IView _view;

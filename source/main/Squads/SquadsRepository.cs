@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NewEnglandClassic.Squads;
+namespace NortheastMegabuck.Squads;
 
 internal class Repository : IRepository
 {

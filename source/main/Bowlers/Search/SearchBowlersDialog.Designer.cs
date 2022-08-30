@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Bowlers.Search;
+﻿namespace NortheastMegabuck.Bowlers.Search;
 
 partial class Dialog
 {
@@ -31,12 +31,12 @@ partial class Dialog
             this.searchCriteriaGroupBox = new System.Windows.Forms.GroupBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.emailText = new System.Windows.Forms.TextBox();
-            this.emailLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.emailLabel = new NortheastMegabuck.Controls.LabelControl();
             this.firstNameText = new System.Windows.Forms.TextBox();
-            this.firstNameLabel = new NewEnglandClassic.Controls.LabelControl();
+            this.firstNameLabel = new NortheastMegabuck.Controls.LabelControl();
             this.lastNameText = new System.Windows.Forms.TextBox();
-            this.lastNameLabel = new NewEnglandClassic.Controls.LabelControl();
-            this.searchResultsGrid = new NewEnglandClassic.Contols.SearchBowlersGrid();
+            this.lastNameLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.searchResultsGrid = new NortheastMegabuck.Contols.SearchBowlersGrid();
             this.selectButton = new System.Windows.Forms.Button();
             this.newBowlerButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -144,7 +144,7 @@ partial class Dialog
             this.searchResultsGrid.SelectedRowContextMenu = null;
             this.searchResultsGrid.Size = new System.Drawing.Size(832, 290);
             this.searchResultsGrid.TabIndex = 1;
-            this.searchResultsGrid.GridRowDoubleClicked += new System.EventHandler<NewEnglandClassic.Controls.GridRowDoubleClickEventArgs>(this.SearchResultsGrid_GridRowDoubleClicked);
+            this.searchResultsGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.GridRowDoubleClickEventArgs>(this.SearchResultsGrid_GridRowDoubleClicked);
             // 
             // selectButton
             // 

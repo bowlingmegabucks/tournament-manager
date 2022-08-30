@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using StronglyTypedIds;
 
-namespace NewEnglandClassic.Divisions;
+namespace NortheastMegabuck.Divisions;
 
 [StronglyTypedId]
 public partial struct Id { }

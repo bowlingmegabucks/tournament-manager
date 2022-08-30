@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Divisions.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Divisions.Retrieve;
 internal class Presenter
 {
-    private Mock<NewEnglandClassic.Divisions.Retrieve.IView> _view;
-    private Mock<NewEnglandClassic.Divisions.Retrieve.IAdapter> _adapter;
+    private Mock<NortheastMegabuck.Divisions.Retrieve.IView> _view;
+    private Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter> _adapter;
 
-    private NewEnglandClassic.Divisions.Retrieve.Presenter _presenter;
+    private NortheastMegabuck.Divisions.Retrieve.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NewEnglandClassic.Divisions.Retrieve.IView>();
-        _adapter = new Mock<NewEnglandClassic.Divisions.Retrieve.IAdapter>();
+        _view = new Mock<NortheastMegabuck.Divisions.Retrieve.IView>();
+        _adapter = new Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter>();
 
-        _presenter = new NewEnglandClassic.Divisions.Retrieve.Presenter(_view.Object, _adapter.Object);
+        _presenter = new NortheastMegabuck.Divisions.Retrieve.Presenter(_view.Object, _adapter.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal class Presenter
     [Test]
     public void Execute_AdapterErrorNotNull_ErrorFlow()
     {
-        var error = new NewEnglandClassic.Models.ErrorDetail("error");
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         _presenter.Execute();
@@ -39,14 +39,14 @@ internal class Presenter
             _view.Verify(view => view.DisplayError(error.Message), Times.Once);
             _view.Verify(view => view.Disable(), Times.Once());
 
-            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<NewEnglandClassic.Divisions.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public void Execute_AdapterErrorNull_ViewBindDivisions_CalledCorrectly()
     {
-        var divisions = new List<NewEnglandClassic.Divisions.IViewModel>();
+        var divisions = new List<NortheastMegabuck.Divisions.IViewModel>();
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(divisions);
 
         _presenter.Execute();
@@ -68,7 +68,7 @@ internal class Presenter
     [Test]
     public void AddDivision_ViewAddDivisionReturnsId_ViewRefreshDivisions_Called()
     {
-        var id = NewEnglandClassic.Divisions.Id.New();
+        var id = NortheastMegabuck.Divisions.Id.New();
         _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns(id);
 
         _presenter.AddDivision();
@@ -79,7 +79,7 @@ internal class Presenter
     [Test]
     public void AddDivision_ViewAddDivisionReturnsNull_ViewRefreshDivisions_NotCalled()
     {
-        _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns((NewEnglandClassic.Divisions.Id?)null);
+        _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns((NortheastMegabuck.Divisions.Id?)null);
 
         _presenter.AddDivision();
 

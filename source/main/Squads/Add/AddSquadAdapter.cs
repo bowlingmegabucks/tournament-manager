@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Squads.Add;
+﻿namespace NortheastMegabuck.Squads.Add;
 internal class Adapter : IAdapter
 {
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();

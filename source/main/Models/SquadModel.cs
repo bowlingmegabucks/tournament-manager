@@ -1,4 +1,4 @@
-﻿namespace NewEnglandClassic.Models;
+﻿namespace NortheastMegabuck.Models;
 internal class Squad
 {
     public SquadId Id { get; set; }

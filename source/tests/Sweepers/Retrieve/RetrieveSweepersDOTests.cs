@@ -1,18 +1,18 @@
-﻿namespace NewEnglandClassic.Tests.Sweepers.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal class DataLayer
 {
-    private Mock<NewEnglandClassic.Sweepers.IRepository> _repository;
+    private Mock<NortheastMegabuck.Sweepers.IRepository> _repository;
 
-    private NewEnglandClassic.Sweepers.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Sweepers.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NewEnglandClassic.Sweepers.IRepository>();
+        _repository = new Mock<NortheastMegabuck.Sweepers.IRepository>();
 
-        _dataLayer = new NewEnglandClassic.Sweepers.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Sweepers.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
@@ -28,25 +28,25 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsRepositoryRetrieveResponse()
     {
-        var sweeper1 = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var sweeper1 = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             MaxPerPair = 1,
             CashRatio = 2,
-            Divisions = Enumerable.Empty<NewEnglandClassic.Database.Entities.SweeperDivision>().ToList()
+            Divisions = Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperDivision>().ToList()
         };
 
-        var sweeper2 = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var sweeper2 = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             MaxPerPair = 2,
             CashRatio = 3,
-            Divisions = Enumerable.Empty<NewEnglandClassic.Database.Entities.SweeperDivision>().ToList()
+            Divisions = Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperDivision>().ToList()
         };
 
-        var sweeper3 = new NewEnglandClassic.Database.Entities.SweeperSquad
+        var sweeper3 = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
             MaxPerPair = 3,
             CashRatio = 4,
-            Divisions = Enumerable.Empty<NewEnglandClassic.Database.Entities.SweeperDivision>().ToList()
+            Divisions = Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperDivision>().ToList()
         };
 
         var sweepers = new[] { sweeper1, sweeper2, sweeper3 };

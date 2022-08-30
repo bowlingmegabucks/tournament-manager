@@ -1,21 +1,21 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
 
-namespace NewEnglandClassic.Tests.Bowlers.Add;
+namespace NortheastMegabuck.Tests.Bowlers.Add;
 
 [TestFixture]
 internal class Validator
 {
-    private IValidator<NewEnglandClassic.Models.Bowler> _validator;
+    private IValidator<NortheastMegabuck.Models.Bowler> _validator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _validator = new NewEnglandClassic.Bowlers.Add.Validator();
+        => _validator = new NortheastMegabuck.Bowlers.Add.Validator();
 
     [Test]
     public void FirstName_NullWhitespace_HasValidatorError([Values(null, "", " ")] string firstName)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler { FirstName = firstName };
+        var bowler = new NortheastMegabuck.Models.Bowler { FirstName = firstName };
 
         var result = _validator.TestValidate(bowler);
         result.ShouldHaveValidationErrorFor(b => b.FirstName).WithErrorMessage("First Name is Required");
@@ -24,7 +24,7 @@ internal class Validator
     [Test]
     public void FirstName_NotNullOrWhitespace_NoValidatorError()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler { FirstName = "John" };
+        var bowler = new NortheastMegabuck.Models.Bowler { FirstName = "John" };
 
         var result = _validator.TestValidate(bowler);
         result.ShouldNotHaveValidationErrorFor(b => b.FirstName);
@@ -33,7 +33,7 @@ internal class Validator
     [Test]
     public void MiddleInitial_NullEmpty_HasNoValidatorError([Values(null, "")] string middleInitial)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler { MiddleInitial = middleInitial };
+        var bowler = new NortheastMegabuck.Models.Bowler { MiddleInitial = middleInitial };
 
         var result = _validator.TestValidate(bowler);
         result.ShouldNotHaveValidationErrorFor(b => b.MiddleInitial);
@@ -42,7 +42,7 @@ internal class Validator
     [Test]
     public void MiddleInitial_Length1_HasNoValidatorError()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler { MiddleInitial = "J" };
+        var bowler = new NortheastMegabuck.Models.Bowler { MiddleInitial = "J" };
 
         var result = _validator.TestValidate(bowler);
         result.ShouldNotHaveValidationErrorFor(b => b.MiddleInitial);
@@ -51,7 +51,7 @@ internal class Validator
     [Test]
     public void MiddleInitial_LengthGreaterThan1_HasValidatorError([Range(2, 10)] int length)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler { MiddleInitial = new string('J', length) };
+        var bowler = new NortheastMegabuck.Models.Bowler { MiddleInitial = new string('J', length) };
 
         var result = _validator.TestValidate(bowler);
         result.ShouldHaveValidationErrorFor(b => b.MiddleInitial).WithErrorMessage("Middle Initial must only be 1 character");
@@ -60,7 +60,7 @@ internal class Validator
     [Test]
     public void LastName_NullWhitespace_HasValidatorError([Values(null, "", " ")] string lastName)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler { LastName = lastName };
+        var bowler = new NortheastMegabuck.Models.Bowler { LastName = lastName };
 
         var result = _validator.TestValidate(bowler);
         result.ShouldHaveValidationErrorFor(b => b.LastName).WithErrorMessage("Last Name is Required");
@@ -69,7 +69,7 @@ internal class Validator
     [Test]
     public void LastName_NotNullWhitespace_NoValidatorError()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler { LastName = "Doe" };
+        var bowler = new NortheastMegabuck.Models.Bowler { LastName = "Doe" };
 
         var result = _validator.TestValidate(bowler);
         result.ShouldNotHaveValidationErrorFor(b => b.LastName);
@@ -78,7 +78,7 @@ internal class Validator
     [Test]
     public void CityAddress_NullOrEmpty_With_Street_Has_Error([Values(null, "", " ")] string city)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             CityAddress = city,
             StreetAddress = "123 Main St",
@@ -95,7 +95,7 @@ internal class Validator
     [Test]
     public void City_NullOrEmpty_With_No_Street_Has_No_Error([Values(null, "", " ")] string city, [Values(null, "", " ")] string state)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             CityAddress = city,
             StreetAddress = null,
@@ -116,7 +116,7 @@ internal class Validator
 
     private void State_Length_Not_2_Has_Error(int length)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             CityAddress = "Boston",
             StreetAddress = "123 Main St",
@@ -131,7 +131,7 @@ internal class Validator
     [Test]
     public void State_Length_2_Has_No_Error()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             CityAddress = "Boston",
             StreetAddress = "123 Main St",
@@ -147,7 +147,7 @@ internal class Validator
     [Test]
     public void State_NullOrEmtpy_Street_Given_Has_Error([Values(null, "", " ")] string state)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             StreetAddress = "123 Main St",
             StateAddress = state,
@@ -160,7 +160,7 @@ internal class Validator
     [Test]
     public void Zip_NullOrEmpty_Street_Given_Has_Error([Values(null, "", " ")] string zip)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             StreetAddress = "123 Main St",
             StateAddress = "MA",
@@ -185,7 +185,7 @@ internal class Validator
 
     private void Zip_Length_Not_5or9_Street_Given_Has_Error(int length)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             StreetAddress = "123 Main St",
             ZipCode = new string('J', length)
@@ -199,7 +199,7 @@ internal class Validator
     [Test]
     public void Zip_Length_5or9_NotNumeric_Country_USA_Street_Given_Has_Error([Values("aaaaa", "bbbbbbbbb")] string zip)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             StreetAddress = "123 Main St",
             ZipCode = zip,
@@ -212,7 +212,7 @@ internal class Validator
     [Test]
     public void Zip_Length_5or9_Numeric_Street_Given_Or_Not_Given_Has_No_Error([Values("12345", "123456789")] string zip)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             StreetAddress = "123 Main St",
             ZipCode = zip,
@@ -227,7 +227,7 @@ internal class Validator
         [Values(null, "", " ", "a", "bb", "ccc", "ddddd", "eeeeeeeee", "12345", "123456789")] string zip,
         [Values(null, "", " ")] string street)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             StreetAddress = street,
             ZipCode = zip,
@@ -240,7 +240,7 @@ internal class Validator
     [Test]
     public void State_NullOrEmtpy_City_Given_Has_Error([Values(null, "", " ")] string state)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             CityAddress = "Boston",
             StateAddress = state,
@@ -271,7 +271,7 @@ internal class Validator
                                                                        "email@111.222.333.44444",
                                                                        "email@domain..com")]string emailAddress)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             EmailAddress = emailAddress,
         };
@@ -288,7 +288,7 @@ internal class Validator
     [TestCase("email@domain@domain.com")]
     public void EmailAddress_Invalid_NotVerified_validator_Error(string emailAddress)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             EmailAddress = emailAddress,
         };
@@ -300,7 +300,7 @@ internal class Validator
     [Test]
     public void PhoneNumber_NullEmptyWhitespace_NoValidatorError([Values(null, "", "          ")] string phoneNumber)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             PhoneNumber = phoneNumber,
         };
@@ -313,7 +313,7 @@ internal class Validator
     [TestCase("123-456-7890")]
     public void PhoneNumber_Valid_NoValidatorError(string phoneNumber)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             PhoneNumber = phoneNumber,
         };
@@ -327,7 +327,7 @@ internal class Validator
     [TestCase("puzzled")]
     public void PhoneNumber_Invalid_HasValidatorError(string phoneNumber)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             PhoneNumber = phoneNumber,
         };
@@ -339,7 +339,7 @@ internal class Validator
     [Test]
     public void DateOfBirth_Today_HasValidatorError()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today)
         };
@@ -351,7 +351,7 @@ internal class Validator
     [Test]
     public void DateOfBirth_Future_HasValidatorError()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(1))
         };
@@ -363,7 +363,7 @@ internal class Validator
     [Test]
     public void DateOfBirth_Yesterrday_NoValidatorError()
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(-1))
         };
@@ -375,7 +375,7 @@ internal class Validator
     [TestCase(null)]
     public void DateOfBirth_Null_NoValidatorError(DateOnly? dob)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             DateOfBirth = dob
         };
@@ -391,7 +391,7 @@ internal class Validator
     [TestCase("12345-583")]
     public void USBCId_Valid_NoValidatorError(string usbcId)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             USBCId = usbcId
         };
@@ -410,7 +410,7 @@ internal class Validator
     [TestCase("-123-465")]
     public void USBCId_Invalid_HasValidatorError(string usbcId)
     {
-        var bowler = new NewEnglandClassic.Models.Bowler
+        var bowler = new NortheastMegabuck.Models.Bowler
         {
             USBCId = usbcId
         };
