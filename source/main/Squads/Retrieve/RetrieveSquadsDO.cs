@@ -19,9 +19,14 @@ internal class DataLayer : IDataLayer
 
     public IEnumerable<Models.Squad> Execute(TournamentId tournamentId)
         => _repository.Retrieve(tournamentId).Select(squad=> new Models.Squad(squad));
+
+    public Models.Squad Execute(SquadId id)
+        => new (_repository.Retrieve(id));
 }
 
 internal interface IDataLayer
 {
     IEnumerable<Models.Squad> Execute(TournamentId tournamentId);
+
+    Models.Squad Execute(SquadId id);
 }

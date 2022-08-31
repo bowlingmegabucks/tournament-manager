@@ -41,7 +41,7 @@ internal class Repository
     }
 
     [Test]
-    public void Execute_ReturnsSquadsForSelectedTournament()
+    public void Retrieve_TournamentId_ReturnsSquadsForSelectedTournament()
     {
         var tournamentId = TournamentId.New();
 
@@ -76,5 +76,39 @@ internal class Repository
             Assert.That(actual.Count(), Is.EqualTo(2));
             Assert.That(actual.Count(squad => squad.MaxPerPair == 1), Is.EqualTo(2));
         });
+    }
+
+    [Test]
+    public void Retrieve_SquadId_ReturnsSquad()
+    {
+        var tournamentId = TournamentId.New();
+
+        var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
+        {
+            Id = SquadId.New(),
+            TournamentId = tournamentId,
+            MaxPerPair = 1,
+        };
+
+        var squad2 = new NortheastMegabuck.Database.Entities.TournamentSquad
+        {
+            Id = SquadId.New(),
+            TournamentId = tournamentId,
+            MaxPerPair = 2
+        };
+
+        var squad3 = new NortheastMegabuck.Database.Entities.TournamentSquad
+        {
+            Id = SquadId.New(),
+            TournamentId = TournamentId.New(),
+            MaxPerPair = 3
+        };
+
+        var squads = new[] { squad1, squad2, squad3 };
+        _dataContext.Setup(dataContext => dataContext.Squads).Returns(squads.SetUpDbContext());
+
+        var actual = _repository.Retrieve(squad2.Id);
+
+        Assert.That(actual.MaxPerPair, Is.EqualTo(squad2.MaxPerPair));
     }
 }

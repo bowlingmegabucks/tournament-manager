@@ -29,7 +29,18 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => MessageBox.Show(message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
 
     private void OpenButton_Click(object sender, EventArgs e)
-        => MessageBox.Show("Coming soon...");
+    {
+        using var form = new Portal.Form(_config, squadsGrid.SelectedSquad!.Id);
+
+        if (!form.IsDisposed)
+        {
+            Hide();
+
+            form.ShowDialog(this);
+
+            Close();
+        }
+    }
 
     private void SquadsGrid_GridRowDoubleClicked(object sender, Controls.GridRowDoubleClickEventArgs e)
         => OpenButton_Click(sender, e);
