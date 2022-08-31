@@ -75,6 +75,8 @@ internal class DataContext : DbContext, IDataContext
     public DbSet<Entities.Bowler> Bowlers { get; set; } = null!;
 
     public DbSet<Entities.Registration> Registrations { get; set; } = null!;
+
+    public DbSet<Entities.SquadRegistration> SquadRegistrations { get; set; } = null!;
 }
 
 internal interface IDataContext
@@ -92,6 +94,8 @@ internal interface IDataContext
     DbSet<Entities.Bowler> Bowlers { get; }
 
     DbSet<Entities.Registration> Registrations { get; }
+
+    DbSet<Entities.SquadRegistration> SquadRegistrations { get; }
 
     void SaveChanges();
 

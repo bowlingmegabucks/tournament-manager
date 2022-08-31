@@ -82,4 +82,42 @@ internal class Repository
             Assert.That(actual.Count(registration => registration.Id == registrationId3), Is.EqualTo(1));
         });
     }
+
+    [Test]
+    public void Retrieve_SquadId_ReturnsSquadRegistrations()
+    {
+        var squadId = SquadId.New();
+
+        var squadRegistration1 = new NortheastMegabuck.Database.Entities.SquadRegistration
+        {
+            SquadId = squadId,
+            LaneAssignment = "1A"
+        };
+
+        var squadRegistration2 = new NortheastMegabuck.Database.Entities.SquadRegistration
+        {
+            SquadId = SquadId.New(),
+            LaneAssignment = string.Empty
+        };
+
+        var squadRegistration3 = new NortheastMegabuck.Database.Entities.SquadRegistration
+        {
+            SquadId = squadId,
+            LaneAssignment = "1B"
+        };
+
+        var squadRegistrations = new[] { squadRegistration1, squadRegistration2, squadRegistration3 };
+
+        _dataContext.Setup(dataContext => dataContext.SquadRegistrations).Returns(squadRegistrations.SetUpDbContext());
+
+        var actual = _repository.Retrieve(squadId).ToList();
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(actual, Has.Count.EqualTo(2));
+
+            Assert.That(actual.All(registration => registration.SquadId == squadId));
+            Assert.That(actual.All(registration => !string.IsNullOrEmpty(registration.LaneAssignment)));
+        });
+    }
 }

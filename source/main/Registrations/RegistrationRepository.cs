@@ -31,7 +31,15 @@ internal class Repository : IRepository
         => _dataContext.Registrations.Include(registration => registration.Division)
             .Include(registration => registration.Squads).ThenInclude(squadRegistration=> squadRegistration.Squad)
             .Include(registration => registration.Bowler)
+            .AsNoTracking()
             .Where(registration => registration.Division.TournamentId == tournamentId);
+
+    IEnumerable<Database.Entities.SquadRegistration> IRepository.Retrieve(SquadId squadId)
+        => _dataContext.SquadRegistrations
+            .Include(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
+            .Include(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)
+            .AsNoTracking()
+            .Where(squadRegistration => squadRegistration.SquadId == squadId);
 }
 
 internal interface IRepository
@@ -39,4 +47,6 @@ internal interface IRepository
     RegistrationId Add(Database.Entities.Registration registration);
 
     IEnumerable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
+
+    IEnumerable<Database.Entities.SquadRegistration> Retrieve(SquadId squadId);
 }
