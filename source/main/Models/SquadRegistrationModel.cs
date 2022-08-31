@@ -4,17 +4,17 @@ internal class SquadRegistration
 {
     public RegistrationId RegistrationId { get; }
 
-    public SquadId SquadId { get; }
+    public SquadId SquadId { get;}
 
-    public Bowler Bowler { get; }
+    public Bowler Bowler { get; init; }
 
-    public Division Division { get; }
+    public Division Division { get; init; }
 
-    public string LaneAssignment { get; }
+    public string LaneAssignment { get; init; }
 
-    public int? Average { get; }
+    public int? Average { get; init; }
 
-    public int Handicap { get; }
+    public int Handicap { get; init; }
 
     public SquadRegistration(Database.Entities.SquadRegistration squadRegistration)
         : this(squadRegistration, new HandicapCalculator()) { }
