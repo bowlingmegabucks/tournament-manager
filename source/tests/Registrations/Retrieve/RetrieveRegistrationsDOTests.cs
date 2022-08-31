@@ -74,4 +74,63 @@ internal class DataLayer
             Assert.That(actual.Count(registration => registration.Id == registration3.Id), Is.EqualTo(1));
         });
     }
+
+    [Test]
+    public void Execute_SquadId_RepositoryRetrieveForSquad_CalledCorrectly()
+    {
+        var squadId = SquadId.New();
+
+        _dataLayer.Execute(squadId);
+
+        _repository.Verify(repository => repository.RetrieveForSquad(squadId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_SquadId_ReturnsRepositoryRetrieve()
+    {
+        var registration1 = new NortheastMegabuck.Database.Entities.Registration
+        {
+            Id = RegistrationId.New(),
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
+            SuperSweeper = true,
+            Average = 200
+        };
+
+        var registration2 = new NortheastMegabuck.Database.Entities.Registration
+        {
+            Id = RegistrationId.New(),
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
+            SuperSweeper = true,
+            Average = 200
+        };
+
+        var registration3 = new NortheastMegabuck.Database.Entities.Registration
+        {
+            Id = RegistrationId.New(),
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
+            SuperSweeper = true,
+            Average = 200
+        };
+
+        var registrations = new[] { registration1, registration2, registration3 };
+
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(registrations);
+
+        var actual = _dataLayer.Execute(TournamentId.New()).ToList();
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(actual, Has.Count.EqualTo(3));
+
+            Assert.That(actual.Count(registration => registration.Id == registration1.Id), Is.EqualTo(1));
+            Assert.That(actual.Count(registration => registration.Id == registration2.Id), Is.EqualTo(1));
+            Assert.That(actual.Count(registration => registration.Id == registration3.Id), Is.EqualTo(1));
+        });
+    }
 }

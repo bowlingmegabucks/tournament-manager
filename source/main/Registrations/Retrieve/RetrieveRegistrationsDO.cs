@@ -20,9 +20,14 @@ internal class DataLayer : IDataLayer
 
     IEnumerable<Models.Registration> IDataLayer.Execute(TournamentId tournamentId)
         => _repository.Retrieve(tournamentId).Select(registration => new Models.Registration(registration));
+
+    IEnumerable<Models.SquadRegistration> IDataLayer.Execute(SquadId squadId)
+        => _repository.RetrieveForSquad(squadId).Select(registration => new Models.SquadRegistration(registration));
 }
 
 internal interface IDataLayer
 {
     IEnumerable<Models.Registration> Execute(TournamentId tournamentId);
+
+    IEnumerable<Models.SquadRegistration> Execute(SquadId squadId);
 }

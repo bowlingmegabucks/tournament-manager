@@ -34,12 +34,13 @@ internal class Repository : IRepository
             .AsNoTracking()
             .Where(registration => registration.Division.TournamentId == tournamentId);
 
-    IEnumerable<Database.Entities.SquadRegistration> IRepository.Retrieve(SquadId squadId)
-        => _dataContext.SquadRegistrations
-            .Include(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
-            .Include(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)
+    IEnumerable<Database.Entities.SquadRegistration> IRepository.RetrieveForSquad(SquadId squadId)
+        => _dataContext.Squads
+            .Include(squad=> squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
+            .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)
             .AsNoTracking()
-            .Where(squadRegistration => squadRegistration.SquadId == squadId);
+            .Where(squad=> squad.Id == squadId)
+            .SelectMany(squad=> squad.Registrations);
 }
 
 internal interface IRepository
@@ -48,5 +49,5 @@ internal interface IRepository
 
     IEnumerable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
 
-    IEnumerable<Database.Entities.SquadRegistration> Retrieve(SquadId squadId);
+    IEnumerable<Database.Entities.SquadRegistration> RetrieveForSquad(SquadId squadId);
 }

@@ -86,38 +86,51 @@ internal class Repository
     [Test]
     public void Retrieve_SquadId_ReturnsSquadRegistrations()
     {
-        var squadId = SquadId.New();
-
-        var squadRegistration1 = new NortheastMegabuck.Database.Entities.SquadRegistration
+        var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
-            SquadId = squadId,
-            LaneAssignment = "1A"
+            Id = SquadId.New(),
+            Registrations = new[]
+            { 
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "1A" },
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "1B" }
+            }.ToList()
         };
 
-        var squadRegistration2 = new NortheastMegabuck.Database.Entities.SquadRegistration
+        var squad2 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
-            SquadId = SquadId.New(),
-            LaneAssignment = string.Empty
+            Id = SquadId.New(),
+            Registrations = new[]
+            {
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3A" },
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3B" },
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3C" }
+            }.ToList()
         };
 
-        var squadRegistration3 = new NortheastMegabuck.Database.Entities.SquadRegistration
+        var squad3 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
-            SquadId = squadId,
-            LaneAssignment = "1B"
+            Id = SquadId.New(),
+            Registrations = new[]
+            {
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5A"},
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5B" },
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5C" },
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5D" },
+                new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5E" }
+            }.ToList()
         };
 
-        var squadRegistrations = new[] { squadRegistration1, squadRegistration2, squadRegistration3 };
+        var squads = new[] { squad1, squad2, squad3 };
 
-        _dataContext.Setup(dataContext => dataContext.SquadRegistrations).Returns(squadRegistrations.SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Squads).Returns(squads.SetUpDbContext());
 
-        var actual = _repository.Retrieve(squadId).ToList();
+        var actual = _repository.RetrieveForSquad(squad2.Id).ToList();
 
         Assert.Multiple(() =>
         {
-            Assert.That(actual, Has.Count.EqualTo(2));
+            Assert.That(actual, Has.Count.EqualTo(3));
 
-            Assert.That(actual.All(registration => registration.SquadId == squadId));
-            Assert.That(actual.All(registration => !string.IsNullOrEmpty(registration.LaneAssignment)));
+            Assert.That(actual.All(registration => registration.LaneAssignment.StartsWith("3")));
         });
     }
 }
