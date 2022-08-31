@@ -51,3 +51,15 @@ internal class TournamentIdValueGenerator : ValueGenerator<TournamentId>
     public override TournamentId Next(EntityEntry entry)
         => TournamentId.New();
 }
+
+[StronglyTypedId]
+public partial struct DivisionId { }
+
+internal class DivisionIdValueGenerator : ValueGenerator<DivisionId>
+{
+    public override bool GeneratesTemporaryValues
+        => false;
+
+    public override DivisionId Next(EntityEntry entry)
+        => DivisionId.New();
+}

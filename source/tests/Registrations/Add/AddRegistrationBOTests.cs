@@ -28,15 +28,15 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecute_CalledCorrectly()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
-        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        var divisionId = NortheastMegabuck.DivisionId.New();
 
         var registration = new NortheastMegabuck.Models.Registration
         {
@@ -64,7 +64,7 @@ internal class BusinessLogic
             Assert.That(actual, Is.Null);
 
             _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
-            _getTournamentBO.Verify(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>()), Times.Never);
+            _getTournamentBO.Verify(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
         });
@@ -73,11 +73,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionId_CalledCorrectly()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
         
@@ -94,8 +94,8 @@ internal class BusinessLogic
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _getTournamentBO.SetupGet(getDivisionBO => getDivisionBO.Error).Returns(error);
 
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var registration = new NortheastMegabuck.Models.Registration();
 
@@ -115,11 +115,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionIdSuccessful_ValueSetOnRegistration()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today), Sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper(), 4)};
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -139,10 +139,10 @@ internal class BusinessLogic
     public void Execute_GetDivisonBOExecuteSuccessful_ValiationAndDataLayerCalledWithReturnedDivision()
     {
         var division = new NortheastMegabuck.Models.Division();
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today) };
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -160,11 +160,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_GetBowlerBOExecute_CalledCorrecctly()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -183,11 +183,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdEmpty_GetBowlerBOExecute_NotCalled()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -206,11 +206,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_GetBowlerBOExecuteHasError_ErrorFlow()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _getBowlerBO.SetupGet(getBowlerBO => getBowlerBO.Error).Returns(error);
@@ -237,11 +237,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_ValidatorAndDataLayerCalledWithReturnedBowler()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -267,11 +267,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_BowlerIdEmpty_ValidatorAndDataLayerNotCalledWithAResponseFromGetBowlerBO()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -297,11 +297,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_ValidatorIsValid_False_ErrorFlow()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsNotValid("propertyName", "errorMessage");
 
@@ -321,11 +321,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_ValidationIsValid_DataLayerExecuteThrowsException_ErrorFlow()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 
@@ -346,11 +346,11 @@ internal class BusinessLogic
     [Test]
     public void Execute_GetDivisionBOExecuteSuccessful_ValidationIsValid_ReeturnsDataLayerExecute()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.Divisions.Id>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
         _validator.Validate_IsValid();
 

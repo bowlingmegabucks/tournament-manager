@@ -19,7 +19,7 @@ internal class SquadRegistration
                 },
                 Division = new NortheastMegabuck.Database.Entities.Division
                 {
-                    Id = NortheastMegabuck.Divisions.Id.New()
+                    Id = NortheastMegabuck.DivisionId.New()
                 }
             },
             LaneAssignment = "12C"
@@ -42,7 +42,7 @@ internal class SquadRegistration
 
     [Test]
     public void Constructor_DivisionMapped()
-        => Assert.That(_squadRegistration.Division.Id, Is.Not.EqualTo(NortheastMegabuck.Divisions.Id.Empty));
+        => Assert.That(_squadRegistration.Division.Id, Is.Not.EqualTo(NortheastMegabuck.DivisionId.Empty));
 
     [Test]
     public void Constructor_LaneAssignmentMapped()

@@ -24,7 +24,7 @@ internal class DataLayer : IDataLayer
     Models.Tournament IDataLayer.Execute(TournamentId id)
         => new(_repository.Retrieve(id));
 
-    Models.Tournament IDataLayer.Execute(NortheastMegabuck.Divisions.Id id)
+    Models.Tournament IDataLayer.Execute(NortheastMegabuck.DivisionId id)
         => new(_repository.Retrieve(id));
 }
 
@@ -34,5 +34,5 @@ internal interface IDataLayer
 
     Models.Tournament Execute(TournamentId id);
 
-    Models.Tournament Execute(NortheastMegabuck.Divisions.Id id);
+    Models.Tournament Execute(NortheastMegabuck.DivisionId id);
 }

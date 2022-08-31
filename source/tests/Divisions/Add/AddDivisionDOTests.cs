@@ -43,7 +43,7 @@ internal class DataLayer
     [Test]
     public void Execute_ReturnsNewGUID()
     {
-        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        var divisionId = NortheastMegabuck.DivisionId.New();
         _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.Division>())).Returns(divisionId);
 
         var division = new NortheastMegabuck.Models.Division();

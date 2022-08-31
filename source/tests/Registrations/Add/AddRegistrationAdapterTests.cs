@@ -21,7 +21,7 @@ internal class Adapter
     {
         var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
-        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        var divisionId = NortheastMegabuck.DivisionId.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
@@ -43,7 +43,7 @@ internal class Adapter
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
         var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
-        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        var divisionId = NortheastMegabuck.DivisionId.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
@@ -60,7 +60,7 @@ internal class Adapter
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(id);
 
         var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
-        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        var divisionId = NortheastMegabuck.DivisionId.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;

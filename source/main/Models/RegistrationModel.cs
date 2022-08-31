@@ -20,11 +20,11 @@ internal class Registration
 
     internal int SweeperCount { get; set; }
 
-    public Registration(BowlerId bowlerId, NortheastMegabuck.Divisions.Id divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+    public Registration(BowlerId bowlerId, NortheastMegabuck.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
         : this(new Bowler { Id = bowlerId }, divisionId, squads, sweepers, superSweeper, average)
     { }
 
-    public Registration(Bowler bowler, NortheastMegabuck.Divisions.Id divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+    public Registration(Bowler bowler, NortheastMegabuck.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
     {
         Bowler = bowler;
         Division = new Division { Id = divisionId };

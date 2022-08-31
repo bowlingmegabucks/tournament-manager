@@ -22,7 +22,7 @@ internal interface IView
 
     Bowlers.Add.IViewModel Bowler { get; }
 
-    NortheastMegabuck.Divisions.Id DivisionId { get; }
+    NortheastMegabuck.DivisionId DivisionId { get; }
 
     int? Average { get; }
 

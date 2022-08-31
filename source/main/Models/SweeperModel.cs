@@ -24,7 +24,7 @@ internal class Sweeper
 
     public bool Complete { get; set; }
 
-    public IDictionary<NortheastMegabuck.Divisions.Id, int?> Divisions { get; set; }
+    public IDictionary<NortheastMegabuck.DivisionId, int?> Divisions { get; set; }
 
     public Sweeper(Sweepers.IViewModel viewModel)
     {
@@ -53,7 +53,7 @@ internal class Sweeper
         StartingLane = sweeper.StartingLane;
         NumberOfLanes = sweeper.NumberOfLanes;
         Complete = sweeper.Complete;
-        Divisions = sweeper.Divisions?.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame) ?? new Dictionary<NortheastMegabuck.Divisions.Id, int?>();
+        Divisions = sweeper.Divisions?.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame) ?? new Dictionary<NortheastMegabuck.DivisionId, int?>();
     }
 
     /// <summary>
@@ -61,6 +61,6 @@ internal class Sweeper
     /// </summary>
     internal Sweeper()
     {
-        Divisions = new Dictionary<NortheastMegabuck.Divisions.Id, int?>();
+        Divisions = new Dictionary<NortheastMegabuck.DivisionId, int?>();
     }
 }

@@ -44,7 +44,7 @@ internal class Adapter
     [Test]
     public void Execute_ReturnsBusinessLogicId()
     {
-        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        var divisionId = NortheastMegabuck.DivisionId.New();
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.Models.Division>())).Returns(divisionId);
 
         var viewModel = new NortheastMegabuck.Divisions.ViewModel();

@@ -33,7 +33,7 @@ internal class DataLayer
         {
             Id = RegistrationId.New(),
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() },
+            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
@@ -43,7 +43,7 @@ internal class DataLayer
         {
             Id = RegistrationId.New(),
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() },
+            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
@@ -53,7 +53,7 @@ internal class DataLayer
         {
             Id = RegistrationId.New(),
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() },
+            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200

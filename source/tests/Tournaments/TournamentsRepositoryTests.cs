@@ -83,10 +83,10 @@ internal class Repository
     [Test]
     public void RetrieveByDivision_ReturnsTournamentWithDivision()
     {
-        var division1 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        var division2 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        var division3 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        var division4 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
+        var division1 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
+        var division2 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
+        var division3 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
+        var division4 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
 
         var tournament1 = new NortheastMegabuck.Database.Entities.Tournament
         {
