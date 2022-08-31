@@ -40,14 +40,14 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="FluentValidation" Version="11.1.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
+		<PackageReference Include="FluentValidation" Version="11.2.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
 		<PackageReference Include="StronglyTypedId" Version="1.0.0-beta06" />
