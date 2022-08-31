@@ -76,17 +76,17 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_SquadId_RepositoryRetrieveForSquad_CalledCorrectly()
+    public void ForSquad_RepositoryRetrieveForSquad_CalledCorrectly()
     {
         var squadId = SquadId.New();
 
-        _dataLayer.Execute(squadId);
+        _dataLayer.ForSquad(squadId);
 
         _repository.Verify(repository => repository.RetrieveForSquad(squadId), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_ReturnsRepositoryRetrieve()
+    public void ForSquad_ReturnsRepositoryRetrieve()
     {
         var squadRegistration1 = new NortheastMegabuck.Database.Entities.SquadRegistration
         {
@@ -119,7 +119,7 @@ internal class DataLayer
 
         _repository.Setup(repository => repository.RetrieveForSquad(It.IsAny<SquadId>())).Returns(registrations);
 
-        var actual = _dataLayer.Execute(SquadId.New()).ToList();
+        var actual = _dataLayer.ForSquad(SquadId.New()).ToList();
 
         Assert.That(actual, Has.Count.EqualTo(3));
     }
