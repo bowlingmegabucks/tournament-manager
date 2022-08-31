@@ -59,4 +59,43 @@ internal class BusinessLogic
             Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
         });
     }
+
+    [Test]
+    public void ForSquad_DataLayerForSquad_CalledCorrectly()
+    {
+        var squadId = NortheastMegabuck.SquadId.New();
+
+        _businessLogic.ForSquad(squadId);
+
+        _dataLayer.Verify(dataLayer => dataLayer.ForSquad(squadId), Times.Once);
+    }
+
+    [Test]
+    public void ForSquad_ReturnsDataLayerForSquad()
+    {
+        var registrations = Enumerable.Repeat(new NortheastMegabuck.Models.SquadRegistration(), 2);
+        _dataLayer.Setup(dataLayer => dataLayer.ForSquad(It.IsAny<SquadId>())).Returns(registrations);
+
+        var squadId = NortheastMegabuck.SquadId.New();
+
+        var actual = _businessLogic.ForSquad(squadId);
+
+        Assert.That(actual, Is.EqualTo(registrations));
+    }
+
+    [Test]
+    public void ForSquad_DataLayerExecuteThrowsException_ExceptionFlow()
+    {
+        _dataLayer.Setup(dataLayer => dataLayer.ForSquad(It.IsAny<NortheastMegabuck.SquadId>())).Throws(new Exception("exception"));
+
+        var squadId = NortheastMegabuck.SquadId.New();
+
+        var actual = _businessLogic.ForSquad(squadId);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(actual, Is.Empty);
+            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+        });
+    }
 }

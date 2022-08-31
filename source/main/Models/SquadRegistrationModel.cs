@@ -37,4 +37,15 @@ internal class SquadRegistration
         Average = squadRegistration.Registration.Average;
         Handicap = handicapCalculator.Calculate(squadRegistration.Registration);
     }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal SquadRegistration()
+    {
+        Bowler = new Bowler();
+        Division = new Division();
+
+        LaneAssignment = string.Empty;
+    }
 }
