@@ -22,4 +22,11 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+    private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new CheckIn.Form();
+
+        form.ShowDialog(this);
+    }
 }

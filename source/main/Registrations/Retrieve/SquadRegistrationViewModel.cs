@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Cryptography;
+using System.Text;
 
 namespace NortheastMegabuck.Registrations.Retrieve;
 internal class SquadRegistrationViewModel : ISquadRegistrationViewModel
@@ -28,6 +29,21 @@ internal class SquadRegistrationViewModel : ISquadRegistrationViewModel
         LaneAssignment = registration.LaneAssignment;
         Average = registration.Average.GetValueOrDefault(0);
         Handicap = registration.Handicap;
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    public SquadRegistrationViewModel(string bowlerName, string divisionName, int average, int handicap) 
+    {
+        BowlerId = BowlerId.New();
+
+        BowlerName = bowlerName;
+        DivisionName = divisionName;
+        DivisionNumber = RandomNumberGenerator.GetInt32(1, 4);
+        LaneAssignment = string.Empty;
+        Average = average;
+        Handicap = handicap;
     }
 
     public override string ToString()

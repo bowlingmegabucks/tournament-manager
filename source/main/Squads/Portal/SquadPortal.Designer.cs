@@ -29,17 +29,28 @@ partial class Form
     private void InitializeComponent()
     {
             this.portalMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.laneAssignmentsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.portalMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // portalMenuStrip
             // 
+            this.portalMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.laneAssignmentsMenuItem});
             this.portalMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.portalMenuStrip.Name = "portalMenuStrip";
             this.portalMenuStrip.Size = new System.Drawing.Size(800, 24);
             this.portalMenuStrip.TabIndex = 0;
             this.portalMenuStrip.Text = "menuStrip1";
             // 
-            // SquadPortal
+            // laneAssignmentsMenuItem
+            // 
+            this.laneAssignmentsMenuItem.Name = "laneAssignmentsMenuItem";
+            this.laneAssignmentsMenuItem.Size = new System.Drawing.Size(115, 20);
+            this.laneAssignmentsMenuItem.Text = "Lane Assignments";
+            this.laneAssignmentsMenuItem.Click += new System.EventHandler(this.LaneAssignmentsMenuItem_Click);
+            // 
+            // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -48,9 +59,11 @@ partial class Form
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.portalMenuStrip;
             this.MaximizeBox = false;
-            this.Name = "SquadPortal";
+            this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SquadPortal";
+            this.portalMenuStrip.ResumeLayout(false);
+            this.portalMenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -59,4 +72,5 @@ partial class Form
     #endregion
 
     private MenuStrip portalMenuStrip;
+    private ToolStripMenuItem laneAssignmentsMenuItem;
 }

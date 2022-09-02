@@ -2,29 +2,26 @@
 namespace NortheastMegabuck.Controls;
 public partial class SquadRegistrationControl : UserControl, Registrations.Retrieve.ISquadRegistrationViewModel
 {    
-    public SquadRegistrationControl(string laneAssignment)
+    /// <summary>
+    /// Used for created Empty Lane Assignment Grid
+    /// </summary>
+    /// <param name="laneAssignment"></param>
+    public SquadRegistrationControl(string laneAssignment) : this()
+    {
+        LaneAssignment = laneAssignment;
+    }
+
+    public SquadRegistrationControl()
     {
         InitializeComponent();
-
-        BowlerId = BowlerId.Empty;
-        LaneAssignment = laneAssignment;
-        BowlerName = string.Empty;
-        DivisionNumber = 0;
-        DivisionName = string.Empty;
-        Average = 0;
-        Handicap = 0;
-
-        divisionPanel.Visible = false;
-        averagePanel.Visible = false;
-        handicapPanel.Visible = false;
-
-        _stringifyViewModel = string.Empty;
+        ClearRegistration();
+        LaneAssignment = string.Empty;
+        BorderStyle = BorderStyle.FixedSingle;
     }
 
     public void Bind(Registrations.Retrieve.ISquadRegistrationViewModel viewModel)
     {
         BowlerId = viewModel.BowlerId;
-        LaneAssignment = viewModel.LaneAssignment;
         BowlerName = viewModel.BowlerName;
         DivisionNumber = viewModel.DivisionNumber;
         DivisionName = viewModel.DivisionName;
@@ -34,8 +31,24 @@ public partial class SquadRegistrationControl : UserControl, Registrations.Retri
         divisionPanel.Visible = true;
         averagePanel.Visible = true;
         handicapPanel.Visible = true;
+        laneAssignmentLabel.Visible = !string.IsNullOrEmpty(LaneAssignment);
 
         _stringifyViewModel = viewModel?.ToString() ?? string.Empty;
+    }
+
+    public void ClearRegistration()
+    {
+        BowlerId = BowlerId.Empty;
+        
+        BowlerName = string.Empty;
+        DivisionNumber = 0;
+        DivisionName = string.Empty;
+        Average = 0;
+        Handicap = 0;
+
+        divisionPanel.Visible = false;
+        averagePanel.Visible = false;
+        handicapPanel.Visible = false;
     }
 
     public BowlerId BowlerId { get; set; }
@@ -72,7 +85,21 @@ public partial class SquadRegistrationControl : UserControl, Registrations.Retri
         set => handicapLabelValue.Text = value == 0 ? "-" : value.ToString();
     }
 
-    private string _stringifyViewModel;
+    private string _stringifyViewModel = string.Empty;
     public override string ToString()
         => _stringifyViewModel;
+    private void Controls_MouseDown(object sender, MouseEventArgs e)
+        => OnMouseDown(e);
+
+    private void Controls_DragEnter(object sender, DragEventArgs e)
+        => OnDragEnter(e);
+
+    private void Controls_DragOver(object sender, DragEventArgs e)
+        => OnDragOver(e);
+
+    private void Controls_DragLeave(object sender, EventArgs e)
+        => OnDragLeave(e);
+
+    private void Controls_MouseDoubleClick(object sender, MouseEventArgs e)
+        => OnMouseDoubleClick(e);
 }
