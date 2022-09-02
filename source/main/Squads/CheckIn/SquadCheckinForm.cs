@@ -83,27 +83,22 @@ public partial class Form : System.Windows.Forms.Form
         var openLane = sender as Controls.SquadRegistrationControl;
 
         openLane!.Bind(registration!);
-        openLane.MouseDoubleClick += LaneAssignmentRegistered_MouseDoubleClick!;
         openLane.MouseDown += UnassignedRegistration_MouseDown!;
 
-        unassignedRegistrationsFlowLayoutPanel.Controls.Remove(registration);
+        if (string.IsNullOrEmpty(registration!.LaneAssignment))
+        {
+            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(registration);
+        }
+        else
+        {
+            var oldLane = laneAssignmentFlowLayoutPanel.Controls.OfType<Controls.SquadRegistrationControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
+            oldLane.ClearRegistration();
+        } 
 
         RemoveOpenLaneEventsFromAssignedLane(openLane);
 
         LaneAssignmentOpen_DragLeave(sender, e);
     }
-
-    private void LaneAssignmentRegistered_MouseDoubleClick(object sender, MouseEventArgs e)
-    {
-        var registeredLane = sender as Controls.SquadRegistrationControl;
-
-        var unassignedRegistration = Add(registeredLane!);
-
-        unassignedRegistrationsFlowLayoutPanel.Controls.Add(unassignedRegistration);
-
-        registeredLane!.ClearRegistration();
-    }
-
     private void RemoveOpenLaneEventsFromAssignedLane(Controls.SquadRegistrationControl assignedLane)
     {
         assignedLane.DragEnter -= LaneAssignmentOpen_DragEnter!;

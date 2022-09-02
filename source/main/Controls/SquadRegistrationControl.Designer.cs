@@ -58,7 +58,6 @@ partial class SquadRegistrationControl
             this.laneAssignmentLabel.DragEnter += new System.Windows.Forms.DragEventHandler(this.Controls_DragEnter);
             this.laneAssignmentLabel.DragOver += new System.Windows.Forms.DragEventHandler(this.Controls_DragOver);
             this.laneAssignmentLabel.DragLeave += new System.EventHandler(this.Controls_DragLeave);
-            this.laneAssignmentLabel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDoubleClick);
             this.laneAssignmentLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDown);
             // 
             // bowlerNameLabel
@@ -74,7 +73,6 @@ partial class SquadRegistrationControl
             this.bowlerNameLabel.DragEnter += new System.Windows.Forms.DragEventHandler(this.Controls_DragEnter);
             this.bowlerNameLabel.DragOver += new System.Windows.Forms.DragEventHandler(this.Controls_DragOver);
             this.bowlerNameLabel.DragLeave += new System.EventHandler(this.Controls_DragLeave);
-            this.bowlerNameLabel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDoubleClick);
             this.bowlerNameLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDown);
             // 
             // divisionPanel
@@ -100,7 +98,6 @@ partial class SquadRegistrationControl
             this.divisionLabelValue.DragEnter += new System.Windows.Forms.DragEventHandler(this.Controls_DragEnter);
             this.divisionLabelValue.DragOver += new System.Windows.Forms.DragEventHandler(this.Controls_DragOver);
             this.divisionLabelValue.DragLeave += new System.EventHandler(this.Controls_DragLeave);
-            this.divisionLabelValue.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDoubleClick);
             this.divisionLabelValue.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDown);
             // 
             // divisionLabelText
@@ -115,7 +112,6 @@ partial class SquadRegistrationControl
             this.divisionLabelText.DragEnter += new System.Windows.Forms.DragEventHandler(this.Controls_DragEnter);
             this.divisionLabelText.DragOver += new System.Windows.Forms.DragEventHandler(this.Controls_DragOver);
             this.divisionLabelText.DragLeave += new System.EventHandler(this.Controls_DragLeave);
-            this.divisionLabelText.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDoubleClick);
             this.divisionLabelText.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDown);
             // 
             // averagePanel
@@ -141,7 +137,6 @@ partial class SquadRegistrationControl
             this.averageLabelValue.DragEnter += new System.Windows.Forms.DragEventHandler(this.Controls_DragEnter);
             this.averageLabelValue.DragOver += new System.Windows.Forms.DragEventHandler(this.Controls_DragOver);
             this.averageLabelValue.DragLeave += new System.EventHandler(this.Controls_DragLeave);
-            this.averageLabelValue.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDoubleClick);
             this.averageLabelValue.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDown);
             // 
             // averageLabelText
@@ -156,7 +151,6 @@ partial class SquadRegistrationControl
             this.averageLabelText.DragEnter += new System.Windows.Forms.DragEventHandler(this.Controls_DragEnter);
             this.averageLabelText.DragOver += new System.Windows.Forms.DragEventHandler(this.Controls_DragOver);
             this.averageLabelText.DragLeave += new System.EventHandler(this.Controls_DragLeave);
-            this.averageLabelText.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDoubleClick);
             this.averageLabelText.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDown);
             // 
             // handicapPanel
@@ -182,7 +176,6 @@ partial class SquadRegistrationControl
             this.handicapLabelValue.DragEnter += new System.Windows.Forms.DragEventHandler(this.Controls_DragEnter);
             this.handicapLabelValue.DragOver += new System.Windows.Forms.DragEventHandler(this.Controls_DragOver);
             this.handicapLabelValue.DragLeave += new System.EventHandler(this.Controls_DragLeave);
-            this.handicapLabelValue.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDoubleClick);
             this.handicapLabelValue.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDown);
             // 
             // handicapLabelText
@@ -197,7 +190,6 @@ partial class SquadRegistrationControl
             this.handicapLabelText.DragEnter += new System.Windows.Forms.DragEventHandler(this.Controls_DragEnter);
             this.handicapLabelText.DragOver += new System.Windows.Forms.DragEventHandler(this.Controls_DragOver);
             this.handicapLabelText.DragLeave += new System.EventHandler(this.Controls_DragLeave);
-            this.handicapLabelText.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDoubleClick);
             this.handicapLabelText.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Controls_MouseDown);
             // 
             // SquadRegistrationControl

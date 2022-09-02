@@ -99,7 +99,4 @@ public partial class SquadRegistrationControl : UserControl, Registrations.Retri
 
     private void Controls_DragLeave(object sender, EventArgs e)
         => OnDragLeave(e);
-
-    private void Controls_MouseDoubleClick(object sender, MouseEventArgs e)
-        => OnMouseDoubleClick(e);
 }
