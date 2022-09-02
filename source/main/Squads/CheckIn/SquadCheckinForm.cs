@@ -88,8 +88,6 @@ public partial class Form : System.Windows.Forms.Form
         openLane.Enter += LaneAssignmentRegistered_Enter!;
         openLane.Leave += LaneAssignmentRegistered_Leave!;
 
-
-
         if (string.IsNullOrEmpty(registration!.LaneAssignment))
         {
             unassignedRegistrationsFlowLayoutPanel.Controls.Remove(registration);
