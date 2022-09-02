@@ -85,6 +85,9 @@ public partial class Form : System.Windows.Forms.Form
         openLane!.Bind(registration!);
         openLane.MouseDown += UnassignedRegistration_MouseDown!;
         openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
+        openLane.Enter += LaneAssignmentRegistered_Enter!;
+        openLane.Leave += LaneAssignmentRegistered_Leave!;
+
 
 
         if (string.IsNullOrEmpty(registration!.LaneAssignment))
@@ -95,6 +98,7 @@ public partial class Form : System.Windows.Forms.Form
         {
             var oldLane = laneAssignmentFlowLayoutPanel.Controls.OfType<Controls.SquadRegistrationControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
             oldLane.ClearRegistration();
+            LaneAssignmentRegistered_Leave(oldLane, e);
         } 
 
         RemoveOpenLaneEventsFromAssignedLane(openLane);
@@ -116,7 +120,15 @@ public partial class Form : System.Windows.Forms.Form
         unassignedRegistrationsFlowLayoutPanel.Controls.Add(unassignedRegistration);
 
         registeredLane!.ClearRegistration();
+
+        LaneAssignmentRegistered_Leave(sender, e);
     }
+
+    private void LaneAssignmentRegistered_Enter(object sender, EventArgs e)
+        => (sender as Control)!.BackColor = SystemColors.Highlight;
+
+    private void LaneAssignmentRegistered_Leave(object sender, EventArgs e)
+        => (sender as Control)!.BackColor = SystemColors.Control;
     private void RemoveOpenLaneEventsFromAssignedLane(Controls.SquadRegistrationControl assignedLane)
     {
         assignedLane.DragEnter -= LaneAssignmentOpen_DragEnter!;
