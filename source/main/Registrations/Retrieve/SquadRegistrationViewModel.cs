@@ -37,7 +37,7 @@ internal class SquadRegistrationViewModel : ISquadRegistrationViewModel
             .Append('\t').Append(Handicap).ToString();
 }
 
-internal interface ISquadRegistrationViewModel
+public interface ISquadRegistrationViewModel
 { 
     BowlerId BowlerId { get; }
 
