@@ -84,6 +84,8 @@ public partial class Form : System.Windows.Forms.Form
 
         openLane!.Bind(registration!);
         openLane.MouseDown += UnassignedRegistration_MouseDown!;
+        openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
+
 
         if (string.IsNullOrEmpty(registration!.LaneAssignment))
         {
@@ -98,6 +100,22 @@ public partial class Form : System.Windows.Forms.Form
         RemoveOpenLaneEventsFromAssignedLane(openLane);
 
         LaneAssignmentOpen_DragLeave(sender, e);
+    }
+
+    private void LaneAssignmentRegistered_KeyUp(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode != Keys.Escape)
+        {
+            return;
+        }
+
+        var registeredLane = sender as Controls.SquadRegistrationControl;
+
+        var unassignedRegistration = Add(registeredLane!);
+
+        unassignedRegistrationsFlowLayoutPanel.Controls.Add(unassignedRegistration);
+
+        registeredLane!.ClearRegistration();
     }
     private void RemoveOpenLaneEventsFromAssignedLane(Controls.SquadRegistrationControl assignedLane)
     {

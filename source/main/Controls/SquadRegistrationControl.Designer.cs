@@ -66,7 +66,7 @@ partial class SquadRegistrationControl
             this.bowlerNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bowlerNameLabel.Location = new System.Drawing.Point(47, 0);
             this.bowlerNameLabel.Name = "bowlerNameLabel";
-            this.bowlerNameLabel.Size = new System.Drawing.Size(105, 45);
+            this.bowlerNameLabel.Size = new System.Drawing.Size(116, 45);
             this.bowlerNameLabel.TabIndex = 1;
             this.bowlerNameLabel.Text = "Joe Bowler";
             this.bowlerNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -80,9 +80,9 @@ partial class SquadRegistrationControl
             this.divisionPanel.Controls.Add(this.divisionLabelValue);
             this.divisionPanel.Controls.Add(this.divisionLabelText);
             this.divisionPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.divisionPanel.Location = new System.Drawing.Point(152, 0);
+            this.divisionPanel.Location = new System.Drawing.Point(163, 0);
             this.divisionPanel.Name = "divisionPanel";
-            this.divisionPanel.Size = new System.Drawing.Size(166, 45);
+            this.divisionPanel.Size = new System.Drawing.Size(124, 45);
             this.divisionPanel.TabIndex = 2;
             // 
             // divisionLabelValue
@@ -91,7 +91,7 @@ partial class SquadRegistrationControl
             this.divisionLabelValue.Location = new System.Drawing.Point(0, 15);
             this.divisionLabelValue.Name = "divisionLabelValue";
             this.divisionLabelValue.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.divisionLabelValue.Size = new System.Drawing.Size(166, 30);
+            this.divisionLabelValue.Size = new System.Drawing.Size(124, 30);
             this.divisionLabelValue.TabIndex = 1;
             this.divisionLabelValue.Text = "Under 215 Average";
             this.divisionLabelValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -106,7 +106,7 @@ partial class SquadRegistrationControl
             this.divisionLabelText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
             this.divisionLabelText.Location = new System.Drawing.Point(0, 0);
             this.divisionLabelText.Name = "divisionLabelText";
-            this.divisionLabelText.Size = new System.Drawing.Size(166, 15);
+            this.divisionLabelText.Size = new System.Drawing.Size(124, 15);
             this.divisionLabelText.TabIndex = 0;
             this.divisionLabelText.Text = "Division:";
             this.divisionLabelText.DragEnter += new System.Windows.Forms.DragEventHandler(this.Controls_DragEnter);
@@ -119,7 +119,7 @@ partial class SquadRegistrationControl
             this.averagePanel.Controls.Add(this.averageLabelValue);
             this.averagePanel.Controls.Add(this.averageLabelText);
             this.averagePanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.averagePanel.Location = new System.Drawing.Point(318, 0);
+            this.averagePanel.Location = new System.Drawing.Point(287, 0);
             this.averagePanel.Name = "averagePanel";
             this.averagePanel.Size = new System.Drawing.Size(71, 45);
             this.averagePanel.TabIndex = 3;
@@ -158,7 +158,7 @@ partial class SquadRegistrationControl
             this.handicapPanel.Controls.Add(this.handicapLabelValue);
             this.handicapPanel.Controls.Add(this.handicapLabelText);
             this.handicapPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.handicapPanel.Location = new System.Drawing.Point(389, 0);
+            this.handicapPanel.Location = new System.Drawing.Point(358, 0);
             this.handicapPanel.Name = "handicapPanel";
             this.handicapPanel.Size = new System.Drawing.Size(70, 45);
             this.handicapPanel.TabIndex = 4;
@@ -202,7 +202,7 @@ partial class SquadRegistrationControl
             this.Controls.Add(this.bowlerNameLabel);
             this.Controls.Add(this.laneAssignmentLabel);
             this.Name = "SquadRegistrationControl";
-            this.Size = new System.Drawing.Size(465, 45);
+            this.Size = new System.Drawing.Size(422, 45);
             this.divisionPanel.ResumeLayout(false);
             this.averagePanel.ResumeLayout(false);
             this.handicapPanel.ResumeLayout(false);

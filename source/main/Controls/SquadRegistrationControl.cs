@@ -29,8 +29,8 @@ public partial class SquadRegistrationControl : UserControl, Registrations.Retri
         Handicap = viewModel.Handicap;
 
         divisionPanel.Visible = true;
-        averagePanel.Visible = true;
-        handicapPanel.Visible = true;
+        averagePanel.Visible = Average > 0;
+        handicapPanel.Visible = Handicap > 0;
         laneAssignmentLabel.Visible = !string.IsNullOrEmpty(LaneAssignment);
 
         _stringifyViewModel = viewModel?.ToString() ?? string.Empty;

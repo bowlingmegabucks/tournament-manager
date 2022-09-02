@@ -41,7 +41,7 @@ partial class Form
             this.laneAssignmentGroupbox.Controls.Add(this.laneAssignmentFlowLayoutPanel);
             this.laneAssignmentGroupbox.Location = new System.Drawing.Point(12, 12);
             this.laneAssignmentGroupbox.Name = "laneAssignmentGroupbox";
-            this.laneAssignmentGroupbox.Size = new System.Drawing.Size(936, 940);
+            this.laneAssignmentGroupbox.Size = new System.Drawing.Size(850, 940);
             this.laneAssignmentGroupbox.TabIndex = 0;
             this.laneAssignmentGroupbox.TabStop = false;
             this.laneAssignmentGroupbox.Text = "Lane Assignments";
@@ -53,15 +53,15 @@ partial class Form
             this.laneAssignmentFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.laneAssignmentFlowLayoutPanel.Location = new System.Drawing.Point(3, 19);
             this.laneAssignmentFlowLayoutPanel.Name = "laneAssignmentFlowLayoutPanel";
-            this.laneAssignmentFlowLayoutPanel.Size = new System.Drawing.Size(930, 918);
+            this.laneAssignmentFlowLayoutPanel.Size = new System.Drawing.Size(844, 918);
             this.laneAssignmentFlowLayoutPanel.TabIndex = 1;
             // 
             // unassignedRegistrationsGroupbox
             // 
             this.unassignedRegistrationsGroupbox.Controls.Add(this.unassignedRegistrationsFlowLayoutPanel);
-            this.unassignedRegistrationsGroupbox.Location = new System.Drawing.Point(954, 12);
+            this.unassignedRegistrationsGroupbox.Location = new System.Drawing.Point(868, 12);
             this.unassignedRegistrationsGroupbox.Name = "unassignedRegistrationsGroupbox";
-            this.unassignedRegistrationsGroupbox.Size = new System.Drawing.Size(480, 937);
+            this.unassignedRegistrationsGroupbox.Size = new System.Drawing.Size(435, 937);
             this.unassignedRegistrationsGroupbox.TabIndex = 0;
             this.unassignedRegistrationsGroupbox.TabStop = false;
             this.unassignedRegistrationsGroupbox.Text = "Registrations";
@@ -73,7 +73,7 @@ partial class Form
             this.unassignedRegistrationsFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.unassignedRegistrationsFlowLayoutPanel.Location = new System.Drawing.Point(3, 19);
             this.unassignedRegistrationsFlowLayoutPanel.Name = "unassignedRegistrationsFlowLayoutPanel";
-            this.unassignedRegistrationsFlowLayoutPanel.Size = new System.Drawing.Size(474, 915);
+            this.unassignedRegistrationsFlowLayoutPanel.Size = new System.Drawing.Size(429, 915);
             this.unassignedRegistrationsFlowLayoutPanel.TabIndex = 2;
             this.unassignedRegistrationsFlowLayoutPanel.WrapContents = false;
             // 
