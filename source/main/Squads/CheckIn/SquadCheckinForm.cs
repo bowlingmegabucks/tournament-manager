@@ -2,22 +2,38 @@
 using System.Windows.Forms;
 
 namespace NortheastMegabuck.Squads.CheckIn;
-public partial class Form : System.Windows.Forms.Form
+public partial class Form : System.Windows.Forms.Form, IView
 {
+
+    public int StartingLane
+        => 1;
+
+    public int NumberOfLanes
+        => 40;
+
+    public int MaxPerPair
+        => 4;
+
+    public void BuildLanes(IEnumerable<string> lanes)
+    {
+        foreach (var lane in lanes)
+        {
+            var control = new Controls.SquadRegistrationControl(lane)
+            {
+                Margin = new Padding(0, 0, 0, 0),
+                AllowDrop = true
+            };
+
+            AddOpenLaneEventsToOpenLane(control);
+
+            laneAssignmentFlowLayoutPanel.Controls.Add(control);
+        }
+    }
     public Form()
     {
         InitializeComponent();
 
-        //Temp testing code
-        for (var i = 1; i <= 40; i+= 2)
-        {
-            var bowlerA = Add($"{i}A");
-            var bowlerB = Add($"{i}B");
-            var bowlerC = Add($"{i+1}C");
-            var bowlerD = Add($"{i+1}D");
-
-            laneAssignmentFlowLayoutPanel.Controls.AddRange(new[] { bowlerA, bowlerB, bowlerC, bowlerD });
-        }
+        new Presenter(this).Load();
 
         var bowler1 = new Registrations.Retrieve.SquadRegistrationViewModel("Dave Kipperman", "36 - 54", 0, 0);
         var bowler2 = new Registrations.Retrieve.SquadRegistrationViewModel("Ashlie Kipperman", "Over 55 / Women", 0, 0);
