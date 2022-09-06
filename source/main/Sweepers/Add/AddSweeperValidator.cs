@@ -17,8 +17,10 @@ internal class Validator : AbstractValidator<Models.Sweeper>
         RuleFor(sweeper => sweeper.MaxPerPair).Must(maxPerPair => maxPerPair > 0).WithMessage("Max per pair must be greater than 0");
 
         RuleFor(sweeper => sweeper.NumberOfLanes).Must(numberOfLanes => numberOfLanes > 0).WithMessage("Number of lanes must be greater than 0");
+        RuleFor(sweeper => sweeper.NumberOfLanes).Must(numberOfLanes => numberOfLanes % 2 == 0).WithMessage("Number of lanes must be even");
 
         RuleFor(sweeper => sweeper.StartingLane).Must(startingLanes => startingLanes > 0).WithMessage("Starting lane must be greater than 0");
+        RuleFor(sweeper => sweeper.StartingLane).Must(startingLane => startingLane % 2 == 1).WithMessage("Starting lane must be odd");
 
         RuleFor(sweeper => sweeper.Complete).Must(complete => !complete).WithMessage("Cannot add a completed sweeper");
 

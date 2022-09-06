@@ -20,8 +20,10 @@ internal class Validator : AbstractValidator<Models.Squad>
         RuleFor(squad => squad.MaxPerPair).Must(maxPerPair=> maxPerPair > 0).WithMessage("Max per pair must be greater than 0");
 
         RuleFor(squad => squad.NumberOfLanes).Must(numberOfLanes => numberOfLanes > 0).WithMessage("Number of lanes must be greater than 0");
+        RuleFor(squad => squad.NumberOfLanes).Must(numberOfLanes => numberOfLanes % 2 == 0).WithMessage("Number of lanes must be even");
 
         RuleFor(squad => squad.StartingLane).Must(startingLanes => startingLanes > 0).WithMessage("Starting lane must be greater than 0");
+        RuleFor(squad => squad.StartingLane).Must(startingLane => startingLane % 2 == 1).WithMessage("Starting lane must be odd");
 
         RuleFor(squad => squad.Complete).Must(complete => !complete).WithMessage("Cannot add a completed squad");
     }
