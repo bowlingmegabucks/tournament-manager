@@ -3,7 +3,6 @@ internal class Presenter
 {
     private readonly IView _view;
     private readonly ILaneAvailability _laneAvailability;
-
     public Presenter(IView view)
     {
         _view = view;

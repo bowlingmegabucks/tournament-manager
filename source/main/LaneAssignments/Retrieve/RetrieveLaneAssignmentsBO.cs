@@ -23,7 +23,7 @@ internal class BusinessLogic : IBusinessLogic
     {
         try
         {
-            return _dataLayer.Execute(squadId);
+            return _dataLayer.Execute(squadId).ToList();
         }
         catch (Exception ex)
         {

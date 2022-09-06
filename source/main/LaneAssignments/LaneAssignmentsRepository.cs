@@ -38,9 +38,20 @@ internal class Repository : IRepository
             .Where(sweeper => sweeper.Id == squadId)
             .SelectMany(sweeper => sweeper.Registrations);
     }
+
+    //void IRepository.Update(RegistrationId registrationId, SquadId squadId, string position)
+    //{
+    //    var registration = _dataContext.Registrations.Single(registration => registration.Id == registrationId).Squads.Single(squadRegistration => squadRegistration.SquadId == squadId);
+
+    //    registration.LaneAssignment = position;
+
+    //    _dataContext.SaveChanges();
+    //}
 }
 
 internal interface IRepository
 {
     IEnumerable<Database.Entities.SquadRegistration> Retrieve(SquadId squadId);
+
+    //void Update(RegistrationId registrationId, SquadId squadId, string position);
 }
