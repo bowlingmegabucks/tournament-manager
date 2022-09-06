@@ -36,5 +36,9 @@ internal class Presenter
         }
 
         _view.SetPortalTitle($"{squad!.Date:MM/dd/yyyy hh:mmtt}");
+
+        _view.StartingLane = squad.StartingLane;
+        _view.NumberOfLanes = squad.NumberOfLanes;
+        _view.MaxPerPair = squad.MaxPerPair;
     }
 }
