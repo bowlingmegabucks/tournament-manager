@@ -1,8 +1,4 @@
-﻿
-using System.Windows.Forms;
-using NortheastMegabuck.LaneAssignments;
-
-namespace NortheastMegabuck.LaneAssignments;
+﻿namespace NortheastMegabuck.LaneAssignments;
 public partial class Form : System.Windows.Forms.Form, IView
 {
     public SquadId SquadId { get; }
