@@ -1,6 +1,8 @@
 ﻿namespace NortheastMegabuck.LaneAssignments;
 public partial class Form : System.Windows.Forms.Form, IView
 {
+    private readonly IConfiguration _config;
+
     public SquadId SquadId { get; }
     public int StartingLane { get; }
 
@@ -23,37 +25,49 @@ public partial class Form : System.Windows.Forms.Form, IView
             laneAssignmentFlowLayoutPanel.Controls.Add(control);
         }
     }
-    public Form(SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair)
+
+    public void DisplayError(string message)
+        => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+    public void Disable()
+    {
+        laneAssignmentGroupbox.Enabled = false;
+        unassignedRegistrationsGroupbox.Enabled = false;
+    }
+
+    public void BindRegistrations(IEnumerable<IViewModel> registrations)
+        => unassignedRegistrationsFlowLayoutPanel.Controls.AddRange(registrations.Select(Add).ToArray());
+
+    public void BindLaneAssignments(IEnumerable<IViewModel> registrations)
+    {
+        foreach (var registration in registrations)
+        {
+            var openLane = laneAssignmentFlowLayoutPanel.Controls.OfType<Controls.LaneAssignmentControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
+
+            openLane!.Bind(registration);
+            openLane.MouseDown += UnassignedRegistration_MouseDown!;
+            openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
+            openLane.Enter += LaneAssignmentRegistered_Enter!;
+            openLane.Leave += LaneAssignmentRegistered_Leave!;
+        }   
+    }
+    public Form(IConfiguration config, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair)
     {
         InitializeComponent();
+        _config = config;
 
         SquadId = squadId;
         StartingLane = startingLane;
         NumberOfLanes = numberOfLanes;
         MaxPerPair = maxPerPair;
 
-        new Presenter(this).Load();
+        new Presenter(_config, this).Load();
 
-        var bowler1 = new ViewModel("Dave Kipperman", "36 - 54", 0, 0);
-        var bowler2 = new ViewModel("Ashlie Kipperman", "Over 55 / Women", 0, 0);
         var bowler3 = new ViewModel("Joe Bowler", "Under 215 Average", 200, 12);
 
-        var bowlers = new[] { bowler1, bowler2, bowler3 };
+        var bowlers = new[] {  bowler3 };
 
         unassignedRegistrationsFlowLayoutPanel.Controls.AddRange(bowlers.Select(bowler => Add(bowler)).ToArray());
-    }
-
-    private Controls.LaneAssignmentControl Add(string laneAssignment)
-    { 
-        var control = new Controls.LaneAssignmentControl(laneAssignment)
-        {
-            Margin = new Padding(0, 0, 0, 0),
-            AllowDrop = true
-        };
-
-        AddOpenLaneEventsToOpenLane(control);
-
-        return control;
     }
 
     private Controls.LaneAssignmentControl Add(IViewModel viewModel)
@@ -117,6 +131,8 @@ public partial class Form : System.Windows.Forms.Form, IView
         RemoveOpenLaneEventsFromAssignedLane(openLane);
 
         LaneAssignmentOpen_DragLeave(sender, e);
+
+        //new Presenter(_config, this).Update(SquadId, registration.BowlerId, openLane.LaneAssignment);
     }
 
     private void LaneAssignmentRegistered_KeyUp(object sender, KeyEventArgs e)
@@ -135,6 +151,8 @@ public partial class Form : System.Windows.Forms.Form, IView
         registeredLane!.ClearRegistration();
 
         LaneAssignmentRegistered_Leave(sender, e);
+
+        //new Presenter(_config, this).Update(SquadId, registeredLane.BowlerId, string.Empty);
     }
 
     private void LaneAssignmentRegistered_Enter(object sender, EventArgs e)

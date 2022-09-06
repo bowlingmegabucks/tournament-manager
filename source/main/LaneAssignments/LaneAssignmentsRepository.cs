@@ -25,6 +25,7 @@ internal class Repository : IRepository
             return _dataContext.Squads
                 .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
                 .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)
+                .Include(squad=> squad.Registrations).ThenInclude(squadRegistration=> squadRegistration.Squad)
                 .AsNoTracking()
                 .Where(squad => squad.Id == squadId)
                 .SelectMany(squad => squad.Registrations);
@@ -39,9 +40,9 @@ internal class Repository : IRepository
             .SelectMany(sweeper => sweeper.Registrations);
     }
 
-    //void IRepository.Update(RegistrationId registrationId, SquadId squadId, string position)
+    //void IRepository.Update(SquadId squadId, BowlerId bowlerId, string position)
     //{
-    //    var registration = _dataContext.Registrations.Single(registration => registration.Id == registrationId).Squads.Single(squadRegistration => squadRegistration.SquadId == squadId);
+    //    var registration = _dataContext.Registrations.Where(registration => registration.BowlerId == bowlerId).SelectMany(registration=> registration.Squads).Single(squadRegistration => squadRegistration.SquadId == squadId);
 
     //    registration.LaneAssignment = position;
 
@@ -53,5 +54,5 @@ internal interface IRepository
 {
     IEnumerable<Database.Entities.SquadRegistration> Retrieve(SquadId squadId);
 
-    //void Update(RegistrationId registrationId, SquadId squadId, string position);
+    //void Update(SquadId squadId, BowlerId bowlerId, string position);
 }

@@ -32,7 +32,7 @@ public partial class Form : System.Windows.Forms.Form, IView
     private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
     {
         //todo: get from presenter;
-        using var form = new LaneAssignments.Form(_id, StartingLane,NumberOfLanes,MaxPerPair);
+        using var form = new LaneAssignments.Form(_config, _id, StartingLane,NumberOfLanes,MaxPerPair);
 
         form.ShowDialog(this);
     }

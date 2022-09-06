@@ -84,6 +84,7 @@ partial class Form
             this.ClientSize = new System.Drawing.Size(1537, 1050);
             this.Controls.Add(this.unassignedRegistrationsGroupbox);
             this.Controls.Add(this.laneAssignmentGroupbox);
+            this.MaximizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lane Assignments";

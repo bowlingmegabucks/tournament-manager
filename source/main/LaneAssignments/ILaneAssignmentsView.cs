@@ -10,4 +10,12 @@ internal interface IView
     int MaxPerPair { get; }
 
     void BuildLanes(IEnumerable<string> lanes);
+
+    void DisplayError(string message);
+
+    void Disable();
+
+    void BindRegistrations(IEnumerable<IViewModel> registrations);
+
+    void BindLaneAssignments(IEnumerable<IViewModel> assignments);
 }
