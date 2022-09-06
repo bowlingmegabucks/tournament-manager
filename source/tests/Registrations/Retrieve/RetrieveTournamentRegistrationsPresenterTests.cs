@@ -1,7 +1,4 @@
-﻿
-using Castle.Components.DictionaryAdapter;
-
-namespace NortheastMegabuck.Tests.Registrations.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Registrations.Retrieve;
 internal class TournamentRegistrationsPresenter
 {
     private Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationsView> _view;

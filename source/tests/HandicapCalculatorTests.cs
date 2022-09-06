@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NortheastMegabuck.Tests;
+﻿namespace NortheastMegabuck.Tests;
 internal class HandicapCalculator
 {
     private NortheastMegabuck.IHandicapCalculator _calculator;
