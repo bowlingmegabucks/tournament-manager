@@ -84,6 +84,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Database\Migrations\" />
+	  <Folder Include="Squads\CheckIn\" />
 	</ItemGroup>
 
 	<ItemGroup>

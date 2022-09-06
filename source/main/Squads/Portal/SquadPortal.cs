@@ -25,7 +25,8 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new CheckIn.Form();
+        //todo: get from presenter;
+        using var form = new LaneAssignments.Form(_id, 1,40,4);
 
         form.ShowDialog(this);
     }

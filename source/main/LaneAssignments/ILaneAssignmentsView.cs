@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NortheastMegabuck.Squads.CheckIn;
+namespace NortheastMegabuck.LaneAssignments;
 internal interface IView
 {
+    SquadId SquadId { get; }
+
     int StartingLane { get; }
 
     int NumberOfLanes { get; }

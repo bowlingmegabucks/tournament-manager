@@ -1,18 +1,16 @@
 ﻿
 using System.Windows.Forms;
+using NortheastMegabuck.LaneAssignments;
 
-namespace NortheastMegabuck.Squads.CheckIn;
+namespace NortheastMegabuck.LaneAssignments;
 public partial class Form : System.Windows.Forms.Form, IView
 {
+    public SquadId SquadId { get; }
+    public int StartingLane { get; }
 
-    public int StartingLane
-        => 1;
+    public int NumberOfLanes { get; }
 
-    public int NumberOfLanes
-        => 40;
-
-    public int MaxPerPair
-        => 4;
+    public int MaxPerPair { get; }
 
     public void BuildLanes(IEnumerable<string> lanes)
     {
@@ -29,9 +27,14 @@ public partial class Form : System.Windows.Forms.Form, IView
             laneAssignmentFlowLayoutPanel.Controls.Add(control);
         }
     }
-    public Form()
+    public Form(SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair)
     {
         InitializeComponent();
+
+        SquadId = squadId;
+        StartingLane = startingLane;
+        NumberOfLanes = numberOfLanes;
+        MaxPerPair = maxPerPair;
 
         new Presenter(this).Load();
 

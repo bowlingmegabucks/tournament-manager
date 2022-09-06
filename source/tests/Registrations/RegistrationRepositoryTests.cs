@@ -130,7 +130,7 @@ internal class Repository
         {
             Assert.That(actual, Has.Count.EqualTo(3));
 
-            Assert.That(actual.All(registration => registration.LaneAssignment.StartsWith("3")));
+            Assert.That(actual.All(registration => registration.LaneAssignment.StartsWith("3", StringComparison.Ordinal)));
         });
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NortheastMegabuck.Squads.CheckIn;
+namespace NortheastMegabuck.LaneAssignments;
 internal class Presenter
 {
     private readonly IView _view;
@@ -56,7 +56,7 @@ internal class Presenter
         for (var i = startingLane; i <= startingLane + numberOfLanes - 1; i += 2)
         {
             laneAssignments.AddRange(oddLetters.Select(letter => $"{i}{letter}"));
-            laneAssignments.AddRange(evenLetters.Select(letter => $"{i+1}{letter}"));
+            laneAssignments.AddRange(evenLetters.Select(letter => $"{i + 1}{letter}"));
         }
 
         return laneAssignments;

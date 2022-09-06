@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Squads.CheckIn;
+﻿namespace NortheastMegabuck.LaneAssignments;
 
 partial class Form
 {
