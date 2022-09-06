@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NortheastMegabuck.LaneAssignments.Retrieve;
+﻿namespace NortheastMegabuck.LaneAssignments.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
