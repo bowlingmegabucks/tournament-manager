@@ -1,10 +1,10 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace NortheastMegabuck.Registrations.Retrieve;
-internal class SquadRegistrationViewModel : ISquadRegistrationViewModel
+namespace NortheastMegabuck.LaneAssignments;
+internal class ViewModel : IViewModel
 {
-    public BowlerId BowlerId {get;}
+    public BowlerId BowlerId { get; }
 
     public string BowlerName { get; }
 
@@ -18,23 +18,23 @@ internal class SquadRegistrationViewModel : ISquadRegistrationViewModel
 
     public int Handicap { get; }
 
-    public SquadRegistrationViewModel(Models.SquadRegistration registration)
+    public ViewModel(Models.LaneAssignment laneAssignment)
     {
-        BowlerId = registration.Bowler.Id;
-        BowlerName = registration.Bowler.ToString();
+        BowlerId = laneAssignment.Bowler.Id;
+        BowlerName = laneAssignment.Bowler.ToString();
 
-        DivisionName = registration.Division.Name;
-        DivisionNumber = registration.Division.Number;
+        DivisionName = laneAssignment.Division.Name;
+        DivisionNumber = laneAssignment.Division.Number;
 
-        LaneAssignment = registration.LaneAssignment;
-        Average = registration.Average.GetValueOrDefault(0);
-        Handicap = registration.Handicap;
+        LaneAssignment = laneAssignment.Position;
+        Average = laneAssignment.Average.GetValueOrDefault(0);
+        Handicap = laneAssignment.Handicap;
     }
 
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
-    public SquadRegistrationViewModel(string bowlerName, string divisionName, int average, int handicap) 
+    public ViewModel(string bowlerName, string divisionName, int average, int handicap)
     {
         BowlerId = BowlerId.New();
 
@@ -53,8 +53,8 @@ internal class SquadRegistrationViewModel : ISquadRegistrationViewModel
             .Append('\t').Append(Handicap).ToString();
 }
 
-public interface ISquadRegistrationViewModel
-{ 
+public interface IViewModel
+{
     BowlerId BowlerId { get; }
 
     string BowlerName { get; }

@@ -1,6 +1,6 @@
 ﻿namespace NortheastMegabuck.Controls;
 
-partial class SquadRegistrationControl
+partial class LaneAssignmentControl
 {
     /// <summary> 
     /// Required designer variable.

@@ -18,6 +18,11 @@ internal class LaneAssignment
     public LaneAssignment(Database.Entities.SquadRegistration squadRegistration)
         : this(squadRegistration, new HandicapCalculator()) { }
 
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="squadRegistration"></param>
+    /// <param name="handicapCalculator"></param>
     internal LaneAssignment(Database.Entities.SquadRegistration squadRegistration, IHandicapCalculator handicapCalculator)
     {
         RegistrationId = squadRegistration.RegistrationId;
@@ -33,5 +38,15 @@ internal class LaneAssignment
             ? handicapCalculator.Calculate(squadRegistration.Registration)
             : ((squadRegistration.Squad as Database.Entities.SweeperSquad)!.Divisions.SingleOrDefault(division => division.DivisionId == Division.Id)?.BonusPinsPerGame).GetValueOrDefault(0);
 
+    }
+
+    /// <summary>
+    /// Unit Test Model Constructor
+    /// </summary>
+    internal LaneAssignment()
+    {
+        Bowler = new Bowler();
+        Division = new Division();
+        Position = string.Empty;
     }
 }

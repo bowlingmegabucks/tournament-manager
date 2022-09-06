@@ -1,12 +1,12 @@
-﻿namespace NortheastMegabuck.Tests.Registrations.Retrieve;
+﻿namespace NortheastMegabuck.Tests.LaneAssignments;
 
 [TestFixture]
-internal class SquadRegistrationViewModel
+internal class ViewModel
 {
     [Test]
     public void Constructor_BowlerIdMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.SquadRegistration
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
             Bowler = new NortheastMegabuck.Models.Bowler
             {
@@ -18,7 +18,7 @@ internal class SquadRegistrationViewModel
             }
         };
 
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.SquadRegistrationViewModel(squadRegistration);
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.BowlerId, Is.EqualTo(squadRegistration.Bowler.Id));
     }
@@ -26,7 +26,7 @@ internal class SquadRegistrationViewModel
     [Test]
     public void Constructor_BowlerNameMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.SquadRegistration
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
             Bowler = new NortheastMegabuck.Models.Bowler
             {
@@ -40,7 +40,7 @@ internal class SquadRegistrationViewModel
             }
         };
 
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.SquadRegistrationViewModel(squadRegistration);
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo(squadRegistration.Bowler.ToString()));
     }
@@ -48,7 +48,7 @@ internal class SquadRegistrationViewModel
     [Test]
     public void Constructor_DivisionNameMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.SquadRegistration
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
             Bowler = new NortheastMegabuck.Models.Bowler
             {
@@ -63,7 +63,7 @@ internal class SquadRegistrationViewModel
             }
         };
 
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.SquadRegistrationViewModel(squadRegistration);
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.DivisionName, Is.EqualTo(squadRegistration.Division.Name));
     }
@@ -71,7 +71,7 @@ internal class SquadRegistrationViewModel
     [Test]
     public void Constructor_DivisionNumberMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.SquadRegistration
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
             Bowler = new NortheastMegabuck.Models.Bowler
             {
@@ -87,7 +87,7 @@ internal class SquadRegistrationViewModel
             }
         };
 
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.SquadRegistrationViewModel(squadRegistration);
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.DivisionNumber, Is.EqualTo(squadRegistration.Division.Number));
     }
@@ -95,7 +95,7 @@ internal class SquadRegistrationViewModel
     [Test]
     public void Constructor_LaneAssignmentMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.SquadRegistration
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
             Bowler = new NortheastMegabuck.Models.Bowler
             {
@@ -109,18 +109,18 @@ internal class SquadRegistrationViewModel
                 Name = "name",
                 Number = 5
             },
-            LaneAssignment = "21A"
+            Position = "21A"
         };
 
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.SquadRegistrationViewModel(squadRegistration);
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
-        Assert.That(viewModel.LaneAssignment, Is.EqualTo(squadRegistration.LaneAssignment));
+        Assert.That(viewModel.LaneAssignment, Is.EqualTo(squadRegistration.Position));
     }
 
     [Test]
     public void Constructor_AverageNull_AverageMappedAsZero()
     {
-        var squadRegistration = new NortheastMegabuck.Models.SquadRegistration
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
             Bowler = new NortheastMegabuck.Models.Bowler
             {
@@ -134,11 +134,11 @@ internal class SquadRegistrationViewModel
                 Name = "name",
                 Number = 5
             },
-            LaneAssignment = "21A",
+            Position = "21A",
             Average = null
         };
 
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.SquadRegistrationViewModel(squadRegistration);
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.Average, Is.EqualTo(0));
     }
@@ -146,7 +146,7 @@ internal class SquadRegistrationViewModel
     [Test]
     public void Constructor_AverageNotNull_AverageMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.SquadRegistration
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
             Bowler = new NortheastMegabuck.Models.Bowler
             {
@@ -160,11 +160,11 @@ internal class SquadRegistrationViewModel
                 Name = "name",
                 Number = 5
             },
-            LaneAssignment = "21A",
+            Position = "21A",
             Average = 200
         };
 
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.SquadRegistrationViewModel(squadRegistration);
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.Average, Is.EqualTo(200));
     }
@@ -172,7 +172,7 @@ internal class SquadRegistrationViewModel
     [Test]
     public void Constructor_HandicapMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.SquadRegistration
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
             Bowler = new NortheastMegabuck.Models.Bowler
             {
@@ -186,12 +186,12 @@ internal class SquadRegistrationViewModel
                 Name = "name",
                 Number = 5
             },
-            LaneAssignment = "21A",
+            Position = "21A",
             Average = 200,
             Handicap = 50
         };
 
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.SquadRegistrationViewModel(squadRegistration);
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.Handicap, Is.EqualTo(50));
     }
@@ -199,7 +199,7 @@ internal class SquadRegistrationViewModel
     [Test]
     public void ToString_Mapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.SquadRegistration
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
             Bowler = new NortheastMegabuck.Models.Bowler
             {
@@ -213,12 +213,12 @@ internal class SquadRegistrationViewModel
                 Name = "name",
                 Number = 5
             },
-            LaneAssignment = "21A",
+            Position = "21A",
             Average = 200,
             Handicap = 50
         };
 
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.SquadRegistrationViewModel(squadRegistration);
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
         var expected = $"{viewModel.LaneAssignment}\t\t{viewModel.BowlerId}\t{viewModel.DivisionNumber}\t{viewModel.Handicap}";
         var actual = viewModel.ToString();

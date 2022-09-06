@@ -1,17 +1,17 @@
 ﻿
 namespace NortheastMegabuck.Controls;
-public partial class SquadRegistrationControl : UserControl, Registrations.Retrieve.ISquadRegistrationViewModel
+public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
 {    
     /// <summary>
     /// Used for created Empty Lane Assignment Grid
     /// </summary>
     /// <param name="laneAssignment"></param>
-    public SquadRegistrationControl(string laneAssignment) : this()
+    public LaneAssignmentControl(string laneAssignment) : this()
     {
         LaneAssignment = laneAssignment;
     }
 
-    public SquadRegistrationControl()
+    public LaneAssignmentControl()
     {
         InitializeComponent();
         ClearRegistration();
@@ -19,7 +19,7 @@ public partial class SquadRegistrationControl : UserControl, Registrations.Retri
         BorderStyle = BorderStyle.FixedSingle;
     }
 
-    public void Bind(Registrations.Retrieve.ISquadRegistrationViewModel viewModel)
+    public void Bind(LaneAssignments.IViewModel viewModel)
     {
         BowlerId = viewModel.BowlerId;
         BowlerName = viewModel.BowlerName;

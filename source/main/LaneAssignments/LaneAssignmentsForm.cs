@@ -12,7 +12,7 @@ public partial class Form : System.Windows.Forms.Form, IView
     {
         foreach (var lane in lanes)
         {
-            var control = new Controls.SquadRegistrationControl(lane)
+            var control = new Controls.LaneAssignmentControl(lane)
             {
                 Margin = new Padding(0, 0, 0, 0),
                 AllowDrop = true
@@ -34,18 +34,18 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         new Presenter(this).Load();
 
-        var bowler1 = new Registrations.Retrieve.SquadRegistrationViewModel("Dave Kipperman", "36 - 54", 0, 0);
-        var bowler2 = new Registrations.Retrieve.SquadRegistrationViewModel("Ashlie Kipperman", "Over 55 / Women", 0, 0);
-        var bowler3 = new Registrations.Retrieve.SquadRegistrationViewModel("Joe Bowler", "Under 215 Average", 200, 12);
+        var bowler1 = new ViewModel("Dave Kipperman", "36 - 54", 0, 0);
+        var bowler2 = new ViewModel("Ashlie Kipperman", "Over 55 / Women", 0, 0);
+        var bowler3 = new ViewModel("Joe Bowler", "Under 215 Average", 200, 12);
 
         var bowlers = new[] { bowler1, bowler2, bowler3 };
 
         unassignedRegistrationsFlowLayoutPanel.Controls.AddRange(bowlers.Select(bowler => Add(bowler)).ToArray());
     }
 
-    private Controls.SquadRegistrationControl Add(string laneAssignment)
+    private Controls.LaneAssignmentControl Add(string laneAssignment)
     { 
-        var control = new Controls.SquadRegistrationControl(laneAssignment)
+        var control = new Controls.LaneAssignmentControl(laneAssignment)
         {
             Margin = new Padding(0, 0, 0, 0),
             AllowDrop = true
@@ -56,9 +56,9 @@ public partial class Form : System.Windows.Forms.Form, IView
         return control;
     }
 
-    private Controls.SquadRegistrationControl Add(Registrations.Retrieve.ISquadRegistrationViewModel viewModel)
+    private Controls.LaneAssignmentControl Add(IViewModel viewModel)
     {
-        var control = new Controls.SquadRegistrationControl()
+        var control = new Controls.LaneAssignmentControl()
         {
             Margin = new Padding(3, 0, 0, 0),
         };
@@ -71,11 +71,11 @@ public partial class Form : System.Windows.Forms.Form, IView
     }
 
     private void UnassignedRegistration_MouseDown(object sender, MouseEventArgs e)
-        => (sender as Control)!.DoDragDrop(sender as Registrations.Retrieve.ISquadRegistrationViewModel, DragDropEffects.Move);
+        => (sender as Control)!.DoDragDrop(sender as IViewModel, DragDropEffects.Move);
 
     private void LaneAssignmentOpen_DragOver(object sender, DragEventArgs e)
     { 
-        if (e.GetDataPresent<Controls.SquadRegistrationControl>())
+        if (e.GetDataPresent<Controls.LaneAssignmentControl>())
         {
             (sender as Control)!.BackColor = SystemColors.Highlight;
         }
@@ -83,7 +83,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentOpen_DragEnter(object sender, DragEventArgs e)
     {
-        if (e.GetDataPresent<Controls.SquadRegistrationControl>())
+        if (e.GetDataPresent<Controls.LaneAssignmentControl>())
         {
             e.Effect = DragDropEffects.Move;
         }
@@ -93,9 +93,9 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentOpen_DragDrop(object sender, DragEventArgs e)
     {
-        var registration = e.Data<Controls.SquadRegistrationControl>();
+        var registration = e.Data<Controls.LaneAssignmentControl>();
 
-        var openLane = sender as Controls.SquadRegistrationControl;
+        var openLane = sender as Controls.LaneAssignmentControl;
 
         openLane!.Bind(registration!);
         openLane.MouseDown += UnassignedRegistration_MouseDown!;
@@ -109,7 +109,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         }
         else
         {
-            var oldLane = laneAssignmentFlowLayoutPanel.Controls.OfType<Controls.SquadRegistrationControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
+            var oldLane = laneAssignmentFlowLayoutPanel.Controls.OfType<Controls.LaneAssignmentControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
             oldLane.ClearRegistration();
             LaneAssignmentRegistered_Leave(oldLane, e);
         } 
@@ -126,7 +126,7 @@ public partial class Form : System.Windows.Forms.Form, IView
             return;
         }
 
-        var registeredLane = sender as Controls.SquadRegistrationControl;
+        var registeredLane = sender as Controls.LaneAssignmentControl;
 
         var unassignedRegistration = Add(registeredLane!);
 
@@ -142,7 +142,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentRegistered_Leave(object sender, EventArgs e)
         => (sender as Control)!.BackColor = SystemColors.Control;
-    private void RemoveOpenLaneEventsFromAssignedLane(Controls.SquadRegistrationControl assignedLane)
+    private void RemoveOpenLaneEventsFromAssignedLane(Controls.LaneAssignmentControl assignedLane)
     {
         assignedLane.DragEnter -= LaneAssignmentOpen_DragEnter!;
         assignedLane.DragOver -= LaneAssignmentOpen_DragOver!;
@@ -150,7 +150,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         assignedLane.DragDrop -= LaneAssignmentOpen_DragDrop!;
     }
 
-    private void AddOpenLaneEventsToOpenLane(Controls.SquadRegistrationControl openLane)
+    private void AddOpenLaneEventsToOpenLane(Controls.LaneAssignmentControl openLane)
     {
         openLane.DragOver += LaneAssignmentOpen_DragOver!;
         openLane.DragLeave += LaneAssignmentOpen_DragLeave!;

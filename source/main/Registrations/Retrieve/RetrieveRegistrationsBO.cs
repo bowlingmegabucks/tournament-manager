@@ -33,20 +33,6 @@ internal class BusinessLogic : IBusinessLogic
             return Enumerable.Empty<Models.Registration>();
         }
     }
-
-    IEnumerable<Models.SquadRegistration> IBusinessLogic.ForSquad(SquadId squadId)
-    {
-        try
-        {
-            return _dataLayer.ForSquad(squadId).ToList();
-        }
-        catch (Exception ex)
-        {
-            Error = new Models.ErrorDetail(ex);
-
-            return Enumerable.Empty<Models.SquadRegistration>();
-        }
-    }
 }
 
 internal interface IBusinessLogic
@@ -54,6 +40,4 @@ internal interface IBusinessLogic
     Models.ErrorDetail? Error { get; }
 
     IEnumerable<Models.Registration> Execute(TournamentId tournamentId);
-
-    IEnumerable<Models.SquadRegistration> ForSquad(SquadId squadId);
 }
