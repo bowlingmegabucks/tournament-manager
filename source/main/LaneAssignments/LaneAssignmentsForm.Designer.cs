@@ -44,7 +44,7 @@ partial class Form
             this.laneAssignmentGroupbox.Size = new System.Drawing.Size(850, 940);
             this.laneAssignmentGroupbox.TabIndex = 0;
             this.laneAssignmentGroupbox.TabStop = false;
-            this.laneAssignmentGroupbox.Text = "Lane Assignments";
+            this.laneAssignmentGroupbox.Text = "Assigned";
             // 
             // laneAssignmentFlowLayoutPanel
             // 
@@ -86,7 +86,7 @@ partial class Form
             this.Controls.Add(this.laneAssignmentGroupbox);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SquadCheckinForm";
+            this.Text = "Lane Assignments";
             this.laneAssignmentGroupbox.ResumeLayout(false);
             this.unassignedRegistrationsGroupbox.ResumeLayout(false);
             this.ResumeLayout(false);
