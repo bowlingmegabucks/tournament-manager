@@ -132,6 +132,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         LaneAssignmentOpen_DragLeave(sender, e);
 
+        //todo: do this first and control the rest after in case there is an error (will need to find controls again
         //new Presenter(_config, this).Update(SquadId, registration.BowlerId, openLane.LaneAssignment);
     }
 
@@ -149,9 +150,11 @@ public partial class Form : System.Windows.Forms.Form, IView
         unassignedRegistrationsFlowLayoutPanel.Controls.Add(unassignedRegistration);
 
         registeredLane!.ClearRegistration();
+        registeredLane.KeyUp -= LaneAssignmentRegistered_KeyUp!;
 
         LaneAssignmentRegistered_Leave(sender, e);
 
+        //todo: do this first and control the rest after in case there is an error (will need to find controls again
         //new Presenter(_config, this).Update(SquadId, registeredLane.BowlerId, string.Empty);
     }
 
