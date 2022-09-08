@@ -40,19 +40,19 @@ internal class Repository : IRepository
             .SelectMany(sweeper => sweeper.Registrations);
     }
 
-    //void IRepository.Update(SquadId squadId, BowlerId bowlerId, string position)
-    //{
-    //    var registration = _dataContext.Registrations.Where(registration => registration.BowlerId == bowlerId).SelectMany(registration=> registration.Squads).Single(squadRegistration => squadRegistration.SquadId == squadId);
+    void IRepository.Update(SquadId squadId, BowlerId bowlerId, string position)
+    {
+        var registration = _dataContext.Registrations.Where(registration => registration.BowlerId == bowlerId).SelectMany(registration => registration.Squads).Single(squadRegistration => squadRegistration.SquadId == squadId);
 
-    //    registration.LaneAssignment = position;
+        registration.LaneAssignment = position;
 
-    //    _dataContext.SaveChanges();
-    //}
+        _dataContext.SaveChanges();
+    }
 }
 
 internal interface IRepository
 {
     IEnumerable<Database.Entities.SquadRegistration> Retrieve(SquadId squadId);
 
-    //void Update(SquadId squadId, BowlerId bowlerId, string position);
+    void Update(SquadId squadId, BowlerId bowlerId, string position);
 }
