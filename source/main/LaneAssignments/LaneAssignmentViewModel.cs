@@ -48,7 +48,8 @@ internal class ViewModel : IViewModel
 
     public override string ToString()
         => new StringBuilder(LaneAssignment)
-            .Append('\t').Append('\t').Append(BowlerId)
+            .Append('\t').Append(BowlerId)
+            .Append('t').Append(BowlerName)
             .Append('\t').Append(DivisionNumber)
             .Append('\t').Append(Handicap).ToString();
 }
