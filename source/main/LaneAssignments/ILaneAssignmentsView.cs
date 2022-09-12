@@ -22,4 +22,6 @@ internal interface IView
     void RemoveLaneAssignment(IViewModel registration);
 
     void AssignToLane(IViewModel registration, string position);
+
+    IViewModel? AddRegistration(SquadId squadId);
 }

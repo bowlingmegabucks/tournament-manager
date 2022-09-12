@@ -83,4 +83,14 @@ internal class Presenter
             _view.AssignToLane(registration, position);
         }
     }
+
+    public void NewRegistration()
+    {
+        var registration = _view.AddRegistration(_view.SquadId);
+
+        if (registration == null)
+        {
+
+        }
+    }
 }

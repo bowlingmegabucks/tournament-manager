@@ -91,6 +91,14 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         LaneAssignmentRegistered_Leave(registeredLane, new EventArgs());
     }
+
+    public IViewModel? AddRegistration(SquadId squadId)
+    {
+        using var form = new Registrations.Add.Form(_config, squadId);
+
+        return form.ShowDialog(this) == DialogResult.Cancel ? null 
+                : (IViewModel)new ViewModel(new Models.LaneAssignment());
+    }
     public Form(IConfiguration config, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair)
     {
         InitializeComponent();
@@ -180,6 +188,9 @@ public partial class Form : System.Windows.Forms.Form, IView
         openLane.DragEnter += LaneAssignmentOpen_DragEnter!;
         openLane.DragDrop += LaneAssignmentOpen_DragDrop!;
     }
+
+    private void NewRegistrationButton_Click(object sender, EventArgs e)
+        => new Presenter(_config, this).NewRegistration();
 }
 
 internal static class ExtensionMethods

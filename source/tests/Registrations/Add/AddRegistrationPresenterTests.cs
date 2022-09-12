@@ -29,19 +29,19 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_ViewSelectBowler_Called()
+    public void Load_TournamentId_ViewSelectBowler_Called()
     {
-        _presenter.Load();
+        _presenter.Load(new TournamentId());
 
         _view.Verify(view => view.SelectBowler(), Times.Once);
     }
 
     [Test]
-    public void Load_ViewSelectedBowlerReturnsNull_ExitFlow()
+    public void Load_TournamentId_ViewSelectedBowlerReturnsNull_ExitFlow()
     {
         _view.Setup(view => view.SelectBowler()).Returns((BowlerId?)null);
 
-        _presenter.Load();
+        _presenter.Load(new TournamentId());
 
         Assert.Multiple(() =>
         {
@@ -63,74 +63,69 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_DivisionsAdapterExecute_CalledCorrectly()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_DivisionsAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         _divisionsAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_SquadsAdapterExecute_CalledCorrectly()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_SquadsAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         _squadsAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_SweepersAdapterExecute_CalledCorrectly()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_SweepersAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         _sweepersAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
     }
 
     [Test]
     [Ignore("Need to figure out how to test inside Task.Run")]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_BowlerAdapterExecute_NotCalled()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_BowlerAdapterExecute_NotCalled()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         _bowlersAdapter.Verify(adapter => adapter.Execute(It.IsAny<BowlerId>()), Times.Never);
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsId_BowlerAdapterExecute_CalledCorrectly()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsId_BowlerAdapterExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         _view.Setup(view => view.SelectBowler()).Returns(bowlerId);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         _bowlersAdapter.Verify(adapter => adapter.Execute(bowlerId), Times.Once);
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_AllAdaptersHaveErrors_DivisionAdapterErrorFlow()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_AllAdaptersHaveErrors_DivisionAdapterErrorFlow()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
@@ -147,9 +142,8 @@ internal class Presenter
         _bowlersAdapter.SetupGet(adapter=> adapter.Error).Returns(bowlerError);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         Assert.Multiple(() =>
         {
@@ -159,7 +153,7 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_DivisionAdapterNoError_SweeperAndSquadAdapterError_SquadAdapterErrorFlow()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_DivisionAdapterNoError_SweeperAndSquadAdapterError_SquadAdapterErrorFlow()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
@@ -170,9 +164,8 @@ internal class Presenter
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         Assert.Multiple(() =>
         {
@@ -182,7 +175,7 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_DivisionAdapterAndSquadAdapterNoError_SweeperAdapterError_SweeperErrorFlow()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_DivisionAdapterAndSquadAdapterNoError_SweeperAdapterError_SweeperErrorFlow()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
@@ -190,9 +183,8 @@ internal class Presenter
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         Assert.Multiple(() =>
         {
@@ -202,7 +194,7 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindDivisions_CalledSortedByDivisionNumber()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindDivisions_CalledSortedByDivisionNumber()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
@@ -219,9 +211,8 @@ internal class Presenter
         _divisionsAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(divisions);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         Assert.Multiple(() =>
         {
@@ -234,7 +225,7 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindSquads_CalledSortedByDate()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindSquads_CalledSortedByDate()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
@@ -251,9 +242,8 @@ internal class Presenter
         _squadsAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
 
         Assert.Multiple(() =>
         {
@@ -266,7 +256,7 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindSweepers_CalledSortedByDate()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindSweepers_CalledSortedByDate()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
@@ -283,9 +273,8 @@ internal class Presenter
         _sweepersAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
 
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Load();
+        _presenter.Load(tournamentId);
         
         Assert.Multiple(() =>
         {
@@ -298,24 +287,24 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindBowler_NotCalled()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_NoAdapterErrors_ViewBindBowler_NotCalled()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        _presenter.Load();
+        _presenter.Load(new TournamentId());
 
         _view.Verify(view => view.BindBowler(It.IsAny<NortheastMegabuck.Bowlers.Retrieve.IViewModel>()), Times.Never);
     }
 
     [Test]
-    public void Load_ViewSelectBowler_ReturnsId_NoAdapterErrors_ViewBindBowler_CalledCorrectly()
+    public void Load_TournamentId_ViewSelectBowler_ReturnsId_NoAdapterErrors_ViewBindBowler_CalledCorrectly()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.New());
 
         var bowler = new Mock<NortheastMegabuck.Bowlers.Retrieve.IViewModel>();
         _bowlersAdapter.Setup(adapter => adapter.Execute(It.IsAny<BowlerId>())).Returns(bowler.Object);
 
-        _presenter.Load();
+        _presenter.Load(new TournamentId());
 
         _view.Verify(view => view.BindBowler(bowler.Object), Times.Once);
     }

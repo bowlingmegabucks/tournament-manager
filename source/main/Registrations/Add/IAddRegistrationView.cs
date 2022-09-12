@@ -1,9 +1,7 @@
 ﻿
 namespace NortheastMegabuck.Registrations.Add;
 internal interface IView
-{
-    TournamentId TournamentId { get; }
-    
+{    
     void DisplayError(string message);
     
     void Disable();

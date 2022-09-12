@@ -6,17 +6,33 @@ internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
 
+    /// <summary>
+    /// Add Registration from Tournament Portal
+    /// </summary>
+    /// <param name="config"></param>
+    /// <param name="tournamentId"></param>
     public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
 
-        TournamentId = tournamentId;
         _config = config;
 
-        new Presenter(config, this).Load();
+        new Presenter(config, this).Load(tournamentId);
     }
 
-    public TournamentId TournamentId { get; set; }
+    /// <summary>
+    /// Add Registration from Lane Assignment Screen
+    /// </summary>
+    /// <param name="config"></param>
+    /// <param name="squadId"></param>
+    public Form(IConfiguration config, SquadId squadId)
+    {
+        InitializeComponent();
+
+        _config = config;
+
+        new Presenter(config, this).Load(squadId);
+    }
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
     {

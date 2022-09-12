@@ -49,7 +49,7 @@ internal class Presenter
         _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
-    public void Load()
+    public void Load(TournamentId tournamentId)
     {
         var bowlerId = _view.SelectBowler();
 
@@ -60,9 +60,9 @@ internal class Presenter
             return;
         }
 
-        var divisionsTask = Task.Run(() => _retrieveDivisionsAdapter.Execute(_view.TournamentId));
-        var squadsTask = Task.Run(() => _retrieveSquadsAdapter.Execute(_view.TournamentId));
-        var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.Execute(_view.TournamentId));
+        var divisionsTask = Task.Run(() => _retrieveDivisionsAdapter.Execute(tournamentId));
+        var squadsTask = Task.Run(() => _retrieveSquadsAdapter.Execute(tournamentId));
+        var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.Execute(tournamentId));
 
         var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
 
@@ -106,6 +106,14 @@ internal class Presenter
             {
                 _view.BindBowler(bowlerTask.Result!);
             }   
+        }
+    }
+
+    public void Load(SquadId squadId)
+    {
+        if (squadId.Value == Guid.Empty)
+        {
+
         }
     }
 
