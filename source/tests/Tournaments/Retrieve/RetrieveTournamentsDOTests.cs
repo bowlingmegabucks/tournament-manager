@@ -75,12 +75,12 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_DivisionIdRepositoryExecuteDivisionId_CalledCorrectly()
+    public void Execute_DivisionId_RepositoryExecuteDivisionId_CalledCorrectly()
     {
         var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(tournament);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(tournament);
 
-        var id = TournamentId.New();
+        var id = DivisionId.New();
 
         _dataLayer.Execute(id);
 
@@ -88,12 +88,36 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_DivisionIdReturnsTournament()
+    public void Execute_DivisionId_ReturnsTournament()
     {
         var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(tournament);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(tournament);
 
-        var actual = _dataLayer.Execute(tournament.Id);
+        var actual = _dataLayer.Execute(DivisionId.New());
+
+        Assert.That(actual.Id, Is.EqualTo(tournament.Id));
+    }
+
+    [Test]
+    public void Execute_SquadId_RepositoryExecuteSquadId_CalledCorrectly()
+    {
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(tournament);
+
+        var id = SquadId.New();
+
+        _dataLayer.Execute(id);
+
+        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
+    }
+
+    [Test]
+    public void Execute_SquadId_ReturnsTournament()
+    {
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(tournament);
+
+        var actual = _dataLayer.Execute(SquadId.New());
 
         Assert.That(actual.Id, Is.EqualTo(tournament.Id));
     }
