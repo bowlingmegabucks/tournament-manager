@@ -288,7 +288,7 @@ internal class Repository
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria
         {
-            WithoutRegistrationFrom = new[] { squad4, squad5 }
+            WithoutRegistrationOnSquads = new[] { squad4, squad5 }
         };
 
         var results = _repository.Search(searchCriteria).ToList();
@@ -328,7 +328,7 @@ internal class Repository
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria
         {
-            WithoutRegistrationFrom = new[] { squad4, squad5,squad3 }
+            WithoutRegistrationOnSquads = new[] { squad4, squad5,squad3 }
         };
 
         var results = _repository.Search(searchCriteria).ToList();

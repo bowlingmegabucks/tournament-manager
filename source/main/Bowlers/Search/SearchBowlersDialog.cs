@@ -26,7 +26,7 @@ internal partial class Dialog : Form, IView
             FirstName = firstNameText.Text,
             LastName = lastNameText.Text,
             EmailAddress = emailText.Text,
-            WithoutRegistrationFrom = _registrationsWithoutSquads
+            WithoutRegistrationOnSquads = _registrationsWithoutSquads
         };
 
     public void DisplayError(string message)
