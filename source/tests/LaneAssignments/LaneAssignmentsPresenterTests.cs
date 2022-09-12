@@ -12,6 +12,7 @@ internal class Presenter
     private Mock<NortheastMegabuck.LaneAssignments.IView> _view;
     private Mock<NortheastMegabuck.LaneAssignments.ILaneAvailability> _laneAvailability;
     private Mock<NortheastMegabuck.LaneAssignments.Retrieve.IAdapter> _retrieveAdapter;
+    private Mock<NortheastMegabuck.LaneAssignments.Update.IAdapter> _updateAdapter;
 
     private NortheastMegabuck.LaneAssignments.Presenter _presenter;
 
@@ -21,8 +22,9 @@ internal class Presenter
         _view = new Mock<NortheastMegabuck.LaneAssignments.IView>();
         _laneAvailability = new Mock<NortheastMegabuck.LaneAssignments.ILaneAvailability>();
         _retrieveAdapter = new Mock<NortheastMegabuck.LaneAssignments.Retrieve.IAdapter>();
+        _updateAdapter = new Mock<NortheastMegabuck.LaneAssignments.Update.IAdapter>();
 
-        _presenter = new NortheastMegabuck.LaneAssignments.Presenter(_view.Object, _laneAvailability.Object, _retrieveAdapter.Object);
+        _presenter = new NortheastMegabuck.LaneAssignments.Presenter(_view.Object, _laneAvailability.Object, _retrieveAdapter.Object, _updateAdapter.Object);
     }
 
     [Test]
@@ -142,5 +144,87 @@ internal class Presenter
             _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 2)), Times.Once);
             _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => !string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
         });
+    }
+
+    [Test]
+    public void Update_UpdateAdapterExecute_CalledCorrectly([Values("","21A")]string position)
+    {
+        var squadId = SquadId.New();
+        
+        var bowlerId = BowlerId.New();
+        var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        registration.SetupGet(r => r.BowlerId).Returns(bowlerId);
+
+        _presenter.Update(squadId, registration.Object, position);
+
+        _updateAdapter.Verify(adapter => adapter.Execute(squadId, bowlerId, position), Times.Once);
+    }
+
+    [Test]
+    public void Update_UpdateAdapterHasError_ErrorFlow([Values("", "21A")] string position)
+    {
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        _updateAdapter.SetupGet(adapter => adapter.Error).Returns(error);
+
+        var squadId = SquadId.New();
+        var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+
+        _presenter.Update(squadId, registration.Object, position);
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("error"), Times.Once);
+
+            _view.Verify(view => view.RemoveLaneAssignment(It.IsAny<NortheastMegabuck.LaneAssignments.IViewModel>()), Times.Never);
+            _view.Verify(view => view.AssignToLane(It.IsAny<NortheastMegabuck.LaneAssignments.IViewModel>(), It.IsAny<string>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Update_UpdateAdapterHasNoError_PositionEmpty_ViewRemoveLaneAssignment_CalledCorrectly()
+    {
+        var squadId = SquadId.New();
+        var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        var position = string.Empty;
+
+        _presenter.Update(squadId, registration.Object, position);
+
+        _view.Verify(view => view.RemoveLaneAssignment(registration.Object), Times.Once);
+    }
+
+    [Test]
+    public void Update_UpdateAdapterHasNoError_PositionEmpty_ViewAssignToLane_NotCalled()
+    {
+        var squadId = SquadId.New();
+        var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        var position = string.Empty;
+
+        _presenter.Update(squadId, registration.Object, position);
+
+        _view.Verify(view => view.AssignToLane(It.IsAny<NortheastMegabuck.LaneAssignments.IViewModel>(), It.IsAny<string>()), Times.Never);
+    }
+
+    [Test]
+    public void Update_UpdateAdapterHasNoError_PositionHasValue_ViewAssignToLane_CalledCorrectly()
+    {
+        var squadId = SquadId.New();
+        var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        var position = "21A";
+
+        _presenter.Update(squadId, registration.Object, position);
+
+        _view.Verify(view => view.AssignToLane(registration.Object, position), Times.Once);
+    }
+
+    [Test]
+    public void Update_UpdateAdapterHasNoError_PositionHasValue_RemoveLaneAssignment_NotCalled()
+    {
+        var squadId = SquadId.New();
+        var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        var position = "21A";
+
+        _presenter.Update(squadId, registration.Object, position);
+
+        _view.Verify(view => view.RemoveLaneAssignment(It.IsAny<NortheastMegabuck.LaneAssignments.IViewModel>()), Times.Never);
     }
 }
