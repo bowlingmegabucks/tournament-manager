@@ -14,9 +14,13 @@ internal interface IView
     
     void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers);
 
+    void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers, SquadId squadId);
+
     void BindBowler(Bowlers.Retrieve.IViewModel bowler);
 
     BowlerId? SelectBowler();
+
+    BowlerId? SelectBowler(SquadId squadId);
 
     void Close();
 

@@ -142,6 +142,13 @@ internal partial class Form : System.Windows.Forms.Form, IView
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }
 
+    public BowlerId? SelectBowler(SquadId squadId)
+    {
+        using var form = new Bowlers.Search.Dialog(_config, true, new[] { squadId });
+
+        return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
+    }
+
     public bool IsValid()
         => ValidateChildren();
 
