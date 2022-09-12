@@ -9,6 +9,8 @@ internal interface IView
     void BindDivisions(IEnumerable<Divisions.IViewModel> divisions);
     
     void BindSquads(IEnumerable<Squads.IViewModel> squads);
+
+    void BindSquads(IEnumerable<Squads.IViewModel> squads, SquadId squadId);
     
     void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers);
 

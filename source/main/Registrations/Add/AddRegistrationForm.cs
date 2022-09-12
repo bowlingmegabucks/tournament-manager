@@ -42,8 +42,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         divisionsDropdown.DisplayMember = nameof(Divisions.IViewModel.DivisionName);
     }
 
-    public NortheastMegabuck.DivisionId DivisionId
-        => (NortheastMegabuck.DivisionId)divisionsDropdown.SelectedValue;
+    public DivisionId DivisionId
+        => (DivisionId)divisionsDropdown.SelectedValue;
 
     public Bowlers.Add.IViewModel Bowler
         => bowlerControl;
@@ -77,12 +77,42 @@ internal partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
+    public void BindSquads(IEnumerable<Squads.IViewModel> squads, SquadId squadToRegister)
+    {
+        BindSquads(squads);
+
+        var squad = squadsFlowPanelLayout.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == squadToRegister);
+
+        if (squad == null)
+        {
+            return;
+        }
+
+        squad.Selected = true;
+        squad.Enabled = false;
+    }
+
     public void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers)
     {
         foreach (var sweeper in sweepers)
         {
             sweepersFlowLayoutPanel.Controls.Add(new Controls.SelectSquadControl(sweeper.Id, $"{sweeper.Date:d} ({sweeper.Date:t})", false));
         }
+    }
+
+    public void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers, SquadId sweeperToRegister)
+    {
+        BindSweepers(sweepers);
+
+        var sweeper = sweepersFlowLayoutPanel.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == sweeperToRegister);
+
+        if (sweeper == null)
+        {
+            return;
+        }
+
+        sweeper.Selected = true;
+        sweeper.Enabled = false;
     }
 
     public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
