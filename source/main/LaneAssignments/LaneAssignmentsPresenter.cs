@@ -84,9 +84,19 @@ internal class Presenter
         }
     }
 
+    public void AddToRegistration()
+    {
+        var registration = _view.AddToRegistration(_view.SquadId);
+
+        if (registration == null)
+        {
+
+        }
+    }
+
     public void NewRegistration()
     {
-        var registration = _view.AddRegistration(_view.SquadId);
+        var registration = _view.NewRegistration(_view.SquadId);
 
         if (registration == null)
         {

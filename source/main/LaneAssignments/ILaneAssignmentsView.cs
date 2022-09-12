@@ -23,5 +23,7 @@ internal interface IView
 
     void AssignToLane(IViewModel registration, string position);
 
-    IViewModel? AddRegistration(SquadId squadId);
+    IViewModel? AddToRegistration(SquadId squadId);
+
+    IViewModel? NewRegistration(SquadId squadId);
 }

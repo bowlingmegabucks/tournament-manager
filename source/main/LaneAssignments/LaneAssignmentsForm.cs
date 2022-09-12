@@ -33,6 +33,8 @@ public partial class Form : System.Windows.Forms.Form, IView
     {
         laneAssignmentGroupbox.Enabled = false;
         unassignedRegistrationsGroupbox.Enabled = false;
+        newRegistrationButton.Enabled = false;
+        addToRegistrationButton.Enabled = false;
     }
 
     public void BindRegistrations(IEnumerable<IViewModel> registrations)
@@ -92,7 +94,10 @@ public partial class Form : System.Windows.Forms.Form, IView
         LaneAssignmentRegistered_Leave(registeredLane, new EventArgs());
     }
 
-    public IViewModel? AddRegistration(SquadId squadId)
+    public IViewModel? AddToRegistration(SquadId squadId)
+        => null;
+
+    public IViewModel? NewRegistration(SquadId squadId)
     {
         using var form = new Registrations.Add.Form(_config, squadId);
 
@@ -191,6 +196,9 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void NewRegistrationButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).NewRegistration();
+
+    private void AddToRegistrationButton_Click(object sender, EventArgs e)
+        => new Presenter(_config, this).AddToRegistration();
 }
 
 internal static class ExtensionMethods
