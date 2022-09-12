@@ -20,7 +20,7 @@ internal class Repository : IRepository
 
     IEnumerable<Database.Entities.Bowler> IRepository.Search(Models.BowlerSearchCriteria searchCriteria)
     {
-        var bowlers = _dataContext.Bowlers.AsNoTracking();
+        var bowlers = searchCriteria.WithoutRegistrationFrom.Any() ? _dataContext.Bowlers.Include(bowler=> bowler.Registrations).ThenInclude(registration=> registration.Squads).AsNoTracking() : _dataContext.Bowlers.AsNoTracking();
 
         if (!string.IsNullOrWhiteSpace(searchCriteria.LastName))
         {
@@ -35,6 +35,11 @@ internal class Repository : IRepository
         if (!string.IsNullOrWhiteSpace(searchCriteria.EmailAddress))
         {
             bowlers = bowlers.Where(b => b.EmailAddress == searchCriteria.EmailAddress);
+        }
+
+        if (searchCriteria.WithoutRegistrationFrom.Any())
+        {
+            bowlers = bowlers.Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationFrom).Any());
         }
 
         return bowlers;
