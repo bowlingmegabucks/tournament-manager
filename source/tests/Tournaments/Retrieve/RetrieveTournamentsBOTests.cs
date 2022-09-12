@@ -127,54 +127,112 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_DivisionIdDataLayerExecute_DivisionIdCalled()
+    public void Execute_DivisionId_DataLayerExecute_DivisionId_Called()
     {
-        var id = TournamentId.New();
+        var id = DivisionId.New();
         _businessLogic.Execute(id);
 
         _dataLayer.Verify(dataLayer => dataLayer.Execute(id), Times.Once);
     }
 
     [Test]
-    public void Execute_DivisionIdReturnsResultFromDataLayer()
+    public void Execute_DivisionId_ReturnsResultFromDataLayer()
     {
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Returns(tournament);
 
-        var id = TournamentId.New();
+        var id = DivisionId.New();
         var result = _businessLogic.Execute(id);
 
         Assert.That(result, Is.EqualTo(tournament));
     }
 
     [Test]
-    public void Execute_DivisionIdNoErrors_ErrorNull()
+    public void Execute_DivisionId_NoErrors_ErrorNull()
     {
-        var id = TournamentId.New();
+        var id = DivisionId.New();
         _businessLogic.Execute(id);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void Execute_DivisionIdDataLayerExecuteThrowsException_ReturnsNull()
+    public void Execute_DivisionId_DataLayerExecuteThrowsException_ReturnsNull()
     {
         var ex = new Exception();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Throws(ex);
 
-        var id = TournamentId.New();
+        var id = DivisionId.New();
         var result = _businessLogic.Execute(id);
 
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void Execute_DivisionIdDataLayerExecuteThrowsException_ErrorPopulated()
+    public void Execute_DivisionId_DataLayerExecuteThrowsException_ErrorPopulated()
     {
         var ex = new Exception("message");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Throws(ex);
 
-        var id = TournamentId.New();
+        var id = DivisionId.New();
+        _businessLogic.Execute(id);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
+            Assert.That(_businessLogic.Error.ReturnCode, Is.EqualTo(-1));
+        });
+    }
+
+    [Test]
+    public void Execute_SquadId_DataLayerExecute_SquadId_Called()
+    {
+        var id = SquadId.New();
+        _businessLogic.Execute(id);
+
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(id), Times.Once);
+    }
+
+    [Test]
+    public void Execute_SquadId_ReturnsResultFromDataLayer()
+    {
+        var tournament = new NortheastMegabuck.Models.Tournament();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(tournament);
+
+        var id = SquadId.New();
+        var result = _businessLogic.Execute(id);
+
+        Assert.That(result, Is.EqualTo(tournament));
+    }
+
+    [Test]
+    public void Execute_SquadId_NoErrors_ErrorNull()
+    {
+        var id = SquadId.New();
+        _businessLogic.Execute(id);
+
+        Assert.That(_businessLogic.Error, Is.Null);
+    }
+
+    [Test]
+    public void Execute_SquadId_DataLayerExecuteThrowsException_ReturnsNull()
+    {
+        var ex = new Exception();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Throws(ex);
+
+        var id = SquadId.New();
+        var result = _businessLogic.Execute(id);
+
+        Assert.That(result, Is.Null);
+    }
+
+    [Test]
+    public void Execute_SquadId_DataLayerExecuteThrowsException_ErrorPopulated()
+    {
+        var ex = new Exception("message");
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Throws(ex);
+
+        var id = SquadId.New();
         _businessLogic.Execute(id);
 
         Assert.Multiple(() =>
