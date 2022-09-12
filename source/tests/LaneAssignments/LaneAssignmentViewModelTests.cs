@@ -220,7 +220,7 @@ internal class ViewModel
 
         var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
-        var expected = $"{viewModel.LaneAssignment}\t\t{viewModel.BowlerId}\t{viewModel.DivisionNumber}\t{viewModel.Handicap}";
+        var expected = $"{viewModel.LaneAssignment}\t{viewModel.BowlerId}\t{viewModel.BowlerName}\t{viewModel.DivisionNumber}\t{viewModel.Handicap}";
         var actual = viewModel.ToString();
 
         Assert.That(actual, Is.EqualTo(expected));
