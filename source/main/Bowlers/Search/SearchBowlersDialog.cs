@@ -2,17 +2,22 @@
 namespace NortheastMegabuck.Bowlers.Search;
 internal partial class Dialog : Form, IView
 {
-    private readonly IConfiguration _config; 
-    public Dialog(IConfiguration config, bool allowNewBowler)
+    private readonly IConfiguration _config;
+
+    private readonly IEnumerable<SquadId> _registrationsWithoutSquads;
+    public Dialog(IConfiguration config, bool allowNewBowler) : this(config, allowNewBowler, Enumerable.Empty<SquadId>()) { }
+
+    public Dialog(IConfiguration config, bool allowNewBowler, IEnumerable<SquadId> registrationWithoutSquad)
     {
         InitializeComponent();
 
         _config = config;
         SelectedBowlerId = null;
 
+        _registrationsWithoutSquads = registrationWithoutSquad;
+
         newBowlerButton.Visible = allowNewBowler;
     }
-
     public BowlerId? SelectedBowlerId { get; private set; }
 
     public Models.BowlerSearchCriteria SearchCriteria
@@ -20,7 +25,8 @@ internal partial class Dialog : Form, IView
         {
             FirstName = firstNameText.Text,
             LastName = lastNameText.Text,
-            EmailAddress = emailText.Text
+            EmailAddress = emailText.Text,
+            WithoutRegistrationFrom = _registrationsWithoutSquads
         };
 
     public void DisplayError(string message)
