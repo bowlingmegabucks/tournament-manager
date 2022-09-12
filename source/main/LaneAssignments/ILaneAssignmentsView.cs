@@ -18,4 +18,8 @@ internal interface IView
     void BindRegistrations(IEnumerable<IViewModel> registrations);
 
     void BindLaneAssignments(IEnumerable<IViewModel> assignments);
+
+    void RemoveLaneAssignment(IViewModel registration);
+
+    void AssignToLane(IViewModel registration, string position);
 }

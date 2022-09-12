@@ -6,12 +6,16 @@ internal class Presenter
 
     private readonly Lazy<Retrieve.IAdapter> _retrieveAdapter;
     private Retrieve.IAdapter RetrieveAdapter => _retrieveAdapter.Value;
+
+    private readonly Lazy<Update.IAdapter> _updateAdapter;
+    private Update.IAdapter UpdateAdapter => _updateAdapter.Value;
     public Presenter(IConfiguration config, IView view)
     {
         _view = view;
         _laneAvailability = new LaneAvailability();
 
         _retrieveAdapter = new Lazy<Retrieve.IAdapter>(() => new Retrieve.Adapter(config));
+        _updateAdapter = new Lazy<Update.IAdapter>(() => new Update.Adapter(config));
     }
 
     /// <summary>
@@ -20,11 +24,13 @@ internal class Presenter
     /// <param name="mockView"></param>
     /// <param name="mockLaneAvailability"></param>
     /// <param name="mockRetrieveAdapter"></param>
-    internal Presenter(IView mockView, ILaneAvailability mockLaneAvailability, Retrieve.IAdapter mockRetrieveAdapter)
+    /// <param name="mockUpdateAdapter"></param>
+    internal Presenter(IView mockView, ILaneAvailability mockLaneAvailability, Retrieve.IAdapter mockRetrieveAdapter, Update.IAdapter mockUpdateAdapter)
     {
         _view = mockView;
         _laneAvailability = mockLaneAvailability;
         _retrieveAdapter = new Lazy<Retrieve.IAdapter>(() => mockRetrieveAdapter);
+        _updateAdapter = new Lazy<Update.IAdapter>(() => mockUpdateAdapter);
     }
 
     public void Load()
@@ -57,6 +63,24 @@ internal class Presenter
         _view.BindLaneAssignments(assignments.Where(assignment => !string.IsNullOrWhiteSpace(assignment.LaneAssignment)));
     }
 
-    //public void Update(SquadId squadId, BowlerId bowlerId, string laneAssignment)
-    //{ }
+    public void Update(SquadId squadId, IViewModel registration, string position)
+    {
+        UpdateAdapter.Execute(squadId, registration.BowlerId, position);
+
+        if (UpdateAdapter.Error != null)
+        {
+            _view.DisplayError(UpdateAdapter.Error.Message);
+
+            return;
+        }
+
+        if (string.IsNullOrEmpty(position))
+        {
+            _view.RemoveLaneAssignment(registration);
+        }
+        else
+        {
+            _view.AssignToLane(registration, position);
+        }
+    }
 }

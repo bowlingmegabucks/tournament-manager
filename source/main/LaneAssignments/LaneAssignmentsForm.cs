@@ -49,8 +49,38 @@ public partial class Form : System.Windows.Forms.Form, IView
             openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
             openLane.Enter += LaneAssignmentRegistered_Enter!;
             openLane.Leave += LaneAssignmentRegistered_Leave!;
+
+            RemoveOpenLaneEventsFromAssignedLane(openLane);
         }   
     }
+
+    public void AssignToLane(IViewModel registration, string position) 
+    {
+        var openLane = laneAssignmentFlowLayoutPanel.Controls.OfType<Controls.LaneAssignmentControl>().Single(control => control.LaneAssignment == position);
+
+        openLane.Bind(registration);
+        openLane.MouseDown += UnassignedRegistration_MouseDown!;
+        openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
+        openLane.Enter += LaneAssignmentRegistered_Enter!;
+        openLane.Leave += LaneAssignmentRegistered_Leave!;
+
+        if (string.IsNullOrEmpty(registration!.LaneAssignment))
+        {
+            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedRegistrationsFlowLayoutPanel.Controls.OfType<Controls.LaneAssignmentControl>().Single(control=> control.BowlerId == registration.BowlerId));
+        }
+        else
+        {
+            var oldLane = laneAssignmentFlowLayoutPanel.Controls.OfType<Controls.LaneAssignmentControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
+            oldLane.ClearRegistration();
+            LaneAssignmentRegistered_Leave(oldLane, new EventArgs());
+        }
+
+        RemoveOpenLaneEventsFromAssignedLane(openLane);
+
+        LaneAssignmentOpen_DragLeave(openLane, new EventArgs());
+    }
+
+    public void RemoveLaneAssignment(IViewModel registration) { }
     public Form(IConfiguration config, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair)
     {
         InitializeComponent();
@@ -62,12 +92,6 @@ public partial class Form : System.Windows.Forms.Form, IView
         MaxPerPair = maxPerPair;
 
         new Presenter(_config, this).Load();
-
-        var bowler3 = new ViewModel("Joe Bowler", "Under 215 Average", 200, 12);
-
-        var bowlers = new[] {  bowler3 };
-
-        unassignedRegistrationsFlowLayoutPanel.Controls.AddRange(bowlers.Select(bowler => Add(bowler)).ToArray());
     }
 
     private Controls.LaneAssignmentControl Add(IViewModel viewModel)
@@ -111,29 +135,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         var openLane = sender as Controls.LaneAssignmentControl;
 
-        openLane!.Bind(registration!);
-        openLane.MouseDown += UnassignedRegistration_MouseDown!;
-        openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
-        openLane.Enter += LaneAssignmentRegistered_Enter!;
-        openLane.Leave += LaneAssignmentRegistered_Leave!;
-
-        if (string.IsNullOrEmpty(registration!.LaneAssignment))
-        {
-            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(registration);
-        }
-        else
-        {
-            var oldLane = laneAssignmentFlowLayoutPanel.Controls.OfType<Controls.LaneAssignmentControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
-            oldLane.ClearRegistration();
-            LaneAssignmentRegistered_Leave(oldLane, e);
-        } 
-
-        RemoveOpenLaneEventsFromAssignedLane(openLane);
-
-        LaneAssignmentOpen_DragLeave(sender, e);
-
-        //todo: do this first and control the rest after in case there is an error (will need to find controls again
-        //new Presenter(_config, this).Update(SquadId, registration.BowlerId, openLane.LaneAssignment);
+        new Presenter(_config, this).Update(SquadId, registration!, openLane!.LaneAssignment);  
     }
 
     private void LaneAssignmentRegistered_KeyUp(object sender, KeyEventArgs e)
@@ -145,6 +147,8 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         var registeredLane = sender as Controls.LaneAssignmentControl;
 
+        //new Presenter(_config, this).Update(SquadId, registeredLane.BowlerId, string.Empty);
+
         var unassignedRegistration = Add(registeredLane!);
 
         unassignedRegistrationsFlowLayoutPanel.Controls.Add(unassignedRegistration);
@@ -152,10 +156,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         registeredLane!.ClearRegistration();
         registeredLane.KeyUp -= LaneAssignmentRegistered_KeyUp!;
 
-        LaneAssignmentRegistered_Leave(sender, e);
-
-        //todo: do this first and control the rest after in case there is an error (will need to find controls again
-        //new Presenter(_config, this).Update(SquadId, registeredLane.BowlerId, string.Empty);
+        LaneAssignmentRegistered_Leave(sender, e);   
     }
 
     private void LaneAssignmentRegistered_Enter(object sender, EventArgs e)
