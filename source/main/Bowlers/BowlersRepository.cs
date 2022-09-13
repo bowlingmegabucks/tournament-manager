@@ -20,14 +20,25 @@ internal class Repository : IRepository
 
     IEnumerable<Database.Entities.Bowler> IRepository.Search(Models.BowlerSearchCriteria searchCriteria)
     {
-        var bowlers = searchCriteria.WithoutRegistrationOnSquads.Any() && searchCriteria.RegisteredInTournament.HasValue
-            ? _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Squads)
-                                  .Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Division).AsNoTracking()
-            : searchCriteria.RegisteredInTournament.HasValue
-                ? _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Division).AsNoTracking()
-                : searchCriteria.WithoutRegistrationOnSquads.Any()
-                            ? _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Squads)
-                            : _dataContext.Bowlers.AsNoTracking();
+        IQueryable<Database.Entities.Bowler> bowlers;
+
+        if (searchCriteria.WithoutRegistrationOnSquads.Any() && searchCriteria.RegisteredInTournament.HasValue)
+        {
+            bowlers = _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Squads)
+                                  .Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Division).AsNoTracking();
+        }
+        else if (searchCriteria.RegisteredInTournament.HasValue)
+        {
+            bowlers = _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Division).AsNoTracking();
+        }
+        else if (searchCriteria.WithoutRegistrationOnSquads.Any())
+        {
+            bowlers = _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Squads).AsNoTracking();
+        }
+        else
+        { 
+            bowlers = _dataContext.Bowlers.AsNoTracking();
+        }
 
         if (!string.IsNullOrWhiteSpace(searchCriteria.LastName))
         {
@@ -44,14 +55,14 @@ internal class Repository : IRepository
             bowlers = bowlers.Where(b => b.EmailAddress == searchCriteria.EmailAddress);
         }
 
-        if (searchCriteria.WithoutRegistrationOnSquads.Any())
-        {
-            bowlers = bowlers.Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any());
-        }
-
         if (searchCriteria.RegisteredInTournament.HasValue)
         {
             bowlers = bowlers.Where(bowler => bowler.Registrations.Any(registration => registration.Division.TournamentId == searchCriteria.RegisteredInTournament.Value));
+        }
+
+        if (searchCriteria.WithoutRegistrationOnSquads.Any())
+        {
+            return bowlers.ToList().Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any());
         }
 
         return bowlers;
