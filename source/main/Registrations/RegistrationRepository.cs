@@ -35,8 +35,6 @@ internal class Repository : IRepository
         registration.Squads.Add(new Database.Entities.SquadRegistration { RegistrationId = registration.Id, SquadId = squadId });
 
         _dataContext.SaveChanges();
-
-        return 
     }
 
     IEnumerable<Database.Entities.Registration> IRepository.Retrieve(TournamentId tournamentId)

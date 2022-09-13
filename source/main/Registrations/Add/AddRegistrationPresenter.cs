@@ -99,8 +99,8 @@ internal class Presenter
         {
             _view.BindDivisions(divisionsTask.Result.OrderBy(division => division.Number));
 
-            _view.BindSquads(squadsTask.Result.OrderBy(squad => squad.Date));
-            _view.BindSweepers(sweepersTask.Result.OrderBy(sweeper => sweeper.Date));
+            _view.BindSquads(squadsTask.Result.Where(squad=> !squad.Complete).OrderBy(squad => squad.Date));
+            _view.BindSweepers(sweepersTask.Result.Where(squad=> !squad.Complete).OrderBy(sweeper => sweeper.Date));
 
             if (tasks.Contains(bowlerTask))
             {
@@ -109,68 +109,68 @@ internal class Presenter
         }
     }
 
-    public void Load(SquadId squadId)
-    {
-        var bowlerId = _view.SelectBowler(squadId);
+    //public void Load(SquadId squadId)
+    //{
+    //    var bowlerId = _view.SelectBowler(squadId);
 
-        if (bowlerId == null)
-        {
-            _view.Close();
+    //    if (bowlerId == null)
+    //    {
+    //        _view.Close();
 
-            return;
-        }
+    //        return;
+    //    }
 
-        //todo: get tournamentId from SquadId
-        var tournamentId = TournamentId.New();
+    //    //todo: get tournamentId from SquadId
+    //    var tournamentId = TournamentId.New();
 
-        var divisionsTask = Task.Run(() => _retrieveDivisionsAdapter.Execute(tournamentId));
-        var squadsTask = Task.Run(() => _retrieveSquadsAdapter.Execute(tournamentId));
-        var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.Execute(tournamentId));
+    //    var divisionsTask = Task.Run(() => _retrieveDivisionsAdapter.Execute(tournamentId));
+    //    var squadsTask = Task.Run(() => _retrieveSquadsAdapter.Execute(tournamentId));
+    //    var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.Execute(tournamentId));
 
-        var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
+    //    var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
 
-        var bowlerTask = Task.Run(() => RetrieveBowlerAdapter.Execute(bowlerId.Value));
+    //    var bowlerTask = Task.Run(() => RetrieveBowlerAdapter.Execute(bowlerId.Value));
 
-        if (bowlerId != BowlerId.Empty)
-        {
-            tasks.Add(bowlerTask);
-        }
+    //    if (bowlerId != BowlerId.Empty)
+    //    {
+    //        tasks.Add(bowlerTask);
+    //    }
 
-        Task.WaitAll(tasks.ToArray());
+    //    Task.WaitAll(tasks.ToArray());
 
-        if (_retrieveDivisionsAdapter.Error != null)
-        {
-            _view.DisplayError(_retrieveDivisionsAdapter.Error.Message);
-            _view.Disable();
-        }
-        else if (_retrieveSquadsAdapter.Error != null)
-        {
-            _view.DisplayError(_retrieveSquadsAdapter.Error.Message);
-            _view.Disable();
-        }
-        else if (_retrieveSweepersAdapter.Error != null)
-        {
-            _view.DisplayError(_retrieveSweepersAdapter.Error.Message);
-            _view.Disable();
-        }
-        else if (RetrieveBowlerAdapter.Error != null)
-        {
-            _view.DisplayError(RetrieveBowlerAdapter.Error.Message);
-            _view.Disable();
-        }
-        else
-        {
-            _view.BindDivisions(divisionsTask.Result.OrderBy(division => division.Number));
+    //    if (_retrieveDivisionsAdapter.Error != null)
+    //    {
+    //        _view.DisplayError(_retrieveDivisionsAdapter.Error.Message);
+    //        _view.Disable();
+    //    }
+    //    else if (_retrieveSquadsAdapter.Error != null)
+    //    {
+    //        _view.DisplayError(_retrieveSquadsAdapter.Error.Message);
+    //        _view.Disable();
+    //    }
+    //    else if (_retrieveSweepersAdapter.Error != null)
+    //    {
+    //        _view.DisplayError(_retrieveSweepersAdapter.Error.Message);
+    //        _view.Disable();
+    //    }
+    //    else if (RetrieveBowlerAdapter.Error != null)
+    //    {
+    //        _view.DisplayError(RetrieveBowlerAdapter.Error.Message);
+    //        _view.Disable();
+    //    }
+    //    else
+    //    {
+    //        _view.BindDivisions(divisionsTask.Result.OrderBy(division => division.Number));
 
-            _view.BindSquads(squadsTask.Result.OrderBy(squad => squad.Date), squadId);
-            _view.BindSweepers(sweepersTask.Result.OrderBy(sweeper => sweeper.Date), squadId);
+    //        _view.BindSquads(squadsTask.Result.OrderBy(squad => squad.Date), squadId);
+    //        _view.BindSweepers(sweepersTask.Result.OrderBy(sweeper => sweeper.Date), squadId);
 
-            if (tasks.Contains(bowlerTask))
-            {
-                _view.BindBowler(bowlerTask.Result!);
-            }
-        }
-    }
+    //        if (tasks.Contains(bowlerTask))
+    //        {
+    //            _view.BindBowler(bowlerTask.Result!);
+    //        }
+    //    }
+    //}
 
     public void Execute()
     {

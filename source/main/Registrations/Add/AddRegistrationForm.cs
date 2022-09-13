@@ -31,7 +31,12 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         _config = config;
 
-        new Presenter(config, this).Load(squadId);
+        //todo: just here until presenter is uncommented
+        if (squadId.Value == Guid.Empty)
+        {
+
+        }
+        //new Presenter(config, this).Load(squadId);
     }
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)

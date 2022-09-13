@@ -235,10 +235,14 @@ internal class Presenter
         var squad2 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2));
 
+        var squad2A = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        squad2A.SetupGet(squad=> squad.Complete).Returns(true);
+        squad2A.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
+
         var squad3 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
 
-        var squads = new[] { squad3.Object, squad1.Object, squad2.Object };
+        var squads = new[] { squad3.Object, squad2A.Object, squad1.Object, squad2.Object };
         _squadsAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
         var tournamentId = TournamentId.New();
@@ -265,6 +269,10 @@ internal class Presenter
 
         var sweeper2 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2));
+
+        var sweeper2A = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
+        sweeper2A.SetupGet(sweeper => sweeper.Complete).Returns(true);
+        sweeper2A.SetupGet(sweeper => sweeper.Date).Returns(new DateTime(2015, 1, 3));
 
         var sweeper3 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
