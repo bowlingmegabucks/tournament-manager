@@ -103,6 +103,23 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
     }
+
+    public Models.Registration? Execute(BowlerId bowlerId, SquadId squadId)
+    {
+        try
+        {
+            //todo: UI search is doing a lot of tbe heavy lifting here.
+            //      when revisiting, add some validation methods to make sure the bowler is in the tournament
+            //      already and not already on the squad
+            return DataLayer.Execute(bowlerId, squadId);
+        }
+        catch (Exception ex)
+        {
+            Errors = new[] { new Models.ErrorDetail(ex) };
+
+            return null;
+        }
+    }
 }
 
 internal interface IBusinessLogic
@@ -110,4 +127,6 @@ internal interface IBusinessLogic
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
     RegistrationId? Execute(Models.Registration registration);
+
+    Models.Registration? Execute(BowlerId bowlerId, SquadId squadId);
 }
