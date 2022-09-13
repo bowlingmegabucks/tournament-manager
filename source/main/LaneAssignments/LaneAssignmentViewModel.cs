@@ -31,6 +31,26 @@ internal class ViewModel : IViewModel
         Handicap = laneAssignment.Handicap;
     }
 
+    public ViewModel(Models.Registration registration) : this(registration, new HandicapCalculator()) { }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="registration"></param>
+    /// <param name="handicapCalculator"></param>
+    internal ViewModel(Models.Registration registration, IHandicapCalculator handicapCalculator)
+    {
+        BowlerId = registration.Bowler.Id;
+        BowlerName = registration.Bowler.ToString();
+
+        DivisionName = registration.Division.Name;
+        DivisionNumber = registration.Division.Number;
+
+        LaneAssignment = string.Empty;
+        Average = registration.Average.GetValueOrDefault(0);
+        Handicap = handicapCalculator.Calculate(registration);
+    }
+
     /// <summary>
     /// Unit Test Constructor
     /// </summary>

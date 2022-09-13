@@ -2,9 +2,12 @@
 namespace NortheastMegabuck;
 internal class HandicapCalculator : IHandicapCalculator
 {
-    int IHandicapCalculator.Calculate(NortheastMegabuck.Database.Entities.Registration registration)
+    int IHandicapCalculator.Calculate(Database.Entities.Registration registration)
         => Calculate(registration.Average, registration.Division.HandicapBase, registration.Division.HandicapPercentage, registration.Division.MaximumHandicapPerGame);
 
+    int IHandicapCalculator.Calculate(Models.Registration registration)
+        => Calculate(registration.Average, registration.Division.HandicapBase, registration.Division.HandicapPercentage, registration.Division.MaximumHandicapPerGame);
+    
     private int Calculate(int? average, int? handicapBase, decimal? handicapPercentage, int? maxHandicap)
     {
         if (!(average.HasValue && handicapBase.HasValue && handicapPercentage.HasValue))
@@ -26,4 +29,6 @@ internal class HandicapCalculator : IHandicapCalculator
 internal interface IHandicapCalculator
 {
     int Calculate(Database.Entities.Registration registration);
+
+    int Calculate(Models.Registration registration);
 }
