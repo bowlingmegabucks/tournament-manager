@@ -20,13 +20,11 @@ internal interface IView
 
     BowlerId? SelectBowler();
 
-    BowlerId? SelectBowler(SquadId squadId);
-
     void Close();
 
     Bowlers.Add.IViewModel Bowler { get; }
 
-    NortheastMegabuck.DivisionId DivisionId { get; }
+    DivisionId DivisionId { get; }
 
     int? Average { get; }
 

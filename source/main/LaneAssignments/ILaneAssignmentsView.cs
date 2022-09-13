@@ -1,6 +1,7 @@
 ﻿namespace NortheastMegabuck.LaneAssignments;
 internal interface IView
 {
+    TournamentId TournamentId { get; }
     SquadId SquadId { get; }
 
     int StartingLane { get; }
@@ -23,7 +24,7 @@ internal interface IView
 
     void AssignToLane(IViewModel registration, string position);
 
-    IViewModel? AddToRegistration(SquadId squadId);
+    BowlerId? GetBowler(TournamentId tournamentId, SquadId squadId);
 
     IViewModel? NewRegistration(SquadId squadId);
 }

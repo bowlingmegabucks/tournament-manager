@@ -32,7 +32,6 @@ partial class Form
             this.laneAssignmentFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.unassignedRegistrationsGroupbox = new System.Windows.Forms.GroupBox();
             this.unassignedRegistrationsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.newRegistrationButton = new System.Windows.Forms.Button();
             this.addToRegistrationButton = new System.Windows.Forms.Button();
             this.laneAssignmentGroupbox.SuspendLayout();
             this.unassignedRegistrationsGroupbox.SuspendLayout();
@@ -79,22 +78,10 @@ partial class Form
             this.unassignedRegistrationsFlowLayoutPanel.TabIndex = 2;
             this.unassignedRegistrationsFlowLayoutPanel.WrapContents = false;
             // 
-            // newRegistrationButton
-            // 
-            this.newRegistrationButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.newRegistrationButton.Enabled = false;
-            this.newRegistrationButton.Location = new System.Drawing.Point(15, 958);
-            this.newRegistrationButton.Name = "newRegistrationButton";
-            this.newRegistrationButton.Size = new System.Drawing.Size(123, 29);
-            this.newRegistrationButton.TabIndex = 4;
-            this.newRegistrationButton.Text = "New Registration";
-            this.newRegistrationButton.UseVisualStyleBackColor = true;
-            this.newRegistrationButton.Click += new System.EventHandler(this.NewRegistrationButton_Click);
-            // 
             // addToRegistrationButton
             // 
             this.addToRegistrationButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.addToRegistrationButton.Location = new System.Drawing.Point(144, 958);
+            this.addToRegistrationButton.Location = new System.Drawing.Point(15, 958);
             this.addToRegistrationButton.Name = "addToRegistrationButton";
             this.addToRegistrationButton.Size = new System.Drawing.Size(123, 29);
             this.addToRegistrationButton.TabIndex = 5;
@@ -108,7 +95,6 @@ partial class Form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1537, 1013);
             this.Controls.Add(this.addToRegistrationButton);
-            this.Controls.Add(this.newRegistrationButton);
             this.Controls.Add(this.unassignedRegistrationsGroupbox);
             this.Controls.Add(this.laneAssignmentGroupbox);
             this.MaximizeBox = false;
@@ -127,6 +113,5 @@ partial class Form
     private FlowLayoutPanel laneAssignmentFlowLayoutPanel;
     private GroupBox unassignedRegistrationsGroupbox;
     private FlowLayoutPanel unassignedRegistrationsFlowLayoutPanel;
-    private Button newRegistrationButton;
     private Button addToRegistrationButton;
 }

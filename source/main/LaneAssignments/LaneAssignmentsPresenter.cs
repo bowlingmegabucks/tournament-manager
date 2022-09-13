@@ -86,9 +86,9 @@ internal class Presenter
 
     public void AddToRegistration()
     {
-        var registration = _view.AddToRegistration(_view.SquadId);
+        var bowlerId = _view.GetBowler(_view.TournamentId, _view.SquadId);
 
-        if (registration == null)
+        if (bowlerId == null)
         {
 
         }

@@ -5,9 +5,10 @@ internal partial class Dialog : Form, IView
     private readonly IConfiguration _config;
 
     private readonly IEnumerable<SquadId> _registrationsWithoutSquads;
-    public Dialog(IConfiguration config, bool allowNewBowler) : this(config, allowNewBowler, Enumerable.Empty<SquadId>()) { }
+    private readonly TournamentId? _tournamentId;
+    public Dialog(IConfiguration config, bool allowNewBowler) : this(config, allowNewBowler, null, Enumerable.Empty<SquadId>()) { }
 
-    public Dialog(IConfiguration config, bool allowNewBowler, IEnumerable<SquadId> registrationWithoutSquad)
+    public Dialog(IConfiguration config, bool allowNewBowler, TournamentId? tournamentId, IEnumerable<SquadId> registrationWithoutSquad)
     {
         InitializeComponent();
 
@@ -15,6 +16,7 @@ internal partial class Dialog : Form, IView
         SelectedBowlerId = null;
 
         _registrationsWithoutSquads = registrationWithoutSquad;
+        _tournamentId = tournamentId;
 
         newBowlerButton.Visible = allowNewBowler;
     }
@@ -26,7 +28,8 @@ internal partial class Dialog : Form, IView
             FirstName = firstNameText.Text,
             LastName = lastNameText.Text,
             EmailAddress = emailText.Text,
-            WithoutRegistrationOnSquads = _registrationsWithoutSquads
+            WithoutRegistrationOnSquads = _registrationsWithoutSquads,
+            RegisteredInTournament = _tournamentId
         };
 
     public void DisplayError(string message)
