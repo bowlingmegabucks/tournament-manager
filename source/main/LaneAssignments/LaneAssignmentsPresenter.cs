@@ -116,11 +116,16 @@ internal class Presenter
 
     public void NewRegistration()
     {
-        var registration = _view.NewRegistration(_view.SquadId);
+        var laneAssignment = _view.NewRegistration(_view.TournamentId, _view.SquadId);
 
-        if (registration == null)
+        if (laneAssignment == null)
         {
+            _view.DisplayMessage("New Registration Canceled");
 
+            return;
         }
+
+        _view.DisplayMessage($"{laneAssignment!.BowlerName} is ready to be assigned to a lane");
+        _view.AddToUnassigned(laneAssignment);
     }
 }

@@ -35,6 +35,7 @@ partial class Form
             this.unassignedRegistrationsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.addToRegistrationButton = new System.Windows.Forms.Button();
             this.laneAssignmentToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.newRegistrationButton = new System.Windows.Forms.Button();
             this.laneAssignmentGroupbox.SuspendLayout();
             this.unassignedRegistrationsGroupbox.SuspendLayout();
             this.SuspendLayout();
@@ -91,11 +92,23 @@ partial class Form
             this.addToRegistrationButton.UseVisualStyleBackColor = true;
             this.addToRegistrationButton.Click += new System.EventHandler(this.AddToRegistrationButton_Click);
             // 
+            // newRegistrationButton
+            // 
+            this.newRegistrationButton.Location = new System.Drawing.Point(733, 955);
+            this.newRegistrationButton.Name = "newRegistrationButton";
+            this.newRegistrationButton.Size = new System.Drawing.Size(123, 29);
+            this.newRegistrationButton.TabIndex = 6;
+            this.newRegistrationButton.Text = "New Registration";
+            this.laneAssignmentToolTip.SetToolTip(this.newRegistrationButton, "Add bowler to squad who has NOT bowled in the tournament");
+            this.newRegistrationButton.UseVisualStyleBackColor = true;
+            this.newRegistrationButton.Click += new System.EventHandler(this.NewRegistrationButton_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1537, 1013);
+            this.Controls.Add(this.newRegistrationButton);
             this.Controls.Add(this.addToRegistrationButton);
             this.Controls.Add(this.unassignedRegistrationsGroupbox);
             this.Controls.Add(this.laneAssignmentGroupbox);
@@ -117,4 +130,5 @@ partial class Form
     private FlowLayoutPanel unassignedRegistrationsFlowLayoutPanel;
     private Button addToRegistrationButton;
     private ToolTip laneAssignmentToolTip;
+    private Button newRegistrationButton;
 }

@@ -27,11 +27,12 @@ internal partial class Form : System.Windows.Forms.Form, IView
     /// </summary>
     /// <param name="config"></param>
     /// <param name="squadId"></param>
-    public Form(IConfiguration config, SquadId squadId)
+    public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId)
     {
         InitializeComponent();
 
         _config = config;
+        _tournamentId = tournamentId;
 
         //todo: just here until presenter is uncommented
         if (squadId.Value == Guid.Empty)

@@ -314,4 +314,48 @@ internal class Presenter
             _view.Verify(view => view.AddToUnassigned(registration.Object), Times.Once);
         });
     }
+
+    [Test]
+    public void NewRegistration_ViewNewRegistration_CalledCorrectly()
+    {
+        var tournamentId = TournamentId.New();
+        var squadId = SquadId.New();
+
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
+        _view.SetupGet(view => view.SquadId).Returns(squadId);
+
+        _presenter.NewRegistration();
+
+        _view.Verify(view => view.NewRegistration(tournamentId, squadId), Times.Once);
+    }
+
+    [Test]
+    public void NewRegistration_RegistrationNull_CancelFlow()
+    {
+        _presenter.NewRegistration();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayMessage("New Registration Canceled"), Times.Once);
+
+            _view.Verify(view => view.AddToUnassigned(It.IsAny<NortheastMegabuck.LaneAssignments.IViewModel>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void NewRegistration_RegistrationNotNull_SuccessFlow()
+    {
+        var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        registration.SetupGet(r => r.BowlerName).Returns("bowler name");
+
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(registration.Object);
+
+        _presenter.NewRegistration();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayMessage("bowler name is ready to be assigned to a lane"), Times.Once);
+            _view.Verify(view => view.AddToUnassigned(registration.Object), Times.Once);
+        });
+    }
 }
