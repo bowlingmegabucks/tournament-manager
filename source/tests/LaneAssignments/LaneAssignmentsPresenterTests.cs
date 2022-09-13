@@ -330,7 +330,7 @@ internal class Presenter
     }
 
     [Test]
-    public void NewRegistration_RegistrationNull_CancelFlow()
+    public void NewRegistration_RegistrationFalse_CancelFlow()
     {
         _presenter.NewRegistration();
 
@@ -343,19 +343,155 @@ internal class Presenter
     }
 
     [Test]
-    public void NewRegistration_RegistrationNotNull_SuccessFlow()
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_ViewClearLanes_Called()
     {
-        var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
-        registration.SetupGet(r => r.BowlerName).Returns("bowler name");
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
-        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(registration.Object);
+        _presenter.NewRegistration();
+
+        _view.Verify(view => view.ClearLanes(), Times.Once);
+    }
+
+    [Test]
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_ViewClearUnassigned_Called()
+    {
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
+
+        _presenter.NewRegistration();
+
+        _view.Verify(view => view.ClearUnassigned(), Times.Once);
+    }
+
+    [Test]
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerate_CalledCorrectly()
+    {
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
+
+        _view.SetupGet(view => view.StartingLane).Returns(1);
+        _view.SetupGet(view => view.NumberOfLanes).Returns(10);
+        _view.SetupGet(view => view.MaxPerPair).Returns(4);
+
+        _presenter.NewRegistration();
+
+        _laneAvailability.Verify(laneAvailability => laneAvailability.Generate(1, 10, 4), Times.Once);
+    }
+
+    [Test]
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_ViewBuildLanes_CalledCorrectly()
+    {
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
+
+        var lanes = new[] { "1", "2" };
+        _laneAvailability.Setup(laneAvailability => laneAvailability.Generate(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(lanes);
+
+        _presenter.NewRegistration();
+
+        _view.Verify(view => view.BuildLanes(lanes), Times.Once);
+    }
+
+    [Test]
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateThrowsException_ExceptionFlow()
+    {
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
+
+        var ex = new Exception("exception");
+        _laneAvailability.Setup(laneAvailability => laneAvailability.Generate(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Throws(ex);
 
         _presenter.NewRegistration();
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.DisplayMessage("bowler name is ready to be assigned to a lane"), Times.Once);
-            _view.Verify(view => view.AddToUnassigned(registration.Object), Times.Once);
+            _view.Verify(view => view.DisplayError("exception"), Times.Once);
+            _view.Verify(view => view.Disable(), Times.Once);
+
+            _retrieveAdapter.Verify(adapter => adapter.Execute(It.IsAny<SquadId>()), Times.Never);
+            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecute_CalledCorrectly()
+    {
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
+
+        var squadId = SquadId.New();
+        _view.SetupGet(view => view.SquadId).Returns(squadId);
+
+        _presenter.NewRegistration();
+
+        _retrieveAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+    }
+
+    [Test]
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterHasError_ErrorFlow()
+    {
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
+
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        _retrieveAdapter.SetupGet(adapter => adapter.Error).Returns(error);
+
+        _presenter.NewRegistration();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("error"), Times.Once);
+            _view.Verify(view => view.Disable(), Times.Once);
+
+            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindRegistrations_CalledCorrectly()
+    {
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
+
+        var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
+
+        var assignment2 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
+
+        var assignment3 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
+
+        var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
+        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+
+        _presenter.NewRegistration();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 1)), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
+        });
+    }
+
+    [Test]
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignmments_CalledCorrectly()
+    {
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
+
+        var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
+
+        var assignment2 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
+
+        var assignment3 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
+
+        var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
+        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+
+        _presenter.NewRegistration();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 2)), Times.Once);
+            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => !string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
         });
     }
 }

@@ -108,13 +108,18 @@ public partial class Form : System.Windows.Forms.Form, IView
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }
 
-    public IViewModel? NewRegistration(TournamentId tournamentId, SquadId squadId)
+    public bool NewRegistration(TournamentId tournamentId, SquadId squadId)
     {
         using var form = new Registrations.Add.Form(_config, tournamentId, squadId);
 
-        return form.ShowDialog(this) == DialogResult.Cancel ? null 
-                : (IViewModel)new ViewModel(new Models.LaneAssignment());
+        return form.ShowDialog(this) == DialogResult.OK;
     }
+
+    public void ClearLanes()
+        => laneAssignmentFlowLayoutPanel.Controls.Clear();
+
+    public void ClearUnassigned()
+        => unassignedRegistrationsFlowLayoutPanel.Controls.Clear();
 
     public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair)
     {
