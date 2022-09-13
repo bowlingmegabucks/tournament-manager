@@ -28,11 +28,13 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
+            this.components = new System.ComponentModel.Container();
             this.laneAssignmentGroupbox = new System.Windows.Forms.GroupBox();
             this.laneAssignmentFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.unassignedRegistrationsGroupbox = new System.Windows.Forms.GroupBox();
             this.unassignedRegistrationsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.addToRegistrationButton = new System.Windows.Forms.Button();
+            this.laneAssignmentToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.laneAssignmentGroupbox.SuspendLayout();
             this.unassignedRegistrationsGroupbox.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +87,7 @@ partial class Form
             this.addToRegistrationButton.Size = new System.Drawing.Size(123, 29);
             this.addToRegistrationButton.TabIndex = 5;
             this.addToRegistrationButton.Text = "Add to Registration";
+            this.laneAssignmentToolTip.SetToolTip(this.addToRegistrationButton, "Add bowler to squad who has already bowled in the tournament");
             this.addToRegistrationButton.UseVisualStyleBackColor = true;
             this.addToRegistrationButton.Click += new System.EventHandler(this.AddToRegistrationButton_Click);
             // 
@@ -113,4 +116,5 @@ partial class Form
     private GroupBox unassignedRegistrationsGroupbox;
     private FlowLayoutPanel unassignedRegistrationsFlowLayoutPanel;
     private Button addToRegistrationButton;
+    private ToolTip laneAssignmentToolTip;
 }
