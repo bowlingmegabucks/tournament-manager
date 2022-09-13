@@ -27,7 +27,7 @@ internal class Repository : IRepository
         return registration.Id;
     }
 
-    void IRepository.AddSquad(BowlerId bowlerId, SquadId squadId)
+    Database.Entities.Registration IRepository.AddSquad(BowlerId bowlerId, SquadId squadId)
     {
         var tournamentId = _dataContext.Tournaments.Include(tournament=> tournament.Squads).Include(tournament=> tournament.Sweepers).Single(tournament => tournament.Squads.Select(squad => squad.Id).Contains(squadId) || tournament.Sweepers.Select(sweeper => sweeper.Id).Contains(squadId)).Id;
         var registration = _dataContext.Registrations.Include(registration => registration.Division).Single(registration => registration.BowlerId == bowlerId && registration.Division.TournamentId == tournamentId);
@@ -35,6 +35,8 @@ internal class Repository : IRepository
         registration.Squads.Add(new Database.Entities.SquadRegistration { RegistrationId = registration.Id, SquadId = squadId });
 
         _dataContext.SaveChanges();
+
+        return registration;
     }
 
     IEnumerable<Database.Entities.Registration> IRepository.Retrieve(TournamentId tournamentId)
@@ -52,7 +54,7 @@ internal interface IRepository
 {
     RegistrationId Add(Database.Entities.Registration registration);
 
-    void AddSquad(BowlerId bowlerId, SquadId squadId);
+    Database.Entities.Registration AddSquad(BowlerId bowlerId, SquadId squadId);
 
     IEnumerable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
 

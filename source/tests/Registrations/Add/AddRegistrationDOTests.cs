@@ -18,7 +18,7 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_MapperExecute_CalledCorrectly()
+    public void Execute_Model_MapperExecute_Model_CalledCorrectly()
     {
         var registration = new NortheastMegabuck.Models.Registration();
         _dataLayer.Execute(registration);
@@ -27,7 +27,7 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryExecute_CalledCorrectly()
+    public void Execute_Model_RepositoryExecute_Model_CalledCorrectly()
     {
         var entity = new NortheastMegabuck.Database.Entities.Registration();
         _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(entity);
@@ -39,7 +39,7 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_ReturnsRepositoryAddResponse()
+    public void Execute_Model_ReturnsRepositoryAddResponse()
     {
         var registrationId = RegistrationId.New();
         _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(registrationId);
@@ -48,5 +48,46 @@ internal class DataLayer
         var actual = _dataLayer.Execute(model);
 
         Assert.That(actual, Is.EqualTo(registrationId));
+    }
+
+    [Test]
+    public void Execute_BowlerIdSquadId_RepositoryAddSquad_CalledCorrectly()
+    {
+        _repository.Setup(repository => repository.AddSquad(It.IsAny<BowlerId>(), It.IsAny<SquadId>()))
+            .Returns(new NortheastMegabuck.Database.Entities.Registration 
+            {
+                Squads = new List<NortheastMegabuck.Database.Entities.SquadRegistration>(), 
+                Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
+                Division = new NortheastMegabuck.Database.Entities.Division()
+            });
+
+        var bowlerId = BowlerId.New();
+        var squadId = SquadId.New();
+
+        _dataLayer.Execute(bowlerId, squadId);
+
+        _repository.Verify(repository => repository.AddSquad(bowlerId, squadId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_BowlerIdSquadId_ReturnsRegistration()
+    {
+        var registrationId = RegistrationId.New();
+
+        _repository.Setup(repository => repository.AddSquad(It.IsAny<BowlerId>(), It.IsAny<SquadId>()))
+            .Returns(new NortheastMegabuck.Database.Entities.Registration
+            {
+                Id = registrationId,
+                Squads = new List<NortheastMegabuck.Database.Entities.SquadRegistration>(),
+                Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
+                Division = new NortheastMegabuck.Database.Entities.Division()
+            });
+
+        var bowlerId = BowlerId.New();
+        var squadId = SquadId.New();
+
+        var actual = _dataLayer.Execute(bowlerId, squadId);
+
+        Assert.That(actual.Id, Is.EqualTo(registrationId));
     }
 }

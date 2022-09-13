@@ -90,8 +90,14 @@ internal class Presenter
 
         if (bowlerId == null)
         {
+            _view.DisplayMessage("Add to Registration Canceled");
 
+            return;
         }
+
+        //var registration = _addToRegistrationAdapter.Execute(bowlerId.Value, _view.TournamentId, _view.SquadId);
+
+        //todo: if successful, then do something like _view.AddToUnassigned(registration);
     }
 
     public void NewRegistration()

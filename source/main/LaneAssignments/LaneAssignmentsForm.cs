@@ -30,6 +30,9 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+    public void DisplayMessage(string message)
+        => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
     public void Disable()
     {
         laneAssignmentGroupbox.Enabled = false;
