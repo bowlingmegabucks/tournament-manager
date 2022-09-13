@@ -11,4 +11,6 @@ internal class BowlerSearchCriteria
     public IEnumerable<SquadId> WithoutRegistrationOnSquads { get; set; } = Enumerable.Empty<SquadId>();
 
     public TournamentId? RegisteredInTournament { get; set; }
+
+    public TournamentId? NotRegisteredInTournament { get; set; }
 }

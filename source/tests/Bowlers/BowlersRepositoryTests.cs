@@ -427,4 +427,96 @@ internal class Repository
 
         Assert.That(result, Is.Empty);
     }
+
+    [Test]
+    public void Search_NotRegisteredInTournamentOnRegistration_ReturnsNoBowlers()
+    {
+        var tournamentId = TournamentId.New();
+
+        var registration1 = new NortheastMegabuck.Database.Entities.Registration
+        {
+            Division = new NortheastMegabuck.Database.Entities.Division
+            {
+                TournamentId = TournamentId.New()
+            }
+        };
+
+        var registration2 = new NortheastMegabuck.Database.Entities.Registration
+        {
+            Division = new NortheastMegabuck.Database.Entities.Division
+            {
+                TournamentId = tournamentId
+            }
+        };
+
+        var registration3 = new NortheastMegabuck.Database.Entities.Registration
+        {
+            Division = new NortheastMegabuck.Database.Entities.Division
+            {
+                TournamentId = TournamentId.New()
+            }
+        };
+
+        var bowler = new NortheastMegabuck.Database.Entities.Bowler
+        {
+            Registrations = new[] { registration1, registration2, registration3 }
+        };
+
+        _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
+
+        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria
+        {
+            NotRegisteredInTournament = tournamentId
+        };
+
+        var result = _repository.Search(searchCriteria).ToList();
+
+        Assert.That(result, Is.Empty);
+    }
+
+    [Test]
+    public void Search_NotRegisteredInTournamentNotOnRegistration_ReturnsBowler()
+    {
+        var tournamentId = TournamentId.New();
+
+        var registration1 = new NortheastMegabuck.Database.Entities.Registration
+        {
+            Division = new NortheastMegabuck.Database.Entities.Division
+            {
+                TournamentId = TournamentId.New()
+            }
+        };
+
+        var registration2 = new NortheastMegabuck.Database.Entities.Registration
+        {
+            Division = new NortheastMegabuck.Database.Entities.Division
+            {
+                TournamentId = TournamentId.New()
+            }
+        };
+
+        var registration3 = new NortheastMegabuck.Database.Entities.Registration
+        {
+            Division = new NortheastMegabuck.Database.Entities.Division
+            {
+                TournamentId = TournamentId.New()
+            }
+        };
+
+        var bowler = new NortheastMegabuck.Database.Entities.Bowler
+        {
+            Registrations = new[] { registration1, registration2, registration3 }
+        };
+
+        _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
+
+        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria
+        {
+            NotRegisteredInTournament = tournamentId
+        };
+
+        var result = _repository.Search(searchCriteria).ToList();
+
+        Assert.That(result, Has.Count.EqualTo(1));
+    }
 }

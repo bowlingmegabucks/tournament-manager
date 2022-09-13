@@ -60,12 +60,14 @@ internal class Repository : IRepository
             bowlers = bowlers.Where(bowler => bowler.Registrations.Any(registration => registration.Division.TournamentId == searchCriteria.RegisteredInTournament.Value));
         }
 
-        if (searchCriteria.WithoutRegistrationOnSquads.Any())
+        if (searchCriteria.NotRegisteredInTournament.HasValue)
         {
-            return bowlers.ToList().Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any());
+            bowlers = bowlers.Where(bowler => !bowler.Registrations.Any(registration => registration.Division.TournamentId == searchCriteria.NotRegisteredInTournament.Value));
         }
 
-        return bowlers;
+        return searchCriteria.WithoutRegistrationOnSquads.Any()
+            ? bowlers.ToList().Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
+            : bowlers.AsEnumerable();
     }
 }
 
