@@ -9,6 +9,10 @@ internal class Presenter
 
     private readonly Lazy<Update.IAdapter> _updateAdapter;
     private Update.IAdapter UpdateAdapter => _updateAdapter.Value;
+
+    private readonly Lazy<Registrations.Add.IAdapter> _addRegistrationAdapter;
+    private Registrations.Add.IAdapter AddRegistrationAdapter => _addRegistrationAdapter.Value;
+
     public Presenter(IConfiguration config, IView view)
     {
         _view = view;
@@ -16,6 +20,7 @@ internal class Presenter
 
         _retrieveAdapter = new Lazy<Retrieve.IAdapter>(() => new Retrieve.Adapter(config));
         _updateAdapter = new Lazy<Update.IAdapter>(() => new Update.Adapter(config));
+        _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(()=> new Registrations.Add.Adapter(config));
     }
 
     /// <summary>
@@ -25,12 +30,13 @@ internal class Presenter
     /// <param name="mockLaneAvailability"></param>
     /// <param name="mockRetrieveAdapter"></param>
     /// <param name="mockUpdateAdapter"></param>
-    internal Presenter(IView mockView, ILaneAvailability mockLaneAvailability, Retrieve.IAdapter mockRetrieveAdapter, Update.IAdapter mockUpdateAdapter)
+    internal Presenter(IView mockView, ILaneAvailability mockLaneAvailability, Retrieve.IAdapter mockRetrieveAdapter, Update.IAdapter mockUpdateAdapter, Registrations.Add.IAdapter mockAddRegistrationAdapter)
     {
         _view = mockView;
         _laneAvailability = mockLaneAvailability;
         _retrieveAdapter = new Lazy<Retrieve.IAdapter>(() => mockRetrieveAdapter);
         _updateAdapter = new Lazy<Update.IAdapter>(() => mockUpdateAdapter);
+        _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(() => mockAddRegistrationAdapter);
     }
 
     public void Load()
@@ -86,7 +92,7 @@ internal class Presenter
 
     public void AddToRegistration()
     {
-        var bowlerId = _view.GetBowler(_view.TournamentId, _view.SquadId);
+        var bowlerId = _view.SelectBowler(_view.TournamentId, _view.SquadId);
 
         if (bowlerId == null)
         {
@@ -95,9 +101,17 @@ internal class Presenter
             return;
         }
 
-        //var registration = _addToRegistrationAdapter.Execute(bowlerId.Value, _view.TournamentId, _view.SquadId);
+        var laneAssignment = AddRegistrationAdapter.Execute(bowlerId.Value, _view.SquadId);
 
-        //todo: if successful, then do something like _view.AddToUnassigned(registration);
+        if (AddRegistrationAdapter.Errors.Any())
+        {
+            _view.DisplayError(string.Join(Environment.NewLine, AddRegistrationAdapter.Errors.Select(error => error.Message)));
+
+            return;
+        }
+
+        _view.DisplayMessage($"{laneAssignment!.BowlerName} is ready to be assigned to a lane");
+        _view.AddToUnassigned(laneAssignment);
     }
 
     public void NewRegistration()

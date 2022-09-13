@@ -30,7 +30,11 @@ internal class Repository : IRepository
     Database.Entities.Registration IRepository.AddSquad(BowlerId bowlerId, SquadId squadId)
     {
         var tournamentId = _dataContext.Tournaments.Include(tournament=> tournament.Squads).Include(tournament=> tournament.Sweepers).Single(tournament => tournament.Squads.Select(squad => squad.Id).Contains(squadId) || tournament.Sweepers.Select(sweeper => sweeper.Id).Contains(squadId)).Id;
-        var registration = _dataContext.Registrations.Include(registration => registration.Division).Single(registration => registration.BowlerId == bowlerId && registration.Division.TournamentId == tournamentId);
+        var registration = _dataContext.Registrations.Include(registration => registration.Division)
+                                                     .Include(registration=> registration.Squads)
+                                                     .Include(registration=> registration.Bowler)
+                                                     .Include(registration=> registration.Division)
+                                                     .Single(registration => registration.BowlerId == bowlerId && registration.Division.TournamentId == tournamentId);
 
         registration.Squads.Add(new Database.Entities.SquadRegistration { RegistrationId = registration.Id, SquadId = squadId });
 

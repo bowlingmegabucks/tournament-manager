@@ -24,8 +24,10 @@ internal interface IView
 
     void AssignToLane(IViewModel registration, string position);
 
-    BowlerId? GetBowler(TournamentId tournamentId, SquadId squadId);
+    BowlerId? SelectBowler(TournamentId tournamentId, SquadId squadId);
 
     IViewModel? NewRegistration(SquadId squadId);
-    void DisplayMessage(string v);
+    void DisplayMessage(string message);
+
+    void AddToUnassigned(IViewModel laneAssignment);
 }

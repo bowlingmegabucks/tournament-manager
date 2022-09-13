@@ -80,7 +80,6 @@ partial class Form
             // 
             // addToRegistrationButton
             // 
-            this.addToRegistrationButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.addToRegistrationButton.Location = new System.Drawing.Point(15, 958);
             this.addToRegistrationButton.Name = "addToRegistrationButton";
             this.addToRegistrationButton.Size = new System.Drawing.Size(123, 29);

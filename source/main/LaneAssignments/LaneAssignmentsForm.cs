@@ -44,6 +44,9 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void BindRegistrations(IEnumerable<IViewModel> registrations)
         => unassignedRegistrationsFlowLayoutPanel.Controls.AddRange(registrations.Select(BuildLaneAssignmentControl).ToArray());
 
+    public void AddToUnassigned(IViewModel registration)
+        => unassignedRegistrationsFlowLayoutPanel.Controls.Add(BuildLaneAssignmentControl(registration));
+
     public void BindLaneAssignments(IEnumerable<IViewModel> registrations)
     {
         foreach (var registration in registrations)
@@ -98,7 +101,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         LaneAssignmentRegistered_Leave(registeredLane, new EventArgs());
     }
 
-    public BowlerId? GetBowler(TournamentId tournamentId, SquadId squadId)
+    public BowlerId? SelectBowler(TournamentId tournamentId, SquadId squadId)
     {
         using var form = new Bowlers.Search.Dialog(_config, false, tournamentId, new[] { squadId });
 
