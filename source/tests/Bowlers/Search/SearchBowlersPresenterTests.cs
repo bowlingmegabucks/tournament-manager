@@ -48,6 +48,22 @@ internal class Presenter
     }
 
     [Test]
+    public void Execute_AdapterHasNoError_NoResults_NoResultsFlow()
+    {
+        var searchCritiera = new NortheastMegabuck.Models.BowlerSearchCriteria();
+        _view.SetupGet(view => view.SearchCriteria).Returns(searchCritiera);
+
+        _presenter.Execute();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayMessage("No Results"), Times.Once);
+
+            _view.Verify(view => view.BindResults(It.IsAny<IEnumerable<NortheastMegabuck.Bowlers.Search.IViewModel>>()), Times.Never);
+        });
+    }
+
+    [Test]
     public void Execute_AdapterHasNoError_ViewBindResults_CalledSorted()
     {
         var bowler1 = new Mock<NortheastMegabuck.Bowlers.Search.IViewModel>();

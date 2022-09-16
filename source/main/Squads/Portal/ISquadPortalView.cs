@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NortheastMegabuck.Squads.Portal;
+﻿namespace NortheastMegabuck.Squads.Portal;
 internal interface IView
 {
     void SetPortalTitle(string title);
+
+    int StartingLane { set; }
+
+    int NumberOfLanes { set; }
+
+    int MaxPerPair { set; }
 
     void DisplayError(string message);
 

@@ -76,7 +76,7 @@ internal class EntityMapper
     {
         var model = new NortheastMegabuck.Models.Registration
         {
-            Division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.Divisions.Id.New() }
+            Division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() }
         };
 
         var entity = _mapper.Execute(model);

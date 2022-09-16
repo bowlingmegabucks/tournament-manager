@@ -7,4 +7,10 @@ internal class BowlerSearchCriteria
     public string? LastName { get; set; }
 
     public string? EmailAddress { get; set; }
+
+    public IEnumerable<SquadId> WithoutRegistrationOnSquads { get; set; } = Enumerable.Empty<SquadId>();
+
+    public TournamentId? RegisteredInTournament { get; set; }
+
+    public TournamentId? NotRegisteredInTournament { get; set; }
 }

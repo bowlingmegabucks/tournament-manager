@@ -8,7 +8,7 @@ internal class ViewModel
     {
         var model = new NortheastMegabuck.Models.Division
         {
-            Id = NortheastMegabuck.Divisions.Id.New()
+            Id = NortheastMegabuck.DivisionId.New()
         };
 
         var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);

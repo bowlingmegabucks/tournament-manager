@@ -22,10 +22,13 @@ internal class Repository : IRepository
         => _dataContext.Tournaments.AsNoTracking().AsEnumerable();
 
     Database.Entities.Tournament IRepository.Retrieve(TournamentId id)
-        => _dataContext.Tournaments.Single(tournament=> tournament.Id == id);
+        => _dataContext.Tournaments.AsNoTracking().Single(tournament=> tournament.Id == id);
 
-    Database.Entities.Tournament IRepository.Retrieve(Divisions.Id divisionId)
-        => _dataContext.Tournaments.Include(tournament => tournament.Divisions).Include(tournament=> tournament.Sweepers).ThenInclude(sweeper=> sweeper.Divisions).Single(tournament => tournament.Divisions.Any(division => division.Id == divisionId));
+    Database.Entities.Tournament IRepository.Retrieve(DivisionId divisionId)
+        => _dataContext.Tournaments.Include(tournament => tournament.Divisions).Include(tournament=> tournament.Sweepers).ThenInclude(sweeper=> sweeper.Divisions).AsNoTracking().Single(tournament => tournament.Divisions.Any(division => division.Id == divisionId));
+
+    Database.Entities.Tournament IRepository.Retrieve(SquadId squadId)
+        => _dataContext.Tournaments.Include(tournament => tournament.Squads).Include(tournament => tournament.Sweepers).AsNoTracking().Single(tournament => tournament.Squads.Any(squad => squad.Id == squadId) || tournament.Sweepers.Any(sweeper=> sweeper.Id == squadId));
 
     TournamentId IRepository.Add(Database.Entities.Tournament tournament)
     {
@@ -42,7 +45,9 @@ internal interface IRepository
 
     Database.Entities.Tournament Retrieve(TournamentId id);
 
-    Database.Entities.Tournament Retrieve(Divisions.Id divisionId);
+    Database.Entities.Tournament Retrieve(DivisionId divisionId);
+
+    Database.Entities.Tournament Retrieve(SquadId squadId);
 
     TournamentId Add(Database.Entities.Tournament tournament);
 }

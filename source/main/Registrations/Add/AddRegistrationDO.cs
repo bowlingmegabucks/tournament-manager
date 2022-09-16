@@ -1,4 +1,5 @@
-﻿namespace NortheastMegabuck.Registrations.Add;
+﻿
+namespace NortheastMegabuck.Registrations.Add;
 internal class DataLayer : IDataLayer
 {
     private readonly IEntityMapper _mapper;
@@ -27,9 +28,13 @@ internal class DataLayer : IDataLayer
         
         return _repository.Add(entity);
     }
+    public Models.Registration Execute(BowlerId bowlerId, SquadId squadId)
+        => new(_repository.AddSquad(bowlerId, squadId));
 }
 
 internal interface IDataLayer
 {
     RegistrationId Execute(Models.Registration registration);
+
+    Models.Registration Execute(BowlerId bowlerId, SquadId squadId);
 }

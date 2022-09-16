@@ -96,4 +96,33 @@ internal class Adapter
 
         Assert.That(result.Id, Is.EqualTo(tournament.Id));
     }
+
+    [Test]
+    public void Execute_SquadId_BusinessLogicExecute_CalledCorrectly()
+    {
+        var squadId = SquadId.New();
+
+        _adapter.Execute(squadId);
+
+        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_SquadIdId_BusinessLogicExecuteReturnsNull_NullReturned()
+    {
+        var result = _adapter.Execute(SquadId.New());
+
+        Assert.That(result, Is.Null);
+    }
+
+    [Test]
+    public void Execute_SquadId_BusinessLogicExecuteReturnsSquad_SquadReturned()
+    {
+        var tournament = new NortheastMegabuck.Models.Tournament { Id = TournamentId.New() };
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<SquadId>())).Returns(tournament);
+
+        var result = _adapter.Execute(SquadId.New());
+
+        Assert.That(result.Id, Is.EqualTo(tournament.Id));
+    }
 }

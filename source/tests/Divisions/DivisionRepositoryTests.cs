@@ -49,21 +49,21 @@ internal class Repository
 
         var division1 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.Divisions.Id.New(),
+            Id = NortheastMegabuck.DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
         var division2 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.Divisions.Id.New(),
+            Id = NortheastMegabuck.DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
         var division3 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.Divisions.Id.New(),
+            Id = NortheastMegabuck.DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };
@@ -83,7 +83,7 @@ internal class Repository
     [Test]
     public void Retrieve_ReturnsDivision()
     {
-        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        var divisionId = NortheastMegabuck.DivisionId.New();
 
         var division1 = new NortheastMegabuck.Database.Entities.Division
         {
@@ -94,14 +94,14 @@ internal class Repository
 
         var division2 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.Divisions.Id.New(),
+            Id = NortheastMegabuck.DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };
 
         var division3 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.Divisions.Id.New(),
+            Id = NortheastMegabuck.DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };

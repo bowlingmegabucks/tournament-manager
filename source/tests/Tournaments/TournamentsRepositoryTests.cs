@@ -83,10 +83,10 @@ internal class Repository
     [Test]
     public void RetrieveByDivision_ReturnsTournamentWithDivision()
     {
-        var division1 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        var division2 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        var division3 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
-        var division4 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.Divisions.Id.New() };
+        var division1 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
+        var division2 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
+        var division3 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
+        var division4 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
 
         var tournament1 = new NortheastMegabuck.Database.Entities.Tournament
         {
@@ -107,5 +107,73 @@ internal class Repository
         var actual = _tournamentsRepository.Retrieve(division2.Id);
 
         Assert.That(actual.Id, Is.EqualTo(tournament1.Id));
+    }
+
+    [Test]
+    public void RetrieveBySquadId_SquadIdIsASquad_ReturnsTournament()
+    {
+        var squadId = SquadId.New();
+
+        var squads = new[]
+        {
+            new NortheastMegabuck.Database.Entities.TournamentSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.TournamentSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId },
+            new NortheastMegabuck.Database.Entities.TournamentSquad { Id = SquadId.New() }
+        };
+
+        var sweepers = new[]
+        {
+            new NortheastMegabuck.Database.Entities.SweeperSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.SweeperSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.SweeperSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.SweeperSquad { Id = SquadId.New() }
+        };
+
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament
+        {
+            Sweepers = sweepers,
+            Squads = squads
+        };
+
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(new[] { tournament }.SetUpDbContext());
+
+        var result = _tournamentsRepository.Retrieve(squadId);
+
+        Assert.That(result, Is.Not.Null);
+    }
+
+    [Test]
+    public void RetrieveBySquadId_SquadIdIsASweeper_ReturnsTournament()
+    {
+        var squadId = SquadId.New();
+
+        var squads = new[]
+        {
+            new NortheastMegabuck.Database.Entities.TournamentSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.TournamentSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.TournamentSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.TournamentSquad { Id = SquadId.New() }
+        };
+
+        var sweepers = new[]
+        {
+            new NortheastMegabuck.Database.Entities.SweeperSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.SweeperSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.SweeperSquad { Id = SquadId.New() },
+            new NortheastMegabuck.Database.Entities.SweeperSquad { Id = squadId }
+        };
+
+        var tournament = new NortheastMegabuck.Database.Entities.Tournament
+        {
+            Sweepers = sweepers,
+            Squads = squads
+        };
+
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(new[] { tournament }.SetUpDbContext());
+
+        var result = _tournamentsRepository.Retrieve(squadId);
+
+        Assert.That(result, Is.Not.Null);
     }
 }

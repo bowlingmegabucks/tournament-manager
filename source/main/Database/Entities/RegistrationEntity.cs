@@ -14,7 +14,7 @@ internal class Registration
     public Bowler Bowler { get; set; } = null!;
 
     [Required]
-    public Divisions.Id DivisionId { get; set; }
+    public DivisionId DivisionId { get; set; }
 
     public Division Division { get; set; } = null!;
 
@@ -33,7 +33,7 @@ internal class Registration
                 .HasValueGenerator<RegistrationIdValueGenerator>();
 
             builder.Property(registration => registration.BowlerId).HasConversion<BowlerId.EfCoreValueConverter>();
-            builder.Property(registration => registration.DivisionId).HasConversion<Divisions.Id.EfCoreValueConverter>();
+            builder.Property(registration => registration.DivisionId).HasConversion<DivisionId.EfCoreValueConverter>();
 
             builder.HasAlternateKey(registration => new { registration.BowlerId, registration.DivisionId });
 

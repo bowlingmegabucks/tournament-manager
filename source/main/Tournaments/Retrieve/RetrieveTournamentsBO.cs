@@ -47,7 +47,21 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    Models.Tournament? IBusinessLogic.Execute(NortheastMegabuck.Divisions.Id id)
+    Models.Tournament? IBusinessLogic.Execute(DivisionId id)
+    {
+        try
+        {
+            return _dataLayer.Execute(id);
+        }
+        catch (Exception ex)
+        {
+            Error = new Models.ErrorDetail(ex);
+
+            return null;
+        }
+    }
+
+    Models.Tournament? IBusinessLogic.Execute(SquadId id)
     {
         try
         {
@@ -70,5 +84,7 @@ internal interface IBusinessLogic
 
     Models.Tournament? Execute(TournamentId id);
 
-    Models.Tournament? Execute(NortheastMegabuck.Divisions.Id id);
+    Models.Tournament? Execute(DivisionId id);
+
+    Models.Tournament? Execute(SquadId id);
 }

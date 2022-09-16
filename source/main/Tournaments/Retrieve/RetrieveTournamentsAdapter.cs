@@ -34,6 +34,13 @@ internal class Adapter : IAdapter
 
         return tournament != null ? new ViewModel(tournament) : null;
     }
+
+    public IViewModel? Execute(SquadId squadId)
+    {
+        var tournament = BusinessLogic.Execute(squadId);
+
+        return tournament != null ? new ViewModel(tournament) : null;
+    }
 }
 
 internal interface IAdapter
@@ -43,4 +50,6 @@ internal interface IAdapter
     IEnumerable<IViewModel> Execute();
 
     IViewModel? Execute(TournamentId tournamentId);
+
+    IViewModel? Execute(SquadId squadId);
 }

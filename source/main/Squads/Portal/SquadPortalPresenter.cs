@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NortheastMegabuck.Squads.Portal;
+﻿namespace NortheastMegabuck.Squads.Portal;
 internal class Presenter
 {
     private readonly IView _view;
@@ -42,5 +36,9 @@ internal class Presenter
         }
 
         _view.SetPortalTitle($"{squad!.Date:MM/dd/yyyy hh:mmtt}");
+
+        _view.StartingLane = squad.StartingLane;
+        _view.NumberOfLanes = squad.NumberOfLanes;
+        _view.MaxPerPair = squad.MaxPerPair;
     }
 }

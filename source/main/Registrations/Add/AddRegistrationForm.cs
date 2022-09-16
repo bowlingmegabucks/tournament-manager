@@ -5,18 +5,37 @@ namespace NortheastMegabuck.Registrations.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
+    private readonly TournamentId _tournamentId;
 
+    /// <summary>
+    /// Add Registration from Tournament Portal
+    /// </summary>
+    /// <param name="config"></param>
+    /// <param name="tournamentId"></param>
     public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
 
-        TournamentId = tournamentId;
         _config = config;
+        _tournamentId = tournamentId;
 
-        new Presenter(config, this).Load();
+        new Presenter(config, this).Load(tournamentId);
     }
 
-    public TournamentId TournamentId { get; set; }
+    /// <summary>
+    /// Add Registration from Lane Assignment Screen
+    /// </summary>
+    /// <param name="config"></param>
+    /// <param name="squadId"></param>
+    public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId)
+    {
+        InitializeComponent();
+
+        _config = config;
+        _tournamentId = tournamentId;
+
+        new Presenter(config, this).Load(tournamentId, squadId);
+    }
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
     {
@@ -26,8 +45,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         divisionsDropdown.DisplayMember = nameof(Divisions.IViewModel.DivisionName);
     }
 
-    public NortheastMegabuck.Divisions.Id DivisionId
-        => (NortheastMegabuck.Divisions.Id)divisionsDropdown.SelectedValue;
+    public DivisionId DivisionId
+        => (DivisionId)divisionsDropdown.SelectedValue;
 
     public Bowlers.Add.IViewModel Bowler
         => bowlerControl;
@@ -61,12 +80,42 @@ internal partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
+    public void BindSquads(IEnumerable<Squads.IViewModel> squads, SquadId squadToRegister)
+    {
+        BindSquads(squads);
+
+        var squad = squadsFlowPanelLayout.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == squadToRegister);
+
+        if (squad == null)
+        {
+            return;
+        }
+
+        squad.Selected = true;
+        squad.Enabled = false;
+    }
+
     public void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers)
     {
         foreach (var sweeper in sweepers)
         {
             sweepersFlowLayoutPanel.Controls.Add(new Controls.SelectSquadControl(sweeper.Id, $"{sweeper.Date:d} ({sweeper.Date:t})", false));
         }
+    }
+
+    public void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers, SquadId sweeperToRegister)
+    {
+        BindSweepers(sweepers);
+
+        var sweeper = sweepersFlowLayoutPanel.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == sweeperToRegister);
+
+        if (sweeper == null)
+        {
+            return;
+        }
+
+        sweeper.Selected = true;
+        sweeper.Enabled = false;
     }
 
     public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
@@ -91,7 +140,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public BowlerId? SelectBowler()
     {
-        using var form = new Bowlers.Search.Dialog(_config, true);
+        using var form = new Bowlers.Search.Dialog(_config, true, _tournamentId);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }

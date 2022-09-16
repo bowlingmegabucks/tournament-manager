@@ -118,15 +118,15 @@ internal class EntityMapper
     [Test]
     public void Execute_DivisionsMapped()
     {
-        var division0 = NortheastMegabuck.Divisions.Id.New();
-        var division1 = NortheastMegabuck.Divisions.Id.New();
-        var division2 = NortheastMegabuck.Divisions.Id.New();
-        var division3 = NortheastMegabuck.Divisions.Id.New();
+        var division0 = DivisionId.New();
+        var division1 = DivisionId.New();
+        var division2 = DivisionId.New();
+        var division3 = DivisionId.New();
 
         var model = new NortheastMegabuck.Models.Sweeper
         {
             Id = SquadId.New(),
-            Divisions = new Dictionary<NortheastMegabuck.Divisions.Id, int?>
+            Divisions = new Dictionary<NortheastMegabuck.DivisionId, int?>
             {
                 { division0, null},
                 { division1, 1},
@@ -147,5 +147,31 @@ internal class EntityMapper
             Assert.That(entity.Divisions.Count(division => division.DivisionId == division2 && division.BonusPinsPerGame == 2), Is.EqualTo(1));
             Assert.That(entity.Divisions.Count(division => division.DivisionId == division3 && division.BonusPinsPerGame == 3), Is.EqualTo(1));
         });
+    }
+
+    [Test]
+    public void Execute_StartingLane_Mapped()
+    {
+        var model = new NortheastMegabuck.Models.Sweeper
+        {
+            StartingLane = 1
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.StartingLane, Is.EqualTo(model.StartingLane));
+    }
+
+    [Test]
+    public void Execute_NumberOfLanes_Mapped()
+    {
+        var model = new NortheastMegabuck.Models.Sweeper
+        {
+            NumberOfLanes = 10
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.NumberOfLanes, Is.EqualTo(model.NumberOfLanes));
     }
 }

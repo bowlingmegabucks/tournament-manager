@@ -99,4 +99,30 @@ internal class EntityMapper
 
         Assert.That(entity.Complete, Is.EqualTo(model.Complete));
     }
+
+    [Test]
+    public void Execute_StartingLane_Mapped()
+    {
+        var model = new NortheastMegabuck.Models.Squad
+        {
+            StartingLane = 1
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.StartingLane, Is.EqualTo(model.StartingLane));
+    }
+
+    [Test]
+    public void Execute_NumberOfLanes_Mapped()
+    {
+        var model = new NortheastMegabuck.Models.Squad
+        {
+            NumberOfLanes = 10
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.NumberOfLanes, Is.EqualTo(model.NumberOfLanes));
+    }
 }
