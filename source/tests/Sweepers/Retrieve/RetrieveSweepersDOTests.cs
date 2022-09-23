@@ -70,7 +70,8 @@ internal class DataLayer
     {
         var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
-            MaxPerPair = 1
+            MaxPerPair = 1,
+            CashRatio = 1.5m
         };
 
         _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(entity);
@@ -87,7 +88,8 @@ internal class DataLayer
     {
         var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
-            MaxPerPair = 1
+            MaxPerPair = 1,
+            CashRatio = 1.5m
         };
 
         _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(entity);
