@@ -19,6 +19,8 @@ internal class SweeperViewModelTests
             CashRatio = 0.5m,
             Date = DateTime.Now,
             MaxPerPair = 11,
+            StartingLane = 15,
+            NumberOfLanes = 5,
             Complete = true,
             Divisions = new Dictionary<NortheastMegabuck.DivisionId, int?>
             {
@@ -58,6 +60,14 @@ internal class SweeperViewModelTests
     [Test]
     public void Constructor_Model_MaxPerPairMapped()
         => Assert.That(_viewModel.MaxPerPair, Is.EqualTo(_model.MaxPerPair));
+
+    [Test]
+    public void Constructor_Model_StartingLaneMapped()
+        => Assert.That(_viewModel.StartingLane, Is.EqualTo(_model.StartingLane));
+
+    [Test]
+    public void Constructor_Model_NumberOfLanesMapped()
+        => Assert.That(_viewModel.NumberOfLanes, Is.EqualTo(_model.NumberOfLanes));
 
     [Test]
     public void Constructor_Model_CompleteMapped()

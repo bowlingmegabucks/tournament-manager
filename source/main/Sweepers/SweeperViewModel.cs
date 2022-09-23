@@ -33,6 +33,8 @@ internal class ViewModel : IViewModel
         CashRatio = sweeper.CashRatio;
         Date = sweeper.Date;
         MaxPerPair = sweeper.MaxPerPair;
+        StartingLane = sweeper.StartingLane;
+        NumberOfLanes = sweeper.NumberOfLanes;
         Complete = sweeper.Complete;
         Divisions = sweeper.Divisions.ToDictionary(division=> division.Key, division=> division.Value);
     }

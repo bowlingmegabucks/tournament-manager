@@ -34,7 +34,8 @@ internal class Repository : IRepository
         //todo: verify this works when bringing in sweepers
         return _dataContext.Sweepers
             .Include(sweeper => sweeper.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
-            .Include(sweeper => sweeper.Registrations).ThenInclude(squadRegistration => squadRegistration.Squad as Database.Entities.SweeperSquad).ThenInclude(sweeper => sweeper!.Divisions)
+            .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)
+            .Include(sweeper => sweeper.Registrations).ThenInclude(squadRegistration => squadRegistration.Squad).ThenInclude(sweeper => (sweeper as Database.Entities.SweeperSquad)!.Divisions)
             .AsNoTracking()
             .Where(sweeper => sweeper.Id == squadId)
             .SelectMany(sweeper => sweeper.Registrations);
