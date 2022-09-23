@@ -24,8 +24,11 @@
 
 	<ItemGroup>
 	  <Compile Remove="Migrations\**" />
+	  <Compile Remove="Squads\CheckIn\**" />
 	  <EmbeddedResource Remove="Migrations\**" />
+	  <EmbeddedResource Remove="Squads\CheckIn\**" />
 	  <None Remove="Migrations\**" />
+	  <None Remove="Squads\CheckIn\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -70,6 +73,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Sweepers\Portal\SweeperPortal.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="Sweepers\Retrieve\RetrieveSweepersForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
@@ -84,7 +90,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Database\Migrations\" />
-	  <Folder Include="Squads\CheckIn\" />
 	</ItemGroup>
 
 	<ItemGroup>

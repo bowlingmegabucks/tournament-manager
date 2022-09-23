@@ -12,7 +12,7 @@ public partial class SweepersGrid
         InitializeComponent();
     }
 
-    public Sweepers.IViewModel? SelectedSquad
+    public Sweepers.IViewModel? SelectedSweeper
         => SelectedRow;
 }
 

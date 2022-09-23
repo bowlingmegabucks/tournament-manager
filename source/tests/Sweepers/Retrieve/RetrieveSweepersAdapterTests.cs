@@ -16,7 +16,7 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public void Execute_TournamentId_BusinessLogicExecute_TournamentId_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
 
@@ -26,7 +26,7 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
+    public void Execute_TournamentId_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
         var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
@@ -39,7 +39,7 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_ReturnsSweepersFromBusinessLogic()
+    public void Execute_TournamentId_ReturnsSweepersFromBusinessLogic()
     {
         var sweeper1 = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 1 };
         var sweeper2 = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 2 };
@@ -57,5 +57,42 @@ internal class Adapter
             Assert.That(actual[0].MaxPerPair, Is.EqualTo(sweeper1.MaxPerPair));
             Assert.That(actual[1].MaxPerPair, Is.EqualTo(sweeper2.MaxPerPair));
         });
+    }
+
+    [Test]
+    public void Execute_SquadId_BusinessLogicExecute_CalledCorrectly()
+    {
+        var squadId = SquadId.New();
+
+        _adapter.Execute(squadId);
+
+        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_SquadId_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
+    {
+        var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+
+        var squadId = SquadId.New();
+
+        _adapter.Execute(squadId);
+
+        Assert.That(_adapter.Error, Is.EqualTo(error));
+    }
+
+    [Test]
+    public void Execute_SquadId_ReturnsSquadsFromBusinessLogic()
+    {
+        var squad = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 1 };
+
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<SquadId>())).Returns(squad);
+
+        var squadId = SquadId.New();
+
+        var actual = _adapter.Execute(squadId);
+
+        Assert.That(actual.MaxPerPair, Is.EqualTo(squad.MaxPerPair));
     }
 }
