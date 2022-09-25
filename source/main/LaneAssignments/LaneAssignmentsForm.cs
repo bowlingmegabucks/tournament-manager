@@ -35,8 +35,8 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     public void Disable()
     {
-        laneAssignmentGroupbox.Enabled = false;
-        unassignedRegistrationsGroupbox.Enabled = false;
+        laneAssignmentGroupBox.Enabled = false;
+        unassignedRegistrationsGroupBox.Enabled = false;
         newRegistrationButton.Enabled = false;
         addToRegistrationButton.Enabled = false;
     }

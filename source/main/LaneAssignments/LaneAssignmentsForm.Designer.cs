@@ -29,26 +29,26 @@ partial class Form
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            this.laneAssignmentGroupbox = new System.Windows.Forms.GroupBox();
+            this.laneAssignmentGroupBox = new System.Windows.Forms.GroupBox();
             this.laneAssignmentFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.unassignedRegistrationsGroupbox = new System.Windows.Forms.GroupBox();
+            this.unassignedRegistrationsGroupBox = new System.Windows.Forms.GroupBox();
             this.unassignedRegistrationsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.addToRegistrationButton = new System.Windows.Forms.Button();
             this.laneAssignmentToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.newRegistrationButton = new System.Windows.Forms.Button();
-            this.laneAssignmentGroupbox.SuspendLayout();
-            this.unassignedRegistrationsGroupbox.SuspendLayout();
+            this.laneAssignmentGroupBox.SuspendLayout();
+            this.unassignedRegistrationsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // laneAssignmentGroupbox
+            // laneAssignmentGroupBox
             // 
-            this.laneAssignmentGroupbox.Controls.Add(this.laneAssignmentFlowLayoutPanel);
-            this.laneAssignmentGroupbox.Location = new System.Drawing.Point(12, 12);
-            this.laneAssignmentGroupbox.Name = "laneAssignmentGroupbox";
-            this.laneAssignmentGroupbox.Size = new System.Drawing.Size(850, 940);
-            this.laneAssignmentGroupbox.TabIndex = 0;
-            this.laneAssignmentGroupbox.TabStop = false;
-            this.laneAssignmentGroupbox.Text = "Assigned";
+            this.laneAssignmentGroupBox.Controls.Add(this.laneAssignmentFlowLayoutPanel);
+            this.laneAssignmentGroupBox.Location = new System.Drawing.Point(12, 12);
+            this.laneAssignmentGroupBox.Name = "laneAssignmentGroupBox";
+            this.laneAssignmentGroupBox.Size = new System.Drawing.Size(850, 940);
+            this.laneAssignmentGroupBox.TabIndex = 0;
+            this.laneAssignmentGroupBox.TabStop = false;
+            this.laneAssignmentGroupBox.Text = "Assigned";
             // 
             // laneAssignmentFlowLayoutPanel
             // 
@@ -60,15 +60,15 @@ partial class Form
             this.laneAssignmentFlowLayoutPanel.Size = new System.Drawing.Size(844, 918);
             this.laneAssignmentFlowLayoutPanel.TabIndex = 1;
             // 
-            // unassignedRegistrationsGroupbox
+            // unassignedRegistrationsGroupBox
             // 
-            this.unassignedRegistrationsGroupbox.Controls.Add(this.unassignedRegistrationsFlowLayoutPanel);
-            this.unassignedRegistrationsGroupbox.Location = new System.Drawing.Point(868, 12);
-            this.unassignedRegistrationsGroupbox.Name = "unassignedRegistrationsGroupbox";
-            this.unassignedRegistrationsGroupbox.Size = new System.Drawing.Size(435, 937);
-            this.unassignedRegistrationsGroupbox.TabIndex = 0;
-            this.unassignedRegistrationsGroupbox.TabStop = false;
-            this.unassignedRegistrationsGroupbox.Text = "Registrations";
+            this.unassignedRegistrationsGroupBox.Controls.Add(this.unassignedRegistrationsFlowLayoutPanel);
+            this.unassignedRegistrationsGroupBox.Location = new System.Drawing.Point(868, 12);
+            this.unassignedRegistrationsGroupBox.Name = "unassignedRegistrationsGroupBox";
+            this.unassignedRegistrationsGroupBox.Size = new System.Drawing.Size(435, 937);
+            this.unassignedRegistrationsGroupBox.TabIndex = 0;
+            this.unassignedRegistrationsGroupBox.TabStop = false;
+            this.unassignedRegistrationsGroupBox.Text = "Registrations";
             // 
             // unassignedRegistrationsFlowLayoutPanel
             // 
@@ -110,23 +110,23 @@ partial class Form
             this.ClientSize = new System.Drawing.Size(1537, 1013);
             this.Controls.Add(this.newRegistrationButton);
             this.Controls.Add(this.addToRegistrationButton);
-            this.Controls.Add(this.unassignedRegistrationsGroupbox);
-            this.Controls.Add(this.laneAssignmentGroupbox);
+            this.Controls.Add(this.unassignedRegistrationsGroupBox);
+            this.Controls.Add(this.laneAssignmentGroupBox);
             this.MaximizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lane Assignments";
-            this.laneAssignmentGroupbox.ResumeLayout(false);
-            this.unassignedRegistrationsGroupbox.ResumeLayout(false);
+            this.laneAssignmentGroupBox.ResumeLayout(false);
+            this.unassignedRegistrationsGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
     }
 
     #endregion
 
-    private GroupBox laneAssignmentGroupbox;
+    private GroupBox laneAssignmentGroupBox;
     private FlowLayoutPanel laneAssignmentFlowLayoutPanel;
-    private GroupBox unassignedRegistrationsGroupbox;
+    private GroupBox unassignedRegistrationsGroupBox;
     private FlowLayoutPanel unassignedRegistrationsFlowLayoutPanel;
     private Button addToRegistrationButton;
     private ToolTip laneAssignmentToolTip;

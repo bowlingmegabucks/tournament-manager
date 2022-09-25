@@ -128,8 +128,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         divisionsDropdown.Enabled = false;
         averageValue.Enabled = false;
 
-        squadsGroupbox.Enabled = false;
-        sweepersGroupbox.Enabled = false;
+        squadsGroupBox.Enabled = false;
+        sweepersGroupBox.Enabled = false;
     }
 
     public void DisplayError(string message)
