@@ -16,7 +16,7 @@ namespace NortheastMegabuck.Database.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("NortheastMegabuck.Database.Entities.Bowler", b =>
@@ -204,6 +204,11 @@ namespace NortheastMegabuck.Database.Migrations
 
                     b.Property<Guid>("SquadId")
                         .HasColumnType("char(36)");
+
+                    b.Property<string>("LaneAssignment")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
 
                     b.HasKey("RegistrationId", "SquadId");
 

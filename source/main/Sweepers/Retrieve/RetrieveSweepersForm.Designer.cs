@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.sweepersGrid = new NortheastMegabuck.Contols.SweepersGrid();
+            this.sweepersGrid = new NortheastMegabuck.Controls.SweepersGrid();
             this.addButton = new System.Windows.Forms.Button();
             this.openButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -82,7 +82,7 @@ partial class Form
 
     #endregion
 
-    private Contols.SweepersGrid sweepersGrid;
+    private Controls.SweepersGrid sweepersGrid;
     private Button addButton;
     private Button openButton;
 }

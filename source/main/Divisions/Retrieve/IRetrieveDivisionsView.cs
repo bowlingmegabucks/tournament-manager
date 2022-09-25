@@ -10,7 +10,7 @@ internal interface IView
 
     void BindDivisions(IEnumerable<IViewModel> divisions);
 
-    NortheastMegabuck.Divisions.Id? AddDivision(TournamentId tournamentId);
+    NortheastMegabuck.DivisionId? AddDivision(TournamentId tournamentId);
 
     void RefreshDivisions();
 }

@@ -20,7 +20,25 @@ internal class Repository : IRepository
 
     IEnumerable<Database.Entities.Bowler> IRepository.Search(Models.BowlerSearchCriteria searchCriteria)
     {
-        var bowlers = _dataContext.Bowlers.AsNoTracking();
+        IQueryable<Database.Entities.Bowler> bowlers;
+
+        if (searchCriteria.WithoutRegistrationOnSquads.Any() && searchCriteria.RegisteredInTournament.HasValue)
+        {
+            bowlers = _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Squads)
+                                  .Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Division).AsNoTracking();
+        }
+        else if (searchCriteria.RegisteredInTournament.HasValue)
+        {
+            bowlers = _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Division).AsNoTracking();
+        }
+        else if (searchCriteria.WithoutRegistrationOnSquads.Any())
+        {
+            bowlers = _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Squads).AsNoTracking();
+        }
+        else
+        { 
+            bowlers = _dataContext.Bowlers.AsNoTracking();
+        }
 
         if (!string.IsNullOrWhiteSpace(searchCriteria.LastName))
         {
@@ -37,7 +55,19 @@ internal class Repository : IRepository
             bowlers = bowlers.Where(b => b.EmailAddress == searchCriteria.EmailAddress);
         }
 
-        return bowlers;
+        if (searchCriteria.RegisteredInTournament.HasValue)
+        {
+            bowlers = bowlers.Where(bowler => bowler.Registrations.Any(registration => registration.Division.TournamentId == searchCriteria.RegisteredInTournament.Value));
+        }
+
+        if (searchCriteria.NotRegisteredInTournament.HasValue)
+        {
+            bowlers = bowlers.Where(bowler => !bowler.Registrations.Any(registration => registration.Division.TournamentId == searchCriteria.NotRegisteredInTournament.Value));
+        }
+
+        return searchCriteria.WithoutRegistrationOnSquads.Any()
+            ? bowlers.ToList().Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
+            : bowlers.AsEnumerable();
     }
 }
 

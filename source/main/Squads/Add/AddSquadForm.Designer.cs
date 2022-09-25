@@ -30,7 +30,7 @@ partial class Form
     {
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
-            this.newSquad = new NortheastMegabuck.Contols.SquadControl();
+            this.newSquad = new NortheastMegabuck.Controls.SquadControl();
             this.disclaimerLabel = new System.Windows.Forms.Label();
             this.tournamentFinalsRatioLabel = new System.Windows.Forms.Label();
             this.tournamentCashRatioLabel = new System.Windows.Forms.Label();
@@ -156,7 +156,7 @@ partial class Form
 
     private Button cancelButton;
     private Button saveButton;
-    private Contols.SquadControl newSquad;
+    private Controls.SquadControl newSquad;
     private Label disclaimerLabel;
     private Label tournamentFinalsRatioLabel;
     private Label tournamentCashRatioLabel;

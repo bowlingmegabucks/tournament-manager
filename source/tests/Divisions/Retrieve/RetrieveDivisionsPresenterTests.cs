@@ -68,7 +68,7 @@ internal class Presenter
     [Test]
     public void AddDivision_ViewAddDivisionReturnsId_ViewRefreshDivisions_Called()
     {
-        var id = NortheastMegabuck.Divisions.Id.New();
+        var id = NortheastMegabuck.DivisionId.New();
         _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns(id);
 
         _presenter.AddDivision();
@@ -79,7 +79,7 @@ internal class Presenter
     [Test]
     public void AddDivision_ViewAddDivisionReturnsNull_ViewRefreshDivisions_NotCalled()
     {
-        _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns((NortheastMegabuck.Divisions.Id?)null);
+        _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns((NortheastMegabuck.DivisionId?)null);
 
         _presenter.AddDivision();
 

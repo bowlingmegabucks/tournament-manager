@@ -29,23 +29,23 @@ partial class Form
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            this.bowlerControl = new NortheastMegabuck.Contols.BowlerControl();
+            this.bowlerControl = new NortheastMegabuck.Controls.BowlerControl();
             this.divisionsDropdown = new System.Windows.Forms.ComboBox();
             this.divisionLabel = new NortheastMegabuck.Controls.LabelControl();
             this.registrationErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.averageValue = new NortheastMegabuck.Controls.NumericControl();
             this.averageLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.squadsGroupbox = new System.Windows.Forms.GroupBox();
+            this.squadsGroupBox = new System.Windows.Forms.GroupBox();
             this.squadsFlowPanelLayout = new System.Windows.Forms.FlowLayoutPanel();
-            this.sweepersGroupbox = new System.Windows.Forms.GroupBox();
+            this.sweepersGroupBox = new System.Windows.Forms.GroupBox();
             this.sweepersFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.superSweeperCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.registrationErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.averageValue)).BeginInit();
-            this.squadsGroupbox.SuspendLayout();
-            this.sweepersGroupbox.SuspendLayout();
+            this.squadsGroupBox.SuspendLayout();
+            this.sweepersGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // bowlerControl
@@ -62,7 +62,7 @@ partial class Form
             this.bowlerControl.Name = "bowlerControl";
             this.bowlerControl.PhoneNumber = "";
             this.bowlerControl.Size = new System.Drawing.Size(597, 313);
-            this.bowlerControl.StateAddress = "AL";
+            this.bowlerControl.StateAddress = "";
             this.bowlerControl.StreetAddress = "";
             this.bowlerControl.Suffix = "";
             this.bowlerControl.TabIndex = 0;
@@ -126,15 +126,15 @@ partial class Form
             this.averageLabel.TabStop = false;
             this.averageLabel.Text = "Average:";
             // 
-            // squadsGroupbox
+            // squadsGroupBox
             // 
-            this.squadsGroupbox.Controls.Add(this.squadsFlowPanelLayout);
-            this.squadsGroupbox.Location = new System.Drawing.Point(617, 12);
-            this.squadsGroupbox.Name = "squadsGroupbox";
-            this.squadsGroupbox.Size = new System.Drawing.Size(276, 220);
-            this.squadsGroupbox.TabIndex = 112;
-            this.squadsGroupbox.TabStop = false;
-            this.squadsGroupbox.Text = "Squads";
+            this.squadsGroupBox.Controls.Add(this.squadsFlowPanelLayout);
+            this.squadsGroupBox.Location = new System.Drawing.Point(617, 12);
+            this.squadsGroupBox.Name = "squadsGroupBox";
+            this.squadsGroupBox.Size = new System.Drawing.Size(276, 220);
+            this.squadsGroupBox.TabIndex = 112;
+            this.squadsGroupBox.TabStop = false;
+            this.squadsGroupBox.Text = "Squads";
             // 
             // squadsFlowPanelLayout
             // 
@@ -145,15 +145,15 @@ partial class Form
             this.squadsFlowPanelLayout.Size = new System.Drawing.Size(270, 198);
             this.squadsFlowPanelLayout.TabIndex = 115;
             // 
-            // sweepersGroupbox
+            // sweepersGroupBox
             // 
-            this.sweepersGroupbox.Controls.Add(this.sweepersFlowLayoutPanel);
-            this.sweepersGroupbox.Location = new System.Drawing.Point(617, 238);
-            this.sweepersGroupbox.Name = "sweepersGroupbox";
-            this.sweepersGroupbox.Size = new System.Drawing.Size(276, 150);
-            this.sweepersGroupbox.TabIndex = 0;
-            this.sweepersGroupbox.TabStop = false;
-            this.sweepersGroupbox.Text = "Sweepers";
+            this.sweepersGroupBox.Controls.Add(this.sweepersFlowLayoutPanel);
+            this.sweepersGroupBox.Location = new System.Drawing.Point(617, 238);
+            this.sweepersGroupBox.Name = "sweepersGroupBox";
+            this.sweepersGroupBox.Size = new System.Drawing.Size(276, 150);
+            this.sweepersGroupBox.TabIndex = 0;
+            this.sweepersGroupBox.TabStop = false;
+            this.sweepersGroupBox.Text = "Sweepers";
             // 
             // sweepersFlowLayoutPanel
             // 
@@ -206,8 +206,8 @@ partial class Form
             this.Controls.Add(this.superSweeperCheckBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.sweepersGroupbox);
-            this.Controls.Add(this.squadsGroupbox);
+            this.Controls.Add(this.sweepersGroupBox);
+            this.Controls.Add(this.squadsGroupBox);
             this.Controls.Add(this.averageValue);
             this.Controls.Add(this.averageLabel);
             this.Controls.Add(this.divisionLabel);
@@ -220,8 +220,8 @@ partial class Form
             this.Text = "Register Bowler";
             ((System.ComponentModel.ISupportInitialize)(this.registrationErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.averageValue)).EndInit();
-            this.squadsGroupbox.ResumeLayout(false);
-            this.sweepersGroupbox.ResumeLayout(false);
+            this.squadsGroupBox.ResumeLayout(false);
+            this.sweepersGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,14 +229,14 @@ partial class Form
 
     #endregion
 
-    private Contols.BowlerControl bowlerControl;
+    private Controls.BowlerControl bowlerControl;
     private ComboBox divisionsDropdown;
     private Controls.LabelControl divisionLabel;
     private ErrorProvider registrationErrorProvider;
     private Controls.NumericControl averageValue;
     private Controls.LabelControl averageLabel;
-    private GroupBox squadsGroupbox;
-    private GroupBox sweepersGroupbox;
+    private GroupBox squadsGroupBox;
+    private GroupBox sweepersGroupBox;
     private Button cancelButton;
     private Button saveButton;
     private FlowLayoutPanel squadsFlowPanelLayout;

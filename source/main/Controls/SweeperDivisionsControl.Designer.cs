@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Contols;
+﻿namespace NortheastMegabuck.Controls;
 
 partial class SweeperDivisionsControl
 {

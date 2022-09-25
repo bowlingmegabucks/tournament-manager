@@ -27,7 +27,7 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
-    public Id? Execute(Models.Division division)
+    public DivisionId? Execute(Models.Division division)
     {
         var validation = _validator.Validate(division);
 
@@ -53,5 +53,5 @@ internal interface IBusinessLogic
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Id? Execute(Models.Division division);
+    DivisionId? Execute(Models.Division division);
 }

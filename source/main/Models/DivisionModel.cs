@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Models;
 internal class Division
 {
-    public NortheastMegabuck.Divisions.Id Id { get; set; }
+    public NortheastMegabuck.DivisionId Id { get; set; }
 
     public short Number { get; set; }
 

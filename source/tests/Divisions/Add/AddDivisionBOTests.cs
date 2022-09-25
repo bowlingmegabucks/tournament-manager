@@ -86,7 +86,7 @@ internal class BusinessLogic
     {
         _validator.Validate_IsValid();
 
-        var divisionId = NortheastMegabuck.Divisions.Id.New();
+        var divisionId = NortheastMegabuck.DivisionId.New();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Division>())).Returns(divisionId);
 
         var division = new NortheastMegabuck.Models.Division();

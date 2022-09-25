@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Contols;
+namespace NortheastMegabuck.Controls;
 public partial class SweepersGrid
 #if DEBUG
     : SweeperMiddleGrid
@@ -12,7 +12,7 @@ public partial class SweepersGrid
         InitializeComponent();
     }
 
-    public Sweepers.IViewModel? SelectedSquad
+    public Sweepers.IViewModel? SelectedSweeper
         => SelectedRow;
 }
 

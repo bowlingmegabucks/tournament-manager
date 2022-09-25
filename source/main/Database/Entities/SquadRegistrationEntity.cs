@@ -15,6 +15,9 @@ internal class SquadRegistration
 
     public Squad Squad { get; set; } = null!;
 
+    [MaxLength(3)]
+    public string LaneAssignment { get; set; } = string.Empty;
+
     internal class Configuration : IEntityTypeConfiguration<SquadRegistration>
     {
         public void Configure(EntityTypeBuilder<SquadRegistration> builder)

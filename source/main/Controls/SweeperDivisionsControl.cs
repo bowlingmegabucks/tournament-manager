@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Contols;
+namespace NortheastMegabuck.Controls;
 public partial class SweeperDivisionsControl : UserControl
 {
     public SweeperDivisionsControl()
@@ -7,7 +7,7 @@ public partial class SweeperDivisionsControl : UserControl
         InitializeComponent();
     }
 
-    public IDictionary<Divisions.Id, int?> Divisions
+    public IDictionary<DivisionId, int?> Divisions
         => sweeperDivisionsFlowLayoutPanel.Controls.OfType<SweeperDivisionControl>().ToDictionary(d => d.DivisionId, d => d.BonusPinsPerGame);
     
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)

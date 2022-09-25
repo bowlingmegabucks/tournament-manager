@@ -1,9 +1,7 @@
 ﻿
 namespace NortheastMegabuck.Registrations.Add;
 internal interface IView
-{
-    TournamentId TournamentId { get; }
-    
+{    
     void DisplayError(string message);
     
     void Disable();
@@ -11,8 +9,12 @@ internal interface IView
     void BindDivisions(IEnumerable<Divisions.IViewModel> divisions);
     
     void BindSquads(IEnumerable<Squads.IViewModel> squads);
+
+    void BindSquads(IEnumerable<Squads.IViewModel> squads, SquadId squadId);
     
     void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers);
+
+    void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers, SquadId squadId);
 
     void BindBowler(Bowlers.Retrieve.IViewModel bowler);
 
@@ -22,7 +24,7 @@ internal interface IView
 
     Bowlers.Add.IViewModel Bowler { get; }
 
-    NortheastMegabuck.Divisions.Id DivisionId { get; }
+    DivisionId DivisionId { get; }
 
     int? Average { get; }
 

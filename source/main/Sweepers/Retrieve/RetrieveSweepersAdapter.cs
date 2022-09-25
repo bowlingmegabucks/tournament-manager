@@ -26,6 +26,13 @@ internal class Adapter : IAdapter
 
         return sweepers.Select(sweeper => new ViewModel(sweeper));
     }
+
+    public IViewModel? Execute(SquadId id)
+    {
+        var sweeper = _businessLogic.Execute(id);
+
+        return sweeper is not null ? new ViewModel(sweeper) : null;
+    }
 }
 
 internal interface IAdapter
@@ -33,4 +40,6 @@ internal interface IAdapter
     Models.ErrorDetail? Error { get; }
 
     IEnumerable<IViewModel> Execute(TournamentId tournamentId);
+
+    IViewModel? Execute(SquadId id);
 }

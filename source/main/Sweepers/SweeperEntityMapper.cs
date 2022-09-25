@@ -17,7 +17,9 @@ internal class EntityMapper : IEntityMapper
                 SweeperId = sweeper.Id,
                 DivisionId = division.Key,
                 BonusPinsPerGame = division.Value
-            }).ToList()
+            }).ToList(),
+            StartingLane = sweeper.StartingLane,
+            NumberOfLanes = sweeper.NumberOfLanes
         };
 }
 

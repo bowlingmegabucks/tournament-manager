@@ -11,7 +11,9 @@ internal class EntityMapper : IEntityMapper
             FinalsRatio = model.FinalsRatio,
             Date = model.Date,
             MaxPerPair = model.MaxPerPair,
-            Complete = model.Complete
+            Complete = model.Complete,
+            StartingLane = model.StartingLane,
+            NumberOfLanes = model.NumberOfLanes
         };
 }
 

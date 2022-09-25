@@ -16,7 +16,7 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryRetrieve_Called()
+    public void Execute_TournamentId_RepositoryRetrieve_Called()
     {
         var id = TournamentId.New();
 
@@ -26,7 +26,7 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_ReturnsRepositoryRetrieveResponse()
+    public void Execute_TournamentId_ReturnsRepositoryRetrieveResponse()
     {
         var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
@@ -57,5 +57,39 @@ internal class DataLayer
             Assert.That(actual.Count(squad => squad.MaxPerPair == 2), Is.EqualTo(1));
             Assert.That(actual.Count(squad => squad.MaxPerPair == 3), Is.EqualTo(1));
         });
+    }
+
+    [Test]
+    public void Execute_SquadId_RepositoryRetrieve_CalledCorrectly()
+    {
+        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        {
+            MaxPerPair = 1
+        };
+
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(entity);
+
+        var squadId = new SquadId();
+
+        _dataLayer.Execute(squadId);
+
+        _repository.Verify(repository => repository.Retrieve(squadId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_SquadId_ReturnsModel()
+    {
+        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        {
+            MaxPerPair = 1
+        };
+
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(entity);
+
+        var squadId = new SquadId();
+
+        var actual = _dataLayer.Execute(squadId);
+
+        Assert.That(actual.MaxPerPair, Is.EqualTo(entity.MaxPerPair));
     }
 }

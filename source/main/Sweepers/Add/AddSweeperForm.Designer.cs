@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.newSweeper = new NortheastMegabuck.Contols.SweeperControl();
+            this.newSweeper = new NortheastMegabuck.Controls.SweeperControl();
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -100,7 +100,7 @@ partial class Form
 
     #endregion
 
-    private Contols.SweeperControl newSweeper;
+    private Controls.SweeperControl newSweeper;
     private Button cancelButton;
     private Button saveButton;
 }

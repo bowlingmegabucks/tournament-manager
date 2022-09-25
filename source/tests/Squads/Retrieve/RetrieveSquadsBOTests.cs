@@ -16,7 +16,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_DataLayerExecute_CalledCorrectly()
+    public void Execute_TournamnetId_DataLayerExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
 
@@ -26,7 +26,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_ReturnsDataLayerExecuteResults()
+    public void Execute_TournamnetId_ReturnsDataLayerExecuteResults()
     {
         var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
@@ -39,7 +39,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_DataLayerExecuteNoException_ErrorNull()
+    public void Execute_TournamnetId_DataLayerExecuteNoException_ErrorNull()
     {
         var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
@@ -52,7 +52,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_DataLayerExecuteThrowsException_ErrorFlow()
+    public void Execute_TournamnetId_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
@@ -64,6 +64,59 @@ internal class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(actual, Is.Empty);
+            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+        });
+    }
+
+    [Test]
+    public void Execute_SquadId_DataLayerExecute_CalledCorrectly()
+    {
+        var id = SquadId.New();
+
+        _businessLogic.Execute(id);
+
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(id), Times.Once);
+    }
+
+    [Test]
+    public void Execute_SquadId_ReturnsDataLayerExecuteResults()
+    {
+        var squad = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(squad);
+
+        var id = SquadId.New();
+
+        var actual = _businessLogic.Execute(id);
+
+        Assert.That(actual, Is.EqualTo(squad));
+    }
+
+    [Test]
+    public void Execute_SquadId_DataLayerExecuteNoException_ErrorNull()
+    {
+        var squad = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(squad);
+
+        var id = SquadId.New();
+
+        var actual = _businessLogic.Execute(id);
+
+        Assert.That(_businessLogic.Error, Is.Null);
+    }
+
+    [Test]
+    public void Execute_SquadId_DataLayerExecuteThrowsException_ErrorFlow()
+    {
+        var ex = new Exception("exception");
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Throws(ex);
+
+        var id = SquadId.New();
+
+        var actual = _businessLogic.Execute(id);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(actual, Is.Null);
             Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
         });
     }

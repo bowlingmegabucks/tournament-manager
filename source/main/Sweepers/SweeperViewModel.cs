@@ -22,7 +22,7 @@ internal class ViewModel : IViewModel
 
     public bool Complete { get; set; }
 
-    public IDictionary<NortheastMegabuck.Divisions.Id, int?> Divisions { get; set; } = new Dictionary<NortheastMegabuck.Divisions.Id, int?>();
+    public IDictionary<NortheastMegabuck.DivisionId, int?> Divisions { get; set; } = new Dictionary<NortheastMegabuck.DivisionId, int?>();
 
     public ViewModel(Models.Sweeper sweeper)
     {
@@ -33,6 +33,8 @@ internal class ViewModel : IViewModel
         CashRatio = sweeper.CashRatio;
         Date = sweeper.Date;
         MaxPerPair = sweeper.MaxPerPair;
+        StartingLane = sweeper.StartingLane;
+        NumberOfLanes = sweeper.NumberOfLanes;
         Complete = sweeper.Complete;
         Divisions = sweeper.Divisions.ToDictionary(division=> division.Key, division=> division.Value);
     }
@@ -60,5 +62,5 @@ public interface IViewModel
 
     bool Complete { get; set; }
 
-    IDictionary<NortheastMegabuck.Divisions.Id, int?> Divisions { get; }
+    IDictionary<NortheastMegabuck.DivisionId, int?> Divisions { get; }
 }

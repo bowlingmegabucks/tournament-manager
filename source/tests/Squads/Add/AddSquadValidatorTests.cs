@@ -295,7 +295,19 @@ internal class Validator
     }
 
     [Test]
-    public void StartingLane_GreaterThanZero_NoError()
+    public void StartingLane_Even_HasError()
+    {
+        var squad = new NortheastMegabuck.Models.Squad
+        {
+            StartingLane = 2
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldHaveValidationErrorFor(squad => squad.StartingLane).WithErrorMessage("Starting lane must be odd");
+    }
+
+    [Test]
+    public void StartingLane_GreaterThanZeroAndOdd_NoError()
     {
         var squad = new NortheastMegabuck.Models.Squad
         {
@@ -319,11 +331,23 @@ internal class Validator
     }
 
     [Test]
-    public void NumberOfLanes_GreaterThanZero_NoError()
+    public void NumberOfLanes_Odd_HasError()
     {
         var squad = new NortheastMegabuck.Models.Squad
         {
-            NumberOfLanes = 1
+            NumberOfLanes = 3
+        };
+
+        var result = _validator.TestValidate(squad);
+        result.ShouldHaveValidationErrorFor(squad => squad.NumberOfLanes).WithErrorMessage("Number of lanes must be even");
+    }
+
+    [Test]
+    public void NumberOfLanes_GreaterThanZeroAndEven_NoError()
+    {
+        var squad = new NortheastMegabuck.Models.Squad
+        {
+            NumberOfLanes = 10
         };
 
         var result = _validator.TestValidate(squad);

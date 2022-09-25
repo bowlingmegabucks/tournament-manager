@@ -36,7 +36,7 @@ partial class Dialog
             this.firstNameLabel = new NortheastMegabuck.Controls.LabelControl();
             this.lastNameText = new System.Windows.Forms.TextBox();
             this.lastNameLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.searchResultsGrid = new NortheastMegabuck.Contols.SearchBowlersGrid();
+            this.searchResultsGrid = new NortheastMegabuck.Controls.SearchBowlersGrid();
             this.selectButton = new System.Windows.Forms.Button();
             this.newBowlerButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -214,7 +214,7 @@ partial class Dialog
     private TextBox lastNameText;
     private Controls.LabelControl lastNameLabel;
     private Button searchButton;
-    private Contols.SearchBowlersGrid searchResultsGrid;
+    private Controls.SearchBowlersGrid searchResultsGrid;
     private Button selectButton;
     private Button newBowlerButton;
     private Button cancelButton;

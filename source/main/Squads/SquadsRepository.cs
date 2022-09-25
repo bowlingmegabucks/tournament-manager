@@ -29,6 +29,9 @@ internal class Repository : IRepository
 
     public IEnumerable<Database.Entities.TournamentSquad> Retrieve(TournamentId tournamentId)
         => _dataContext.Squads.AsNoTracking().Where(squad => squad.TournamentId == tournamentId).AsEnumerable();
+
+    public Database.Entities.TournamentSquad Retrieve(SquadId id)
+        => _dataContext.Squads.AsNoTracking().Single(squad => squad.Id == id);
 }
 
 internal interface IRepository
@@ -36,4 +39,6 @@ internal interface IRepository
     SquadId Add(Database.Entities.TournamentSquad squad);
 
     IEnumerable<Database.Entities.TournamentSquad> Retrieve(TournamentId tournamentId);
+
+    Database.Entities.TournamentSquad Retrieve(SquadId id);
 }

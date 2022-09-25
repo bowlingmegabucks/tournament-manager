@@ -26,15 +26,19 @@ internal class Presenter
 
     public void Execute()
     {
-        var bowlers = Adapter.Execute(_view.SearchCriteria);
+        var bowlers = Adapter.Execute(_view.SearchCriteria).ToList();
 
         if (Adapter.Error != null)
         {
             _view.DisplayError(Adapter.Error.Message);
         }
+        else if (!bowlers.Any())
+        {
+            _view.DisplayMessage("No Results");
+        }
         else
         {
             _view.BindResults(bowlers.OrderBy(bowler => bowler.LastName).ThenBy(bowler => bowler.FirstName));
-        }
+        } 
     }
 }

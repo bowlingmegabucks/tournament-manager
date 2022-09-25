@@ -13,7 +13,7 @@ internal class EntityMapper
     [Test]
     public void Id_Mapped()
     {
-        var id = NortheastMegabuck.Divisions.Id.New();
+        var id = NortheastMegabuck.DivisionId.New();
         var model = new NortheastMegabuck.Models.Division
         {
             Id = id

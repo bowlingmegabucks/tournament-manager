@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Contols;
+﻿namespace NortheastMegabuck.Controls;
 
 partial class SweeperControl
 {
@@ -31,7 +31,7 @@ partial class SweeperControl
             this.components = new System.ComponentModel.Container();
             this.divisionsGroupBox = new System.Windows.Forms.GroupBox();
             this.PanelDivisions = new System.Windows.Forms.Panel();
-            this.sweeperDivisions = new NortheastMegabuck.Contols.SweeperDivisionsControl();
+            this.sweeperDivisions = new NortheastMegabuck.Controls.SweeperDivisionsControl();
             this.squadDatePicker = new System.Windows.Forms.DateTimePicker();
             this.dateLabel = new NortheastMegabuck.Controls.LabelControl();
             this.sweeperErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NortheastMegabuck.Contols;
+namespace NortheastMegabuck.Controls;
 public partial class DivisionControl : UserControl, Divisions.IViewModel
 {
     public DivisionControl()
@@ -22,7 +22,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         genderDropdown.DataSource = dictionary.ToList();
     }
 
-    public Divisions.Id Id { get; set; }
+    public DivisionId Id { get; set; }
 
     public short Number
     {

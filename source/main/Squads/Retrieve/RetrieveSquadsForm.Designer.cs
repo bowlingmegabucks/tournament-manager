@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.squadsGrid = new NortheastMegabuck.Contols.SquadsGrid();
+            this.squadsGrid = new NortheastMegabuck.Controls.SquadsGrid();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonOpen = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -82,7 +82,7 @@ partial class Form
 
     #endregion
 
-    private Contols.SquadsGrid squadsGrid;
+    private Controls.SquadsGrid squadsGrid;
     private Button buttonAdd;
     private Button buttonOpen;
 }
