@@ -62,7 +62,7 @@ partial class Form
             this.bowlerControl.Name = "bowlerControl";
             this.bowlerControl.PhoneNumber = "";
             this.bowlerControl.Size = new System.Drawing.Size(597, 313);
-            this.bowlerControl.StateAddress = "AL";
+            this.bowlerControl.StateAddress = "";
             this.bowlerControl.StreetAddress = "";
             this.bowlerControl.Suffix = "";
             this.bowlerControl.TabIndex = 0;
