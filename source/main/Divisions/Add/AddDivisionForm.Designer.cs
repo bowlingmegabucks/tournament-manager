@@ -30,7 +30,7 @@ partial class Form
     {
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
-            this.newDivision = new NortheastMegabuck.Contols.DivisionControl();
+            this.newDivision = new NortheastMegabuck.Controls.DivisionControl();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -93,5 +93,5 @@ partial class Form
     #endregion
     private Button cancelButton;
     private Button saveButton;
-    private Contols.DivisionControl newDivision;
+    private Controls.DivisionControl newDivision;
 }

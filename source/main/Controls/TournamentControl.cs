@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NortheastMegabuck.Contols;
+namespace NortheastMegabuck.Controls;
 internal partial class TournamentControl : UserControl, Tournaments.IViewModel
 {
     public TournamentControl()

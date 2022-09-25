@@ -1,5 +1,5 @@
 ﻿
-using NortheastMegabuck.Contols;
+using NortheastMegabuck.Controls;
 
 namespace NortheastMegabuck.Sweepers.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView

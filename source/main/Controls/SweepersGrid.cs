@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Contols;
+namespace NortheastMegabuck.Controls;
 public partial class SweepersGrid
 #if DEBUG
     : SweeperMiddleGrid

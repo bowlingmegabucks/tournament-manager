@@ -29,7 +29,7 @@ partial class Form
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            this.bowlerControl = new NortheastMegabuck.Contols.BowlerControl();
+            this.bowlerControl = new NortheastMegabuck.Controls.BowlerControl();
             this.divisionsDropdown = new System.Windows.Forms.ComboBox();
             this.divisionLabel = new NortheastMegabuck.Controls.LabelControl();
             this.registrationErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -229,7 +229,7 @@ partial class Form
 
     #endregion
 
-    private Contols.BowlerControl bowlerControl;
+    private Controls.BowlerControl bowlerControl;
     private ComboBox divisionsDropdown;
     private Controls.LabelControl divisionLabel;
     private ErrorProvider registrationErrorProvider;

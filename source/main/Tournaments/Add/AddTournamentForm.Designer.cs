@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.newTournament = new NortheastMegabuck.Contols.TournamentControl();
+            this.newTournament = new NortheastMegabuck.Controls.TournamentControl();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -102,7 +102,7 @@ partial class Form
 
     #endregion
 
-    private Contols.TournamentControl newTournament;
+    private Controls.TournamentControl newTournament;
     private Button saveButton;
     private Button cancelButton;
 }

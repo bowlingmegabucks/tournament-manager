@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Contols;
+namespace NortheastMegabuck.Controls;
 public partial class SearchBowlersGrid
 #if DEBUG
     : SearchBowlersMiddleGrid
