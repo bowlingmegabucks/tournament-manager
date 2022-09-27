@@ -1,5 +1,4 @@
-﻿
-namespace NortheastMegabuck.Controls;
+﻿namespace NortheastMegabuck.Controls;
 public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
 {    
     /// <summary>
@@ -33,7 +32,7 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
         handicapPanel.Visible = Handicap > 0;
         laneAssignmentLabel.Visible = !string.IsNullOrEmpty(LaneAssignment);
 
-        _stringifyViewModel = viewModel?.ToString() ?? string.Empty;
+        _viewModel = viewModel;
     }
 
     public void ClearRegistration()
@@ -85,9 +84,13 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
         set => handicapLabelValue.Text = value == 0 ? "-" : value.ToString();
     }
 
-    private string _stringifyViewModel = string.Empty;
+    private LaneAssignments.IViewModel? _viewModel;
     public override string ToString()
-        => _stringifyViewModel;
+        => _viewModel?.ToString(LaneAssignment) ?? string.Empty;
+
+    public string ToString(string laneAssignment)
+        => _viewModel?.ToString(laneAssignment) ?? string.Empty;
+
     private void Controls_MouseDown(object sender, MouseEventArgs e)
         => OnMouseDown(e);
 

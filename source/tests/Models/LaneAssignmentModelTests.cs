@@ -77,7 +77,7 @@ internal class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculator>();
 
         new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
 
@@ -188,5 +188,75 @@ internal class LaneAssignment
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
 
         Assert.That(model.Handicap, Is.EqualTo(handicap));
+    }
+
+    [Test]
+    public void Constructor_SquadIsTournamentSquad_SuperSweeperIsNull()
+    {
+        var entity = new NortheastMegabuck.Database.Entities.SquadRegistration
+        {
+            SquadId = SquadId.New(),
+            Squad = new NortheastMegabuck.Database.Entities.TournamentSquad(),
+            RegistrationId = RegistrationId.New(),
+            Registration = new NortheastMegabuck.Database.Entities.Registration
+            {
+                Bowler = new NortheastMegabuck.Database.Entities.Bowler
+                {
+                    Id = BowlerId.New()
+                },
+                Division = new NortheastMegabuck.Database.Entities.Division
+                {
+                    Id = DivisionId.New()
+                },
+                Average = 200
+            },
+            LaneAssignment = "12C"
+        };
+
+        var handicapCalculator = new Mock<IHandicapCalculator>();
+
+        var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
+
+        Assert.That(model.SuperSweeper, Is.Null);
+    }
+
+    public void Constructor_SqaudIsSweeperSquad_SuperSweeperMapped([Values]bool superSweeper)
+    {
+        var divisionId = DivisionId.New();
+
+        var entity = new NortheastMegabuck.Database.Entities.SquadRegistration
+        {
+            SquadId = SquadId.New(),
+            Squad = new NortheastMegabuck.Database.Entities.SweeperSquad
+            {
+                Divisions = new[]
+                {
+                    new NortheastMegabuck.Database.Entities.SweeperDivision {DivisionId = DivisionId.New(), BonusPinsPerGame = 5 },
+                    new NortheastMegabuck.Database.Entities.SweeperDivision { DivisionId = DivisionId.New(), BonusPinsPerGame = 15}
+                }
+            },
+            RegistrationId = RegistrationId.New(),
+            Registration = new NortheastMegabuck.Database.Entities.Registration
+            {
+                Bowler = new NortheastMegabuck.Database.Entities.Bowler
+                {
+                    Id = BowlerId.New()
+                },
+                Division = new NortheastMegabuck.Database.Entities.Division
+                {
+                    Id = divisionId
+                },
+                Average = 200,
+                SuperSweeper = superSweeper
+            },
+            LaneAssignment = "12C"
+        };
+
+        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
+
+        var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
+
+        Assert.That(model.SuperSweeper, Is.EqualTo(superSweeper));
     }
 }

@@ -9,6 +9,8 @@ internal class LaneAssignment
 
     public Division Division { get; init; }
 
+    public bool? SuperSweeper { get; init; }
+
     public string Position { get; init; }
 
     public int? Average { get; init; }
@@ -37,6 +39,9 @@ internal class LaneAssignment
         Handicap = squadRegistration.Squad is Database.Entities.TournamentSquad
             ? handicapCalculator.Calculate(squadRegistration.Registration)
             : ((squadRegistration.Squad as Database.Entities.SweeperSquad)!.Divisions.SingleOrDefault(division => division.DivisionId == Division.Id)?.BonusPinsPerGame).GetValueOrDefault(0);
+
+        SuperSweeper = squadRegistration.Squad is Database.Entities.SweeperSquad
+            ? squadRegistration.Registration.SuperSweeper : null;
 
     }
 
