@@ -1,7 +1,4 @@
-﻿
-using NortheastMegabuck.Bowlers.Add;
-
-namespace NortheastMegabuck.Controls;
+﻿namespace NortheastMegabuck.Controls;
 public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
 {    
     /// <summary>
