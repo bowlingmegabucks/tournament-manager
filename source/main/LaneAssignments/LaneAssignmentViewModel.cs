@@ -73,7 +73,10 @@ internal class ViewModel : IViewModel
     }
 
     public override string ToString()
-        => new StringBuilder(LaneAssignment)
+        => ToString(LaneAssignment);
+
+    public string ToString(string laneAssignment)
+        => new StringBuilder(laneAssignment)
             .Append('\t').Append(BowlerId)
             .Append('\t').Append(BowlerName)
             .Append('\t').Append(_superSweeper.HasValue ? _superSweeper.Value ? "Y" : "N" : DivisionNumber)
@@ -95,4 +98,6 @@ public interface IViewModel
     int Average { get; }
 
     int Handicap { get; }
+
+    string ToString(string laneAssignment);
 }
