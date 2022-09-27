@@ -36,6 +36,7 @@ partial class Form
             this.addToRegistrationButton = new System.Windows.Forms.Button();
             this.laneAssignmentToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.newRegistrationButton = new System.Windows.Forms.Button();
+            this.copyAssignmentsToClipboardLinkLabel = new System.Windows.Forms.LinkLabel();
             this.laneAssignmentGroupBox.SuspendLayout();
             this.unassignedRegistrationsGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -103,11 +104,24 @@ partial class Form
             this.newRegistrationButton.UseVisualStyleBackColor = true;
             this.newRegistrationButton.Click += new System.EventHandler(this.NewRegistrationButton_Click);
             // 
+            // copyAssignmentsToClipboardLinkLabel
+            // 
+            this.copyAssignmentsToClipboardLinkLabel.AutoSize = true;
+            this.copyAssignmentsToClipboardLinkLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.copyAssignmentsToClipboardLinkLabel.Location = new System.Drawing.Point(1082, 955);
+            this.copyAssignmentsToClipboardLinkLabel.Name = "copyAssignmentsToClipboardLinkLabel";
+            this.copyAssignmentsToClipboardLinkLabel.Size = new System.Drawing.Size(218, 20);
+            this.copyAssignmentsToClipboardLinkLabel.TabIndex = 7;
+            this.copyAssignmentsToClipboardLinkLabel.TabStop = true;
+            this.copyAssignmentsToClipboardLinkLabel.Text = "Copy Assignments to Clipboard";
+            this.copyAssignmentsToClipboardLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CopyAssignmentsToClipboardLinkLabel_LinkClicked);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1537, 1013);
+            this.Controls.Add(this.copyAssignmentsToClipboardLinkLabel);
             this.Controls.Add(this.newRegistrationButton);
             this.Controls.Add(this.addToRegistrationButton);
             this.Controls.Add(this.unassignedRegistrationsGroupBox);
@@ -119,6 +133,7 @@ partial class Form
             this.laneAssignmentGroupBox.ResumeLayout(false);
             this.unassignedRegistrationsGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 
@@ -131,4 +146,5 @@ partial class Form
     private Button addToRegistrationButton;
     private ToolTip laneAssignmentToolTip;
     private Button newRegistrationButton;
+    private LinkLabel copyAssignmentsToClipboardLinkLabel;
 }

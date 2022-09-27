@@ -1,4 +1,7 @@
-﻿namespace NortheastMegabuck.LaneAssignments;
+﻿using System.Text;
+using NortheastMegabuck.Controls;
+
+namespace NortheastMegabuck.LaneAssignments;
 public partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
@@ -217,6 +220,17 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void AddToRegistrationButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddToRegistration();
+
+    private void CopyAssignmentsToClipboardLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+        var assignments = laneAssignmentFlowLayoutPanel.Controls.OfType<IViewModel>().Where(assignment => assignment.BowlerId != BowlerId.Empty).ToList();
+
+        var text = new StringBuilder();
+
+        assignments.ForEach(assignment => text.AppendLine(assignment.ToString()));
+
+        Clipboard.SetText(text.ToString());
+    }
 }
 
 internal static class ExtensionMethods
