@@ -18,6 +18,8 @@ internal class ViewModel : IViewModel
 
     public int Handicap { get; }
 
+    private readonly bool? _superSweeper;
+
     public ViewModel(Models.LaneAssignment laneAssignment)
     {
         BowlerId = laneAssignment.Bowler.Id;
@@ -29,6 +31,8 @@ internal class ViewModel : IViewModel
         LaneAssignment = laneAssignment.Position;
         Average = laneAssignment.Average.GetValueOrDefault(0);
         Handicap = laneAssignment.Handicap;
+
+        _superSweeper = laneAssignment.SuperSweeper;
     }
 
     public ViewModel(Models.Registration registration) : this(registration, new HandicapCalculator()) { }
@@ -49,6 +53,8 @@ internal class ViewModel : IViewModel
         LaneAssignment = string.Empty;
         Average = registration.Average.GetValueOrDefault(0);
         Handicap = handicapCalculator.Calculate(registration);
+
+        _superSweeper = registration.SuperSweeper;
     }
 
     /// <summary>
@@ -70,7 +76,7 @@ internal class ViewModel : IViewModel
         => new StringBuilder(LaneAssignment)
             .Append('\t').Append(BowlerId)
             .Append('\t').Append(BowlerName)
-            .Append('\t').Append(DivisionNumber)
+            .Append('\t').Append(_superSweeper.HasValue ? _superSweeper.Value ? "Y" : "N" : DivisionNumber)
             .Append('\t').Append(Handicap).ToString();
 }
 

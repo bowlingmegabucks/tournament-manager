@@ -399,7 +399,7 @@ internal class ViewModel
     }
 
     [Test]
-    public void ToString_Mapped()
+    public void ToString_SuperSweeperNull_Mapped()
     {
         var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
         {
@@ -423,6 +423,38 @@ internal class ViewModel
         var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
 
         var expected = $"{viewModel.LaneAssignment}\t{viewModel.BowlerId}\t{viewModel.BowlerName}\t{viewModel.DivisionNumber}\t{viewModel.Handicap}";
+        var actual = viewModel.ToString();
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [TestCase(true, "Y")]
+    [TestCase(false, "N")]
+    public void ToString_SuperSweeperHasValue_Mapped(bool superSweeper, string value)
+    {
+        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler
+            {
+                Id = BowlerId.New(),
+                FirstName = "firstName",
+                LastName = "lastName"
+            },
+            Division = new NortheastMegabuck.Models.Division
+            {
+                Id = DivisionId.New(),
+                Name = "name",
+                Number = 5
+            },
+            Position = "21A",
+            Average = 200,
+            Handicap = 50,
+            SuperSweeper = superSweeper
+        };
+
+        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+
+        var expected = $"{viewModel.LaneAssignment}\t{viewModel.BowlerId}\t{viewModel.BowlerName}\t{value}\t{viewModel.Handicap}";
         var actual = viewModel.ToString();
 
         Assert.That(actual, Is.EqualTo(expected));
