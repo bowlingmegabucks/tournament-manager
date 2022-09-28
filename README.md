@@ -1,1 +1,1 @@
-# Northeast Megabuck
+# Northeast Megabucks Tournament
