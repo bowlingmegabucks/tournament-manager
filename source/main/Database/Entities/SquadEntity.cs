@@ -33,6 +33,8 @@ internal abstract class Squad
 
     public ICollection<SquadRegistration> Registrations { get; set; } = null!;
 
+    public ICollection<SquadScore> Scores { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<Squad>
     {
         public void Configure(EntityTypeBuilder<Squad> builder)
