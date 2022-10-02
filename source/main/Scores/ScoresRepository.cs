@@ -19,7 +19,7 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    void IRepository.Add(IEnumerable<Database.Entities.SquadScore> newSquadScores)
+    void IRepository.Update(IEnumerable<Database.Entities.SquadScore> newSquadScores)
     {
         var squadId = newSquadScores.First().SquadId;
         var existingSquadScores = _dataContext.SquadScores.Where(score => score.SquadId == squadId).ToList();
@@ -55,5 +55,5 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    void Add(IEnumerable<Database.Entities.SquadScore> scores);
+    void Update(IEnumerable<Database.Entities.SquadScore> scores);
 }
