@@ -3,14 +3,16 @@ internal partial class Form : System.Windows.Forms.Form
 {
     private readonly IConfiguration _config;
     private readonly TournamentId _id;
+    private readonly short _gamesPerSquad;
 
     
-    public Form(IConfiguration config, TournamentId id, string tournamentName)
+    public Form(IConfiguration config, TournamentId id, string tournamentName, short gamesPerSquad)
     {
         InitializeComponent();
 
         _config = config;
         _id = id;
+        _gamesPerSquad = gamesPerSquad;
 
         Text = tournamentName;
     }
@@ -38,7 +40,7 @@ internal partial class Form : System.Windows.Forms.Form
 
     private void OpenSquadMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Squads.Retrieve.Form(_config, _id);
+        using var form = new Squads.Retrieve.Form(_config, _id, _gamesPerSquad);
 
         form.ShowDialog(this);
     }

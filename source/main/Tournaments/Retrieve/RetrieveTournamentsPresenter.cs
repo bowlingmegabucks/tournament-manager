@@ -49,7 +49,7 @@ internal class Presenter
 
         if (tournament.id != null)
         {
-            _view.OpenTournament(tournament.id.Value, tournament.name);
+            _view.OpenTournament(tournament.id.Value, tournament.name, tournament.gamesPerSquad);
         }
     }
 }

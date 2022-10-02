@@ -13,7 +13,7 @@ public partial class ScoresGrid
         InitializeComponent();
     }
 
-    public void GenerateGameColumns(int games)
+    public void GenerateGameColumns(short games)
     {
         for (var i = 1; i <= games; i++)
         {
