@@ -5,13 +5,16 @@ public partial class Form : System.Windows.Forms.Form, IView
     private readonly IConfiguration _config;
     private readonly SquadId _id;
     private readonly TournamentId _tournamentId;
-    public Form(IConfiguration config, TournamentId tournamentId, SquadId id)
+    private readonly short _numberOfGames;
+
+    public Form(IConfiguration config, TournamentId tournamentId, SquadId id, short numberOfGames)
     {
         InitializeComponent();
 
         _config = config;
         _id = id;
         _tournamentId = tournamentId;
+        _numberOfGames = numberOfGames;
 
         new Presenter(config, this).Load();
     }
@@ -35,6 +38,13 @@ public partial class Form : System.Windows.Forms.Form, IView
     {
         //todo: get from presenter;
         using var form = new LaneAssignments.Form(_config,_tournamentId, _id, StartingLane,NumberOfLanes,MaxPerPair);
+
+        form.ShowDialog(this);
+    }
+
+    private void ScoresMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Scores.Form(_config, _id, _numberOfGames);
 
         form.ShowDialog(this);
     }
