@@ -42,6 +42,7 @@ partial class ScoresGrid
             // 
             // laneAssignmentColumn
             // 
+            this.laneAssignmentColumn.DataPropertyName = "LaneAssignment";
             this.laneAssignmentColumn.Frozen = true;
             this.laneAssignmentColumn.HeaderText = "Lane";
             this.laneAssignmentColumn.Name = "laneAssignmentColumn";
@@ -50,6 +51,7 @@ partial class ScoresGrid
             // 
             // bowlerNameColumn
             // 
+            this.bowlerNameColumn.DataPropertyName = "BowlerName";
             this.bowlerNameColumn.Frozen = true;
             this.bowlerNameColumn.HeaderText = "Bowler";
             this.bowlerNameColumn.Name = "bowlerNameColumn";

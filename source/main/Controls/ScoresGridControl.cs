@@ -19,7 +19,7 @@ public partial class ScoresGrid
         {
             var column = new DataGridViewColumn()
             {
-                Name = $"QualifyingScoreGame{i}",
+                Name = $"game{i}Column",
                 ReadOnly = false,
                 Visible = true,
                 Width = 55,
