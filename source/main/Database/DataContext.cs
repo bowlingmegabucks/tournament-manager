@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
 
 namespace NortheastMegabuck.Database;
@@ -84,6 +86,8 @@ internal class DataContext : DbContext, IDataContext
 internal interface IDataContext
 {
     bool Ping();
+
+    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
     DbSet<Entities.Tournament> Tournaments { get; }
 

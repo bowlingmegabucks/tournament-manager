@@ -1,6 +1,6 @@
 ﻿
 namespace NortheastMegabuck.Models;
-internal class QualifyingScore
+internal class SquadScore
 {
     public SquadId SquadId { get; init; }
 
