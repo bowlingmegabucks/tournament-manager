@@ -1,6 +1,11 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿using System.Globalization;
+using NortheastMegabuck.Bowlers.Add;
+
+namespace NortheastMegabuck.Controls;
 public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
-{    
+{
+    private readonly CultureInfo _culture;
+
     /// <summary>
     /// Used for created Empty Lane Assignment Grid
     /// </summary>
@@ -14,6 +19,8 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
     {
         InitializeComponent();
         ClearRegistration();
+        _culture = new CultureInfo("en-US");
+
         LaneAssignment = string.Empty;
         BorderStyle = BorderStyle.FixedSingle;
     }
@@ -74,14 +81,14 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
 
     public int Average
     {
-        get => averageLabelValue.Text == "-" ? 0 : Convert.ToInt32(averageLabelValue.Text);
-        set => averageLabelValue.Text = value == 0 ? "-" : value.ToString();
+        get => averageLabelValue.Text == "-" ? 0 : Convert.ToInt32(averageLabelValue.Text, _culture);
+        set => averageLabelValue.Text = value == 0 ? "-" : value.ToString(_culture);
     }
 
     public int Handicap
     { 
-        get => handicapLabelValue.Text == "-" ? 0 : Convert.ToInt32(handicapLabelValue.Text);
-        set => handicapLabelValue.Text = value == 0 ? "-" : value.ToString();
+        get => handicapLabelValue.Text == "-" ? 0 : Convert.ToInt32(handicapLabelValue.Text, _culture);
+        set => handicapLabelValue.Text = value == 0 ? "-" : value.ToString(_culture);
     }
 
     private LaneAssignments.IViewModel? _viewModel;
@@ -102,4 +109,6 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
 
     private void Controls_DragLeave(object sender, EventArgs e)
         => OnDragLeave(e);
+    public int CompareTo(LaneAssignments.IViewModel? other)
+        => 0;
 }

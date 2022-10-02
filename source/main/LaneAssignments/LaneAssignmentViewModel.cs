@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Globalization;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace NortheastMegabuck.LaneAssignments;
@@ -60,7 +61,7 @@ internal class ViewModel : IViewModel
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
-    public ViewModel(string bowlerName, string divisionName, int average, int handicap)
+    internal ViewModel(string bowlerName, string divisionName, int average, int handicap)
     {
         BowlerId = BowlerId.New();
 
@@ -72,6 +73,16 @@ internal class ViewModel : IViewModel
         Handicap = handicap;
     }
 
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal ViewModel(string laneAssignment)
+    {
+        BowlerName = string.Empty;
+        DivisionName = string.Empty;
+        LaneAssignment = laneAssignment;
+    }
+
     public override string ToString()
         => ToString(LaneAssignment);
 
@@ -81,9 +92,31 @@ internal class ViewModel : IViewModel
             .Append('\t').Append(BowlerName)
             .Append('\t').Append(_superSweeper.HasValue ? _superSweeper.Value ? "Y" : "N" : DivisionNumber)
             .Append('\t').Append(Handicap).ToString();
+
+    public int CompareTo(IViewModel? other)
+    {
+        if (other == null)
+        {
+            throw new ArgumentNullException(nameof(other));
+        }
+
+        var culture = new CultureInfo("en-US");
+        var lane = Convert.ToInt32(LaneAssignment.Substring(0, LaneAssignment.Length - 1), culture);
+        var otherLane = Convert.ToInt32(other.LaneAssignment.Substring(0, other.LaneAssignment.Length - 1), culture);
+
+        if (lane != otherLane)
+        {
+            return lane.CompareTo(otherLane);
+        }
+
+        var letter = LaneAssignment.Substring(LaneAssignment.Length - 1, 1);
+        var otherLetter = other.LaneAssignment.Substring(other.LaneAssignment.Length - 1, 1);
+
+        return string.CompareOrdinal(letter, otherLetter);
+    }
 }
 
-public interface IViewModel
+public interface IViewModel : IComparable<IViewModel>
 {
     BowlerId BowlerId { get; }
 

@@ -459,4 +459,76 @@ internal class ViewModel
 
         Assert.That(actual, Is.EqualTo(expected));
     }
+
+    [Test]
+    public void CompareTo_IViewModel_Null_ThrowsArgumentNullException()
+    {
+        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
+
+        Assert.Multiple(() =>
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => laneAssignment.CompareTo(null));
+            Assert.That(ex.Message, Is.EqualTo("Value cannot be null. (Parameter 'other')"));
+        });
+    }
+
+    [Test]
+    public void CompareTo_IViewModel_HigherLane_ReturnsNegativeOne()
+    {
+        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
+        var other = new NortheastMegabuck.LaneAssignments.ViewModel("3A");
+
+        var expected = -1;
+        var actual = laneAssignment.CompareTo(other);
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void CompareTo_IViewModel_LowerLane_ReturnsOne()
+    {
+        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("3A");
+        var other = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
+
+        var expected = 1;
+        var actual = laneAssignment.CompareTo(other);
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void CompareTo_IViewModel_SameLaneHigherLetter_ReturnsNegativeOne()
+    {
+        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
+        var other = new NortheastMegabuck.LaneAssignments.ViewModel("1B");
+
+        var expected = -1;
+        var actual = laneAssignment.CompareTo(other);
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void CompareTo_IViewModel_SameLaneLowerLetter_ReturnsOne()
+    {
+        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1B");
+        var other = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
+
+        var expected = 1;
+        var actual = laneAssignment.CompareTo(other);
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void CompareTo_IViewModel_SameLaneSameLetter_ReturnsZero()
+    {
+        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1B");
+        var other = new NortheastMegabuck.LaneAssignments.ViewModel("1B");
+
+        var expected = 0;
+        var actual = laneAssignment.CompareTo(other);
+
+        Assert.That(actual, Is.EqualTo(expected));
+    }
 }
