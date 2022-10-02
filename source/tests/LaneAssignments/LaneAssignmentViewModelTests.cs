@@ -367,7 +367,7 @@ internal class ViewModel
             Average = average
         };
 
-        new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
+        _ = new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
 
         handicapCalculator.Verify(calculator => calculator.Calculate(registration), Times.Once);
     }

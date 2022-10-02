@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+
 namespace NortheastMegabuck.Scores;
 internal class ViewModel : IViewModel
 {
