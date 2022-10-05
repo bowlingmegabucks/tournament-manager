@@ -25,10 +25,10 @@ internal static class Moq
         mockValidator.Setup(validator => validator.ValidateAsync(It.IsAny<T>(), It.IsAny<CancellationToken>())).ReturnsAsync(result);
     }
 
-    internal static void Validate_IsNotValid<T>(this Mock<IValidator<T>> mockValidator, string propertyName, string errorMessage) where T : class
+    internal static void Validate_IsNotValid<T>(this Mock<IValidator<T>> mockValidator, string errorMessage) where T : class
     {
         var result = new FluentValidation.Results.ValidationResult();
-        result.Errors.Add(new FluentValidation.Results.ValidationFailure(propertyName,errorMessage));
+        result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty,errorMessage));
 
         mockValidator.Setup(validator => validator.Validate(It.IsAny<T>())).Returns(result);
         mockValidator.Setup(validator => validator.ValidateAsync(It.IsAny<T>(), It.IsAny<CancellationToken>())).ReturnsAsync(result);

@@ -35,7 +35,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_ValidatorValidateFalse_ErrorFlow()
     {
-        _validator.Validate_IsNotValid("property", "error");
+        _validator.Validate_IsNotValid("error");
 
         var division = new NortheastMegabuck.Models.Division();
 
