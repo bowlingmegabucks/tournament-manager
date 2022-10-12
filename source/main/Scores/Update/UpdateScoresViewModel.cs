@@ -4,30 +4,22 @@ using System.Globalization;
 namespace NortheastMegabuck.Scores.Update;
 internal class ViewModel : IViewModel
 {
+    public SquadId SquadId { get; set; }
+
     public BowlerId BowlerId { get; set; }
 
-    public string LaneAssignment { get; set; }
+    public short GameNumber { get; set; }
 
-    public string BowlerName { get; set; }
-
-    public IDictionary<int, int> Scores { get; set; }
-
-    public ViewModel(LaneAssignments.IViewModel laneAssignment)
-    {
-        BowlerId = laneAssignment.BowlerId;
-        LaneAssignment = laneAssignment.LaneAssignment;
-        BowlerName = laneAssignment.BowlerName;
-        Scores = new Dictionary<int, int>();
-    }
+    public int Score { get; set; }
 }
 
 public interface IViewModel
-{ 
+{
+    SquadId SquadId { get; set; }
+
     BowlerId BowlerId { get; set; }
 
-    string LaneAssignment { get; set; }
+    short GameNumber { get; set; }
 
-    string BowlerName { get; set; }
-
-    IDictionary<int, int> Scores { get; set; }
+    int Score { get; set; }
 }

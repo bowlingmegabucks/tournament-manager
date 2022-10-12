@@ -27,5 +27,5 @@ public partial class Form : System.Windows.Forms.Form, IView
     }
 
     public void BindLaneAssignments(IEnumerable<LaneAssignments.IViewModel> laneAssignments)
-        => scoresGrid.Bind(laneAssignments.Select(assignment => new Update.ViewModel(assignment)));
+        => scoresGrid.Bind(laneAssignments.Select(assignment => new ViewModel(assignment)));
 }

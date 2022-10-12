@@ -19,7 +19,7 @@ internal class ViewModel
     [Test]
     public void Constructor_LaneAssignmentViewModel_BowlerIdMapped()
     {
-        var model = new NortheastMegabuck.Scores.Update.ViewModel(_laneAssignment.Object);
+        var model = new NortheastMegabuck.Scores.ViewModel(_laneAssignment.Object);
 
         Assert.That(model.BowlerId, Is.EqualTo(_laneAssignment.Object.BowlerId));
     }
@@ -27,7 +27,7 @@ internal class ViewModel
     [Test]
     public void Constructor_LaneAssignmentViewModel_LaneAssignmentMapped()
     {
-        var model = new NortheastMegabuck.Scores.Update.ViewModel(_laneAssignment.Object);
+        var model = new NortheastMegabuck.Scores.ViewModel(_laneAssignment.Object);
 
         Assert.That(model.LaneAssignment, Is.EqualTo(_laneAssignment.Object.LaneAssignment));
     }
@@ -35,7 +35,7 @@ internal class ViewModel
     [Test]
     public void Constructor_LaneAssignmentViewModel_BowlerNameMapped()
     {
-        var model = new NortheastMegabuck.Scores.Update.ViewModel(_laneAssignment.Object);
+        var model = new NortheastMegabuck.Scores.ViewModel(_laneAssignment.Object);
 
         Assert.That(model.BowlerName, Is.EqualTo(_laneAssignment.Object.BowlerName));
     }
@@ -43,7 +43,7 @@ internal class ViewModel
     [Test]
     public void Constructor_LaneAssignmentViewModel_ScoresEmpty()
     {
-        var model = new NortheastMegabuck.Scores.Update.ViewModel(_laneAssignment.Object);
+        var model = new NortheastMegabuck.Scores.ViewModel(_laneAssignment.Object);
 
         Assert.That(model.Scores, Is.Empty);
     }
