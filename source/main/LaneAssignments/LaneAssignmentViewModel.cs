@@ -5,15 +5,15 @@ using System.Text;
 namespace NortheastMegabuck.LaneAssignments;
 internal class ViewModel : IViewModel
 {
-    public BowlerId BowlerId { get; }
+    public BowlerId BowlerId { get; internal set; }
 
-    public string BowlerName { get; }
+    public string BowlerName { get; internal set; }
 
     public string DivisionName { get; }
 
     public int DivisionNumber { get; }
 
-    public string LaneAssignment { get; }
+    public string LaneAssignment { get; internal set; }
 
     public int Average { get; }
 
@@ -81,6 +81,14 @@ internal class ViewModel : IViewModel
         BowlerName = string.Empty;
         DivisionName = string.Empty;
         LaneAssignment = laneAssignment;
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal ViewModel() : this(string.Empty)
+    {
+
     }
 
     public override string ToString()
