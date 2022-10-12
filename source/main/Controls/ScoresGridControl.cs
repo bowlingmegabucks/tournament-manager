@@ -5,7 +5,7 @@ public partial class ScoresGrid
 #if DEBUG
     : ScoresMiddleGrid
 #else
-    : Controls.DataGrid<Scores.Update.IViewModel>
+    : Controls.DataGrid<Scores.IViewModel>
 #endif
 {
     public ScoresGrid()
@@ -36,7 +36,7 @@ public partial class ScoresGrid
 
 #if DEBUG
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-public class ScoresMiddleGrid : DataGrid<Scores.Update.IViewModel>
+public class ScoresMiddleGrid : DataGrid<Scores.IViewModel>
 {
     public ScoresMiddleGrid()
     {
