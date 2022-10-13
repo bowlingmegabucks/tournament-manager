@@ -32,6 +32,19 @@ public partial class ScoresGrid
             GridView.Columns.Add(column);
         }
     }
+
+    public void LoadScores(IEnumerable<Scores.IViewModel> bowlerScores)
+    {
+        foreach (var bowlerScore in bowlerScores)
+        {
+            var dataRow = GridView.Rows.OfType<DataGridViewRow>().Single(row => row.Cells["bowlerIdColumn"].Value.ToString() == bowlerScore.BowlerId.Value.ToString());
+
+            foreach (var score in bowlerScore.Scores)
+            {
+                dataRow.Cells[$"game{score.Key}Column"].Value = score.Value;
+            }
+        }
+    }
 }
 
 #if DEBUG

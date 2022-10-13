@@ -28,6 +28,7 @@ partial class ScoresGrid
     /// </summary>
     private void InitializeComponent()
     {
+            this.bowlerIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.laneAssignmentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bowlerNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
@@ -36,9 +37,19 @@ partial class ScoresGrid
             // GridView
             // 
             this.GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.bowlerIdColumn,
             this.laneAssignmentColumn,
             this.bowlerNameColumn});
             this.GridView.RowTemplate.Height = 25;
+            // 
+            // bowlerIdColumn
+            // 
+            this.bowlerIdColumn.DataPropertyName = "BowlerId";
+            this.bowlerIdColumn.Frozen = true;
+            this.bowlerIdColumn.HeaderText = "BowlerId";
+            this.bowlerIdColumn.Name = "bowlerIdColumn";
+            this.bowlerIdColumn.ReadOnly = true;
+            this.bowlerIdColumn.Visible = false;
             // 
             // laneAssignmentColumn
             // 
@@ -70,6 +81,7 @@ partial class ScoresGrid
 
     #endregion
 
+    private DataGridViewTextBoxColumn bowlerIdColumn;
     private DataGridViewTextBoxColumn laneAssignmentColumn;
     private DataGridViewTextBoxColumn bowlerNameColumn;
 }
