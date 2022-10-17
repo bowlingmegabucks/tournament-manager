@@ -10,6 +10,21 @@ internal class ViewModel : IViewModel
     public short GameNumber { get; set; }
 
     public int Score { get; set; }
+
+    public ViewModel(Models.SquadScore squadScore)
+    {
+        BowlerId = squadScore.BowlerId;
+        GameNumber = squadScore.GameNumber;
+        Score = squadScore.Score;
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal ViewModel()
+    {
+
+    }
 }
 
 public interface IViewModel

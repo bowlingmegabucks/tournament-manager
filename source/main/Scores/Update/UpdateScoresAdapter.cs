@@ -20,13 +20,13 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public IEnumerable<Retrieve.IViewModel> Execute(IEnumerable<IViewModel> squadScores)
+    public IEnumerable<IViewModel> Execute(IEnumerable<IViewModel> squadScores)
     {
         var models = squadScores.Select(squadScore => new Models.SquadScore(squadScore));
 
         var invalidScores = _businessLogic.Execute(models.ToList());
 
-        return invalidScores.Select(score => new Retrieve.ViewModel(score));
+        return invalidScores.Select(score => new ViewModel(score));
     }
 }
 
@@ -34,5 +34,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    IEnumerable<Retrieve.IViewModel> Execute(IEnumerable<IViewModel> scores);
+    IEnumerable<IViewModel> Execute(IEnumerable<IViewModel> scores);
 }
