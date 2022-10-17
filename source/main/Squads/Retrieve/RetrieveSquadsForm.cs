@@ -3,15 +3,17 @@ namespace NortheastMegabuck.Squads.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
+    private readonly short _gamesPerSquad;
 
     public TournamentId TournamentId { get; }
     
-    public Form(IConfiguration config, TournamentId tournamentId)
+    public Form(IConfiguration config, TournamentId tournamentId, short gamesPerSquad)
     {
         InitializeComponent();
 
         _config = config;
         TournamentId = tournamentId;
+        _gamesPerSquad = gamesPerSquad;
 
         new Presenter(_config, this).Execute();
     }
@@ -30,7 +32,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void OpenButton_Click(object sender, EventArgs e)
     {
-        using var form = new Portal.Form(_config, TournamentId, squadsGrid.SelectedSquad!.Id);
+        using var form = new Portal.Form(_config, TournamentId, squadsGrid.SelectedSquad!.Id, _gamesPerSquad);
 
         if (!form.IsDisposed)
         {

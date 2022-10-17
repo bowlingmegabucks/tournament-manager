@@ -249,6 +249,7 @@ dotnet_diagnostic.CA2355.severity = error
 dotnet_diagnostic.CA2356.severity = error
 dotnet_diagnostic.CA2362.severity = error
 dotnet_diagnostic.EF1001.severity = error
+csharp_style_prefer_top_level_statements = true:silent
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
@@ -293,7 +294,7 @@ dotnet_diagnostic.CA1502.severity = error
 dotnet_diagnostic.CA1505.severity = error
 dotnet_diagnostic.CA1506.severity = error
 dotnet_diagnostic.CA1508.severity = error
-dotnet_diagnostic.CA1707.severity = warning
+dotnet_diagnostic.CA1707.severity = silent
 dotnet_diagnostic.CA1708.severity = error
 dotnet_diagnostic.CA1712.severity = error
 dotnet_diagnostic.CA1713.severity = error
@@ -406,5 +407,7 @@ dotnet_diagnostic.CA5405.severity = error
 dotnet_diagnostic.CA2219.severity = error
 dotnet_diagnostic.CA2245.severity = error
 dotnet_diagnostic.CA2249.severity = error
+dotnet_style_allow_multiple_blank_lines_experimental = false:error
+dotnet_style_allow_statement_immediately_after_block_experimental = false:error
 [*.vb]
 dotnet_diagnostic.CA1047.severity = error

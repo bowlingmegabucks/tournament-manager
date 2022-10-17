@@ -74,11 +74,11 @@ internal class Presenters
     [Test]
     public void NewTournament_ViewCreateNewTournamentReturnsNull_ViewOpenTournamentNotCalled()
     {
-        _view.Setup(view => view.CreateNewTournament()).Returns((null, string.Empty));
+        _view.Setup(view => view.CreateNewTournament()).Returns((null, string.Empty, 0));
 
         _presenter.NewTournament();
 
-        _view.Verify(view => view.OpenTournament(It.IsAny<TournamentId>(), It.IsAny<string>()), Times.Never);
+        _view.Verify(view => view.OpenTournament(It.IsAny<TournamentId>(), It.IsAny<string>(), It.IsAny<short>()), Times.Never);
     }
 
     [Test]
@@ -86,10 +86,10 @@ internal class Presenters
     {
         var id = TournamentId.New();
 
-        _view.Setup(view => view.CreateNewTournament()).Returns((id, "tournamentName"));
+        _view.Setup(view => view.CreateNewTournament()).Returns((id, "tournamentName", 5));
 
         _presenter.NewTournament();
 
-        _view.Verify(view => view.OpenTournament(id, "tournamentName"), Times.Once);
+        _view.Verify(view => view.OpenTournament(id, "tournamentName", 5), Times.Once);
     }
 }

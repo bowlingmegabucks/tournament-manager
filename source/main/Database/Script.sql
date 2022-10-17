@@ -150,3 +150,21 @@ VALUES ('20220831173955_SquadLaneAssignment', '6.0.8');
 
 COMMIT;
 
+START TRANSACTION;
+
+CREATE TABLE `SquadScores` (
+    `BowlerId` char(36) COLLATE ascii_general_ci NOT NULL,
+    `SquadId` char(36) COLLATE ascii_general_ci NOT NULL,
+    `Game` smallint NOT NULL,
+    `Score` int NOT NULL,
+    CONSTRAINT `PK_SquadScores` PRIMARY KEY (`BowlerId`, `SquadId`, `Game`),
+    CONSTRAINT `FK_SquadScores_Bowlers_BowlerId` FOREIGN KEY (`BowlerId`) REFERENCES `Bowlers` (`Id`),
+    CONSTRAINT `FK_SquadScores_Squads_SquadId` FOREIGN KEY (`SquadId`) REFERENCES `Squads` (`Id`)
+) CHARACTER SET=utf8mb4;
+
+CREATE INDEX `IX_SquadScores_SquadId` ON `SquadScores` (`SquadId`);
+
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20221017125314_SquadScores', '6.0.8');
+
+COMMIT;
