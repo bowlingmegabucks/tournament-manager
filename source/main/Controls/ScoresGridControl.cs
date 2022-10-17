@@ -7,7 +7,7 @@ public partial class ScoresGrid
 #if DEBUG
     : ScoresMiddleGrid
 #else
-    : Controls.DataGrid<Scores.IGridViewModel>
+    : Controls.DataGrid<IGridViewModel>
 #endif
 {
     private short _games;
@@ -45,7 +45,7 @@ public partial class ScoresGrid
         set => _squadId = value;
     }
 
-    public void LoadScores(IEnumerable<Scores.IGridViewModel> bowlerScores)
+    public void FillScores(IEnumerable<IGridViewModel> bowlerScores)
     {
         foreach (var bowlerScore in bowlerScores)
         {
@@ -85,10 +85,25 @@ public partial class ScoresGrid
 
         return scores;
     }
+
+    internal void FillScores(IEnumerable<IViewModel> squadScores)
+    {
+        var scoresByBowler = squadScores.GroupBy(squadScore => squadScore.BowlerId);
+
+        foreach (var scoreByBowler in scoresByBowler)
+        {
+            var dataRow = GridView.Rows.OfType<DataGridViewRow>().Single(row => row.Cells["bowlerIdColumn"].Value.ToString() == scoreByBowler.Key.ToString());
+
+            foreach (var score in scoreByBowler)
+            {
+                dataRow.Cells[$"game{score.GameNumber}Column"].Value = score.Score;
+            }
+        }
+    }
 }
 
 #if DEBUG
-public class ScoresMiddleGrid : DataGrid<Scores.IGridViewModel>
+public class ScoresMiddleGrid : DataGrid<IGridViewModel>
 {
     public ScoresMiddleGrid()
     {

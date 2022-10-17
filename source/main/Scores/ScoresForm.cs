@@ -16,9 +16,10 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
 
         scoresGrid.GenerateGameColumns(numberOfGames);
         scoresGrid.SquadId = squadId;
-
-        new Presenter(config, this).LoadLaneAssignments();
     }
+
+    private void Form_Load(object sender, EventArgs e) 
+        => new Presenter(_config, this).Load();
 
     IEnumerable<IViewModel> Update.IView.Scores
         => scoresGrid.GetScores();
@@ -41,6 +42,9 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
     public void BindLaneAssignments(IEnumerable<LaneAssignments.IViewModel> laneAssignments)
         => scoresGrid.Bind(laneAssignments.Select(assignment => new GridViewModel(assignment)));
 
+    public void BindSquadScores(IEnumerable<IViewModel> squadScores)
+        => scoresGrid.FillScores(squadScores);
+
     private void PasteScoresFromClipboardLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         var data = Clipboard.GetText();
@@ -56,7 +60,7 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
 
         var squadScores = scoresByBowler.Select(bowlerScores => new GridViewModel(bowlerScores, _numberOfGames));
 
-        scoresGrid.LoadScores(squadScores);
+        scoresGrid.FillScores(squadScores);
     }
 
     private void SaveButton_Click(object sender, EventArgs e)
