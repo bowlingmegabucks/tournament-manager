@@ -8,6 +8,8 @@ public partial class ScoresGrid
     : Controls.DataGrid<Scores.IViewModel>
 #endif
 {
+    private short _games;
+
     public ScoresGrid()
     {
         InitializeComponent();
@@ -15,6 +17,8 @@ public partial class ScoresGrid
 
     public void GenerateGameColumns(short games)
     {
+        _games = games;
+
         for (var i = 1; i <= games; i++)
         {
             var column = new DataGridViewColumn()
@@ -33,6 +37,12 @@ public partial class ScoresGrid
         }
     }
 
+    private SquadId _squadId;
+    public SquadId SquadId
+    {
+        set => _squadId = value;
+    }
+
     public void LoadScores(IEnumerable<Scores.IViewModel> bowlerScores)
     {
         foreach (var bowlerScore in bowlerScores)
@@ -44,6 +54,34 @@ public partial class ScoresGrid
                 dataRow.Cells[$"game{score.Key}Column"].Value = score.Value;
             }
         }
+    }
+
+    public IEnumerable<Scores.Update.IViewModel> GetScores()
+    {
+        var scores = new List<Scores.Update.IViewModel>();
+
+        var bowlerScores = GridView.Rows.OfType<DataGridViewRow>().Where(row => !string.IsNullOrEmpty(row.Cells["game1Column"].Value?.ToString())).ToList();
+
+        foreach (var bowlerScore in bowlerScores)
+        {
+            var bowlerId = bowlerScore.Cells["bowlerIdColumn"].Value.ToString();
+
+            for (short i = 1; i <= _games; i++)
+            {
+                if (int.TryParse(bowlerScore.Cells[$"game{i}Column"].Value?.ToString(), out var score))
+                {
+                    scores.Add(new Scores.Update.ViewModel
+                    {
+                        SquadId = _squadId,
+                        BowlerId = new BowlerId(new Guid(bowlerId!)),
+                        GameNumber = i,
+                        Score = score
+                    });
+                }  
+            }
+        }
+
+        return scores;
     }
 }
 

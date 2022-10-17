@@ -57,12 +57,14 @@ partial class Form
             // 
             // saveButton
             // 
+            this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.saveButton.Location = new System.Drawing.Point(12, 606);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(94, 29);
             this.saveButton.TabIndex = 9;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // Form
             // 
