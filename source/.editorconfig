@@ -407,5 +407,7 @@ dotnet_diagnostic.CA5405.severity = error
 dotnet_diagnostic.CA2219.severity = error
 dotnet_diagnostic.CA2245.severity = error
 dotnet_diagnostic.CA2249.severity = error
+dotnet_style_allow_multiple_blank_lines_experimental = false:error
+dotnet_style_allow_statement_immediately_after_block_experimental = false:error
 [*.vb]
 dotnet_diagnostic.CA1047.severity = error
