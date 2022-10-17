@@ -1,11 +1,13 @@
 ﻿
+using NortheastMegabuck.Scores;
+
 namespace NortheastMegabuck.Controls;
 
 public partial class ScoresGrid
 #if DEBUG
     : ScoresMiddleGrid
 #else
-    : Controls.DataGrid<Scores.IViewModel>
+    : Controls.DataGrid<Scores.IGridViewModel>
 #endif
 {
     private short _games;
@@ -43,7 +45,7 @@ public partial class ScoresGrid
         set => _squadId = value;
     }
 
-    public void LoadScores(IEnumerable<Scores.IViewModel> bowlerScores)
+    public void LoadScores(IEnumerable<Scores.IGridViewModel> bowlerScores)
     {
         foreach (var bowlerScore in bowlerScores)
         {
@@ -56,9 +58,9 @@ public partial class ScoresGrid
         }
     }
 
-    public IEnumerable<Scores.Update.IViewModel> GetScores()
+    public IEnumerable<IViewModel> GetScores()
     {
-        var scores = new List<Scores.Update.IViewModel>();
+        var scores = new List<IViewModel>();
 
         var bowlerScores = GridView.Rows.OfType<DataGridViewRow>().Where(row => !string.IsNullOrEmpty(row.Cells["game1Column"].Value?.ToString())).ToList();
 
@@ -70,7 +72,7 @@ public partial class ScoresGrid
             {
                 if (int.TryParse(bowlerScore.Cells[$"game{i}Column"].Value?.ToString(), out var score))
                 {
-                    scores.Add(new Scores.Update.ViewModel
+                    scores.Add(new ViewModel
                     {
                         SquadId = _squadId,
                         BowlerId = new BowlerId(new Guid(bowlerId!)),
@@ -86,8 +88,7 @@ public partial class ScoresGrid
 }
 
 #if DEBUG
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-public class ScoresMiddleGrid : DataGrid<Scores.IViewModel>
+public class ScoresMiddleGrid : DataGrid<Scores.IGridViewModel>
 {
     public ScoresMiddleGrid()
     {

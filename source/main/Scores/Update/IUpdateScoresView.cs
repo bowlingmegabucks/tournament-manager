@@ -1,5 +1,4 @@
-﻿
-namespace NortheastMegabuck.Scores.Update;
+﻿namespace NortheastMegabuck.Scores.Update;
 internal interface IView
 {
     IEnumerable<IViewModel> Scores { get; }

@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Scores;
 
 [TestFixture]
-internal class ViewModel
+internal class GridViewModel
 {
     [Test]
     public void Constructor_LaneAssignmentsIViewModel_BowlerIdMapped()
@@ -12,7 +12,7 @@ internal class ViewModel
             BowlerId = BowlerId.New()
         };
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(laneAssignmentViewModel);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(laneAssignmentViewModel);
 
         Assert.That(viewModel.BowlerId, Is.EqualTo(laneAssignmentViewModel.BowlerId));
     }
@@ -22,7 +22,7 @@ internal class ViewModel
     {
         var laneAssignmentViewModel = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(laneAssignmentViewModel);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(laneAssignmentViewModel);
 
         Assert.That(viewModel.LaneAssignment, Is.EqualTo(laneAssignmentViewModel.LaneAssignment));
     }
@@ -35,7 +35,7 @@ internal class ViewModel
             BowlerName = "bowlerName"
         };
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(laneAssignmentViewModel);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(laneAssignmentViewModel);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo(laneAssignmentViewModel.BowlerName));
     }
@@ -45,7 +45,7 @@ internal class ViewModel
     {
         var laneAssignmentViewModel = new NortheastMegabuck.LaneAssignments.ViewModel();
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(laneAssignmentViewModel);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(laneAssignmentViewModel);
 
         Assert.That(viewModel.Scores, Is.Empty);
     }
@@ -55,7 +55,7 @@ internal class ViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(data, 4);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
 
         Assert.That(viewModel.LaneAssignment, Is.EqualTo("1A"));
     }
@@ -65,7 +65,7 @@ internal class ViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(data, 4);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
 
         Assert.That(viewModel.BowlerId, Is.EqualTo(new BowlerId(new Guid("6c28c592-c241-401e-8414-251f658b8ae9"))));
     }
@@ -75,7 +75,7 @@ internal class ViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(data, 4);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo("Bowler 1"));
     }
@@ -85,7 +85,7 @@ internal class ViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(data, 4);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
 
         Assert.Multiple(() =>
         {
@@ -103,7 +103,7 @@ internal class ViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203\t806";
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(data, 4);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
 
         Assert.Multiple(() =>
         {
@@ -121,7 +121,7 @@ internal class ViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.ViewModel(data, 5);
+        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 5);
 
         Assert.Multiple(() =>
         {

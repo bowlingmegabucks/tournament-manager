@@ -1,5 +1,4 @@
-﻿
-namespace NortheastMegabuck.Scores.Update;
+﻿namespace NortheastMegabuck.Scores.Update;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
