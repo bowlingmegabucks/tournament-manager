@@ -233,6 +233,11 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         Clipboard.SetText(text.ToString());
     }
+
+    private void GenerateRecapSheetsButton_Click(object sender, EventArgs e)
+    {
+        var assignments = laneAssignmentFlowLayoutPanel.Controls.OfType<IViewModel>().Where(assignment => assignment.BowlerId != BowlerId.Empty).ToList();
+    }
 }
 
 internal static class ExtensionMethods

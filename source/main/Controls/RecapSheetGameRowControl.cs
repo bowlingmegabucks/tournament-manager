@@ -12,9 +12,9 @@ public partial class RecapSheetGameRowControl : UserControl
         totalLabel.Text = string.Empty;
     }
 
-    public short? Handicap
+    public int Handicap
     {
-        set => handicapLabel.Text = value.HasValue ? value.ToString() : "-";
+        set => handicapLabel.Text = value > 0 ? value.ToString() : "-";
     }
 
     public string LaneAssignment

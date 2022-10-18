@@ -11,8 +11,8 @@ public partial class RecapSheetGameTotalControl : UserControl
         handicapTotalLabel.Text = string.Empty;
     }
 
-    public short? Handicap
+    public int Handicap
     {
-        set => handicapLabel.Text = value.HasValue ? value.ToString() : "-";
+        set => handicapLabel.Text = value> 0 ? value.ToString() : "-";
     }
 }
