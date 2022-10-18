@@ -63,4 +63,32 @@ internal abstract class Generate
     protected abstract string StartLane35_CircleBack_Skip3_Game3();
     protected abstract string StartLane35_CircleBack_Skip3_Game4();
     protected abstract string StartLane35_CircleBack_Skip3_Game5();
+
+    [Test]
+    public void DetermineBaseSkip_LessThanOrEqualTo16_Returns0([Range(1, 16)] short lanes)
+        => Assert.That(NortheastMegabuck.LaneAssignments.Generate.DetermineBaseSkip(lanes), Is.EqualTo(0));
+
+    [Test]
+    public void DetermineBaseSkip_Between17And24_Returns1([Range(17, 24)] short lanes)
+        => Assert.That(NortheastMegabuck.LaneAssignments.Generate.DetermineBaseSkip(lanes), Is.EqualTo(1));
+
+    [Test]
+    public void DetermineBaseSkip_Between25And32_Returns2([Range(25, 32)] short lanes)
+        => Assert.That(NortheastMegabuck.LaneAssignments.Generate.DetermineBaseSkip(lanes), Is.EqualTo(2));
+
+    [Test]
+    public void DetermineBaseSkip_Between33And40_Returns3([Range(33, 40)] short lanes)
+        => Assert.That(NortheastMegabuck.LaneAssignments.Generate.DetermineBaseSkip(lanes), Is.EqualTo(3));
+
+    [Test]
+    public void DetermineBaseSkip_Between41And48_Returns4([Range(41, 48)] short lanes)
+        => Assert.That(NortheastMegabuck.LaneAssignments.Generate.DetermineBaseSkip(lanes), Is.EqualTo(4));
+
+    [Test]
+    public void DetermineBaseSkip_Between49And56_Returns5([Range(49, 56)] short lanes)
+        => Assert.That(NortheastMegabuck.LaneAssignments.Generate.DetermineBaseSkip(lanes), Is.EqualTo(5));
+
+    [Test]
+    public void DetermineBaseSkip_GreaterThan56_Returns6([Range(57, 72)] short lanes)
+        => Assert.That(NortheastMegabuck.LaneAssignments.Generate.DetermineBaseSkip(lanes), Is.EqualTo(6));
 }

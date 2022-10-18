@@ -46,4 +46,18 @@ internal abstract class Generate : IGenerate
     }
 
     protected abstract short NextLane(int startingLane, IList<short> lanesUsed, short defaultSkip, int previousIndex, short gameNumber);
+
+    internal static short DetermineBaseSkip(short lanes)
+    {
+        return lanes switch
+        {
+            var _ when lanes <= 16 => 0,
+            var _ when lanes <= 24 => 1,
+            var _ when lanes <= 32 => 2,
+            var _ when lanes <= 40 => 3,
+            var _ when lanes <= 48 => 4,
+            var _ when lanes <= 56 => 5,
+            _ => 6,
+        };
+    }
 }
