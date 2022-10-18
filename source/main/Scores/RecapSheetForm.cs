@@ -91,4 +91,71 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
 
     private void CancelButton_Click(object sender, EventArgs e)
         => Dispose();
+
+    private readonly IList<Image> _recapSheets = new List<Image>();
+    private int _counter;
+
+    private void PrintButton_Click(object sender, EventArgs e)
+    {
+        if (recapsPrintPreviewDialog.ShowDialog() == DialogResult.Cancel)
+        {
+            return;
+        }
+
+        if (recapsTrackBar.Value != 0)
+        {
+            recapsTrackBar.Value = 0;
+            recapsTrackBar.Scroll -= RecapsTrackBar_Scroll!;
+            RecapsTrackBar_Scroll(sender, e);
+        }
+
+        buttonsPanel.Visible = false;
+        FormBorderStyle = FormBorderStyle.None;
+
+        scrollRecapsTimer.Enabled = true;
+    }
+
+    private void ScrollRecapsTimer_Tick(object sender, EventArgs e)
+    {
+        _recapSheets.Add(CaptureScreen());
+
+        if (_counter == _recaps.Count)
+        {
+            scrollRecapsTimer.Enabled = false;
+            _counter = 0;
+
+            recapPrintDocument.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("Half Sheet", 850, 550);
+            recapPrintDocument.Print();
+        }
+        else
+        {
+            PopulateSheet(_recaps[_counter++]);
+        }
+    }
+
+    private Image CaptureScreen()
+    {
+        var myGraphics = CreateGraphics();
+        var s = Size;
+
+        var image = new Bitmap(s.Width, s.Height, myGraphics);
+
+        var memoryGraphics = Graphics.FromImage(image);
+        memoryGraphics.CopyFromScreen(Location.X, Location.Y, 0, 0, s);
+
+        return image;
+    }
+
+    private void RecapPrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+    {
+        e.Graphics!.DrawImage(_recapSheets[_counter], 8, 0);
+        _counter++;
+        e.HasMorePages = _counter != _recapSheets.Count;
+    }
+
+    private void RecapPrintDocument_EndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+    {
+        _recapSheets.Clear();
+        Dispose();
+    }
 }
