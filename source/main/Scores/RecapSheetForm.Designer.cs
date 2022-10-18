@@ -156,6 +156,7 @@ partial class RecapSheetForm
             this.Controls.Add(this.buttonsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "RecapSheetForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recap Sheets";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.RecapSheetForm_Paint);
             this.buttonsPanel.ResumeLayout(false);

@@ -14,6 +14,10 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     public int MaxPerPair { get; }
 
+    public short Games { get; }
+
+    private readonly DateTime _squadDate;
+
     public void BuildLanes(IEnumerable<string> lanes)
     {
         foreach (var lane in lanes)
@@ -126,7 +130,7 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void ClearUnassigned()
         => unassignedRegistrationsFlowLayoutPanel.Controls.Clear();
 
-    public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair)
+    public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair, short gamesPerSquad, DateTime squadDate)
     {
         InitializeComponent();
         _config = config;
@@ -136,6 +140,8 @@ public partial class Form : System.Windows.Forms.Form, IView
         StartingLane = startingLane;
         NumberOfLanes = numberOfLanes;
         MaxPerPair = maxPerPair;
+        Games = gamesPerSquad;
+        _squadDate = squadDate;
 
         new Presenter(_config, this).Load();
     }
@@ -237,6 +243,18 @@ public partial class Form : System.Windows.Forms.Form, IView
     private void GenerateRecapSheetsButton_Click(object sender, EventArgs e)
     {
         var assignments = laneAssignmentFlowLayoutPanel.Controls.OfType<IViewModel>().Where(assignment => assignment.BowlerId != BowlerId.Empty).ToList();
+
+        new Presenter(_config, this).GenerateRecaps(assignments);
+    }
+
+    public bool StaggeredSkipSelected
+        => staggeredSkipRadioButton.Checked;
+
+    void IView.GenerateRecaps(IEnumerable<Scores.IRecapSheetViewModel> recaps)
+    {
+        var form = new Scores.RecapSheetForm(_squadDate);
+
+        form.Preview(recaps, Games);
     }
 }
 

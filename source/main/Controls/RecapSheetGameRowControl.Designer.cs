@@ -58,25 +58,25 @@ partial class RecapSheetGameRowControl
             this.scoreLabel.Text = "Score";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // labelHandicap
+            // handicapLabel
             // 
             this.handicapLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.handicapLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.handicapLabel.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.handicapLabel.Location = new System.Drawing.Point(209, 0);
-            this.handicapLabel.Name = "labelHandicap";
+            this.handicapLabel.Name = "handicapLabel";
             this.handicapLabel.Size = new System.Drawing.Size(75, 48);
             this.handicapLabel.TabIndex = 2;
             this.handicapLabel.Text = "Handicap";
             this.handicapLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // labelTotal
+            // totalLabel
             // 
             this.totalLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.totalLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.totalLabel.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.totalLabel.Location = new System.Drawing.Point(284, 0);
-            this.totalLabel.Name = "labelTotal";
+            this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(135, 48);
             this.totalLabel.TabIndex = 3;
             this.totalLabel.Text = "Total";
@@ -90,6 +90,7 @@ partial class RecapSheetGameRowControl
             this.Controls.Add(this.handicapLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.laneLabel);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "RecapSheetGameRowControl";
             this.Size = new System.Drawing.Size(419, 48);
             this.ResumeLayout(false);

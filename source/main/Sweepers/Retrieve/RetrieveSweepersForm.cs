@@ -29,7 +29,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void OpenButton_Click(object sender, EventArgs e)
     {
-        using var form = new Portal.Form(_config, TournamentId, sweepersGrid.SelectedSweeper!.Id, sweepersGrid.SelectedSweeper!.Games);
+        using var form = new Portal.Form(_config, TournamentId, sweepersGrid.SelectedSweeper!.Id, sweepersGrid.SelectedSweeper!.Games, sweepersGrid.SelectedSweeper!.Date);
 
         if (!form.IsDisposed)
         {

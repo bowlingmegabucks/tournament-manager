@@ -1,6 +1,6 @@
 ﻿
 namespace NortheastMegabuck.LaneAssignments;
-internal abstract class Generate : IGenerate
+internal abstract class GenerateCross : IGenerate
 {
     //private readonly bool _flipEvenGameLane = true;
 
@@ -47,7 +47,7 @@ internal abstract class Generate : IGenerate
 
     protected abstract short NextLane(int startingLane, IList<short> lanesUsed, short defaultSkip, int previousIndex, short gameNumber);
 
-    internal static short DetermineBaseSkip(short lanes)
+    public short DetermineSkip(int lanes)
     {
         return lanes switch
         {

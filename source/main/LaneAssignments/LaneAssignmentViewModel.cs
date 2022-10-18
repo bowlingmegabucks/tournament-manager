@@ -1,6 +1,8 @@
 ﻿using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
+using NortheastMegabuck.LaneAssignments;
+using NortheastMegabuck.Models;
 
 namespace NortheastMegabuck.LaneAssignments;
 internal class ViewModel : IViewModel
@@ -108,17 +110,16 @@ internal class ViewModel : IViewModel
             throw new ArgumentNullException(nameof(other));
         }
 
-        var culture = new CultureInfo("en-US");
-        var lane = Convert.ToInt32(LaneAssignment.Substring(0, LaneAssignment.Length - 1), culture);
-        var otherLane = Convert.ToInt32(other.LaneAssignment.Substring(0, other.LaneAssignment.Length - 1), culture);
+        var lane = this.LaneNumber();
+        var otherLane = other.LaneNumber();
 
         if (lane != otherLane)
         {
             return lane.CompareTo(otherLane);
         }
 
-        var letter = LaneAssignment.Substring(LaneAssignment.Length - 1, 1);
-        var otherLetter = other.LaneAssignment.Substring(other.LaneAssignment.Length - 1, 1);
+        var letter = this.LaneLetter();
+        var otherLetter = other.LaneLetter();
 
         return string.CompareOrdinal(letter, otherLetter);
     }
@@ -141,4 +142,13 @@ public interface IViewModel : IComparable<IViewModel>
     int Handicap { get; }
 
     string ToString(string laneAssignment);
+}
+
+internal static class Extensions
+{
+    internal static short LaneNumber(this IViewModel viewModel)
+        => Convert.ToInt16(viewModel.LaneAssignment.Substring(0, viewModel.LaneAssignment.Length - 1));
+
+    internal static string LaneLetter(this IViewModel viewModel)
+        => viewModel.LaneAssignment.Substring(viewModel.LaneAssignment.Length - 1, 1);
 }

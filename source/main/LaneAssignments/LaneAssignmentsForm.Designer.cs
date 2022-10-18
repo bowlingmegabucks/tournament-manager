@@ -36,11 +36,11 @@ partial class Form
             this.addToRegistrationButton = new System.Windows.Forms.Button();
             this.laneAssignmentToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.newRegistrationButton = new System.Windows.Forms.Button();
+            this.generateRecapSheetsButton = new System.Windows.Forms.Button();
             this.copyAssignmentsToClipboardLinkLabel = new System.Windows.Forms.LinkLabel();
             this.laneSkipGroupBox = new System.Windows.Forms.GroupBox();
             this.sameSkipRadioButton = new System.Windows.Forms.RadioButton();
             this.staggeredSkipRadioButton = new System.Windows.Forms.RadioButton();
-            this.generateRecapSheetsButton = new System.Windows.Forms.Button();
             this.laneAssignmentGroupBox.SuspendLayout();
             this.unassignedRegistrationsGroupBox.SuspendLayout();
             this.laneSkipGroupBox.SuspendLayout();
@@ -109,6 +109,16 @@ partial class Form
             this.newRegistrationButton.UseVisualStyleBackColor = true;
             this.newRegistrationButton.Click += new System.EventHandler(this.NewRegistrationButton_Click);
             // 
+            // generateRecapSheetsButton
+            // 
+            this.generateRecapSheetsButton.Location = new System.Drawing.Point(1309, 97);
+            this.generateRecapSheetsButton.Name = "generateRecapSheetsButton";
+            this.generateRecapSheetsButton.Size = new System.Drawing.Size(161, 29);
+            this.generateRecapSheetsButton.TabIndex = 9;
+            this.generateRecapSheetsButton.Text = "Generate Recap Sheets";
+            this.generateRecapSheetsButton.UseVisualStyleBackColor = true;
+            this.generateRecapSheetsButton.Click += new System.EventHandler(this.GenerateRecapSheetsButton_Click);
+            // 
             // copyAssignmentsToClipboardLinkLabel
             // 
             this.copyAssignmentsToClipboardLinkLabel.AutoSize = true;
@@ -153,17 +163,6 @@ partial class Form
             this.staggeredSkipRadioButton.TabStop = true;
             this.staggeredSkipRadioButton.Text = "Staggered Skip";
             this.staggeredSkipRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // generateRecapSheetsButton
-            // 
-            this.generateRecapSheetsButton.Location = new System.Drawing.Point(1309, 97);
-            this.generateRecapSheetsButton.Name = "generateRecapSheetsButton";
-            this.generateRecapSheetsButton.Size = new System.Drawing.Size(161, 29);
-            this.generateRecapSheetsButton.TabIndex = 9;
-            this.generateRecapSheetsButton.Text = "Generate Recap Sheets";
-            this.laneAssignmentToolTip.SetToolTip(this.generateRecapSheetsButton, "Add bowler to squad who has NOT bowled in the tournament");
-            this.generateRecapSheetsButton.UseVisualStyleBackColor = true;
-            this.generateRecapSheetsButton.Click += new System.EventHandler(this.GenerateRecapSheetsButton_Click);
             // 
             // Form
             // 

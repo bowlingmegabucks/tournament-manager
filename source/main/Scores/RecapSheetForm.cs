@@ -32,6 +32,8 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
         recapsTrackBar.Maximum = _recaps.Count - 1;
         recapsTrackBar.LargeChange = _recaps.Count / 10;
 
+        gamesFlowPanelLayout.Controls.Add(new Controls.RecapSheetGameHeaderControl());
+
         GenerateGameRows(games);
 
         PopulateSheet(_recaps[0]);
@@ -67,8 +69,9 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
     {
         nameLabel.Text = recapSheet.BowlerName;
         divisionLabel.Text = recapSheet.DivisionName;
+        bowlerSignatureLabel.Text = recapSheet.BowlerName;
 
-        foreach (var assignment in recapSheet.LaneAssignments)
+        foreach (var assignment in recapSheet.Cross)
         {
             _games[assignment.Key].LaneAssignment = assignment.Value;
             _games[assignment.Key].Handicap = recapSheet.Handicap;

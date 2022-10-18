@@ -57,7 +57,7 @@ partial class Form
             this.scoresMenuItem.Name = "scoresMenuItem";
             this.scoresMenuItem.Size = new System.Drawing.Size(53, 20);
             this.scoresMenuItem.Text = "Scores";
-            this.scoresMenuItem.Click += new System.EventHandler(this.scoresMenuItem_Click);
+            this.scoresMenuItem.Click += new System.EventHandler(this.ScoresMenuItem_Click);
             // 
             // Form
             // 

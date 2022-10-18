@@ -12,7 +12,7 @@ internal class GenerateFactory
     [Test]
     public void Execute_StaggeredSkipTrue_ReturnsStaggeredSkip()
     {
-        var instance = new NortheastMegabuck.LaneAssignments.GenerateFactory().Execute(true);
+        var instance = new NortheastMegabuck.LaneAssignments.GenerateCrossFactory().Execute(true);
 
         Assert.That(instance, Is.TypeOf<NortheastMegabuck.LaneAssignments.StaggeredSkip>());
     }
@@ -20,7 +20,7 @@ internal class GenerateFactory
     [Test]
     public void Execute_StaggeredSkipFalse_ReturnsSameSkip()
     {
-        var instance = new NortheastMegabuck.LaneAssignments.GenerateFactory().Execute(false);
+        var instance = new NortheastMegabuck.LaneAssignments.GenerateCrossFactory().Execute(false);
 
         Assert.That(instance, Is.TypeOf<NortheastMegabuck.LaneAssignments.SameSkip>());
     }

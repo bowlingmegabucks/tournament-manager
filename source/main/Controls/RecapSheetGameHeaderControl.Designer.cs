@@ -90,6 +90,7 @@ partial class RecapSheetGameHeaderControl
             this.Controls.Add(this.handicapLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.laneLabel);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "RecapSheetGameHeaderControl";
             this.Size = new System.Drawing.Size(419, 48);
             this.ResumeLayout(false);

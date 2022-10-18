@@ -6,23 +6,23 @@ internal class RecapSheetViewModel : IRecapSheetViewModel
 
     public string DivisionName { get; set; }
 
-    public IDictionary<short, string> LaneAssignments { get; set; }
+    public IDictionary<short, string> Cross { get; set; }
 
     public int Handicap { get; set; }
 
-    public RecapSheetViewModel(LaneAssignments.IViewModel laneAssignment, IEnumerable<string> laneAssignments)
+    public RecapSheetViewModel(LaneAssignments.IViewModel laneAssignment, IEnumerable<string> cross)
     {
         BowlerName = laneAssignment.BowlerName;
         DivisionName = laneAssignment.DivisionName;
         Handicap = laneAssignment.Handicap;
 
-        LaneAssignments = new Dictionary<short, string>();
+        Cross = new Dictionary<short, string>();
 
         short game = 1;
 
-        foreach (var lane in laneAssignments)
+        foreach (var lane in cross)
         {
-            LaneAssignments.Add(game++, lane);
+            Cross.Add(game++, lane);
         }
     }
 }
@@ -33,7 +33,7 @@ internal interface IRecapSheetViewModel
 
     string DivisionName { get; }
 
-    IDictionary<short, string> LaneAssignments { get; }
+    IDictionary<short, string> Cross { get; }
 
     int Handicap { get; }
 }

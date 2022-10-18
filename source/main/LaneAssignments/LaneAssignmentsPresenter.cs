@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.LaneAssignments;
+﻿using NortheastMegabuck.Scores;
+
+namespace NortheastMegabuck.LaneAssignments;
 internal class Presenter
 {
     private readonly IView _view;
@@ -13,6 +15,8 @@ internal class Presenter
     private readonly Lazy<Registrations.Add.IAdapter> _addRegistrationAdapter;
     private Registrations.Add.IAdapter AddRegistrationAdapter => _addRegistrationAdapter.Value;
 
+    private readonly IGenerateCrossFactory _generateCrossFactory;
+
     public Presenter(IConfiguration config, IView view)
     {
         _view = view;
@@ -21,6 +25,8 @@ internal class Presenter
         _retrieveAdapter = new Lazy<Retrieve.IAdapter>(() => new Retrieve.Adapter(config));
         _updateAdapter = new Lazy<Update.IAdapter>(() => new Update.Adapter(config));
         _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(()=> new Registrations.Add.Adapter(config));
+
+        _generateCrossFactory = new GenerateCrossFactory();
     }
 
     /// <summary>
@@ -30,13 +36,14 @@ internal class Presenter
     /// <param name="mockLaneAvailability"></param>
     /// <param name="mockRetrieveAdapter"></param>
     /// <param name="mockUpdateAdapter"></param>
-    internal Presenter(IView mockView, ILaneAvailability mockLaneAvailability, Retrieve.IAdapter mockRetrieveAdapter, Update.IAdapter mockUpdateAdapter, Registrations.Add.IAdapter mockAddRegistrationAdapter)
+    internal Presenter(IView mockView, ILaneAvailability mockLaneAvailability, Retrieve.IAdapter mockRetrieveAdapter, Update.IAdapter mockUpdateAdapter, Registrations.Add.IAdapter mockAddRegistrationAdapter, IGenerateCrossFactory mockGenerateCrossFactory)
     {
         _view = mockView;
         _laneAvailability = mockLaneAvailability;
         _retrieveAdapter = new Lazy<Retrieve.IAdapter>(() => mockRetrieveAdapter);
         _updateAdapter = new Lazy<Update.IAdapter>(() => mockUpdateAdapter);
         _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(() => mockAddRegistrationAdapter);
+        _generateCrossFactory = mockGenerateCrossFactory;
     }
 
     public void Load()
@@ -129,5 +136,38 @@ internal class Presenter
         _view.ClearUnassigned();
 
         Load();
+    }
+
+    internal void GenerateRecaps(IEnumerable<IViewModel> assignments)
+    {
+        var lanesUsed = assignments.Select(assignment => assignment.LaneNumber()).Distinct().OrderBy(laneNumber => laneNumber).ToList();
+
+        //this is to add other lane if only one lane on pair is being used
+        var evenLanesUsed = lanesUsed.Where(lane => lane % 2 == 0);
+        var oddLanesUsed = lanesUsed.Where(lane => lane % 2 == 1);
+
+        var allLanes = new List<short>();
+
+        foreach (var evenLane in evenLanesUsed)
+        {
+            allLanes.Add(evenLane);
+            allLanes.Add((short)(evenLane - 1));
+        }
+
+        foreach (var oddLane in oddLanesUsed)
+        {
+            allLanes.Add(oddLane);
+            allLanes.Add((short)(oddLane + 1));
+        }
+
+        lanesUsed = allLanes.Distinct().OrderBy(lane => lane).ToList();
+
+        var crossGenerator = _generateCrossFactory.Execute(_view.StaggeredSkipSelected);
+
+        var skip = crossGenerator.DetermineSkip(lanesUsed.Count);
+
+        var recaps = assignments.Select(assignment => new RecapSheetViewModel(assignment, crossGenerator.Execute(assignment.LaneNumber(), assignment.LaneLetter(), _view.Games, lanesUsed, skip))).ToList();
+
+        _view.GenerateRecaps(recaps);
     }
 }

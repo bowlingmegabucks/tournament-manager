@@ -1,6 +1,6 @@
 ﻿
 namespace NortheastMegabuck.LaneAssignments;
-internal class StaggeredSkip : Generate
+internal class StaggeredSkip : GenerateCross
 {
     protected override short NextLane(int startingLane, IList<short> lanesUsed, short defaultSkip, int previousIndex, short gameNumber)
         => lanesUsed[(previousIndex + DetermineSkip(gameNumber, defaultSkip)) % lanesUsed.Count];
