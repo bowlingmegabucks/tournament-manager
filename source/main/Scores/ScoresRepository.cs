@@ -51,9 +51,14 @@ internal class Repository : IRepository
 
         _dataContext.SaveChanges();
     }
+
+    IEnumerable<Database.Entities.SquadScore> IRepository.Retrieve(SquadId squadId)
+        => _dataContext.SquadScores.AsNoTracking().Where(squadScore => squadScore.SquadId == squadId);
 }
 
 internal interface IRepository
 {
     void Update(IEnumerable<Database.Entities.SquadScore> scores);
+
+    IEnumerable<Database.Entities.SquadScore> Retrieve(SquadId sqauadId);
 }

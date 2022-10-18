@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NortheastMegabuck.Scores;
 
 namespace NortheastMegabuck.Tests.Scores.Update;
 
@@ -26,7 +27,7 @@ internal class Presenter
     [Test]
     public void Execute_AdapterExecute_CalledCorrectly()
     {
-        var scores = new Mock<IEnumerable<NortheastMegabuck.Scores.Update.IViewModel>>();
+        var scores = new Mock<IEnumerable<IViewModel>>();
         _view.SetupGet(view => view.Scores).Returns(scores.Object);
 
         _presenter.Execute();

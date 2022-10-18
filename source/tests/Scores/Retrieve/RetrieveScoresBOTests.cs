@@ -1,0 +1,54 @@
+﻿
+namespace NortheastMegabuck.Tests.Scores.Retrieve;
+
+[TestFixture]
+internal class BusinessLogic
+{
+    private Mock<NortheastMegabuck.Scores.Retrieve.IDataLayer> _dataLayer;
+
+    private NortheastMegabuck.Scores.Retrieve.IBusinessLogic _businessLogic;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _dataLayer = new Mock<NortheastMegabuck.Scores.Retrieve.IDataLayer>();
+
+        _businessLogic = new NortheastMegabuck.Scores.Retrieve.BusinessLogic(_dataLayer.Object);
+    }
+
+    [Test]
+    public void Execute_DataLayerExecute_CalledCorrectly()
+    {
+        var squadId = SquadId.New();
+
+        _businessLogic.Execute(squadId);
+
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(squadId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_DataLayerExecuteThrowsException_ExceptionFlow()
+    {
+        var ex = new Exception("exception");
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Throws(ex);
+
+        var result = _businessLogic.Execute(SquadId.New());
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Empty);
+            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+        });
+    }
+
+    [Test]
+    public void Execute_ReturnsDataLayerExecute()
+    {
+        var scores = new Mock<IEnumerable<NortheastMegabuck.Models.SquadScore>>();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(scores.Object);
+
+        var actual = _businessLogic.Execute(SquadId.New());
+
+        Assert.That(actual, Is.EqualTo(scores.Object));
+    }
+}

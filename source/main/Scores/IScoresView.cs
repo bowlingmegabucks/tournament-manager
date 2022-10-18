@@ -9,4 +9,6 @@ internal interface IView
     void Disable();
 
     void BindLaneAssignments(IEnumerable<LaneAssignments.IViewModel> laneAssignments);
+
+    void BindSquadScores(IEnumerable<IViewModel> squadScores);
 }

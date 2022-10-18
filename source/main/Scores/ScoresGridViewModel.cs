@@ -1,7 +1,7 @@
 ﻿
 namespace NortheastMegabuck.Scores;
 
-internal class ViewModel : IViewModel
+internal class GridViewModel : IGridViewModel
 {
     public BowlerId BowlerId { get; set; }
 
@@ -11,7 +11,7 @@ internal class ViewModel : IViewModel
 
     public IDictionary<short, int> Scores { get; set; }
 
-    public ViewModel(LaneAssignments.IViewModel laneAssignment)
+    public GridViewModel(LaneAssignments.IViewModel laneAssignment)
     {
         BowlerId = laneAssignment.BowlerId;
         LaneAssignment = laneAssignment.LaneAssignment;
@@ -19,7 +19,7 @@ internal class ViewModel : IViewModel
         Scores = new Dictionary<short, int>();
     }
 
-    public ViewModel(string clipboardData, short gamesPerSquad)
+    public GridViewModel(string clipboardData, short gamesPerSquad)
     {
         Scores = new Dictionary<short, int>();
 
@@ -38,7 +38,7 @@ internal class ViewModel : IViewModel
     }
 }
 
-public interface IViewModel
+public interface IGridViewModel
 { 
     BowlerId BowlerId { get; set; }
 

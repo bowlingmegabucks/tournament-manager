@@ -1,4 +1,6 @@
 ﻿
+using NortheastMegabuck.Scores;
+
 namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
@@ -21,7 +23,7 @@ internal class Adapter
     {
         var squadId = SquadId.New();
 
-        var score1 = new NortheastMegabuck.Scores.Update.ViewModel
+        var score1 = new NortheastMegabuck.Scores.ViewModel
         {
             SquadId = squadId,
             BowlerId = BowlerId.New(),
@@ -29,7 +31,7 @@ internal class Adapter
             Score = 200
         };
 
-        var score2 = new NortheastMegabuck.Scores.Update.ViewModel
+        var score2 = new NortheastMegabuck.Scores.ViewModel
         {
             SquadId = squadId,
             BowlerId = score1.BowlerId,
@@ -37,7 +39,7 @@ internal class Adapter
             Score = 201
         };
 
-        var score3 = new NortheastMegabuck.Scores.Update.ViewModel
+        var score3 = new NortheastMegabuck.Scores.ViewModel
         {
             SquadId = squadId,
             BowlerId = BowlerId.New(),
@@ -65,7 +67,7 @@ internal class Adapter
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), 2);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
-        _adapter.Execute(Enumerable.Empty<NortheastMegabuck.Scores.Update.IViewModel>());
+        _adapter.Execute(Enumerable.Empty<IViewModel>());
 
         Assert.That(_adapter.Errors, Is.EqualTo(errors));
     }
@@ -90,7 +92,7 @@ internal class Adapter
         var invalidScores = new[] { invalidScore1, invalidScore2 };
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadScore>>())).Returns(invalidScores);
 
-        var result = _adapter.Execute(Enumerable.Empty<NortheastMegabuck.Scores.Update.IViewModel>()).ToList();
+        var result = _adapter.Execute(Enumerable.Empty<IViewModel>()).ToList();
 
         Assert.Multiple(() =>
         {

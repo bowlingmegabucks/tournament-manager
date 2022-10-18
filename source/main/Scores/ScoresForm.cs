@@ -1,5 +1,4 @@
-﻿
-namespace NortheastMegabuck.Scores;
+﻿namespace NortheastMegabuck.Scores;
 public partial class Form : System.Windows.Forms.Form, IView, Update.IView
 {
     private readonly IConfiguration _config;
@@ -17,11 +16,12 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
 
         scoresGrid.GenerateGameColumns(numberOfGames);
         scoresGrid.SquadId = squadId;
-
-        new Presenter(config, this).LoadLaneAssignments();
     }
 
-    IEnumerable<Update.IViewModel> Update.IView.Scores
+    private void Form_Load(object sender, EventArgs e) 
+        => new Presenter(_config, this).Load();
+
+    IEnumerable<IViewModel> Update.IView.Scores
         => scoresGrid.GetScores();
 
     public void DisplayError(string message)
@@ -40,7 +40,10 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
         => DialogResult = DialogResult.None;
 
     public void BindLaneAssignments(IEnumerable<LaneAssignments.IViewModel> laneAssignments)
-        => scoresGrid.Bind(laneAssignments.Select(assignment => new ViewModel(assignment)));
+        => scoresGrid.Bind(laneAssignments.Select(assignment => new GridViewModel(assignment)));
+
+    public void BindSquadScores(IEnumerable<IViewModel> squadScores)
+        => scoresGrid.FillScores(squadScores);
 
     private void PasteScoresFromClipboardLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
@@ -55,9 +58,9 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
 
         var scoresByBowler = data.Split('\r');
 
-        var squadScores = scoresByBowler.Select(bowlerScores => new ViewModel(bowlerScores, _numberOfGames));
+        var squadScores = scoresByBowler.Select(bowlerScores => new GridViewModel(bowlerScores, _numberOfGames));
 
-        scoresGrid.LoadScores(squadScores);
+        scoresGrid.FillScores(squadScores);
     }
 
     private void SaveButton_Click(object sender, EventArgs e)

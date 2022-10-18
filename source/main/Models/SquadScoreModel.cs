@@ -1,4 +1,6 @@
 ﻿
+using NortheastMegabuck.Scores;
+
 namespace NortheastMegabuck.Models;
 internal class SquadScore
 {
@@ -10,12 +12,20 @@ internal class SquadScore
 
     public int Score { get; init; }
 
-    public SquadScore(Scores.Update.IViewModel viewModel)
+    public SquadScore(IViewModel viewModel)
     {
         SquadId = viewModel.SquadId;
         BowlerId = viewModel.BowlerId;
         GameNumber = viewModel.GameNumber;
         Score = viewModel.Score;
+    }
+
+    public SquadScore(Database.Entities.SquadScore score)
+    {
+        SquadId = score.SquadId;
+        BowlerId = score.BowlerId;
+        GameNumber = score.Game;
+        Score = score.Score;
     }
 
     /// <summary>
