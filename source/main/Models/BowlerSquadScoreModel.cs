@@ -24,12 +24,18 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
-    internal BowlerSquadScore()
+    internal BowlerSquadScore(params int[] games)
     {
         Bowler = new Bowler();
         GameScores = new Dictionary<short, int>();
-    }
 
+        short i = 1;
+
+        foreach (var game in games)
+        {
+            GameScores.Add(i++, game);
+        }
+    }
 
     public bool Equals(BowlerSquadScore? other)
         => other != null && Bowler.Id == other.Bowler.Id && SquadId == other.SquadId;
