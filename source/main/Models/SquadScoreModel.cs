@@ -6,7 +6,7 @@ internal class SquadScore
 {
     public SquadId SquadId { get; init; }
 
-    public BowlerId BowlerId { get; init; }
+    public Bowler Bowler { get; init; }
 
     public short GameNumber { get; init; }
 
@@ -15,7 +15,7 @@ internal class SquadScore
     public SquadScore(IViewModel viewModel)
     {
         SquadId = viewModel.SquadId;
-        BowlerId = viewModel.BowlerId;
+        Bowler = new Bowler { Id = viewModel.BowlerId };
         GameNumber = viewModel.GameNumber;
         Score = viewModel.Score;
     }
@@ -23,7 +23,7 @@ internal class SquadScore
     public SquadScore(Database.Entities.SquadScore score)
     {
         SquadId = score.SquadId;
-        BowlerId = score.BowlerId;
+        Bowler = new Bowler(score.Bowler);
         GameNumber = score.Game;
         Score = score.Score;
     }
@@ -33,6 +33,6 @@ internal class SquadScore
     /// </summary>
     internal SquadScore()
     {
-
+        Bowler = new Bowler();
     }
 }

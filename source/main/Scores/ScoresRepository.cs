@@ -53,7 +53,7 @@ internal class Repository : IRepository
     }
 
     IEnumerable<Database.Entities.SquadScore> IRepository.Retrieve(SquadId squadId)
-        => _dataContext.SquadScores.AsNoTracking().Where(squadScore => squadScore.SquadId == squadId);
+        => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution().Include(squadScore=> squadScore.Bowler).Where(squadScore => squadScore.SquadId == squadId);
 }
 
 internal interface IRepository

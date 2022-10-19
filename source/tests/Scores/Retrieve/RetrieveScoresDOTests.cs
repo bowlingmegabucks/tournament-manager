@@ -32,13 +32,13 @@ internal class DataLayer
         var entity1 = new NortheastMegabuck.Database.Entities.SquadScore
         {
             SquadId = SquadId.New(),
-            BowlerId = BowlerId.New()
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() }
         };
 
         var entity2 = new NortheastMegabuck.Database.Entities.SquadScore
         {
             SquadId = SquadId.New(),
-            BowlerId = BowlerId.New()
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() } 
         };
 
         var entities = new[] { entity1, entity2 };
@@ -50,7 +50,7 @@ internal class DataLayer
         {
             Assert.That(actual, Has.Count.EqualTo(2));
 
-            Assert.That(actual[0].BowlerId, Is.EqualTo(entity1.BowlerId));
+            Assert.That(actual[0].Bowler.Id, Is.EqualTo(entity1.Bowler.Id));
             Assert.That(actual[1].SquadId, Is.EqualTo(entity2.SquadId));
         });
     }
