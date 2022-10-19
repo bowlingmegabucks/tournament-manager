@@ -107,4 +107,10 @@ internal class Bowler
 
         return name.ToString();
     }
+
+    public override int GetHashCode()
+        => Id.GetHashCode();
+
+    public override bool Equals(object? obj) 
+        => obj != null && obj is Bowler model && Id == model.Id;
 }
