@@ -8,6 +8,7 @@ internal class Presenter
     private Mock<NortheastMegabuck.LaneAssignments.Retrieve.IAdapter> _retrieveAdapter;
     private Mock<NortheastMegabuck.LaneAssignments.Update.IAdapter> _updateAdapter;
     private Mock<NortheastMegabuck.Registrations.Add.IAdapter> _addRegistrationAdapter;
+    private Mock<NortheastMegabuck.LaneAssignments.IGenerateCrossFactory> _generateCrossFactory;
 
     private NortheastMegabuck.LaneAssignments.Presenter _presenter;
 
@@ -19,8 +20,9 @@ internal class Presenter
         _retrieveAdapter = new Mock<NortheastMegabuck.LaneAssignments.Retrieve.IAdapter>();
         _updateAdapter = new Mock<NortheastMegabuck.LaneAssignments.Update.IAdapter>();
         _addRegistrationAdapter = new Mock<NortheastMegabuck.Registrations.Add.IAdapter>();
+        _generateCrossFactory = new Mock<NortheastMegabuck.LaneAssignments.IGenerateCrossFactory>();
 
-        _presenter = new NortheastMegabuck.LaneAssignments.Presenter(_view.Object, _laneAvailability.Object, _retrieveAdapter.Object, _updateAdapter.Object, _addRegistrationAdapter.Object);
+        _presenter = new NortheastMegabuck.LaneAssignments.Presenter(_view.Object, _laneAvailability.Object, _retrieveAdapter.Object, _updateAdapter.Object, _addRegistrationAdapter.Object, _generateCrossFactory.Object);
     }
 
     [Test]
@@ -486,6 +488,164 @@ internal class Presenter
         {
             _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 2)), Times.Once);
             _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => !string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
+        });
+    }
+
+    [Test]
+    public void GenerateRecaps_GenerateCrossFactoryExecute_CalledCorrectly([Values]bool staggeredSkipSelected)
+    {
+        var mockCrossGenerator = new Mock<NortheastMegabuck.LaneAssignments.IGenerate>();
+        _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
+
+        _view.SetupGet(view => view.StaggeredSkipSelected).Returns(staggeredSkipSelected);
+
+        _presenter.GenerateRecaps(Enumerable.Empty<NortheastMegabuck.LaneAssignments.IViewModel>());
+
+        _generateCrossFactory.Verify(factory => factory.Execute(staggeredSkipSelected), Times.Once);
+    }
+
+    [Test]
+    public void GenerateRecaps_CrossGeneratorDetermineSkip_CalledCorrectly()
+    {
+        var mockCrossGenerator = new Mock<NortheastMegabuck.LaneAssignments.IGenerate>();
+        _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
+
+        var recap1 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "1A"
+        };
+
+        var recap2 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "1B"
+        };
+
+        var recap3 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "4C"
+        };
+
+        var recap4 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "5A"
+        };
+
+        var recap5 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "6C"
+        };
+
+        var recaps = new[] { recap1, recap2, recap3, recap4, recap5 };
+
+        _presenter.GenerateRecaps(recaps);
+
+        mockCrossGenerator.Verify(generator => generator.DetermineSkip(6), Times.Once);
+    }
+
+    [Test]
+    public void GenerateRecaps_CrossGeneratorExecute_CalledCorrectly()
+    {
+        var mockCrossGenerator = new Mock<NortheastMegabuck.LaneAssignments.IGenerate>();
+        mockCrossGenerator.Setup(generator => generator.DetermineSkip(It.IsAny<int>())).Returns(10);
+        _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
+
+        _view.SetupGet(view => view.Games).Returns(15);
+
+        var recap1 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "1A"
+        };
+
+        var recap2 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "1B"
+        };
+
+        var recap3 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "4C"
+        };
+
+        var recap4 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "5A"
+        };
+
+        var recap5 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            LaneAssignment = "6C"
+        };
+
+        var recaps = new[] { recap1, recap2, recap3, recap4, recap5 };
+
+        _presenter.GenerateRecaps(recaps);
+
+        Assert.Multiple(() =>
+        {
+            mockCrossGenerator.Verify(generator => generator.Execute(1, "A", 15, new List<short> { 1, 2, 3, 4, 5, 6 }, 10), Times.Once);
+            mockCrossGenerator.Verify(generator => generator.Execute(1, "B", 15, new List<short> { 1, 2, 3, 4, 5, 6 }, 10), Times.Once);
+            mockCrossGenerator.Verify(generator => generator.Execute(4, "C", 15, new List<short> { 1, 2, 3, 4, 5, 6 }, 10), Times.Once);
+            mockCrossGenerator.Verify(generator => generator.Execute(5, "A", 15, new List<short> { 1, 2, 3, 4, 5, 6 }, 10), Times.Once);
+            mockCrossGenerator.Verify(generator => generator.Execute(6, "C", 15, new List<short> { 1, 2, 3, 4, 5, 6 }, 10), Times.Once);
+        });
+    }
+
+    [Test]
+    public void GenerateRecaps_ViewGenerateRecaps_CalledCorrectly()
+    {
+        var mockCrossGenerator = new Mock<NortheastMegabuck.LaneAssignments.IGenerate>();
+        mockCrossGenerator.Setup(generator => generator.DetermineSkip(It.IsAny<int>())).Returns(10);
+        mockCrossGenerator.Setup(generator => generator.Execute(It.IsAny<short>(), It.IsAny<string>(), It.IsAny<short>(), It.IsAny<IList<short>>(), It.IsAny<short>())).Returns(new List<string> { "a", "b", "c", "d" });
+        _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
+
+        var recap1 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            BowlerName = "bowler1",
+            LaneAssignment = "1A"
+        };
+
+        var recap2 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            BowlerName = "bowler2",
+            LaneAssignment = "1B"
+        };
+
+        var recap3 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            BowlerName = "bowler3",
+            LaneAssignment = "4C"
+        };
+
+        var recap4 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            BowlerName = "bowler4",
+            LaneAssignment = "5A"
+        };
+
+        var recap5 = new NortheastMegabuck.LaneAssignments.ViewModel
+        {
+            BowlerName = "bowler5",
+            LaneAssignment = "6C"
+        };
+
+        var recaps = new[] { recap1, recap2, recap3, recap4, recap5 };
+
+        _presenter.GenerateRecaps(recaps);
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.Count() == 5)), Times.Once);
+
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler1") == 1)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler2") == 1)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler3") == 1)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler4") == 1)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler5") == 1)), Times.Once);
+
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[1] == "a"))), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[2] == "b"))), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[3] == "c"))), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[4] == "d"))), Times.Once);
         });
     }
 }

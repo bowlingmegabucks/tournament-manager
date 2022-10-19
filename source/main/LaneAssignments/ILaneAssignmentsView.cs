@@ -1,4 +1,5 @@
-﻿namespace NortheastMegabuck.LaneAssignments;
+﻿
+namespace NortheastMegabuck.LaneAssignments;
 internal interface IView
 {
     TournamentId TournamentId { get; }
@@ -35,4 +36,10 @@ internal interface IView
     void ClearLanes();
 
     void ClearUnassigned();
+
+    bool StaggeredSkipSelected { get; }
+
+    short Games { get; }
+
+    void GenerateRecaps(IEnumerable<Scores.IRecapSheetViewModel> recaps);
 }

@@ -473,27 +473,25 @@ internal class ViewModel
     }
 
     [Test]
-    public void CompareTo_IViewModel_HigherLane_ReturnsNegativeOne()
+    public void CompareTo_IViewModel_HigherLane_ReturnsNegative()
     {
         var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
         var other = new NortheastMegabuck.LaneAssignments.ViewModel("3A");
 
-        var expected = -1;
         var actual = laneAssignment.CompareTo(other);
 
-        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(actual, Is.Negative);
     }
 
     [Test]
-    public void CompareTo_IViewModel_LowerLane_ReturnsOne()
+    public void CompareTo_IViewModel_LowerLane_ReturnsPositive()
     {
         var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("3A");
         var other = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
 
-        var expected = 1;
         var actual = laneAssignment.CompareTo(other);
 
-        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(actual, Is.Positive);
     }
 
     [Test]

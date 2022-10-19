@@ -36,9 +36,14 @@ partial class Form
             this.addToRegistrationButton = new System.Windows.Forms.Button();
             this.laneAssignmentToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.newRegistrationButton = new System.Windows.Forms.Button();
+            this.generateRecapSheetsButton = new System.Windows.Forms.Button();
             this.copyAssignmentsToClipboardLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.laneSkipGroupBox = new System.Windows.Forms.GroupBox();
+            this.sameSkipRadioButton = new System.Windows.Forms.RadioButton();
+            this.staggeredSkipRadioButton = new System.Windows.Forms.RadioButton();
             this.laneAssignmentGroupBox.SuspendLayout();
             this.unassignedRegistrationsGroupBox.SuspendLayout();
+            this.laneSkipGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // laneAssignmentGroupBox
@@ -104,6 +109,16 @@ partial class Form
             this.newRegistrationButton.UseVisualStyleBackColor = true;
             this.newRegistrationButton.Click += new System.EventHandler(this.NewRegistrationButton_Click);
             // 
+            // generateRecapSheetsButton
+            // 
+            this.generateRecapSheetsButton.Location = new System.Drawing.Point(1309, 97);
+            this.generateRecapSheetsButton.Name = "generateRecapSheetsButton";
+            this.generateRecapSheetsButton.Size = new System.Drawing.Size(161, 29);
+            this.generateRecapSheetsButton.TabIndex = 9;
+            this.generateRecapSheetsButton.Text = "Generate Recap Sheets";
+            this.generateRecapSheetsButton.UseVisualStyleBackColor = true;
+            this.generateRecapSheetsButton.Click += new System.EventHandler(this.GenerateRecapSheetsButton_Click);
+            // 
             // copyAssignmentsToClipboardLinkLabel
             // 
             this.copyAssignmentsToClipboardLinkLabel.AutoSize = true;
@@ -116,11 +131,46 @@ partial class Form
             this.copyAssignmentsToClipboardLinkLabel.Text = "Copy Assignments to Clipboard";
             this.copyAssignmentsToClipboardLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CopyAssignmentsToClipboardLinkLabel_LinkClicked);
             // 
+            // laneSkipGroupBox
+            // 
+            this.laneSkipGroupBox.Controls.Add(this.sameSkipRadioButton);
+            this.laneSkipGroupBox.Controls.Add(this.staggeredSkipRadioButton);
+            this.laneSkipGroupBox.Location = new System.Drawing.Point(1309, 12);
+            this.laneSkipGroupBox.Name = "laneSkipGroupBox";
+            this.laneSkipGroupBox.Size = new System.Drawing.Size(161, 79);
+            this.laneSkipGroupBox.TabIndex = 8;
+            this.laneSkipGroupBox.TabStop = false;
+            this.laneSkipGroupBox.Text = "Lane Skip";
+            // 
+            // sameSkipRadioButton
+            // 
+            this.sameSkipRadioButton.AutoSize = true;
+            this.sameSkipRadioButton.Location = new System.Drawing.Point(6, 22);
+            this.sameSkipRadioButton.Name = "sameSkipRadioButton";
+            this.sameSkipRadioButton.Size = new System.Drawing.Size(79, 19);
+            this.sameSkipRadioButton.TabIndex = 9;
+            this.sameSkipRadioButton.Text = "Same Skip";
+            this.sameSkipRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // staggeredSkipRadioButton
+            // 
+            this.staggeredSkipRadioButton.AutoSize = true;
+            this.staggeredSkipRadioButton.Checked = true;
+            this.staggeredSkipRadioButton.Location = new System.Drawing.Point(6, 47);
+            this.staggeredSkipRadioButton.Name = "staggeredSkipRadioButton";
+            this.staggeredSkipRadioButton.Size = new System.Drawing.Size(103, 19);
+            this.staggeredSkipRadioButton.TabIndex = 10;
+            this.staggeredSkipRadioButton.TabStop = true;
+            this.staggeredSkipRadioButton.Text = "Staggered Skip";
+            this.staggeredSkipRadioButton.UseVisualStyleBackColor = true;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1537, 1013);
+            this.ClientSize = new System.Drawing.Size(1482, 1013);
+            this.Controls.Add(this.generateRecapSheetsButton);
+            this.Controls.Add(this.laneSkipGroupBox);
             this.Controls.Add(this.copyAssignmentsToClipboardLinkLabel);
             this.Controls.Add(this.newRegistrationButton);
             this.Controls.Add(this.addToRegistrationButton);
@@ -132,6 +182,8 @@ partial class Form
             this.Text = "Lane Assignments";
             this.laneAssignmentGroupBox.ResumeLayout(false);
             this.unassignedRegistrationsGroupBox.ResumeLayout(false);
+            this.laneSkipGroupBox.ResumeLayout(false);
+            this.laneSkipGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,4 +199,8 @@ partial class Form
     private ToolTip laneAssignmentToolTip;
     private Button newRegistrationButton;
     private LinkLabel copyAssignmentsToClipboardLinkLabel;
+    private GroupBox laneSkipGroupBox;
+    private RadioButton sameSkipRadioButton;
+    private RadioButton staggeredSkipRadioButton;
+    private Button generateRecapSheetsButton;
 }
