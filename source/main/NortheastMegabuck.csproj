@@ -97,6 +97,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Database\Migrations\" />
+	  <Folder Include="Sweepers\Cuts\" />
 	</ItemGroup>
 
 	<ItemGroup>
