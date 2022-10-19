@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
 
 namespace NortheastMegabuck.Database;
@@ -61,6 +63,8 @@ internal class DataContext : DbContext, IDataContext
         modelBuilder.ApplyConfiguration(new Entities.SquadRegistration.Configuration());
 
         modelBuilder.ApplyConfiguration(new Entities.Bowler.Configuration());
+
+        modelBuilder.ApplyConfiguration(new Entities.SquadScore.Configuration());
     }
         
 
@@ -75,11 +79,15 @@ internal class DataContext : DbContext, IDataContext
     public DbSet<Entities.Bowler> Bowlers { get; set; } = null!;
 
     public DbSet<Entities.Registration> Registrations { get; set; } = null!;
+
+    public DbSet<Entities.SquadScore> SquadScores { get; set; } = null!;
 }
 
 internal interface IDataContext
 {
     bool Ping();
+
+    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
     DbSet<Entities.Tournament> Tournaments { get; }
 
@@ -92,6 +100,8 @@ internal interface IDataContext
     DbSet<Entities.Bowler> Bowlers { get; }
 
     DbSet<Entities.Registration> Registrations { get; }
+
+    DbSet<Entities.SquadScore> SquadScores { get; }
 
     void SaveChanges();
 

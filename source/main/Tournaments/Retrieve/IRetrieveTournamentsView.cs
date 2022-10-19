@@ -8,7 +8,7 @@ internal interface IView
     
     void BindTournaments(ICollection<IViewModel> viewModels);
 
-    (TournamentId? id, string name) CreateNewTournament();
+    (TournamentId? id, string name, short gamesPerSquad) CreateNewTournament();
 
-    void OpenTournament(TournamentId id, string tournamentName);
+    void OpenTournament(TournamentId id, string tournamentName, short gamesPerSquad);
 }

@@ -44,6 +44,8 @@ internal class Bowler
 
     public ICollection<Registration> Registrations { get; set; } = null!;
 
+    public ICollection<SquadScore> SquadScores { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<Bowler>
     {
         public void Configure(EntityTypeBuilder<Bowler> builder)

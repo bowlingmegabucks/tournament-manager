@@ -303,7 +303,7 @@ internal class BusinessLogic
         var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
 
-        _validator.Validate_IsNotValid("propertyName", "errorMessage");
+        _validator.Validate_IsNotValid("errorMessage");
 
         var registration = new NortheastMegabuck.Models.Registration();
 

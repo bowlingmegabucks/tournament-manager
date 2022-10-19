@@ -30,13 +30,15 @@ partial class Form
     {
             this.portalMenuStrip = new System.Windows.Forms.MenuStrip();
             this.laneAssignmentsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scoresMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portalMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // portalMenuStrip
             // 
             this.portalMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.laneAssignmentsMenuItem});
+            this.laneAssignmentsMenuItem,
+            this.scoresMenuItem});
             this.portalMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.portalMenuStrip.Name = "portalMenuStrip";
             this.portalMenuStrip.Size = new System.Drawing.Size(800, 24);
@@ -49,6 +51,13 @@ partial class Form
             this.laneAssignmentsMenuItem.Size = new System.Drawing.Size(115, 20);
             this.laneAssignmentsMenuItem.Text = "Lane Assignments";
             this.laneAssignmentsMenuItem.Click += new System.EventHandler(this.LaneAssignmentsMenuItem_Click);
+            // 
+            // scoresMenuItem
+            // 
+            this.scoresMenuItem.Name = "scoresMenuItem";
+            this.scoresMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.scoresMenuItem.Text = "Scores";
+            this.scoresMenuItem.Click += new System.EventHandler(this.ScoresMenuItem_Click);
             // 
             // Form
             // 
@@ -73,4 +82,5 @@ partial class Form
 
     private MenuStrip portalMenuStrip;
     private ToolStripMenuItem laneAssignmentsMenuItem;
+    private ToolStripMenuItem scoresMenuItem;
 }

@@ -20,6 +20,8 @@ internal class ViewModel : IViewModel
 
     public bool Complete { get; set; }
 
+    public short NumberOfGames { get; set; }
+
     public ViewModel(Models.Squad squad)
     {
         Id = squad.Id;

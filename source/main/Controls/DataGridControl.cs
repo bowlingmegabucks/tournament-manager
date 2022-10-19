@@ -105,13 +105,19 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
 
     private void GridView_RightMouseDown(object sender, MouseEventArgs e)
     {
-        if (e.Button != MouseButtons.Right) return;
+        if (e.Button != MouseButtons.Right)
+        {
+            return;
+        }
 
         var grid = (DataGridView)sender;
 
         var row = grid.HitTest(e.X, e.Y).RowIndex;
 
-        if (row == -1) return;
+        if (row == -1)
+        {
+            return;
+        }
 
         grid.ClearSelection();
 
@@ -123,7 +129,9 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     private void GridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
     {
         if (e.Button == MouseButtons.Left)
+        {
             OnGridRowDoubleClicked(new GridRowDoubleClickEventArgs());
+        }
     }
 
     /// <summary>

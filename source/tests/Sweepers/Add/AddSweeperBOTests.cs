@@ -102,7 +102,7 @@ internal class BusinesLogic
     [Test]
     public void Execute_GetTournamentBOSuccessful_ValidatorValidateFails_ErrorFlow()
     {
-        _validator.Validate_IsNotValid("property", "invalid");
+        _validator.Validate_IsNotValid("invalid");
 
         var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<TournamentId>())).Returns(tournament);
