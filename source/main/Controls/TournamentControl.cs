@@ -109,6 +109,21 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         }
     }
 
+    public decimal SuperSweeperCashRatio
+    {
+        get => superSweeperCashRatioValue.Value;
+        set => superSweeperCashRatioValue.Value = value;
+    }
+
+    private void SuperSweeperCashRatioValue_Validating(object sender, CancelEventArgs e)
+    {
+        if (SuperSweeperCashRatio <= 1)
+        {
+            e.Cancel = true;
+            tournamentErrorProvider.SetError(cashRatioValue, "Cash ratio must be greater than 1");
+        }
+    }
+
     public string BowlingCenter
     {
         get => bowlingCenterValue.Text;

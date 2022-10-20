@@ -39,6 +39,10 @@ internal class Tournament
     [Required]
     public bool Completed { get; set; }
 
+    [Required]
+    [Precision(3,1)]
+    public decimal SuperSweperCashRatio { get; set; }
+
     public ICollection<Division> Divisions { get; set; } = null!;
 
     public ICollection<TournamentSquad> Squads { get; set; } = null!;

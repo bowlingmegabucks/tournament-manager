@@ -87,6 +87,16 @@ internal class Tournament
     }
 
     [Test]
+    public void Constructor_TournamentEntity_SuperSweeperCashRatioMapped()
+    {
+        var entity = new NortheastMegabuck.Database.Entities.Tournament { SuperSweperCashRatio = 45.6m };
+
+        var model = new NortheastMegabuck.Models.Tournament(entity);
+
+        Assert.That(model.SuperSweeperCashRatio, Is.EqualTo(45.6m));
+    }
+
+    [Test]
     public void Constructor_TournamentEntity_BowlingCenterMapped()
     {
         var entity = new NortheastMegabuck.Database.Entities.Tournament { BowlingCenter = "bowlingCenter" };
@@ -238,6 +248,16 @@ internal class Tournament
         var model = new NortheastMegabuck.Models.Tournament(viewModel);
 
         Assert.That(model.CashRatio, Is.EqualTo(45.6m));
+    }
+
+    [Test]
+    public void Constructor_TournamentViewModel_SuperSweeperCashRatioMapped()
+    {
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel { SuperSweeperCashRatio = 45.6m };
+
+        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+
+        Assert.That(model.SuperSweeperCashRatio, Is.EqualTo(45.6m));
     }
 
     [Test]

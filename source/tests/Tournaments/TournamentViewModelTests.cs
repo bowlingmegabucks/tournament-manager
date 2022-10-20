@@ -112,6 +112,19 @@ internal class ViewModel
     }
 
     [Test]
+    public void Constructor_TournamentModel_SuperSweeperCashRatioMapped()
+    {
+        var model = new NortheastMegabuck.Models.Tournament
+        {
+            SuperSweeperCashRatio = 45.6m
+        };
+
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel(model);
+
+        Assert.That(viewModel.SuperSweeperCashRatio, Is.EqualTo(45.6m));
+    }
+
+    [Test]
     public void Constructor_TournamentModel_BowlingCenterMapped()
     {
         var model = new NortheastMegabuck.Models.Tournament
