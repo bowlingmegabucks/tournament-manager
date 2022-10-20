@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Sweepers.Cut;
+namespace NortheastMegabuck.Sweepers.Results;
 internal class BusinessLogic : IBusinessLogic
 {
     public Models.ErrorDetail? Error { get; private set; }

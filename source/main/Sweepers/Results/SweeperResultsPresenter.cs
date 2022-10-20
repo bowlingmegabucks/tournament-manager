@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Sweepers.Cut;
+namespace NortheastMegabuck.Sweepers.Results;
 internal class Presenter
 {
     private readonly IView _view;

@@ -42,6 +42,8 @@ partial class Form
             this.registrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRegistrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewTournamentRegistrationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sweeperSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.superSweeperResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portalMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,7 +117,9 @@ partial class Form
             // 
             this.sweepersMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addSweeperMenuItem,
-            this.openSweeperMenuItem});
+            this.openSweeperMenuItem,
+            this.sweeperSeparator,
+            this.superSweeperResultsToolStripMenuItem});
             this.sweepersMenuItem.Name = "sweepersMenuItem";
             this.sweepersMenuItem.Size = new System.Drawing.Size(68, 20);
             this.sweepersMenuItem.Text = "Sweepers";
@@ -123,14 +127,14 @@ partial class Form
             // addSweeperMenuItem
             // 
             this.addSweeperMenuItem.Name = "addSweeperMenuItem";
-            this.addSweeperMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.addSweeperMenuItem.Size = new System.Drawing.Size(191, 22);
             this.addSweeperMenuItem.Text = "Add";
             this.addSweeperMenuItem.Click += new System.EventHandler(this.AddSweeperMenuItem_Click);
             // 
             // openSweeperMenuItem
             // 
             this.openSweeperMenuItem.Name = "openSweeperMenuItem";
-            this.openSweeperMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openSweeperMenuItem.Size = new System.Drawing.Size(191, 22);
             this.openSweeperMenuItem.Text = "Open";
             this.openSweeperMenuItem.Click += new System.EventHandler(this.OpenSweeperMenuItem_Click);
             // 
@@ -146,16 +150,27 @@ partial class Form
             // addRegistrationMenuItem
             // 
             this.addRegistrationMenuItem.Name = "addRegistrationMenuItem";
-            this.addRegistrationMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addRegistrationMenuItem.Size = new System.Drawing.Size(99, 22);
             this.addRegistrationMenuItem.Text = "Add";
             this.addRegistrationMenuItem.Click += new System.EventHandler(this.AddRegistrationMenuItem_Click);
             // 
             // viewTournamentRegistrationsMenuItem
             // 
             this.viewTournamentRegistrationsMenuItem.Name = "viewTournamentRegistrationsMenuItem";
-            this.viewTournamentRegistrationsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewTournamentRegistrationsMenuItem.Size = new System.Drawing.Size(99, 22);
             this.viewTournamentRegistrationsMenuItem.Text = "View";
             this.viewTournamentRegistrationsMenuItem.Click += new System.EventHandler(this.ViewTournamentRegistrationsMenuItem_Click);
+            // 
+            // sweeperSeparator
+            // 
+            this.sweeperSeparator.Name = "sweeperSeparator";
+            this.sweeperSeparator.Size = new System.Drawing.Size(188, 6);
+            // 
+            // superSweeperResultsToolStripMenuItem
+            // 
+            this.superSweeperResultsToolStripMenuItem.Name = "superSweeperResultsToolStripMenuItem";
+            this.superSweeperResultsToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.superSweeperResultsToolStripMenuItem.Text = "Super Sweeper Results";
             // 
             // Form
             // 
@@ -191,4 +206,6 @@ partial class Form
     private ToolStripMenuItem registrationMenuItem;
     private ToolStripMenuItem addRegistrationMenuItem;
     private ToolStripMenuItem viewTournamentRegistrationsMenuItem;
+    private ToolStripSeparator sweeperSeparator;
+    private ToolStripMenuItem superSweeperResultsToolStripMenuItem;
 }

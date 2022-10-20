@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Tests.Sweepers.Cut;
+namespace NortheastMegabuck.Tests.Sweepers.Results;
 
 [TestFixture]
 internal class BusinessLogic
@@ -8,7 +8,7 @@ internal class BusinessLogic
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
     private Mock<NortheastMegabuck.Scores.Retrieve.IBusinessLogic> _retrieveScores;
 
-    private NortheastMegabuck.Sweepers.Cut.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Sweepers.Results.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
@@ -17,7 +17,7 @@ internal class BusinessLogic
         _retrieveTournament = new Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic>();
         _retrieveScores = new Mock<NortheastMegabuck.Scores.Retrieve.IBusinessLogic>();
 
-        _businessLogic = new NortheastMegabuck.Sweepers.Cut.BusinessLogic(_retrieveSweeper.Object, _retrieveTournament.Object, _retrieveScores.Object);
+        _businessLogic = new NortheastMegabuck.Sweepers.Results.BusinessLogic(_retrieveSweeper.Object, _retrieveTournament.Object, _retrieveScores.Object);
     }
 
     [Test]

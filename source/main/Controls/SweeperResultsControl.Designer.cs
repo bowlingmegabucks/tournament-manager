@@ -1,6 +1,6 @@
 ﻿namespace NortheastMegabuck.Controls;
 
-partial class SweeperCutControl
+partial class SweeperResultsControl
 {
     /// <summary> 
     /// Required designer variable.

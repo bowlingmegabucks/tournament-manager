@@ -1,8 +1,8 @@
 ﻿
 namespace NortheastMegabuck.Controls;
-public partial class SweeperCutControl : UserControl
+public partial class SweeperResultsControl : UserControl
 {
-    internal SweeperCutControl(Sweepers.Cut.IViewModel model)
+    internal SweeperResultsControl(Sweepers.Results.IViewModel model)
     {
         InitializeComponent();
 
@@ -13,7 +13,7 @@ public partial class SweeperCutControl : UserControl
         cashingPictureBox.Visible = model.Casher;
     }
 
-    internal SweeperCutControl()
+    internal SweeperResultsControl()
     {
         InitializeComponent();
 

@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NortheastMegabuck.Tests.Sweepers.Cut;
+namespace NortheastMegabuck.Tests.Sweepers.Results;
 
 [TestFixture]
 internal class Presenter
 {
-    private Mock<NortheastMegabuck.Sweepers.Cut.IView> _view;
-    private Mock<NortheastMegabuck.Sweepers.Cut.IAdapter> _adapter;
+    private Mock<NortheastMegabuck.Sweepers.Results.IView> _view;
+    private Mock<NortheastMegabuck.Sweepers.Results.IAdapter> _adapter;
 
-    private NortheastMegabuck.Sweepers.Cut.Presenter _presenter;
+    private NortheastMegabuck.Sweepers.Results.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NortheastMegabuck.Sweepers.Cut.IView>();
-        _adapter = new Mock<NortheastMegabuck.Sweepers.Cut.IAdapter>();
+        _view = new Mock<NortheastMegabuck.Sweepers.Results.IView>();
+        _adapter = new Mock<NortheastMegabuck.Sweepers.Results.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Sweepers.Cut.Presenter(_view.Object, _adapter.Object);
+        _presenter = new NortheastMegabuck.Sweepers.Results.Presenter(_view.Object, _adapter.Object);
     }
 
     [Test]
@@ -45,14 +45,14 @@ internal class Presenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindResults(It.IsAny<IEnumerable<NortheastMegabuck.Sweepers.Cut.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<IEnumerable<NortheastMegabuck.Sweepers.Results.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public void Execute_SquadId_AdapterExecuteNoError_ViewBindResults_CalledCorrectly()
     {
-        var results = new Mock<IEnumerable<NortheastMegabuck.Sweepers.Cut.IViewModel>>().Object;
+        var results = new Mock<IEnumerable<NortheastMegabuck.Sweepers.Results.IViewModel>>().Object;
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(results);
 
         _presenter.Execute(SquadId.New());

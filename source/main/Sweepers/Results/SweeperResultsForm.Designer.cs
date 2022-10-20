@@ -1,6 +1,6 @@
-﻿namespace NortheastMegabuck.Sweepers.Cut;
+﻿namespace NortheastMegabuck.Sweepers.Results;
 
-partial class Report
+partial class Form
 {
     /// <summary>
     /// Required designer variable.
@@ -28,33 +28,34 @@ partial class Report
     /// </summary>
     private void InitializeComponent()
     {
-            this.sweeperCutReportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.resultsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
-            // sweeperCutReportViewer
+            // resultsFlowLayoutPanel
             // 
-            this.sweeperCutReportViewer.LocalReport.ReportEmbeddedResource = "NortheastMegabuck.Sweepers.Cut.SweeperCut.rdlc";
-            this.sweeperCutReportViewer.Location = new System.Drawing.Point(0, 0);
-            this.sweeperCutReportViewer.Name = "ReportViewer";
-            this.sweeperCutReportViewer.ServerReport.BearerToken = null;
-            this.sweeperCutReportViewer.Size = new System.Drawing.Size(396, 246);
-            this.sweeperCutReportViewer.TabIndex = 0;
+            this.resultsFlowLayoutPanel.AutoScroll = true;
+            this.resultsFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultsFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.resultsFlowLayoutPanel.Name = "resultsFlowLayoutPanel";
+            this.resultsFlowLayoutPanel.Size = new System.Drawing.Size(579, 637);
+            this.resultsFlowLayoutPanel.TabIndex = 0;
             // 
-            // Report
+            // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(968, 686);
+            this.ClientSize = new System.Drawing.Size(579, 637);
+            this.Controls.Add(this.resultsFlowLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Sweeper Cut";
+            this.Text = "Sweeper Results";
             this.ResumeLayout(false);
 
     }
 
     #endregion
 
-    private Microsoft.Reporting.WinForms.ReportViewer sweeperCutReportViewer;
+    private FlowLayoutPanel resultsFlowLayoutPanel;
 }

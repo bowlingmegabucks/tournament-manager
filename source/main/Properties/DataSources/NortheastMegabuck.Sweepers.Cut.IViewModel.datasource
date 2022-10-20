@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="IViewModel" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>NortheastMegabuck.Sweepers.Cut.IViewModel, NortheastMegabuck, Version=0.4.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>NortheastMegabuck.Sweepers.Results.IViewModel, NortheastMegabuck, Version=0.4.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

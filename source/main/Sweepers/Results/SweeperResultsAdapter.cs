@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Sweepers.Cut;
+namespace NortheastMegabuck.Sweepers.Results;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Sweepers.Cut;
+namespace NortheastMegabuck.Sweepers.Results;
 internal interface IView
 {
     void DisplayError(string message);

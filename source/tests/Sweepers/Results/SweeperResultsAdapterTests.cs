@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Sweepers.Cut;
+namespace NortheastMegabuck.Tests.Sweepers.Results;
 
 [TestFixture]
 internal class Adapter
 {
-    private Mock<NortheastMegabuck.Sweepers.Cut.IBusinessLogic> _businessLogic;
+    private Mock<NortheastMegabuck.Sweepers.Results.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Sweepers.Cut.IAdapter _adapter;
+    private NortheastMegabuck.Sweepers.Results.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.Sweepers.Cut.IBusinessLogic>();
+        _businessLogic = new Mock<NortheastMegabuck.Sweepers.Results.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.Sweepers.Cut.Adapter(_businessLogic.Object);
+        _adapter = new NortheastMegabuck.Sweepers.Results.Adapter(_businessLogic.Object);
     }
 
     [Test]
