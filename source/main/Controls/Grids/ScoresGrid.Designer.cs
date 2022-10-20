@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿namespace NortheastMegabuck.Controls.Grids;
 
 partial class ScoresGrid
 {

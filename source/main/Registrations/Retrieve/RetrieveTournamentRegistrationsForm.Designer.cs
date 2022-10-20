@@ -29,7 +29,7 @@ partial class RetrieveTournamentRegistrationsForm
     private void InitializeComponent()
     {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RetrieveTournamentRegistrationsForm));
-            this.tournamentRegistrationsGrid = new NortheastMegabuck.Controls.TournamentRegistrationGrid();
+            this.tournamentRegistrationsGrid = new NortheastMegabuck.Controls.Grids.TournamentRegistrationGrid();
             this.divisionEntriesGroupBox = new System.Windows.Forms.GroupBox();
             this.divisionEntriesLabel = new System.Windows.Forms.Label();
             this.squadEntriesGroupBox = new System.Windows.Forms.GroupBox();
@@ -141,7 +141,7 @@ partial class RetrieveTournamentRegistrationsForm
 
     #endregion
 
-    private Controls.TournamentRegistrationGrid tournamentRegistrationsGrid;
+    private Controls.Grids.TournamentRegistrationGrid tournamentRegistrationsGrid;
     private GroupBox divisionEntriesGroupBox;
     private Label divisionEntriesLabel;
     private GroupBox squadEntriesGroupBox;

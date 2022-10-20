@@ -29,7 +29,7 @@ partial class Form
     private void InitializeComponent()
     {
             this.openButton = new System.Windows.Forms.Button();
-            this.tournamentsGrid = new NortheastMegabuck.Controls.TournamentsGrid();
+            this.tournamentsGrid = new NortheastMegabuck.Controls.Grids.TournamentsGrid();
             this.newButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -52,7 +52,7 @@ partial class Form
             this.tournamentsGrid.SelectedRowContextMenu = null;
             this.tournamentsGrid.Size = new System.Drawing.Size(670, 377);
             this.tournamentsGrid.TabIndex = 1;
-            this.tournamentsGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.GridRowDoubleClickEventArgs>(this.TournamentsGrid_GridRowDoubleClicked);
+            this.tournamentsGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.Grids.GridRowDoubleClickEventArgs>(this.TournamentsGrid_GridRowDoubleClicked);
             // 
             // newButton
             // 
@@ -85,6 +85,6 @@ partial class Form
     #endregion
 
     private Button openButton;
-    private Controls.TournamentsGrid tournamentsGrid;
+    private Controls.Grids.TournamentsGrid tournamentsGrid;
     private Button newButton;
 }

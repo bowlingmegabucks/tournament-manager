@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.scoresGrid = new NortheastMegabuck.Controls.ScoresGrid();
+            this.scoresGrid = new NortheastMegabuck.Controls.Grids.ScoresGrid();
             this.pasteScoresFromClipboardLinkLabel = new System.Windows.Forms.LinkLabel();
             this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -86,7 +86,7 @@ partial class Form
 
     #endregion
 
-    private Controls.ScoresGrid scoresGrid;
+    private Controls.Grids.ScoresGrid scoresGrid;
     private LinkLabel pasteScoresFromClipboardLinkLabel;
     private Button saveButton;
 }
