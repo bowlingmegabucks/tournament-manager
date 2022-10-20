@@ -17,7 +17,10 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         =>  ScratchScore + (_handicap * GameScores.SelectMany(gameScore=> gameScore).Count());
 
     public int HighGame
-        => GameScores.SelectMany(gameScore => gameScore).Max() + _handicap;
+        =>  HighGameScratch + _handicap;
+
+    public int HighGameScratch
+        => GameScores.SelectMany(gameScore => gameScore).Max();
 
     private readonly int _handicap;
 

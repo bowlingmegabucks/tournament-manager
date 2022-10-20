@@ -8,7 +8,11 @@ internal class ViewModel : IViewModel
 
     public int Score { get; }
 
+    public int ScratchScore { get; }
+
     public int HighGame { get; }
+
+    public int HighGameScratch { get; }
 
     public bool Casher { get; }
 
@@ -17,7 +21,9 @@ internal class ViewModel : IViewModel
         Place = place;
         BowlerName = bowlerScore.Bowler.ToString();
         Score = bowlerScore.Score;
+        ScratchScore = bowlerScore.ScratchScore;
         HighGame = bowlerScore.HighGame;
+        HighGameScratch = bowlerScore.HighGameScratch;
         Casher = place <= cashingPositions;
     }
 }
@@ -30,7 +36,11 @@ internal interface IViewModel
 
     int Score { get; }
 
+    int ScratchScore { get; }
+
     int HighGame { get; }
+
+    int HighGameScratch { get; }
 
     bool Casher { get; }
 }

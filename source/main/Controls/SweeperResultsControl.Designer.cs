@@ -28,11 +28,13 @@ partial class SweeperResultsControl
     /// </summary>
     private void InitializeComponent()
     {
+            this.components = new System.ComponentModel.Container();
             this.placeLabel = new System.Windows.Forms.Label();
             this.bowlerNameLabel = new System.Windows.Forms.Label();
             this.scoreLabel = new System.Windows.Forms.Label();
             this.highGameLabel = new System.Windows.Forms.Label();
             this.cashingPictureBox = new System.Windows.Forms.PictureBox();
+            this.scratchToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.cashingPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,7 +93,7 @@ partial class SweeperResultsControl
             this.cashingPictureBox.TabIndex = 4;
             this.cashingPictureBox.TabStop = false;
             // 
-            // SweeperCutControl
+            // SweeperResultsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,7 +103,7 @@ partial class SweeperResultsControl
             this.Controls.Add(this.bowlerNameLabel);
             this.Controls.Add(this.placeLabel);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "SweeperCutControl";
+            this.Name = "SweeperResultsControl";
             this.Size = new System.Drawing.Size(566, 33);
             ((System.ComponentModel.ISupportInitialize)(this.cashingPictureBox)).EndInit();
             this.ResumeLayout(false);
@@ -115,4 +117,5 @@ partial class SweeperResultsControl
     private Label scoreLabel;
     private Label highGameLabel;
     private PictureBox cashingPictureBox;
+    private ToolTip scratchToolTip;
 }

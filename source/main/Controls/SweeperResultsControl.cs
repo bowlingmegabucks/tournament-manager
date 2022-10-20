@@ -11,6 +11,12 @@ public partial class SweeperResultsControl : UserControl
         scoreLabel.Text = model.Score.ToString();
         highGameLabel.Text = model.HighGame.ToString();
         cashingPictureBox.Visible = model.Casher;
+
+        if (model.ScratchScore != model.Score)
+        {
+            scratchToolTip.SetToolTip(scoreLabel, $"{model.ScratchScore} Scratch");
+            scratchToolTip.SetToolTip(highGameLabel, $"{model.HighGameScratch} Scratch");
+        }
     }
 
     internal SweeperResultsControl()
