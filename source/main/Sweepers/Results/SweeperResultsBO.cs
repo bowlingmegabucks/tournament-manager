@@ -61,7 +61,7 @@ internal class BusinessLogic : IBusinessLogic
         var scores = _retrieveScores.SuperSweeper(tournamentId);
 
         //todo: this might be a different field
-        return Execute(scores, tournament!.CashRatio);
+        return Execute(scores, tournament!.SuperSweeperCashRatio);
     }
 
     private Models.SweeperCut? Execute(IEnumerable<Models.SquadScore> scores, decimal cashRatio)

@@ -427,7 +427,7 @@ internal class BusinessLogic
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
-            CashRatio = 2
+            SuperSweeperCashRatio = 2
         };
 
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
@@ -516,7 +516,7 @@ internal class BusinessLogic
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
-            CashRatio = 500
+            SuperSweeperCashRatio = 500
         };
 
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
