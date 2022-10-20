@@ -1,0 +1,90 @@
+﻿
+namespace NortheastMegabuck.Tests.Sweepers.Cut;
+
+[TestFixture]
+internal class Adapter
+{
+    private Mock<NortheastMegabuck.Sweepers.Cut.IBusinessLogic> _businessLogic;
+
+    private NortheastMegabuck.Sweepers.Cut.IAdapter _adapter;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _businessLogic = new Mock<NortheastMegabuck.Sweepers.Cut.IBusinessLogic>();
+
+        _adapter = new NortheastMegabuck.Sweepers.Cut.Adapter(_businessLogic.Object);
+    }
+
+    [Test]
+    public void Execute_SquadId_BusinessLogicExecute_CalledCorrectly()
+    {
+        var squadId = SquadId.New();
+        _adapter.Execute(squadId);
+
+        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_SquadId_BusinessLogicExecuteHasError_ErrorFlow()
+    {
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+
+        var result = _adapter.Execute(SquadId.New());
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Empty);
+            Assert.That(_adapter.Error, Is.EqualTo(error));
+        });
+    }
+
+    [Test]
+    public void Execute_SquadId_BusinessLogicExecuteSuccess_PlacingsMappedCorrectly()
+    {
+        var bowlerSquadScore1 = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "200", LastName = "201" }
+        };
+
+        var bowlerSquadScore2 = new NortheastMegabuck.Models.BowlerSquadScore(250, 251)
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "250", LastName = "251" }
+        };
+
+        var bowlerSquadScore3 = new NortheastMegabuck.Models.BowlerSquadScore(190, 191)
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "190", LastName = "191" }
+        };
+
+        var sweeperCut = new NortheastMegabuck.Models.SweeperCut
+        {
+            CasherCount = 2,
+            CutScore = 401,
+            Scores = new[] { bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3 }
+        };
+
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<SquadId>())).Returns(sweeperCut);
+
+        var result = _adapter.Execute(SquadId.New()).ToList();
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result[0].Place, Is.EqualTo(1));
+            Assert.That(result[0].Casher, Is.True);
+            Assert.That(result[0].BowlerName, Is.EqualTo(bowlerSquadScore2.Bowler.ToString()));
+            Assert.That(result[0].Score, Is.EqualTo(501));
+
+            Assert.That(result[1].Place, Is.EqualTo(2));
+            Assert.That(result[1].Casher, Is.True);
+            Assert.That(result[1].BowlerName, Is.EqualTo(bowlerSquadScore1.Bowler.ToString()));
+            Assert.That(result[1].Score, Is.EqualTo(401));
+
+            Assert.That(result[2].Place, Is.EqualTo(3));
+            Assert.That(result[2].Casher, Is.False);
+            Assert.That(result[2].BowlerName, Is.EqualTo(bowlerSquadScore3.Bowler.ToString()));
+            Assert.That(result[2].Score, Is.EqualTo(381));
+        });
+    }
+}
