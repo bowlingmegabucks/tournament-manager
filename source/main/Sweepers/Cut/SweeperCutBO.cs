@@ -83,7 +83,7 @@ internal class BusinessLogic : IBusinessLogic
         var bowlerScores = scores.GroupBy(score => score.Bowler).Select(bowlerScore => new Models.BowlerSquadScore(bowlerScore)).ToList();
         bowlerScores.Sort();
 
-        var casherCount = Convert.ToInt16(Math.Floor(bowlerScores.Count / cashRatio));
+        var casherCount = Math.Max(Convert.ToInt16(Math.Floor(bowlerScores.Count / cashRatio)), (short)1);
 
         return new Models.SweeperCut
         {
