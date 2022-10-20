@@ -42,7 +42,7 @@ partial class SweeperCutControl
             this.placeLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.placeLabel.Location = new System.Drawing.Point(0, 0);
             this.placeLabel.Name = "placeLabel";
-            this.placeLabel.Size = new System.Drawing.Size(57, 42);
+            this.placeLabel.Size = new System.Drawing.Size(57, 33);
             this.placeLabel.TabIndex = 0;
             this.placeLabel.Text = "888";
             this.placeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -53,7 +53,7 @@ partial class SweeperCutControl
             this.bowlerNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bowlerNameLabel.Location = new System.Drawing.Point(57, 0);
             this.bowlerNameLabel.Name = "bowlerNameLabel";
-            this.bowlerNameLabel.Size = new System.Drawing.Size(347, 42);
+            this.bowlerNameLabel.Size = new System.Drawing.Size(347, 33);
             this.bowlerNameLabel.TabIndex = 1;
             this.bowlerNameLabel.Text = "Bowler Name";
             this.bowlerNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -64,7 +64,7 @@ partial class SweeperCutControl
             this.scoreLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.scoreLabel.Location = new System.Drawing.Point(404, 0);
             this.scoreLabel.Name = "scoreLabel";
-            this.scoreLabel.Size = new System.Drawing.Size(57, 42);
+            this.scoreLabel.Size = new System.Drawing.Size(57, 33);
             this.scoreLabel.TabIndex = 2;
             this.scoreLabel.Text = "8888";
             this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -75,7 +75,7 @@ partial class SweeperCutControl
             this.highGameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.highGameLabel.Location = new System.Drawing.Point(461, 0);
             this.highGameLabel.Name = "highGameLabel";
-            this.highGameLabel.Size = new System.Drawing.Size(57, 42);
+            this.highGameLabel.Size = new System.Drawing.Size(57, 33);
             this.highGameLabel.TabIndex = 3;
             this.highGameLabel.Text = "888";
             this.highGameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -86,7 +86,7 @@ partial class SweeperCutControl
             this.cashingPictureBox.Image = global::NortheastMegabuck.Properties.Resources.DollarSign;
             this.cashingPictureBox.Location = new System.Drawing.Point(518, 0);
             this.cashingPictureBox.Name = "cashingPictureBox";
-            this.cashingPictureBox.Size = new System.Drawing.Size(61, 42);
+            this.cashingPictureBox.Size = new System.Drawing.Size(46, 33);
             this.cashingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.cashingPictureBox.TabIndex = 4;
             this.cashingPictureBox.TabStop = false;
@@ -102,7 +102,7 @@ partial class SweeperCutControl
             this.Controls.Add(this.placeLabel);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SweeperCutControl";
-            this.Size = new System.Drawing.Size(581, 42);
+            this.Size = new System.Drawing.Size(566, 33);
             ((System.ComponentModel.ISupportInitialize)(this.cashingPictureBox)).EndInit();
             this.ResumeLayout(false);
 

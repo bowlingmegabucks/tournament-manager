@@ -37,14 +37,14 @@ partial class Form
             this.resultsFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.resultsFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.resultsFlowLayoutPanel.Name = "resultsFlowLayoutPanel";
-            this.resultsFlowLayoutPanel.Size = new System.Drawing.Size(597, 637);
+            this.resultsFlowLayoutPanel.Size = new System.Drawing.Size(579, 637);
             this.resultsFlowLayoutPanel.TabIndex = 0;
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 637);
+            this.ClientSize = new System.Drawing.Size(579, 637);
             this.Controls.Add(this.resultsFlowLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
