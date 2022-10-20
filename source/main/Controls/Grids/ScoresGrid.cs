@@ -7,7 +7,7 @@ public partial class ScoresGrid
 #if DEBUG
     : ScoresMiddleGrid
 #else
-    : Controls.DataGrid<IGridViewModel>
+    : DataGrid<IGridViewModel>
 #endif
 {
     private short _games;
