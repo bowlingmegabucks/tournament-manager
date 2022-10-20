@@ -22,9 +22,13 @@ internal class Adapter : IAdapter
     }
 
     public IEnumerable<IViewModel> Execute(SquadId squadId)
-    { 
-        var result = _businessLogic.Execute(squadId);
+        => Execute(_businessLogic.Execute(squadId));
 
+    public IEnumerable<IViewModel> Execute(TournamentId tournamentId)
+        => Execute(_businessLogic.Execute(tournamentId));
+
+    private IEnumerable<IViewModel> Execute(Models.SweeperCut? result)
+    {
         if (result == null)
         {
             return Enumerable.Empty<IViewModel>();
@@ -48,4 +52,6 @@ internal interface IAdapter
     Models.ErrorDetail? Error { get; }
 
     IEnumerable<IViewModel> Execute(SquadId squadId);
+
+    IEnumerable<IViewModel> Execute(TournamentId tournamentId);
 }
