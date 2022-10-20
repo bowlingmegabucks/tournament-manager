@@ -36,4 +36,18 @@ internal class Presenter
             _view.BindResults(results);
         }
     }
+
+    public void Execute(TournamentId tournamentId)
+    {
+        var results = _adapter.Execute(tournamentId);
+
+        if (_adapter.Error != null)
+        {
+            _view.DisplayError(_adapter.Error.Message);
+        }
+        else
+        {
+            _view.BindResults(results);
+        }
+    }
 }

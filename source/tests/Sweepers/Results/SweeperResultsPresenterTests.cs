@@ -59,4 +59,41 @@ internal class Presenter
 
         _view.Verify(view => view.BindResults(results), Times.Once);
     }
+
+    [Test]
+    public void Execute_TournamentId_AdapterExecute_CalledCorrectly()
+    {
+        var tournamentId = TournamentId.New();
+
+        _presenter.Execute(tournamentId);
+
+        _adapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_TournamentId_AdapterHasError_ErrorFlow()
+    {
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        _adapter.SetupGet(adapter => adapter.Error).Returns(error);
+
+        _presenter.Execute(TournamentId.New());
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("error"), Times.Once);
+
+            _view.Verify(view => view.BindResults(It.IsAny<IEnumerable<NortheastMegabuck.Sweepers.Results.IViewModel>>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Execute_TournamentId_AdapterExecuteNoError_ViewBindResults_CalledCorrectly()
+    {
+        var results = new Mock<IEnumerable<NortheastMegabuck.Sweepers.Results.IViewModel>>().Object;
+        _adapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(results);
+
+        _presenter.Execute(TournamentId.New());
+
+        _view.Verify(view => view.BindResults(results), Times.Once);
+    }
 }

@@ -64,10 +64,11 @@ internal class Repository : IRepository
     IEnumerable<Database.Entities.SquadScore> IRepository.SuperSweeper(TournamentId tournamnetId)
         => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
             .Include(squadScore => squadScore.Bowler)
-                .ThenInclude(bowler => bowler.Registrations.Where(registration => registration.Division.TournamentId == tournamnetId && registration.SuperSweeper))
+                .ThenInclude(bowler => bowler.Registrations)
                 .ThenInclude(registration => registration.Division).ThenInclude(division => division.Sweepers)
             .Include(squadScore => squadScore.Squad)
-        .Where(squadScore => squadScore.Squad.TournamentId == tournamnetId);
+        .Where(squadScore => squadScore.Squad.TournamentId == tournamnetId)
+        .Where(squadScore=> squadScore.Bowler.Registrations.Single(registration=> registration.Division.TournamentId == tournamnetId).SuperSweeper);
 }
 
 internal interface IRepository

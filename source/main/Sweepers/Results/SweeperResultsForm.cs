@@ -7,6 +7,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
         new Presenter(config, this).Execute(squadId);
     }
 
+    public Form(IConfiguration config, TournamentId tournamentId) : this()
+    {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+        Text = "Super Sweeper Results";
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
+        new Presenter(config, this).Execute(tournamentId);
+    }
+
     private Form()
     {
         InitializeComponent();
