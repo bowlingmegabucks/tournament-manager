@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Security.Cryptography.X509Certificates;
+using Microsoft.EntityFrameworkCore;
 
 namespace NortheastMegabuck.Scores;
 
@@ -53,7 +54,12 @@ internal class Repository : IRepository
     }
 
     IEnumerable<Database.Entities.SquadScore> IRepository.Retrieve(SquadId squadId)
-        => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution().Include(squadScore=> squadScore.Bowler).Where(squadScore => squadScore.SquadId == squadId);
+        => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
+            .Include(squadScore=> squadScore.Bowler)
+                .ThenInclude(bowler=> bowler.Registrations.Where(registration=> registration.Squads.Any(squad=> squad.SquadId == squadId)))
+                .ThenInclude(registration=> registration.Division).ThenInclude(division=> division.Sweepers)
+            .Include(squadScore => squadScore.Squad)
+        .Where(squadScore => squadScore.SquadId == squadId);
 }
 
 internal interface IRepository

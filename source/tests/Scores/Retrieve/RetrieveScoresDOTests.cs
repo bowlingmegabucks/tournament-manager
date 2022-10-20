@@ -32,13 +32,27 @@ internal class DataLayer
         var entity1 = new NortheastMegabuck.Database.Entities.SquadScore
         {
             SquadId = SquadId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() }
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler 
+            { 
+                Id = BowlerId.New() ,
+                Registrations = new[]
+                { 
+                    new NortheastMegabuck.Database.Entities.Registration {Division = new NortheastMegabuck.Database.Entities.Division() }
+                }
+            }
         };
 
         var entity2 = new NortheastMegabuck.Database.Entities.SquadScore
         {
             SquadId = SquadId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() } 
+            Bowler = new NortheastMegabuck.Database.Entities.Bowler
+            {
+                Id = BowlerId.New(),
+                Registrations = new[]
+                {
+                    new NortheastMegabuck.Database.Entities.Registration {Division = new NortheastMegabuck.Database.Entities.Division() }
+                }
+            }
         };
 
         var entities = new[] { entity1, entity2 };

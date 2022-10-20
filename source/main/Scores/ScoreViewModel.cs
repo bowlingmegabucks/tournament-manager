@@ -16,6 +16,7 @@ internal class ViewModel : IViewModel
         BowlerId = squadScore.Bowler.Id;
         GameNumber = squadScore.GameNumber;
         Score = squadScore.Score;
+        SquadId = squadScore.SquadId;
     }
 
     /// <summary>

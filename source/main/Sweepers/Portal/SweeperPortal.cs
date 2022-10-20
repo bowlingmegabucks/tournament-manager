@@ -38,7 +38,6 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
     {
-        //todo: get from presenter;
         using var form = new LaneAssignments.Form(_config,_tournamentId, _id, StartingLane,NumberOfLanes,MaxPerPair, _numberOfGames, _squadDate);
 
         form.ShowDialog(this);
