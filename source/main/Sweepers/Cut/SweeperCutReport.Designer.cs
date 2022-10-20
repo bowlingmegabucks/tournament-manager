@@ -1,6 +1,6 @@
 ﻿namespace NortheastMegabuck.Sweepers.Cut;
 
-partial class Form
+partial class Report
 {
     /// <summary>
     /// Required designer variable.
@@ -40,7 +40,7 @@ partial class Form
             this.sweeperCutReportViewer.Size = new System.Drawing.Size(396, 246);
             this.sweeperCutReportViewer.TabIndex = 0;
             // 
-            // Form
+            // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
