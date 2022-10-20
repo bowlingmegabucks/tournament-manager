@@ -8,16 +8,16 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
 
     public Division Division { get; set; }
 
-    public IDictionary<short, int> GameScores { get; set; }
+    internal ILookup<short, int> GameScores { get; set; }
 
     public int ScratchScore
-        => GameScores.Sum(gameScore => gameScore.Value);
+        => GameScores.SelectMany(gameScore=> gameScore).Sum();
 
     public int Score
         =>  ScratchScore + (_handicap * GameScores.Count);
 
     public int HighGame
-        => GameScores.Max(gameScore => gameScore.Value) + _handicap;
+        => GameScores.SelectMany(gameScore => gameScore).Max();
 
     private readonly int _handicap;
 
@@ -26,7 +26,7 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         Bowler = bowlerScores.Key;
         Division = bowlerScores.First().Division;
         SquadId = bowlerScores.First().SquadId;
-        GameScores = bowlerScores.ToDictionary(score => score.GameNumber, score => score.Score);
+        GameScores = bowlerScores.ToLookup(score => score.GameNumber, score => score.Score);
 
         _handicap = bowlerScores.First().Handicap;
     }
@@ -37,15 +37,18 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
     internal BowlerSquadScore(params int[] games)
     {
         Bowler = new Bowler();
-        GameScores = new Dictionary<short, int>();
         Division = new Division();
 
         short i = 1;
 
+        var gameScores = new Dictionary<short, int>();
+
         foreach (var game in games)
         {
-            GameScores.Add(i++, game);
+            gameScores.Add(i++, game);
         }
+
+        GameScores = gameScores.ToLookup(gameScore => gameScore.Key, gameScore => gameScore.Value);
     }
 
     public bool Equals(BowlerSquadScore? other)
@@ -78,8 +81,8 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
             return other.HighGame.CompareTo(HighGame);
         }
 
-        var scores = GameScores.Select(score=> score.Value).OrderByDescending(score => score).ToList();
-        var otherScores = other.GameScores.Select(score=> score.Value).OrderByDescending(score => score).ToList();
+        var scores = GameScores.SelectMany(score=> score).OrderByDescending(score => score).ToList();
+        var otherScores = other.GameScores.SelectMany(score=> score).OrderByDescending(score => score).ToList();
 
         for (var i = 1; i < GameScores.Count; i++)
         {

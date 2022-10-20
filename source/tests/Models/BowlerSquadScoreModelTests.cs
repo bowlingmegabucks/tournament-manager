@@ -125,9 +125,9 @@ internal class BowlerSquadScore
         {
             Assert.That(bowlerSquadScore.GameScores, Has.Count.EqualTo(3));
 
-            Assert.That(bowlerSquadScore.GameScores[1], Is.EqualTo(200));
-            Assert.That(bowlerSquadScore.GameScores[2], Is.EqualTo(201));
-            Assert.That(bowlerSquadScore.GameScores[3], Is.EqualTo(202));
+            Assert.That(bowlerSquadScore.GameScores[1].Single(), Is.EqualTo(200));
+            Assert.That(bowlerSquadScore.GameScores[2].Single(), Is.EqualTo(201));
+            Assert.That(bowlerSquadScore.GameScores[3].Single(), Is.EqualTo(202));
 
             Assert.That(bowlerSquadScore.Score, Is.EqualTo(603));
             Assert.That(bowlerSquadScore.HighGame, Is.EqualTo(202));
@@ -215,25 +215,14 @@ internal class BowlerSquadScore
     [Test]
     public void CompareTo_OtherHasMoreGames_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 201 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,202)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 201 },
-                { 3, 202 }
-            }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));
@@ -242,23 +231,14 @@ internal class BowlerSquadScore
     [Test]
     public void CompareTo_OtherHasLessGames_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,201)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 201 }
-            }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(-1));
@@ -267,26 +247,14 @@ internal class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_OtherHasHigherScore_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,201,202)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 201 },
-                { 3, 202 }
-            }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,203)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 201 },
-                { 3, 203 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));
@@ -295,26 +263,14 @@ internal class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_OtherHasLowerScore_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,201,202)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 201 },
-                { 3, 202 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,200)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 201 },
-                { 3, 200 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(-1));
@@ -323,26 +279,14 @@ internal class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_OtherHasHigherGame_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,200,200)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 200 },
-                { 3, 200 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,199)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 201 },
-                { 3, 199 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));
@@ -351,26 +295,14 @@ internal class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_OtherHasLowerGame_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,199,201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 199 },
-                { 3, 201 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,200,200)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 200 },
-                { 3, 200 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(-1));
@@ -379,28 +311,14 @@ internal class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_SameHighGame_Other2ndHighIsHigher_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,200,200,300)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 200 },
-                { 3, 200 },
-                { 4, 300 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,199,201,300)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 199 },
-                { 3, 201 },
-                { 4, 300 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));
@@ -409,28 +327,14 @@ internal class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_SameHighGame_Other2ndHighIsLower_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,200,200,300)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 200 },
-                { 3, 200 },
-                { 4, 300 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,199,300)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
-            GameScores = new Dictionary<short, int>
-            {
-                { 1, 200 },
-                { 2, 201 },
-                { 3, 199 },
-                { 4, 300 }
-            }
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));

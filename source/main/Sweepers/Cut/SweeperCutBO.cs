@@ -7,11 +7,15 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<Retrieve.IBusinessLogic> _retrieveSweeper;
     private Retrieve.IBusinessLogic RetrieveSweeper => _retrieveSweeper.Value;
 
+    private readonly Lazy<Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
+    private Tournaments.Retrieve.IBusinessLogic RetrieveTournament => _retrieveTournament.Value;
+
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
     public BusinessLogic(IConfiguration config)
     {
         _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(()=>  new Retrieve.BusinessLogic(config));
+        _retrieveTournament = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
         _retrieveScores = new Scores.Retrieve.BusinessLogic(config);
     }
 
@@ -20,9 +24,10 @@ internal class BusinessLogic : IBusinessLogic
     /// </summary>
     /// <param name="mockRetrieveSweeper"></param>
     /// <param name="mockRetrieveScores"></param>
-    internal BusinessLogic(Retrieve.IBusinessLogic mockRetrieveSweeper, Scores.Retrieve.IBusinessLogic mockRetrieveScores)
+    internal BusinessLogic(Retrieve.IBusinessLogic mockRetrieveSweeper, Tournaments.Retrieve.IBusinessLogic mockRetrieveTournament, Scores.Retrieve.IBusinessLogic mockRetrieveScores)
     {
         _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => mockRetrieveSweeper);
+        _retrieveTournament = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => mockRetrieveTournament);
         _retrieveScores = mockRetrieveScores;
     }
 
@@ -39,6 +44,28 @@ internal class BusinessLogic : IBusinessLogic
 
         var scores = _retrieveScores.Execute(squadId);
 
+        return Execute(scores, sweeper!.CashRatio);
+    }
+
+    public Models.SweeperCut? Execute(TournamentId tournamentId)
+    {
+        var tournament = RetrieveTournament.Execute(tournamentId);
+
+        if (RetrieveTournament.Error != null)
+        {
+            Error = RetrieveTournament.Error;
+
+            return null;
+        }
+
+        var scores = _retrieveScores.SuperSweeper(tournamentId);
+
+        //todo: this might be a different field
+        return Execute(scores, tournament!.CashRatio);
+    }
+
+    private Models.SweeperCut? Execute(IEnumerable<Models.SquadScore> scores, decimal cashRatio)
+    {
         if (_retrieveScores.Error != null)
         {
             Error = _retrieveScores.Error;
@@ -56,14 +83,13 @@ internal class BusinessLogic : IBusinessLogic
         var bowlerScores = scores.GroupBy(score => score.Bowler).Select(bowlerScore => new Models.BowlerSquadScore(bowlerScore)).ToList();
         bowlerScores.Sort();
 
-        var casherCount = Convert.ToInt16(Math.Floor(bowlerScores.Count / sweeper!.CashRatio));
+        var casherCount = Convert.ToInt16(Math.Floor(bowlerScores.Count / cashRatio));
 
         return new Models.SweeperCut
         {
             Scores = bowlerScores,
             CasherCount = casherCount,
-            SquadId = squadId,
-            CutScore = bowlerScores[casherCount - 1].GameScores.Sum(score => score.Value)
+            CutScore = bowlerScores[casherCount - 1].Score
         };
     }
 }
@@ -73,4 +99,6 @@ internal interface IBusinessLogic
     Models.ErrorDetail? Error { get; }
 
     Models.SweeperCut? Execute(SquadId squadId);
+
+    Models.SweeperCut? Execute(TournamentId tournamentId);
 }
