@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Controls.Grids;
+﻿namespace NortheastMegabuck.Controls;
 
 partial class SweeperCutControl
 {
@@ -50,7 +50,7 @@ partial class SweeperCutControl
             // bowlerNameLabel
             // 
             this.bowlerNameLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.bowlerNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.bowlerNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bowlerNameLabel.Location = new System.Drawing.Point(57, 0);
             this.bowlerNameLabel.Name = "bowlerNameLabel";
             this.bowlerNameLabel.Size = new System.Drawing.Size(347, 42);
@@ -72,7 +72,7 @@ partial class SweeperCutControl
             // highGameLabel
             // 
             this.highGameLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.highGameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.highGameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.highGameLabel.Location = new System.Drawing.Point(461, 0);
             this.highGameLabel.Name = "highGameLabel";
             this.highGameLabel.Size = new System.Drawing.Size(57, 42);
@@ -100,6 +100,7 @@ partial class SweeperCutControl
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.bowlerNameLabel);
             this.Controls.Add(this.placeLabel);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SweeperCutControl";
             this.Size = new System.Drawing.Size(581, 42);
             ((System.ComponentModel.ISupportInitialize)(this.cashingPictureBox)).EndInit();

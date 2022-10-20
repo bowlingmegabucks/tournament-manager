@@ -52,6 +52,8 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void CutMenuItem_Click(object sender, EventArgs e)
     {
+        using var form = new Cut.Form(_config, _id);
 
+        form.ShowDialog(this);
     }
 }
