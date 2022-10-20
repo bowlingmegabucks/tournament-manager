@@ -12,7 +12,7 @@ internal class ViewModel : IViewModel
 
     public bool Casher { get; }
 
-    public ViewModel(Models.BowlerSquadScore bowlerScore, short place, int cashingPositions)
+    internal ViewModel(Models.BowlerSquadScore bowlerScore, short place, int cashingPositions)
     {
         Place = place;
         BowlerName = bowlerScore.Bowler.ToString();

@@ -49,4 +49,11 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         form.ShowDialog(this);
     }
+
+    private void CutMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Cut.Form(_id);
+
+        form.ShowDialog(this);
+    }
 }

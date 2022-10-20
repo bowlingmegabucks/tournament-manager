@@ -54,6 +54,7 @@
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+		<PackageReference Include="ReportViewerCore.WinForms" Version="15.1.17" />
 		<PackageReference Include="StronglyTypedId" Version="1.0.0-beta06" />
 		
 	</ItemGroup>
@@ -103,6 +104,9 @@
 	  <None Update="Resources\NMT.ico">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Update="Sweepers\Cut\SweeperCut.rdlc">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 
