@@ -27,7 +27,7 @@ internal class Adapter : IAdapter
     public IEnumerable<IViewModel> Execute(TournamentId tournamentId)
         => Execute(_businessLogic.Execute(tournamentId));
 
-    private IEnumerable<IViewModel> Execute(Models.SweeperResults? result)
+    private IEnumerable<IViewModel> Execute(Models.SweeperResult? result)
     {
         if (result == null)
         {
