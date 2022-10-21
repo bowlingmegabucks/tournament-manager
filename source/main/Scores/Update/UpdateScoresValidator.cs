@@ -12,12 +12,12 @@ internal class Validator : AbstractValidator<IEnumerable<Models.SquadScore>>
             .Must(squadScores => squadScores.Count() == squadScores.Max(squadScore => squadScore.GameNumber))
             .WithMessage("Missing game for bowler");
         RuleFor(squadScores => squadScores)
-            .Must(squadScores => squadScores.Select(squadScore => squadScore.BowlerId).Distinct().Count() == 1)
-            .When(squadScores=> squadScores.All(squadScore=> squadScore.BowlerId != BowlerId.Empty))
+            .Must(squadScores => squadScores.Select(squadScore => squadScore.Bowler.Id).Distinct().Count() == 1)
+            .When(squadScores=> squadScores.All(squadScore=> squadScore.Bowler.Id != BowlerId.Empty))
             .WithMessage("Scores must be for the same bowler");
         RuleFor(squadScores => squadScores)
             .Must(squadScores => squadScores.Select(squadScore => squadScore.SquadId).Distinct().Count() == 1)
-            .When(squadScores => squadScores.All(squadScore => squadScore.BowlerId != BowlerId.Empty))
+            .When(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id != BowlerId.Empty))
             .WithMessage("Scores must be for the same squad");
         RuleFor(squadScores => squadScores)
             .Must(squadScores => squadScores.Select(squadScore => squadScore.GameNumber).Distinct().Count() == squadScores.Select(squadScore => squadScore.GameNumber).Count())
@@ -28,7 +28,7 @@ internal class Validator : AbstractValidator<IEnumerable<Models.SquadScore>>
     {
         public SquadScoreValidator()
         {
-            RuleFor(squadScore => squadScore.BowlerId)
+            RuleFor(squadScore => squadScore.Bowler.Id)
                 .Must(bowlerId => bowlerId != BowlerId.Empty)
                 .WithMessage("Bowler Id is required");
 

@@ -18,6 +18,8 @@ internal class ViewModel : IViewModel
 
     public decimal CashRatio { get; set; }
 
+    public decimal SuperSweeperCashRatio { get; set; }
+
     public string BowlingCenter { get; set; } = string.Empty;
 
     public bool Completed { get; set; }
@@ -32,6 +34,7 @@ internal class ViewModel : IViewModel
         Games = model.Games;
         FinalsRatio = model.FinalsRatio;
         CashRatio = model.CashRatio;
+        SuperSweeperCashRatio = model.SuperSweeperCashRatio;
         BowlingCenter = model.BowlingCenter;
         Completed = model.Completed;
     }
@@ -62,6 +65,8 @@ internal interface IViewModel
     decimal FinalsRatio { get; set; }
 
     decimal CashRatio { get; set; }
+
+    decimal SuperSweeperCashRatio { get; set; }
 
     string BowlingCenter { get; set; }
 

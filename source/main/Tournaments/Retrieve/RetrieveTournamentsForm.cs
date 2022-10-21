@@ -40,7 +40,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         Close();
     }
 
-    private void TournamentsGrid_GridRowDoubleClicked(object sender, Controls.GridRowDoubleClickEventArgs e)
+    private void TournamentsGrid_GridRowDoubleClicked(object sender, Controls.Grids.GridRowDoubleClickEventArgs e)
         => OpenButton_Click(sender, e);
 
     private void NewButton_Click(object sender, EventArgs e)

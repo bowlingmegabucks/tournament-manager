@@ -50,7 +50,7 @@ internal partial class Dialog : Form, IView
     private void SelectButton_Click(object sender, EventArgs e) 
         => SelectedBowlerId = searchResultsGrid.SelectedBowler!.Id;
 
-    private void SearchResultsGrid_GridRowDoubleClicked(object sender, Controls.GridRowDoubleClickEventArgs e)
+    private void SearchResultsGrid_GridRowDoubleClicked(object sender, Controls.Grids.GridRowDoubleClickEventArgs e)
      => SelectButton_Click(sender, e);
 
     private void NewButton_Click(object sender, EventArgs e)

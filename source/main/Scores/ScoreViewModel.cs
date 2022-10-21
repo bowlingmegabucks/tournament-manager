@@ -13,9 +13,10 @@ internal class ViewModel : IViewModel
 
     public ViewModel(Models.SquadScore squadScore)
     {
-        BowlerId = squadScore.BowlerId;
+        BowlerId = squadScore.Bowler.Id;
         GameNumber = squadScore.GameNumber;
         Score = squadScore.Score;
+        SquadId = squadScore.SquadId;
     }
 
     /// <summary>

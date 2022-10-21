@@ -30,7 +30,7 @@ internal class BusinessLogic : IBusinessLogic
         var valid = new List<Models.SquadScore>();
         var invalid = new List<Models.SquadScore>();
 
-        var bowlerScores = squadScores.GroupBy(squadScore => squadScore.BowlerId);
+        var bowlerScores = squadScores.GroupBy(squadScore => squadScore.Bowler.Id);
 
         foreach (var bowlerScore in bowlerScores)
         {

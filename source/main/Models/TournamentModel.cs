@@ -18,6 +18,8 @@ internal class Tournament
 
     public decimal CashRatio { get; set; }
 
+    public decimal SuperSweeperCashRatio { get; set; }
+
     public string BowlingCenter { get; set; } = string.Empty;
 
     public bool Completed { get; set; }
@@ -36,6 +38,7 @@ internal class Tournament
         Games = entity.Games;
         FinalsRatio = entity.FinalsRatio;
         CashRatio = entity.CashRatio;
+        SuperSweeperCashRatio = entity.SuperSweperCashRatio;
         BowlingCenter = entity.BowlingCenter;
         Completed = entity.Completed;
         
@@ -53,6 +56,7 @@ internal class Tournament
         Games = viewModel.Games;
         FinalsRatio = viewModel.FinalsRatio;
         CashRatio = viewModel.CashRatio;
+        SuperSweeperCashRatio= viewModel.SuperSweeperCashRatio;
         BowlingCenter = viewModel.BowlingCenter;
         Completed = viewModel.Completed;
 

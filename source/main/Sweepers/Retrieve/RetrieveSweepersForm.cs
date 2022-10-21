@@ -41,7 +41,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
-    private void SweepersGrid_GridRowDoubleClicked(object sender, Controls.GridRowDoubleClickEventArgs e)
+    private void SweepersGrid_GridRowDoubleClicked(object sender, Controls.Grids.GridRowDoubleClickEventArgs e)
         => OpenButton_Click(sender, e);
 
     private void AddButton_Click(object sender, EventArgs e)

@@ -19,7 +19,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
@@ -27,7 +27,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
@@ -35,7 +35,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -56,7 +56,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
@@ -64,7 +64,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = BowlerId.Empty,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.Empty },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
@@ -72,7 +72,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -82,7 +82,7 @@ internal class Validator
 
         var result = _validator.TestValidate(scores);
 
-        result.ShouldHaveValidationErrorFor("squadScores[1].BowlerId").WithErrorMessage("Bowler Id is required");
+        result.ShouldHaveValidationErrorFor("squadScores[1].Bowler.Id").WithErrorMessage("Bowler Id is required");
     }
 
     [Test]
@@ -93,7 +93,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
@@ -101,7 +101,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = SquadId.Empty,
             GameNumber = 2,
             Score = 220
@@ -109,7 +109,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -130,7 +130,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
@@ -138,7 +138,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
@@ -146,7 +146,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 0,
             Score = 240
@@ -167,7 +167,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 0
@@ -175,7 +175,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
@@ -183,7 +183,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -204,7 +204,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
@@ -212,7 +212,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 301
@@ -220,7 +220,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -241,7 +241,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 4,
             Score = 200
@@ -249,7 +249,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
@@ -257,7 +257,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -278,7 +278,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
@@ -286,7 +286,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
@@ -294,7 +294,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = BowlerId.New(),
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -314,7 +314,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = SquadId.New(),
             GameNumber = 1,
             Score = 200
@@ -322,7 +322,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
@@ -330,7 +330,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -350,7 +350,7 @@ internal class Validator
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
@@ -358,7 +358,7 @@ internal class Validator
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
@@ -366,7 +366,7 @@ internal class Validator
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = bowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 240

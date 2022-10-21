@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.divisionsGrid = new NortheastMegabuck.Controls.DivisionsGrid();
+            this.divisionsGrid = new NortheastMegabuck.Controls.Grids.DivisionsGrid();
             this.addButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -70,6 +70,6 @@ partial class Form
 
     #endregion
 
-    private Controls.DivisionsGrid divisionsGrid;
+    private Controls.Grids.DivisionsGrid divisionsGrid;
     private Button addButton;
 }

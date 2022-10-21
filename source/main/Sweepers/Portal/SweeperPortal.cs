@@ -38,7 +38,6 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
     {
-        //todo: get from presenter;
         using var form = new LaneAssignments.Form(_config,_tournamentId, _id, StartingLane,NumberOfLanes,MaxPerPair, _numberOfGames, _squadDate);
 
         form.ShowDialog(this);
@@ -47,6 +46,13 @@ public partial class Form : System.Windows.Forms.Form, IView
     private void ScoresMenuItem_Click(object sender, EventArgs e)
     {
         using var form = new Scores.Form(_config, _id, _numberOfGames);
+
+        form.ShowDialog(this);
+    }
+
+    private void ResultsMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Results.Form(_config, _id);
 
         form.ShowDialog(this);
     }

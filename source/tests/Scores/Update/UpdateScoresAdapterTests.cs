@@ -56,8 +56,8 @@ internal class Adapter
             _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count() == 3)), Times.Once);
 
             _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore=> squadScore.SquadId == squadId))), Times.Once);
-            _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore=> squadScore.BowlerId == score1.BowlerId) == 2)), Times.Once);
-            _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.BowlerId == score3.BowlerId) == 1)), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore=> squadScore.Bowler.Id == score1.BowlerId) == 2)), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.Bowler.Id == score3.BowlerId) == 1)), Times.Once);
         });
     }
 
@@ -77,14 +77,14 @@ internal class Adapter
     {
         var invalidScore1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = BowlerId.New(),
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
             GameNumber = 1,
             Score = 200
         };
 
         var invalidScore2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = BowlerId.New(),
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
             GameNumber = 2,
             Score = 201
         };
@@ -98,8 +98,8 @@ internal class Adapter
         {
             Assert.That(result.Count, Is.EqualTo(2));
 
-            Assert.That(result.Count(score => score.BowlerId == invalidScore1.BowlerId), Is.EqualTo(1));
-            Assert.That(result.Count(score => score.BowlerId == invalidScore2.BowlerId), Is.EqualTo(1));
+            Assert.That(result.Count(score => score.BowlerId == invalidScore1.Bowler.Id), Is.EqualTo(1));
+            Assert.That(result.Count(score => score.BowlerId == invalidScore2.Bowler.Id), Is.EqualTo(1));
         });
     }
 }

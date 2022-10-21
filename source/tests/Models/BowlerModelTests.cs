@@ -437,4 +437,80 @@ internal class Bowler
 
         Assert.That(actual, Is.EqualTo(expected));
     }
+
+    [Test]
+    public void GetHashCode_ReturnsIdHashCode()
+    {
+        var id = BowlerId.New();
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            Id = id
+        };
+
+        Assert.That(bowler.GetHashCode(), Is.EqualTo(id.GetHashCode()));
+    }
+
+    [Test]
+    public void Equals_ObjNull_ReturnsFalse()
+    {
+        var id = BowlerId.New();
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            Id = id
+        };
+
+#pragma warning disable CA1508 // Avoid dead conditional code
+        Assert.That(bowler.Equals(null), Is.False);
+#pragma warning restore CA1508 // Avoid dead conditional code
+    }
+
+    [Test]
+    public void Equals_ObjNotBowlerModel_ReturnsFalse()
+    {
+        var id = BowlerId.New();
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            Id = id
+        };
+
+        var somethingElse = new NortheastMegabuck.Models.Squad();
+
+        Assert.That(bowler.Equals(somethingElse), Is.False);
+    }
+
+    [Test]
+    public void Equals_ObjBowlerButDifferentId_ReturnsFalse()
+    {
+        var id = BowlerId.New();
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            Id = id
+        };
+
+        var id2 = BowlerId.New();
+        var bowler2 = new NortheastMegabuck.Models.Bowler
+        {
+            Id = id2
+        };
+
+        Assert.That(bowler.Equals(bowler2), Is.False);
+    }
+
+    [Test]
+    public void Equals_ObjBowlerAndSameId_ReturnsTrue()
+    {
+        var id = BowlerId.New();
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            Id = id
+        };
+
+        var bowler2 = new NortheastMegabuck.Models.Bowler
+        {
+            Id = id,
+            FirstName = "firstName"
+        };
+
+        Assert.That(bowler.Equals(bowler2), Is.True);
+    }
 }

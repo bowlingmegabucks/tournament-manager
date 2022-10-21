@@ -75,4 +75,11 @@ internal partial class Form : System.Windows.Forms.Form
 
         form.ShowDialog(this);
     }
+
+    private void SuperSweeperResultsMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Sweepers.Results.Form(_config, _id);
+
+        form.ShowDialog();
+    }
 }

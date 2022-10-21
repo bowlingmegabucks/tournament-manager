@@ -29,12 +29,12 @@ internal class BusinessLogic
 
         var validResult = new FluentValidation.Results.ValidationResult();
 
-        _validator.Setup(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Select(squadScore => squadScore.BowlerId).Contains(_validScoreBowlerId)))).Returns(validResult);
+        _validator.Setup(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Select(squadScore => squadScore.Bowler.Id).Contains(_validScoreBowlerId)))).Returns(validResult);
 
         var invalidResult = new FluentValidation.Results.ValidationResult();
         invalidResult.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, "errorMessage"));
 
-        _validator.Setup(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Select(squadScore => squadScore.BowlerId).Contains(_invalidScoreBowlerId)))).Returns(invalidResult);
+        _validator.Setup(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Select(squadScore => squadScore.Bowler.Id).Contains(_invalidScoreBowlerId)))).Returns(invalidResult);
 
         _dataLayer = new Mock<NortheastMegabuck.Scores.Update.IDataLayer>();
 
@@ -46,25 +46,25 @@ internal class BusinessLogic
     {
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _validScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _validScoreBowlerId },
             GameNumber = 1
         };
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _invalidScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _invalidScoreBowlerId },
             GameNumber = 2
         };
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _validScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _validScoreBowlerId },
             GameNumber = 3
         };
 
         var score4 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _invalidScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _invalidScoreBowlerId },
             GameNumber = 4
         };
 
@@ -76,8 +76,8 @@ internal class BusinessLogic
         {
             _validator.Verify(validator => validator.Validate(It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadScore>>()), Times.Exactly(2));
 
-            _validator.Verify(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.BowlerId == _validScoreBowlerId) && squadScores.Any(squadScore => squadScore.GameNumber == 1) && squadScores.Any(squadScore => squadScore.GameNumber == 3))), Times.Once);
-            _validator.Verify(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.BowlerId == _invalidScoreBowlerId) && squadScores.Any(squadScore => squadScore.GameNumber == 2) && squadScores.Any(squadScore => squadScore.GameNumber == 4))), Times.Once);
+            _validator.Verify(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id == _validScoreBowlerId) && squadScores.Any(squadScore => squadScore.GameNumber == 1) && squadScores.Any(squadScore => squadScore.GameNumber == 3))), Times.Once);
+            _validator.Verify(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id == _invalidScoreBowlerId) && squadScores.Any(squadScore => squadScore.GameNumber == 2) && squadScores.Any(squadScore => squadScore.GameNumber == 4))), Times.Once);
         });
     }
 
@@ -86,25 +86,25 @@ internal class BusinessLogic
     {
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _validScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _validScoreBowlerId },
             GameNumber = 1
         };
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _invalidScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _invalidScoreBowlerId },
             GameNumber = 2
         };
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _validScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _validScoreBowlerId },
             GameNumber = 3
         };
 
         var score4 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _invalidScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _invalidScoreBowlerId },
             GameNumber = 4
         };
 
@@ -114,8 +114,8 @@ internal class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.BowlerId == _validScoreBowlerId))), Times.Once);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Any(squadScore => squadScore.BowlerId == _invalidScoreBowlerId))), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id == _validScoreBowlerId))), Times.Once);
+            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Any(squadScore => squadScore.Bowler.Id == _invalidScoreBowlerId))), Times.Never);
         });
     }
 
@@ -124,25 +124,25 @@ internal class BusinessLogic
     {
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _validScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _validScoreBowlerId },
             GameNumber = 1
         };
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _invalidScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _invalidScoreBowlerId },
             GameNumber = 2
         };
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _validScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _validScoreBowlerId },
             GameNumber = 3
         };
 
         var score4 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _invalidScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _invalidScoreBowlerId },
             GameNumber = 4
         };
 
@@ -150,7 +150,7 @@ internal class BusinessLogic
 
         var invalidScores = _businessLogic.Execute(scores);
 
-        Assert.That(invalidScores.All(score => score.BowlerId == _invalidScoreBowlerId));
+        Assert.That(invalidScores.All(score => score.Bowler.Id == _invalidScoreBowlerId));
     }
 
     [Test]
@@ -161,25 +161,25 @@ internal class BusinessLogic
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _validScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _validScoreBowlerId },
             GameNumber = 1
         };
 
         var score2 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _invalidScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _invalidScoreBowlerId },
             GameNumber = 2
         };
 
         var score3 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _validScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _validScoreBowlerId },
             GameNumber = 3
         };
 
         var score4 = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = _invalidScoreBowlerId,
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = _invalidScoreBowlerId },
             GameNumber = 4
         };
 
