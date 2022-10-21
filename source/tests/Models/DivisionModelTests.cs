@@ -306,4 +306,49 @@ internal class Division
 
         Assert.That(model.Gender, Is.EqualTo(gender));
     }
+
+    [Test]
+    public void GetHashCode_ReturnsIdHashCode()
+    {
+        var id = DivisionId.New();
+        var division = new NortheastMegabuck.Models.Division { Id = id };
+
+        Assert.That(division.GetHashCode(), Is.EqualTo(id.GetHashCode()));
+    }
+
+    [Test]
+    public void Equals_ObjNull_ReturnsFalse()
+    {
+        var division = new NortheastMegabuck.Models.Division();
+
+#pragma warning disable CA1508 // Avoid dead conditional code
+        Assert.That(division.Equals(null), Is.False);
+#pragma warning restore CA1508 // Avoid dead conditional code
+    }
+
+    [Test]
+    public void Equals_ObjNotDivision_ReturnsFalse()
+    {
+        var division = new NortheastMegabuck.Models.Division();
+
+        Assert.That(division.Equals(new NortheastMegabuck.Models.Bowler()), Is.False);
+    }
+
+    [Test]
+    public void Equals_ObjDivision_IdsDoNotMatch_ReturnsFalse()
+    {
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        var other = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+
+        Assert.That(division.Equals(other), Is.False);
+    }
+
+    [Test]
+    public void Equals_ObjDivision_IdsMatch_ReturnsTrue()
+    {
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        var other = new NortheastMegabuck.Models.Division { Id = division.Id };
+
+        Assert.That(division.Equals(other), Is.True);
+    }
 }
