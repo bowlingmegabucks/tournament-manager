@@ -58,7 +58,7 @@ internal class Adapter
             Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "190", LastName = "191" }
         };
 
-        var sweeperCut = new NortheastMegabuck.Models.SweeperCut
+        var sweeperCut = new NortheastMegabuck.Models.SweeperResults
         {
             CasherCount = 2,
             CutScore = 401,
@@ -130,7 +130,7 @@ internal class Adapter
             Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "190", LastName = "191" }
         };
 
-        var sweeperCut = new NortheastMegabuck.Models.SweeperCut
+        var sweeperCut = new NortheastMegabuck.Models.SweeperResults
         {
             CasherCount = 2,
             CutScore = 401,

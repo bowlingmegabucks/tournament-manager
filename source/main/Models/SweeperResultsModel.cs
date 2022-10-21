@@ -1,6 +1,6 @@
 ﻿
 namespace NortheastMegabuck.Models;
-internal class SweeperCut
+internal class SweeperResults
 {
     public IEnumerable<BowlerSquadScore> Scores { get; set; } = Enumerable.Empty<BowlerSquadScore>();
 

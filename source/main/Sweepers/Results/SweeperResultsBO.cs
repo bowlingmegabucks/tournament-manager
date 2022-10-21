@@ -31,7 +31,7 @@ internal class BusinessLogic : IBusinessLogic
         _retrieveScores = mockRetrieveScores;
     }
 
-    public Models.SweeperCut? Execute(SquadId squadId)
+    public Models.SweeperResults? Execute(SquadId squadId)
     {
         var sweeper = RetrieveSweeper.Execute(squadId);
 
@@ -47,7 +47,7 @@ internal class BusinessLogic : IBusinessLogic
         return Execute(scores, sweeper!.CashRatio);
     }
 
-    public Models.SweeperCut? Execute(TournamentId tournamentId)
+    public Models.SweeperResults? Execute(TournamentId tournamentId)
     {
         var tournament = RetrieveTournament.Execute(tournamentId);
 
@@ -64,7 +64,7 @@ internal class BusinessLogic : IBusinessLogic
         return Execute(scores, tournament!.SuperSweeperCashRatio);
     }
 
-    private Models.SweeperCut? Execute(IEnumerable<Models.SquadScore> scores, decimal cashRatio)
+    private Models.SweeperResults? Execute(IEnumerable<Models.SquadScore> scores, decimal cashRatio)
     {
         if (_retrieveScores.Error != null)
         {
@@ -85,7 +85,7 @@ internal class BusinessLogic : IBusinessLogic
 
         var casherCount = Math.Max(Convert.ToInt16(Math.Floor(bowlerScores.Count / cashRatio)), (short)1);
 
-        return new Models.SweeperCut
+        return new Models.SweeperResults
         {
             Scores = bowlerScores,
             CasherCount = casherCount,
@@ -98,7 +98,7 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    Models.SweeperCut? Execute(SquadId squadId);
+    Models.SweeperResults? Execute(SquadId squadId);
 
-    Models.SweeperCut? Execute(TournamentId tournamentId);
+    Models.SweeperResults? Execute(TournamentId tournamentId);
 }
