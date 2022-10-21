@@ -31,7 +31,6 @@ internal class Repository : IRepository
                 .SelectMany(squad => squad.Registrations);
         }
 
-        //todo: verify this works when bringing in sweepers
         return _dataContext.Sweepers
             .Include(sweeper => sweeper.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
             .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)

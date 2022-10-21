@@ -7,8 +7,10 @@ public partial class Form : System.Windows.Forms.Form, IView
     private readonly TournamentId _tournamentId;
     private readonly short _numberOfGames;
     private readonly DateTime _squadDate;
+    
+    public bool Complete { private get; set; }
 
-    public Form(IConfiguration config, TournamentId tournamentId, SquadId id, short numberOfGames, DateTime squadDate)
+    public Form(IConfiguration config, TournamentId tournamentId, SquadId id, short numberOfGames, DateTime squadDate, bool complete)
     {
         InitializeComponent();
 
@@ -17,6 +19,10 @@ public partial class Form : System.Windows.Forms.Form, IView
         _tournamentId = tournamentId;
         _numberOfGames = numberOfGames;
         _squadDate = squadDate;
+
+        Complete = complete;
+
+        completeMenuItem.Visible = !complete;
 
         new Presenter(config, this).Load();
     }
@@ -36,18 +42,33 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+    public void DisplayMessage(string message)
+        => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
     private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
     {
-        //todo: get from presenter;
-        using var form = new LaneAssignments.Form(_config,_tournamentId, _id, StartingLane,NumberOfLanes,MaxPerPair, _numberOfGames, _squadDate);
+        using var form = new LaneAssignments.Form(_config,_tournamentId, _id, StartingLane,NumberOfLanes,MaxPerPair, _numberOfGames, _squadDate, Complete);
 
         form.ShowDialog(this);
     }
 
     private void ScoresMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Scores.Form(_config, _id, _numberOfGames);
+        using var form = new Scores.Form(_config, _id, _numberOfGames, Complete);
 
         form.ShowDialog(this);
     }
+
+    private void ResultsMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Results.Form(_config, _id);
+
+        form.ShowDialog(this);
+    }
+
+    private void CompleteMenuItem_Click(object sender, EventArgs e)
+        => new Presenter(_config, this).Complete();
+
+    public bool Confirm(string message)
+        => MessageBox.Show(message, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;
 }

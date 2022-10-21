@@ -47,11 +47,14 @@ partial class TournamentControl
             this.bowlingCenterValue = new System.Windows.Forms.TextBox();
             this.bowlingCenterLabel = new NortheastMegabuck.Controls.LabelControl();
             this.CheckboxComplete = new System.Windows.Forms.CheckBox();
+            this.superSweeperCashRatioValue = new NortheastMegabuck.Controls.NumericControl();
+            this.labelSuperSweeperCashRatio = new NortheastMegabuck.Controls.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.tournamentErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.superSweeperCashRatioValue)).BeginInit();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -210,7 +213,7 @@ partial class TournamentControl
             // 
             this.finalsRatioValue.DecimalPlaces = 1;
             this.finalsRatioValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.finalsRatioValue.Location = new System.Drawing.Point(3, 225);
+            this.finalsRatioValue.Location = new System.Drawing.Point(6, 225);
             this.finalsRatioValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
             this.finalsRatioValue.Maximum = new decimal(new int[] {
             999,
@@ -218,7 +221,7 @@ partial class TournamentControl
             0,
             65536});
             this.finalsRatioValue.Name = "finalsRatioValue";
-            this.finalsRatioValue.Size = new System.Drawing.Size(131, 27);
+            this.finalsRatioValue.Size = new System.Drawing.Size(123, 27);
             this.finalsRatioValue.TabIndex = 5;
             this.finalsRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.finalsRatioValue.Validating += new System.ComponentModel.CancelEventHandler(this.FinalsRatioValue_Validating);
@@ -228,7 +231,7 @@ partial class TournamentControl
             // 
             this.cashRatioValue.DecimalPlaces = 1;
             this.cashRatioValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cashRatioValue.Location = new System.Drawing.Point(189, 225);
+            this.cashRatioValue.Location = new System.Drawing.Point(206, 225);
             this.cashRatioValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
             this.cashRatioValue.Maximum = new decimal(new int[] {
             999,
@@ -236,7 +239,7 @@ partial class TournamentControl
             0,
             65536});
             this.cashRatioValue.Name = "cashRatioValue";
-            this.cashRatioValue.Size = new System.Drawing.Size(131, 27);
+            this.cashRatioValue.Size = new System.Drawing.Size(114, 27);
             this.cashRatioValue.TabIndex = 6;
             this.cashRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.cashRatioValue.Validating += new System.ComponentModel.CancelEventHandler(this.CashRatioValue_Validating);
@@ -246,7 +249,7 @@ partial class TournamentControl
             // 
             this.cashRatioLabel.AutoSize = true;
             this.cashRatioLabel.Bold = false;
-            this.cashRatioLabel.Location = new System.Drawing.Point(189, 199);
+            this.cashRatioLabel.Location = new System.Drawing.Point(206, 199);
             this.cashRatioLabel.Name = "cashRatioLabel";
             this.cashRatioLabel.Required = true;
             this.cashRatioLabel.Size = new System.Drawing.Size(114, 19);
@@ -257,12 +260,12 @@ partial class TournamentControl
             // bowlingCenterValue
             // 
             this.bowlingCenterValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bowlingCenterValue.Location = new System.Drawing.Point(3, 290);
+            this.bowlingCenterValue.Location = new System.Drawing.Point(6, 356);
             this.bowlingCenterValue.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.bowlingCenterValue.Name = "bowlingCenterValue";
             this.bowlingCenterValue.PlaceholderText = "AMF Lanes";
             this.bowlingCenterValue.Size = new System.Drawing.Size(317, 27);
-            this.bowlingCenterValue.TabIndex = 7;
+            this.bowlingCenterValue.TabIndex = 8;
             this.bowlingCenterValue.Validating += new System.ComponentModel.CancelEventHandler(this.BowlingCenterText_Validating);
             this.bowlingCenterValue.Validated += new System.EventHandler(this.Controls_Validated);
             // 
@@ -270,7 +273,7 @@ partial class TournamentControl
             // 
             this.bowlingCenterLabel.AutoSize = true;
             this.bowlingCenterLabel.Bold = false;
-            this.bowlingCenterLabel.Location = new System.Drawing.Point(0, 265);
+            this.bowlingCenterLabel.Location = new System.Drawing.Point(3, 331);
             this.bowlingCenterLabel.Name = "bowlingCenterLabel";
             this.bowlingCenterLabel.Required = true;
             this.bowlingCenterLabel.Size = new System.Drawing.Size(150, 19);
@@ -281,7 +284,7 @@ partial class TournamentControl
             // CheckboxComplete
             // 
             this.CheckboxComplete.AutoSize = true;
-            this.CheckboxComplete.Location = new System.Drawing.Point(237, 330);
+            this.CheckboxComplete.Location = new System.Drawing.Point(242, 398);
             this.CheckboxComplete.Name = "CheckboxComplete";
             this.CheckboxComplete.Size = new System.Drawing.Size(78, 19);
             this.CheckboxComplete.TabIndex = 109;
@@ -290,10 +293,42 @@ partial class TournamentControl
             this.CheckboxComplete.UseVisualStyleBackColor = true;
             this.CheckboxComplete.Visible = false;
             // 
+            // superSweeperCashRatioValue
+            // 
+            this.superSweeperCashRatioValue.DecimalPlaces = 1;
+            this.superSweeperCashRatioValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.superSweeperCashRatioValue.Location = new System.Drawing.Point(6, 291);
+            this.superSweeperCashRatioValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
+            this.superSweeperCashRatioValue.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            65536});
+            this.superSweeperCashRatioValue.Name = "superSweeperCashRatioValue";
+            this.superSweeperCashRatioValue.Size = new System.Drawing.Size(80, 27);
+            this.superSweeperCashRatioValue.TabIndex = 7;
+            this.superSweeperCashRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.superSweeperCashRatioValue.Validating += new System.ComponentModel.CancelEventHandler(this.SuperSweeperCashRatioValue_Validating);
+            this.superSweeperCashRatioValue.Validated += new System.EventHandler(this.Controls_Validated);
+            // 
+            // labelSuperSweeperCashRatio
+            // 
+            this.labelSuperSweeperCashRatio.AutoSize = true;
+            this.labelSuperSweeperCashRatio.Bold = false;
+            this.labelSuperSweeperCashRatio.Location = new System.Drawing.Point(3, 265);
+            this.labelSuperSweeperCashRatio.Name = "labelSuperSweeperCashRatio";
+            this.labelSuperSweeperCashRatio.Required = true;
+            this.labelSuperSweeperCashRatio.Size = new System.Drawing.Size(240, 19);
+            this.labelSuperSweeperCashRatio.TabIndex = 111;
+            this.labelSuperSweeperCashRatio.TabStop = false;
+            this.labelSuperSweeperCashRatio.Text = "Super Sweeper Cash Ratio:";
+            // 
             // TournamentControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.superSweeperCashRatioValue);
+            this.Controls.Add(this.labelSuperSweeperCashRatio);
             this.Controls.Add(this.CheckboxComplete);
             this.Controls.Add(this.bowlingCenterValue);
             this.Controls.Add(this.bowlingCenterLabel);
@@ -312,13 +347,14 @@ partial class TournamentControl
             this.Controls.Add(this.nameText);
             this.Controls.Add(this.nameLabel);
             this.Name = "TournamentControl";
-            this.Size = new System.Drawing.Size(354, 330);
+            this.Size = new System.Drawing.Size(346, 395);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.TournamentControl_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.tournamentErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.superSweeperCashRatioValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,4 +380,6 @@ partial class TournamentControl
     private DateTimePicker startDatePicker;
     private Controls.LabelControl startDateLabel;
     private TextBox nameText;
+    private NumericControl superSweeperCashRatioValue;
+    private LabelControl labelSuperSweeperCashRatio;
 }

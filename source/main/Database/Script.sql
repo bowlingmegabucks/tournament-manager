@@ -70,7 +70,7 @@ CREATE INDEX `IX_Squads_TournamentId` ON `Squads` (`TournamentId`);
 CREATE INDEX `IX_SweeperDivision_DivisionId` ON `SweeperDivision` (`DivisionId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220527183020_TournamentEntities', '6.0.8');
+VALUES ('20220527183020_TournamentEntities', '6.0.10');
 
 COMMIT;
 
@@ -95,7 +95,7 @@ CREATE TABLE `Bowlers` (
 ) CHARACTER SET=utf8mb4;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220615233907_BowlerEntity', '6.0.8');
+VALUES ('20220615233907_BowlerEntity', '6.0.10');
 
 COMMIT;
 
@@ -106,7 +106,7 @@ ALTER TABLE `Squads` ADD `NumberOfLanes` smallint NOT NULL DEFAULT 0;
 ALTER TABLE `Squads` ADD `StartingLane` smallint NOT NULL DEFAULT 0;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220622145345_StartingAndNumberOfLanes', '6.0.8');
+VALUES ('20220622145345_StartingAndNumberOfLanes', '6.0.10');
 
 COMMIT;
 
@@ -137,7 +137,7 @@ CREATE INDEX `IX_Registrations_DivisionId` ON `Registrations` (`DivisionId`);
 CREATE INDEX `IX_SquadRegistration_SquadId` ON `SquadRegistration` (`SquadId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220816235947_AddRegistration', '6.0.8');
+VALUES ('20220816235947_AddRegistration', '6.0.10');
 
 COMMIT;
 
@@ -146,7 +146,7 @@ START TRANSACTION;
 ALTER TABLE `SquadRegistration` ADD `LaneAssignment` varchar(3) CHARACTER SET utf8mb4 NOT NULL DEFAULT '';
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220831173955_SquadLaneAssignment', '6.0.8');
+VALUES ('20220831173955_SquadLaneAssignment', '6.0.10');
 
 COMMIT;
 
@@ -165,6 +165,16 @@ CREATE TABLE `SquadScores` (
 CREATE INDEX `IX_SquadScores_SquadId` ON `SquadScores` (`SquadId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20221017125314_SquadScores', '6.0.8');
+VALUES ('20221017125314_SquadScores', '6.0.10');
 
 COMMIT;
+
+START TRANSACTION;
+
+ALTER TABLE `Tournaments` ADD `SuperSweperCashRatio` decimal(3,1) NOT NULL DEFAULT 0.0;
+
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20221020195709_SuperSweeperCashRatio', '6.0.10');
+
+COMMIT;
+

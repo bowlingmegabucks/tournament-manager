@@ -36,7 +36,7 @@ partial class Dialog
             this.firstNameLabel = new NortheastMegabuck.Controls.LabelControl();
             this.lastNameText = new System.Windows.Forms.TextBox();
             this.lastNameLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.searchResultsGrid = new NortheastMegabuck.Controls.SearchBowlersGrid();
+            this.searchResultsGrid = new NortheastMegabuck.Controls.Grids.SearchBowlersGrid();
             this.selectButton = new System.Windows.Forms.Button();
             this.newBowlerButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -144,7 +144,7 @@ partial class Dialog
             this.searchResultsGrid.SelectedRowContextMenu = null;
             this.searchResultsGrid.Size = new System.Drawing.Size(832, 290);
             this.searchResultsGrid.TabIndex = 1;
-            this.searchResultsGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.GridRowDoubleClickEventArgs>(this.SearchResultsGrid_GridRowDoubleClicked);
+            this.searchResultsGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.Grids.GridRowDoubleClickEventArgs>(this.SearchResultsGrid_GridRowDoubleClicked);
             // 
             // selectButton
             // 
@@ -214,7 +214,7 @@ partial class Dialog
     private TextBox lastNameText;
     private Controls.LabelControl lastNameLabel;
     private Button searchButton;
-    private Controls.SearchBowlersGrid searchResultsGrid;
+    private Controls.Grids.SearchBowlersGrid searchResultsGrid;
     private Button selectButton;
     private Button newBowlerButton;
     private Button cancelButton;

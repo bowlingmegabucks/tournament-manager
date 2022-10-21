@@ -22,7 +22,7 @@ internal class ViewModel : IViewModel
 
     public bool Complete { get; set; }
 
-    public IDictionary<NortheastMegabuck.DivisionId, int?> Divisions { get; set; } = new Dictionary<NortheastMegabuck.DivisionId, int?>();
+    public IDictionary<DivisionId, int?> Divisions { get; set; } = new Dictionary<DivisionId, int?>();
 
     public ViewModel(Models.Sweeper sweeper)
     {
@@ -37,6 +37,14 @@ internal class ViewModel : IViewModel
         NumberOfLanes = sweeper.NumberOfLanes;
         Complete = sweeper.Complete;
         Divisions = sweeper.Divisions.ToDictionary(division=> division.Key, division=> division.Value);
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal ViewModel()
+    {
+
     }
 }
 

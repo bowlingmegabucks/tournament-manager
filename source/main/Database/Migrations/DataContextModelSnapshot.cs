@@ -16,7 +16,7 @@ namespace NortheastMegabuck.Database.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("NortheastMegabuck.Database.Entities.Bowler", b =>
@@ -292,6 +292,10 @@ namespace NortheastMegabuck.Database.Migrations
 
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("SuperSweperCashRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
                     b.HasKey("Id");
 

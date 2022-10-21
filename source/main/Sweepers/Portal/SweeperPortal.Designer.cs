@@ -31,6 +31,8 @@ partial class Form
             this.portalMenuStrip = new System.Windows.Forms.MenuStrip();
             this.laneAssignmentsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scoresMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.completeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portalMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,7 +40,9 @@ partial class Form
             // 
             this.portalMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.laneAssignmentsMenuItem,
-            this.scoresMenuItem});
+            this.scoresMenuItem,
+            this.resultsMenuItem,
+            this.completeMenuItem});
             this.portalMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.portalMenuStrip.Name = "portalMenuStrip";
             this.portalMenuStrip.Size = new System.Drawing.Size(800, 24);
@@ -58,6 +62,20 @@ partial class Form
             this.scoresMenuItem.Size = new System.Drawing.Size(53, 20);
             this.scoresMenuItem.Text = "Scores";
             this.scoresMenuItem.Click += new System.EventHandler(this.ScoresMenuItem_Click);
+            // 
+            // resultsMenuItem
+            // 
+            this.resultsMenuItem.Name = "resultsMenuItem";
+            this.resultsMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.resultsMenuItem.Text = "Results";
+            this.resultsMenuItem.Click += new System.EventHandler(this.ResultsMenuItem_Click);
+            // 
+            // completeMenuItem
+            // 
+            this.completeMenuItem.Name = "completeMenuItem";
+            this.completeMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.completeMenuItem.Text = "Complete";
+            this.completeMenuItem.Click += new System.EventHandler(this.CompleteMenuItem_Click);
             // 
             // Form
             // 
@@ -83,4 +101,6 @@ partial class Form
     private MenuStrip portalMenuStrip;
     private ToolStripMenuItem laneAssignmentsMenuItem;
     private ToolStripMenuItem scoresMenuItem;
+    private ToolStripMenuItem resultsMenuItem;
+    private ToolStripMenuItem completeMenuItem;
 }

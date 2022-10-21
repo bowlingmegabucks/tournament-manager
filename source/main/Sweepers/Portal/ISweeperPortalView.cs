@@ -9,9 +9,15 @@ internal interface IView
 
     int MaxPerPair { set; }
 
+    bool Complete { set; }
+
+    void DisplayMessage(string message);
+
     void DisplayError(string message);
 
     void Close();
 
     SquadId Id { get; }
+
+    bool Confirm(string message);
 }

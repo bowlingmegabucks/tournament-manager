@@ -33,12 +33,12 @@ internal class EntityMapper
     {
         var model = new NortheastMegabuck.Models.SquadScore
         {
-            BowlerId = BowlerId.New()
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
         var entity = _mapper.Execute(model);
 
-        Assert.That(entity.BowlerId, Is.EqualTo(model.BowlerId));
+        Assert.That(entity.BowlerId, Is.EqualTo(model.Bowler.Id));
     }
 
     [Test]

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Security.Cryptography.X509Certificates;
+using Microsoft.EntityFrameworkCore;
 
 namespace NortheastMegabuck.Scores;
 
@@ -53,7 +54,21 @@ internal class Repository : IRepository
     }
 
     IEnumerable<Database.Entities.SquadScore> IRepository.Retrieve(SquadId squadId)
-        => _dataContext.SquadScores.AsNoTracking().Where(squadScore => squadScore.SquadId == squadId);
+        => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
+            .Include(squadScore=> squadScore.Bowler)
+                .ThenInclude(bowler=> bowler.Registrations.Where(registration=> registration.Squads.Any(squad=> squad.SquadId == squadId)))
+                .ThenInclude(registration=> registration.Division).ThenInclude(division=> division.Sweepers)
+            .Include(squadScore => squadScore.Squad)
+        .Where(squadScore => squadScore.SquadId == squadId);
+
+    IEnumerable<Database.Entities.SquadScore> IRepository.SuperSweeper(TournamentId tournamentId)
+        => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
+            .Include(squadScore => squadScore.Bowler)
+                .ThenInclude(bowler => bowler.Registrations.Where(registration=> registration.Division.TournamentId == tournamentId))
+                .ThenInclude(registration => registration.Division).ThenInclude(division => division.Sweepers)
+            .Include(squadScore => squadScore.Squad)
+        .Where(squadScore => squadScore.Squad.TournamentId == tournamentId)
+        .Where(squadScore=> squadScore.Bowler.Registrations.Single(registration=> registration.Division.TournamentId == tournamentId).SuperSweeper);
 }
 
 internal interface IRepository
@@ -61,4 +76,6 @@ internal interface IRepository
     void Update(IEnumerable<Database.Entities.SquadScore> scores);
 
     IEnumerable<Database.Entities.SquadScore> Retrieve(SquadId sqauadId);
+
+    IEnumerable<Database.Entities.SquadScore> SuperSweeper(TournamentId tournamnetId);
 }
