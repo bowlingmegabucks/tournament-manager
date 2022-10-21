@@ -32,7 +32,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void OpenButton_Click(object sender, EventArgs e)
     {
-        using var form = new Portal.Form(_config, TournamentId, squadsGrid.SelectedSquad!.Id, _gamesPerSquad, squadsGrid.SelectedSquad!.Date);
+        using var form = new Portal.Form(_config, TournamentId, squadsGrid.SelectedSquad!.Id, _gamesPerSquad, squadsGrid.SelectedSquad.Date, squadsGrid.SelectedSquad.Complete);
 
         if (!form.IsDisposed)
         {

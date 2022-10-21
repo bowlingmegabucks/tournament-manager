@@ -8,7 +8,9 @@ public partial class Form : System.Windows.Forms.Form, IView
     private readonly short _numberOfGames;
     private readonly DateTime _squadDate;
 
-    public Form(IConfiguration config, TournamentId tournamentId, SquadId id, short numberOfGames, DateTime squadDate)
+    public bool Complete { private get; set; }
+
+    public Form(IConfiguration config, TournamentId tournamentId, SquadId id, short numberOfGames, DateTime squadDate, bool complete)
     {
         InitializeComponent();
 
@@ -19,6 +21,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         _squadDate = squadDate;
 
         new Presenter(config, this).Load();
+        Complete = complete;
     }
 
     public void SetPortalTitle(string title)
@@ -38,7 +41,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new LaneAssignments.Form(_config,_tournamentId, _id, StartingLane,NumberOfLanes,MaxPerPair, _numberOfGames, _squadDate);
+        using var form = new LaneAssignments.Form(_config,_tournamentId, _id, StartingLane,NumberOfLanes,MaxPerPair, _numberOfGames, _squadDate, Complete);
 
         form.ShowDialog(this);
     }
