@@ -82,4 +82,7 @@ internal partial class Form : System.Windows.Forms.Form
 
         form.ShowDialog();
     }
+
+    private void ExitMenuItem_Click(object sender, EventArgs e)
+        => Close();
 }

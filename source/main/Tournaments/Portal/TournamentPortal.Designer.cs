@@ -44,6 +44,7 @@ partial class Form
             this.registrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRegistrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewTournamentRegistrationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portalMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +64,8 @@ partial class Form
             // 
             // fieMenuItem
             // 
+            this.fieMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitMenuItem});
             this.fieMenuItem.Name = "fieMenuItem";
             this.fieMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fieMenuItem.Text = "File";
@@ -173,6 +176,13 @@ partial class Form
             this.viewTournamentRegistrationsMenuItem.Text = "View";
             this.viewTournamentRegistrationsMenuItem.Click += new System.EventHandler(this.ViewTournamentRegistrationsMenuItem_Click);
             // 
+            // exitMenuItem
+            // 
+            this.exitMenuItem.Name = "exitMenuItem";
+            this.exitMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitMenuItem.Text = "E&xit";
+            this.exitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -209,4 +219,5 @@ partial class Form
     private ToolStripMenuItem viewTournamentRegistrationsMenuItem;
     private ToolStripSeparator sweeperSeparator;
     private ToolStripMenuItem superSweeperResultsMenuItem;
+    private ToolStripMenuItem exitMenuItem;
 }
