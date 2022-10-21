@@ -3,18 +3,12 @@ namespace NortheastMegabuck.Squads.Results;
 
 internal class Calculator : ICalculator
 {
-    //todo: this might be able to work
     public Models.SquadResult Execute(Models.Squad squad, Models.Division division, List<Models.BowlerSquadScore> scores, IEnumerable<BowlerId> previousAdvancersIds, decimal finalsRatio, decimal cashRatio)
     {
         var advancerCount = Convert.ToInt16(Math.Floor(scores.Count / finalsRatio));
 
         var casherCount = advancerCount == 0 ? 1 : Math.Max(Convert.ToInt16(Math.Floor(scores.Count / cashRatio)) - advancerCount, 0);
 
-        return Execute(squad, division, scores, previousAdvancersIds, advancerCount, casherCount);
-    }
-
-    public Models.SquadResult Execute(Models.Squad squad, Models.Division division, List<Models.BowlerSquadScore> scores, IEnumerable<BowlerId> previousAdvancersIds, int advancerCount, int casherCount)
-    {
         scores.Sort();
 
         var eligibleBowlers = scores.Where(score => !previousAdvancersIds.Contains(score.Bowler.Id)).ToList(); //Bowlers who didn't previously qualify
@@ -51,6 +45,10 @@ internal class Calculator : ICalculator
             NonQualifyingScores = nonQualifiers
         };
     }
+
+    //todo: look into leveraging this functionality for at large
+    //      need to make sure someone doesn't "double cash" meaning they cash on their squad and cash in at large
+    //      maybe two different collections, one being finals eligible scores for at large and casher eligible scores for at large
 }
 
 internal interface ICalculator
@@ -66,16 +64,4 @@ internal interface ICalculator
     /// <param name="cashRatio"></param>
     /// <returns></returns>
     Models.SquadResult Execute(Models.Squad squad, Models.Division division, List<Models.BowlerSquadScore> scores, IEnumerable<BowlerId> previousAdvancersIds, decimal finalsRatio, decimal cashRatio);
-
-    /// <summary>
-    /// Calculating At Large (Pass in number of advancers and cashers manually)
-    /// </summary>
-    /// <param name="squad"></param>
-    /// <param name="division"></param>
-    /// <param name="scores"></param>
-    /// <param name="previousAdvancersIds"></param>
-    /// <param name="advancerCount"></param>
-    /// <param name="casherCount"></param>
-    /// <returns></returns>
-    Models.SquadResult Execute(Models.Squad squad, Models.Division division, List<Models.BowlerSquadScore> scores, IEnumerable<BowlerId> previousAdvancersIds, int advancerCount, int casherCount);
 }
