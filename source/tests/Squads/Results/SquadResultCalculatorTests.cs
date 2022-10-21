@@ -87,7 +87,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -176,7 +176,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -265,7 +265,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -284,6 +284,71 @@ internal class Calculator
             Assert.That(cashingScores[2].Bowler.Id, Is.EqualTo(bowler8.Bowler.Id), "Casher #3");
 
             Assert.That(result.NonQualifyingScores.Count(), Is.EqualTo(32));
+        });
+    }
+
+    [Test]
+    public void EntriesLessThanCashRatio_NoAdvancers_OneCasher()
+    {
+        var bowler1 = BuildBowlerSquadScore(40);
+        var bowler2 = BuildBowlerSquadScore(39);
+        var bowler3 = BuildBowlerSquadScore(38);
+        var bowler4 = BuildBowlerSquadScore(37);
+
+        var scores = new[] {bowler1, bowler2, bowler3, bowler4 }.ToList();
+
+        scores.Shuffle();
+
+        //var previousAdvancersIds = new[] { bowler1.Bowler.Id, bowler2.Bowler.Id, bowler3.Bowler.Id, bowler4.Bowler.Id, bowler5.Bowler.Id };
+
+        var cashRatio = 5.0m;
+        var finalsRatio = 8.0m;
+
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.AdvancingScores, Is.Empty);
+
+            var cashingScores = result.CashingScores.ToList();
+            Assert.That(cashingScores, Has.Count.EqualTo(1));
+            Assert.That(cashingScores[0].Bowler.Id, Is.EqualTo(bowler1.Bowler.Id), "Casher #1");
+
+            Assert.That(result.NonQualifyingScores.Count(), Is.EqualTo(3));
+        });
+    }
+
+    [Test]
+    public void EntriesGreaterThanCashRatioLessThanAdvanceRatio_NoAdvancers_OneCasher()
+    {
+        var bowler1 = BuildBowlerSquadScore(40);
+        var bowler2 = BuildBowlerSquadScore(39);
+        var bowler3 = BuildBowlerSquadScore(38);
+        var bowler4 = BuildBowlerSquadScore(37);
+        var bowler5 = BuildBowlerSquadScore(36);
+        var bowler6 = BuildBowlerSquadScore(35);
+
+        var scores = new[] { bowler1, bowler2, bowler3, 
+                             bowler4, bowler5, bowler6 }.ToList();
+
+        scores.Shuffle();
+
+        //var previousAdvancersIds = new[] { bowler1.Bowler.Id, bowler2.Bowler.Id, bowler3.Bowler.Id, bowler4.Bowler.Id, bowler5.Bowler.Id };
+
+        var cashRatio = 5.0m;
+        var finalsRatio = 8.0m;
+
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.AdvancingScores, Is.Empty);
+
+            var cashingScores = result.CashingScores.ToList();
+            Assert.That(cashingScores, Has.Count.EqualTo(1));
+            Assert.That(cashingScores[0].Bowler.Id, Is.EqualTo(bowler1.Bowler.Id), "Casher #1");
+
+            Assert.That(result.NonQualifyingScores.Count(), Is.EqualTo(5));
         });
     }
 
@@ -354,7 +419,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -443,7 +508,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -532,7 +597,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {

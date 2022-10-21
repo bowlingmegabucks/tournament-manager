@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Models;
 internal class SquadResult
 {
-    public SquadId SquadId { get; init; }
+    public Squad Squad { get; init; } = null!;
 
     public Division Division { get; init; } = null!;
 
@@ -11,6 +11,12 @@ internal class SquadResult
     public IEnumerable<BowlerSquadScore> CashingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
 
     public IEnumerable<BowlerSquadScore> NonQualifyingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
+
+    public IEnumerable<BowlerSquadScore> AtLargePoolScores
+        => CashingScores.Union(NonQualifyingScores);
+
+    public int Entries
+        => AdvancingScores.Count() + CashingScores.Count() + NonQualifyingScores.Count();
 
     public int CutScore
         => AdvancingScores.Last().Score;
