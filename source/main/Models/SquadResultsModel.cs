@@ -2,6 +2,10 @@
 namespace NortheastMegabuck.Models;
 internal class SquadResult
 {
+    public SquadId SquadId { get; init; }
+
+    public Division Division { get; init; } = null!;
+
     public IEnumerable<BowlerSquadScore> AdvancingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
 
     public IEnumerable<BowlerSquadScore> CashingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();

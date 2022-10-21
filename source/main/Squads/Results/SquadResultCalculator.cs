@@ -3,7 +3,7 @@ namespace NortheastMegabuck.Squads.Results;
 
 internal class Calculator : ICalculator
 {
-    public Models.SquadResult Execute(List<Models.BowlerSquadScore> scores, IEnumerable<BowlerId> previousAdvancersIds, decimal finalsRatio, decimal cashRatio)
+    public Models.SquadResult Execute(SquadId squadId, Models.Division division, List<Models.BowlerSquadScore> scores, IEnumerable<BowlerId> previousAdvancersIds, decimal finalsRatio, decimal cashRatio)
     {
         var advancerCount = Convert.ToInt16(Math.Floor(scores.Count / finalsRatio));
 
@@ -38,6 +38,8 @@ internal class Calculator : ICalculator
 
         return new Models.SquadResult
         {
+            SquadId = squadId,
+            Division = division,
             AdvancingScores = advancers,
             CashingScores = cashers,
             NonQualifyingScores = nonQualifiers
@@ -47,5 +49,5 @@ internal class Calculator : ICalculator
 
 internal interface ICalculator
 {
-    Models.SquadResult Execute(List<Models.BowlerSquadScore> scores, IEnumerable<BowlerId> previousAdvancers, decimal finalsRatio, decimal cashRatio);
+    Models.SquadResult Execute(SquadId squadId, Models.Division division, List<Models.BowlerSquadScore> scores, IEnumerable<BowlerId> previousAdvancers, decimal finalsRatio, decimal cashRatio);
 }

@@ -87,7 +87,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -176,7 +176,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -265,7 +265,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -354,7 +354,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(scores, previousAdvancersIds, finalsRatio, cashRatio);
+        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -443,7 +443,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(scores, previousAdvancersIds, finalsRatio, cashRatio);
+        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -532,7 +532,7 @@ internal class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(scores, previousAdvancersIds, finalsRatio, cashRatio);
+        var result = _calculator.Execute(SquadId.New(), new NortheastMegabuck.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
