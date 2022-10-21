@@ -75,7 +75,6 @@ public partial class Form : System.Windows.Forms.Form, IView
             openLane.Enter += LaneAssignmentRegistered_Enter!;
             openLane.Leave += LaneAssignmentRegistered_Leave!;
 
-
             RemoveOpenLaneEventsFromAssignedLane(openLane);
         }   
     }
@@ -90,7 +89,6 @@ public partial class Form : System.Windows.Forms.Form, IView
         openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
         openLane.Enter += LaneAssignmentRegistered_Enter!;
         openLane.Leave += LaneAssignmentRegistered_Leave!;
-
 
         if (string.IsNullOrEmpty(registration!.LaneAssignment))
         {

@@ -22,6 +22,8 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         Complete = complete;
 
+        completeMenuItem.Visible = !complete;
+
         new Presenter(config, this).Load();
     }
 
@@ -52,7 +54,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void ScoresMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Scores.Form(_config, _id, _numberOfGames);
+        using var form = new Scores.Form(_config, _id, _numberOfGames, Complete);
 
         form.ShowDialog(this);
     }

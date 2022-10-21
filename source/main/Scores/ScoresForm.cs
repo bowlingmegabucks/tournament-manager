@@ -3,23 +3,34 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
 {
     private readonly IConfiguration _config;
     private readonly short _numberOfGames;
+    private readonly bool _complete;
     
     public SquadId SquadId { get; }
 
-    public Form(IConfiguration config, SquadId squadId, short numberOfGames)
+    public Form(IConfiguration config, SquadId squadId, short numberOfGames, bool complete)
     {
         InitializeComponent();
 
         _config = config;
         _numberOfGames = numberOfGames;
         SquadId = squadId;
+        _complete = complete; 
 
         scoresGrid.GenerateGameColumns(numberOfGames);
         scoresGrid.SquadId = squadId;
     }
 
-    private void Form_Load(object sender, EventArgs e) 
-        => new Presenter(_config, this).Load();
+    private void Form_Load(object sender, EventArgs e)
+    {
+        new Presenter(_config, this).Load();
+
+        if (_complete)
+        {
+            pasteScoresFromClipboardLinkLabel.Enabled = false;
+            scoresGrid.Enabled = false;
+            saveButton.Enabled = false;
+        }
+    }
 
     IEnumerable<IViewModel> Update.IView.Scores
         => scoresGrid.GetScores();
