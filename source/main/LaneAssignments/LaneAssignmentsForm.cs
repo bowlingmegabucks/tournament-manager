@@ -18,6 +18,8 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private readonly DateTime _squadDate;
 
+    private readonly bool _complete;
+
     public void BuildLanes(IEnumerable<string> lanes)
     {
         foreach (var lane in lanes)
@@ -28,7 +30,10 @@ public partial class Form : System.Windows.Forms.Form, IView
                 AllowDrop = true
             };
 
-            AddOpenLaneEventsToOpenLane(control);
+            if (!_complete)
+            {
+                AddOpenLaneEventsToOpenLane(control);
+            }
 
             laneAssignmentFlowLayoutPanel.Controls.Add(control);
         }
@@ -46,6 +51,9 @@ public partial class Form : System.Windows.Forms.Form, IView
         unassignedRegistrationsGroupBox.Enabled = false;
         newRegistrationButton.Enabled = false;
         addToRegistrationButton.Enabled = false;
+        laneSkipGroupBox.Enabled = false;
+        generateRecapSheetsButton.Enabled = false;
+        copyAssignmentsToClipboardLinkLabel.Enabled = false;
     }
 
     public void BindRegistrations(IEnumerable<IViewModel> registrations)
@@ -61,6 +69,7 @@ public partial class Form : System.Windows.Forms.Form, IView
             var openLane = laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
 
             openLane!.Bind(registration);
+
             openLane.MouseDown += UnassignedRegistration_MouseDown!;
             openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
             openLane.Enter += LaneAssignmentRegistered_Enter!;
@@ -75,6 +84,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         var openLane = laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control => control.LaneAssignment == position);
 
         openLane.Bind(registration);
+
         openLane.MouseDown += UnassignedRegistration_MouseDown!;
         openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
         openLane.Enter += LaneAssignmentRegistered_Enter!;
@@ -130,7 +140,7 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void ClearUnassigned()
         => unassignedRegistrationsFlowLayoutPanel.Controls.Clear();
 
-    public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair, short gamesPerSquad, DateTime squadDate)
+    public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair, short gamesPerSquad, DateTime squadDate, bool complete)
     {
         InitializeComponent();
         _config = config;
@@ -142,8 +152,14 @@ public partial class Form : System.Windows.Forms.Form, IView
         MaxPerPair = maxPerPair;
         Games = gamesPerSquad;
         _squadDate = squadDate;
+        _complete = complete;
 
         new Presenter(_config, this).Load();
+
+        if (complete)
+        {
+            Disable();
+        }
     }
 
     private LaneAssignmentControl BuildLaneAssignmentControl(IViewModel viewModel)
