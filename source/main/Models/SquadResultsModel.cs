@@ -12,7 +12,7 @@ internal class SquadResult
 
     public IEnumerable<BowlerSquadScore> NonQualifyingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
 
-    public IEnumerable<BowlerSquadScore> AtLargePoolScores
+    public IEnumerable<BowlerSquadScore> AtLargeEligibleScores
         => CashingScores.Union(NonQualifyingScores);
 
     public int Entries
