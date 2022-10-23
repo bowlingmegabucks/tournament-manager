@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace NortheastMegabuck.Models;
 internal class AtLargeResults
 {
@@ -14,4 +9,6 @@ internal class AtLargeResults
     public IEnumerable<BowlerSquadScore> AdvancingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
 
     public IEnumerable<BowlerId> AdvancersWhoPreviouslyCashed { get; init; } = Enumerable.Empty<BowlerId>();
+
+    public IEnumerable<SquadResult> SquadResults { get; init; } = Enumerable.Empty<SquadResult>();
 }
