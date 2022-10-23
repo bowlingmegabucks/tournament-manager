@@ -65,13 +65,13 @@ internal class Repository : IRepository
         .Where(squadScore => squadIds.Contains(squadScore.SquadId));
 
     IEnumerable<Database.Entities.SquadScore> IRepository.SuperSweeper(TournamentId tournamentId)
-        => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
-            .Include(squadScore => squadScore.Bowler)
-                .ThenInclude(bowler => bowler.Registrations.Where(registration=> registration.Division.TournamentId == tournamentId))
-                .ThenInclude(registration => registration.Division).ThenInclude(division => division.Sweepers)
-            .Include(squadScore => squadScore.Squad)
-        .Where(squadScore => squadScore.Squad.TournamentId == tournamentId)
-        .Where(squadScore=> squadScore.Bowler.Registrations.Single(registration=> registration.Division.TournamentId == tournamentId).SuperSweeper);
+    {
+        var tournament = _dataContext.Tournaments.AsNoTrackingWithIdentityResolution()
+                            .Include(tournament=> tournament.Sweepers)
+                        .Single(tournament => tournament.Id == tournamentId);
+
+        return Retrieve(tournament.Sweepers.Select(sweeper => sweeper.Id));
+    }
 }
 
 internal interface IRepository
