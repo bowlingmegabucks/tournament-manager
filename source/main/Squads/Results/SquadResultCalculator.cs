@@ -47,8 +47,9 @@ internal class Calculator : ICalculator
     }
 
     //todo: look into leveraging this functionality for at large
-    //      need to make sure someone doesn't "double cash" meaning they cash on their squad and cash in at large
-    //      maybe two different collections, one being finals eligible scores for at large and casher eligible scores for at large
+    //      only advancers carry over for at large (not cashers)
+    //      bring in collection of squad cashers as well to know who to indicate that we need to get back their cash spot
+    //      when doing at large, it's possible a bowler qualifies twice, make sure we only look at top score for each bowler (lookup?)
 }
 
 internal interface ICalculator
