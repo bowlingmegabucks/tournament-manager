@@ -17,7 +17,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_DataLayerExecute_CalledCorrectly()
+    public void Execute_SquadId_DataLayerExecute_SquadId_CalledCorrectly()
     {
         var squadId = SquadId.New();
 
@@ -27,7 +27,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_DataLayerExecuteThrowsException_ExceptionFlow()
+    public void Execute_SquadId_DataLayerExecuteThrowsException_ExceptionFlow()
     {
         var ex = new Exception("exception");
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Throws(ex);
@@ -42,12 +42,48 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_ReturnsDataLayerExecute()
+    public void Execute_SquadId_ReturnsDataLayerExecute()
     {
         var scores = new Mock<IEnumerable<NortheastMegabuck.Models.SquadScore>>();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(scores.Object);
 
         var actual = _businessLogic.Execute(SquadId.New());
+
+        Assert.That(actual, Is.EqualTo(scores.Object));
+    }
+
+    [Test]
+    public void Execute_SquadIds_DataLayerExecute_SquadIds_CalledCorrectly()
+    {
+        var squadIds = new[] { SquadId.New(), SquadId.New() };
+
+        _businessLogic.Execute(squadIds);
+
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(squadIds), Times.Once);
+    }
+
+    [Test]
+    public void Execute_SquadIds_DataLayerExecuteThrowsException_ExceptionFlow()
+    {
+        var ex = new Exception("exception");
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<IEnumerable<SquadId>>())).Throws(ex);
+
+        var result = _businessLogic.Execute(new[] { SquadId.New(), SquadId.New() });
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Empty);
+            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+        });
+    }
+
+    [Test]
+    public void Execute_SquadIds_ReturnsDataLayerExecute()
+    {
+        var scores = new Mock<IEnumerable<NortheastMegabuck.Models.SquadScore>>();
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(scores.Object);
+
+        var actual = _businessLogic.Execute(new[] { SquadId.New(), SquadId.New() });
 
         Assert.That(actual, Is.EqualTo(scores.Object));
     }
