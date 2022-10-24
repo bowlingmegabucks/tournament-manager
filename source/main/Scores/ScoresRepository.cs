@@ -63,15 +63,6 @@ internal class Repository : IRepository
                 .ThenInclude(registration => registration.Division).ThenInclude(division => division.Sweepers)
             .Include(squadScore => squadScore.Squad)
         .Where(squadScore => squadIds.Contains(squadScore.SquadId));
-
-    IEnumerable<Database.Entities.SquadScore> IRepository.SuperSweeper(TournamentId tournamentId)
-    {
-        var tournament = _dataContext.Tournaments.AsNoTrackingWithIdentityResolution()
-                            .Include(tournament=> tournament.Sweepers)
-                        .Single(tournament => tournament.Id == tournamentId);
-
-        return Retrieve(tournament.Sweepers.Select(sweeper => sweeper.Id));
-    }
 }
 
 internal interface IRepository
@@ -81,6 +72,4 @@ internal interface IRepository
     IEnumerable<Database.Entities.SquadScore> Retrieve(SquadId sqauadId);
 
     IEnumerable<Database.Entities.SquadScore> Retrieve(IEnumerable<SquadId> squadIds);
-
-    IEnumerable<Database.Entities.SquadScore> SuperSweeper(TournamentId tournamnetId);
 }
