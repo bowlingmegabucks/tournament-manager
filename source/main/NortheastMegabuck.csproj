@@ -76,6 +76,9 @@
 	  <Compile Update="Controls\RecapSheetGameRowControl.cs">
 	    <SubType>UserControl</SubType>
 	  </Compile>
+	  <Compile Update="Controls\SquadResultsControl.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
 	  <Compile Update="Properties\Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
