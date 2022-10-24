@@ -9,8 +9,6 @@ internal class ViewModel : IViewModel
 
     public DateTime SquadDate { get; }
 
-    public DivisionId DivisionId { get; }
-
     public string DivisionName { get; }
 
     public string BowlerName { get; }
@@ -27,20 +25,19 @@ internal class ViewModel : IViewModel
 
     public bool Casher { get; }
 
-    internal ViewModel(Models.BowlerSquadScore bowlerScore, DateTime squadDate, short place, short advancerPositions, short cashingPositions)
+    internal ViewModel(Models.BowlerSquadScore bowlerScore, DateTime squadDate, short place, bool advancer, bool casher)
     {
         Place = place;
         SquadId = bowlerScore.SquadId;
         SquadDate = squadDate;
-        DivisionId = bowlerScore.Division.Id;
         DivisionName = bowlerScore.Division.Name;
         BowlerName = bowlerScore.Bowler.ToString();
         Score = bowlerScore.Score;
         ScratchScore = bowlerScore.ScratchScore;
         HighGame = bowlerScore.HighGame;
         HighGameScratch = bowlerScore.HighGameScratch;
-        Advancer = place <= advancerPositions;
-        Casher = !Advancer && place <= cashingPositions;
+        Advancer = advancer;
+        Casher = casher;
     }
 }
 
@@ -51,8 +48,6 @@ internal interface IViewModel
     string BowlerName { get; }
 
     bool Casher { get; }
-
-    DivisionId DivisionId { get; }
 
     string DivisionName { get; }
 

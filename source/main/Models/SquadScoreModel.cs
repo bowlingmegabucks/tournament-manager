@@ -25,7 +25,11 @@ internal class SquadScore
         Division = new Division();
     }
     
-    public SquadScore(Database.Entities.SquadScore score)
+    /// <summary>
+    /// Sweeper Score
+    /// </summary>
+    /// <param name="score"></param>
+    public SquadScore(Database.Entities.SquadScore score, Squads.IHandicapCalculator handicapCalculator)
     {
         SquadId = score.SquadId;
         Bowler = new Bowler(score.Bowler);
@@ -33,11 +37,9 @@ internal class SquadScore
         Score = score.Score;
         Division = new Division(score.Bowler.Registrations.Single().Division);
         
-        if (score.Squad is Database.Entities.SweeperSquad sweeper)
-        {
-            Handicap = sweeper.Divisions.SingleOrDefault(division => division.DivisionId == Division.Id)?.BonusPinsPerGame.GetValueOrDefault(0) ?? 0;
-        }
-        //else cast to TournamentSquad and get handicap via the calculator
+        Handicap = score.Squad is Database.Entities.SweeperSquad sweeper
+            ? sweeper.Divisions.SingleOrDefault(division => division.DivisionId == Division.Id)?.BonusPinsPerGame.GetValueOrDefault(0) ?? 0
+            : handicapCalculator.Calculate(score.Bowler.Registrations.Single());
     }
 
     /// <summary>

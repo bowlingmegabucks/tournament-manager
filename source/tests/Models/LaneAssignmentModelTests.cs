@@ -1,4 +1,6 @@
 ﻿
+using NortheastMegabuck.Squads;
+
 namespace NortheastMegabuck.Tests.Models;
 internal class LaneAssignment
 {
@@ -27,7 +29,7 @@ internal class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        _laneAssignment = new NortheastMegabuck.Models.LaneAssignment(entity, new Mock<NortheastMegabuck.IHandicapCalculator>().Object);
+        _laneAssignment = new NortheastMegabuck.Models.LaneAssignment(entity, new Mock<IHandicapCalculator>().Object);
     }
 
     [Test]
@@ -107,7 +109,7 @@ internal class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculator>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
@@ -141,7 +143,7 @@ internal class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculator>();
 
         new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
 
@@ -182,7 +184,7 @@ internal class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculator>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
@@ -252,7 +254,7 @@ internal class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculator>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);

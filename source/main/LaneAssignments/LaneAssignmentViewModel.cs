@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using NortheastMegabuck.LaneAssignments;
 using NortheastMegabuck.Models;
+using NortheastMegabuck.Squads;
 
 namespace NortheastMegabuck.LaneAssignments;
 internal class ViewModel : IViewModel

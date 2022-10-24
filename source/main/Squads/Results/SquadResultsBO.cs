@@ -1,6 +1,6 @@
 ﻿
 namespace NortheastMegabuck.Squads.Results;
-internal class BusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     public Models.ErrorDetail? Error { get; private set; }
 
@@ -15,7 +15,7 @@ internal class BusinessLogic
         _retrieveScores = new Scores.Retrieve.BusinessLogic(config);
     }
 
-    public IEnumerable<Models.SquadResult> Execute(SquadId squadId)
+    public IEnumerable<IGrouping<Models.Division,Models.SquadResult>> Execute(SquadId squadId)
     {
         var tournament = _retrieveTournament.Execute(squadId);
 
@@ -23,12 +23,12 @@ internal class BusinessLogic
         {
             Error = _retrieveTournament.Error;
 
-            return Enumerable.Empty<Models.SquadResult>();
+            return Enumerable.Empty<IGrouping<Models.Division, Models.SquadResult>>();
         }
 
         var scores = _retrieveScores.Execute(tournament!.Squads.Where(squad => squad.Date <= tournament.Squads.Single(s => s.Id == squadId).Date).Select(squad => squad.Id));
 
-        return Execute(scores, tournament).Where(result => result.Squad.Id == squadId).ToList();
+        return Execute(scores, tournament).Where(result => result.Squad.Id == squadId).GroupBy(result=> result.Division).ToList();
     }
 
     private IEnumerable<Models.SquadResult> Execute(IEnumerable<Models.SquadScore> scores, Models.Tournament tournament)
@@ -57,4 +57,11 @@ internal class BusinessLogic
 
         return results;
     }
+}
+
+internal interface IBusinessLogic
+{
+    Models.ErrorDetail? Error { get; }
+
+    IEnumerable<IGrouping<Models.Division, Models.SquadResult>> Execute(SquadId squadId);
 }

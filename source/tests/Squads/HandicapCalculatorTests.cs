@@ -1,11 +1,13 @@
-﻿namespace NortheastMegabuck.Tests;
+﻿using NortheastMegabuck.Squads;
+
+namespace NortheastMegabuck.Tests.Squads;
 internal class HandicapCalculator
 {
-    private NortheastMegabuck.IHandicapCalculator _calculator;
+    private IHandicapCalculator _calculator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _calculator = new NortheastMegabuck.HandicapCalculator();
+        => _calculator = new NortheastMegabuck.Squads.HandicapCalculator();
 
     [Test]
     public void Calculate_Entity_Handicap_NoAverage_HandicapZero()
