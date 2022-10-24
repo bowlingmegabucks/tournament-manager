@@ -21,7 +21,7 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public IEnumerable<IGrouping<string, ViewModel>> Execute(SquadId squadId)
+    public IEnumerable<IGrouping<string, IViewModel>> Execute(SquadId squadId)
     {
         var squadResultsByDivision = _businessLogic.Execute(squadId);
 
@@ -67,5 +67,5 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IGrouping<string, ViewModel>> Execute(SquadId squadId);
+    IEnumerable<IGrouping<string, IViewModel>> Execute(SquadId squadId);
 }

@@ -9,9 +9,9 @@ internal class ViewModel : IViewModel
 
     public DateTime SquadDate { get; }
 
-    public string DivisionName { get; }
+    public string DivisionName { get; init; }
 
-    public string BowlerName { get; }
+    public string BowlerName { get; init; }
 
     public int Score { get; }
 
@@ -25,7 +25,7 @@ internal class ViewModel : IViewModel
 
     public bool Casher { get; }
 
-    internal ViewModel(Models.BowlerSquadScore bowlerScore, DateTime squadDate, short place, bool advancer, bool casher)
+    public ViewModel(Models.BowlerSquadScore bowlerScore, DateTime squadDate, short place, bool advancer, bool casher)
     {
         Place = place;
         SquadId = bowlerScore.SquadId;
@@ -38,6 +38,15 @@ internal class ViewModel : IViewModel
         HighGameScratch = bowlerScore.HighGameScratch;
         Advancer = advancer;
         Casher = casher;
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal ViewModel()
+    {
+        DivisionName = string.Empty;
+        BowlerName = string.Empty;
     }
 }
 
