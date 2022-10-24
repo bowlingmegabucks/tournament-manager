@@ -87,40 +87,4 @@ internal class BusinessLogic
 
         Assert.That(actual, Is.EqualTo(scores.Object));
     }
-
-    [Test]
-    public void SuperSweeper_DataLayerSuperSweeper_CalledCorrectly()
-    {
-        var tournamentId = TournamentId.New();
-
-        _businessLogic.SuperSweeper(tournamentId);
-
-        _dataLayer.Verify(dataLayer => dataLayer.SuperSweeper(tournamentId), Times.Once);
-    }
-
-    [Test]
-    public void SuperSweeper_DataLayerSuperSweeperThrowsException_ExceptionFlow()
-    {
-        var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.SuperSweeper(It.IsAny<TournamentId>())).Throws(ex);
-
-        var result = _businessLogic.SuperSweeper(TournamentId.New());
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(result, Is.Empty);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
-        });
-    }
-
-    [Test]
-    public void SuperSweeper_ReturnsDataLayerSuperSweeper()
-    {
-        var scores = new Mock<IEnumerable<NortheastMegabuck.Models.SquadScore>>();
-        _dataLayer.Setup(dataLayer => dataLayer.SuperSweeper(It.IsAny<TournamentId>())).Returns(scores.Object);
-
-        var actual = _businessLogic.SuperSweeper(TournamentId.New());
-
-        Assert.That(actual, Is.EqualTo(scores.Object));
-    }
 }

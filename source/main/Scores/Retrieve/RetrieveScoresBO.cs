@@ -48,20 +48,6 @@ internal class BusinessLogic : IBusinessLogic
             return Enumerable.Empty<Models.SquadScore>();
         }
     }
-
-    public IEnumerable<Models.SquadScore> SuperSweeper(TournamentId tournamentId)
-    {
-        try
-        {
-            return _dataLayer.SuperSweeper(tournamentId);
-        }
-        catch (Exception ex)
-        {
-            Error = new Models.ErrorDetail(ex);
-
-            return Enumerable.Empty<Models.SquadScore>();
-        }
-    }
 }
 
 internal interface IBusinessLogic
@@ -71,6 +57,4 @@ internal interface IBusinessLogic
     IEnumerable<Models.SquadScore> Execute(SquadId squadId);
 
     IEnumerable<Models.SquadScore> Execute(IEnumerable<SquadId> squadIds);
-
-    IEnumerable<Models.SquadScore> SuperSweeper(TournamentId tournamentId);
 }

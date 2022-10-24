@@ -58,7 +58,7 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var scores = _retrieveScores.SuperSweeper(tournamentId);
+        var scores = _retrieveScores.Execute(tournament!.Sweepers.Select(sweeper=> sweeper.Id));
 
         //todo: this might be a different field
         return Execute(scores, tournament!.SuperSweeperCashRatio);

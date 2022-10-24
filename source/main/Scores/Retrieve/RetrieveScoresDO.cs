@@ -26,10 +26,7 @@ internal class DataLayer : IDataLayer
         => _repository.Retrieve(squadId).Select(squadScore => new Models.SquadScore(squadScore, _handicapCalculator));
 
     public IEnumerable<Models.SquadScore> Execute(IEnumerable<SquadId> squadIds)
-        => _repository.Retrieve(squadIds).Select(squadScore=> new Models.SquadScore(squadScore, _handicapCalculator));
-
-    public IEnumerable<Models.SquadScore> SuperSweeper(TournamentId tournamentId)
-        => _repository.SuperSweeper(tournamentId).Select(squadScore => new Models.SquadScore(squadScore, _handicapCalculator));
+        => _repository.Retrieve(squadIds).Select(squadScore => new Models.SquadScore(squadScore, _handicapCalculator));
 }
 
 internal interface IDataLayer
@@ -37,6 +34,4 @@ internal interface IDataLayer
     IEnumerable<Models.SquadScore> Execute(SquadId squadId);
 
     IEnumerable<Models.SquadScore> Execute(IEnumerable<SquadId> squadIds);
-
-    IEnumerable<Models.SquadScore> SuperSweeper(TournamentId tournamentId);
 }
