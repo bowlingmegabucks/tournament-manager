@@ -52,6 +52,8 @@ internal class BusinessLogic : IBusinessLogic
                     results.Where(result => result.Division == scoresInDivision.Key).SelectMany(result => result.AdvancingScores.Select(score => score.Bowler.Id)),
                     scoresInSquad.Squad.FinalsRatio ?? tournament.FinalsRatio,
                     scoresInSquad.Squad.CashRatio ?? tournament.CashRatio);
+
+                results.Add(result);
             }
         }
 
