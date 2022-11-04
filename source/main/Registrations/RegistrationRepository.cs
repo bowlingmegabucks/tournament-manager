@@ -60,7 +60,7 @@ internal class Repository : IRepository
             throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
         }
 
-        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration=> registration.Squads.Count(squad=> squad.SquadId == squadId) == 1);
+        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration=> registration.BowlerId == bowlerId && registration.Squads.Count(squad=> squad.SquadId == squadId) == 1);
         var squad = registration.Squads.Single(squad => squad.SquadId == squadId);
 
         registration.Squads.Remove(squad);
