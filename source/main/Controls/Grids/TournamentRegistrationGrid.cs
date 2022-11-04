@@ -10,6 +10,16 @@ public partial class TournamentRegistrationGrid
     {
         InitializeComponent();
     }
+
+    public void Remove(RegistrationId id)
+    {
+        var registration = Models.Single(model => model.Id == id);
+
+        Remove(registration);
+    }
+
+    public Registrations.Retrieve.ITournamentRegistrationViewModel SelectedRegistration
+        => SelectedRow!;
 }
 
 #if DEBUG

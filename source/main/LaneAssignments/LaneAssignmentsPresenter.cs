@@ -17,6 +17,9 @@ internal class Presenter
 
     private readonly IGenerateCrossFactory _generateCrossFactory;
 
+    private readonly Lazy<Registrations.Delete.IAdapter> _deleteAdapter;
+    private Registrations.Delete.IAdapter DeleteAdapter => _deleteAdapter.Value;
+
     public Presenter(IConfiguration config, IView view)
     {
         _view = view;
@@ -25,6 +28,7 @@ internal class Presenter
         _retrieveAdapter = new Lazy<Retrieve.IAdapter>(() => new Retrieve.Adapter(config));
         _updateAdapter = new Lazy<Update.IAdapter>(() => new Update.Adapter(config));
         _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(()=> new Registrations.Add.Adapter(config));
+        _deleteAdapter = new Lazy<Registrations.Delete.IAdapter>(() => new Registrations.Delete.Adapter(config));
 
         _generateCrossFactory = new GenerateCrossFactory();
     }
@@ -36,7 +40,10 @@ internal class Presenter
     /// <param name="mockLaneAvailability"></param>
     /// <param name="mockRetrieveAdapter"></param>
     /// <param name="mockUpdateAdapter"></param>
-    internal Presenter(IView mockView, ILaneAvailability mockLaneAvailability, Retrieve.IAdapter mockRetrieveAdapter, Update.IAdapter mockUpdateAdapter, Registrations.Add.IAdapter mockAddRegistrationAdapter, IGenerateCrossFactory mockGenerateCrossFactory)
+    /// <param name="mockAddRegistrationAdapter"></param>
+    /// <param name="mockGenerateCrossFactory"></param>
+    /// <param name="mockDeleteAdapter"></param>
+    internal Presenter(IView mockView, ILaneAvailability mockLaneAvailability, Retrieve.IAdapter mockRetrieveAdapter, Update.IAdapter mockUpdateAdapter, Registrations.Add.IAdapter mockAddRegistrationAdapter, IGenerateCrossFactory mockGenerateCrossFactory, Registrations.Delete.IAdapter mockDeleteAdapter)
     {
         _view = mockView;
         _laneAvailability = mockLaneAvailability;
@@ -44,6 +51,7 @@ internal class Presenter
         _updateAdapter = new Lazy<Update.IAdapter>(() => mockUpdateAdapter);
         _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(() => mockAddRegistrationAdapter);
         _generateCrossFactory = mockGenerateCrossFactory;
+        _deleteAdapter = new Lazy<Registrations.Delete.IAdapter>(() => mockDeleteAdapter);
     }
 
     public void Load()
@@ -169,5 +177,24 @@ internal class Presenter
         var recaps = assignments.Select(assignment => new RecapSheetViewModel(assignment, crossGenerator.Execute(assignment.LaneNumber(), assignment.LaneLetter(), _view.Games, lanesUsed, skip))).ToList();
 
         _view.GenerateRecaps(recaps);
+    }
+
+    public void Delete(BowlerId bowlerId)
+    {
+        if (!_view.Confirm("Are you sure you want remove bowler from this squad (Refund may be required)?"))
+        {
+            return;
+        }
+
+        DeleteAdapter.Execute(bowlerId, _view.SquadId);
+
+        if (DeleteAdapter.Error != null)
+        {
+            _view.DisplayError(DeleteAdapter.Error.Message);
+        }
+        else
+        {
+            _view.DeleteRegistration(bowlerId);
+        }
     }
 }

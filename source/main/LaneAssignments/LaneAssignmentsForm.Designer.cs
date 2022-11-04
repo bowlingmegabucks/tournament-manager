@@ -41,9 +41,12 @@ partial class Form
             this.laneSkipGroupBox = new System.Windows.Forms.GroupBox();
             this.sameSkipRadioButton = new System.Windows.Forms.RadioButton();
             this.staggeredSkipRadioButton = new System.Windows.Forms.RadioButton();
+            this.laneAssignmentContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteLaneAssignmentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.laneAssignmentGroupBox.SuspendLayout();
             this.unassignedRegistrationsGroupBox.SuspendLayout();
             this.laneSkipGroupBox.SuspendLayout();
+            this.laneAssignmentContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // laneAssignmentGroupBox
@@ -164,6 +167,20 @@ partial class Form
             this.staggeredSkipRadioButton.Text = "Staggered Skip";
             this.staggeredSkipRadioButton.UseVisualStyleBackColor = true;
             // 
+            // laneAssignmentContextMenuStrip
+            // 
+            this.laneAssignmentContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteLaneAssignmentMenuItem});
+            this.laneAssignmentContextMenuStrip.Name = "laneAssignmentContextMenuStrip";
+            this.laneAssignmentContextMenuStrip.Size = new System.Drawing.Size(183, 48);
+            // 
+            // deleteLaneAssignmentMenuItem
+            // 
+            this.deleteLaneAssignmentMenuItem.Name = "deleteLaneAssignmentMenuItem";
+            this.deleteLaneAssignmentMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.deleteLaneAssignmentMenuItem.Text = "Remove from Squad";
+            this.deleteLaneAssignmentMenuItem.Click += new System.EventHandler(this.DeleteLaneAssignmentMenuItem_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -184,6 +201,7 @@ partial class Form
             this.unassignedRegistrationsGroupBox.ResumeLayout(false);
             this.laneSkipGroupBox.ResumeLayout(false);
             this.laneSkipGroupBox.PerformLayout();
+            this.laneAssignmentContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,4 +221,6 @@ partial class Form
     private RadioButton sameSkipRadioButton;
     private RadioButton staggeredSkipRadioButton;
     private Button generateRecapSheetsButton;
+    private ContextMenuStrip laneAssignmentContextMenuStrip;
+    private ToolStripMenuItem deleteLaneAssignmentMenuItem;
 }

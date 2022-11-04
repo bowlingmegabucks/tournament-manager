@@ -52,6 +52,37 @@ internal class Repository : IRepository
 
     IEnumerable<Database.Entities.SquadRegistration> IRepository.RetrieveForSquad(SquadId squadId)
         => Enumerable.Empty<Database.Entities.SquadRegistration>();
+
+    void IRepository.Delete(BowlerId bowlerId, SquadId squadId)
+    {
+        if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId))
+        {
+            throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
+        }
+
+        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration=> registration.BowlerId == bowlerId && registration.Squads.Count(squad=> squad.SquadId == squadId) == 1);
+        var squad = registration.Squads.Single(squad => squad.SquadId == squadId);
+
+        registration.Squads.Remove(squad);
+
+        _dataContext.SaveChanges();
+    }
+
+    void IRepository.Delete(RegistrationId id)
+    {
+        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration => registration.Id == id);
+
+        if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == registration.BowlerId && registration.Squads.Select(squad => squad.SquadId).Contains(squadScore.SquadId)))
+        {
+            throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
+        }
+
+        registration.Squads.Clear();
+
+        _dataContext.Registrations.Remove(registration);
+
+        _dataContext.SaveChanges();
+    }
 }
 
 internal interface IRepository
@@ -63,4 +94,8 @@ internal interface IRepository
     IEnumerable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
 
     IEnumerable<Database.Entities.SquadRegistration> RetrieveForSquad(SquadId squadId);
+
+    void Delete(BowlerId bowlerId, SquadId squadId);
+
+    void Delete(RegistrationId id);
 }
