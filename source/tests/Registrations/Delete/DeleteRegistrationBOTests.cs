@@ -37,4 +37,25 @@ internal class BusinessLogic
 
         Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
     }
+
+    [Test]
+    public void Execute_RegistrationId_DataLayerExecute_CalledCorrectly()
+    {
+        var registrationId = RegistrationId.New();
+
+        _businessLogic.Execute(registrationId);
+
+        _dataLayer.Verify(dataLayer => dataLayer.Execute(registrationId), Times.Once);
+    }
+
+    [Test]
+    public void Execute_RegistrationId_DataLayerExecuteThrowsException_ErrorMapped()
+    {
+        var ex = new Exception("exception");
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<RegistrationId>())).Throws(ex);
+
+        _businessLogic.Execute(RegistrationId.New());
+
+        Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
+    }
 }

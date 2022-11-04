@@ -31,6 +31,18 @@ internal class BusinessLogic : IBusinessLogic
             Error = new Models.ErrorDetail(ex);
         }
     }
+
+    public void Execute(RegistrationId id)
+    {
+        try
+        {
+            _dataLayer.Execute(id);
+        }
+        catch (Exception ex)
+        {
+            Error = new Models.ErrorDetail(ex);
+        }
+    }
 }
 
 internal interface IBusinessLogic
@@ -38,4 +50,6 @@ internal interface IBusinessLogic
     Models.ErrorDetail? Error { get; }
 
     void Execute(BowlerId bowlerId, SquadId squadId);
+
+    void Execute(RegistrationId id);
 }
