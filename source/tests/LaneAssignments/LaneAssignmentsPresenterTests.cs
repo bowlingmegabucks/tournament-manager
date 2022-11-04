@@ -652,8 +652,34 @@ internal class Presenter
     }
 
     [Test]
-    public void Delete_DeleteAdapterExecute_CalledCorrectly()
+    public void Delete_ViewConfirm_CalledCorrectly()
     {
+        _presenter.Delete(BowlerId.New());
+
+        _view.Verify(view => view.Confirm("Are you sure you want remove bowler from this squad (Refund may be required)?"), Times.Once);
+    }
+
+    [Test]
+    public void Delete_ViewConfirmFalse_NothingElseCalled()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
+
+        _presenter.Delete(BowlerId.New());
+
+        Assert.Multiple(() =>
+        {
+            _deleteAdapter.Verify(adapter => adapter.Execute(It.IsAny<BowlerId>(), It.IsAny<SquadId>()), Times.Never);
+
+            _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.DeleteRegistration(It.IsAny<BowlerId>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Delete_ViewConfirmTrue_DeleteAdapterExecute_CalledCorrectly()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
         _view.SetupGet(view => view.SquadId).Returns(squadId);
@@ -664,8 +690,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Delete_DeleteAdapterHasError_ErrorFlow()
+    public void Delete_ViewConfirmTrue_DeleteAdapterHasError_ErrorFlow()
     {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _deleteAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
@@ -680,8 +708,10 @@ internal class Presenter
     }
 
     [Test]
-    public void Delete_DeleteAdapterSuccessful_ViewDeleteRegistration_CalledCorrectly()
+    public void Delete_ViewConfirmTrue_DeleteAdapterSuccessful_ViewDeleteRegistration_CalledCorrectly()
     {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
         var bowlerId = BowlerId.New();
 
         _presenter.Delete(bowlerId);

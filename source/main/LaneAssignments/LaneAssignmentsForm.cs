@@ -157,6 +157,9 @@ public partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
+    public bool Confirm(string message)
+        => MessageBox.Show(message, "Confirm?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;
+
     public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair, short gamesPerSquad, DateTime squadDate, bool complete)
     {
         InitializeComponent();

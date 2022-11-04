@@ -181,6 +181,11 @@ internal class Presenter
 
     public void Delete(BowlerId bowlerId)
     {
+        if (!_view.Confirm("Are you sure you want remove bowler from this squad (Refund may be required)?"))
+        {
+            return;
+        }
+
         DeleteAdapter.Execute(bowlerId, _view.SquadId);
 
         if (DeleteAdapter.Error != null)
