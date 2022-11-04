@@ -140,6 +140,23 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void ClearUnassigned()
         => unassignedRegistrationsFlowLayoutPanel.Controls.Clear();
 
+    public void DeleteRegistration(BowlerId bowlerId)
+    {
+        var assigned = laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().SingleOrDefault(assignment => assignment.BowlerId == bowlerId);
+
+        if (assigned != null)
+        {
+            assigned.ClearRegistration();
+
+            return;
+        }
+        else
+        {
+            var unassigned = unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(registration => registration.BowlerId == bowlerId);
+            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassigned);
+        }
+    }
+
     public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair, short gamesPerSquad, DateTime squadDate, bool complete)
     {
         InitializeComponent();

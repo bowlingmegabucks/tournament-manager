@@ -9,6 +9,7 @@ internal class Presenter
     private Mock<NortheastMegabuck.LaneAssignments.Update.IAdapter> _updateAdapter;
     private Mock<NortheastMegabuck.Registrations.Add.IAdapter> _addRegistrationAdapter;
     private Mock<NortheastMegabuck.LaneAssignments.IGenerateCrossFactory> _generateCrossFactory;
+    private Mock<NortheastMegabuck.Registrations.Delete.IAdapter> _deleteAdapter;
 
     private NortheastMegabuck.LaneAssignments.Presenter _presenter;
 
@@ -21,8 +22,9 @@ internal class Presenter
         _updateAdapter = new Mock<NortheastMegabuck.LaneAssignments.Update.IAdapter>();
         _addRegistrationAdapter = new Mock<NortheastMegabuck.Registrations.Add.IAdapter>();
         _generateCrossFactory = new Mock<NortheastMegabuck.LaneAssignments.IGenerateCrossFactory>();
+        _deleteAdapter = new Mock<NortheastMegabuck.Registrations.Delete.IAdapter>();
 
-        _presenter = new NortheastMegabuck.LaneAssignments.Presenter(_view.Object, _laneAvailability.Object, _retrieveAdapter.Object, _updateAdapter.Object, _addRegistrationAdapter.Object, _generateCrossFactory.Object);
+        _presenter = new NortheastMegabuck.LaneAssignments.Presenter(_view.Object, _laneAvailability.Object, _retrieveAdapter.Object, _updateAdapter.Object, _addRegistrationAdapter.Object, _generateCrossFactory.Object, _deleteAdapter.Object);
     }
 
     [Test]
@@ -647,5 +649,43 @@ internal class Presenter
             _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[3] == "c"))), Times.Once);
             _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<NortheastMegabuck.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[4] == "d"))), Times.Once);
         });
+    }
+
+    [Test]
+    public void Delete_DeleteAdapterExecute_CalledCorrectly()
+    {
+        var bowlerId = BowlerId.New();
+        var squadId = SquadId.New();
+        _view.SetupGet(view => view.SquadId).Returns(squadId);
+
+        _presenter.Delete(bowlerId);
+
+        _deleteAdapter.Verify(adapter => adapter.Execute(bowlerId, squadId), Times.Once);
+    }
+
+    [Test]
+    public void Delete_DeleteAdapterHasError_ErrorFlow()
+    {
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        _deleteAdapter.SetupGet(adapter => adapter.Error).Returns(error);
+
+        _presenter.Delete(BowlerId.New());
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("error"), Times.Once);
+
+            _view.Verify(view => view.DeleteRegistration(It.IsAny<BowlerId>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Delete_DeleteAdapterSuccessful_ViewDeleteRegistration_CalledCorrectly()
+    {
+        var bowlerId = BowlerId.New();
+
+        _presenter.Delete(bowlerId);
+
+        _view.Verify(view => view.DeleteRegistration(bowlerId), Times.Once);
     }
 }

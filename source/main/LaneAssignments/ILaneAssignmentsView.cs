@@ -42,4 +42,5 @@ internal interface IView
     short Games { get; }
 
     void GenerateRecaps(IEnumerable<Scores.IRecapSheetViewModel> recaps);
+    void DeleteRegistration(BowlerId bowlerId);
 }
