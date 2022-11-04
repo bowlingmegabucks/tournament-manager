@@ -21,9 +21,14 @@ internal class DataLayer : IDataLayer
 
     public void Execute(BowlerId bowlerId, SquadId squadId)
         => _repository.Delete(bowlerId, squadId);
+
+    public void Execute(RegistrationId id)
+        => _repository.Delete(id);
 }
 
 internal interface IDataLayer
 {
     void Execute(BowlerId bowlerId, SquadId squadId);
+
+    void Execute(RegistrationId id);
 }
