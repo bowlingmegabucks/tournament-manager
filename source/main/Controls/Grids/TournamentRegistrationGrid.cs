@@ -17,6 +17,9 @@ public partial class TournamentRegistrationGrid
 
         Remove(registration);
     }
+
+    public Registrations.Retrieve.ITournamentRegistrationViewModel SelectedRegistration
+        => SelectedRow!;
 }
 
 #if DEBUG

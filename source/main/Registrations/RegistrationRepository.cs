@@ -77,6 +77,8 @@ internal class Repository : IRepository
             throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
         }
 
+        registration.Squads.Clear();
+
         _dataContext.Registrations.Remove(registration);
 
         _dataContext.SaveChanges();
