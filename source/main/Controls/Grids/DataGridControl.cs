@@ -35,13 +35,21 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     /// <summary>
     ///
     /// </summary>
-    protected IEnumerable<TModel> Models => _models;
+    protected IEnumerable<TModel> Models 
+        => _models;
 
     /// <summary>
     ///
     /// </summary>
     protected TModel? SelectedRow
         => GridView.CurrentRow?.DataBoundItem as TModel ?? null;
+
+    protected void Remove(TModel model)
+    {
+        _models.Remove(model);
+
+        Bind();
+    }
 
     /// <summary>
     ///

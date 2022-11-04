@@ -5,6 +5,7 @@ internal class TournamentRegistrationsPresenter
     private Mock<NortheastMegabuck.Registrations.Retrieve.IAdapter> _registrationsAdapter;
     private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _squadsAdapter;
     private Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
+    private Mock<NortheastMegabuck.Registrations.Delete.IAdapter> _deleteAdapter;
 
     private NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter _presenter;
 
@@ -15,8 +16,9 @@ internal class TournamentRegistrationsPresenter
         _registrationsAdapter = new Mock<NortheastMegabuck.Registrations.Retrieve.IAdapter>();
         _squadsAdapter = new Mock<NortheastMegabuck.Squads.Retrieve.IAdapter>();
         _sweepersAdapter = new Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter>();
+        _deleteAdapter = new Mock<NortheastMegabuck.Registrations.Delete.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter(_view.Object, _registrationsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object);
+        _presenter = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter(_view.Object, _registrationsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _deleteAdapter.Object);
     }
 
     [Test]
@@ -242,5 +244,70 @@ internal class TournamentRegistrationsPresenter
             _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 11AM"] == 1)), Times.Once);
             _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["Super Sweeper"] == 2)), Times.Once);
         });
+    }
+
+    [Test]
+    public void Delete_ViewConfirm_CalledCorrectly()
+    {
+        _presenter.Delete(RegistrationId.New());
+
+        _view.Verify(view => view.Confirm("Are you sure you want to delete this bowler's entire registration?"), Times.Once);
+    }
+
+    [Test]
+    public void Delete_ViewConfirmFalse_NothingElseHappens()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
+
+        _presenter.Delete(RegistrationId.New());
+
+        Assert.Multiple(() =>
+        {
+            _deleteAdapter.Verify(adapter => adapter.Execute(It.IsAny<RegistrationId>()), Times.Never);
+
+            _view.Verify(view => view.RemoveRegistration(It.IsAny<RegistrationId>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Delete_ViewConfirmTrue_DeleteAdapterExecute_CalledCorrectly()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var registrationId = RegistrationId.New();
+
+        _presenter.Delete(registrationId);
+
+        _deleteAdapter.Verify(adapter => adapter.Execute(registrationId), Times.Once);
+    }
+
+    [Test]
+    public void Delete_ViewConfirmTrue_DeleteAdapterHasError_ErrorFlow()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        _deleteAdapter.SetupGet(adapter => adapter.Error).Returns(error);
+
+        _presenter.Delete(RegistrationId.New());
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("error"), Times.Once);
+
+            _view.Verify(view => view.RemoveRegistration(It.IsAny<RegistrationId>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Delete_ViewConfirmTrue_DeleteAdapterSuccess_ViewRemoveRegistration_CalledCorrectly()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var registrationId = RegistrationId.New();
+
+        _presenter.Delete(registrationId);
+
+        _view.Verify(view=> view.RemoveRegistration(registrationId), Times.Once);
     }
 }

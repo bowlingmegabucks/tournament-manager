@@ -74,6 +74,7 @@ public partial class Form : System.Windows.Forms.Form, IView
             openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
             openLane.Enter += LaneAssignmentRegistered_Enter!;
             openLane.Leave += LaneAssignmentRegistered_Leave!;
+            openLane.ContextMenuStrip = laneAssignmentContextMenuStrip;
 
             RemoveOpenLaneEventsFromAssignedLane(openLane);
         }   
@@ -89,6 +90,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
         openLane.Enter += LaneAssignmentRegistered_Enter!;
         openLane.Leave += LaneAssignmentRegistered_Leave!;
+        openLane.ContextMenuStrip = laneAssignmentContextMenuStrip;
 
         if (string.IsNullOrEmpty(registration!.LaneAssignment))
         {
@@ -98,6 +100,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         {
             var oldLane = laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
             oldLane.ClearRegistration();
+            oldLane.ContextMenuStrip = null;
             LaneAssignmentRegistered_Leave(oldLane, new EventArgs());
         }
 
@@ -114,6 +117,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         registeredLane!.ClearRegistration();
         registeredLane.KeyUp -= LaneAssignmentRegistered_KeyUp!;
+        registeredLane.ContextMenuStrip = null;
 
         AddOpenLaneEventsToOpenLane(registeredLane);
 
@@ -139,6 +143,31 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     public void ClearUnassigned()
         => unassignedRegistrationsFlowLayoutPanel.Controls.Clear();
+
+    public void DeleteRegistration(BowlerId bowlerId)
+    {
+        var assigned = laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().SingleOrDefault(assignment => assignment.BowlerId == bowlerId);
+
+        if (assigned != null)
+        {
+            assigned.ClearRegistration();
+            assigned.KeyUp -= LaneAssignmentRegistered_KeyUp!;
+
+            AddOpenLaneEventsToOpenLane(assigned);
+
+            LaneAssignmentRegistered_Leave(assigned, new EventArgs());
+
+            return;
+        }
+        else
+        {
+            var unassigned = unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(registration => registration.BowlerId == bowlerId);
+            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassigned);
+        }
+    }
+
+    public bool Confirm(string message)
+        => MessageBox.Show(message, "Confirm?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;
 
     public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair, short gamesPerSquad, DateTime squadDate, bool complete)
     {
@@ -167,6 +196,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         var control = new LaneAssignmentControl()
         {
             Margin = new Padding(3, 0, 0, 0),
+            ContextMenuStrip = laneAssignmentContextMenuStrip
         };
 
         control.Bind(viewModel);
@@ -177,7 +207,14 @@ public partial class Form : System.Windows.Forms.Form, IView
     }
 
     private void UnassignedRegistration_MouseDown(object sender, MouseEventArgs e)
-        => (sender as Control)!.DoDragDrop(sender as IViewModel, DragDropEffects.Move);
+    { 
+        if (e.Button == MouseButtons.Right)
+        {
+            return;
+        }
+
+        (sender as Control)!.DoDragDrop(sender as IViewModel, DragDropEffects.Move);
+    }
 
     private void LaneAssignmentOpen_DragOver(object sender, DragEventArgs e)
     { 
@@ -271,6 +308,15 @@ public partial class Form : System.Windows.Forms.Form, IView
         var form = new Scores.RecapSheetForm(_squadDate);
 
         form.Preview(recaps, Games);
+    }
+
+    private void DeleteLaneAssignmentMenuItem_Click(object sender, EventArgs e)
+    {
+        var menuItem = sender as ToolStripMenuItem;
+        var contextMenu = menuItem?.Owner as ContextMenuStrip;
+        var assignment = contextMenu?.SourceControl as LaneAssignmentControl;
+
+        new Presenter(_config, this).Delete(assignment!.BowlerId);
     }
 }
 
