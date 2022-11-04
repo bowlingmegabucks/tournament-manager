@@ -53,9 +53,9 @@ internal class Repository : IRepository
     IEnumerable<Database.Entities.SquadRegistration> IRepository.RetrieveForSquad(SquadId squadId)
         => Enumerable.Empty<Database.Entities.SquadRegistration>();
 
-    void IRepository.Delete(RegistrationId registrationId, SquadId squadId)
+    void IRepository.Delete(BowlerId bowlerId, SquadId squadId)
     {
-        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration=> registration.Id == registrationId);
+        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration=> registration.Squads.Count(squad=> squad.SquadId == squadId) == 1);
         registration.Squads.Remove(registration.Squads.Single(squad => squad.SquadId == squadId));
 
         _dataContext.SaveChanges();
@@ -72,5 +72,5 @@ internal interface IRepository
 
     IEnumerable<Database.Entities.SquadRegistration> RetrieveForSquad(SquadId squadId);
 
-    void Delete(RegistrationId registrationId, SquadId squadId);
+    void Delete(BowlerId bowlerId, SquadId squadId);
 }
