@@ -28,6 +28,7 @@ partial class RetrieveTournamentRegistrationsForm
     /// </summary>
     private void InitializeComponent()
     {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RetrieveTournamentRegistrationsForm));
             this.tournamentRegistrationsGrid = new NortheastMegabuck.Controls.Grids.TournamentRegistrationGrid();
             this.divisionEntriesGroupBox = new System.Windows.Forms.GroupBox();
@@ -36,9 +37,12 @@ partial class RetrieveTournamentRegistrationsForm
             this.squadEntriesLabel = new System.Windows.Forms.Label();
             this.sweeperEntriesGroupBox = new System.Windows.Forms.GroupBox();
             this.sweeperEntriesLabel = new System.Windows.Forms.Label();
+            this.registrationGridContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.divisionEntriesGroupBox.SuspendLayout();
             this.squadEntriesGroupBox.SuspendLayout();
             this.sweeperEntriesGroupBox.SuspendLayout();
+            this.registrationGridContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // tournamentRegistrationsGrid
@@ -47,7 +51,7 @@ partial class RetrieveTournamentRegistrationsForm
             this.tournamentRegistrationsGrid.AlternateRowColors = true;
             this.tournamentRegistrationsGrid.Location = new System.Drawing.Point(12, 12);
             this.tournamentRegistrationsGrid.Name = "tournamentRegistrationsGrid";
-            this.tournamentRegistrationsGrid.SelectedRowContextMenu = null;
+            this.tournamentRegistrationsGrid.SelectedRowContextMenu = this.registrationGridContextMenu;
             this.tournamentRegistrationsGrid.Size = new System.Drawing.Size(751, 550);
             this.tournamentRegistrationsGrid.TabIndex = 0;
             // 
@@ -115,6 +119,20 @@ partial class RetrieveTournamentRegistrationsForm
             this.sweeperEntriesLabel.TabIndex = 0;
             this.sweeperEntriesLabel.Text = "01/01/00 11AM: 55 Entries\r\n01/01/00 11AM: 55 Entries\r\nSuper Sweeper: 55 Entries";
             // 
+            // registrationGridContextMenu
+            // 
+            this.registrationGridContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteMenuItem});
+            this.registrationGridContextMenu.Name = "registrationGridContextMenu";
+            this.registrationGridContextMenu.Size = new System.Drawing.Size(181, 48);
+            // 
+            // deleteMenuItem
+            // 
+            this.deleteMenuItem.Name = "deleteMenuItem";
+            this.deleteMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteMenuItem.Text = "Delete";
+            this.deleteMenuItem.Click += new System.EventHandler(this.DeleteMenuItem_Click);
+            // 
             // RetrieveTournamentRegistrationsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -135,6 +153,7 @@ partial class RetrieveTournamentRegistrationsForm
             this.squadEntriesGroupBox.PerformLayout();
             this.sweeperEntriesGroupBox.ResumeLayout(false);
             this.sweeperEntriesGroupBox.PerformLayout();
+            this.registrationGridContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
     }
@@ -148,4 +167,6 @@ partial class RetrieveTournamentRegistrationsForm
     private Label squadEntriesLabel;
     private GroupBox sweeperEntriesGroupBox;
     private Label sweeperEntriesLabel;
+    private ContextMenuStrip registrationGridContextMenu;
+    private ToolStripMenuItem deleteMenuItem;
 }

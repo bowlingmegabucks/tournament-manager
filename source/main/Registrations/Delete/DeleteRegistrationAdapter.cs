@@ -23,6 +23,9 @@ internal class Adapter : IAdapter
 
     public void Execute(BowlerId bowlerId, SquadId squadId)
         => _businessLogic.Execute(bowlerId, squadId);
+
+    public void Execute(RegistrationId id)
+        => _businessLogic.Execute(id);
 }
 
 internal interface IAdapter
@@ -30,4 +33,6 @@ internal interface IAdapter
     Models.ErrorDetail? Error { get; }
 
     void Execute(BowlerId bowlerId, SquadId squadId);
+
+    void Execute(RegistrationId id);
 }

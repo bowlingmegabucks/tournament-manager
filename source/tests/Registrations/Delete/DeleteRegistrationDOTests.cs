@@ -26,4 +26,14 @@ internal class DataLayer
 
         _repository.Verify(repository => repository.Delete(bowlerId, squadId), Times.Once);
     }
+
+    [Test]
+    public void Execute_RegistrationId_RepositoryDelete_CalledCorrectly()
+    {
+        var registrationId = RegistrationId.New();
+
+        _dataLayer.Execute(registrationId);
+
+        _repository.Verify(repository => repository.Delete(registrationId), Times.Once);
+    }
 }

@@ -67,6 +67,22 @@ internal class Repository : IRepository
 
         _dataContext.SaveChanges();
     }
+
+    void IRepository.Delete(RegistrationId id)
+    {
+        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration => registration.Id == id);
+
+        if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == registration.BowlerId && registration.Squads.Select(squad => squad.SquadId).Contains(squadScore.SquadId)))
+        {
+            throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
+        }
+
+        registration.Squads.Clear();
+
+        _dataContext.Registrations.Remove(registration);
+
+        _dataContext.SaveChanges();
+    }
 }
 
 internal interface IRepository
@@ -80,4 +96,6 @@ internal interface IRepository
     IEnumerable<Database.Entities.SquadRegistration> RetrieveForSquad(SquadId squadId);
 
     void Delete(BowlerId bowlerId, SquadId squadId);
+
+    void Delete(RegistrationId id);
 }
