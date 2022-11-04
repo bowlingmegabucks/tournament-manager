@@ -7,6 +7,9 @@ internal class TournamentRegistrationsPresenter
     private readonly Squads.Retrieve.IAdapter _squadsAdapter;
     private readonly Sweepers.Retrieve.IAdapter _sweepersAdapter;
 
+    private readonly Lazy<Delete.IAdapter> _deleteAdapter;
+    private Delete.IAdapter DeleteAdapter => _deleteAdapter.Value;
+
     public TournamentRegistrationsPresenter(ITournamentRegistrationsView view, IConfiguration config)
     {
         _view = view;
@@ -14,6 +17,8 @@ internal class TournamentRegistrationsPresenter
         _registrationsAdapter = new Adapter(config);
         _squadsAdapter = new Squads.Retrieve.Adapter(config);
         _sweepersAdapter = new Sweepers.Retrieve.Adapter(config);
+
+        _deleteAdapter = new Lazy<Delete.IAdapter>(() => new Delete.Adapter(config));
     }
 
     /// <summary>
@@ -23,12 +28,14 @@ internal class TournamentRegistrationsPresenter
     /// <param name="mockRgistrationsAdapter"></param>
     /// <param name="mockSquadsAdapter"></param>
     /// <param name="mockSweepersAdapter"></param>
-    internal TournamentRegistrationsPresenter(ITournamentRegistrationsView mockView, IAdapter mockRgistrationsAdapter, Squads.Retrieve.IAdapter mockSquadsAdapter, Sweepers.Retrieve.IAdapter mockSweepersAdapter)
+    /// <param name="mockDeleteAdapter"></param>
+    internal TournamentRegistrationsPresenter(ITournamentRegistrationsView mockView, IAdapter mockRgistrationsAdapter, Squads.Retrieve.IAdapter mockSquadsAdapter, Sweepers.Retrieve.IAdapter mockSweepersAdapter, Delete.IAdapter mockDeleteAdapter)
     {
         _view = mockView;
         _registrationsAdapter = mockRgistrationsAdapter;
         _squadsAdapter = mockSquadsAdapter;
         _sweepersAdapter = mockSweepersAdapter;
+        _deleteAdapter = new Lazy<Delete.IAdapter>(()=> mockDeleteAdapter);
     }
 
     public void Execute()
@@ -63,5 +70,24 @@ internal class TournamentRegistrationsPresenter
         var sweeperEntries = sweepers.ToDictionary(sweeper => sweeper.Value, sweeper => registrationsTask.Result.Count(registration => registration.SweepersEntered.Contains(sweeper.Key)));
         sweeperEntries.Add("Super Sweeper", registrationsTask.Result.Count(registration => registration.SuperSweeperEntered));
         _view.SetSweeperEntries(sweeperEntries);
+    }
+
+    public void Delete(RegistrationId id)
+    {
+        if (!_view.Confirm("Are you sure you want to delete this bowler's entire registration?"))
+        {
+            return;
+        }
+
+        DeleteAdapter.Execute(id);
+
+        if (DeleteAdapter.Error != null)
+        {
+            _view.DisplayError(DeleteAdapter.Error.Message);
+        }
+        else
+        {
+            _view.RemoveRegistration(id);
+        }
     }
 }

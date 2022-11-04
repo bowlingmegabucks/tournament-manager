@@ -16,8 +16,10 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     public void BindRegistrations(IEnumerable<ITournamentRegistrationViewModel> registrations)
         => tournamentRegistrationsGrid.Bind(registrations);
+
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
     public void SetDivisionEntries(IDictionary<string, int> divisionEntries)
     {
         var entries = new StringBuilder();
@@ -51,4 +53,10 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         sweeperEntriesLabel.Text = entries.ToString();
     }
+
+    public bool Confirm(string message)
+        => MessageBox.Show(message, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;
+
+    public void RemoveRegistration(RegistrationId id)
+        => tournamentRegistrationsGrid.Remove(id);
 }
