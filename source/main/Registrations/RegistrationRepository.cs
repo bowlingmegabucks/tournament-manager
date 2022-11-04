@@ -55,8 +55,15 @@ internal class Repository : IRepository
 
     void IRepository.Delete(BowlerId bowlerId, SquadId squadId)
     {
+        if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId))
+        {
+            throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
+        }
+
         var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration=> registration.Squads.Count(squad=> squad.SquadId == squadId) == 1);
-        registration.Squads.Remove(registration.Squads.Single(squad => squad.SquadId == squadId));
+        var squad = registration.Squads.Single(squad => squad.SquadId == squadId);
+
+        registration.Squads.Remove(squad);
 
         _dataContext.SaveChanges();
     }
