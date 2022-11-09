@@ -47,8 +47,7 @@ internal class Presenter
         }
         else
         {
-            var laneAssignments = laneAssignmentTask.Result;
-            laneAssignments.Sort();
+            var laneAssignments = laneAssignmentTask.Result.Order().ToList();
             
             _view.BindLaneAssignments(laneAssignments);
 

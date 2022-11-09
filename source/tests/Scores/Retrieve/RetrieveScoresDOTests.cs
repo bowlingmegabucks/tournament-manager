@@ -5,6 +5,7 @@ namespace NortheastMegabuck.Tests.Scores.Retrieve;
 internal class DataLayer
 {
     private Mock<NortheastMegabuck.Scores.IRepository> _repository;
+    private Mock<NortheastMegabuck.Squads.IHandicapCalculator> _handicapCalculator;
 
     private NortheastMegabuck.Scores.Retrieve.IDataLayer _dataLayer;
 
@@ -12,12 +13,13 @@ internal class DataLayer
     public void SetUp()
     {
         _repository = new Mock<NortheastMegabuck.Scores.IRepository>();
+        _handicapCalculator = new Mock<NortheastMegabuck.Squads.IHandicapCalculator>();
 
-        _dataLayer = new NortheastMegabuck.Scores.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Scores.Retrieve.DataLayer(_repository.Object, _handicapCalculator.Object);
     }
 
     [Test]
-    public void Execute_RepositoryRetrieve_CalledCorrectly()
+    public void Execute_SquadId_RepositoryRetrieve_CalledCorrectly()
     {
         var squadId = SquadId.New();
 
@@ -27,7 +29,7 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_ReturnsRepositoryRetrieve()
+    public void Execute_SquadId_ReturnsRepositoryRetrieve()
     {
         var entity1 = new NortheastMegabuck.Database.Entities.SquadScore
         {
@@ -70,17 +72,17 @@ internal class DataLayer
     }
 
     [Test]
-    public void SuperSweeper_RepositorySuperSweeper_CalledCorrectly()
+    public void Execute_SquadIds_RepositoryRetrieve_CalledCorrectly()
     {
-        var tournamentId = TournamentId.New();
+        var squadIds = new[] { SquadId.New(), SquadId.New() };
 
-        _dataLayer.SuperSweeper(tournamentId);
+        _dataLayer.Execute(squadIds);
 
-        _repository.Verify(repository => repository.SuperSweeper(tournamentId), Times.Once);
+        _repository.Verify(repository => repository.Retrieve(squadIds), Times.Once);
     }
 
     [Test]
-    public void SuperSweeper_ReturnsRepositorySuperSweeper()
+    public void Execute_SquadIds_ReturnsRepositoryRetrieve()
     {
         var entity1 = new NortheastMegabuck.Database.Entities.SquadScore
         {
@@ -109,9 +111,9 @@ internal class DataLayer
         };
 
         var entities = new[] { entity1, entity2 };
-        _repository.Setup(repository => repository.SuperSweeper(It.IsAny<TournamentId>())).Returns(entities);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<IEnumerable<SquadId>>())).Returns(entities);
 
-        var actual = _dataLayer.SuperSweeper(TournamentId.New()).ToList();
+        var actual = _dataLayer.Execute(new[] { SquadId.New(), SquadId.New() }).ToList();
 
         Assert.Multiple(() =>
         {

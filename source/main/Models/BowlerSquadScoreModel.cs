@@ -62,6 +62,7 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
 
     public override int GetHashCode()
         => Bowler.Id.GetHashCode() ^ SquadId.GetHashCode();
+
     public int CompareTo(BowlerSquadScore? other)
     {
         if (other == null)

@@ -22,7 +22,10 @@ internal class Repository : IRepository
         => _dataContext.Tournaments.AsNoTracking().AsEnumerable();
 
     Database.Entities.Tournament IRepository.Retrieve(TournamentId id)
-        => _dataContext.Tournaments.AsNoTracking().Single(tournament=> tournament.Id == id);
+        => _dataContext.Tournaments.AsNoTrackingWithIdentityResolution()
+            .Include(tournament=> tournament.Sweepers)
+            .Include(tournament=> tournament.Squads)
+        .Single(tournament=> tournament.Id == id);
 
     Database.Entities.Tournament IRepository.Retrieve(DivisionId divisionId)
         => _dataContext.Tournaments.Include(tournament => tournament.Divisions).Include(tournament=> tournament.Sweepers).ThenInclude(sweeper=> sweeper.Divisions).AsNoTracking().Single(tournament => tournament.Divisions.Any(division => division.Id == divisionId));

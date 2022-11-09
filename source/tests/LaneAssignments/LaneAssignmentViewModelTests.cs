@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.LaneAssignments;
+﻿using NortheastMegabuck.Squads;
+
+namespace NortheastMegabuck.Tests.LaneAssignments;
 
 [TestFixture]
 internal class ViewModel

@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Models;
+﻿using NortheastMegabuck.Squads;
+
+namespace NortheastMegabuck.Models;
 internal class LaneAssignment
 {
     public RegistrationId RegistrationId { get; init; }

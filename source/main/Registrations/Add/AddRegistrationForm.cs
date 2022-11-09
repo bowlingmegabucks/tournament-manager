@@ -46,7 +46,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     public DivisionId DivisionId
-        => (DivisionId)divisionsDropdown.SelectedValue;
+        => (DivisionId)divisionsDropdown.SelectedValue!;
 
     public Bowlers.Add.IViewModel Bowler
         => bowlerControl;

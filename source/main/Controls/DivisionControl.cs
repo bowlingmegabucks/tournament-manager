@@ -155,7 +155,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
 
     public Models.Gender? Gender
     {
-        get => (int)genderDropdown.SelectedValue == -1 ? null : (Models.Gender)genderDropdown.SelectedValue;
+        get => (int)genderDropdown.SelectedValue! == -1 ? null : (Models.Gender)genderDropdown.SelectedValue;
         set => genderDropdown.SelectedValue = value.HasValue ? (int)value.Value : -1;
     }
 

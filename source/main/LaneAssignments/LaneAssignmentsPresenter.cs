@@ -148,7 +148,7 @@ internal class Presenter
 
     internal void GenerateRecaps(IEnumerable<IViewModel> assignments)
     {
-        var lanesUsed = assignments.Select(assignment => assignment.LaneNumber()).Distinct().OrderBy(laneNumber => laneNumber).ToList();
+        var lanesUsed = assignments.Select(assignment => assignment.LaneNumber()).Distinct().Order().ToList();
 
         //this is to add other lane if only one lane on pair is being used
         var evenLanesUsed = lanesUsed.Where(lane => lane % 2 == 0);
@@ -168,7 +168,7 @@ internal class Presenter
             allLanes.Add((short)(oddLane + 1));
         }
 
-        lanesUsed = allLanes.Distinct().OrderBy(lane => lane).ToList();
+        lanesUsed = allLanes.Distinct().Order().ToList();
 
         var crossGenerator = _generateCrossFactory.Execute(_view.StaggeredSkipSelected);
 

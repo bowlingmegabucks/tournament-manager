@@ -1,8 +1,8 @@
 ﻿
 namespace NortheastMegabuck.Models;
-internal class Division
+internal class Division : IEquatable<Division>
 {
-    public NortheastMegabuck.DivisionId Id { get; set; }
+    public DivisionId Id { get; set; }
 
     public short Number { get; set; }
 
@@ -65,4 +65,13 @@ internal class Division
         MaximumHandicapPerGame = entity.MaximumHandicapPerGame;
         Gender = entity.Gender;
     }
+
+    public bool Equals(Division? other)
+        => other != null && Id == other.Id;
+
+    public override bool Equals(object? obj) 
+        => Equals(obj as Division);
+
+    public override int GetHashCode()
+        => Id.GetHashCode();
 }

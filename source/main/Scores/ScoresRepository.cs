@@ -54,21 +54,15 @@ internal class Repository : IRepository
     }
 
     IEnumerable<Database.Entities.SquadScore> IRepository.Retrieve(SquadId squadId)
-        => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
-            .Include(squadScore=> squadScore.Bowler)
-                .ThenInclude(bowler=> bowler.Registrations.Where(registration=> registration.Squads.Any(squad=> squad.SquadId == squadId)))
-                .ThenInclude(registration=> registration.Division).ThenInclude(division=> division.Sweepers)
-            .Include(squadScore => squadScore.Squad)
-        .Where(squadScore => squadScore.SquadId == squadId);
+        => Retrieve(new[] { squadId });
 
-    IEnumerable<Database.Entities.SquadScore> IRepository.SuperSweeper(TournamentId tournamentId)
-        => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
+    public IEnumerable<Database.Entities.SquadScore> Retrieve(IEnumerable<SquadId> squadIds)
+    => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
             .Include(squadScore => squadScore.Bowler)
-                .ThenInclude(bowler => bowler.Registrations.Where(registration=> registration.Division.TournamentId == tournamentId))
+                .ThenInclude(bowler => bowler.Registrations.Where(registration => registration.Squads.Any(squad => squadIds.Contains(squad.SquadId))))
                 .ThenInclude(registration => registration.Division).ThenInclude(division => division.Sweepers)
             .Include(squadScore => squadScore.Squad)
-        .Where(squadScore => squadScore.Squad.TournamentId == tournamentId)
-        .Where(squadScore=> squadScore.Bowler.Registrations.Single(registration=> registration.Division.TournamentId == tournamentId).SuperSweeper);
+        .Where(squadScore => squadIds.Contains(squadScore.SquadId));
 }
 
 internal interface IRepository
@@ -77,5 +71,5 @@ internal interface IRepository
 
     IEnumerable<Database.Entities.SquadScore> Retrieve(SquadId sqauadId);
 
-    IEnumerable<Database.Entities.SquadScore> SuperSweeper(TournamentId tournamnetId);
+    IEnumerable<Database.Entities.SquadScore> Retrieve(IEnumerable<SquadId> squadIds);
 }

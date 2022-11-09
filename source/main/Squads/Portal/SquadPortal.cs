@@ -52,4 +52,11 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         form.ShowDialog(this);
     }
+
+    private void ResultsMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Results.Form(_config, _id);
+
+        form.ShowDialog(this);
+    }
 }

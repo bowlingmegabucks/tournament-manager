@@ -55,14 +55,19 @@ partial class Form
             this.newTournament.Games = ((short)(0));
             this.newTournament.Location = new System.Drawing.Point(12, 12);
             this.newTournament.Name = "newTournament";
-            this.newTournament.Size = new System.Drawing.Size(354, 330);
+            this.newTournament.Size = new System.Drawing.Size(354, 388);
+            this.newTournament.SuperSweeperCashRatio = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.newTournament.TabIndex = 0;
             this.newTournament.TournamentName = "";
             // 
             // saveButton
             // 
             this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.saveButton.Location = new System.Drawing.Point(282, 348);
+            this.saveButton.Location = new System.Drawing.Point(282, 406);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 1;
@@ -73,7 +78,7 @@ partial class Form
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(12, 348);
+            this.cancelButton.Location = new System.Drawing.Point(12, 406);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 2;
@@ -87,7 +92,7 @@ partial class Form
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(369, 387);
+            this.ClientSize = new System.Drawing.Size(369, 441);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.newTournament);
