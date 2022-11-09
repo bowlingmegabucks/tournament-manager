@@ -40,7 +40,7 @@ public partial class LabelControl : UserControl
     public override string Text
     {
         get => LabelText.Text;
-        set => LabelText.Text = value!;
+        set => LabelText.Text = value;
     }
 
     /// <summary>

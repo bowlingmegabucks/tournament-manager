@@ -11,9 +11,7 @@ internal class Calculator : ICalculator
 
         scores.Sort();
 
-        var eligibleBowlers = scores.Where(score => !previousAdvancersIds.Contains(score.Bowler.Id)).ToList(); //Bowlers who didn't previously qualify
-
-        eligibleBowlers.Sort();
+        var eligibleBowlers = scores.Where(score => !previousAdvancersIds.Contains(score.Bowler.Id)).Order().ToList(); //Bowlers who didn't previously qualify
 
         var advancers = eligibleBowlers.Take(advancerCount).ToList();
 
@@ -33,8 +31,7 @@ internal class Calculator : ICalculator
             cashers.Add(scoresWithOutAdvancersFromPreviousOrCurrentSquad[i++]);
         }
 
-        var nonQualifiers = scores.Where(score => !advancers.Select(advancer => advancer.Bowler.Id).Contains(score.Bowler.Id)).Where(score => !cashers.Select(casher => casher.Bowler.Id).Contains(score.Bowler.Id)).ToList();
-        nonQualifiers.Sort();
+        var nonQualifiers = scores.Where(score => !advancers.Select(advancer => advancer.Bowler.Id).Contains(score.Bowler.Id)).Where(score => !cashers.Select(casher => casher.Bowler.Id).Contains(score.Bowler.Id)).Order().ToList();
 
         return new Models.SquadResult
         {
