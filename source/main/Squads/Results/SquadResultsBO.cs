@@ -15,6 +15,19 @@ internal class BusinessLogic : IBusinessLogic
         _retrieveScores = new Scores.Retrieve.BusinessLogic(config);
     }
 
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockRetrieveTournament"></param>
+    /// <param name="mockCalculator"></param>
+    /// <param name="mockRetrieveScores"></param>
+    internal BusinessLogic(Tournaments.Retrieve.IBusinessLogic mockRetrieveTournament, ICalculator mockCalculator, Scores.Retrieve.IBusinessLogic mockRetrieveScores)
+    {
+        _retrieveTournament = mockRetrieveTournament;
+        _squadResultCalculator = mockCalculator;
+        _retrieveScores = mockRetrieveScores;
+    }
+
     public IEnumerable<IGrouping<Models.Division,Models.SquadResult>> Execute(SquadId squadId)
     {
         var tournament = _retrieveTournament.Execute(squadId);
@@ -28,6 +41,13 @@ internal class BusinessLogic : IBusinessLogic
 
         var scores = _retrieveScores.Execute(tournament!.Squads.Where(squad => squad.Date <= tournament.Squads.Single(s => s.Id == squadId).Date).Select(squad => squad.Id));
 
+        if (_retrieveScores.Error != null)
+        {
+            Error = _retrieveScores.Error;
+
+            return Enumerable.Empty<IGrouping<Models.Division, Models.SquadResult>>();
+        }
+
         return Execute(scores, tournament).Where(result => result.Squad.Id == squadId).GroupBy(result=> result.Division).ToList();
     }
 
@@ -39,7 +59,7 @@ internal class BusinessLogic : IBusinessLogic
 
         foreach (var scoresInSquad in scoresBySquad)
         {
-            var scoresByDivision = scoresInSquad.Scores.GroupBy(score => score.Division);
+            var scoresByDivision = scoresInSquad.Scores.GroupBy(score => score.Division).ToList();
 
             foreach (var scoresInDivision in scoresByDivision)
             {
@@ -49,7 +69,7 @@ internal class BusinessLogic : IBusinessLogic
                     scoresInSquad.Squad,
                     scoresInDivision.Key,
                     bowlerScores.ToList(),
-                    results.Where(result => result.Division == scoresInDivision.Key).SelectMany(result => result.AdvancingScores.Select(score => score.Bowler.Id)),
+                    results.Where(result => result.Division == scoresInDivision.Key).SelectMany(result => result.AdvancingScores.Select(score => score.Bowler.Id)).ToList(),
                     scoresInSquad.Squad.FinalsRatio ?? tournament.FinalsRatio,
                     scoresInSquad.Squad.CashRatio ?? tournament.CashRatio);
 
