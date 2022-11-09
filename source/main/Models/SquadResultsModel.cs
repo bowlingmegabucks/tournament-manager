@@ -2,9 +2,9 @@
 namespace NortheastMegabuck.Models;
 internal class SquadResult
 {
-    public Squad Squad { get; init; } = null!;
+    public Squad Squad { get; init; }
 
-    public Division Division { get; init; } = null!;
+    public Division Division { get; init; }
 
     public IEnumerable<BowlerSquadScore> AdvancingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
 
@@ -23,4 +23,13 @@ internal class SquadResult
 
     public int CashScore
         => CashingScores.Last().Score;
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal SquadResult()
+    {
+        Squad = new Squad();
+        Division = new Division();
+    }
 }

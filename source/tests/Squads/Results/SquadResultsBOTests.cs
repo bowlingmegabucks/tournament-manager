@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.Windows.Forms;
 
 namespace NortheastMegabuck.Tests.Squads.Results;
 
@@ -154,5 +151,5 @@ internal class BusinessLogic
         mockResultCalculator.VerifyAll();
     }
 
-    //next: make sure result calculator is called correctly for each squad in each division (do 2 bowlers, 2 squads, 2 divisions)
+    //todo: need to test calling squadResultCalculator with correct groupings
 }

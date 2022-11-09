@@ -23,8 +23,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
             Text = divisionName
         };
 
-        var panel = new Panel
-        { 
+        var panel = new FlowLayoutPanel()
+        {
+            Name = $"{divisionName}FlowLayoutPanel",
             Dock = DockStyle.Fill
         };
 
