@@ -213,7 +213,7 @@ public partial class Form : System.Windows.Forms.Form, IView
             return;
         }
 
-        (sender as Control)!.DoDragDrop(sender as IViewModel, DragDropEffects.Move);
+        (sender as Control)!.DoDragDrop((sender as IViewModel)!, DragDropEffects.Move);
     }
 
     private void LaneAssignmentOpen_DragOver(object sender, DragEventArgs e)
