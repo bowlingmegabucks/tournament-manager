@@ -37,17 +37,18 @@ partial class Form
             this.divisionsTabControl.Location = new System.Drawing.Point(0, 0);
             this.divisionsTabControl.Name = "divisionsTabControl";
             this.divisionsTabControl.SelectedIndex = 0;
-            this.divisionsTabControl.Size = new System.Drawing.Size(582, 815);
+            this.divisionsTabControl.Size = new System.Drawing.Size(650, 798);
             this.divisionsTabControl.TabIndex = 0;
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 815);
+            this.ClientSize = new System.Drawing.Size(650, 798);
             this.Controls.Add(this.divisionsTabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Squad Results";

@@ -26,7 +26,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         var panel = new FlowLayoutPanel()
         {
             Name = $"{divisionName}FlowLayoutPanel",
-            Dock = DockStyle.Fill
+            Dock = DockStyle.Fill,
+            AutoScroll= true
         };
 
         var advancers = scores.Where(score => score.Advancer).ToList();

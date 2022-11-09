@@ -19,7 +19,7 @@ internal class Presenter
 
     public void Execute()
     {
-        var scoresByDivision = _adapter.Execute(_view.SquadId);
+        var scoresByDivision = _adapter.Execute(_view.SquadId).OrderBy(score=> score.Key);
 
         if (_adapter.Error != null)
         {
