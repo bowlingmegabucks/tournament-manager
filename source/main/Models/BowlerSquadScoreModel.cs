@@ -37,9 +37,11 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
-    internal BowlerSquadScore(params int[] games)
+    /// <param name="bowlerId"></param>
+    /// <param name="games"></param>
+    internal BowlerSquadScore(BowlerId bowlerId, params int[] games)
     {
-        Bowler = new Bowler();
+        Bowler = new Bowler { Id = bowlerId };
         Division = new Division();
 
         short i = 1;
@@ -52,6 +54,14 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         }
 
         GameScores = gameScores.ToLookup(gameScore => gameScore.Key, gameScore => gameScore.Value);
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal BowlerSquadScore(params int[] games) : this(BowlerId.New(), games)
+    {
+        
     }
 
     public bool Equals(BowlerSquadScore? other)
