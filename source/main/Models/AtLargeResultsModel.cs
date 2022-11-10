@@ -1,5 +1,6 @@
 ﻿
 namespace NortheastMegabuck.Models;
+
 internal class AtLargeResults
 {
     public Division Division { get; init; } = null!;
