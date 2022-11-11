@@ -6,6 +6,8 @@ internal class SquadScore
 {
     public SquadId SquadId { get; init; }
 
+    public DateTime SquadDate { get; init; }
+
     public Bowler Bowler { get; init; }
 
     public short GameNumber { get; init; }
@@ -32,6 +34,7 @@ internal class SquadScore
     public SquadScore(Database.Entities.SquadScore score, Squads.IHandicapCalculator handicapCalculator)
     {
         SquadId = score.SquadId;
+        SquadDate = score.Squad.Date;
         Bowler = new Bowler(score.Bowler);
         GameNumber = score.Game;
         Score = score.Score;

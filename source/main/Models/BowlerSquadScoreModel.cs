@@ -4,6 +4,8 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
 {
     public SquadId SquadId { get; set; }
 
+    public DateTime SquadDate { get; set; }
+
     public Bowler Bowler { get; set; }
 
     public Division Division { get; set; }
@@ -29,6 +31,7 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         Bowler = bowlerScores.Key;
         Division = bowlerScores.First().Division;
         SquadId = bowlerScores.First().SquadId;
+        SquadDate = bowlerScores.First().SquadDate;
         GameScores = bowlerScores.ToLookup(score => score.GameNumber, score => score.Score);
 
         _handicap = bowlerScores.First().Handicap;

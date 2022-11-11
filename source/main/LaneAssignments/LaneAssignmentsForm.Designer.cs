@@ -43,6 +43,7 @@ partial class Form
             this.staggeredSkipRadioButton = new System.Windows.Forms.RadioButton();
             this.laneAssignmentContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteLaneAssignmentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshAssignmentsLinkLabel = new System.Windows.Forms.LinkLabel();
             this.laneAssignmentGroupBox.SuspendLayout();
             this.unassignedRegistrationsGroupBox.SuspendLayout();
             this.laneSkipGroupBox.SuspendLayout();
@@ -172,7 +173,7 @@ partial class Form
             this.laneAssignmentContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteLaneAssignmentMenuItem});
             this.laneAssignmentContextMenuStrip.Name = "laneAssignmentContextMenuStrip";
-            this.laneAssignmentContextMenuStrip.Size = new System.Drawing.Size(183, 48);
+            this.laneAssignmentContextMenuStrip.Size = new System.Drawing.Size(183, 26);
             // 
             // deleteLaneAssignmentMenuItem
             // 
@@ -181,11 +182,24 @@ partial class Form
             this.deleteLaneAssignmentMenuItem.Text = "Remove from Squad";
             this.deleteLaneAssignmentMenuItem.Click += new System.EventHandler(this.DeleteLaneAssignmentMenuItem_Click);
             // 
+            // refreshAssignmentsLinkLabel
+            // 
+            this.refreshAssignmentsLinkLabel.AutoSize = true;
+            this.refreshAssignmentsLinkLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.refreshAssignmentsLinkLabel.Location = new System.Drawing.Point(871, 958);
+            this.refreshAssignmentsLinkLabel.Name = "refreshAssignmentsLinkLabel";
+            this.refreshAssignmentsLinkLabel.Size = new System.Drawing.Size(58, 20);
+            this.refreshAssignmentsLinkLabel.TabIndex = 10;
+            this.refreshAssignmentsLinkLabel.TabStop = true;
+            this.refreshAssignmentsLinkLabel.Text = "Refresh";
+            this.refreshAssignmentsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RefreshAssignmentsLinkLabel_LinkClicked);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1482, 1013);
+            this.Controls.Add(this.refreshAssignmentsLinkLabel);
             this.Controls.Add(this.generateRecapSheetsButton);
             this.Controls.Add(this.laneSkipGroupBox);
             this.Controls.Add(this.copyAssignmentsToClipboardLinkLabel);
@@ -223,4 +237,5 @@ partial class Form
     private Button generateRecapSheetsButton;
     private ContextMenuStrip laneAssignmentContextMenuStrip;
     private ToolStripMenuItem deleteLaneAssignmentMenuItem;
+    private LinkLabel refreshAssignmentsLinkLabel;
 }
