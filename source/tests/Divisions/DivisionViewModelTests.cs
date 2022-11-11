@@ -6,10 +6,7 @@ internal class ViewModel
     [Test]
     public void Constructor_Model_IdMapped()
     {
-        var model = new NortheastMegabuck.Models.Division
-        {
-            Id = NortheastMegabuck.DivisionId.New()
-        };
+        var model = new NortheastMegabuck.Models.Division();
 
         var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
 

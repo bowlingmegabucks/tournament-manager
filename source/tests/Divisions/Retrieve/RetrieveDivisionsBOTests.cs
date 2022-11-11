@@ -28,7 +28,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_ReturnsDataLayerExecuteResults()
     {
-        var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() }, 2);
+        var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Division(), 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(divisions);
 
         var tournamentId = TournamentId.New();
@@ -41,7 +41,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_DataLayerExecuteNoException_ErrorNull()
     {
-        var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() }, 2);
+        var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Division(), 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(divisions);
 
         var tournamentId = TournamentId.New();
@@ -81,7 +81,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_ReturnsDataLayerExecuteResult()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        var division = new NortheastMegabuck.Models.Division();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var divisionId = NortheastMegabuck.DivisionId.New();
@@ -94,7 +94,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_DataLayerExecutetNoException_ErrorNull()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
+        var division = new NortheastMegabuck.Models.Division();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
 
         var divisionId = NortheastMegabuck.DivisionId.New();

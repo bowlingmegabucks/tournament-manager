@@ -25,15 +25,13 @@ internal class Calculator
         var finalsRatio = 2m;
         var squadResults = new[] { squadResult };
 
-        var result = _calculator.Execute(division, squadResults, finalsRatio);
+        var result = _calculator.Execute(division.Id, squadResults, finalsRatio);
 
         Assert.Multiple(() =>
         {
-            Assert.That(result.Division, Is.EqualTo(division));
-            Assert.That(result.Entries, Is.EqualTo(4));
+            Assert.That(result.DivisionId, Is.EqualTo(division.Id));
             Assert.That(result.AdvancingScores, Is.Empty);
             Assert.That(result.AdvancersWhoPreviouslyCashed, Is.Empty);
-            Assert.That(result.SquadResults, Is.EqualTo(squadResults));
         });
     }
 
@@ -50,15 +48,13 @@ internal class Calculator
         var finalsRatio = 2m;
         var squadResults = new[] { squadResult };
 
-        var result = _calculator.Execute(division, squadResults, finalsRatio);
+        var result = _calculator.Execute(division.Id, squadResults, finalsRatio);
 
         Assert.Multiple(() =>
         {
-            Assert.That(result.Division, Is.EqualTo(division));
-            Assert.That(result.Entries, Is.EqualTo(4));
+            Assert.That(result.DivisionId, Is.EqualTo(division.Id));
             Assert.That(result.AdvancingScores, Is.Empty);
             Assert.That(result.AdvancersWhoPreviouslyCashed, Is.Empty);
-            Assert.That(result.SquadResults, Is.EqualTo(squadResults));
         });
     }
 
@@ -86,18 +82,16 @@ internal class Calculator
         var finalsRatio = 2m;
         var squadResults = new[] { squadResult };
 
-        var result = _calculator.Execute(division, squadResults, finalsRatio);
+        var result = _calculator.Execute(division.Id, squadResults, finalsRatio);
 
         Assert.Multiple(() =>
         {
-            Assert.That(result.Division, Is.EqualTo(division));
-            Assert.That(result.Entries, Is.EqualTo(6));
+            Assert.That(result.DivisionId, Is.EqualTo(division.Id));
 
             Assert.That(result.AdvancingScores.Count(), Is.EqualTo(1));
             Assert.That(result.AdvancingScores.Single().Score, Is.EqualTo(200));
 
             Assert.That(result.AdvancersWhoPreviouslyCashed, Is.Empty);
-            Assert.That(result.SquadResults, Is.EqualTo(squadResults));
         });
     }
 
@@ -129,20 +123,17 @@ internal class Calculator
         var finalsRatio = 2m;
         var squadResults = new[] { squadResult };
 
-        var result = _calculator.Execute(division, squadResults, finalsRatio);
+        var result = _calculator.Execute(division.Id, squadResults, finalsRatio);
 
         Assert.Multiple(() =>
         {
-            Assert.That(result.Division, Is.EqualTo(division));
-            Assert.That(result.Entries, Is.EqualTo(6));
+            Assert.That(result.DivisionId, Is.EqualTo(division.Id));
 
             Assert.That(result.AdvancingScores.Count(), Is.EqualTo(1));
             Assert.That(result.AdvancingScores.Single().Score, Is.EqualTo(200));
 
             Assert.That(result.AdvancersWhoPreviouslyCashed.Count(), Is.EqualTo(1));
             Assert.That(result.AdvancersWhoPreviouslyCashed.Single(), Is.EqualTo(casherId));
-
-            Assert.That(result.SquadResults, Is.EqualTo(squadResults));
         });
     }
 }
