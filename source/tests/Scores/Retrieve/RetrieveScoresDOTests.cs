@@ -34,6 +34,10 @@ internal class DataLayer
         var entity1 = new NortheastMegabuck.Database.Entities.SquadScore
         {
             SquadId = SquadId.New(),
+            Squad = new NortheastMegabuck.Database.Entities.TournamentSquad
+            {
+                Date = DateTime.Now
+            },
             Bowler = new NortheastMegabuck.Database.Entities.Bowler 
             { 
                 Id = BowlerId.New() ,
@@ -47,6 +51,10 @@ internal class DataLayer
         var entity2 = new NortheastMegabuck.Database.Entities.SquadScore
         {
             SquadId = SquadId.New(),
+            Squad = new NortheastMegabuck.Database.Entities.TournamentSquad
+            {
+                Date = DateTime.Now
+            },
             Bowler = new NortheastMegabuck.Database.Entities.Bowler
             {
                 Id = BowlerId.New(),
@@ -87,6 +95,10 @@ internal class DataLayer
         var entity1 = new NortheastMegabuck.Database.Entities.SquadScore
         {
             SquadId = SquadId.New(),
+            Squad = new NortheastMegabuck.Database.Entities.TournamentSquad
+            {
+                Date = DateTime.Now
+            },
             Bowler = new NortheastMegabuck.Database.Entities.Bowler
             {
                 Id = BowlerId.New(),
@@ -100,6 +112,10 @@ internal class DataLayer
         var entity2 = new NortheastMegabuck.Database.Entities.SquadScore
         {
             SquadId = SquadId.New(),
+            Squad = new NortheastMegabuck.Database.Entities.TournamentSquad
+            {
+                Date = DateTime.Now
+            },
             Bowler = new NortheastMegabuck.Database.Entities.Bowler
             {
                 Id = BowlerId.New(),
