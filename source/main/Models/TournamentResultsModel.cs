@@ -18,4 +18,12 @@ internal class TournamentResults
         SquadResults = squadResults;
         AtLarge = atLarge;
     }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal TournamentResults()
+    {
+        Division = new Division();
+    }
 }
