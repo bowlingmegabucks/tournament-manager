@@ -322,10 +322,14 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
+        refreshAssignmentsLinkLabel.Enabled = false;
+
         laneAssignmentFlowLayoutPanel.Controls.Clear();
         unassignedRegistrationsFlowLayoutPanel.Controls.Clear();
 
         new Presenter(_config, this).Load();
+
+        refreshAssignmentsLinkLabel.Enabled = true;
     }
 }
 
