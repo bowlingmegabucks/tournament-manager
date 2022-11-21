@@ -54,7 +54,7 @@ partial class Form
             this.laneAssignmentGroupBox.Controls.Add(this.laneAssignmentFlowLayoutPanel);
             this.laneAssignmentGroupBox.Location = new System.Drawing.Point(12, 12);
             this.laneAssignmentGroupBox.Name = "laneAssignmentGroupBox";
-            this.laneAssignmentGroupBox.Size = new System.Drawing.Size(850, 940);
+            this.laneAssignmentGroupBox.Size = new System.Drawing.Size(850, 740);
             this.laneAssignmentGroupBox.TabIndex = 0;
             this.laneAssignmentGroupBox.TabStop = false;
             this.laneAssignmentGroupBox.Text = "Assigned";
@@ -66,7 +66,7 @@ partial class Form
             this.laneAssignmentFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.laneAssignmentFlowLayoutPanel.Location = new System.Drawing.Point(3, 19);
             this.laneAssignmentFlowLayoutPanel.Name = "laneAssignmentFlowLayoutPanel";
-            this.laneAssignmentFlowLayoutPanel.Size = new System.Drawing.Size(844, 918);
+            this.laneAssignmentFlowLayoutPanel.Size = new System.Drawing.Size(844, 718);
             this.laneAssignmentFlowLayoutPanel.TabIndex = 1;
             // 
             // unassignedRegistrationsGroupBox
@@ -74,7 +74,7 @@ partial class Form
             this.unassignedRegistrationsGroupBox.Controls.Add(this.unassignedRegistrationsFlowLayoutPanel);
             this.unassignedRegistrationsGroupBox.Location = new System.Drawing.Point(868, 12);
             this.unassignedRegistrationsGroupBox.Name = "unassignedRegistrationsGroupBox";
-            this.unassignedRegistrationsGroupBox.Size = new System.Drawing.Size(435, 937);
+            this.unassignedRegistrationsGroupBox.Size = new System.Drawing.Size(435, 737);
             this.unassignedRegistrationsGroupBox.TabIndex = 0;
             this.unassignedRegistrationsGroupBox.TabStop = false;
             this.unassignedRegistrationsGroupBox.Text = "Registrations";
@@ -86,13 +86,13 @@ partial class Form
             this.unassignedRegistrationsFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.unassignedRegistrationsFlowLayoutPanel.Location = new System.Drawing.Point(3, 19);
             this.unassignedRegistrationsFlowLayoutPanel.Name = "unassignedRegistrationsFlowLayoutPanel";
-            this.unassignedRegistrationsFlowLayoutPanel.Size = new System.Drawing.Size(429, 915);
+            this.unassignedRegistrationsFlowLayoutPanel.Size = new System.Drawing.Size(429, 715);
             this.unassignedRegistrationsFlowLayoutPanel.TabIndex = 2;
             this.unassignedRegistrationsFlowLayoutPanel.WrapContents = false;
             // 
             // addToRegistrationButton
             // 
-            this.addToRegistrationButton.Location = new System.Drawing.Point(15, 958);
+            this.addToRegistrationButton.Location = new System.Drawing.Point(15, 755);
             this.addToRegistrationButton.Name = "addToRegistrationButton";
             this.addToRegistrationButton.Size = new System.Drawing.Size(123, 29);
             this.addToRegistrationButton.TabIndex = 5;
@@ -103,7 +103,7 @@ partial class Form
             // 
             // newRegistrationButton
             // 
-            this.newRegistrationButton.Location = new System.Drawing.Point(733, 955);
+            this.newRegistrationButton.Location = new System.Drawing.Point(733, 752);
             this.newRegistrationButton.Name = "newRegistrationButton";
             this.newRegistrationButton.Size = new System.Drawing.Size(123, 29);
             this.newRegistrationButton.TabIndex = 6;
@@ -126,7 +126,7 @@ partial class Form
             // 
             this.copyAssignmentsToClipboardLinkLabel.AutoSize = true;
             this.copyAssignmentsToClipboardLinkLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.copyAssignmentsToClipboardLinkLabel.Location = new System.Drawing.Point(1082, 955);
+            this.copyAssignmentsToClipboardLinkLabel.Location = new System.Drawing.Point(1082, 752);
             this.copyAssignmentsToClipboardLinkLabel.Name = "copyAssignmentsToClipboardLinkLabel";
             this.copyAssignmentsToClipboardLinkLabel.Size = new System.Drawing.Size(218, 20);
             this.copyAssignmentsToClipboardLinkLabel.TabIndex = 7;
@@ -172,7 +172,7 @@ partial class Form
             this.laneAssignmentContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteLaneAssignmentMenuItem});
             this.laneAssignmentContextMenuStrip.Name = "laneAssignmentContextMenuStrip";
-            this.laneAssignmentContextMenuStrip.Size = new System.Drawing.Size(183, 48);
+            this.laneAssignmentContextMenuStrip.Size = new System.Drawing.Size(183, 26);
             // 
             // deleteLaneAssignmentMenuItem
             // 
@@ -185,7 +185,7 @@ partial class Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1482, 1013);
+            this.ClientSize = new System.Drawing.Size(1482, 796);
             this.Controls.Add(this.generateRecapSheetsButton);
             this.Controls.Add(this.laneSkipGroupBox);
             this.Controls.Add(this.copyAssignmentsToClipboardLinkLabel);
