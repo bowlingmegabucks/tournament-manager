@@ -40,7 +40,9 @@ public partial class LabelControl : UserControl
     public override string Text
     {
         get => LabelText.Text;
+#pragma warning disable CS8765 // Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).
         set => LabelText.Text = value;
+#pragma warning restore CS8765 // Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).
     }
 
     /// <summary>

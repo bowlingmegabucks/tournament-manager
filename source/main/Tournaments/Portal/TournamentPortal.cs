@@ -80,9 +80,16 @@ internal partial class Form : System.Windows.Forms.Form
     {
         using var form = new Sweepers.Results.Form(_config, _id);
 
-        form.ShowDialog();
+        form.ShowDialog(this);
     }
 
     private void ExitMenuItem_Click(object sender, EventArgs e)
         => Close();
+
+    private void AtLargeResultsMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Results.AtLarge(_config, _id);
+
+        form.ShowDialog(this);
+    }
 }

@@ -39,10 +39,7 @@ internal class DataLayer
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division
-                {
-                    Id = DivisionId.New()
-                },
+                Division = new NortheastMegabuck.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"

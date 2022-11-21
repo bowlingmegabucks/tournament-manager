@@ -21,7 +21,7 @@ internal class LaneAssignment
                     Id = BowlerId.New()
                 },
                 Division = new NortheastMegabuck.Database.Entities.Division
-                {
+                { 
                     Id = DivisionId.New()
                 },
                 Average = 200
@@ -46,7 +46,7 @@ internal class LaneAssignment
 
     [Test]
     public void Constructor_DivisionMapped()
-        => Assert.That(_laneAssignment.Division.Id, Is.Not.EqualTo(NortheastMegabuck.DivisionId.Empty));
+        => Assert.That(_laneAssignment.Division.Id, Is.Not.EqualTo(DivisionId.Empty));
 
     [Test]
     public void Constructor_AverageMapped()
@@ -70,10 +70,7 @@ internal class LaneAssignment
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division
-                {
-                    Id = DivisionId.New()
-                },
+                Division = new NortheastMegabuck.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
@@ -100,10 +97,7 @@ internal class LaneAssignment
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division
-                {
-                    Id = DivisionId.New()
-                },
+                Division = new NortheastMegabuck.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
@@ -134,10 +128,7 @@ internal class LaneAssignment
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division
-                {
-                    Id = DivisionId.New()
-                },
+                Division = new NortheastMegabuck.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
@@ -206,10 +197,7 @@ internal class LaneAssignment
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division
-                {
-                    Id = DivisionId.New()
-                },
+                Division = new NortheastMegabuck.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
