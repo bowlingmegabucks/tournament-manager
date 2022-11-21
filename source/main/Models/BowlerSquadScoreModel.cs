@@ -4,6 +4,8 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
 {
     public SquadId SquadId { get; set; }
 
+    public DateTime SquadDate { get; set; }
+
     public Bowler Bowler { get; set; }
 
     public Division Division { get; set; }
@@ -29,6 +31,7 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         Bowler = bowlerScores.Key;
         Division = bowlerScores.First().Division;
         SquadId = bowlerScores.First().SquadId;
+        SquadDate = bowlerScores.First().SquadDate;
         GameScores = bowlerScores.ToLookup(score => score.GameNumber, score => score.Score);
 
         _handicap = bowlerScores.First().Handicap;
@@ -37,9 +40,11 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
-    internal BowlerSquadScore(params int[] games)
+    /// <param name="bowlerId"></param>
+    /// <param name="games"></param>
+    internal BowlerSquadScore(BowlerId bowlerId, params int[] games)
     {
-        Bowler = new Bowler();
+        Bowler = new Bowler { Id = bowlerId };
         Division = new Division();
 
         short i = 1;
@@ -53,6 +58,19 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
 
         GameScores = gameScores.ToLookup(gameScore => gameScore.Key, gameScore => gameScore.Value);
     }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    internal BowlerSquadScore(params int[] games) : this(BowlerId.New(), games)
+    {
+        
+    }
+
+#if DEBUG
+    public override string ToString()
+        => $"{Bowler}: {GameScores.SelectMany(score=> score).Sum()}";
+#endif
 
     public bool Equals(BowlerSquadScore? other)
         => other != null && Bowler.Id == other.Bowler.Id && SquadId == other.SquadId;

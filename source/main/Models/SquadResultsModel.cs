@@ -32,4 +32,9 @@ internal class SquadResult
         Squad = new Squad();
         Division = new Division();
     }
+
+#if DEBUG
+    public override string ToString()
+        => $"{Division.Name} - {Squad.Date}";
+#endif
 }

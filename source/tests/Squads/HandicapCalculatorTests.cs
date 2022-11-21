@@ -17,7 +17,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
                 MaximumHandicapPerGame = 10
@@ -38,7 +37,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = null,
                 HandicapPercentage = null,
                 MaximumHandicapPerGame = null
@@ -59,7 +57,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
                 MaximumHandicapPerGame = 10
@@ -80,7 +77,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
                 MaximumHandicapPerGame = 20
@@ -101,7 +97,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
                 MaximumHandicapPerGame = 5
@@ -122,7 +117,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
                 MaximumHandicapPerGame = 10
@@ -143,7 +137,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = null,
                 HandicapPercentage = null,
                 MaximumHandicapPerGame = null
@@ -164,7 +157,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
                 MaximumHandicapPerGame = 10
@@ -185,7 +177,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
                 MaximumHandicapPerGame = 20
@@ -206,7 +197,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
                 MaximumHandicapPerGame = 5

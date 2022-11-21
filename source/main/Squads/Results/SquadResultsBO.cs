@@ -39,7 +39,7 @@ internal class BusinessLogic : IBusinessLogic
             return Enumerable.Empty<IGrouping<Models.Division, Models.SquadResult>>();
         }
 
-        var scores = _retrieveScores.Execute(tournament!.Squads.Where(squad => squad.Date <= tournament.Squads.Single(s => s.Id == squadId).Date).Select(squad => squad.Id));
+        var scores = _retrieveScores.Execute(tournament!.Squads.Where(squad => squad.Date <= tournament.Squads.Single(s => s.Id == squadId).Date).Select(squad => squad.Id)).ToList();
 
         if (_retrieveScores.Error != null)
         {
@@ -49,6 +49,29 @@ internal class BusinessLogic : IBusinessLogic
         }
 
         return Execute(scores, tournament).Where(result => result.Squad.Id == squadId).GroupBy(result=> result.Division).ToList();
+    }
+
+    public IEnumerable<IGrouping<Models.Division, Models.SquadResult>> Execute(TournamentId tournamentId)
+    {
+        var tournament = _retrieveTournament.Execute(tournamentId);
+
+        if (_retrieveTournament.Error != null)
+        {
+            Error = _retrieveTournament.Error;
+
+            return Enumerable.Empty<IGrouping<Models.Division, Models.SquadResult>>();
+        }
+
+        var scores = _retrieveScores.Execute(tournament!.Squads.Select(squad => squad.Id)).ToList();
+
+        if (_retrieveScores.Error != null)
+        {
+            Error = _retrieveScores.Error;
+
+            return Enumerable.Empty<IGrouping<Models.Division, Models.SquadResult>>();
+        }
+
+        return Execute(scores, tournament).GroupBy(result=> result.Division).ToList();
     }
 
     private IEnumerable<Models.SquadResult> Execute(IEnumerable<Models.SquadScore> scores, Models.Tournament tournament)
@@ -69,7 +92,7 @@ internal class BusinessLogic : IBusinessLogic
                     scoresInSquad.Squad,
                     scoresInDivision.Key,
                     bowlerScores.ToList(),
-                    results.Where(result => result.Division == scoresInDivision.Key).SelectMany(result => result.AdvancingScores.Select(score => score.Bowler.Id)).ToList(),
+                    results.Where(result => result.Division.Id == scoresInDivision.Key.Id).SelectMany(result => result.AdvancingScores.Select(score => score.Bowler.Id)).ToList(),
                     scoresInSquad.Squad.FinalsRatio ?? tournament.FinalsRatio,
                     scoresInSquad.Squad.CashRatio ?? tournament.CashRatio);
 
@@ -86,4 +109,6 @@ internal interface IBusinessLogic
     Models.ErrorDetail? Error { get; }
 
     IEnumerable<IGrouping<Models.Division, Models.SquadResult>> Execute(SquadId squadId);
+
+    IEnumerable<IGrouping<Models.Division, Models.SquadResult>> Execute(TournamentId tournamentId);
 }

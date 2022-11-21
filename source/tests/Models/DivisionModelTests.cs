@@ -337,8 +337,8 @@ internal class Division
     [Test]
     public void Equals_ObjDivision_IdsDoNotMatch_ReturnsFalse()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
-        var other = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        var division = new NortheastMegabuck.Models.Division();
+        var other = new NortheastMegabuck.Models.Division();
 
         Assert.That(division.Equals(other), Is.False);
     }
@@ -346,7 +346,7 @@ internal class Division
     [Test]
     public void Equals_ObjDivision_IdsMatch_ReturnsTrue()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        var division = new NortheastMegabuck.Models.Division();
         var other = new NortheastMegabuck.Models.Division { Id = division.Id };
 
         Assert.That(division.Equals(other), Is.True);

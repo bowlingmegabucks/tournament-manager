@@ -47,8 +47,8 @@ internal class Adapter
     {
         var squad = new NortheastMegabuck.Models.Squad { Id = SquadId.New(), Date = new DateTime(2000, 1, 2, 9, 30, 0) };
 
-        var division1 = new NortheastMegabuck.Models.Division { Id = DivisionId.New(), Name = "division1" };
-        var division2 = new NortheastMegabuck.Models.Division { Id = DivisionId.New(), Name = "division2" };
+        var division1 = new NortheastMegabuck.Models.Division { Name = "division1" };
+        var division2 = new NortheastMegabuck.Models.Division { Name = "division2" };
 
         var division1AdvancerScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200)
         {

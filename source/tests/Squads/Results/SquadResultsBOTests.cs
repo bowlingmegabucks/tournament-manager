@@ -129,7 +129,7 @@ internal class BusinessLogic
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
             SquadId = pastSquad.Id,
-            Division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() },
+            Division = new NortheastMegabuck.Models.Division(),
             GameNumber = 1,
             Score = 200
         };
@@ -138,7 +138,7 @@ internal class BusinessLogic
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
             SquadId = currentSquad.Id,
-            Division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() },
+            Division = new NortheastMegabuck.Models.Division(),
             GameNumber = 1,
             Score = 200
         };

@@ -32,6 +32,7 @@ internal class Division : IEquatable<Division>
     internal Division()
     {
         Name = string.Empty;
+        Id = DivisionId.New();
     }
 
     public Division(Divisions.IViewModel viewModel)
