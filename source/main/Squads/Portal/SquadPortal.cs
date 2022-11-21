@@ -59,4 +59,13 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         form.ShowDialog(this);
     }
+
+    public bool Confirm(string message)
+        => MessageBox.Show(message, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;
+
+    public void DisplayMessage(string message)
+        => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+    private void CompleteMenuItem_Click(object sender, EventArgs e)
+        => new Presenter(_config, this).Complete();
 }

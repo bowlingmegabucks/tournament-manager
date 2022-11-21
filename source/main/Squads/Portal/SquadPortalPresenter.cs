@@ -4,11 +4,15 @@ internal class Presenter
     private readonly IView _view;
     private readonly Retrieve.IAdapter _retrieveSquadAdapter;
 
+    private readonly Lazy<Complete.IAdapter> _completeSquadAdapter;
+    private Complete.IAdapter CompleteSquadAdapter => _completeSquadAdapter.Value;
+
     public Presenter(IConfiguration config, IView view)
     {
         _view = view;
 
         _retrieveSquadAdapter = new Retrieve.Adapter(config);
+        _completeSquadAdapter = new Lazy<Complete.IAdapter>(() => new Complete.Adapter(config));
     }
 
     /// <summary>
@@ -16,10 +20,11 @@ internal class Presenter
     /// </summary>
     /// <param name="mockView"></param>
     /// <param name="mockRetrieveSquadAdapter"></param>
-    internal Presenter(IView mockView, Retrieve.IAdapter mockRetrieveSquadAdapter)
+    internal Presenter(IView mockView, Retrieve.IAdapter mockRetrieveSquadAdapter, Complete.IAdapter mockCompleteSquadAdapter)
     {
         _view = mockView;
         _retrieveSquadAdapter = mockRetrieveSquadAdapter;
+        _completeSquadAdapter = new Lazy<Complete.IAdapter>(() => mockCompleteSquadAdapter);
     }
 
     public void Load()
@@ -40,5 +45,25 @@ internal class Presenter
         _view.StartingLane = squad.StartingLane;
         _view.NumberOfLanes = squad.NumberOfLanes;
         _view.MaxPerPair = squad.MaxPerPair;
+    }
+
+    internal void Complete()
+    {
+        if (!_view.Confirm("Are you sure you want to complete this squad?"))
+        {
+            return;
+        }
+
+        CompleteSquadAdapter.Execute(_view.Id);
+
+        if (CompleteSquadAdapter.Error != null)
+        {
+            _view.DisplayError(CompleteSquadAdapter.Error.Message);
+        }
+        else
+        {
+            _view.DisplayMessage("Squad successfully completed");
+            _view.Close();
+        }
     }
 }
