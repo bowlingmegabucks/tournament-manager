@@ -32,6 +32,7 @@ partial class Form
             this.laneAssignmentsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scoresMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.completeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portalMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,7 +41,8 @@ partial class Form
             this.portalMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.laneAssignmentsMenuItem,
             this.scoresMenuItem,
-            this.resultsMenuItem});
+            this.resultsMenuItem,
+            this.completeMenuItem});
             this.portalMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.portalMenuStrip.Name = "portalMenuStrip";
             this.portalMenuStrip.Size = new System.Drawing.Size(800, 24);
@@ -68,6 +70,13 @@ partial class Form
             this.resultsMenuItem.Text = "Results";
             this.resultsMenuItem.Click += new System.EventHandler(this.ResultsMenuItem_Click);
             // 
+            // completeMenuItem
+            // 
+            this.completeMenuItem.Name = "completeMenuItem";
+            this.completeMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.completeMenuItem.Text = "Complete";
+            this.completeMenuItem.Click += new System.EventHandler(this.CompleteMenuItem_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -93,4 +102,5 @@ partial class Form
     private ToolStripMenuItem laneAssignmentsMenuItem;
     private ToolStripMenuItem scoresMenuItem;
     private ToolStripMenuItem resultsMenuItem;
+    private ToolStripMenuItem completeMenuItem;
 }

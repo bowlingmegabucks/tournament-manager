@@ -35,7 +35,7 @@ internal class Repository : IRepository
 
     public void Complete(SquadId id)
     {
-        var sweeper = _dataContext.Sweepers.Single(sweeper => sweeper.Id == id);
+        var sweeper = _dataContext.Squads.Single(sweeper => sweeper.Id == id);
         sweeper.Complete = true;
 
         _dataContext.SaveChanges();
