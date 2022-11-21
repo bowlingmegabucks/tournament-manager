@@ -9,7 +9,7 @@ internal class AtLargeViewModel : IAtLargeViewModel
 
     public string DivisionName { get; }
 
-    public DateTime SquadDate { get; }
+    public string SquadDate { get; }
 
     public bool PreviousCasher { get; }
 
@@ -26,7 +26,7 @@ internal class AtLargeViewModel : IAtLargeViewModel
         Place = place;
         BowlerName = result.Bowler.ToString();
         DivisionName = result.Division.Name;
-        SquadDate = result.SquadDate;
+        SquadDate = result.SquadDate.ToString("MM/dd hh:mm tt");
         PreviousCasher = previousCasher;
         Score = result.Score;
         ScratchScore= result.ScratchScore;
@@ -43,7 +43,7 @@ internal interface IAtLargeViewModel
 
     string DivisionName { get; }
 
-    DateTime SquadDate { get; }
+    string SquadDate { get; }
 
     bool PreviousCasher { get; }
 
