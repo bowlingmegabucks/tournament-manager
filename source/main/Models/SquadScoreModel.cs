@@ -53,4 +53,9 @@ internal class SquadScore
         Bowler = new Bowler();
         Division = new Division();
     }
+
+#if DEBUG
+    public override string ToString()
+        => $"{Bowler}: Game {GameNumber}: {Score}";
+#endif
 }

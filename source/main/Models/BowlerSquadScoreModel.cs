@@ -67,6 +67,11 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         
     }
 
+#if DEBUG
+    public override string ToString()
+        => $"{Bowler}: {GameScores.SelectMany(score=> score).Sum()}";
+#endif
+
     public bool Equals(BowlerSquadScore? other)
         => other != null && Bowler.Id == other.Bowler.Id && SquadId == other.SquadId;
 
