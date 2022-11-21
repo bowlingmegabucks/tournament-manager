@@ -93,6 +93,9 @@
 	  <Compile Update="Sweepers\Retrieve\RetrieveSweepersForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="Tournaments\Results\AtLargeResultsForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
