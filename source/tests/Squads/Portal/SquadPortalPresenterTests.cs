@@ -6,6 +6,7 @@ internal class Presenter
 {
     private Mock<NortheastMegabuck.Squads.Portal.IView> _view;
     private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _adapter;
+    private Mock<NortheastMegabuck.Squads.Complete.IAdapter> _completeAdapter;
 
     private NortheastMegabuck.Squads.Portal.Presenter _presenter;
 
@@ -14,8 +15,9 @@ internal class Presenter
     {
         _view = new Mock<NortheastMegabuck.Squads.Portal.IView>();
         _adapter = new Mock<NortheastMegabuck.Squads.Retrieve.IAdapter>();
+        _completeAdapter = new Mock<NortheastMegabuck.Squads.Complete.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Squads.Portal.Presenter(_view.Object, _adapter.Object);
+        _presenter = new NortheastMegabuck.Squads.Portal.Presenter(_view.Object, _adapter.Object, _completeAdapter.Object);
     }
 
     [Test]
@@ -65,5 +67,76 @@ internal class Presenter
         _presenter.Load();
 
         _view.Verify(view => view.SetPortalTitle("01/02/2000 09:30AM"), Times.Once);
+    }
+
+    [Test]
+    public void Complete_ViewConfirm_CalledCorrectly()
+    {
+        _presenter.Complete();
+
+        _view.Verify(view => view.Confirm("Are you sure you want to complete this squad?"), Times.Once);
+    }
+
+    [Test]
+    public void Complete_ViewConfirmFalse_CancelFlow()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
+
+        _presenter.Complete();
+
+        Assert.Multiple(() =>
+        {
+            _completeAdapter.Verify(adapter => adapter.Execute(It.IsAny<SquadId>()), Times.Never);
+
+            _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.Close(), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Complete_ViewConfirmTrue_CompleteAdapterExecute_CalledCorrectly()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var squadId = SquadId.New();
+        _view.SetupGet(view => view.Id).Returns(squadId);
+
+        _presenter.Complete();
+
+        _completeAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+    }
+
+    [Test]
+    public void Complete_ViewConfirmTrue_CompleteAdapterHasError_ErrorFlow()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        _completeAdapter.SetupGet(adapter => adapter.Error).Returns(error);
+
+        _presenter.Complete();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("error"), Times.Once);
+
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.Close(), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Complete_ViewConfirmTrue_ComplateAdapterSuccessful_SuccessFlow()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        _presenter.Complete();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayMessage("Squad successfully completed"), Times.Once);
+            _view.Verify(view => view.Close(), Times.Once);
+        });
     }
 }

@@ -32,6 +32,14 @@ internal class Repository : IRepository
 
     public Database.Entities.TournamentSquad Retrieve(SquadId id)
         => _dataContext.Squads.AsNoTracking().Single(squad => squad.Id == id);
+
+    public void Complete(SquadId id)
+    {
+        var sweeper = _dataContext.Squads.Single(sweeper => sweeper.Id == id);
+        sweeper.Complete = true;
+
+        _dataContext.SaveChanges();
+    }
 }
 
 internal interface IRepository
@@ -41,4 +49,6 @@ internal interface IRepository
     IEnumerable<Database.Entities.TournamentSquad> Retrieve(TournamentId tournamentId);
 
     Database.Entities.TournamentSquad Retrieve(SquadId id);
+
+    void Complete(SquadId id);
 }
