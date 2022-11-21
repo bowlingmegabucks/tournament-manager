@@ -92,7 +92,7 @@ internal class BusinessLogic : IBusinessLogic
                     scoresInSquad.Squad,
                     scoresInDivision.Key,
                     bowlerScores.ToList(),
-                    results.Where(result => result.Division == scoresInDivision.Key).SelectMany(result => result.AdvancingScores.Select(score => score.Bowler.Id)).ToList(),
+                    results.Where(result => result.Division.Id == scoresInDivision.Key.Id).SelectMany(result => result.AdvancingScores.Select(score => score.Bowler.Id)).ToList(),
                     scoresInSquad.Squad.FinalsRatio ?? tournament.FinalsRatio,
                     scoresInSquad.Squad.CashRatio ?? tournament.CashRatio);
 
