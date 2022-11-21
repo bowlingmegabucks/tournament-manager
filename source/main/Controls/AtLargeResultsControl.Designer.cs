@@ -65,7 +65,7 @@ partial class AtLargeResultsControl
             // 
             this.scoreLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.scoreLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.scoreLabel.Location = new System.Drawing.Point(404, 0);
+            this.scoreLabel.Location = new System.Drawing.Point(536, 0);
             this.scoreLabel.Name = "scoreLabel";
             this.scoreLabel.Size = new System.Drawing.Size(57, 33);
             this.scoreLabel.TabIndex = 2;
@@ -76,7 +76,7 @@ partial class AtLargeResultsControl
             // 
             this.highGameLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.highGameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.highGameLabel.Location = new System.Drawing.Point(461, 0);
+            this.highGameLabel.Location = new System.Drawing.Point(593, 0);
             this.highGameLabel.Name = "highGameLabel";
             this.highGameLabel.Size = new System.Drawing.Size(57, 33);
             this.highGameLabel.TabIndex = 3;
@@ -98,7 +98,7 @@ partial class AtLargeResultsControl
             // 
             this.squadDateLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.squadDateLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.squadDateLabel.Location = new System.Drawing.Point(518, 0);
+            this.squadDateLabel.Location = new System.Drawing.Point(404, 0);
             this.squadDateLabel.Name = "squadDateLabel";
             this.squadDateLabel.Size = new System.Drawing.Size(132, 33);
             this.squadDateLabel.TabIndex = 5;
@@ -110,9 +110,9 @@ partial class AtLargeResultsControl
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.cashingPictureBox);
-            this.Controls.Add(this.squadDateLabel);
             this.Controls.Add(this.highGameLabel);
             this.Controls.Add(this.scoreLabel);
+            this.Controls.Add(this.squadDateLabel);
             this.Controls.Add(this.bowlerNameLabel);
             this.Controls.Add(this.placeLabel);
             this.Margin = new System.Windows.Forms.Padding(0);
