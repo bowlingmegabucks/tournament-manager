@@ -54,6 +54,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         laneSkipGroupBox.Enabled = false;
         generateRecapSheetsButton.Enabled = false;
         copyAssignmentsToClipboardLinkLabel.Enabled = false;
+        refreshAssignmentsLinkLabel.Enabled = false;
     }
 
     public void BindRegistrations(IEnumerable<IViewModel> registrations)
@@ -213,7 +214,7 @@ public partial class Form : System.Windows.Forms.Form, IView
             return;
         }
 
-        (sender as Control)!.DoDragDrop(sender as IViewModel, DragDropEffects.Move);
+        (sender as Control)!.DoDragDrop((sender as IViewModel)!, DragDropEffects.Move);
     }
 
     private void LaneAssignmentOpen_DragOver(object sender, DragEventArgs e)
@@ -317,6 +318,18 @@ public partial class Form : System.Windows.Forms.Form, IView
         var assignment = contextMenu?.SourceControl as LaneAssignmentControl;
 
         new Presenter(_config, this).Delete(assignment!.BowlerId);
+    }
+
+    private void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+        refreshAssignmentsLinkLabel.Enabled = false;
+
+        laneAssignmentFlowLayoutPanel.Controls.Clear();
+        unassignedRegistrationsFlowLayoutPanel.Controls.Clear();
+
+        new Presenter(_config, this).Load();
+
+        refreshAssignmentsLinkLabel.Enabled = true;
     }
 }
 

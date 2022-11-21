@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.LaneAssignments;
+﻿using NortheastMegabuck.Squads;
+
+namespace NortheastMegabuck.Tests.LaneAssignments;
 
 [TestFixture]
 internal class ViewModel
@@ -12,10 +14,7 @@ internal class ViewModel
             {
                 Id = BowlerId.New()
             },
-            Division = new NortheastMegabuck.Models.Division
-            {
-                Id = DivisionId.New()
-            }
+            Division = new NortheastMegabuck.Models.Division()
         };
 
         var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
@@ -34,10 +33,7 @@ internal class ViewModel
                 FirstName = "firstName",
                 LastName = "lastName"
             },
-            Division = new NortheastMegabuck.Models.Division
-            {
-                Id = DivisionId.New()
-            }
+            Division = new NortheastMegabuck.Models.Division()
         };
 
         var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
@@ -58,7 +54,6 @@ internal class ViewModel
             },
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 Name = "name"
             }
         };
@@ -81,7 +76,6 @@ internal class ViewModel
             },
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 Name = "name",
                 Number = 5
             }
@@ -105,7 +99,6 @@ internal class ViewModel
             },
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 Name = "name",
                 Number = 5
             },
@@ -130,7 +123,6 @@ internal class ViewModel
             },
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 Name = "name",
                 Number = 5
             },
@@ -156,7 +148,6 @@ internal class ViewModel
             },
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 Name = "name",
                 Number = 5
             },
@@ -182,7 +173,6 @@ internal class ViewModel
             },
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 Name = "name",
                 Number = 5
             },
@@ -411,7 +401,6 @@ internal class ViewModel
             },
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 Name = "name",
                 Number = 5
             },
@@ -442,7 +431,6 @@ internal class ViewModel
             },
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 Name = "name",
                 Number = 5
             },

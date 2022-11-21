@@ -30,6 +30,7 @@ partial class Form
     {
             this.portalMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fieMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.divisionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDivisionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewDivisionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +45,8 @@ partial class Form
             this.registrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addRegistrationMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewTournamentRegistrationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.atLargeResultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portalMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +57,8 @@ partial class Form
             this.divisionMenuItem,
             this.squadsMenuItem,
             this.sweepersMenuItem,
-            this.registrationMenuItem});
+            this.registrationMenuItem,
+            this.resultsMenuItem});
             this.portalMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.portalMenuStrip.Name = "portalMenuStrip";
             this.portalMenuStrip.Size = new System.Drawing.Size(800, 24);
@@ -63,9 +67,18 @@ partial class Form
             // 
             // fieMenuItem
             // 
+            this.fieMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitMenuItem});
             this.fieMenuItem.Name = "fieMenuItem";
             this.fieMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fieMenuItem.Text = "File";
+            // 
+            // exitMenuItem
+            // 
+            this.exitMenuItem.Name = "exitMenuItem";
+            this.exitMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.exitMenuItem.Text = "E&xit";
+            this.exitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
             // 
             // divisionMenuItem
             // 
@@ -173,6 +186,21 @@ partial class Form
             this.viewTournamentRegistrationsMenuItem.Text = "View";
             this.viewTournamentRegistrationsMenuItem.Click += new System.EventHandler(this.ViewTournamentRegistrationsMenuItem_Click);
             // 
+            // resultsMenuItem
+            // 
+            this.resultsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.atLargeResultsMenuItem});
+            this.resultsMenuItem.Name = "resultsMenuItem";
+            this.resultsMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.resultsMenuItem.Text = "Results";
+            // 
+            // atLargeResultsMenuItem
+            // 
+            this.atLargeResultsMenuItem.Name = "atLargeResultsMenuItem";
+            this.atLargeResultsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.atLargeResultsMenuItem.Text = "At Large";
+            this.atLargeResultsMenuItem.Click += new System.EventHandler(this.AtLargeResultsMenuItem_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -209,4 +237,7 @@ partial class Form
     private ToolStripMenuItem viewTournamentRegistrationsMenuItem;
     private ToolStripSeparator sweeperSeparator;
     private ToolStripMenuItem superSweeperResultsMenuItem;
+    private ToolStripMenuItem exitMenuItem;
+    private ToolStripMenuItem resultsMenuItem;
+    private ToolStripMenuItem atLargeResultsMenuItem;
 }

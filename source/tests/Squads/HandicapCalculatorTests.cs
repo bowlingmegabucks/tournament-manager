@@ -1,11 +1,13 @@
-﻿namespace NortheastMegabuck.Tests;
+﻿using NortheastMegabuck.Squads;
+
+namespace NortheastMegabuck.Tests.Squads;
 internal class HandicapCalculator
 {
-    private NortheastMegabuck.IHandicapCalculator _calculator;
+    private IHandicapCalculator _calculator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _calculator = new NortheastMegabuck.HandicapCalculator();
+        => _calculator = new NortheastMegabuck.Squads.HandicapCalculator();
 
     [Test]
     public void Calculate_Entity_Handicap_NoAverage_HandicapZero()
@@ -15,7 +17,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
                 MaximumHandicapPerGame = 10
@@ -36,7 +37,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = null,
                 HandicapPercentage = null,
                 MaximumHandicapPerGame = null
@@ -57,7 +57,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
                 MaximumHandicapPerGame = 10
@@ -78,7 +77,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
                 MaximumHandicapPerGame = 20
@@ -99,7 +97,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
             Division = new NortheastMegabuck.Database.Entities.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
                 MaximumHandicapPerGame = 5
@@ -120,7 +117,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
                 MaximumHandicapPerGame = 10
@@ -141,7 +137,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = null,
                 HandicapPercentage = null,
                 MaximumHandicapPerGame = null
@@ -162,7 +157,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
                 MaximumHandicapPerGame = 10
@@ -183,7 +177,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
                 MaximumHandicapPerGame = 20
@@ -204,7 +197,6 @@ internal class HandicapCalculator
             Bowler = new NortheastMegabuck.Models.Bowler(),
             Division = new NortheastMegabuck.Models.Division
             {
-                Id = DivisionId.New(),
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
                 MaximumHandicapPerGame = 5

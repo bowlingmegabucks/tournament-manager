@@ -1,4 +1,6 @@
 ﻿
+using NortheastMegabuck.Squads;
+
 namespace NortheastMegabuck.Tests.Models;
 internal class LaneAssignment
 {
@@ -19,7 +21,7 @@ internal class LaneAssignment
                     Id = BowlerId.New()
                 },
                 Division = new NortheastMegabuck.Database.Entities.Division
-                {
+                { 
                     Id = DivisionId.New()
                 },
                 Average = 200
@@ -27,7 +29,7 @@ internal class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        _laneAssignment = new NortheastMegabuck.Models.LaneAssignment(entity, new Mock<NortheastMegabuck.IHandicapCalculator>().Object);
+        _laneAssignment = new NortheastMegabuck.Models.LaneAssignment(entity, new Mock<IHandicapCalculator>().Object);
     }
 
     [Test]
@@ -44,7 +46,7 @@ internal class LaneAssignment
 
     [Test]
     public void Constructor_DivisionMapped()
-        => Assert.That(_laneAssignment.Division.Id, Is.Not.EqualTo(NortheastMegabuck.DivisionId.Empty));
+        => Assert.That(_laneAssignment.Division.Id, Is.Not.EqualTo(DivisionId.Empty));
 
     [Test]
     public void Constructor_AverageMapped()
@@ -68,10 +70,7 @@ internal class LaneAssignment
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division
-                {
-                    Id = DivisionId.New()
-                },
+                Division = new NortheastMegabuck.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
@@ -98,16 +97,13 @@ internal class LaneAssignment
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division
-                {
-                    Id = DivisionId.New()
-                },
+                Division = new NortheastMegabuck.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculator>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
@@ -132,16 +128,13 @@ internal class LaneAssignment
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division
-                {
-                    Id = DivisionId.New()
-                },
+                Division = new NortheastMegabuck.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculator>();
 
         new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
 
@@ -182,7 +175,7 @@ internal class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculator>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
@@ -204,10 +197,7 @@ internal class LaneAssignment
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division
-                {
-                    Id = DivisionId.New()
-                },
+                Division = new NortheastMegabuck.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
@@ -252,7 +242,7 @@ internal class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<NortheastMegabuck.IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculator>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);

@@ -14,4 +14,8 @@ internal interface IView
     void Close();
 
     SquadId Id { get; }
+
+    bool Confirm(string message);
+
+    void DisplayMessage(string message);
 }

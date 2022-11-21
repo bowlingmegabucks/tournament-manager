@@ -310,20 +310,25 @@ internal class BusinessLogic
             Assert.That(result, Is.Null);
             Assert.That(_businessLogic.Error, Is.EqualTo(error));
 
-            _retrieveScores.Verify(retrieveScores => retrieveScores.SuperSweeper(It.IsAny<TournamentId>()), Times.Never);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeper_CalledCorrectly()
+    public void Execute_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresExecute_CalledCorrectly()
     {
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(new NortheastMegabuck.Models.Tournament());
+        var tournament = new NortheastMegabuck.Models.Tournament
+        {
+            Sweepers = new[] { new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() } }
+        };
+
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
         var tournamentId = TournamentId.New();
 
         _businessLogic.Execute(tournamentId);
 
-        _retrieveScores.Verify(retrieveScores => retrieveScores.SuperSweeper(tournamentId), Times.Once);
+        _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.Is<IEnumerable<SquadId>>(squadIds=> squadIds.Contains(tournament.Sweepers.First().Id) && squadIds.Contains(tournament.Sweepers.Last().Id) && squadIds.Count() == 2)), Times.Once);
     }
 
     [Test]
@@ -423,7 +428,7 @@ internal class BusinessLogic
                                   bowler3SquadScore1, bowler3SquadScore2,
                                   bowler4SquadScore1, bowler4SquadScore2};
 
-        _retrieveScores.Setup(retrieveScores => retrieveScores.SuperSweeper(It.IsAny<TournamentId>())).Returns(squadScores);
+        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(squadScores);
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
@@ -512,7 +517,7 @@ internal class BusinessLogic
                                   bowler3SquadScore1, bowler3SquadScore2,
                                   bowler4SquadScore1, bowler4SquadScore2};
 
-        _retrieveScores.Setup(retrieveScores => retrieveScores.SuperSweeper(It.IsAny<TournamentId>())).Returns(squadScores);
+        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(squadScores);
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {

@@ -31,7 +31,7 @@ internal class BusinessLogic : IBusinessLogic
         _retrieveScores = mockRetrieveScores;
     }
 
-    public Models.SweeperCut? Execute(SquadId squadId)
+    public Models.SweeperResult? Execute(SquadId squadId)
     {
         var sweeper = RetrieveSweeper.Execute(squadId);
 
@@ -47,7 +47,7 @@ internal class BusinessLogic : IBusinessLogic
         return Execute(scores, sweeper!.CashRatio);
     }
 
-    public Models.SweeperCut? Execute(TournamentId tournamentId)
+    public Models.SweeperResult? Execute(TournamentId tournamentId)
     {
         var tournament = RetrieveTournament.Execute(tournamentId);
 
@@ -58,13 +58,13 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var scores = _retrieveScores.SuperSweeper(tournamentId);
+        var scores = _retrieveScores.Execute(tournament!.Sweepers.Select(sweeper=> sweeper.Id));
 
         //todo: this might be a different field
         return Execute(scores, tournament!.SuperSweeperCashRatio);
     }
 
-    private Models.SweeperCut? Execute(IEnumerable<Models.SquadScore> scores, decimal cashRatio)
+    private Models.SweeperResult? Execute(IEnumerable<Models.SquadScore> scores, decimal cashRatio)
     {
         if (_retrieveScores.Error != null)
         {
@@ -80,12 +80,11 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var bowlerScores = scores.GroupBy(score => score.Bowler).Select(bowlerScore => new Models.BowlerSquadScore(bowlerScore)).ToList();
-        bowlerScores.Sort();
+        var bowlerScores = scores.GroupBy(score => score.Bowler).Select(bowlerScore => new Models.BowlerSquadScore(bowlerScore)).Order().ToList();
 
         var casherCount = Math.Max(Convert.ToInt16(Math.Floor(bowlerScores.Count / cashRatio)), (short)1);
 
-        return new Models.SweeperCut
+        return new Models.SweeperResult
         {
             Scores = bowlerScores,
             CasherCount = casherCount,
@@ -98,7 +97,7 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    Models.SweeperCut? Execute(SquadId squadId);
+    Models.SweeperResult? Execute(SquadId squadId);
 
-    Models.SweeperCut? Execute(TournamentId tournamentId);
+    Models.SweeperResult? Execute(TournamentId tournamentId);
 }
