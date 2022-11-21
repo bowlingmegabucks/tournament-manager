@@ -29,12 +29,14 @@ partial class RecapSheetForm
             this.miniLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.sponsorPictureBox1 = new System.Windows.Forms.PictureBox();
             this.sponsorPictureBox2 = new System.Windows.Forms.PictureBox();
+            this.sponsorPictureBox3 = new System.Windows.Forms.PictureBox();
             this.buttonsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recapsTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.headerPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.miniLogoPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sponsorPictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sponsorPictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sponsorPictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonsPanel
@@ -136,10 +138,10 @@ partial class RecapSheetForm
             // 
             // opposingSignatureLabel
             // 
-            this.opposingSignatureLabel.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.opposingSignatureLabel.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.opposingSignatureLabel.Location = new System.Drawing.Point(3, 445);
             this.opposingSignatureLabel.Name = "opposingSignatureLabel";
-            this.opposingSignatureLabel.Size = new System.Drawing.Size(349, 23);
+            this.opposingSignatureLabel.Size = new System.Drawing.Size(193, 23);
             this.opposingSignatureLabel.TabIndex = 7;
             this.opposingSignatureLabel.Text = "Opposing Bowler\'s Signature";
             this.opposingSignatureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -149,7 +151,7 @@ partial class RecapSheetForm
             this.bowlerSignatureLabel.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.bowlerSignatureLabel.Location = new System.Drawing.Point(3, 373);
             this.bowlerSignatureLabel.Name = "bowlerSignatureLabel";
-            this.bowlerSignatureLabel.Size = new System.Drawing.Size(349, 23);
+            this.bowlerSignatureLabel.Size = new System.Drawing.Size(225, 23);
             this.bowlerSignatureLabel.TabIndex = 8;
             this.bowlerSignatureLabel.Text = "Bowler\'s Signature";
             this.bowlerSignatureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -177,7 +179,7 @@ partial class RecapSheetForm
             // miniLogoPictureBox
             // 
             this.miniLogoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("miniLogoPictureBox.Image")));
-            this.miniLogoPictureBox.Location = new System.Drawing.Point(288, 373);
+            this.miniLogoPictureBox.Location = new System.Drawing.Point(288, 294);
             this.miniLogoPictureBox.Name = "miniLogoPictureBox";
             this.miniLogoPictureBox.Size = new System.Drawing.Size(58, 50);
             this.miniLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -204,9 +206,20 @@ partial class RecapSheetForm
             this.sponsorPictureBox2.TabIndex = 11;
             this.sponsorPictureBox2.TabStop = false;
             // 
+            // sponsorPictureBox3
+            // 
+            this.sponsorPictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("sponsorPictureBox3.Image")));
+            this.sponsorPictureBox3.Location = new System.Drawing.Point(202, 392);
+            this.sponsorPictureBox3.Name = "sponsorPictureBox3";
+            this.sponsorPictureBox3.Size = new System.Drawing.Size(144, 73);
+            this.sponsorPictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.sponsorPictureBox3.TabIndex = 12;
+            this.sponsorPictureBox3.TabStop = false;
+            // 
             // RecapSheetForm
             // 
             this.ClientSize = new System.Drawing.Size(771, 505);
+            this.Controls.Add(this.sponsorPictureBox3);
             this.Controls.Add(this.sponsorPictureBox2);
             this.Controls.Add(this.sponsorPictureBox1);
             this.Controls.Add(this.miniLogoPictureBox);
@@ -231,6 +244,7 @@ partial class RecapSheetForm
             ((System.ComponentModel.ISupportInitialize)(this.miniLogoPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sponsorPictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sponsorPictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sponsorPictureBox3)).EndInit();
             this.ResumeLayout(false);
 
 	}
@@ -272,4 +286,5 @@ partial class RecapSheetForm
     private PictureBox miniLogoPictureBox;
     private PictureBox sponsorPictureBox1;
     private PictureBox sponsorPictureBox2;
+    private PictureBox sponsorPictureBox3;
 }
