@@ -79,6 +79,9 @@
 	  <Compile Update="Controls\AtLargeResultsControl.cs">
 	    <SubType>UserControl</SubType>
 	  </Compile>
+	  <Compile Update="Controls\TournamentSeedingControl.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
 	  <Compile Update="Controls\SquadResultsControl.cs">
 	    <SubType>UserControl</SubType>
 	  </Compile>
