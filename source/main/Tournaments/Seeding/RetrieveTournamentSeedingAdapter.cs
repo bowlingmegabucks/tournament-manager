@@ -1,0 +1,54 @@
+﻿
+namespace NortheastMegabuck.Tournaments.Seeding;
+internal class Adapter : IAdapter
+{
+    private readonly IBusinessLogic _businessLogic;
+
+    public Models.ErrorDetail? Error
+        => _businessLogic.Error;
+
+    public Adapter(IConfiguration config)
+    {
+        _businessLogic = new BusinessLogic(config);
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockBusinessLogic"></param>
+    internal Adapter(IBusinessLogic mockBusinessLogic)
+    {
+        _businessLogic= mockBusinessLogic;
+    }
+
+    public IEnumerable<IViewModel> Execute(TournamentId id)
+    {
+        var results = _businessLogic.Execute(id);
+
+        var seeds = new List<IViewModel>();
+
+        foreach ( var divisionResult in results)
+        {
+            var seed = 1;
+
+            foreach (var qualifier in divisionResult.Qualifiers)
+            {
+                seeds.Add(new ViewModel(seed++, qualifier));
+            }
+
+            foreach (var nonQualifier in divisionResult.NonQualifiers)
+            {
+                seeds.Add(new ViewModel(seed++, nonQualifier));
+            }
+        }
+
+        return seeds;
+    }
+}
+
+internal interface IAdapter
+{
+    Models.ErrorDetail? Error { get; }
+
+    IEnumerable<IViewModel> Execute(TournamentId id);
+}
