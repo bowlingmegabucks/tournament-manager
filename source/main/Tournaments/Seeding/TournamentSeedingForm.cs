@@ -30,7 +30,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
             AutoScroll= true
         };
 
-        foreach (var score in scores)
+        foreach (var score in scores.Where(s=> s.Qualified))
+        {
+            panel.Controls.Add(new Controls.TournamentSeedingControl(score));
+        }
+
+        panel.Controls.Add(new Controls.TournamentSeedingControl());
+
+        foreach (var score in scores.Where(s => !s.Qualified))
         {
             panel.Controls.Add(new Controls.TournamentSeedingControl(score));
         }

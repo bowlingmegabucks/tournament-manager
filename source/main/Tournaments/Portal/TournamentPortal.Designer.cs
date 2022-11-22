@@ -47,6 +47,7 @@ partial class Form
             this.viewTournamentRegistrationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atLargeResultsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.seedingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portalMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,7 +190,8 @@ partial class Form
             // resultsMenuItem
             // 
             this.resultsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.atLargeResultsMenuItem});
+            this.atLargeResultsMenuItem,
+            this.seedingMenuItem});
             this.resultsMenuItem.Name = "resultsMenuItem";
             this.resultsMenuItem.Size = new System.Drawing.Size(56, 20);
             this.resultsMenuItem.Text = "Results";
@@ -200,6 +202,13 @@ partial class Form
             this.atLargeResultsMenuItem.Size = new System.Drawing.Size(180, 22);
             this.atLargeResultsMenuItem.Text = "At Large";
             this.atLargeResultsMenuItem.Click += new System.EventHandler(this.AtLargeResultsMenuItem_Click);
+            // 
+            // seedingMenuItem
+            // 
+            this.seedingMenuItem.Name = "seedingMenuItem";
+            this.seedingMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.seedingMenuItem.Text = "Seeding";
+            this.seedingMenuItem.Click += new System.EventHandler(this.SeedingMenuItem_Click);
             // 
             // Form
             // 
@@ -240,4 +249,5 @@ partial class Form
     private ToolStripMenuItem exitMenuItem;
     private ToolStripMenuItem resultsMenuItem;
     private ToolStripMenuItem atLargeResultsMenuItem;
+    private ToolStripMenuItem seedingMenuItem;
 }

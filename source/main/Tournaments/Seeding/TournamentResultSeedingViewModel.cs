@@ -12,13 +12,16 @@ internal class ViewModel : IViewModel
 
     public int HighGame { get; }
 
-    public ViewModel(int seed, Models.BowlerSquadScore bowlerScore)
+    public bool Qualified { get; }
+
+    public ViewModel(int seed, bool qualified, Models.BowlerSquadScore bowlerScore)
     {
         DivisionName = bowlerScore.Division.Name;
         Seed = seed;
         BowlerName = bowlerScore.Bowler.ToString();
         Score = bowlerScore.Score;
         HighGame = bowlerScore.HighGame;
+        Qualified = qualified;
     }
 }
 
@@ -33,4 +36,6 @@ internal interface IViewModel
     int Score { get; }
 
     int HighGame { get; }
+
+    bool Qualified { get; }
 }

@@ -33,12 +33,12 @@ internal class Adapter : IAdapter
 
             foreach (var qualifier in divisionResult.Qualifiers)
             {
-                seeds.Add(new ViewModel(seed++, qualifier));
+                seeds.Add(new ViewModel(seed++, true, qualifier));
             }
 
             foreach (var nonQualifier in divisionResult.NonQualifiers)
             {
-                seeds.Add(new ViewModel(seed++, nonQualifier));
+                seeds.Add(new ViewModel(seed++, false, nonQualifier));
             }
         }
 
