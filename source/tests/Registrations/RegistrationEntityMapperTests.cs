@@ -100,9 +100,9 @@ internal class EntityMapper
     [Test]
     public void Execute_SquadsMapped()
     {
-        var squad1 = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
-        var squad2 = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
-        var squad3 = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
+        var squad1 = new NortheastMegabuck.Models.Squad();
+        var squad2 = new NortheastMegabuck.Models.Squad();
+        var squad3 = new NortheastMegabuck.Models.Squad();
 
         var sweeper1 = new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() };
         var sweeper2 = new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() };

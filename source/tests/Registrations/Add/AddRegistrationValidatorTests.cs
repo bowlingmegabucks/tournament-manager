@@ -770,7 +770,7 @@ internal class Validator
     [Test]
     public void Squads_SquadsNotEmpty_NoError([Range(1, 3)] int count)
     {
-        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, count);
+        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad(), count);
 
         var registration = new NortheastMegabuck.Models.Registration
         {
@@ -833,7 +833,7 @@ internal class Validator
     [Category("Real")]
     public void AshlieInWomensDivision_Allowed()
     {
-        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, 2);
+        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad(), 2);
 
         var division = new NortheastMegabuck.Models.Division
         {

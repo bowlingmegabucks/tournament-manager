@@ -15,6 +15,9 @@ internal class SquadResult
     public IEnumerable<BowlerSquadScore> AtLargeEligibleScores
         => CashingScores.Union(NonQualifyingScores);
 
+    internal IEnumerable<BowlerSquadScore> Scores
+        => AdvancingScores.Union(CashingScores).Union(NonQualifyingScores);
+
     public int Entries
         => AdvancingScores.Count() + CashingScores.Count() + NonQualifyingScores.Count();
 
