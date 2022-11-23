@@ -1,12 +1,20 @@
 ﻿
+using System.Text;
+
 namespace NortheastMegabuck.Squads.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
+    private readonly IDictionary<TabPage, string> _toSpreadsheet;
+    internal string ToSpreadsheet()
+        => _toSpreadsheet[divisionsTabControl.SelectedTab];
+
     public Form(IConfiguration config, SquadId squadId)
     {
         InitializeComponent();
 
         SquadId = squadId;
+
+        _toSpreadsheet = new Dictionary<TabPage, string>();
 
         new Presenter(config, this).Execute();
     }
@@ -30,11 +38,16 @@ internal partial class Form : System.Windows.Forms.Form, IView
             AutoScroll= true
         };
 
+        var toSpreadsheet = new StringBuilder();
+
         var advancers = scores.Where(score => score.Advancer).ToList();
 
         foreach (var advancer in advancers)
         {
-            panel.Controls.Add(new Controls.SquadResultsControl(advancer));
+            var control = new Controls.SquadResultsControl(advancer);
+
+            toSpreadsheet.AppendLine(control.ToSpreadsheetRow);
+            panel.Controls.Add(control);
         }
 
         if (advancers.Any())
@@ -46,7 +59,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         foreach (var casher in cashers)
         {
-            panel.Controls.Add(new Controls.SquadResultsControl(casher));
+            var control = new Controls.SquadResultsControl(casher);
+
+            toSpreadsheet.AppendLine(control.ToSpreadsheetRow);
+            panel.Controls.Add(control);
         }
 
         if (cashers.Any())
@@ -58,10 +74,18 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         foreach (var nonQualifier in nonQualifiers)
         {
-            panel.Controls.Add(new Controls.SquadResultsControl(nonQualifier));
+            var control = new Controls.SquadResultsControl(nonQualifier);
+
+            toSpreadsheet.AppendLine(control.ToSpreadsheetRow);
+            panel.Controls.Add(control);
         }
 
         tabPage.Controls.Add(panel);
         divisionsTabControl.TabPages.Add(tabPage);
+
+        _toSpreadsheet.Add(tabPage, toSpreadsheet.ToString());
     }
+
+    private void CopyToClipboardLabel_Click(object sender, EventArgs e)
+        => Clipboard.SetText(ToSpreadsheet());
 }
