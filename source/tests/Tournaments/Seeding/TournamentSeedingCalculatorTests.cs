@@ -121,7 +121,8 @@ internal class Calculator
             AtLarge = new NortheastMegabuck.Models.AtLargeResults
             {
                 AdvancingScores = new[] { atLargeScore1 },
-                DivisionId = division.Id
+                DivisionId = division.Id,
+                AdvancersWhoPreviouslyCashed = new[] { BowlerId.New(), BowlerId.New(), BowlerId.New()}
             }
         };
 
@@ -141,6 +142,8 @@ internal class Calculator
             Assert.That(seeding.NonQualifiers.ToList()[0].Score, Is.EqualTo(198));
             Assert.That(seeding.NonQualifiers.ToList()[1].Score, Is.EqualTo(197));
             Assert.That(seeding.NonQualifiers.ToList()[2].Score, Is.EqualTo(150));
+
+            Assert.That(seeding.AtLargeCashers, Is.EqualTo(tournamentResult.AtLarge.AdvancersWhoPreviouslyCashed));
         });
     }
 }

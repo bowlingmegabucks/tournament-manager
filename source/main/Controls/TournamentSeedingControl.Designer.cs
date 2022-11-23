@@ -34,6 +34,8 @@ partial class TournamentSeedingControl
             this.scoreLabel = new System.Windows.Forms.Label();
             this.highGameLabel = new System.Windows.Forms.Label();
             this.scratchToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.cashingPictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.cashingPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // seedLabel
@@ -80,17 +82,30 @@ partial class TournamentSeedingControl
             this.highGameLabel.Text = "888";
             this.highGameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // cashingPictureBox
+            // 
+            this.cashingPictureBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cashingPictureBox.Image = global::NortheastMegabuck.Properties.Resources.DollarSign;
+            this.cashingPictureBox.Location = new System.Drawing.Point(518, 0);
+            this.cashingPictureBox.Name = "cashingPictureBox";
+            this.cashingPictureBox.Size = new System.Drawing.Size(46, 33);
+            this.cashingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.cashingPictureBox.TabIndex = 5;
+            this.cashingPictureBox.TabStop = false;
+            // 
             // TournamentSeedingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cashingPictureBox);
             this.Controls.Add(this.highGameLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.bowlerNameLabel);
             this.Controls.Add(this.seedLabel);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "TournamentSeedingControl";
-            this.Size = new System.Drawing.Size(529, 33);
+            this.Size = new System.Drawing.Size(568, 33);
+            ((System.ComponentModel.ISupportInitialize)(this.cashingPictureBox)).EndInit();
             this.ResumeLayout(false);
 
     }
@@ -102,4 +117,5 @@ partial class TournamentSeedingControl
     private Label scoreLabel;
     private Label highGameLabel;
     private ToolTip scratchToolTip;
+    private PictureBox cashingPictureBox;
 }

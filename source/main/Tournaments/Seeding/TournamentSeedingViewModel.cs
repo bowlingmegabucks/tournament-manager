@@ -14,7 +14,9 @@ internal class ViewModel : IViewModel
 
     public bool Qualified { get; }
 
-    public ViewModel(int seed, bool qualified, Models.BowlerSquadScore bowlerScore)
+    public bool AtLargeCasher { get; }
+
+    public ViewModel(int seed, bool qualified, bool atLargeCasher, Models.BowlerSquadScore bowlerScore)
     {
         DivisionName = bowlerScore.Division.Name;
         Seed = seed;
@@ -22,6 +24,7 @@ internal class ViewModel : IViewModel
         Score = bowlerScore.Score;
         HighGame = bowlerScore.HighGame;
         Qualified = qualified;
+        AtLargeCasher = atLargeCasher;
     }
 }
 
@@ -38,4 +41,6 @@ internal interface IViewModel
     int HighGame { get; }
 
     bool Qualified { get; }
+
+    bool AtLargeCasher { get; }
 }

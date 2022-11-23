@@ -16,7 +16,8 @@ internal class Calculator : ICalculator
         {
             Qualifiers = advancingScores!.ToList(),
             NonQualifiers = nonAdvancingScores.ToList(),
-            Division = result.Division
+            Division = result.Division,
+            AtLargeCashers = result.AtLarge.AdvancersWhoPreviouslyCashed
         };
     }
 }

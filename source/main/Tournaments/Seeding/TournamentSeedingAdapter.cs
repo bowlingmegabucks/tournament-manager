@@ -33,12 +33,12 @@ internal class Adapter : IAdapter
 
             foreach (var qualifier in divisionResult.Qualifiers)
             {
-                seeds.Add(new ViewModel(seed++, true, qualifier));
+                seeds.Add(new ViewModel(seed++, true, divisionResult.AtLargeCashers.Contains(qualifier.Bowler.Id), qualifier));
             }
 
             foreach (var nonQualifier in divisionResult.NonQualifiers)
             {
-                seeds.Add(new ViewModel(seed++, false, nonQualifier));
+                seeds.Add(new ViewModel(seed++, false, divisionResult.AtLargeCashers.Contains(nonQualifier.Bowler.Id), nonQualifier));
             }
         }
 
