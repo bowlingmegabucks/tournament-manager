@@ -6,6 +6,8 @@ public partial class TournamentSeedingControl : UserControl
     {
         InitializeComponent();
 
+        ToSpreadsheetRow = $"{model.Seed}\t{model.BowlerName}\t{model.Score}\t{model.HighGame}\t{model.AtLargeCasher}";
+
         seedLabel.Text = model.Seed.ToString();
         bowlerNameLabel.Text = model.BowlerName;
         scoreLabel.Text = model.Score.ToString();
@@ -17,6 +19,8 @@ public partial class TournamentSeedingControl : UserControl
     {
         InitializeComponent();
 
+        ToSpreadsheetRow = string.Empty;
+
         seedLabel.Text = string.Empty;
         bowlerNameLabel.Text = string.Empty;
         scoreLabel.Text = string.Empty;
@@ -25,4 +29,6 @@ public partial class TournamentSeedingControl : UserControl
 
         Height = Convert.ToInt32(Math.Ceiling(Size.Height * 1.5));
     }
+
+    internal string ToSpreadsheetRow { get; }
 }
