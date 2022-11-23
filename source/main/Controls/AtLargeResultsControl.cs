@@ -6,7 +6,7 @@ public partial class AtLargeResultsControl : UserControl
     {
         InitializeComponent();
 
-        ToSpreadsheetRow = $"{model.Place}\t{model.BowlerName}\t{model.Score}\t{model.HighGame}\t{model.SquadDate:MM-dd hh:mm tt}";
+        ToSpreadsheetRow = $"{model.Place}\t{model.BowlerName}\t{model.Score}\t{model.HighGame}\t{model.SquadDate:MM-dd hh:mm tt}\t{model.PreviousCasher}";
 
         placeLabel.Text = model.Place.ToString();
         bowlerNameLabel.Text = model.BowlerName;
