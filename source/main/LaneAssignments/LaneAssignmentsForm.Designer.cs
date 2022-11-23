@@ -186,7 +186,7 @@ partial class Form
             // 
             this.refreshAssignmentsLinkLabel.AutoSize = true;
             this.refreshAssignmentsLinkLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.refreshAssignmentsLinkLabel.Location = new System.Drawing.Point(871, 775);
+            this.refreshAssignmentsLinkLabel.Location = new System.Drawing.Point(871, 755);
             this.refreshAssignmentsLinkLabel.Name = "refreshAssignmentsLinkLabel";
             this.refreshAssignmentsLinkLabel.Size = new System.Drawing.Size(58, 20);
             this.refreshAssignmentsLinkLabel.TabIndex = 10;
@@ -199,6 +199,7 @@ partial class Form
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1482, 796);
+            this.Controls.Add(this.refreshAssignmentsLinkLabel);
             this.Controls.Add(this.generateRecapSheetsButton);
             this.Controls.Add(this.laneSkipGroupBox);
             this.Controls.Add(this.copyAssignmentsToClipboardLinkLabel);

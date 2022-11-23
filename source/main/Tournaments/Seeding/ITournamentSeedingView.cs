@@ -1,0 +1,10 @@
+﻿
+namespace NortheastMegabuck.Tournaments.Seeding;
+internal interface IView
+{
+    TournamentId Id { get; }
+
+    void DisplayError(string message);
+
+    void BindResults(string divisionName, IEnumerable<IViewModel> scores);
+}
