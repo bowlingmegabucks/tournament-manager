@@ -17,6 +17,9 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     public TournamentId TournamentId { get; }
 
+    public void BindSquadDates(IDictionary<SquadId, string> squadDates)
+        => tournamentRegistrationsGrid.AddSquadDates(squadDates);
+
     public void BindRegistrations(IEnumerable<ITournamentRegistrationViewModel> registrations)
         => tournamentRegistrationsGrid.Bind(registrations);
 

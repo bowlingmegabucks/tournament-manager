@@ -16,4 +16,6 @@ internal interface ITournamentRegistrationsView
     void SetSquadEntries(IDictionary<string, int> squadEntries);
 
     void SetSweeperEntries(IDictionary<string, int> sweeperEntries);
+
+    void BindSquadDates(IDictionary<SquadId, string> squadDates);
 }

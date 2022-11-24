@@ -45,7 +45,9 @@ partial class TournamentRegistrationGrid
             this.sweepersEnteredColumn,
             this.superSweeperColumn});
             this.GridView.RowTemplate.Height = 25;
+            this.GridView.ShowCellToolTips = true;
             this.GridView.Size = new System.Drawing.Size(853, 377);
+            this.GridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.GridView_CellFormatting);
             // 
             // bowlerNameColumn
             // 
