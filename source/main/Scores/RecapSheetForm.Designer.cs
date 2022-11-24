@@ -23,13 +23,13 @@ partial class RecapSheetForm
             this.divisionLabel = new System.Windows.Forms.Label();
             this.opposingSignatureLabel = new System.Windows.Forms.Label();
             this.bowlerSignatureLabel = new System.Windows.Forms.Label();
-            this.recapsPrintPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
             this.scrollRecapsTimer = new System.Windows.Forms.Timer(this.components);
             this.recapPrintDocument = new System.Drawing.Printing.PrintDocument();
             this.miniLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.sponsorPictureBox1 = new System.Windows.Forms.PictureBox();
             this.sponsorPictureBox2 = new System.Windows.Forms.PictureBox();
             this.sponsorPictureBox3 = new System.Windows.Forms.PictureBox();
+            this.recapsPrintDialog = new System.Windows.Forms.PrintDialog();
             this.buttonsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recapsTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.headerPictureBox)).BeginInit();
@@ -156,16 +156,6 @@ partial class RecapSheetForm
             this.bowlerSignatureLabel.Text = "Bowler\'s Signature";
             this.bowlerSignatureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // recapsPrintPreviewDialog
-            // 
-            this.recapsPrintPreviewDialog.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.recapsPrintPreviewDialog.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.recapsPrintPreviewDialog.ClientSize = new System.Drawing.Size(400, 300);
-            this.recapsPrintPreviewDialog.Enabled = true;
-            this.recapsPrintPreviewDialog.Icon = ((System.Drawing.Icon)(resources.GetObject("recapsPrintPreviewDialog.Icon")));
-            this.recapsPrintPreviewDialog.Name = "recapsPrintPreviewDialog";
-            this.recapsPrintPreviewDialog.Visible = false;
-            // 
             // scrollRecapsTimer
             // 
             this.scrollRecapsTimer.Interval = 50;
@@ -216,8 +206,14 @@ partial class RecapSheetForm
             this.sponsorPictureBox3.TabIndex = 12;
             this.sponsorPictureBox3.TabStop = false;
             // 
+            // recapsPrintDialog
+            // 
+            this.recapsPrintDialog.Document = this.recapPrintDocument;
+            this.recapsPrintDialog.UseEXDialog = true;
+            // 
             // RecapSheetForm
             // 
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(771, 505);
             this.Controls.Add(this.sponsorPictureBox3);
             this.Controls.Add(this.sponsorPictureBox2);
@@ -267,7 +263,7 @@ partial class RecapSheetForm
 		}
 
 		_pen.Dispose();
-		recapsPrintPreviewDialog.Dispose();
+		recapsPrintDialog.Dispose();
 		recapPrintDocument.Dispose(); ;
 
 		base.Dispose(disposing);
@@ -280,11 +276,11 @@ partial class RecapSheetForm
 	private Label divisionLabel;
 	private Label opposingSignatureLabel;
 	private Label bowlerSignatureLabel;
-	private PrintPreviewDialog recapsPrintPreviewDialog;
 	private System.Windows.Forms.Timer scrollRecapsTimer;
 	private System.Drawing.Printing.PrintDocument recapPrintDocument;
     private PictureBox miniLogoPictureBox;
     private PictureBox sponsorPictureBox1;
     private PictureBox sponsorPictureBox2;
     private PictureBox sponsorPictureBox3;
+    private PrintDialog recapsPrintDialog;
 }

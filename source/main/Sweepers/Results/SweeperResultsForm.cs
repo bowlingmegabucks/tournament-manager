@@ -20,6 +20,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private Form()
     {
         InitializeComponent();
+
+        ToSpreadsheet = string.Empty;
     }
 
     public void DisplayError(string message)

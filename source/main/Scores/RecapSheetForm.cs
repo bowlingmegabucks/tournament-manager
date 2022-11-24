@@ -97,7 +97,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
 
     private void PrintButton_Click(object sender, EventArgs e)
     {
-        if (recapsPrintPreviewDialog.ShowDialog() == DialogResult.Cancel)
+        if (recapsPrintDialog.ShowDialog() == DialogResult.Cancel)
         {
             return;
         }
