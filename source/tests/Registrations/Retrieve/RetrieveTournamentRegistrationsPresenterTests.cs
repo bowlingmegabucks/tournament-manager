@@ -124,7 +124,7 @@ internal class TournamentRegistrationsPresenter
             }
         };
 
-        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(registrations);
+        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<TournamentId>())).Returns(registrations);
 
         _presenter.Execute();
 
@@ -152,7 +152,7 @@ internal class TournamentRegistrationsPresenter
         registration3.SetupGet(registration => registration.SquadsEnteredCount).Returns(3);
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
-        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(registrations);
+        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<TournamentId>())).Returns(registrations);
 
         _presenter.Execute();
 
@@ -177,7 +177,7 @@ internal class TournamentRegistrationsPresenter
         squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0));
 
         var squads = new[] { squad1.Object, squad2.Object };
-        _squadsAdapter.Setup(squadsAdapter => squadsAdapter.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(squads);
+        _squadsAdapter.Setup(squadsAdapter => squadsAdapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
@@ -192,7 +192,7 @@ internal class TournamentRegistrationsPresenter
         registration3.SetupGet(registration => registration.SquadsEntered).Returns(new[] { squad1.Object.Id, squad2.Object.Id});
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
-        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(registrations);
+        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<TournamentId>())).Returns(registrations);
 
         _presenter.Execute();
 
@@ -217,7 +217,7 @@ internal class TournamentRegistrationsPresenter
         sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0));
 
         var sweepers = new[] { sweeper1.Object, sweeper2.Object };
-        _sweepersAdapter.Setup(sweepersAdapter => sweepersAdapter.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(sweepers);
+        _sweepersAdapter.Setup(sweepersAdapter => sweepersAdapter.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
 
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
@@ -235,7 +235,7 @@ internal class TournamentRegistrationsPresenter
         registration3.SetupGet(registration => registration.SuperSweeperEntered).Returns(true);
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
-        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(registrations);
+        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<TournamentId>())).Returns(registrations);
 
         _presenter.Execute();
 
