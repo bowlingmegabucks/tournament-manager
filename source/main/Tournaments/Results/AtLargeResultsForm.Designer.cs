@@ -40,7 +40,7 @@ partial class AtLarge
             this.divisionsTabControl.Location = new System.Drawing.Point(0, 0);
             this.divisionsTabControl.Name = "divisionsTabControl";
             this.divisionsTabControl.SelectedIndex = 0;
-            this.divisionsTabControl.Size = new System.Drawing.Size(740, 798);
+            this.divisionsTabControl.Size = new System.Drawing.Size(740, 776);
             this.divisionsTabControl.TabIndex = 0;
             // 
             // statusStrip1
@@ -66,8 +66,8 @@ partial class AtLarge
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(740, 798);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.divisionsTabControl);
+            this.Controls.Add(this.statusStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
