@@ -19,7 +19,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DefineConstants>$(DefineConstants)TRACE</DefineConstants>
 	  <Optimize>True</Optimize>
 	</PropertyGroup>
 
@@ -46,27 +45,27 @@
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.2.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.10" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
 		<PackageReference Include="ReportViewerCore.WinForms" Version="15.1.17" />
-		<PackageReference Include="StronglyTypedId" Version="1.0.0-beta06" />
-		
+		<PackageReference Include="StronglyTypedId" Version="1.0.0-beta06" />		
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
 		<PackageReference Include="Azure.Identity" Version="1.6.0" />
 		<PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
 		<PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.3.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>
