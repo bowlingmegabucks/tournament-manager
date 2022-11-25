@@ -141,12 +141,15 @@ internal class TournamentRegistrationsPresenter
     {
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
+        registration1.SetupGet(registration=> registration.SquadsEnteredCount).Returns(1);
 
         var registration2 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration2.SetupGet(registration => registration.DivisionName).Returns("division2");
+        registration2.SetupGet(registration => registration.SquadsEnteredCount).Returns(2);
 
         var registration3 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration3.SetupGet(registration => registration.DivisionName).Returns("division1");
+        registration3.SetupGet(registration => registration.SquadsEnteredCount).Returns(3);
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
         _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(registrations);
@@ -157,8 +160,8 @@ internal class TournamentRegistrationsPresenter
         {
             _view.Verify(view => view.SetDivisionEntries(It.Is<IDictionary<string, int>>(entries => entries.Count == 2)), Times.Once);
 
-            _view.Verify(view => view.SetDivisionEntries(It.Is<IDictionary<string, int>>(entries => entries["division1"] == 2)), Times.Once);
-            _view.Verify(view => view.SetDivisionEntries(It.Is<IDictionary<string, int>>(entries => entries["division2"] == 1)), Times.Once);
+            _view.Verify(view => view.SetDivisionEntries(It.Is<IDictionary<string, int>>(entries => entries["division1"] == 4)), Times.Once);
+            _view.Verify(view => view.SetDivisionEntries(It.Is<IDictionary<string, int>>(entries => entries["division2"] == 2)), Times.Once);
         });
     }
 

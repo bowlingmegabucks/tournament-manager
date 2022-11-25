@@ -70,7 +70,7 @@ internal class TournamentRegistrationsPresenter
 
         _view.BindRegistrations(registrationsTask.Result.OrderBy(registration => registration.LastName).ThenBy(registration => registration.FirstName));
 
-        var divisionEntries = registrationsTask.Result.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Count());
+        var divisionEntries = registrationsTask.Result.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Sum(r=> r.SquadsEnteredCount));
         _view.SetDivisionEntries(divisionEntries);
     }
 
