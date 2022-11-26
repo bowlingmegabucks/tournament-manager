@@ -46,6 +46,21 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
     }
+
+    //todo: unit tests
+    public IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId id)
+    {
+        try
+        {
+            return _dataLayer.SuperSweeperBowlers(id).ToList();
+        }
+        catch (Exception ex)
+        {
+            Error = new Models.ErrorDetail(ex);
+
+            return Enumerable.Empty<BowlerId>();
+        }
+    }
 }
 
 internal interface IBusinessLogic
@@ -55,4 +70,6 @@ internal interface IBusinessLogic
     IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId);
 
     Models.Sweeper? Execute(SquadId id);
+
+    IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
 }
