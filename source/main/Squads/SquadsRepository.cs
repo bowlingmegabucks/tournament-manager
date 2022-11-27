@@ -35,8 +35,28 @@ internal class Repository : IRepository
 
     public void Complete(SquadId id)
     {
-        var sweeper = _dataContext.Squads.Single(sweeper => sweeper.Id == id);
-        sweeper.Complete = true;
+        var squad = _dataContext.Squads.Single(sweeper => sweeper.Id == id);
+        squad.Complete = true;
+
+        var squadScores = _dataContext.SquadScores.AsNoTracking().Where(score => score.SquadId == id).ToList();
+        var registrations = _dataContext.Registrations.AsNoTrackingWithIdentityResolution().Include(registration => registration.Squads).Where(registration => registration.Squads.Select(squad => squad.SquadId).Contains(id)).ToList();
+        var squadBowlerIds = registrations.Select(registration => registration.BowlerId).ToList();
+
+        var noBowl = squadBowlerIds.Where(bowlerId => !squadScores.Select(score => score.BowlerId).Contains(bowlerId)).ToList();
+
+        if (noBowl.Any())
+        {
+            var tournament = _dataContext.Tournaments.AsNoTrackingWithIdentityResolution().Include(tournament => tournament.Squads).Single(tournament => tournament.Squads.Select(squad => squad.Id).Contains(id));
+            var games = tournament.Games;
+
+            foreach (var noShow in noBowl)
+            {
+                for (short game = 1; game <= games; game++)
+                {
+                    _dataContext.SquadScores.Add(new Database.Entities.SquadScore { BowlerId = noShow, SquadId = id, Score = -1, Game = game });
+                }
+            }
+        }
 
         _dataContext.SaveChanges();
     }
