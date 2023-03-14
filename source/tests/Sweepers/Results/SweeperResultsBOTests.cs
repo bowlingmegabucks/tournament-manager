@@ -428,6 +428,9 @@ internal class BusinessLogic
                                   bowler3SquadScore1, bowler3SquadScore2,
                                   bowler4SquadScore1, bowler4SquadScore2};
 
+        var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+
         _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(squadScores);
 
         var tournament = new NortheastMegabuck.Models.Tournament
@@ -525,6 +528,9 @@ internal class BusinessLogic
         };
 
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+
+        var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
 
         var result = _businessLogic.Execute(TournamentId.New());
 
