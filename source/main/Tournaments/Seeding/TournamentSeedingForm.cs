@@ -1,25 +1,25 @@
 ﻿
 using System.Text;
 
-namespace NortheastMegabuck.Squads.Results;
+namespace NortheastMegabuck.Tournaments.Seeding;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IDictionary<TabPage, string> _toSpreadsheet;
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab];
 
-    public Form(IConfiguration config, SquadId squadId)
+    public Form(IConfiguration config, TournamentId id)
     {
         InitializeComponent();
 
-        SquadId = squadId;
+        Id = id;
 
         _toSpreadsheet = new Dictionary<TabPage, string>();
 
         new Presenter(config, this).Execute();
     }
 
-    public SquadId SquadId { get; }
+    public TournamentId Id { get; }
 
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -40,50 +40,28 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         var toSpreadsheet = new StringBuilder();
 
-        var advancers = scores.Where(score => score.Advancer).ToList();
-
-        foreach (var advancer in advancers)
+        foreach (var score in scores.Where(s=> s.Qualified))
         {
-            var control = new Controls.SquadResultsControl(advancer);
+            var control = new Controls.TournamentSeedingControl(score);
 
             toSpreadsheet.AppendLine(control.ToSpreadsheetRow);
             panel.Controls.Add(control);
         }
 
-        if (advancers.Any())
-        {
-            panel.Controls.Add(new Controls.SquadResultsControl());
-        }
+        panel.Controls.Add(new Controls.TournamentSeedingControl());
 
-        var cashers = scores.Where(score => score.Casher).ToList();
-
-        foreach (var casher in cashers)
+        foreach (var score in scores.Where(s => !s.Qualified))
         {
-            var control = new Controls.SquadResultsControl(casher);
+            var control = new Controls.TournamentSeedingControl(score);
 
             toSpreadsheet.AppendLine(control.ToSpreadsheetRow);
             panel.Controls.Add(control);
         }
 
-        if (cashers.Any())
-        {
-            panel.Controls.Add(new Controls.SquadResultsControl());
-        }
-
-        var nonQualifiers = scores.Where(score => !(score.Advancer || score.Casher)).ToList();
-
-        foreach (var nonQualifier in nonQualifiers)
-        {
-            var control = new Controls.SquadResultsControl(nonQualifier);
-
-            toSpreadsheet.AppendLine(control.ToSpreadsheetRow);
-            panel.Controls.Add(control);
-        }
+        _toSpreadsheet.Add(tabPage, toSpreadsheet.ToString());
 
         tabPage.Controls.Add(panel);
         divisionsTabControl.TabPages.Add(tabPage);
-
-        _toSpreadsheet.Add(tabPage, toSpreadsheet.ToString());
     }
 
     private void CopyToClipboardLabel_Click(object sender, EventArgs e)

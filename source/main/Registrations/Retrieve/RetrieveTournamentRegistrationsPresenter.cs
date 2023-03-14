@@ -57,19 +57,21 @@ internal class TournamentRegistrationsPresenter
             return;
         }
 
-        _view.BindRegistrations(registrationsTask.Result.OrderBy(registration => registration.LastName).ThenBy(registration => registration.FirstName));
-
-        var divisionEntries = registrationsTask.Result.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Count());
-        _view.SetDivisionEntries(divisionEntries);
-
         var squads = squadsTask.Result.ToDictionary(squad => squad.Id, squad => squad.Date.ToString("MM/dd/yy htt"));
         var squadEntries = squads.ToDictionary(squad => squad.Value, squad => registrationsTask.Result.Count(registration => registration.SquadsEntered.Contains(squad.Key)));
         _view.SetSquadEntries(squadEntries);
+        _view.BindSquadDates(squads);
 
         var sweepers = sweepersTask.Result.ToDictionary(sweeper => sweeper.Id, sweeper => sweeper.Date.ToString("MM/dd/yy htt"));
         var sweeperEntries = sweepers.ToDictionary(sweeper => sweeper.Value, sweeper => registrationsTask.Result.Count(registration => registration.SweepersEntered.Contains(sweeper.Key)));
         sweeperEntries.Add("Super Sweeper", registrationsTask.Result.Count(registration => registration.SuperSweeperEntered));
         _view.SetSweeperEntries(sweeperEntries);
+        _view.BindSquadDates(sweepers);
+
+        _view.BindRegistrations(registrationsTask.Result.OrderBy(registration => registration.LastName).ThenBy(registration => registration.FirstName));
+
+        var divisionEntries = registrationsTask.Result.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Sum(r=> r.SquadsEnteredCount));
+        _view.SetDivisionEntries(divisionEntries);
     }
 
     public void Delete(RegistrationId id)

@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Sweepers.Results;
+﻿namespace NortheastMegabuck.Tournaments.Seeding;
 
 partial class Form
 {
@@ -28,29 +28,29 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.resultsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.divisionsTabControl = new System.Windows.Forms.TabControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.copyToClipboardLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // resultsFlowLayoutPanel
+            // divisionsTabControl
             // 
-            this.resultsFlowLayoutPanel.AutoScroll = true;
-            this.resultsFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.resultsFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.resultsFlowLayoutPanel.Name = "resultsFlowLayoutPanel";
-            this.resultsFlowLayoutPanel.Size = new System.Drawing.Size(579, 637);
-            this.resultsFlowLayoutPanel.TabIndex = 0;
+            this.divisionsTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.divisionsTabControl.Location = new System.Drawing.Point(0, 0);
+            this.divisionsTabControl.Name = "divisionsTabControl";
+            this.divisionsTabControl.SelectedIndex = 0;
+            this.divisionsTabControl.Size = new System.Drawing.Size(650, 776);
+            this.divisionsTabControl.TabIndex = 0;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyToClipboardLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 615);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 776);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(579, 22);
-            this.statusStrip1.TabIndex = 0;
+            this.statusStrip1.Size = new System.Drawing.Size(650, 22);
+            this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // copyToClipboardLabel
@@ -65,14 +65,15 @@ partial class Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 637);
+            this.ClientSize = new System.Drawing.Size(650, 798);
+            this.Controls.Add(this.divisionsTabControl);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.resultsFlowLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Sweeper Results";
+            this.Text = "Seeding";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -82,7 +83,7 @@ partial class Form
 
     #endregion
 
-    private FlowLayoutPanel resultsFlowLayoutPanel;
+    private TabControl divisionsTabControl;
     private StatusStrip statusStrip1;
     private ToolStripStatusLabel copyToClipboardLabel;
 }

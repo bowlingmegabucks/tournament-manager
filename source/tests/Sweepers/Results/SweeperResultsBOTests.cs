@@ -428,6 +428,9 @@ internal class BusinessLogic
                                   bowler3SquadScore1, bowler3SquadScore2,
                                   bowler4SquadScore1, bowler4SquadScore2};
 
+        var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+
         _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(squadScores);
 
         var tournament = new NortheastMegabuck.Models.Tournament
@@ -526,6 +529,9 @@ internal class BusinessLogic
 
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
+        var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+
         var result = _businessLogic.Execute(TournamentId.New());
 
         Assert.Multiple(() =>
@@ -535,6 +541,115 @@ internal class BusinessLogic
             Assert.That(result.CasherCount, Is.EqualTo(1));
 
             Assert.That(result.CutScore, Is.EqualTo(415));
+        });
+    }
+
+    [Test]
+    public void Execute_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperSuccess_BowlerNotInSuperSweepers_SweeperCutReturnedWithCorrectFields()
+    {
+        var tournamentId = TournamentId.New();
+
+        var bowler1 = BowlerId.New();
+        var bowler1SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            GameNumber = 1,
+            Score = 201
+        };
+        var bowler1SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            GameNumber = 2,
+            Score = 202
+        };
+
+        var bowler2 = BowlerId.New();
+        var bowler2SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            GameNumber = 1,
+            Score = 203
+        };
+        var bowler2SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            GameNumber = 2,
+            Score = 204
+        };
+
+        var bowler3 = BowlerId.New();
+        var bowler3SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            GameNumber = 1,
+            Score = 205
+        };
+        var bowler3SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            GameNumber = 2,
+            Score = 206
+        };
+
+        var bowler4 = BowlerId.New();
+        var bowler4SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            GameNumber = 1,
+            Score = 207
+        };
+        var bowler4SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            GameNumber = 2,
+            Score = 208
+        };
+
+        var bowler5 = BowlerId.New();
+        var bowler5SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler5 },
+            GameNumber = 1,
+            Score = 300
+        };
+        var bowler5SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        {
+            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler5 },
+            GameNumber = 2,
+            Score = 300
+        };
+
+        var squadScores = new[] { bowler1SquadScore1, bowler1SquadScore2,
+                                  bowler2SquadScore1, bowler2SquadScore2,
+                                  bowler3SquadScore1, bowler3SquadScore2,
+                                  bowler4SquadScore1, bowler4SquadScore2,
+                                  bowler5SquadScore1, bowler5SquadScore2};
+
+        var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+
+        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(squadScores);
+
+        var tournament = new NortheastMegabuck.Models.Tournament
+        {
+            SuperSweeperCashRatio = 2
+        };
+
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+
+        var result = _businessLogic.Execute(tournamentId);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Scores.ToList()[0].Bowler.Id, Is.EqualTo(bowler4), "1st Wrong");
+            Assert.That(result.Scores.ToList()[1].Bowler.Id, Is.EqualTo(bowler3), "2nd Wrong");
+            Assert.That(result.Scores.ToList()[2].Bowler.Id, Is.EqualTo(bowler2), "3rd Wrong");
+            Assert.That(result.Scores.ToList()[3].Bowler.Id, Is.EqualTo(bowler1), "4th Wrong");
+            Assert.That(result.Scores.All(score => score.Bowler.Id != bowler5), "Bowler 5 found in Results");
+
+            Assert.That(result.CasherCount, Is.EqualTo(2));
+
+            Assert.That(result.CutScore, Is.EqualTo(411));
         });
     }
 }

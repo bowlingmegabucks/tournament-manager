@@ -97,7 +97,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
 
     private void PrintButton_Click(object sender, EventArgs e)
     {
-        if (recapsPrintPreviewDialog.ShowDialog() == DialogResult.Cancel)
+        if (recapsPrintDialog.ShowDialog() == DialogResult.Cancel)
         {
             return;
         }
@@ -119,6 +119,8 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
     {
         _recapSheets.Add(CaptureScreen());
 
+        _counter += 1;
+
         if (_counter == _recaps.Count)
         {
             scrollRecapsTimer.Enabled = false;
@@ -129,7 +131,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
         }
         else
         {
-            PopulateSheet(_recaps[_counter++]);
+            PopulateSheet(_recaps[_counter]);
         }
     }
 

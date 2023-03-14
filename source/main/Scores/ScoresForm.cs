@@ -27,7 +27,6 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
         if (_complete)
         {
             pasteScoresFromClipboardLinkLabel.Enabled = false;
-            scoresGrid.Enabled = false;
             saveButton.Enabled = false;
         }
     }

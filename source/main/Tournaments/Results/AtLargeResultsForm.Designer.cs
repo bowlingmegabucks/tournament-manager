@@ -29,6 +29,9 @@ partial class AtLarge
     private void InitializeComponent()
     {
             this.divisionsTabControl = new System.Windows.Forms.TabControl();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.copyToClipboardLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // divisionsTabControl
@@ -37,8 +40,26 @@ partial class AtLarge
             this.divisionsTabControl.Location = new System.Drawing.Point(0, 0);
             this.divisionsTabControl.Name = "divisionsTabControl";
             this.divisionsTabControl.SelectedIndex = 0;
-            this.divisionsTabControl.Size = new System.Drawing.Size(740, 798);
+            this.divisionsTabControl.Size = new System.Drawing.Size(740, 776);
             this.divisionsTabControl.TabIndex = 0;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToClipboardLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 776);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(740, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // copyToClipboardLabel
+            // 
+            this.copyToClipboardLabel.IsLink = true;
+            this.copyToClipboardLabel.Name = "copyToClipboardLabel";
+            this.copyToClipboardLabel.Size = new System.Drawing.Size(104, 17);
+            this.copyToClipboardLabel.Text = "Copy to Clipboard";
+            this.copyToClipboardLabel.Click += new System.EventHandler(this.CopyToClipboardLabel_Click);
             // 
             // AtLarge
             // 
@@ -46,17 +67,23 @@ partial class AtLarge
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(740, 798);
             this.Controls.Add(this.divisionsTabControl);
+            this.Controls.Add(this.statusStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AtLarge";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "At Large Results";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 
     #endregion
 
     private TabControl divisionsTabControl;
+    private StatusStrip statusStrip1;
+    private ToolStripStatusLabel copyToClipboardLabel;
 }

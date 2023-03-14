@@ -53,5 +53,6 @@ internal class Squad
     internal Squad()
     {
         Tournament = new Tournament();
+        Id = SquadId.New();
     }
 }

@@ -92,4 +92,11 @@ internal partial class Form : System.Windows.Forms.Form
 
         form.ShowDialog(this);
     }
+
+    private void SeedingMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Seeding.Form(_config, _id);
+
+        form.ShowDialog(this);
+    }
 }

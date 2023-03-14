@@ -6,6 +6,8 @@ public partial class SweeperResultsControl : UserControl
     {
         InitializeComponent();
 
+        ToSpreadsheetRow = $"{model.Place}\t{model.BowlerName}\t{model.Score}\t{model.HighGame}\t{model.Casher}";
+
         placeLabel.Text = model.Place.ToString();
         bowlerNameLabel.Text = model.BowlerName;
         scoreLabel.Text = model.Score.ToString();
@@ -23,6 +25,8 @@ public partial class SweeperResultsControl : UserControl
     {
         InitializeComponent();
 
+        ToSpreadsheetRow = string.Empty;
+
         placeLabel.Text = string.Empty;
         bowlerNameLabel.Text = string.Empty;
         scoreLabel.Text = string.Empty;
@@ -31,4 +35,6 @@ public partial class SweeperResultsControl : UserControl
 
         Height = Convert.ToInt32(Math.Ceiling(Size.Height * 1.5));
     }
+
+    internal string ToSpreadsheetRow { get; }
 }

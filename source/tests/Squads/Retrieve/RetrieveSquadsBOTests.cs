@@ -28,7 +28,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_TournamnetId_ReturnsDataLayerExecuteResults()
     {
-        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, 2);
+        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad(), 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
         var tournamentId = TournamentId.New();
@@ -41,7 +41,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_TournamnetId_DataLayerExecuteNoException_ErrorNull()
     {
-        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad { Id = SquadId.New() }, 2);
+        var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad(), 2);
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
 
         var tournamentId = TournamentId.New();
@@ -81,7 +81,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_SquadId_ReturnsDataLayerExecuteResults()
     {
-        var squad = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
+        var squad = new NortheastMegabuck.Models.Squad();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(squad);
 
         var id = SquadId.New();
@@ -94,7 +94,7 @@ internal class BusinessLogic
     [Test]
     public void Execute_SquadId_DataLayerExecuteNoException_ErrorNull()
     {
-        var squad = new NortheastMegabuck.Models.Squad { Id = SquadId.New() };
+        var squad = new NortheastMegabuck.Models.Squad();
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(squad);
 
         var id = SquadId.New();
