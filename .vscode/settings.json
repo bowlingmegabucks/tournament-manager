@@ -1,0 +1,3 @@
+{
+    "dotnet-test-explorer.testProjectPath": "source/tests/*.Tests.csproj"
+}
