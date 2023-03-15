@@ -18,14 +18,14 @@ internal static class Program
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
 
-        var config = new ConfigurationBuilder()
+        var configBuilder = new ConfigurationBuilder()
                             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory);
 #if DEBUG
-        config.AddUserSecrets<Tournaments.Retrieve.Form>();                      
+        configBuilder.AddUserSecrets<Tournaments.Retrieve.Form>();
 #else
-        config.AddJsonFile("appsettings.json");
+        configBuilder.AddJsonFile("appsettings.json");
         
-        var builtConfiguration = config.Build();
+        var builtConfiguration = configBuilder.Build();
         
         var kvUrl = builtConfiguration["KeyVaultConfig:KVUrl"];
         var tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
@@ -35,9 +35,13 @@ internal static class Program
         var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
 
         var client = new SecretClient(new Uri(kvUrl), credential);
-        config.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
+        configBuilder.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
 #endif
 
-        Application.Run(new Tournaments.Retrieve.Form(config.Build()));
+        var config = configBuilder.Build();
+
+        Encryption.Key = config["EncryptionKey"];
+
+        Application.Run(new Tournaments.Retrieve.Form(config));
     }
 }
