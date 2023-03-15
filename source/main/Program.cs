@@ -4,6 +4,8 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 #endif
 
+using System.Configuration;
+
 namespace NortheastMegabuck.UI;
 
 internal static class Program
@@ -40,7 +42,7 @@ internal static class Program
 
         var config = configBuilder.Build();
 
-        Encryption.Key = config["EncryptionKey"];
+        Encryption.Key = config["EncryptionKey"] ?? throw new ConfigurationErrorsException("Cannot get encryption key");
 
         Application.Run(new Tournaments.Retrieve.Form(config));
     }

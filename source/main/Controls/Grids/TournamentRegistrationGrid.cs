@@ -58,7 +58,7 @@ public partial class TournamentRegistrationGrid
         {
             var sweepers = new StringBuilder();
 
-            foreach (var sweeper in registration.SweepersEntered)
+            foreach (var sweeper in registration!.SweepersEntered)
             {
                 sweepers.AppendLine(_squadDates[sweeper]);
             }
