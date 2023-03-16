@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Models;
+﻿using FluentValidation.Results;
+
+namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal class Bowler
@@ -196,6 +198,19 @@ internal class Bowler
         var model = new NortheastMegabuck.Models.Bowler(entity);
 
         Assert.That(model.Gender, Is.EqualTo(entity.Gender));
+    }
+
+    [Test]
+    public void Constructor_Entity_SocialSecurityNumberMapped()
+    {
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
+        {
+            SocialSecurityNumber = "ssn"
+        };
+
+        var model = new NortheastMegabuck.Models.Bowler(entity);
+
+        Assert.That(model.SocialSecurityNumber, Is.EqualTo(entity.SocialSecurityNumber));
     }
 
     [Test]

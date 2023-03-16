@@ -18,7 +18,8 @@ internal class EntityMapper : IEntityMapper
             DateOfBirth = bowler.DateOfBirth,
             Gender = bowler.Gender,
             USBCId = bowler.USBCId,
-            PhoneNumber = bowler.PhoneNumber
+            PhoneNumber = bowler.PhoneNumber,
+            SocialSecurityNumber = bowler.SocialSecurityNumber
         };
 }
 

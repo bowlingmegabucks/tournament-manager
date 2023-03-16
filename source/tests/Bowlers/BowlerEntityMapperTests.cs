@@ -188,4 +188,17 @@ internal class EntityMapper
 
         Assert.That(entity.PhoneNumber, Is.EqualTo(bowler.PhoneNumber));
     }
+
+    [Test]
+    public void Execute_SocialSecurityNumberMapped()
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            SocialSecurityNumber = "ssn"
+        };
+
+        var entity = _mapper.Execute(bowler);
+
+        Assert.That(entity.SocialSecurityNumber, Is.EqualTo(bowler.SocialSecurityNumber));
+    }
 }
