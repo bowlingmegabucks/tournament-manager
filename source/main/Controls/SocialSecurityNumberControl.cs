@@ -90,6 +90,6 @@ public partial class SocialSecurityNumberControl : UserControl
             return;
         }
 
-        MessageBox.Show(this, $"SSN {(Encryption.ValuesMatch(Value, form.EncryptedValue) ? string.Empty : "Not ")}Matches", "Confirm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageBox.Show(this, $"SSN {(Encryption.ValuesMatch(Value, form.EncryptedValue) ? "Matches" : "Does Not Match ")}", "Confirm", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 }
