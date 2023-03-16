@@ -368,6 +368,17 @@ internal class Bowler
     }
 
     [Test]
+    public void Constructor_IAddViewModel_SocialSecurityNumberMapped()
+    {
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        viewModel.SetupGet(v => v.SocialSecurityNumber).Returns("ssn");
+
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+
+        Assert.That(model.SocialSecurityNumber, Is.EqualTo(viewModel.Object.SocialSecurityNumber));
+    }
+
+    [Test]
     public void Constructor_IAddViewModel_GenderMapped([Values] NortheastMegabuck.Models.Gender? gender)
     {
         var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();

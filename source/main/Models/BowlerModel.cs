@@ -89,6 +89,7 @@ internal class Bowler
         USBCId = viewModel.USBCId;
         DateOfBirth = viewModel.DateOfBirth;
         Gender = viewModel.Gender;
+        SocialSecurityNumber = viewModel.SocialSecurityNumber;
     }
 
     /// <summary>
