@@ -82,7 +82,7 @@ partial class BowlerControl
         genderDropdown.Margin = new Padding(15, 3, 15, 9);
         genderDropdown.Name = "genderDropdown";
         genderDropdown.Size = new Size(98, 26);
-        genderDropdown.TabIndex = 11;
+        genderDropdown.TabIndex = 12;
         // 
         // dateOfBirthPicker
         // 
@@ -152,7 +152,7 @@ partial class BowlerControl
         usbcIdText.Name = "usbcIdText";
         usbcIdText.PlaceholderText = "1234-5678";
         usbcIdText.Size = new Size(112, 26);
-        usbcIdText.TabIndex = 12;
+        usbcIdText.TabIndex = 13;
         // 
         // cityText
         // 
@@ -384,13 +384,13 @@ partial class BowlerControl
         bowlerErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
         bowlerErrorProvider.ContainerControl = this;
         // 
-        // socialSecurityNumberControl1
+        // socialSecurityNumberControl
         // 
         socialSecurityNumberControl.Location = new Point(321, 250);
-        socialSecurityNumberControl.Name = "socialSecurityNumberControl1";
+        socialSecurityNumberControl.Name = "socialSecurityNumberControl";
         socialSecurityNumberControl.ReadOnly = false;
-        socialSecurityNumberControl.Size = new Size(126, 86);
-        socialSecurityNumberControl.TabIndex = 13;
+        socialSecurityNumberControl.Size = new Size(130, 86);
+        socialSecurityNumberControl.TabIndex = 11;
         socialSecurityNumberControl.Value = "";
         // 
         // BowlerControl

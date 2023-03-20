@@ -28,58 +28,57 @@ partial class SocialSecurityNumberControl
     /// </summary>
     private void InitializeComponent()
     {
-        this.ssnText = new System.Windows.Forms.MaskedTextBox();
-        this.ssnLabel = new NortheastMegabuck.Controls.LabelControl();
-        this.verifyLink = new System.Windows.Forms.LinkLabel();
-        this.SuspendLayout();
+        ssnText = new MaskedTextBox();
+        ssnLabel = new LabelControl();
+        verifyLink = new LinkLabel();
+        SuspendLayout();
         // 
         // ssnText
         // 
-        this.ssnText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-        this.ssnText.Location = new System.Drawing.Point(3, 28);
-        this.ssnText.Mask = "000-00-0000";
-        this.ssnText.Name = "ssnText";
-        this.ssnText.Size = new System.Drawing.Size(100, 26);
-        this.ssnText.TabIndex = 0;
-        this.ssnText.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-        this.ssnText.TextChanged += new System.EventHandler(this.SSNText_TextChanged);
-        this.ssnText.Leave += new System.EventHandler(this.SSNText_Leave);
+        ssnText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        ssnText.Location = new Point(3, 28);
+        ssnText.Mask = "000-00-0000";
+        ssnText.Name = "ssnText";
+        ssnText.Size = new Size(100, 26);
+        ssnText.TabIndex = 0;
+        ssnText.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+        ssnText.TextChanged += SSNText_TextChanged;
+        ssnText.Leave += SSNText_Leave;
         // 
         // ssnLabel
         // 
-        this.ssnLabel.AutoSize = true;
-        this.ssnLabel.Bold = false;
-        this.ssnLabel.Location = new System.Drawing.Point(3, 3);
-        this.ssnLabel.Name = "ssnLabel";
-        this.ssnLabel.Required = false;
-        this.ssnLabel.Size = new System.Drawing.Size(117, 19);
-        this.ssnLabel.TabIndex = 1;
-        this.ssnLabel.TabStop = false;
-        this.ssnLabel.Text = "SSN:";
+        ssnLabel.AutoSize = true;
+        ssnLabel.Bold = false;
+        ssnLabel.Location = new Point(3, 3);
+        ssnLabel.Name = "ssnLabel";
+        ssnLabel.Required = false;
+        ssnLabel.Size = new Size(117, 19);
+        ssnLabel.TabIndex = 1;
+        ssnLabel.TabStop = false;
+        ssnLabel.Text = "SSN:";
         // 
         // verifyLink
         // 
-        this.verifyLink.AutoSize = true;
-        this.verifyLink.Location = new System.Drawing.Point(64, 57);
-        this.verifyLink.Name = "verifyLink";
-        this.verifyLink.Size = new System.Drawing.Size(36, 15);
-        this.verifyLink.TabIndex = 2;
-        this.verifyLink.TabStop = true;
-        this.verifyLink.Text = "Verify";
-        this.verifyLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.VerifyButton_LinkClicked);
+        verifyLink.AutoSize = true;
+        verifyLink.Location = new Point(3, 57);
+        verifyLink.Name = "verifyLink";
+        verifyLink.Size = new Size(36, 15);
+        verifyLink.TabIndex = 2;
+        verifyLink.TabStop = true;
+        verifyLink.Text = "Verify";
+        verifyLink.LinkClicked += VerifyButton_LinkClicked;
         // 
         // SocialSecurityNumberControl
         // 
-        this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.Controls.Add(this.verifyLink);
-        this.Controls.Add(this.ssnLabel);
-        this.Controls.Add(this.ssnText);
-        this.Name = "SocialSecurityNumberControl";
-        this.Size = new System.Drawing.Size(126, 86);
-        this.ResumeLayout(false);
-        this.PerformLayout();
-
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(verifyLink);
+        Controls.Add(ssnLabel);
+        Controls.Add(ssnText);
+        Name = "SocialSecurityNumberControl";
+        Size = new Size(126, 86);
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
