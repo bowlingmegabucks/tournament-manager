@@ -3,10 +3,10 @@
 namespace NortheastMegabuck.Bowlers;
 internal sealed class SocialSecurityNumberValidator : FluentValidation.Validators.PropertyValidator<Models.Bowler, string>
 {
-    public override string Name => "SSNValidator";
+    public override string Name => "SocialSecurityNumberValidator";
 
     protected override string GetDefaultMessageTemplate(string errorCode)
-        => "Property {PropertyName} is not a valid ssn.";
+        => "Property {PropertyName} is not a valid social security number.";
 
     public override bool IsValid(ValidationContext<Models.Bowler> context, string value)
     {
