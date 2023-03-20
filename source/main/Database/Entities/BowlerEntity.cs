@@ -42,6 +42,8 @@ internal class Bowler
 
     public Models.Gender? Gender { get; set; }
 
+    public string SocialSecurityNumber { get; set; } = string.Empty;
+
     public ICollection<Registration> Registrations { get; set; } = null!;
 
     public ICollection<SquadScore> SquadScores { get; set; } = null!;

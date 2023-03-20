@@ -57,7 +57,7 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         {"WI", "Wisconsin" },
         {"WY", "Wyoming" }
     };
-    
+
     public BowlerControl()
     {
         InitializeComponent();
@@ -118,7 +118,7 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         get => suffixText.Text;
         set => suffixText.Text = value;
     }
-    
+
     public string StreetAddress
     {
         get => streetText.Text;
@@ -130,7 +130,7 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         get => cityText.Text;
         set => cityText.Text = value;
     }
-    
+
     public string StateAddress
     {
         get => stateDropdown.SelectedValue?.ToString() ?? string.Empty;
@@ -186,13 +186,19 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
             }
         }
     }
-    
+
     public Models.Gender? Gender
     {
-        get => genderDropdown.SelectedIndex == -1 ? null: (Models.Gender)genderDropdown.SelectedValue!;
+        get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
         set => genderDropdown.SelectedValue = (int?)value ?? null;
     }
-    
+
+    public string SocialSecurityNumber
+    {
+        get => socialSecurityNumberControl.Value;
+        set => socialSecurityNumberControl.Value = value;
+    }
+
     private void Control_Validated(object sender, EventArgs e)
         => bowlerErrorProvider.SetError((Control)sender, string.Empty);
 

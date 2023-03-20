@@ -191,7 +191,6 @@ internal class Validator
             ZipCode = new string('J', length)
         };
 
-
         var result = _validator.TestValidate(bowler);
         result.ShouldHaveValidationErrorFor(a => a.ZipCode).WithErrorMessage("Valid Zip Code required when Street is given");
     }
@@ -429,5 +428,48 @@ internal class Validator
 
         var result = _validator.TestValidate(bowler);
         result.ShouldNotHaveValidationErrorFor(bowler => bowler.USBCId);
+    }
+
+    [TestCase("12345678")]
+    [TestCase("18754628a")]
+    public void SSN_Invalid_HasValidatorError(string ssn)
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            SocialSecurityNumber = ssn.Encrypt()
+        };
+
+        var result = _validator.TestValidate(bowler);
+        result.ShouldHaveValidationErrorFor(b => b.SocialSecurityNumber).WithErrorMessage("Invalid Social Security Number");
+    }
+
+    [Test]
+    public void SSN_Valid_NoValidatorError()
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            SocialSecurityNumber = "123456789".Encrypt()
+        };
+
+        var result = _validator.TestValidate(bowler);
+        result.ShouldNotHaveValidationErrorFor(b => b.SocialSecurityNumber);
+    }
+
+    [Test]
+    public void SSN_Whitespace_HasValidatorError([Values(" ", "  ", "         ")] string ssn)
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler { SocialSecurityNumber = ssn.Encrypt() };
+
+        var result = _validator.TestValidate(bowler);
+        result.ShouldHaveValidationErrorFor(b => b.SocialSecurityNumber).WithErrorMessage("Invalid Social Security Number");
+    }
+
+    [Test]
+    public void SSN_NullOrEmpty_NoValidatorError([Values(null, "")] string ssn)
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler { SocialSecurityNumber = ssn.Encrypt() };
+
+        var result = _validator.TestValidate(bowler);
+        result.ShouldNotHaveValidationErrorFor(b => b.SocialSecurityNumber);
     }
 }

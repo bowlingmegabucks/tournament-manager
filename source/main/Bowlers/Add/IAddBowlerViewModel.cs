@@ -30,4 +30,6 @@ internal interface IViewModel
     DateOnly? DateOfBirth { get; }
 
     Models.Gender? Gender { get; }
+
+    string SocialSecurityNumber { get; }
 }

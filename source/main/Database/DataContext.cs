@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
@@ -10,7 +11,7 @@ internal class DataContext : DbContext, IDataContext
     private readonly string _connectionString;
     internal DataContext(IConfiguration config)
     {
-        _connectionString = config.GetConnectionString("tournament-manager-db");
+        _connectionString = config.GetConnectionString("tournament-manager-db") ?? throw new ConfigurationErrorsException("Cannot get connection string");
     }
 
 #if DEBUG
@@ -22,7 +23,7 @@ internal class DataContext : DbContext, IDataContext
         _connectionString = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddUserSecrets<DataContext>()
-            .Build().GetConnectionString("tournament-manager-migration");
+            .Build().GetConnectionString("tournament-manager-migration") ?? throw new ConfigurationErrorsException("Cannot get connection string");
     }
 #endif
 

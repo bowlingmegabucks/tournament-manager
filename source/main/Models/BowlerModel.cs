@@ -52,6 +52,8 @@ internal class Bowler
         return age;
     }
 
+    public string SocialSecurityNumber { get; set; } = string.Empty;
+
     public Bowler(Database.Entities.Bowler bowler)
     {
         Id = bowler.Id;
@@ -68,6 +70,7 @@ internal class Bowler
         PhoneNumber = bowler.PhoneNumber;
         DateOfBirth = bowler.DateOfBirth;
         Gender = bowler.Gender;
+        SocialSecurityNumber = bowler.SocialSecurityNumber;
     }
 
     public Bowler(Bowlers.Add.IViewModel viewModel)
@@ -86,6 +89,7 @@ internal class Bowler
         USBCId = viewModel.USBCId;
         DateOfBirth = viewModel.DateOfBirth;
         Gender = viewModel.Gender;
+        SocialSecurityNumber = viewModel.SocialSecurityNumber;
     }
 
     /// <summary>

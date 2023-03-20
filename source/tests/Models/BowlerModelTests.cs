@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Models;
+﻿using FluentValidation.Results;
+
+namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal class Bowler
@@ -199,6 +201,19 @@ internal class Bowler
     }
 
     [Test]
+    public void Constructor_Entity_SocialSecurityNumberMapped()
+    {
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
+        {
+            SocialSecurityNumber = "ssn"
+        };
+
+        var model = new NortheastMegabuck.Models.Bowler(entity);
+
+        Assert.That(model.SocialSecurityNumber, Is.EqualTo(entity.SocialSecurityNumber));
+    }
+
+    [Test]
     public void Constructor_IAddViewModel_IdMapped()
     {
         var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
@@ -350,6 +365,17 @@ internal class Bowler
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
         Assert.That(model.USBCId, Is.EqualTo(viewModel.Object.USBCId));
+    }
+
+    [Test]
+    public void Constructor_IAddViewModel_SocialSecurityNumberMapped()
+    {
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        viewModel.SetupGet(v => v.SocialSecurityNumber).Returns("ssn");
+
+        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+
+        Assert.That(model.SocialSecurityNumber, Is.EqualTo(viewModel.Object.SocialSecurityNumber));
     }
 
     [Test]

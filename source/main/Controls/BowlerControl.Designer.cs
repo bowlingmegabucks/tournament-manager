@@ -28,399 +28,409 @@ partial class BowlerControl
     /// </summary>
     private void InitializeComponent()
     {
-            this.components = new System.ComponentModel.Container();
-            this.firstNameText = new System.Windows.Forms.TextBox();
-            this.genderDropdown = new System.Windows.Forms.ComboBox();
-            this.dateOfBirthPicker = new System.Windows.Forms.DateTimePicker();
-            this.middleInitialText = new System.Windows.Forms.TextBox();
-            this.suffixText = new System.Windows.Forms.TextBox();
-            this.lastNameText = new System.Windows.Forms.TextBox();
-            this.phoneNumberText = new System.Windows.Forms.MaskedTextBox();
-            this.usbcIdText = new System.Windows.Forms.TextBox();
-            this.cityText = new System.Windows.Forms.TextBox();
-            this.streetText = new System.Windows.Forms.TextBox();
-            this.stateDropdown = new System.Windows.Forms.ComboBox();
-            this.zipCodeText = new System.Windows.Forms.MaskedTextBox();
-            this.emailText = new System.Windows.Forms.TextBox();
-            this.firstNameLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.lastNameLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.suffixLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.middleInitialLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.streetLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.cityLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.stateLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.zipCodeLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.emailLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.dateOfBirthLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.genderLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.phoneNumberLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.usbcIdLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.bowlerErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.bowlerErrorProvider)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // firstNameText
-            // 
-            this.firstNameText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.firstNameText.Location = new System.Drawing.Point(3, 28);
-            this.firstNameText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.firstNameText.MaxLength = 20;
-            this.firstNameText.Name = "firstNameText";
-            this.firstNameText.PlaceholderText = "Joseph";
-            this.firstNameText.Size = new System.Drawing.Size(132, 26);
-            this.firstNameText.TabIndex = 0;
-            this.firstNameText.Validating += new System.ComponentModel.CancelEventHandler(this.FirstNameText_Validating);
-            this.firstNameText.Validated += new System.EventHandler(this.Control_Validated);
-            // 
-            // genderDropdown
-            // 
-            this.genderDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.genderDropdown.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.genderDropdown.FormattingEnabled = true;
-            this.genderDropdown.Location = new System.Drawing.Point(172, 280);
-            this.genderDropdown.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.genderDropdown.Name = "genderDropdown";
-            this.genderDropdown.Size = new System.Drawing.Size(98, 26);
-            this.genderDropdown.TabIndex = 10;
-            // 
-            // dateOfBirthPicker
-            // 
-            this.dateOfBirthPicker.CustomFormat = "MM/dd/yyyy";
-            this.dateOfBirthPicker.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dateOfBirthPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateOfBirthPicker.Location = new System.Drawing.Point(3, 280);
-            this.dateOfBirthPicker.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.dateOfBirthPicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
-            this.dateOfBirthPicker.Name = "dateOfBirthPicker";
-            this.dateOfBirthPicker.ShowCheckBox = true;
-            this.dateOfBirthPicker.Size = new System.Drawing.Size(139, 26);
-            this.dateOfBirthPicker.TabIndex = 9;
-            // 
-            // middleInitialText
-            // 
-            this.middleInitialText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.middleInitialText.Location = new System.Drawing.Point(506, 28);
-            this.middleInitialText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.middleInitialText.MaxLength = 3;
-            this.middleInitialText.Name = "middleInitialText";
-            this.middleInitialText.PlaceholderText = "A";
-            this.middleInitialText.Size = new System.Drawing.Size(36, 26);
-            this.middleInitialText.TabIndex = 3;
-            // 
-            // suffixText
-            // 
-            this.suffixText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.suffixText.Location = new System.Drawing.Point(342, 28);
-            this.suffixText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.suffixText.MaxLength = 3;
-            this.suffixText.Name = "suffixText";
-            this.suffixText.PlaceholderText = "IV";
-            this.suffixText.Size = new System.Drawing.Size(51, 26);
-            this.suffixText.TabIndex = 2;
-            // 
-            // lastNameText
-            // 
-            this.lastNameText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lastNameText.Location = new System.Drawing.Point(165, 28);
-            this.lastNameText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.lastNameText.MaxLength = 25;
-            this.lastNameText.Name = "lastNameText";
-            this.lastNameText.PlaceholderText = "Smith";
-            this.lastNameText.Size = new System.Drawing.Size(147, 26);
-            this.lastNameText.TabIndex = 1;
-            this.lastNameText.Validating += new System.ComponentModel.CancelEventHandler(this.LastNameText_Validating);
-            this.lastNameText.Validated += new System.EventHandler(this.Control_Validated);
-            // 
-            // phoneNumberText
-            // 
-            this.phoneNumberText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.phoneNumberText.Location = new System.Drawing.Point(300, 280);
-            this.phoneNumberText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.phoneNumberText.Mask = "(999) 000-0000";
-            this.phoneNumberText.Name = "phoneNumberText";
-            this.phoneNumberText.Size = new System.Drawing.Size(100, 26);
-            this.phoneNumberText.TabIndex = 11;
-            this.phoneNumberText.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            // 
-            // usbcIdText
-            // 
-            this.usbcIdText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.usbcIdText.Location = new System.Drawing.Point(430, 280);
-            this.usbcIdText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.usbcIdText.MaxLength = 20;
-            this.usbcIdText.Name = "usbcIdText";
-            this.usbcIdText.PlaceholderText = "1234-5678";
-            this.usbcIdText.Size = new System.Drawing.Size(112, 26);
-            this.usbcIdText.TabIndex = 12;
-            // 
-            // cityText
-            // 
-            this.cityText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cityText.Location = new System.Drawing.Point(3, 154);
-            this.cityText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.cityText.MaxLength = 50;
-            this.cityText.Name = "cityText";
-            this.cityText.PlaceholderText = "Anytown";
-            this.cityText.Size = new System.Drawing.Size(184, 26);
-            this.cityText.TabIndex = 5;
-            // 
-            // streetText
-            // 
-            this.streetText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.streetText.Location = new System.Drawing.Point(3, 91);
-            this.streetText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.streetText.MaxLength = 50;
-            this.streetText.Name = "streetText";
-            this.streetText.PlaceholderText = "123 Any St. Unit 456";
-            this.streetText.Size = new System.Drawing.Size(539, 26);
-            this.streetText.TabIndex = 4;
-            // 
-            // stateDropdown
-            // 
-            this.stateDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.stateDropdown.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.stateDropdown.FormattingEnabled = true;
-            this.stateDropdown.Location = new System.Drawing.Point(217, 154);
-            this.stateDropdown.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.stateDropdown.Name = "stateDropdown";
-            this.stateDropdown.Size = new System.Drawing.Size(195, 26);
-            this.stateDropdown.TabIndex = 6;
-            // 
-            // zipCodeText
-            // 
-            this.zipCodeText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.zipCodeText.Location = new System.Drawing.Point(442, 154);
-            this.zipCodeText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.zipCodeText.Mask = "00000-9999";
-            this.zipCodeText.Name = "zipCodeText";
-            this.zipCodeText.Size = new System.Drawing.Size(100, 26);
-            this.zipCodeText.TabIndex = 7;
-            this.zipCodeText.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            // 
-            // emailText
-            // 
-            this.emailText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.emailText.Location = new System.Drawing.Point(3, 217);
-            this.emailText.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.emailText.MaxLength = 50;
-            this.emailText.Name = "emailText";
-            this.emailText.PlaceholderText = "sample@NortheastMegabuck.com";
-            this.emailText.Size = new System.Drawing.Size(539, 26);
-            this.emailText.TabIndex = 8;
-            this.emailText.Validating += new System.ComponentModel.CancelEventHandler(this.EmailText_Validating);
-            this.emailText.Validated += new System.EventHandler(this.Control_Validated);
-            // 
-            // firstNameLabel
-            // 
-            this.firstNameLabel.AutoSize = true;
-            this.firstNameLabel.Bold = false;
-            this.firstNameLabel.Location = new System.Drawing.Point(3, 3);
-            this.firstNameLabel.Name = "firstNameLabel";
-            this.firstNameLabel.Required = true;
-            this.firstNameLabel.Size = new System.Drawing.Size(114, 19);
-            this.firstNameLabel.TabIndex = 19;
-            this.firstNameLabel.TabStop = false;
-            this.firstNameLabel.Text = "First Name:";
-            // 
-            // lastNameLabel
-            // 
-            this.lastNameLabel.AutoSize = true;
-            this.lastNameLabel.Bold = false;
-            this.lastNameLabel.Location = new System.Drawing.Point(165, 3);
-            this.lastNameLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.lastNameLabel.Name = "lastNameLabel";
-            this.lastNameLabel.Required = true;
-            this.lastNameLabel.Size = new System.Drawing.Size(105, 19);
-            this.lastNameLabel.TabIndex = 20;
-            this.lastNameLabel.TabStop = false;
-            this.lastNameLabel.Text = "Last Name:";
-            // 
-            // suffixLabel
-            // 
-            this.suffixLabel.AutoSize = true;
-            this.suffixLabel.Bold = false;
-            this.suffixLabel.Location = new System.Drawing.Point(321, 3);
-            this.suffixLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.suffixLabel.Name = "suffixLabel";
-            this.suffixLabel.Required = false;
-            this.suffixLabel.Size = new System.Drawing.Size(117, 19);
-            this.suffixLabel.TabIndex = 21;
-            this.suffixLabel.TabStop = false;
-            this.suffixLabel.Text = "Suffix:";
-            // 
-            // middleInitialLabel
-            // 
-            this.middleInitialLabel.AutoSize = true;
-            this.middleInitialLabel.Bold = false;
-            this.middleInitialLabel.Location = new System.Drawing.Point(423, 3);
-            this.middleInitialLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.middleInitialLabel.Name = "middleInitialLabel";
-            this.middleInitialLabel.Required = false;
-            this.middleInitialLabel.Size = new System.Drawing.Size(144, 19);
-            this.middleInitialLabel.TabIndex = 22;
-            this.middleInitialLabel.TabStop = false;
-            this.middleInitialLabel.Text = "Middle Initial:";
-            // 
-            // streetLabel
-            // 
-            this.streetLabel.AutoSize = true;
-            this.streetLabel.Bold = false;
-            this.streetLabel.Location = new System.Drawing.Point(3, 66);
-            this.streetLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.streetLabel.Name = "streetLabel";
-            this.streetLabel.Required = false;
-            this.streetLabel.Size = new System.Drawing.Size(117, 19);
-            this.streetLabel.TabIndex = 23;
-            this.streetLabel.TabStop = false;
-            this.streetLabel.Text = "Street:";
-            // 
-            // cityLabel
-            // 
-            this.cityLabel.AutoSize = true;
-            this.cityLabel.Bold = false;
-            this.cityLabel.Location = new System.Drawing.Point(3, 129);
-            this.cityLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.cityLabel.Name = "cityLabel";
-            this.cityLabel.Required = false;
-            this.cityLabel.Size = new System.Drawing.Size(117, 19);
-            this.cityLabel.TabIndex = 24;
-            this.cityLabel.TabStop = false;
-            this.cityLabel.Text = "City:";
-            // 
-            // stateLabel
-            // 
-            this.stateLabel.AutoSize = true;
-            this.stateLabel.Bold = false;
-            this.stateLabel.Location = new System.Drawing.Point(217, 129);
-            this.stateLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.stateLabel.Name = "stateLabel";
-            this.stateLabel.Required = false;
-            this.stateLabel.Size = new System.Drawing.Size(117, 19);
-            this.stateLabel.TabIndex = 25;
-            this.stateLabel.TabStop = false;
-            this.stateLabel.Text = "State:";
-            // 
-            // zipCodeLabel
-            // 
-            this.zipCodeLabel.AutoSize = true;
-            this.zipCodeLabel.Bold = false;
-            this.zipCodeLabel.Location = new System.Drawing.Point(442, 129);
-            this.zipCodeLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.zipCodeLabel.Name = "zipCodeLabel";
-            this.zipCodeLabel.Required = false;
-            this.zipCodeLabel.Size = new System.Drawing.Size(117, 19);
-            this.zipCodeLabel.TabIndex = 26;
-            this.zipCodeLabel.TabStop = false;
-            this.zipCodeLabel.Text = "Zip Code:";
-            // 
-            // emailLabel
-            // 
-            this.emailLabel.AutoSize = true;
-            this.emailLabel.Bold = false;
-            this.emailLabel.Location = new System.Drawing.Point(3, 192);
-            this.emailLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.emailLabel.Name = "emailLabel";
-            this.emailLabel.Required = true;
-            this.emailLabel.Size = new System.Drawing.Size(69, 19);
-            this.emailLabel.TabIndex = 27;
-            this.emailLabel.TabStop = false;
-            this.emailLabel.Text = "Email:";
-            // 
-            // dateOfBirthLabel
-            // 
-            this.dateOfBirthLabel.AutoSize = true;
-            this.dateOfBirthLabel.Bold = false;
-            this.dateOfBirthLabel.Location = new System.Drawing.Point(3, 255);
-            this.dateOfBirthLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.dateOfBirthLabel.Name = "dateOfBirthLabel";
-            this.dateOfBirthLabel.Required = false;
-            this.dateOfBirthLabel.Size = new System.Drawing.Size(135, 19);
-            this.dateOfBirthLabel.TabIndex = 28;
-            this.dateOfBirthLabel.TabStop = false;
-            this.dateOfBirthLabel.Text = "Date Of Birth:";
-            // 
-            // genderLabel
-            // 
-            this.genderLabel.AutoSize = true;
-            this.genderLabel.Bold = false;
-            this.genderLabel.Location = new System.Drawing.Point(172, 255);
-            this.genderLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.genderLabel.Name = "genderLabel";
-            this.genderLabel.Required = false;
-            this.genderLabel.Size = new System.Drawing.Size(117, 19);
-            this.genderLabel.TabIndex = 29;
-            this.genderLabel.TabStop = false;
-            this.genderLabel.Text = "Gender:";
-            // 
-            // phoneNumberLabel
-            // 
-            this.phoneNumberLabel.AutoSize = true;
-            this.phoneNumberLabel.Bold = false;
-            this.phoneNumberLabel.Location = new System.Drawing.Point(274, 255);
-            this.phoneNumberLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.phoneNumberLabel.Name = "phoneNumberLabel";
-            this.phoneNumberLabel.Required = false;
-            this.phoneNumberLabel.Size = new System.Drawing.Size(126, 19);
-            this.phoneNumberLabel.TabIndex = 30;
-            this.phoneNumberLabel.TabStop = false;
-            this.phoneNumberLabel.Text = "Phone Number:";
-            // 
-            // usbcIdLabel
-            // 
-            this.usbcIdLabel.AutoSize = true;
-            this.usbcIdLabel.Bold = false;
-            this.usbcIdLabel.Location = new System.Drawing.Point(430, 255);
-            this.usbcIdLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.usbcIdLabel.Name = "usbcIdLabel";
-            this.usbcIdLabel.Required = false;
-            this.usbcIdLabel.Size = new System.Drawing.Size(81, 19);
-            this.usbcIdLabel.TabIndex = 31;
-            this.usbcIdLabel.TabStop = false;
-            this.usbcIdLabel.Text = "USBC Id:";
-            // 
-            // bowlerErrorProvider
-            // 
-            this.bowlerErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.bowlerErrorProvider.ContainerControl = this;
-            // 
-            // BowlerControl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.usbcIdLabel);
-            this.Controls.Add(this.phoneNumberLabel);
-            this.Controls.Add(this.genderLabel);
-            this.Controls.Add(this.dateOfBirthLabel);
-            this.Controls.Add(this.emailLabel);
-            this.Controls.Add(this.zipCodeLabel);
-            this.Controls.Add(this.stateLabel);
-            this.Controls.Add(this.cityLabel);
-            this.Controls.Add(this.streetLabel);
-            this.Controls.Add(this.middleInitialLabel);
-            this.Controls.Add(this.suffixLabel);
-            this.Controls.Add(this.lastNameLabel);
-            this.Controls.Add(this.firstNameLabel);
-            this.Controls.Add(this.emailText);
-            this.Controls.Add(this.cityText);
-            this.Controls.Add(this.streetText);
-            this.Controls.Add(this.stateDropdown);
-            this.Controls.Add(this.zipCodeText);
-            this.Controls.Add(this.genderDropdown);
-            this.Controls.Add(this.dateOfBirthPicker);
-            this.Controls.Add(this.middleInitialText);
-            this.Controls.Add(this.suffixText);
-            this.Controls.Add(this.lastNameText);
-            this.Controls.Add(this.phoneNumberText);
-            this.Controls.Add(this.usbcIdText);
-            this.Controls.Add(this.firstNameText);
-            this.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.Name = "BowlerControl";
-            this.Size = new System.Drawing.Size(597, 326);
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.BowlerControl_Validating);
-            ((System.ComponentModel.ISupportInitialize)(this.bowlerErrorProvider)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        components = new System.ComponentModel.Container();
+        firstNameText = new TextBox();
+        genderDropdown = new ComboBox();
+        dateOfBirthPicker = new DateTimePicker();
+        middleInitialText = new TextBox();
+        suffixText = new TextBox();
+        lastNameText = new TextBox();
+        phoneNumberText = new MaskedTextBox();
+        usbcIdText = new TextBox();
+        cityText = new TextBox();
+        streetText = new TextBox();
+        stateDropdown = new ComboBox();
+        zipCodeText = new MaskedTextBox();
+        emailText = new TextBox();
+        firstNameLabel = new LabelControl();
+        lastNameLabel = new LabelControl();
+        suffixLabel = new LabelControl();
+        middleInitialLabel = new LabelControl();
+        streetLabel = new LabelControl();
+        cityLabel = new LabelControl();
+        stateLabel = new LabelControl();
+        zipCodeLabel = new LabelControl();
+        emailLabel = new LabelControl();
+        dateOfBirthLabel = new LabelControl();
+        genderLabel = new LabelControl();
+        phoneNumberLabel = new LabelControl();
+        usbcIdLabel = new LabelControl();
+        bowlerErrorProvider = new ErrorProvider(components);
+        socialSecurityNumberControl = new SocialSecurityNumberControl();
+        ((System.ComponentModel.ISupportInitialize)bowlerErrorProvider).BeginInit();
+        SuspendLayout();
+        // 
+        // firstNameText
+        // 
+        firstNameText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        firstNameText.Location = new Point(3, 28);
+        firstNameText.Margin = new Padding(15, 3, 15, 9);
+        firstNameText.MaxLength = 20;
+        firstNameText.Name = "firstNameText";
+        firstNameText.PlaceholderText = "Joseph";
+        firstNameText.Size = new Size(132, 26);
+        firstNameText.TabIndex = 0;
+        firstNameText.Validating += FirstNameText_Validating;
+        firstNameText.Validated += Control_Validated;
+        // 
+        // genderDropdown
+        // 
+        genderDropdown.DropDownStyle = ComboBoxStyle.DropDownList;
+        genderDropdown.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        genderDropdown.FormattingEnabled = true;
+        genderDropdown.Location = new Point(3, 343);
+        genderDropdown.Margin = new Padding(15, 3, 15, 9);
+        genderDropdown.Name = "genderDropdown";
+        genderDropdown.Size = new Size(98, 26);
+        genderDropdown.TabIndex = 11;
+        // 
+        // dateOfBirthPicker
+        // 
+        dateOfBirthPicker.CustomFormat = "MM/dd/yyyy";
+        dateOfBirthPicker.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        dateOfBirthPicker.Format = DateTimePickerFormat.Custom;
+        dateOfBirthPicker.Location = new Point(3, 280);
+        dateOfBirthPicker.Margin = new Padding(15, 3, 15, 9);
+        dateOfBirthPicker.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
+        dateOfBirthPicker.Name = "dateOfBirthPicker";
+        dateOfBirthPicker.ShowCheckBox = true;
+        dateOfBirthPicker.Size = new Size(139, 26);
+        dateOfBirthPicker.TabIndex = 9;
+        // 
+        // middleInitialText
+        // 
+        middleInitialText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        middleInitialText.Location = new Point(506, 28);
+        middleInitialText.Margin = new Padding(15, 3, 15, 9);
+        middleInitialText.MaxLength = 3;
+        middleInitialText.Name = "middleInitialText";
+        middleInitialText.PlaceholderText = "A";
+        middleInitialText.Size = new Size(36, 26);
+        middleInitialText.TabIndex = 3;
+        // 
+        // suffixText
+        // 
+        suffixText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        suffixText.Location = new Point(342, 28);
+        suffixText.Margin = new Padding(15, 3, 15, 9);
+        suffixText.MaxLength = 3;
+        suffixText.Name = "suffixText";
+        suffixText.PlaceholderText = "IV";
+        suffixText.Size = new Size(51, 26);
+        suffixText.TabIndex = 2;
+        // 
+        // lastNameText
+        // 
+        lastNameText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        lastNameText.Location = new Point(165, 28);
+        lastNameText.Margin = new Padding(15, 3, 15, 9);
+        lastNameText.MaxLength = 25;
+        lastNameText.Name = "lastNameText";
+        lastNameText.PlaceholderText = "Smith";
+        lastNameText.Size = new Size(147, 26);
+        lastNameText.TabIndex = 1;
+        lastNameText.Validating += LastNameText_Validating;
+        lastNameText.Validated += Control_Validated;
+        // 
+        // phoneNumberText
+        // 
+        phoneNumberText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        phoneNumberText.Location = new Point(194, 280);
+        phoneNumberText.Margin = new Padding(15, 3, 15, 9);
+        phoneNumberText.Mask = "(999) 000-0000";
+        phoneNumberText.Name = "phoneNumberText";
+        phoneNumberText.Size = new Size(100, 26);
+        phoneNumberText.TabIndex = 10;
+        phoneNumberText.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+        // 
+        // usbcIdText
+        // 
+        usbcIdText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        usbcIdText.Location = new Point(182, 343);
+        usbcIdText.Margin = new Padding(15, 3, 15, 9);
+        usbcIdText.MaxLength = 20;
+        usbcIdText.Name = "usbcIdText";
+        usbcIdText.PlaceholderText = "1234-5678";
+        usbcIdText.Size = new Size(112, 26);
+        usbcIdText.TabIndex = 12;
+        // 
+        // cityText
+        // 
+        cityText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        cityText.Location = new Point(3, 154);
+        cityText.Margin = new Padding(15, 3, 15, 9);
+        cityText.MaxLength = 50;
+        cityText.Name = "cityText";
+        cityText.PlaceholderText = "Anytown";
+        cityText.Size = new Size(184, 26);
+        cityText.TabIndex = 5;
+        // 
+        // streetText
+        // 
+        streetText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        streetText.Location = new Point(3, 91);
+        streetText.Margin = new Padding(15, 3, 15, 9);
+        streetText.MaxLength = 50;
+        streetText.Name = "streetText";
+        streetText.PlaceholderText = "123 Any St. Unit 456";
+        streetText.Size = new Size(539, 26);
+        streetText.TabIndex = 4;
+        // 
+        // stateDropdown
+        // 
+        stateDropdown.DropDownStyle = ComboBoxStyle.DropDownList;
+        stateDropdown.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        stateDropdown.FormattingEnabled = true;
+        stateDropdown.Location = new Point(217, 154);
+        stateDropdown.Margin = new Padding(15, 3, 15, 9);
+        stateDropdown.Name = "stateDropdown";
+        stateDropdown.Size = new Size(195, 26);
+        stateDropdown.TabIndex = 6;
+        // 
+        // zipCodeText
+        // 
+        zipCodeText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        zipCodeText.Location = new Point(442, 154);
+        zipCodeText.Margin = new Padding(15, 3, 15, 9);
+        zipCodeText.Mask = "00000-9999";
+        zipCodeText.Name = "zipCodeText";
+        zipCodeText.Size = new Size(100, 26);
+        zipCodeText.TabIndex = 7;
+        zipCodeText.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+        // 
+        // emailText
+        // 
+        emailText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        emailText.Location = new Point(3, 217);
+        emailText.Margin = new Padding(15, 3, 15, 9);
+        emailText.MaxLength = 50;
+        emailText.Name = "emailText";
+        emailText.PlaceholderText = "sample@NortheastMegabuck.com";
+        emailText.Size = new Size(539, 26);
+        emailText.TabIndex = 8;
+        emailText.Validating += EmailText_Validating;
+        emailText.Validated += Control_Validated;
+        // 
+        // firstNameLabel
+        // 
+        firstNameLabel.AutoSize = true;
+        firstNameLabel.Bold = false;
+        firstNameLabel.Location = new Point(3, 3);
+        firstNameLabel.Name = "firstNameLabel";
+        firstNameLabel.Required = true;
+        firstNameLabel.Size = new Size(114, 19);
+        firstNameLabel.TabIndex = 19;
+        firstNameLabel.TabStop = false;
+        firstNameLabel.Text = "First Name:";
+        // 
+        // lastNameLabel
+        // 
+        lastNameLabel.AutoSize = true;
+        lastNameLabel.Bold = false;
+        lastNameLabel.Location = new Point(165, 3);
+        lastNameLabel.Margin = new Padding(15, 3, 15, 3);
+        lastNameLabel.Name = "lastNameLabel";
+        lastNameLabel.Required = true;
+        lastNameLabel.Size = new Size(105, 19);
+        lastNameLabel.TabIndex = 20;
+        lastNameLabel.TabStop = false;
+        lastNameLabel.Text = "Last Name:";
+        // 
+        // suffixLabel
+        // 
+        suffixLabel.AutoSize = true;
+        suffixLabel.Bold = false;
+        suffixLabel.Location = new Point(321, 3);
+        suffixLabel.Margin = new Padding(15, 3, 15, 3);
+        suffixLabel.Name = "suffixLabel";
+        suffixLabel.Required = false;
+        suffixLabel.Size = new Size(117, 19);
+        suffixLabel.TabIndex = 21;
+        suffixLabel.TabStop = false;
+        suffixLabel.Text = "Suffix:";
+        // 
+        // middleInitialLabel
+        // 
+        middleInitialLabel.AutoSize = true;
+        middleInitialLabel.Bold = false;
+        middleInitialLabel.Location = new Point(423, 3);
+        middleInitialLabel.Margin = new Padding(15, 3, 15, 3);
+        middleInitialLabel.Name = "middleInitialLabel";
+        middleInitialLabel.Required = false;
+        middleInitialLabel.Size = new Size(144, 19);
+        middleInitialLabel.TabIndex = 22;
+        middleInitialLabel.TabStop = false;
+        middleInitialLabel.Text = "Middle Initial:";
+        // 
+        // streetLabel
+        // 
+        streetLabel.AutoSize = true;
+        streetLabel.Bold = false;
+        streetLabel.Location = new Point(3, 66);
+        streetLabel.Margin = new Padding(15, 3, 15, 3);
+        streetLabel.Name = "streetLabel";
+        streetLabel.Required = false;
+        streetLabel.Size = new Size(117, 19);
+        streetLabel.TabIndex = 23;
+        streetLabel.TabStop = false;
+        streetLabel.Text = "Street:";
+        // 
+        // cityLabel
+        // 
+        cityLabel.AutoSize = true;
+        cityLabel.Bold = false;
+        cityLabel.Location = new Point(3, 129);
+        cityLabel.Margin = new Padding(15, 3, 15, 3);
+        cityLabel.Name = "cityLabel";
+        cityLabel.Required = false;
+        cityLabel.Size = new Size(117, 19);
+        cityLabel.TabIndex = 24;
+        cityLabel.TabStop = false;
+        cityLabel.Text = "City:";
+        // 
+        // stateLabel
+        // 
+        stateLabel.AutoSize = true;
+        stateLabel.Bold = false;
+        stateLabel.Location = new Point(217, 129);
+        stateLabel.Margin = new Padding(15, 3, 15, 3);
+        stateLabel.Name = "stateLabel";
+        stateLabel.Required = false;
+        stateLabel.Size = new Size(117, 19);
+        stateLabel.TabIndex = 25;
+        stateLabel.TabStop = false;
+        stateLabel.Text = "State:";
+        // 
+        // zipCodeLabel
+        // 
+        zipCodeLabel.AutoSize = true;
+        zipCodeLabel.Bold = false;
+        zipCodeLabel.Location = new Point(442, 129);
+        zipCodeLabel.Margin = new Padding(15, 3, 15, 3);
+        zipCodeLabel.Name = "zipCodeLabel";
+        zipCodeLabel.Required = false;
+        zipCodeLabel.Size = new Size(117, 19);
+        zipCodeLabel.TabIndex = 26;
+        zipCodeLabel.TabStop = false;
+        zipCodeLabel.Text = "Zip Code:";
+        // 
+        // emailLabel
+        // 
+        emailLabel.AutoSize = true;
+        emailLabel.Bold = false;
+        emailLabel.Location = new Point(3, 192);
+        emailLabel.Margin = new Padding(15, 3, 15, 3);
+        emailLabel.Name = "emailLabel";
+        emailLabel.Required = true;
+        emailLabel.Size = new Size(69, 19);
+        emailLabel.TabIndex = 27;
+        emailLabel.TabStop = false;
+        emailLabel.Text = "Email:";
+        // 
+        // dateOfBirthLabel
+        // 
+        dateOfBirthLabel.AutoSize = true;
+        dateOfBirthLabel.Bold = false;
+        dateOfBirthLabel.Location = new Point(3, 255);
+        dateOfBirthLabel.Margin = new Padding(15, 3, 15, 3);
+        dateOfBirthLabel.Name = "dateOfBirthLabel";
+        dateOfBirthLabel.Required = false;
+        dateOfBirthLabel.Size = new Size(135, 19);
+        dateOfBirthLabel.TabIndex = 28;
+        dateOfBirthLabel.TabStop = false;
+        dateOfBirthLabel.Text = "Date Of Birth:";
+        // 
+        // genderLabel
+        // 
+        genderLabel.AutoSize = true;
+        genderLabel.Bold = false;
+        genderLabel.Location = new Point(3, 318);
+        genderLabel.Margin = new Padding(15, 3, 15, 3);
+        genderLabel.Name = "genderLabel";
+        genderLabel.Required = false;
+        genderLabel.Size = new Size(117, 19);
+        genderLabel.TabIndex = 29;
+        genderLabel.TabStop = false;
+        genderLabel.Text = "Gender:";
+        // 
+        // phoneNumberLabel
+        // 
+        phoneNumberLabel.AutoSize = true;
+        phoneNumberLabel.Bold = false;
+        phoneNumberLabel.Location = new Point(168, 255);
+        phoneNumberLabel.Margin = new Padding(15, 3, 15, 3);
+        phoneNumberLabel.Name = "phoneNumberLabel";
+        phoneNumberLabel.Required = false;
+        phoneNumberLabel.Size = new Size(126, 19);
+        phoneNumberLabel.TabIndex = 30;
+        phoneNumberLabel.TabStop = false;
+        phoneNumberLabel.Text = "Phone Number:";
+        // 
+        // usbcIdLabel
+        // 
+        usbcIdLabel.AutoSize = true;
+        usbcIdLabel.Bold = false;
+        usbcIdLabel.Location = new Point(168, 318);
+        usbcIdLabel.Margin = new Padding(15, 3, 15, 3);
+        usbcIdLabel.Name = "usbcIdLabel";
+        usbcIdLabel.Required = false;
+        usbcIdLabel.Size = new Size(117, 19);
+        usbcIdLabel.TabIndex = 31;
+        usbcIdLabel.TabStop = false;
+        usbcIdLabel.Text = "USBC Id:";
+        // 
+        // bowlerErrorProvider
+        // 
+        bowlerErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+        bowlerErrorProvider.ContainerControl = this;
+        // 
+        // socialSecurityNumberControl1
+        // 
+        socialSecurityNumberControl.Location = new Point(321, 250);
+        socialSecurityNumberControl.Name = "socialSecurityNumberControl1";
+        socialSecurityNumberControl.ReadOnly = false;
+        socialSecurityNumberControl.Size = new Size(126, 86);
+        socialSecurityNumberControl.TabIndex = 13;
+        socialSecurityNumberControl.Value = "";
+        // 
+        // BowlerControl
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(socialSecurityNumberControl);
+        Controls.Add(usbcIdLabel);
+        Controls.Add(phoneNumberLabel);
+        Controls.Add(genderLabel);
+        Controls.Add(dateOfBirthLabel);
+        Controls.Add(emailLabel);
+        Controls.Add(zipCodeLabel);
+        Controls.Add(stateLabel);
+        Controls.Add(cityLabel);
+        Controls.Add(streetLabel);
+        Controls.Add(middleInitialLabel);
+        Controls.Add(suffixLabel);
+        Controls.Add(lastNameLabel);
+        Controls.Add(firstNameLabel);
+        Controls.Add(emailText);
+        Controls.Add(cityText);
+        Controls.Add(streetText);
+        Controls.Add(stateDropdown);
+        Controls.Add(zipCodeText);
+        Controls.Add(genderDropdown);
+        Controls.Add(dateOfBirthPicker);
+        Controls.Add(middleInitialText);
+        Controls.Add(suffixText);
+        Controls.Add(lastNameText);
+        Controls.Add(phoneNumberText);
+        Controls.Add(usbcIdText);
+        Controls.Add(firstNameText);
+        Margin = new Padding(15, 3, 15, 9);
+        Name = "BowlerControl";
+        Size = new Size(573, 388);
+        Validating += BowlerControl_Validating;
+        ((System.ComponentModel.ISupportInitialize)bowlerErrorProvider).EndInit();
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
@@ -452,4 +462,5 @@ partial class BowlerControl
     private Controls.LabelControl phoneNumberLabel;
     private Controls.LabelControl usbcIdLabel;
     private ErrorProvider bowlerErrorProvider;
+    private SocialSecurityNumberControl socialSecurityNumberControl;
 }
