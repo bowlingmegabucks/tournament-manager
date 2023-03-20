@@ -14,9 +14,7 @@ internal class TournamentRegistrationViewModel
             Id = RegistrationId.New(),
             Bowler = new NortheastMegabuck.Models.Bowler
             {
-                FirstName = "first",
-                MiddleInitial = "m",
-                LastName = "last"
+                Name = new NortheastMegabuck.Models.PersonName { First = "first" , MiddleInitial = "m", Last = "last"}
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -51,7 +49,7 @@ internal class TournamentRegistrationViewModel
     {
         var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
-        Assert.That(viewModel.FirstName, Is.EqualTo(_registration.Bowler.FirstName));
+        Assert.That(viewModel.FirstName, Is.EqualTo(_registration.Bowler.Name.First));
     }
 
     [Test]
@@ -59,7 +57,7 @@ internal class TournamentRegistrationViewModel
     {
         var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
-        Assert.That(viewModel.LastName, Is.EqualTo(_registration.Bowler.LastName));
+        Assert.That(viewModel.LastName, Is.EqualTo(_registration.Bowler.Name.Last));
     }
 
     [Test]

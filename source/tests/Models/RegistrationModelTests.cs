@@ -19,7 +19,7 @@ internal class Registration
 
         var registration = new NortheastMegabuck.Models.Registration(new NortheastMegabuck.Models.Bowler(bowler.Object), divisionId, squads, sweepers, superSweeper, average);
 
-        Assert.That(registration.Bowler.LastName, Is.EqualTo("lastName"));
+        Assert.That(registration.Bowler.Name.Last, Is.EqualTo("lastName"));
     }
 
     [Test]

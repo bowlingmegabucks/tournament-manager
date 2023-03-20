@@ -21,12 +21,12 @@ internal class ViewModel
     {
         var model = new NortheastMegabuck.Models.Bowler
         {
-            FirstName = "first name"
+            Name = new NortheastMegabuck.Models.PersonName { First = "first name" }
         };
 
         var viewModel = new NortheastMegabuck.Bowlers.Search.ViewModel(model);
 
-        Assert.That(viewModel.FirstName, Is.EqualTo(model.FirstName));
+        Assert.That(viewModel.FirstName, Is.EqualTo(model.Name.First));
     }
 
     [Test]
@@ -34,12 +34,12 @@ internal class ViewModel
     {
         var model = new NortheastMegabuck.Models.Bowler
         {
-            LastName = "last name"
+            Name = new NortheastMegabuck.Models.PersonName { Last = "last Name" }
         };
 
         var viewModel = new NortheastMegabuck.Bowlers.Search.ViewModel(model);
 
-        Assert.That(viewModel.LastName, Is.EqualTo(model.LastName));
+        Assert.That(viewModel.LastName, Is.EqualTo(model.Name.Last));
     }
 
     [Test]

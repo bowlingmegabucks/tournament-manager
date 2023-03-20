@@ -28,7 +28,7 @@ internal class Adapter
 
         _adapter.Execute(bowler.Object, divisionId, squads, sweepers, superSweeper, average);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NortheastMegabuck.Models.Registration>(registration => registration.Bowler.LastName == "lastName" &&
+        _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NortheastMegabuck.Models.Registration>(registration => registration.Bowler.Name.Last == "lastName" &&
                                                                                                                                 registration.Division.Id == divisionId &&
                                                                                                                                 registration.Sweepers.Select(sweeper=> sweeper.Id) == sweepers &&
                                                                                                                                 registration.SuperSweeper == superSweeper &&

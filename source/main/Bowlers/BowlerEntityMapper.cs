@@ -6,10 +6,10 @@ internal class EntityMapper : IEntityMapper
         => new()
         {
             Id = bowler.Id,
-            FirstName = bowler.FirstName,
-            MiddleInitial = bowler.MiddleInitial,
-            LastName = bowler.LastName,
-            Suffix = bowler.Suffix,
+            FirstName = bowler.Name.First,
+            MiddleInitial = bowler.Name.MiddleInitial,
+            LastName = bowler.Name.Last,
+            Suffix = bowler.Name.Suffix,
             StreetAddress = bowler.StreetAddress,
             CityAddress = bowler.CityAddress,
             StateAddress = bowler.StateAddress,

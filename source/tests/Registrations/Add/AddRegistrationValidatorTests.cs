@@ -843,9 +843,7 @@ internal class Validator
 
         var bowler = new NortheastMegabuck.Models.Bowler
         {
-            FirstName = "Ashlie",
-            MiddleInitial = "S",
-            LastName = "Kipperman",
+            Name = new NortheastMegabuck.Models.PersonName { First = "Ashlie", MiddleInitial = "S", Last = "Kipperman" },
             StreetAddress = "123 Anywhere Rd",
             CityAddress = "Hartford",
             StateAddress = "CT",

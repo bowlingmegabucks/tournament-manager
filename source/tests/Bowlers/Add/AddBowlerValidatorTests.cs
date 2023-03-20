@@ -13,67 +13,8 @@ internal class Validator
         => _validator = new NortheastMegabuck.Bowlers.Add.Validator();
 
     [Test]
-    public void FirstName_NullWhitespace_HasValidatorError([Values(null, "", " ")] string firstName)
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { FirstName = firstName };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldHaveValidationErrorFor(b => b.FirstName).WithErrorMessage("First Name is Required");
-    }
-
-    [Test]
-    public void FirstName_NotNullOrWhitespace_NoValidatorError()
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { FirstName = "John" };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldNotHaveValidationErrorFor(b => b.FirstName);
-    }
-
-    [Test]
-    public void MiddleInitial_NullEmpty_HasNoValidatorError([Values(null, "")] string middleInitial)
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { MiddleInitial = middleInitial };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldNotHaveValidationErrorFor(b => b.MiddleInitial);
-    }
-
-    [Test]
-    public void MiddleInitial_Length1_HasNoValidatorError()
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { MiddleInitial = "J" };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldNotHaveValidationErrorFor(b => b.MiddleInitial);
-    }
-
-    [Test]
-    public void MiddleInitial_LengthGreaterThan1_HasValidatorError([Range(2, 10)] int length)
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { MiddleInitial = new string('J', length) };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldHaveValidationErrorFor(b => b.MiddleInitial).WithErrorMessage("Middle Initial must only be 1 character");
-    }
-
-    [Test]
-    public void LastName_NullWhitespace_HasValidatorError([Values(null, "", " ")] string lastName)
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { LastName = lastName };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldHaveValidationErrorFor(b => b.LastName).WithErrorMessage("Last Name is Required");
-    }
-
-    [Test]
-    public void LastName_NotNullWhitespace_NoValidatorError()
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { LastName = "Doe" };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldNotHaveValidationErrorFor(b => b.LastName);
-    }
+    public void Name_HasPersonNameValidator()
+        => _validator.ShouldHaveChildValidator(bowler => bowler.Name, typeof(NortheastMegabuck.Bowlers.PersonNameValidator));
 
     [Test]
     public void CityAddress_NullOrEmpty_With_Street_Has_Error([Values(null, "", " ")] string city)

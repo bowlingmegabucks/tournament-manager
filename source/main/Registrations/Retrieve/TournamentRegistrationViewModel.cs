@@ -27,8 +27,8 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
     public TournamentRegistrationViewModel(Models.Registration registration)
     {
         Id = registration.Id;
-        FirstName = registration.Bowler.FirstName;
-        LastName = registration.Bowler.LastName;
+        FirstName = registration.Bowler.Name.First;
+        LastName = registration.Bowler.Name.Last;
         BowlerName = registration.Bowler.ToString();
         DivisionName = registration.Division.Name;
         SquadsEntered = registration.Squads.Select(squad => squad.Id).ToList();

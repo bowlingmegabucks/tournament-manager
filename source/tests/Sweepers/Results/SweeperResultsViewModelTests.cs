@@ -17,7 +17,7 @@ internal class ViewModel
     {
         var viewModel = new NortheastMegabuck.Sweepers.Results.ViewModel(new NortheastMegabuck.Models.BowlerSquadScore(200) 
         { 
-            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "first", LastName = "last"} 
+            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" } }
         }, 1, 5);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo("first last"));

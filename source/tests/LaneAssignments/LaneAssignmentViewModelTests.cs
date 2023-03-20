@@ -30,8 +30,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "firstName",
-                LastName = "lastName"
+                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
             },
             Division = new NortheastMegabuck.Models.Division()
         };
@@ -49,8 +48,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "firstName",
-                LastName = "lastName"
+                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -71,8 +69,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "firstName",
-                LastName = "lastName"
+                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -94,8 +91,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "firstName",
-                LastName = "lastName"
+                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -118,8 +114,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "firstName",
-                LastName = "lastName"
+                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -143,8 +138,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "firstName",
-                LastName = "lastName"
+                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -168,8 +162,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "firstName",
-                LastName = "lastName"
+                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -195,8 +188,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             { 
                 Id = BowlerId.New(),
-                FirstName = "first",
-                LastName = "last"
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
             },
             Division = new NortheastMegabuck.Models.Division
             { 
@@ -220,8 +212,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "first",
-                LastName = "last"
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -245,8 +236,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "first",
-                LastName = "last"
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -270,8 +260,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "first",
-                LastName = "last"
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -295,8 +284,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "first",
-                LastName = "last"
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -321,8 +309,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "first",
-                LastName = "last"
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -346,8 +333,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "first",
-                LastName = "last"
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -372,8 +358,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "first",
-                LastName = "last"
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -396,8 +381,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "firstName",
-                LastName = "lastName"
+                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -426,8 +410,7 @@ internal class ViewModel
             Bowler = new NortheastMegabuck.Models.Bowler
             {
                 Id = BowlerId.New(),
-                FirstName = "firstName",
-                LastName = "lastName"
+                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" },
             },
             Division = new NortheastMegabuck.Models.Division
             {
