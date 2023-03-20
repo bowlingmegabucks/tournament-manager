@@ -519,4 +519,34 @@ internal class Repository
 
         Assert.That(result, Has.Count.EqualTo(1));
     }
+
+    [Test]
+    public void Update_BowlerName_NameUpdated()
+    {
+        var bowler1 = new NortheastMegabuck.Database.Entities.Bowler
+        {
+            Id = BowlerId.New(),
+            FirstName = "firstName1",
+            MiddleInitial = "middleInitial1",
+            LastName = "lastName1",
+            Suffix = "suffix1"
+        };
+
+        _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler1 }.SetUpDbContext());
+
+        _repository.Update(bowler1.Id, "firstName2", "middleInitial2", "lastName2", "suffix2");
+
+        var updated = _repository.Search(new NortheastMegabuck.Models.BowlerSearchCriteria { LastName = "lastName2" });
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(updated.Count(), Is.EqualTo(1));
+
+            Assert.That(updated.Count(bowler => bowler.FirstName == "firstName2"), Is.EqualTo(1));
+            Assert.That(updated.Count(bowler => bowler.FirstName == "middleInitial2"), Is.EqualTo(1));
+            Assert.That(updated.Count(bowler => bowler.FirstName == "lastName2"), Is.EqualTo(1));
+            Assert.That(updated.Count(bowler => bowler.FirstName == "suffix2"), Is.EqualTo(1));
+        });
+
+    }
 }

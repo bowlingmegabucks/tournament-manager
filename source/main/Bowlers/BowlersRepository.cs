@@ -36,7 +36,7 @@ internal class Repository : IRepository
             bowlers = _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Squads).AsNoTracking();
         }
         else
-        { 
+        {
             bowlers = _dataContext.Bowlers.AsNoTracking();
         }
 
@@ -69,9 +69,23 @@ internal class Repository : IRepository
             ? bowlers.AsEnumerable().Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
             : bowlers.AsEnumerable();
     }
+
+    void IRepository.Update(BowlerId id, string firstName, string middleInitial, string lastName, string suffix)
+    {
+        var bowler = _dataContext.Bowlers.Single(b=> b.Id == id);
+
+        bowler.FirstName = firstName;
+        bowler.MiddleInitial = middleInitial;
+        bowler.LastName = lastName;
+        bowler.Suffix = suffix;
+
+        _dataContext.SaveChanges();
+    }
 }
 
 internal interface IRepository
 {
     IEnumerable<Database.Entities.Bowler> Search(Models.BowlerSearchCriteria searchCriteria);
+
+    void Update(BowlerId id, string firstName, string middleInitial, string lastName, string suffix);
 }
