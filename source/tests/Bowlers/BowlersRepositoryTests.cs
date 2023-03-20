@@ -543,9 +543,9 @@ internal class Repository
             Assert.That(updated.Count(), Is.EqualTo(1));
 
             Assert.That(updated.Count(bowler => bowler.FirstName == "firstName2"), Is.EqualTo(1));
-            Assert.That(updated.Count(bowler => bowler.FirstName == "middleInitial2"), Is.EqualTo(1));
-            Assert.That(updated.Count(bowler => bowler.FirstName == "lastName2"), Is.EqualTo(1));
-            Assert.That(updated.Count(bowler => bowler.FirstName == "suffix2"), Is.EqualTo(1));
+            Assert.That(updated.Count(bowler => bowler.MiddleInitial == "middleInitial2"), Is.EqualTo(1));
+            Assert.That(updated.Count(bowler => bowler.LastName == "lastName2"), Is.EqualTo(1));
+            Assert.That(updated.Count(bowler => bowler.Suffix == "suffix2"), Is.EqualTo(1));
         });
 
     }
