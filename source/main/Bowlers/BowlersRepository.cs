@@ -66,7 +66,7 @@ internal class Repository : IRepository
         }
 
         return searchCriteria.WithoutRegistrationOnSquads.Any()
-            ? bowlers.ToList().Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
+            ? bowlers.AsEnumerable().Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
             : bowlers.AsEnumerable();
     }
 }
