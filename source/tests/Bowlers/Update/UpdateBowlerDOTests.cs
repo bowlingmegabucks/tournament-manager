@@ -19,13 +19,17 @@ internal class DataLayer
     public void Execute_BowlerName_RepositoryUpdate_CalledCorrectly()
     {
         var id = BowlerId.New();
-        var firstName = "firstName";
-        var middleInitial = "middleInitial";
-        var lastName = "lastName";
-        var suffix = "suffix";
 
-        _dataLayer.Execute(id, firstName, middleInitial, lastName, suffix);
+        var name = new NortheastMegabuck.Models.PersonName
+        {
+            First = "firstName",
+            MiddleInitial = "middleInitial",
+            Last = "lastName",
+            Suffix = "suffix"
+        };
 
-        _repository.Verify(repository => repository.Update(id, firstName, middleInitial, lastName, suffix), Times.Once);
+        _dataLayer.Execute(id, name);
+
+        _repository.Verify(repository => repository.Update(id, name.First, name.MiddleInitial, name.Last, name.Suffix), Times.Once);
     }
 }

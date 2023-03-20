@@ -18,11 +18,11 @@ internal sealed class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    void IDataLayer.Execute(BowlerId id, string firstName, string middleInitial, string lastName, string suffix)
-        => _repository.Update(id, firstName, middleInitial, lastName, suffix);
+    void IDataLayer.Execute(BowlerId id, Models.PersonName name)
+        => _repository.Update(id, name.First, name.MiddleInitial, name.Last, name.Suffix);
 }
 
 internal interface IDataLayer
 {
-    void Execute(BowlerId id, string firstName, string middleInitial, string lastName, string suffix);
+    void Execute(BowlerId id, Models.PersonName name);
 }
