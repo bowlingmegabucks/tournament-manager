@@ -549,4 +549,40 @@ internal class Repository
         });
 
     }
+
+    [Test]
+    public void Retrieve_BowlerId_ReturnsBowler()
+    {
+        var bowler1 = new NortheastMegabuck.Database.Entities.Bowler
+        {
+            Id = BowlerId.New(),
+            FirstName = "John",
+            LastName = "Doe",
+            EmailAddress = "johndoe@gmail.com"
+        };
+
+        var bowler2 = new NortheastMegabuck.Database.Entities.Bowler
+        {
+            Id = BowlerId.New(),
+            FirstName = "Jane",
+            LastName = "Doe",
+            EmailAddress = "janedoe@gmail.com"
+        };
+
+        var bowler3 = new NortheastMegabuck.Database.Entities.Bowler
+        {
+            Id = BowlerId.New(),
+            FirstName = "John",
+            LastName = "Smith",
+            EmailAddress = "johnsmith@gmail.com"
+        };
+
+        var bowlers = new[] { bowler1, bowler2, bowler3 };
+
+        _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
+
+        var bowler = _repository.Retrieve(bowler2.Id);
+
+        Assert.That(bowler.LastName, Is.EqualTo(bowler2.LastName));
+    }
 }

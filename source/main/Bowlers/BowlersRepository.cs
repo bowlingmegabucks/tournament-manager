@@ -81,6 +81,9 @@ internal class Repository : IRepository
 
         _dataContext.SaveChanges();
     }
+
+    Database.Entities.Bowler IRepository.Retrieve(BowlerId id)
+        => _dataContext.Bowlers.AsNoTracking().Single(bowler => bowler.Id == id);
 }
 
 internal interface IRepository
@@ -88,4 +91,6 @@ internal interface IRepository
     IEnumerable<Database.Entities.Bowler> Search(Models.BowlerSearchCriteria searchCriteria);
 
     void Update(BowlerId id, string firstName, string middleInitial, string lastName, string suffix);
+
+    Database.Entities.Bowler Retrieve(BowlerId id);
 }
