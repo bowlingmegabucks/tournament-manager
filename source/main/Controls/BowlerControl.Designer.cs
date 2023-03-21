@@ -29,12 +29,8 @@ partial class BowlerControl
     private void InitializeComponent()
     {
         components = new System.ComponentModel.Container();
-        firstNameText = new TextBox();
         genderDropdown = new ComboBox();
         dateOfBirthPicker = new DateTimePicker();
-        middleInitialText = new TextBox();
-        suffixText = new TextBox();
-        lastNameText = new TextBox();
         phoneNumberText = new MaskedTextBox();
         usbcIdText = new TextBox();
         cityText = new TextBox();
@@ -42,10 +38,6 @@ partial class BowlerControl
         stateDropdown = new ComboBox();
         zipCodeText = new MaskedTextBox();
         emailText = new TextBox();
-        firstNameLabel = new LabelControl();
-        lastNameLabel = new LabelControl();
-        suffixLabel = new LabelControl();
-        middleInitialLabel = new LabelControl();
         streetLabel = new LabelControl();
         cityLabel = new LabelControl();
         stateLabel = new LabelControl();
@@ -57,21 +49,9 @@ partial class BowlerControl
         usbcIdLabel = new LabelControl();
         bowlerErrorProvider = new ErrorProvider(components);
         socialSecurityNumberControl = new SocialSecurityNumberControl();
+        personName = new PersonNameControl();
         ((System.ComponentModel.ISupportInitialize)bowlerErrorProvider).BeginInit();
         SuspendLayout();
-        // 
-        // firstNameText
-        // 
-        firstNameText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-        firstNameText.Location = new Point(3, 28);
-        firstNameText.Margin = new Padding(15, 3, 15, 9);
-        firstNameText.MaxLength = 20;
-        firstNameText.Name = "firstNameText";
-        firstNameText.PlaceholderText = "Joseph";
-        firstNameText.Size = new Size(132, 26);
-        firstNameText.TabIndex = 0;
-        firstNameText.Validating += FirstNameText_Validating;
-        firstNameText.Validated += Control_Validated;
         // 
         // genderDropdown
         // 
@@ -82,7 +62,7 @@ partial class BowlerControl
         genderDropdown.Margin = new Padding(15, 3, 15, 9);
         genderDropdown.Name = "genderDropdown";
         genderDropdown.Size = new Size(98, 26);
-        genderDropdown.TabIndex = 12;
+        genderDropdown.TabIndex = 9;
         // 
         // dateOfBirthPicker
         // 
@@ -95,42 +75,7 @@ partial class BowlerControl
         dateOfBirthPicker.Name = "dateOfBirthPicker";
         dateOfBirthPicker.ShowCheckBox = true;
         dateOfBirthPicker.Size = new Size(139, 26);
-        dateOfBirthPicker.TabIndex = 9;
-        // 
-        // middleInitialText
-        // 
-        middleInitialText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-        middleInitialText.Location = new Point(506, 28);
-        middleInitialText.Margin = new Padding(15, 3, 15, 9);
-        middleInitialText.MaxLength = 3;
-        middleInitialText.Name = "middleInitialText";
-        middleInitialText.PlaceholderText = "A";
-        middleInitialText.Size = new Size(36, 26);
-        middleInitialText.TabIndex = 3;
-        // 
-        // suffixText
-        // 
-        suffixText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-        suffixText.Location = new Point(342, 28);
-        suffixText.Margin = new Padding(15, 3, 15, 9);
-        suffixText.MaxLength = 3;
-        suffixText.Name = "suffixText";
-        suffixText.PlaceholderText = "IV";
-        suffixText.Size = new Size(51, 26);
-        suffixText.TabIndex = 2;
-        // 
-        // lastNameText
-        // 
-        lastNameText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-        lastNameText.Location = new Point(165, 28);
-        lastNameText.Margin = new Padding(15, 3, 15, 9);
-        lastNameText.MaxLength = 25;
-        lastNameText.Name = "lastNameText";
-        lastNameText.PlaceholderText = "Smith";
-        lastNameText.Size = new Size(147, 26);
-        lastNameText.TabIndex = 1;
-        lastNameText.Validating += LastNameText_Validating;
-        lastNameText.Validated += Control_Validated;
+        dateOfBirthPicker.TabIndex = 6;
         // 
         // phoneNumberText
         // 
@@ -140,7 +85,7 @@ partial class BowlerControl
         phoneNumberText.Mask = "(999) 000-0000";
         phoneNumberText.Name = "phoneNumberText";
         phoneNumberText.Size = new Size(100, 26);
-        phoneNumberText.TabIndex = 10;
+        phoneNumberText.TabIndex = 7;
         phoneNumberText.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
         // 
         // usbcIdText
@@ -152,7 +97,7 @@ partial class BowlerControl
         usbcIdText.Name = "usbcIdText";
         usbcIdText.PlaceholderText = "1234-5678";
         usbcIdText.Size = new Size(112, 26);
-        usbcIdText.TabIndex = 13;
+        usbcIdText.TabIndex = 10;
         // 
         // cityText
         // 
@@ -163,7 +108,7 @@ partial class BowlerControl
         cityText.Name = "cityText";
         cityText.PlaceholderText = "Anytown";
         cityText.Size = new Size(184, 26);
-        cityText.TabIndex = 5;
+        cityText.TabIndex = 2;
         // 
         // streetText
         // 
@@ -174,7 +119,7 @@ partial class BowlerControl
         streetText.Name = "streetText";
         streetText.PlaceholderText = "123 Any St. Unit 456";
         streetText.Size = new Size(539, 26);
-        streetText.TabIndex = 4;
+        streetText.TabIndex = 1;
         // 
         // stateDropdown
         // 
@@ -185,7 +130,7 @@ partial class BowlerControl
         stateDropdown.Margin = new Padding(15, 3, 15, 9);
         stateDropdown.Name = "stateDropdown";
         stateDropdown.Size = new Size(195, 26);
-        stateDropdown.TabIndex = 6;
+        stateDropdown.TabIndex = 3;
         // 
         // zipCodeText
         // 
@@ -195,7 +140,7 @@ partial class BowlerControl
         zipCodeText.Mask = "00000-9999";
         zipCodeText.Name = "zipCodeText";
         zipCodeText.Size = new Size(100, 26);
-        zipCodeText.TabIndex = 7;
+        zipCodeText.TabIndex = 4;
         zipCodeText.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
         // 
         // emailText
@@ -207,60 +152,9 @@ partial class BowlerControl
         emailText.Name = "emailText";
         emailText.PlaceholderText = "sample@NortheastMegabuck.com";
         emailText.Size = new Size(539, 26);
-        emailText.TabIndex = 8;
+        emailText.TabIndex = 5;
         emailText.Validating += EmailText_Validating;
         emailText.Validated += Control_Validated;
-        // 
-        // firstNameLabel
-        // 
-        firstNameLabel.AutoSize = true;
-        firstNameLabel.Bold = false;
-        firstNameLabel.Location = new Point(3, 3);
-        firstNameLabel.Name = "firstNameLabel";
-        firstNameLabel.Required = true;
-        firstNameLabel.Size = new Size(114, 19);
-        firstNameLabel.TabIndex = 19;
-        firstNameLabel.TabStop = false;
-        firstNameLabel.Text = "First Name:";
-        // 
-        // lastNameLabel
-        // 
-        lastNameLabel.AutoSize = true;
-        lastNameLabel.Bold = false;
-        lastNameLabel.Location = new Point(165, 3);
-        lastNameLabel.Margin = new Padding(15, 3, 15, 3);
-        lastNameLabel.Name = "lastNameLabel";
-        lastNameLabel.Required = true;
-        lastNameLabel.Size = new Size(105, 19);
-        lastNameLabel.TabIndex = 20;
-        lastNameLabel.TabStop = false;
-        lastNameLabel.Text = "Last Name:";
-        // 
-        // suffixLabel
-        // 
-        suffixLabel.AutoSize = true;
-        suffixLabel.Bold = false;
-        suffixLabel.Location = new Point(321, 3);
-        suffixLabel.Margin = new Padding(15, 3, 15, 3);
-        suffixLabel.Name = "suffixLabel";
-        suffixLabel.Required = false;
-        suffixLabel.Size = new Size(117, 19);
-        suffixLabel.TabIndex = 21;
-        suffixLabel.TabStop = false;
-        suffixLabel.Text = "Suffix:";
-        // 
-        // middleInitialLabel
-        // 
-        middleInitialLabel.AutoSize = true;
-        middleInitialLabel.Bold = false;
-        middleInitialLabel.Location = new Point(423, 3);
-        middleInitialLabel.Margin = new Padding(15, 3, 15, 3);
-        middleInitialLabel.Name = "middleInitialLabel";
-        middleInitialLabel.Required = false;
-        middleInitialLabel.Size = new Size(144, 19);
-        middleInitialLabel.TabIndex = 22;
-        middleInitialLabel.TabStop = false;
-        middleInitialLabel.Text = "Middle Initial:";
         // 
         // streetLabel
         // 
@@ -390,13 +284,25 @@ partial class BowlerControl
         socialSecurityNumberControl.Name = "socialSecurityNumberControl";
         socialSecurityNumberControl.ReadOnly = false;
         socialSecurityNumberControl.Size = new Size(130, 86);
-        socialSecurityNumberControl.TabIndex = 11;
+        socialSecurityNumberControl.TabIndex = 8;
         socialSecurityNumberControl.Value = "";
+        // 
+        // personName
+        // 
+        personName.First = "";
+        personName.Last = "";
+        personName.Location = new Point(3, 3);
+        personName.MiddleInitial = "";
+        personName.Name = "personName";
+        personName.Size = new Size(566, 63);
+        personName.Suffix = "";
+        personName.TabIndex = 0;
         // 
         // BowlerControl
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(personName);
         Controls.Add(socialSecurityNumberControl);
         Controls.Add(usbcIdLabel);
         Controls.Add(phoneNumberLabel);
@@ -407,10 +313,6 @@ partial class BowlerControl
         Controls.Add(stateLabel);
         Controls.Add(cityLabel);
         Controls.Add(streetLabel);
-        Controls.Add(middleInitialLabel);
-        Controls.Add(suffixLabel);
-        Controls.Add(lastNameLabel);
-        Controls.Add(firstNameLabel);
         Controls.Add(emailText);
         Controls.Add(cityText);
         Controls.Add(streetText);
@@ -418,12 +320,8 @@ partial class BowlerControl
         Controls.Add(zipCodeText);
         Controls.Add(genderDropdown);
         Controls.Add(dateOfBirthPicker);
-        Controls.Add(middleInitialText);
-        Controls.Add(suffixText);
-        Controls.Add(lastNameText);
         Controls.Add(phoneNumberText);
         Controls.Add(usbcIdText);
-        Controls.Add(firstNameText);
         Margin = new Padding(15, 3, 15, 9);
         Name = "BowlerControl";
         Size = new Size(573, 388);
@@ -434,13 +332,8 @@ partial class BowlerControl
     }
 
     #endregion
-
-    private TextBox firstNameText;
     private ComboBox genderDropdown;
     private DateTimePicker dateOfBirthPicker;
-    private TextBox middleInitialText;
-    private TextBox suffixText;
-    private TextBox lastNameText;
     private MaskedTextBox phoneNumberText;
     private TextBox usbcIdText;
     private TextBox cityText;
@@ -448,10 +341,6 @@ partial class BowlerControl
     protected ComboBox stateDropdown;
     private MaskedTextBox zipCodeText;
     private TextBox emailText;
-    private Controls.LabelControl firstNameLabel;
-    private Controls.LabelControl lastNameLabel;
-    private Controls.LabelControl suffixLabel;
-    private Controls.LabelControl middleInitialLabel;
     private Controls.LabelControl streetLabel;
     private Controls.LabelControl cityLabel;
     private Controls.LabelControl stateLabel;
@@ -463,4 +352,5 @@ partial class BowlerControl
     private Controls.LabelControl usbcIdLabel;
     private ErrorProvider bowlerErrorProvider;
     private SocialSecurityNumberControl socialSecurityNumberControl;
+    private PersonNameControl personName;
 }
