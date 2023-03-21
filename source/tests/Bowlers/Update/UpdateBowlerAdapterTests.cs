@@ -23,10 +23,9 @@ internal class Adapter
         var firstName = "firstName";
 
         var personName = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>();
-        personName.SetupGet(p => p.Id).Returns(bowlerId);
         personName.SetupGet(p => p.FirstName).Returns(firstName);
 
-        _adapter.Execute(personName.Object);
+        _adapter.Execute(bowlerId, personName.Object);
 
         _businessLogic.Verify(businessLogic => businessLogic.Execute(bowlerId, It.Is<NortheastMegabuck.Models.PersonName>(name => name.First == "firstName")), Times.Once);
     }
@@ -39,7 +38,7 @@ internal class Adapter
 
         var personName = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>().Object;
 
-        _adapter.Execute(personName);
+        _adapter.Execute(BowlerId.New(), personName);
 
         Assert.That(_adapter.Errors, Is.EqualTo(errors));
     }

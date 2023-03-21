@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NortheastMegabuck.Controls;
-public partial class PersonNameControl : UserControl
+public partial class PersonNameControl : UserControl, Bowlers.Update.INameViewModel
 {
     public PersonNameControl()
     {
@@ -13,6 +13,9 @@ public partial class PersonNameControl : UserControl
         get => firstNameText.Text;
         set => firstNameText.Text = value;
     }
+
+    string Bowlers.Update.INameViewModel.FirstName
+        => First;
 
     private void FirstNameText_Validating(object sender, CancelEventArgs e)
     {
@@ -33,6 +36,9 @@ public partial class PersonNameControl : UserControl
         get => lastNameText.Text;
         set => lastNameText.Text = value;
     }
+
+    string Bowlers.Update.INameViewModel.LastName
+        => Last;
 
     private void LastNameText_Validating(object sender, CancelEventArgs e)
     {

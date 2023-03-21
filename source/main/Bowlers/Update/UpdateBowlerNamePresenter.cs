@@ -1,0 +1,47 @@
+﻿
+namespace NortheastMegabuck.Bowlers.Update;
+internal class NamePresenter
+{
+    private readonly IBowlerNameView _view;
+
+    private readonly Retrieve.IAdapter _retrieveBowlerAdapter;
+
+    private readonly Lazy<IAdapter> _updateBowlerNameAdapter;
+    private IAdapter UpdateBowlerNameAdapter => _updateBowlerNameAdapter.Value;
+
+    public NamePresenter(IConfiguration config, IBowlerNameView view)
+    {
+        _view = view;
+
+        _retrieveBowlerAdapter = new Retrieve.Adapter(config);
+        _updateBowlerNameAdapter = new Lazy<IAdapter>(() => new Adapter(config));
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockView"></param>
+    /// <param name="mockRetrieveBowlerAdapter"></param>
+    /// <param name="mockUpdateBowlerNameAdapter"></param>
+    internal NamePresenter(IBowlerNameView mockView, Retrieve.IAdapter mockRetrieveBowlerAdapter, IAdapter mockUpdateBowlerNameAdapter)
+    {
+        _view = mockView;
+        _retrieveBowlerAdapter = mockRetrieveBowlerAdapter;
+        _updateBowlerNameAdapter = new Lazy<IAdapter>(() => mockUpdateBowlerNameAdapter);
+    }
+
+    public void Load()
+    {
+        var bowler = _retrieveBowlerAdapter.Execute(_view.Id);
+
+        if (_retrieveBowlerAdapter.Error != null)
+        {
+            _view.DisplayError(_retrieveBowlerAdapter.Error.Message);
+            _view.Disable();
+
+            return;
+        }
+
+        _view.Bind(bowler!);
+    }
+}

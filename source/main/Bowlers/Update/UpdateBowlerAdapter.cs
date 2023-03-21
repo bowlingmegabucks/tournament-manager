@@ -21,13 +21,13 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    void IAdapter.Execute(INameViewModel viewModel)
-        => _businessLogic.Execute(viewModel.Id, new Models.PersonName(viewModel));
+    void IAdapter.Execute(BowlerId id, INameViewModel viewModel)
+        => _businessLogic.Execute(id, new Models.PersonName(viewModel));
 }
 
 internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    void Execute(INameViewModel viewModel);
+    void Execute(BowlerId id, INameViewModel viewModel);
 }
