@@ -33,13 +33,13 @@ partial class NameForm
         saveButton = new Button();
         SuspendLayout();
         // 
-        // personNameControl1
+        // personNameControl
         // 
         personNameControl.First = "";
         personNameControl.Last = "";
         personNameControl.Location = new Point(12, 12);
         personNameControl.MiddleInitial = "";
-        personNameControl.Name = "personNameControl1";
+        personNameControl.Name = "personNameControl";
         personNameControl.Size = new Size(566, 63);
         personNameControl.Suffix = "";
         personNameControl.TabIndex = 0;
@@ -63,6 +63,7 @@ partial class NameForm
         saveButton.TabIndex = 3;
         saveButton.Text = "Save";
         saveButton.UseVisualStyleBackColor = true;
+        saveButton.Click += SaveButton_Click;
         // 
         // NameForm
         // 

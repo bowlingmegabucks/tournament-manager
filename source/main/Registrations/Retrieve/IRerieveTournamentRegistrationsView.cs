@@ -18,8 +18,6 @@ internal interface ITournamentRegistrationsView
     void SetSweeperEntries(IDictionary<string, int> sweeperEntries);
 
     void BindSquadDates(IDictionary<SquadId, string> squadDates);
-
-    void DisplayMessage(string message);
     
     string? UpdateBowlerName(BowlerId id);
 

@@ -331,24 +331,7 @@ internal class TournamentRegistrationsPresenter
 
         _presenter.UpdateBowlerName(bowlerId);
 
-        Assert.Multiple(() =>
-        {
-            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
-            _view.Verify(view => view.UpdateBowlerName(It.IsAny<string>()), Times.Never);
-        });
-    }
-
-    [Test]
-    public void UpdateBowlerName_ViewUpdateBowlerNameReturnsValue_ViewDisplayMessage_CalledCorrectly()
-    {
-        var bowlerName = "bowlerName";
-        _view.Setup(view => view.UpdateBowlerName(It.IsAny<BowlerId>())).Returns(bowlerName);
-
-        var bowlerId = BowlerId.New();
-
-        _presenter.UpdateBowlerName(bowlerId);
-
-        _view.Verify(view => view.DisplayMessage("bowlerName's name updated"));
+        _view.Verify(view => view.UpdateBowlerName(It.IsAny<string>()), Times.Never);
     }
 
     [Test]

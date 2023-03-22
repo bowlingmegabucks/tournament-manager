@@ -6,7 +6,13 @@ internal interface IBowlerNameView : IView
 
     void DisplayError(string message);
 
+    void DisplayErrors(IEnumerable<string> messages);
+
     void Bind(Retrieve.IViewModel viewModel);
 
     void Disable();
+
+    INameViewModel BowlerName { get; }
+
+    string FullName { get; }
 }

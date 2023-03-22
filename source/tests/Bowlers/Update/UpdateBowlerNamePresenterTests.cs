@@ -63,4 +63,46 @@ internal class NamePresenter
 
         _view.Verify(view => view.Bind(bowler), Times.Once);
     }
+
+    [Test]
+    public void Execute_UpdateBowlerNameAdapterExecute_CalledCorrectly()
+    {
+        var bowlerId = BowlerId.New();
+        _view.SetupGet(view => view.Id).Returns(bowlerId);
+
+        var bowlerName = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>().Object;
+        _view.SetupGet(view => view.BowlerName).Returns(bowlerName);
+
+        _namePresenter.Execute();
+
+        _updateBowlerAdapter.Verify(adapter => adapter.Execute(bowlerId, bowlerName), Times.Once);
+    }
+
+    [Test]
+    public void Execute_UpdateBowlerNameAdapterExecuteHasErrors_ErrorFlow()
+    {
+        var errors = new[] { new NortheastMegabuck.Models.ErrorDetail("error1"), new NortheastMegabuck.Models.ErrorDetail("error2") };
+        _updateBowlerAdapter.SetupGet(adapter => adapter.Errors).Returns(errors);
+
+        _namePresenter.Execute();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayErrors(new[] { "error1", "error2" }), Times.Once);
+            _view.Verify(view => view.KeepOpen(), Times.Once);
+
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Execute_UpdateBowlerNameAdapterExecuteSuccessful_ViewDisplayMessage_CalledCorrectly()
+    {
+        var fullName = "fullName";
+        _view.SetupGet(view => view.FullName).Returns(fullName);
+
+        _namePresenter.Execute();
+
+        _view.Verify(view => view.DisplayMessage("fullName's name updated"), Times.Once);
+    }
 }

@@ -44,4 +44,19 @@ internal class NamePresenter
 
         _view.Bind(bowler!);
     }
+
+    public void Execute()
+    {
+        UpdateBowlerNameAdapter.Execute(_view.Id, _view.BowlerName);
+
+        if (UpdateBowlerNameAdapter.Errors.Any())
+        {
+            _view.DisplayErrors(UpdateBowlerNameAdapter.Errors.Select(error => error.Message));
+            _view.KeepOpen();
+
+            return;
+        }
+
+        _view.DisplayMessage($"{_view.FullName}'s name updated");
+    }
 }

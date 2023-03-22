@@ -102,7 +102,6 @@ internal class TournamentRegistrationsPresenter
             return;
         }
 
-        _view.DisplayMessage($"{updatedName}'s name updated");
         _view.UpdateBowlerName(updatedName!);
     }
 }
