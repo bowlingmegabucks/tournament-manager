@@ -1,6 +1,6 @@
 ﻿
 namespace NortheastMegabuck.Bowlers.Update;
-internal interface IBowlerNameView
+internal interface IBowlerNameView : IView
 {
     BowlerId Id { get; }
 
