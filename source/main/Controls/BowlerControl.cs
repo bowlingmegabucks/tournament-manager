@@ -81,42 +81,26 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
 
     public string FirstName
     {
-        get => firstNameText.Text;
-        set => firstNameText.Text = value;
-    }
-
-    private void FirstNameText_Validating(object sender, CancelEventArgs e)
-    {
-        if (string.IsNullOrWhiteSpace(FirstName))
-        {
-            bowlerErrorProvider.SetError(firstNameText, "First name is required");
-        }
+        get => personName.First;
+        set => personName.First = value;
     }
 
     public string MiddleInitial
     {
-        get => middleInitialText.Text;
-        set => middleInitialText.Text = value;
+        get => personName.MiddleInitial;
+        set => personName.MiddleInitial = value;
     }
 
     public string LastName
     {
-        get => lastNameText.Text;
-        set => lastNameText.Text = value;
-    }
-
-    private void LastNameText_Validating(object sender, CancelEventArgs e)
-    {
-        if (string.IsNullOrWhiteSpace(LastName))
-        {
-            bowlerErrorProvider.SetError(lastNameText, "Last name is required");
-        }
+        get => personName.Last;
+        set => personName.Last = value;
     }
 
     public string Suffix
     {
-        get => suffixText.Text;
-        set => suffixText.Text = value;
+        get => personName.Suffix;
+        set => personName.Suffix = value;
     }
 
     public string StreetAddress

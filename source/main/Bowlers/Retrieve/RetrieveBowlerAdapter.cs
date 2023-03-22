@@ -4,9 +4,9 @@ internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
 
-    public Adapter()
+    public Adapter(IConfiguration config)
     {
-        _businessLogic = new BusinessLogic();
+        _businessLogic = new BusinessLogic(config);
     }
 
     /// <summary>

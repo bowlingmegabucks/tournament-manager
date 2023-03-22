@@ -28,203 +28,199 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.components = new System.ComponentModel.Container();
-            this.bowlerControl = new NortheastMegabuck.Controls.BowlerControl();
-            this.divisionsDropdown = new System.Windows.Forms.ComboBox();
-            this.divisionLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.registrationErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.averageValue = new NortheastMegabuck.Controls.NumericControl();
-            this.averageLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.squadsGroupBox = new System.Windows.Forms.GroupBox();
-            this.squadsFlowPanelLayout = new System.Windows.Forms.FlowLayoutPanel();
-            this.sweepersGroupBox = new System.Windows.Forms.GroupBox();
-            this.sweepersFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.cancelButton = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.superSweeperCheckBox = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.registrationErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.averageValue)).BeginInit();
-            this.squadsGroupBox.SuspendLayout();
-            this.sweepersGroupBox.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // bowlerControl
-            // 
-            this.bowlerControl.CityAddress = "";
-            this.bowlerControl.DateOfBirth = null;
-            this.bowlerControl.EmailAddress = "";
-            this.bowlerControl.FirstName = "";
-            this.bowlerControl.Gender = NortheastMegabuck.Models.Gender.Male;
-            this.bowlerControl.LastName = "";
-            this.bowlerControl.Location = new System.Drawing.Point(2, 12);
-            this.bowlerControl.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.bowlerControl.MiddleInitial = "";
-            this.bowlerControl.Name = "bowlerControl";
-            this.bowlerControl.PhoneNumber = "";
-            this.bowlerControl.Size = new System.Drawing.Size(597, 313);
-            this.bowlerControl.StateAddress = "";
-            this.bowlerControl.StreetAddress = "";
-            this.bowlerControl.Suffix = "";
-            this.bowlerControl.TabIndex = 0;
-            this.bowlerControl.USBCId = "";
-            this.bowlerControl.ZipCode = "";
-            // 
-            // divisionsDropdown
-            // 
-            this.divisionsDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.divisionsDropdown.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.divisionsDropdown.FormattingEnabled = true;
-            this.divisionsDropdown.Location = new System.Drawing.Point(5, 362);
-            this.divisionsDropdown.Margin = new System.Windows.Forms.Padding(15, 3, 15, 9);
-            this.divisionsDropdown.Name = "divisionsDropdown";
-            this.divisionsDropdown.Size = new System.Drawing.Size(232, 26);
-            this.divisionsDropdown.TabIndex = 1;
-            this.divisionsDropdown.Validating += new System.ComponentModel.CancelEventHandler(this.DivisionsDropDown_Validating);
-            // 
-            // divisionLabel
-            // 
-            this.divisionLabel.AutoSize = true;
-            this.divisionLabel.Bold = false;
-            this.divisionLabel.Location = new System.Drawing.Point(5, 337);
-            this.divisionLabel.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
-            this.divisionLabel.Name = "divisionLabel";
-            this.divisionLabel.Required = true;
-            this.divisionLabel.Size = new System.Drawing.Size(96, 19);
-            this.divisionLabel.TabIndex = 28;
-            this.divisionLabel.TabStop = false;
-            this.divisionLabel.Text = "Division:";
-            // 
-            // registrationErrorProvider
-            // 
-            this.registrationErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.registrationErrorProvider.ContainerControl = this.bowlerControl;
-            // 
-            // averageValue
-            // 
-            this.averageValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.averageValue.Location = new System.Drawing.Point(300, 361);
-            this.averageValue.Margin = new System.Windows.Forms.Padding(3, 4, 30, 10);
-            this.averageValue.Maximum = new decimal(new int[] {
-            300,
-            0,
-            0,
-            0});
-            this.averageValue.Name = "averageValue";
-            this.averageValue.Size = new System.Drawing.Size(99, 27);
-            this.averageValue.TabIndex = 2;
-            this.averageValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // averageLabel
-            // 
-            this.averageLabel.AutoSize = true;
-            this.averageLabel.Bold = false;
-            this.averageLabel.Location = new System.Drawing.Point(300, 337);
-            this.averageLabel.Name = "averageLabel";
-            this.averageLabel.Required = true;
-            this.averageLabel.Size = new System.Drawing.Size(87, 19);
-            this.averageLabel.TabIndex = 111;
-            this.averageLabel.TabStop = false;
-            this.averageLabel.Text = "Average:";
-            // 
-            // squadsGroupBox
-            // 
-            this.squadsGroupBox.Controls.Add(this.squadsFlowPanelLayout);
-            this.squadsGroupBox.Location = new System.Drawing.Point(617, 12);
-            this.squadsGroupBox.Name = "squadsGroupBox";
-            this.squadsGroupBox.Size = new System.Drawing.Size(276, 220);
-            this.squadsGroupBox.TabIndex = 112;
-            this.squadsGroupBox.TabStop = false;
-            this.squadsGroupBox.Text = "Squads";
-            // 
-            // squadsFlowPanelLayout
-            // 
-            this.squadsFlowPanelLayout.AutoScroll = true;
-            this.squadsFlowPanelLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.squadsFlowPanelLayout.Location = new System.Drawing.Point(3, 19);
-            this.squadsFlowPanelLayout.Name = "squadsFlowPanelLayout";
-            this.squadsFlowPanelLayout.Size = new System.Drawing.Size(270, 198);
-            this.squadsFlowPanelLayout.TabIndex = 115;
-            // 
-            // sweepersGroupBox
-            // 
-            this.sweepersGroupBox.Controls.Add(this.sweepersFlowLayoutPanel);
-            this.sweepersGroupBox.Location = new System.Drawing.Point(617, 238);
-            this.sweepersGroupBox.Name = "sweepersGroupBox";
-            this.sweepersGroupBox.Size = new System.Drawing.Size(276, 150);
-            this.sweepersGroupBox.TabIndex = 0;
-            this.sweepersGroupBox.TabStop = false;
-            this.sweepersGroupBox.Text = "Sweepers";
-            // 
-            // sweepersFlowLayoutPanel
-            // 
-            this.sweepersFlowLayoutPanel.AutoScroll = true;
-            this.sweepersFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sweepersFlowLayoutPanel.Location = new System.Drawing.Point(3, 19);
-            this.sweepersFlowLayoutPanel.Name = "sweepersFlowLayoutPanel";
-            this.sweepersFlowLayoutPanel.Size = new System.Drawing.Size(270, 128);
-            this.sweepersFlowLayoutPanel.TabIndex = 116;
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(12, 394);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 114;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            // 
-            // saveButton
-            // 
-            this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.saveButton.Location = new System.Drawing.Point(818, 394);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 113;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
-            // superSweeperCheckBox
-            // 
-            this.superSweeperCheckBox.AutoSize = true;
-            this.superSweeperCheckBox.Location = new System.Drawing.Point(496, 366);
-            this.superSweeperCheckBox.Name = "superSweeperCheckBox";
-            this.superSweeperCheckBox.Size = new System.Drawing.Size(103, 19);
-            this.superSweeperCheckBox.TabIndex = 3;
-            this.superSweeperCheckBox.Text = "Super Sweeper";
-            this.superSweeperCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // Form
-            // 
-            this.AcceptButton = this.saveButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(909, 428);
-            this.Controls.Add(this.superSweeperCheckBox);
-            this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.sweepersGroupBox);
-            this.Controls.Add(this.squadsGroupBox);
-            this.Controls.Add(this.averageValue);
-            this.Controls.Add(this.averageLabel);
-            this.Controls.Add(this.divisionLabel);
-            this.Controls.Add(this.divisionsDropdown);
-            this.Controls.Add(this.bowlerControl);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "Form";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Register Bowler";
-            ((System.ComponentModel.ISupportInitialize)(this.registrationErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.averageValue)).EndInit();
-            this.squadsGroupBox.ResumeLayout(false);
-            this.sweepersGroupBox.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        components = new System.ComponentModel.Container();
+        bowlerControl = new Controls.BowlerControl();
+        divisionsDropdown = new ComboBox();
+        divisionLabel = new Controls.LabelControl();
+        registrationErrorProvider = new ErrorProvider(components);
+        averageValue = new Controls.NumericControl();
+        averageLabel = new Controls.LabelControl();
+        squadsGroupBox = new GroupBox();
+        squadsFlowPanelLayout = new FlowLayoutPanel();
+        sweepersGroupBox = new GroupBox();
+        sweepersFlowLayoutPanel = new FlowLayoutPanel();
+        cancelButton = new Button();
+        saveButton = new Button();
+        superSweeperCheckBox = new CheckBox();
+        ((System.ComponentModel.ISupportInitialize)registrationErrorProvider).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)averageValue).BeginInit();
+        squadsGroupBox.SuspendLayout();
+        sweepersGroupBox.SuspendLayout();
+        SuspendLayout();
+        // 
+        // bowlerControl
+        // 
+        bowlerControl.CityAddress = "";
+        bowlerControl.DateOfBirth = null;
+        bowlerControl.EmailAddress = "";
+        bowlerControl.FirstName = "";
+        bowlerControl.Gender = Models.Gender.Male;
+        bowlerControl.LastName = "";
+        bowlerControl.Location = new Point(2, 12);
+        bowlerControl.Margin = new Padding(15, 3, 15, 9);
+        bowlerControl.MiddleInitial = "";
+        bowlerControl.Name = "bowlerControl";
+        bowlerControl.PhoneNumber = "";
+        bowlerControl.Size = new Size(597, 376);
+        bowlerControl.SocialSecurityNumber = "";
+        bowlerControl.StateAddress = "";
+        bowlerControl.StreetAddress = "";
+        bowlerControl.Suffix = "";
+        bowlerControl.TabIndex = 0;
+        bowlerControl.USBCId = "";
+        bowlerControl.ZipCode = "";
+        // 
+        // divisionsDropdown
+        // 
+        divisionsDropdown.DropDownStyle = ComboBoxStyle.DropDownList;
+        divisionsDropdown.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        divisionsDropdown.FormattingEnabled = true;
+        divisionsDropdown.Location = new Point(2, 425);
+        divisionsDropdown.Margin = new Padding(15, 3, 15, 9);
+        divisionsDropdown.Name = "divisionsDropdown";
+        divisionsDropdown.Size = new Size(232, 26);
+        divisionsDropdown.TabIndex = 1;
+        divisionsDropdown.Validating += DivisionsDropDown_Validating;
+        // 
+        // divisionLabel
+        // 
+        divisionLabel.AutoSize = true;
+        divisionLabel.Bold = false;
+        divisionLabel.Location = new Point(2, 400);
+        divisionLabel.Margin = new Padding(15, 3, 15, 3);
+        divisionLabel.Name = "divisionLabel";
+        divisionLabel.Required = true;
+        divisionLabel.Size = new Size(96, 19);
+        divisionLabel.TabIndex = 28;
+        divisionLabel.TabStop = false;
+        divisionLabel.Text = "Division:";
+        // 
+        // registrationErrorProvider
+        // 
+        registrationErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+        registrationErrorProvider.ContainerControl = bowlerControl;
+        // 
+        // averageValue
+        // 
+        averageValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        averageValue.Location = new Point(297, 424);
+        averageValue.Margin = new Padding(3, 4, 30, 10);
+        averageValue.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
+        averageValue.Name = "averageValue";
+        averageValue.Size = new Size(99, 27);
+        averageValue.TabIndex = 2;
+        averageValue.TextAlign = HorizontalAlignment.Right;
+        // 
+        // averageLabel
+        // 
+        averageLabel.AutoSize = true;
+        averageLabel.Bold = false;
+        averageLabel.Location = new Point(297, 398);
+        averageLabel.Name = "averageLabel";
+        averageLabel.Required = true;
+        averageLabel.Size = new Size(87, 19);
+        averageLabel.TabIndex = 111;
+        averageLabel.TabStop = false;
+        averageLabel.Text = "Average:";
+        // 
+        // squadsGroupBox
+        // 
+        squadsGroupBox.Controls.Add(squadsFlowPanelLayout);
+        squadsGroupBox.Location = new Point(617, 12);
+        squadsGroupBox.Name = "squadsGroupBox";
+        squadsGroupBox.Size = new Size(276, 260);
+        squadsGroupBox.TabIndex = 112;
+        squadsGroupBox.TabStop = false;
+        squadsGroupBox.Text = "Squads";
+        // 
+        // squadsFlowPanelLayout
+        // 
+        squadsFlowPanelLayout.AutoScroll = true;
+        squadsFlowPanelLayout.Dock = DockStyle.Fill;
+        squadsFlowPanelLayout.Location = new Point(3, 19);
+        squadsFlowPanelLayout.Name = "squadsFlowPanelLayout";
+        squadsFlowPanelLayout.Size = new Size(270, 238);
+        squadsFlowPanelLayout.TabIndex = 115;
+        // 
+        // sweepersGroupBox
+        // 
+        sweepersGroupBox.Controls.Add(sweepersFlowLayoutPanel);
+        sweepersGroupBox.Location = new Point(617, 278);
+        sweepersGroupBox.Name = "sweepersGroupBox";
+        sweepersGroupBox.Size = new Size(276, 179);
+        sweepersGroupBox.TabIndex = 0;
+        sweepersGroupBox.TabStop = false;
+        sweepersGroupBox.Text = "Sweepers";
+        // 
+        // sweepersFlowLayoutPanel
+        // 
+        sweepersFlowLayoutPanel.AutoScroll = true;
+        sweepersFlowLayoutPanel.Dock = DockStyle.Fill;
+        sweepersFlowLayoutPanel.Location = new Point(3, 19);
+        sweepersFlowLayoutPanel.Name = "sweepersFlowLayoutPanel";
+        sweepersFlowLayoutPanel.Size = new Size(270, 157);
+        sweepersFlowLayoutPanel.TabIndex = 116;
+        // 
+        // cancelButton
+        // 
+        cancelButton.DialogResult = DialogResult.Cancel;
+        cancelButton.Location = new Point(2, 463);
+        cancelButton.Name = "cancelButton";
+        cancelButton.Size = new Size(75, 23);
+        cancelButton.TabIndex = 114;
+        cancelButton.Text = "Cancel";
+        cancelButton.UseVisualStyleBackColor = true;
+        // 
+        // saveButton
+        // 
+        saveButton.DialogResult = DialogResult.OK;
+        saveButton.Location = new Point(808, 463);
+        saveButton.Name = "saveButton";
+        saveButton.Size = new Size(75, 23);
+        saveButton.TabIndex = 113;
+        saveButton.Text = "Save";
+        saveButton.UseVisualStyleBackColor = true;
+        saveButton.Click += SaveButton_Click;
+        // 
+        // superSweeperCheckBox
+        // 
+        superSweeperCheckBox.AutoSize = true;
+        superSweeperCheckBox.Location = new Point(493, 429);
+        superSweeperCheckBox.Name = "superSweeperCheckBox";
+        superSweeperCheckBox.Size = new Size(103, 19);
+        superSweeperCheckBox.TabIndex = 3;
+        superSweeperCheckBox.Text = "Super Sweeper";
+        superSweeperCheckBox.UseVisualStyleBackColor = true;
+        // 
+        // Form
+        // 
+        AcceptButton = saveButton;
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        AutoValidate = AutoValidate.EnableAllowFocusChange;
+        CancelButton = cancelButton;
+        ClientSize = new Size(909, 494);
+        Controls.Add(superSweeperCheckBox);
+        Controls.Add(cancelButton);
+        Controls.Add(saveButton);
+        Controls.Add(sweepersGroupBox);
+        Controls.Add(squadsGroupBox);
+        Controls.Add(averageValue);
+        Controls.Add(averageLabel);
+        Controls.Add(divisionLabel);
+        Controls.Add(divisionsDropdown);
+        Controls.Add(bowlerControl);
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
+        Name = "Form";
+        StartPosition = FormStartPosition.CenterScreen;
+        Text = "Register Bowler";
+        ((System.ComponentModel.ISupportInitialize)registrationErrorProvider).EndInit();
+        ((System.ComponentModel.ISupportInitialize)averageValue).EndInit();
+        squadsGroupBox.ResumeLayout(false);
+        sweepersGroupBox.ResumeLayout(false);
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion

@@ -6,9 +6,7 @@ internal class Validator : AbstractValidator<Models.Bowler>
 {
     public Validator()
     {
-        RuleFor(bowler => bowler.FirstName).NotEmpty().WithMessage("First Name is Required");
-        RuleFor(bowler => bowler.MiddleInitial).Must(initial => string.IsNullOrEmpty(initial) || initial.Length == 1).WithMessage("Middle Initial must only be 1 character");
-        RuleFor(bowler => bowler.LastName).NotEmpty().WithMessage("Last Name is Required");
+        RuleFor(bowler=> bowler.Name).SetValidator(new PersonNameValidator());
 
         RuleFor(bowler => bowler.CityAddress).NotEmpty().When(StreetIsGiven).WithMessage("City is Required when Street is given");
         RuleFor(bowler => bowler.StateAddress).Length(2).When(StreetIsGiven).WithMessage("State must be Postal Abbreviation");

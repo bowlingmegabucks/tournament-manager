@@ -24,7 +24,7 @@ internal class Presenter
         _retrieveSquadsAdapter = new Squads.Retrieve.Adapter(config);
         _retrieveSweepersAdapter = new Sweepers.Retrieve.Adapter(config);
 
-        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => new Bowlers.Retrieve.Adapter());
+        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => new Bowlers.Retrieve.Adapter(config));
 
         _adapter = new Lazy<IAdapter>(() => new Adapter(config));
     }

@@ -26,6 +26,9 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+    public void DisplayMessage(string message)
+        => MessageBox.Show(message,string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
     public void SetDivisionEntries(IDictionary<string, int> divisionEntries)
     {
         var entries = new StringBuilder();
@@ -72,4 +75,21 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         new TournamentRegistrationsPresenter(this, _config).Delete(registration.Id);
     }
+
+    private void UpdateBowlerNameMenuItem_Click(object sender, EventArgs e)
+    {
+        var registration = tournamentRegistrationsGrid.SelectedRegistration;
+
+        new TournamentRegistrationsPresenter(this, _config).UpdateBowlerName(registration.BowlerId);
+    }
+
+    public string? UpdateBowlerName(BowlerId id)
+    {
+        using var form = new Bowlers.Update.NameForm(_config, id);
+
+        return form.ShowDialog(this) == DialogResult.OK ? form.FullName : null;
+    }
+
+    public void UpdateBowlerName(string bowlerName)
+        => tournamentRegistrationsGrid.SelectedRegistration.BowlerName = bowlerName;
 }

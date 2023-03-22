@@ -28,7 +28,7 @@ internal class Bowler
 
         var model = new NortheastMegabuck.Models.Bowler(entity);
 
-        Assert.That(model.FirstName, Is.EqualTo(entity.FirstName));
+        Assert.That(model.Name.First, Is.EqualTo(entity.FirstName));
     }
 
     [Test]
@@ -41,7 +41,7 @@ internal class Bowler
 
         var model = new NortheastMegabuck.Models.Bowler(entity);
 
-        Assert.That(model.MiddleInitial, Is.EqualTo(entity.MiddleInitial));
+        Assert.That(model.Name.MiddleInitial, Is.EqualTo(entity.MiddleInitial));
     }
 
     [Test]
@@ -54,7 +54,7 @@ internal class Bowler
 
         var model = new NortheastMegabuck.Models.Bowler(entity);
 
-        Assert.That(model.LastName, Is.EqualTo(entity.LastName));
+        Assert.That(model.Name.Last, Is.EqualTo(entity.LastName));
     }
 
     [Test]
@@ -67,7 +67,7 @@ internal class Bowler
 
         var model = new NortheastMegabuck.Models.Bowler(entity);
 
-        Assert.That(model.Suffix, Is.EqualTo(entity.Suffix));
+        Assert.That(model.Name.Suffix, Is.EqualTo(entity.Suffix));
     }
 
     [Test]
@@ -232,7 +232,7 @@ internal class Bowler
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
-        Assert.That(model.FirstName, Is.EqualTo(viewModel.Object.FirstName));
+        Assert.That(model.Name.First, Is.EqualTo(viewModel.Object.FirstName));
     }
 
     [Test]
@@ -243,7 +243,7 @@ internal class Bowler
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
-        Assert.That(model.MiddleInitial, Is.EqualTo(viewModel.Object.MiddleInitial));
+        Assert.That(model.Name.MiddleInitial, Is.EqualTo(viewModel.Object.MiddleInitial));
     }
 
     [Test]
@@ -254,7 +254,7 @@ internal class Bowler
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
-        Assert.That(model.LastName, Is.EqualTo(viewModel.Object.LastName));
+        Assert.That(model.Name.Last, Is.EqualTo(viewModel.Object.LastName));
     }
 
     [Test]
@@ -265,7 +265,7 @@ internal class Bowler
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
 
-        Assert.That(model.Suffix, Is.EqualTo(viewModel.Object.Suffix));
+        Assert.That(model.Name.Suffix, Is.EqualTo(viewModel.Object.Suffix));
     }
 
     [Test]
@@ -434,12 +434,10 @@ internal class Bowler
     [Test]
     public void ToString_NoSuffix_ReturnsFirstLastName()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            FirstName = "first",
-            MiddleInitial = "m",
-            LastName = "last"
-        };
+        var bowler = new NortheastMegabuck.Models.Bowler();
+        bowler.Name.First = "first";
+        bowler.Name.MiddleInitial = "m";
+        bowler.Name.Last = "last";
 
         var expected = "first last";
         var actual = bowler.ToString();
@@ -450,13 +448,11 @@ internal class Bowler
     [Test]
     public void ToString_Suffix_ReturnsFirstLastCommaSuffix()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            FirstName = "first",
-            MiddleInitial = "m",
-            LastName = "last",
-            Suffix = "suffix"
-        };
+        var bowler = new NortheastMegabuck.Models.Bowler();
+        bowler.Name.First = "first";
+        bowler.Name.MiddleInitial = "m";
+        bowler.Name.Last = "last";
+        bowler.Name.Suffix = "suffix";
 
         var expected = "first last, suffix";
         var actual = bowler.ToString();
@@ -534,8 +530,8 @@ internal class Bowler
         var bowler2 = new NortheastMegabuck.Models.Bowler
         {
             Id = id,
-            FirstName = "firstName"
         };
+        bowler2.Name.First = "first";
 
         Assert.That(bowler.Equals(bowler2), Is.True);
     }

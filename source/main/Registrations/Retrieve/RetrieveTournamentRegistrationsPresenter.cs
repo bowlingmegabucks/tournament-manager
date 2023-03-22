@@ -92,4 +92,16 @@ internal class TournamentRegistrationsPresenter
             _view.RemoveRegistration(id);
         }
     }
+
+    public void UpdateBowlerName(BowlerId id)
+    {
+        var updatedName = _view.UpdateBowlerName(id);
+
+        if (updatedName == null)
+        {
+            return;
+        }
+
+        _view.UpdateBowlerName(updatedName!);
+    }
 }

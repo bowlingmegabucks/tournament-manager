@@ -59,10 +59,10 @@ internal class DataLayer
         {
             Assert.That(actual, Has.Count.EqualTo(3));
 
-            Assert.That(actual.Count(bowler => bowler.LastName == "Smith"), Is.EqualTo(1));
-            Assert.That(actual.Count(bowler => bowler.FirstName == "John"), Is.EqualTo(2));
-            Assert.That(actual.Count(bowler => bowler.LastName == "Doe"), Is.EqualTo(2));
-            Assert.That(actual.Count(bowler => bowler.FirstName == "Jane"), Is.EqualTo(1));
+            Assert.That(actual.Count(bowler => bowler.Name.Last == "Smith"), Is.EqualTo(1));
+            Assert.That(actual.Count(bowler => bowler.Name.First == "John"), Is.EqualTo(2));
+            Assert.That(actual.Count(bowler => bowler.Name.Last == "Doe"), Is.EqualTo(2));
+            Assert.That(actual.Count(bowler => bowler.Name.First == "Jane"), Is.EqualTo(1));
         });
     }
 }

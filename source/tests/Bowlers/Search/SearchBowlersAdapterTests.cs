@@ -41,8 +41,8 @@ internal class Adapter
     [Test]
     public void Execute_ReturnsBowlersFromBusinessLogic()
     {
-        var bowler1 = new NortheastMegabuck.Models.Bowler { LastName = "Bowler 1" };
-        var bowler2 = new NortheastMegabuck.Models.Bowler { LastName = "Bowler 2" };
+        var bowler1 = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { Last = "Bowler 1" } };
+        var bowler2 = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { Last = "Bowler 2" } };
         var bowlers = new[] { bowler1, bowler2 };
 
         _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(bowlers);
@@ -54,8 +54,8 @@ internal class Adapter
         Assert.Multiple(() =>
         {
             Assert.That(actual.Count, Is.EqualTo(2));
-            Assert.That(actual[0].LastName, Is.EqualTo(bowler1.LastName));
-            Assert.That(actual[1].LastName, Is.EqualTo(bowler2.LastName));
+            Assert.That(actual[0].LastName, Is.EqualTo(bowler1.Name.Last));
+            Assert.That(actual[1].LastName, Is.EqualTo(bowler2.Name.Last));
         });
     }
 }

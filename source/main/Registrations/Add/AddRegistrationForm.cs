@@ -55,7 +55,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => averageValue.Value == 0 ? null : (int)averageValue.Value;
 
     public IEnumerable<SquadId> Squads
-        => squadsFlowPanelLayout.Controls.OfType<Controls.ISelectedIds>().Where(control=> control.Selected).Select(control => control.Id).AsEnumerable();
+        => squadsFlowPanelLayout.Controls.OfType<Controls.ISelectedIds>().Where(control => control.Selected).Select(control => control.Id).AsEnumerable();
 
     public IEnumerable<SquadId> Sweepers
         => sweepersFlowLayoutPanel.Controls.OfType<Controls.ISelectedIds>().Where(control => control.Selected).Select(control => control.Id).AsEnumerable();
@@ -124,7 +124,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void Disable()
     {
         bowlerControl.Enabled = false;
-        
+
         divisionsDropdown.Enabled = false;
         averageValue.Enabled = false;
 
