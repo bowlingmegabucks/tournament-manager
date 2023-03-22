@@ -313,4 +313,54 @@ internal class TournamentRegistrationsPresenter
 
         _view.Verify(view=> view.RemoveRegistration(registrationId), Times.Once);
     }
+
+    [Test]
+    public void UpdateBowlerName_ViewUpdateBowlerName_CalledCorrectly()
+    {
+        var bowlerId = BowlerId.New();
+
+        _presenter.UpdateBowlerName(bowlerId);
+
+        _view.Verify(view => view.UpdateBowlerName(bowlerId), Times.Once);
+    }
+
+    [Test]
+    public void UpdateBowlerName_ViewUpdateBowlerNameReturnsNull_CancelFlow()
+    {
+        var bowlerId = BowlerId.New();
+
+        _presenter.UpdateBowlerName(bowlerId);
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.UpdateBowlerName(It.IsAny<string>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void UpdateBowlerName_ViewUpdateBowlerNameReturnsValue_ViewDisplayMessage_CalledCorrectly()
+    {
+        var bowlerName = "bowlerName";
+        _view.Setup(view => view.UpdateBowlerName(It.IsAny<BowlerId>())).Returns(bowlerName);
+
+        var bowlerId = BowlerId.New();
+
+        _presenter.UpdateBowlerName(bowlerId);
+
+        _view.Verify(view => view.DisplayMessage("bowlerName's name updated"));
+    }
+
+    [Test]
+    public void UpdateBowlerName_ViewUpdateBowlerNameReturnsValue_ViewUpdateBowlerName_CalledCorrectly()
+    {
+        var bowlerName = "bowlerName";
+        _view.Setup(view => view.UpdateBowlerName(It.IsAny<BowlerId>())).Returns(bowlerName);
+
+        var bowlerId = BowlerId.New();
+
+        _presenter.UpdateBowlerName(bowlerId);
+
+        _view.Verify(view => view.UpdateBowlerName("bowlerName"), Times.Once);
+    }
 }

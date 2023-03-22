@@ -24,6 +24,9 @@ internal partial class NameForm : Form, IBowlerNameView
         personNameControl.Suffix = viewModel.Suffix;
     }
 
+    public string FullName
+        => Models.PersonName.FullName(personNameControl.First, personNameControl.Last, personNameControl.Suffix);
+
     public void Disable()
     {
         personNameControl.Enabled = false;

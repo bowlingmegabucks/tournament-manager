@@ -5,7 +5,7 @@ internal interface ITournamentRegistrationsView
 
     void BindRegistrations(IEnumerable<ITournamentRegistrationViewModel> registrations);
 
-    bool Confirm(string v);
+    bool Confirm(string message);
 
     void DisplayError(string message);
 
@@ -18,4 +18,10 @@ internal interface ITournamentRegistrationsView
     void SetSweeperEntries(IDictionary<string, int> sweeperEntries);
 
     void BindSquadDates(IDictionary<SquadId, string> squadDates);
+
+    void DisplayMessage(string message);
+    
+    string? UpdateBowlerName(BowlerId id);
+
+    void UpdateBowlerName(string bowlerName);
 }

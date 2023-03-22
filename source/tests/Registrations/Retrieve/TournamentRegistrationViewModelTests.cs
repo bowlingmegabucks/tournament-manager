@@ -14,7 +14,8 @@ internal class TournamentRegistrationViewModel
             Id = RegistrationId.New(),
             Bowler = new NortheastMegabuck.Models.Bowler
             {
-                Name = new NortheastMegabuck.Models.PersonName { First = "first" , MiddleInitial = "m", Last = "last"}
+                Name = new NortheastMegabuck.Models.PersonName { First = "first" , MiddleInitial = "m", Last = "last"},
+                Id = BowlerId.New()
             },
             Division = new NortheastMegabuck.Models.Division
             {
@@ -66,6 +67,14 @@ internal class TournamentRegistrationViewModel
         var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo(_registration.Bowler.ToString()));
+    }
+
+    [Test]
+    public void Constructor_BowlerIdMapped()
+    {
+        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+
+        Assert.That(viewModel.BowlerId, Is.EqualTo(_registration.Bowler.Id));
     }
 
     [Test]

@@ -8,7 +8,9 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
 
     public string LastName { get; init; }
 
-    public string BowlerName { get; }
+    public BowlerId BowlerId { get; }
+
+    public string BowlerName { get; set; }
 
     public string DivisionName { get; }
 
@@ -30,6 +32,7 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
         FirstName = registration.Bowler.Name.First;
         LastName = registration.Bowler.Name.Last;
         BowlerName = registration.Bowler.ToString();
+        BowlerId = registration.Bowler.Id;
         DivisionName = registration.Division.Name;
         SquadsEntered = registration.Squads.Select(squad => squad.Id).ToList();
         SweepersEntered = registration.Sweepers.Select(sweeper => sweeper.Id).ToList();
@@ -57,7 +60,9 @@ public interface ITournamentRegistrationViewModel
     string LastName { get; }
     RegistrationId Id { get; }
 
-    string BowlerName { get; }
+    BowlerId BowlerId { get; }
+
+    string BowlerName { get; set; }
 
     string DivisionName { get; }
 

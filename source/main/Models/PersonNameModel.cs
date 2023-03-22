@@ -25,15 +25,18 @@ internal class PersonName
         Suffix = viewModel.Suffix;
     }
 
-    public override string ToString()
+    public static string FullName(string firstName, string lastName, string suffix)
     {
-        var name = new StringBuilder($"{First} {Last}");
+        var name = new StringBuilder($"{firstName} {lastName}");
 
-        if (!string.IsNullOrEmpty(Suffix))
+        if (!string.IsNullOrEmpty(suffix))
         {
-            name.Append($", {Suffix}");
+            name.Append($", {suffix}");
         }
 
         return name.ToString();
     }
+
+    public override string ToString()
+        => FullName(First, Last, Suffix);
 }
