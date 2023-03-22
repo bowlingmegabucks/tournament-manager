@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NortheastMegabuck.Tests.Extensions;
 
 namespace NortheastMegabuck.Tests.Bowlers.Update;
 
@@ -65,8 +61,35 @@ internal class NamePresenter
     }
 
     [Test]
-    public void Execute_UpdateBowlerNameAdapterExecute_CalledCorrectly()
+    public void Execute_ViewIsValid_Called()
     {
+        _namePresenter.Execute();
+
+        _view.Verify(view => view.IsValid(), Times.Once);
+    }
+
+    [Test]
+    public void Execute_ViewIsValidFalse_NothingElseCalled()
+    {
+        _view.IsValid_False();
+
+        _namePresenter.Execute();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.KeepOpen(), Times.Once);
+
+            _updateBowlerAdapter.Verify(adapter => adapter.Execute(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Bowlers.Update.INameViewModel>()), Times.Never);
+            _view.Verify(view => view.DisplayErrors(It.IsAny<IEnumerable<string>>()), Times.Never);
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public void Execute_ViewIsValidTrue_UpdateBowlerNameAdapterExecute_CalledCorrectly()
+    {
+        _view.IsValid_True();
+
         var bowlerId = BowlerId.New();
         _view.SetupGet(view => view.Id).Returns(bowlerId);
 
@@ -79,8 +102,10 @@ internal class NamePresenter
     }
 
     [Test]
-    public void Execute_UpdateBowlerNameAdapterExecuteHasErrors_ErrorFlow()
+    public void Execute_ViewIsValidTrue_UpdateBowlerNameAdapterExecuteHasErrors_ErrorFlow()
     {
+        _view.IsValid_True();
+
         var errors = new[] { new NortheastMegabuck.Models.ErrorDetail("error1"), new NortheastMegabuck.Models.ErrorDetail("error2") };
         _updateBowlerAdapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
@@ -96,8 +121,10 @@ internal class NamePresenter
     }
 
     [Test]
-    public void Execute_UpdateBowlerNameAdapterExecuteSuccessful_ViewDisplayMessage_CalledCorrectly()
+    public void Execute_ViewIsValidTrue_UpdateBowlerNameAdapterExecuteSuccessful_ViewDisplayMessage_CalledCorrectly()
     {
+        _view.IsValid_True();
+
         var fullName = "fullName";
         _view.SetupGet(view => view.FullName).Returns(fullName);
 

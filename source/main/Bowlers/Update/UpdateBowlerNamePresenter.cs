@@ -47,6 +47,13 @@ internal class NamePresenter
 
     public void Execute()
     {
+        if (!_view.IsValid())
+        {
+            _view.KeepOpen();
+
+            return;
+        }
+
         UpdateBowlerNameAdapter.Execute(_view.Id, _view.BowlerName);
 
         if (UpdateBowlerNameAdapter.Errors.Any())
