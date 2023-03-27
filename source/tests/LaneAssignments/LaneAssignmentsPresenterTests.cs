@@ -103,12 +103,15 @@ internal class Presenter
     {
         var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
+        assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignment2 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
+        assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
         var assignment3 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
+        assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
         _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
@@ -123,16 +126,48 @@ internal class Presenter
     }
 
     [Test]
+    public void Load_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindEntriesPerDivision_CalledCorrectly()
+    {
+        var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
+        assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
+
+        var assignment2 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
+        assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
+
+        var assignment3 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
+        assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
+
+        var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
+        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+
+        _presenter.Load();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.BindEntriesPerDivision(It.Is<IDictionary<string, int>>(entries => entries.Count == 2)), Times.Once);
+
+            _view.Verify(view => view.BindEntriesPerDivision(It.Is<IDictionary<string, int>>(entries => entries["division1"] == 2)), Times.Once);
+            _view.Verify(view => view.BindEntriesPerDivision(It.Is<IDictionary<string, int>>(entries => entries["division2"] == 1)), Times.Once);
+        });
+    }
+
+    [Test]
     public void Load_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignmments_CalledCorrectly()
     {
         var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
+        assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignment2 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
+        assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
         var assignment3 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
+        assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
         _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
@@ -448,12 +483,15 @@ internal class Presenter
 
         var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
+        assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignment2 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
+        assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
         var assignment3 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
+        assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
         _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
@@ -468,18 +506,52 @@ internal class Presenter
     }
 
     [Test]
+    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindEntriesPerDivision_CalledCorrectly()
+    {
+        _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
+
+        var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
+        assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
+
+        var assignment2 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
+        assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
+
+        var assignment3 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
+        assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
+
+        var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
+        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+
+        _presenter.NewRegistration();
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.BindEntriesPerDivision(It.Is<IDictionary<string, int>>(entries => entries.Count == 2)), Times.Once);
+
+            _view.Verify(view => view.BindEntriesPerDivision(It.Is<IDictionary<string, int>>(entries => entries["division1"] == 2)), Times.Once);
+            _view.Verify(view => view.BindEntriesPerDivision(It.Is<IDictionary<string, int>>(entries => entries["division2"] == 1)), Times.Once);
+        });
+    }
+
+    [Test]
     public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignmments_CalledCorrectly()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
         var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
+        assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignment2 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
+        assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
         var assignment3 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
+        assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
         _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
