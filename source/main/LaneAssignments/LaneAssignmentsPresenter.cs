@@ -82,6 +82,9 @@ internal class Presenter
 
         _view.BindRegistrations(assignments.Where(assignment=> string.IsNullOrWhiteSpace(assignment.LaneAssignment)));
         _view.BindLaneAssignments(assignments.Where(assignment => !string.IsNullOrWhiteSpace(assignment.LaneAssignment)));
+
+        var entriesPerDivision = assignments.GroupBy(assignment => assignment.DivisionName).ToDictionary(group => group.Key, group => group.Count());
+        _view.BindEntriesPerDivision(entriesPerDivision);
     }
 
     public void Update(SquadId squadId, IViewModel registration, string position)

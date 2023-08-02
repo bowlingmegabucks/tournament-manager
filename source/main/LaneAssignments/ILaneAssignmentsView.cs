@@ -21,6 +21,8 @@ internal interface IView
 
     void BindLaneAssignments(IEnumerable<IViewModel> assignments);
 
+    void BindEntriesPerDivision(IDictionary<string, int> entriesPerDivision);  
+
     void RemoveLaneAssignment(IViewModel registration);
 
     void AssignToLane(IViewModel registration, string position);
