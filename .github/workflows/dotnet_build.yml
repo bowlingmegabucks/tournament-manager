@@ -15,6 +15,8 @@ jobs:
         dotnet-version: 7.0.x
     - name: Clean
       run: dotnet clean source --configuration Release && dotnet nuget locals all --clear
+    - name: Restore dependencies
+      run: dotnet restore source
     - name: Build
       run: dotnet build source --no-restore --configuration Release
     - name: Test
