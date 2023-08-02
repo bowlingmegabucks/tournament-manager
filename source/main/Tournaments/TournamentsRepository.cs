@@ -18,8 +18,8 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
     
-    IEnumerable<Database.Entities.Tournament> IRepository.RetrieveAll()
-        => _dataContext.Tournaments.AsNoTracking().AsEnumerable();
+    IQueryable<Database.Entities.Tournament> IRepository.RetrieveAll()
+        => _dataContext.Tournaments.AsNoTracking();
 
     Database.Entities.Tournament IRepository.Retrieve(TournamentId id)
         => _dataContext.Tournaments.AsNoTrackingWithIdentityResolution()
@@ -44,7 +44,7 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    IEnumerable<Database.Entities.Tournament> RetrieveAll();
+    IQueryable<Database.Entities.Tournament> RetrieveAll();
 
     Database.Entities.Tournament Retrieve(TournamentId id);
 

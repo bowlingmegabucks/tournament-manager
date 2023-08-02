@@ -21,9 +21,9 @@ internal class Adapter : IAdapter
         _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
     }
 
-    public IEnumerable<IViewModel> Execute()
+    public async Task<IEnumerable<IViewModel>> ExecuteAsync(CancellationToken cancellationToken)
     {
-        var tournaments = BusinessLogic.Execute();
+        var tournaments = await BusinessLogic.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         return tournaments.Select(tournament => new ViewModel(tournament)).ToList();
     }
@@ -47,7 +47,7 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IViewModel> Execute();
+    Task<IEnumerable<IViewModel>> ExecuteAsync(CancellationToken cancellationToken);
 
     IViewModel? Execute(TournamentId tournamentId);
 

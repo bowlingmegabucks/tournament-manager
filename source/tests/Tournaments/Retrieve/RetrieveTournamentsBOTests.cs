@@ -16,50 +16,52 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_DataLayerExecute_Called()
+    public async Task ExecuteAsync_DataLayerExecute_Called()
     {
-        _businessLogic.Execute();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Verify(dataLayer=> dataLayer.Execute(), Times.Once);
+        await _businessLogic.ExecuteAsync(cancellationToken);
+
+        _dataLayer.Verify(dataLayer=> dataLayer.ExecuteAsync(cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsResultFromDataLayer()
+    public async Task ExecuteAsync_ReturnsResultFromDataLayer()
     {
         var tournaments = new Mock<IEnumerable<NortheastMegabuck.Models.Tournament>>();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute()).Returns(tournaments.Object);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(tournaments.Object);
 
-        var result = _businessLogic.Execute();
+        var result = await _businessLogic.ExecuteAsync(default);
 
         Assert.That(result, Is.EqualTo(tournaments.Object));
     }
 
     [Test]
-    public void Execute_NoErrors_ErrorNull()
+    public async Task ExecuteAsync_NoErrors_ErrorNull()
     {
-        _businessLogic.Execute();
+        await _businessLogic.ExecuteAsync(default);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void Execute_DataLayerExecuteThrowsException_ReturnsEmptyCollection()
+    public async Task ExecuteAsync_DataLayerExecuteThrowsException_ReturnsEmptyCollection()
     {
         var ex = new Exception();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute()).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        var result = _businessLogic.Execute();
+        var result = await _businessLogic.ExecuteAsync(default);
 
         Assert.That(result, Is.Empty);
     }
 
     [Test]
-    public void Execute_DataLayerExecuteThrowsException_ErrorPopulated()
+    public async Task Execute_DataLayerExecuteThrowsException_ErrorPopulated()
     {
         var ex = new Exception("message");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute()).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        _businessLogic.Execute();
+        await _businessLogic.ExecuteAsync(default);
         
         Assert.Multiple(() =>
         {

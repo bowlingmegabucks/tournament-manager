@@ -16,15 +16,15 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryRetrieveAll_Called()
+    public async Task ExecuteAsync_RepositoryRetrieveAll_Called()
     {
-        _dataLayer.Execute();
+        await _dataLayer.ExecuteAsync(default);
 
         _repository.Verify(repository => repository.RetrieveAll(), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsTournamentModels()
+    public async Task ExecuteAsync_ReturnsTournamentModels()
     {
         var id1 = TournamentId.New();
         var id2 = TournamentId.New();
@@ -36,17 +36,17 @@ internal class DataLayer
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
-        _repository.Setup(repository=> repository.RetrieveAll()).Returns(tournaments);
+        _repository.Setup(repository=> repository.RetrieveAll()).Returns(tournaments.BuildMock());
 
-        var actual = _dataLayer.Execute().ToList();
+        var actual = (await _dataLayer.ExecuteAsync(default)).ToList();
 
         Assert.Multiple(() =>
         {
             Assert.That(actual, Has.Count.EqualTo(3));
 
-            Assert.That(actual.Any(tournament => tournament.Id == id1), "tournament1 not returned");
-            Assert.That(actual.Any(tournament => tournament.Id == id2), "tournament2 not returned");
-            Assert.That(actual.Any(tournament => tournament.Id == id3), "tournament3 not returned");
+            Assert.That(actual.Exists(tournament => tournament.Id == id1), "tournament1 not returned");
+            Assert.That(actual.Exists(tournament => tournament.Id == id2), "tournament2 not returned");
+            Assert.That(actual.Exists(tournament => tournament.Id == id3), "tournament3 not returned");
         });
     }
 

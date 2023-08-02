@@ -19,11 +19,11 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = mockDataLayer;
     }
 
-    IEnumerable<Models.Tournament> IBusinessLogic.Execute()
+    async Task<IEnumerable<Models.Tournament>> IBusinessLogic.ExecuteAsync(CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute();
+            return await _dataLayer.ExecuteAsync(cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -80,7 +80,7 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.Tournament> Execute();
+    Task<IEnumerable<Models.Tournament>> ExecuteAsync(CancellationToken cancellationToken);
 
     Models.Tournament? Execute(TournamentId id);
 

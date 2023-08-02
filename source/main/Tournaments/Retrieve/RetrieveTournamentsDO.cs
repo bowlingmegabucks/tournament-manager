@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tournaments.Retrieve;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NortheastMegabuck.Tournaments.Retrieve;
 
 internal class DataLayer : IDataLayer
 {
@@ -18,8 +20,8 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    IEnumerable<Models.Tournament> IDataLayer.Execute()
-        => _repository.RetrieveAll().Select(tournament => new Models.Tournament(tournament));
+    async Task<IEnumerable<Models.Tournament>> IDataLayer.ExecuteAsync(CancellationToken cancellationToken)
+        => (await _repository.RetrieveAll().ToListAsync(cancellationToken).ConfigureAwait(false)).Select(tournament => new Models.Tournament(tournament));
 
     Models.Tournament IDataLayer.Execute(TournamentId id)
         => new(_repository.Retrieve(id));
@@ -33,7 +35,7 @@ internal class DataLayer : IDataLayer
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.Tournament> Execute();
+    Task<IEnumerable<Models.Tournament>> ExecuteAsync(CancellationToken cancellationToken);
 
     Models.Tournament Execute(TournamentId id);
 
