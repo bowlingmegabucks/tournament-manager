@@ -20,7 +20,7 @@ internal class Presenter
     }
 
     [Test]
-    public void GetTournamentRatios_RetrieveTournamentAdapterExecute_CalledCorrectly()
+    public void GetTournamentDetails_RetrieveTournamentAdapterExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         
@@ -32,13 +32,13 @@ internal class Presenter
         var tournament = new Mock<NortheastMegabuck.Tournaments.IViewModel>();
         _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(It.IsAny<TournamentId>())).Returns(tournament.Object);
 
-        _presenter.GetTournamentRatios();
+        _presenter.GetTournamentDetails();
 
         _retrieveTournamentAdapter.Verify(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(tournamentId), Times.Once);
     }
 
     [Test]
-    public void GetTournamentRatios_RetrieveTournamentAdapterHasError_ErrorFlow()
+    public void GetTournamentDetails_RetrieveTournamentAdapterHasError_ErrorFlow()
     {
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
@@ -46,35 +46,38 @@ internal class Presenter
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveTournamentAdapter.SetupGet(retrieveTournamentAdapter => retrieveTournamentAdapter.Error).Returns(error);
 
-        _presenter.GetTournamentRatios();
+        _presenter.GetTournamentDetails();
 
         Assert.Multiple(()=>
         {
             _view.Verify(view => view.DisplayError(error.Message), Times.Once);
-            
+
+            _view.Verify(view => view.SetTournamentEntryFee(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.SetTournamentFinalsRatio(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.SetTournamentCashRatio(It.IsAny<string>()), Times.Never);
         });
     }
 
     [Test]
-    public void GetTournamentRatios_RetrieveTournamentAdapterHasNoError_SuccessFlow()
+    public void GetTournamentDetails_RetrieveTournamentAdapterHasNoError_SuccessFlow()
     {
         var tournament = new Mock<NortheastMegabuck.Tournaments.IViewModel>();
         tournament.SetupGet(t => t.FinalsRatio).Returns(1m);
         tournament.SetupGet(t => t.CashRatio).Returns(3m);
+        tournament.SetupGet(t => t.EntryFee).Returns(50m);
 
         _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(It.IsAny<TournamentId>())).Returns(tournament.Object);
 
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
-        _presenter.GetTournamentRatios();
+        _presenter.GetTournamentDetails();
         
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
-            
+
+            _view.Verify(view => view.SetTournamentEntryFee("$50.00"), Times.Once);
             _view.Verify(view => view.SetTournamentFinalsRatio("1.0"), Times.Once);
             _view.Verify(view => view.SetTournamentCashRatio("3.0"), Times.Once);
         });

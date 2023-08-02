@@ -9,4 +9,6 @@ internal interface IView : NortheastMegabuck.IView
     IViewModel Squad { get; }
 
     void DisplayError(string message);
+
+    void SetTournamentEntryFee(string entryFee);
 }

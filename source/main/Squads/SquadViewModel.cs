@@ -6,6 +6,8 @@ internal class ViewModel : IViewModel
 
     public TournamentId TournamentId { get; set; }
 
+    public decimal? EntryFee { get; set; }
+
     public decimal? CashRatio { get; set; }
 
     public decimal? FinalsRatio { get; set; }
@@ -33,6 +35,8 @@ internal class ViewModel : IViewModel
         StartingLane = squad.StartingLane;
         NumberOfLanes = squad.NumberOfLanes;
         Complete = squad.Complete;
+        EntryFee = squad.EntryFee;
+        
     }
 }
 
@@ -41,6 +45,8 @@ public interface IViewModel
     SquadId Id { get; set; }
 
     TournamentId TournamentId { get; set; }
+
+    decimal? EntryFee { get; set; }
 
     decimal? CashRatio { get; set; }
     

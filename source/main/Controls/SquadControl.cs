@@ -12,9 +12,24 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         => squadErrorProvider.SetError((Control)sender, string.Empty);
 
     public SquadId Id { get; set; }
-    
+
     public TournamentId TournamentId { get; set; }
-    
+
+    public decimal? EntryFee
+    { 
+        get => entryFeeValue.Value == 0 ? null : entryFeeValue.Value;
+        set => entryFeeValue.Value = value ?? 0;
+    }
+
+    private void EntryFeeValue_Validating(object sender, CancelEventArgs e)
+    {
+        if (EntryFee.HasValue && EntryFee <= 0)
+        {
+            e.Cancel = true;
+            squadErrorProvider.SetError(entryFeeValue, "Entry fee must be greater than 0");
+        }
+    }
+
     public decimal? CashRatio
     {
         get => cashRatioValue.Value == 0 ? null : cashRatioValue.Value;
@@ -45,10 +60,10 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         }
     }
 
-    public DateTime Date 
-    { 
+    public DateTime Date
+    {
         get => datePicker.Value;
-        set => datePicker.Value = value; 
+        set => datePicker.Value = value;
     }
 
     private void DatePicker_Validating(object sender, CancelEventArgs e)
@@ -60,10 +75,10 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         }
     }
 
-    public short MaxPerPair 
+    public short MaxPerPair
     {
         get => (short)masPerPairValue.Value;
-        set => masPerPairValue.Value = value; 
+        set => masPerPairValue.Value = value;
     }
 
     private void MaxPerPairValue_Validating(object sender, CancelEventArgs e)

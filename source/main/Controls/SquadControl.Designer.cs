@@ -28,251 +28,244 @@ partial class SquadControl
     /// </summary>
     private void InitializeComponent()
     {
-            this.components = new System.ComponentModel.Container();
-            this.cashRatioValue = new NortheastMegabuck.Controls.NumericControl();
-            this.cashRatioLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.finalsRatioValue = new NortheastMegabuck.Controls.NumericControl();
-            this.finalsRatioLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.squadErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.datePicker = new System.Windows.Forms.DateTimePicker();
-            this.dateLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.masPerPairValue = new NortheastMegabuck.Controls.NumericControl();
-            this.maxPerPairLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.startingLaneValue = new NortheastMegabuck.Controls.NumericControl();
-            this.startingLaneLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.numberOfLanesValue = new NortheastMegabuck.Controls.NumericControl();
-            this.numberOfLanesLabel = new NortheastMegabuck.Controls.LabelControl();
-            ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.squadErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.masPerPairValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.startingLaneValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numberOfLanesValue)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // cashRatioValue
-            // 
-            this.cashRatioValue.DecimalPlaces = 1;
-            this.cashRatioValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cashRatioValue.Location = new System.Drawing.Point(189, 94);
-            this.cashRatioValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.cashRatioValue.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            65536});
-            this.cashRatioValue.Name = "cashRatioValue";
-            this.cashRatioValue.Size = new System.Drawing.Size(131, 27);
-            this.cashRatioValue.TabIndex = 2;
-            this.cashRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.cashRatioValue.Validating += new System.ComponentModel.CancelEventHandler(this.CashRatioValue_Validating);
-            this.cashRatioValue.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // cashRatioLabel
-            // 
-            this.cashRatioLabel.AutoSize = true;
-            this.cashRatioLabel.Bold = false;
-            this.cashRatioLabel.Location = new System.Drawing.Point(189, 68);
-            this.cashRatioLabel.Name = "cashRatioLabel";
-            this.cashRatioLabel.Required = false;
-            this.cashRatioLabel.Size = new System.Drawing.Size(117, 19);
-            this.cashRatioLabel.TabIndex = 111;
-            this.cashRatioLabel.TabStop = false;
-            this.cashRatioLabel.Text = "Cash Ratio:";
-            // 
-            // finalsRatioValue
-            // 
-            this.finalsRatioValue.DecimalPlaces = 1;
-            this.finalsRatioValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.finalsRatioValue.Location = new System.Drawing.Point(3, 94);
-            this.finalsRatioValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.finalsRatioValue.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            65536});
-            this.finalsRatioValue.Name = "finalsRatioValue";
-            this.finalsRatioValue.Size = new System.Drawing.Size(131, 27);
-            this.finalsRatioValue.TabIndex = 1;
-            this.finalsRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.finalsRatioValue.Validating += new System.ComponentModel.CancelEventHandler(this.FinalsRatioValue_Validating);
-            this.finalsRatioValue.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // finalsRatioLabel
-            // 
-            this.finalsRatioLabel.AutoSize = true;
-            this.finalsRatioLabel.Bold = false;
-            this.finalsRatioLabel.Location = new System.Drawing.Point(3, 68);
-            this.finalsRatioLabel.Name = "finalsRatioLabel";
-            this.finalsRatioLabel.Required = false;
-            this.finalsRatioLabel.Size = new System.Drawing.Size(126, 19);
-            this.finalsRatioLabel.TabIndex = 110;
-            this.finalsRatioLabel.TabStop = false;
-            this.finalsRatioLabel.Text = "Finals Ratio:";
-            // 
-            // squadErrorProvider
-            // 
-            this.squadErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.squadErrorProvider.ContainerControl = this;
-            // 
-            // datePicker
-            // 
-            this.datePicker.CustomFormat = "MM/dd/yyyy    hh:mm tt";
-            this.datePicker.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datePicker.Location = new System.Drawing.Point(3, 28);
-            this.datePicker.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.datePicker.MaxDate = new System.DateTime(2200, 12, 31, 0, 0, 0, 0);
-            this.datePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.datePicker.Name = "datePicker";
-            this.datePicker.Size = new System.Drawing.Size(217, 27);
-            this.datePicker.TabIndex = 0;
-            this.datePicker.Validating += new System.ComponentModel.CancelEventHandler(this.DatePicker_Validating);
-            this.datePicker.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // dateLabel
-            // 
-            this.dateLabel.AutoSize = true;
-            this.dateLabel.Bold = false;
-            this.dateLabel.Location = new System.Drawing.Point(3, 3);
-            this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Required = true;
-            this.dateLabel.Size = new System.Drawing.Size(60, 19);
-            this.dateLabel.TabIndex = 113;
-            this.dateLabel.TabStop = false;
-            this.dateLabel.Text = "Date:";
-            // 
-            // masPerPairValue
-            // 
-            this.masPerPairValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.masPerPairValue.Location = new System.Drawing.Point(355, 160);
-            this.masPerPairValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.masPerPairValue.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.masPerPairValue.Name = "masPerPairValue";
-            this.masPerPairValue.Size = new System.Drawing.Size(131, 27);
-            this.masPerPairValue.TabIndex = 5;
-            this.masPerPairValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.masPerPairValue.Validating += new System.ComponentModel.CancelEventHandler(this.MaxPerPairValue_Validating);
-            this.masPerPairValue.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // maxPerPairLabel
-            // 
-            this.maxPerPairLabel.AutoSize = true;
-            this.maxPerPairLabel.Bold = false;
-            this.maxPerPairLabel.Location = new System.Drawing.Point(355, 134);
-            this.maxPerPairLabel.Name = "maxPerPairLabel";
-            this.maxPerPairLabel.Required = true;
-            this.maxPerPairLabel.Size = new System.Drawing.Size(132, 19);
-            this.maxPerPairLabel.TabIndex = 115;
-            this.maxPerPairLabel.TabStop = false;
-            this.maxPerPairLabel.Text = "Max Per Pair:";
-            // 
-            // startingLaneValue
-            // 
-            this.startingLaneValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.startingLaneValue.Location = new System.Drawing.Point(3, 160);
-            this.startingLaneValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.startingLaneValue.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.startingLaneValue.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.startingLaneValue.Name = "startingLaneValue";
-            this.startingLaneValue.Size = new System.Drawing.Size(131, 27);
-            this.startingLaneValue.TabIndex = 3;
-            this.startingLaneValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.startingLaneValue.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // startingLaneLabel
-            // 
-            this.startingLaneLabel.AutoSize = true;
-            this.startingLaneLabel.Bold = false;
-            this.startingLaneLabel.Location = new System.Drawing.Point(3, 134);
-            this.startingLaneLabel.Name = "startingLaneLabel";
-            this.startingLaneLabel.Required = true;
-            this.startingLaneLabel.Size = new System.Drawing.Size(141, 19);
-            this.startingLaneLabel.TabIndex = 117;
-            this.startingLaneLabel.TabStop = false;
-            this.startingLaneLabel.Text = "Starting Lane:";
-            // 
-            // numberOfLanesValue
-            // 
-            this.numberOfLanesValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.numberOfLanesValue.Location = new System.Drawing.Point(189, 160);
-            this.numberOfLanesValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.numberOfLanesValue.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.numberOfLanesValue.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numberOfLanesValue.Name = "numberOfLanesValue";
-            this.numberOfLanesValue.Size = new System.Drawing.Size(131, 27);
-            this.numberOfLanesValue.TabIndex = 4;
-            this.numberOfLanesValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numberOfLanesValue.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // numberOfLanesLabel
-            // 
-            this.numberOfLanesLabel.AutoSize = true;
-            this.numberOfLanesLabel.Bold = false;
-            this.numberOfLanesLabel.Location = new System.Drawing.Point(167, 134);
-            this.numberOfLanesLabel.Name = "numberOfLanesLabel";
-            this.numberOfLanesLabel.Required = true;
-            this.numberOfLanesLabel.Size = new System.Drawing.Size(159, 19);
-            this.numberOfLanesLabel.TabIndex = 119;
-            this.numberOfLanesLabel.TabStop = false;
-            this.numberOfLanesLabel.Text = "Number of Lanes:";
-            // 
-            // SquadControl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.numberOfLanesValue);
-            this.Controls.Add(this.numberOfLanesLabel);
-            this.Controls.Add(this.startingLaneValue);
-            this.Controls.Add(this.startingLaneLabel);
-            this.Controls.Add(this.masPerPairValue);
-            this.Controls.Add(this.maxPerPairLabel);
-            this.Controls.Add(this.datePicker);
-            this.Controls.Add(this.dateLabel);
-            this.Controls.Add(this.cashRatioValue);
-            this.Controls.Add(this.cashRatioLabel);
-            this.Controls.Add(this.finalsRatioValue);
-            this.Controls.Add(this.finalsRatioLabel);
-            this.Name = "SquadControl";
-            this.Size = new System.Drawing.Size(527, 215);
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.SquadControl_Validating);
-            ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.squadErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.masPerPairValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.startingLaneValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numberOfLanesValue)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        components = new System.ComponentModel.Container();
+        cashRatioValue = new NumericControl();
+        cashRatioLabel = new LabelControl();
+        finalsRatioValue = new NumericControl();
+        finalsRatioLabel = new LabelControl();
+        squadErrorProvider = new ErrorProvider(components);
+        datePicker = new DateTimePicker();
+        dateLabel = new LabelControl();
+        masPerPairValue = new NumericControl();
+        maxPerPairLabel = new LabelControl();
+        startingLaneValue = new NumericControl();
+        startingLaneLabel = new LabelControl();
+        numberOfLanesValue = new NumericControl();
+        numberOfLanesLabel = new LabelControl();
+        entryFeeValue = new NumericControl();
+        entryFeeLabel = new LabelControl();
+        ((System.ComponentModel.ISupportInitialize)cashRatioValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)finalsRatioValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)squadErrorProvider).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)masPerPairValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)startingLaneValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numberOfLanesValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)entryFeeValue).BeginInit();
+        SuspendLayout();
+        // 
+        // cashRatioValue
+        // 
+        cashRatioValue.DecimalPlaces = 1;
+        cashRatioValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        cashRatioValue.Location = new Point(189, 94);
+        cashRatioValue.Margin = new Padding(3, 4, 3, 10);
+        cashRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
+        cashRatioValue.Name = "cashRatioValue";
+        cashRatioValue.Size = new Size(131, 27);
+        cashRatioValue.TabIndex = 2;
+        cashRatioValue.TextAlign = HorizontalAlignment.Right;
+        cashRatioValue.Validating += CashRatioValue_Validating;
+        cashRatioValue.Validated += Controls_Validated;
+        // 
+        // cashRatioLabel
+        // 
+        cashRatioLabel.AutoSize = true;
+        cashRatioLabel.Bold = false;
+        cashRatioLabel.Location = new Point(189, 68);
+        cashRatioLabel.Name = "cashRatioLabel";
+        cashRatioLabel.Required = false;
+        cashRatioLabel.Size = new Size(117, 19);
+        cashRatioLabel.TabIndex = 111;
+        cashRatioLabel.TabStop = false;
+        cashRatioLabel.Text = "Cash Ratio:";
+        // 
+        // finalsRatioValue
+        // 
+        finalsRatioValue.DecimalPlaces = 1;
+        finalsRatioValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        finalsRatioValue.Location = new Point(3, 94);
+        finalsRatioValue.Margin = new Padding(3, 4, 3, 10);
+        finalsRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
+        finalsRatioValue.Name = "finalsRatioValue";
+        finalsRatioValue.Size = new Size(131, 27);
+        finalsRatioValue.TabIndex = 1;
+        finalsRatioValue.TextAlign = HorizontalAlignment.Right;
+        finalsRatioValue.Validating += FinalsRatioValue_Validating;
+        finalsRatioValue.Validated += Controls_Validated;
+        // 
+        // finalsRatioLabel
+        // 
+        finalsRatioLabel.AutoSize = true;
+        finalsRatioLabel.Bold = false;
+        finalsRatioLabel.Location = new Point(3, 68);
+        finalsRatioLabel.Name = "finalsRatioLabel";
+        finalsRatioLabel.Required = false;
+        finalsRatioLabel.Size = new Size(126, 19);
+        finalsRatioLabel.TabIndex = 110;
+        finalsRatioLabel.TabStop = false;
+        finalsRatioLabel.Text = "Finals Ratio:";
+        // 
+        // squadErrorProvider
+        // 
+        squadErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+        squadErrorProvider.ContainerControl = this;
+        // 
+        // datePicker
+        // 
+        datePicker.CustomFormat = "MM/dd/yyyy    hh:mm tt";
+        datePicker.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        datePicker.Format = DateTimePickerFormat.Custom;
+        datePicker.Location = new Point(3, 28);
+        datePicker.Margin = new Padding(3, 3, 3, 10);
+        datePicker.MaxDate = new DateTime(2200, 12, 31, 0, 0, 0, 0);
+        datePicker.MinDate = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+        datePicker.Name = "datePicker";
+        datePicker.Size = new Size(217, 27);
+        datePicker.TabIndex = 0;
+        datePicker.Validating += DatePicker_Validating;
+        datePicker.Validated += Controls_Validated;
+        // 
+        // dateLabel
+        // 
+        dateLabel.AutoSize = true;
+        dateLabel.Bold = false;
+        dateLabel.Location = new Point(3, 3);
+        dateLabel.Name = "dateLabel";
+        dateLabel.Required = true;
+        dateLabel.Size = new Size(60, 19);
+        dateLabel.TabIndex = 113;
+        dateLabel.TabStop = false;
+        dateLabel.Text = "Date:";
+        // 
+        // masPerPairValue
+        // 
+        masPerPairValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        masPerPairValue.Location = new Point(355, 160);
+        masPerPairValue.Margin = new Padding(3, 4, 3, 10);
+        masPerPairValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+        masPerPairValue.Name = "masPerPairValue";
+        masPerPairValue.Size = new Size(131, 27);
+        masPerPairValue.TabIndex = 5;
+        masPerPairValue.TextAlign = HorizontalAlignment.Right;
+        masPerPairValue.Validating += MaxPerPairValue_Validating;
+        masPerPairValue.Validated += Controls_Validated;
+        // 
+        // maxPerPairLabel
+        // 
+        maxPerPairLabel.AutoSize = true;
+        maxPerPairLabel.Bold = false;
+        maxPerPairLabel.Location = new Point(355, 134);
+        maxPerPairLabel.Name = "maxPerPairLabel";
+        maxPerPairLabel.Required = true;
+        maxPerPairLabel.Size = new Size(132, 19);
+        maxPerPairLabel.TabIndex = 115;
+        maxPerPairLabel.TabStop = false;
+        maxPerPairLabel.Text = "Max Per Pair:";
+        // 
+        // startingLaneValue
+        // 
+        startingLaneValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        startingLaneValue.Location = new Point(3, 160);
+        startingLaneValue.Margin = new Padding(3, 4, 3, 10);
+        startingLaneValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+        startingLaneValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+        startingLaneValue.Name = "startingLaneValue";
+        startingLaneValue.Size = new Size(131, 27);
+        startingLaneValue.TabIndex = 3;
+        startingLaneValue.TextAlign = HorizontalAlignment.Right;
+        startingLaneValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
+        // 
+        // startingLaneLabel
+        // 
+        startingLaneLabel.AutoSize = true;
+        startingLaneLabel.Bold = false;
+        startingLaneLabel.Location = new Point(3, 134);
+        startingLaneLabel.Name = "startingLaneLabel";
+        startingLaneLabel.Required = true;
+        startingLaneLabel.Size = new Size(141, 19);
+        startingLaneLabel.TabIndex = 117;
+        startingLaneLabel.TabStop = false;
+        startingLaneLabel.Text = "Starting Lane:";
+        // 
+        // numberOfLanesValue
+        // 
+        numberOfLanesValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        numberOfLanesValue.Location = new Point(189, 160);
+        numberOfLanesValue.Margin = new Padding(3, 4, 3, 10);
+        numberOfLanesValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+        numberOfLanesValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+        numberOfLanesValue.Name = "numberOfLanesValue";
+        numberOfLanesValue.Size = new Size(131, 27);
+        numberOfLanesValue.TabIndex = 4;
+        numberOfLanesValue.TextAlign = HorizontalAlignment.Right;
+        numberOfLanesValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
+        // 
+        // numberOfLanesLabel
+        // 
+        numberOfLanesLabel.AutoSize = true;
+        numberOfLanesLabel.Bold = false;
+        numberOfLanesLabel.Location = new Point(167, 134);
+        numberOfLanesLabel.Name = "numberOfLanesLabel";
+        numberOfLanesLabel.Required = true;
+        numberOfLanesLabel.Size = new Size(159, 19);
+        numberOfLanesLabel.TabIndex = 119;
+        numberOfLanesLabel.TabStop = false;
+        numberOfLanesLabel.Text = "Number of Lanes:";
+        // 
+        // entryFeeValue
+        // 
+        entryFeeValue.DecimalPlaces = 2;
+        entryFeeValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        entryFeeValue.Location = new Point(355, 31);
+        entryFeeValue.Margin = new Padding(3, 4, 3, 10);
+        entryFeeValue.Maximum = new decimal(new int[] { 99999, 0, 0, 131072 });
+        entryFeeValue.Name = "entryFeeValue";
+        entryFeeValue.Size = new Size(131, 27);
+        entryFeeValue.TabIndex = 120;
+        entryFeeValue.TextAlign = HorizontalAlignment.Right;
+        // 
+        // entryFeeLabel
+        // 
+        entryFeeLabel.AutoSize = true;
+        entryFeeLabel.Bold = false;
+        entryFeeLabel.Location = new Point(355, 5);
+        entryFeeLabel.Name = "entryFeeLabel";
+        entryFeeLabel.Required = false;
+        entryFeeLabel.Size = new Size(99, 19);
+        entryFeeLabel.TabIndex = 121;
+        entryFeeLabel.TabStop = false;
+        entryFeeLabel.Text = "Entry Fee:";
+        // 
+        // SquadControl
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(entryFeeValue);
+        Controls.Add(entryFeeLabel);
+        Controls.Add(numberOfLanesValue);
+        Controls.Add(numberOfLanesLabel);
+        Controls.Add(startingLaneValue);
+        Controls.Add(startingLaneLabel);
+        Controls.Add(masPerPairValue);
+        Controls.Add(maxPerPairLabel);
+        Controls.Add(datePicker);
+        Controls.Add(dateLabel);
+        Controls.Add(cashRatioValue);
+        Controls.Add(cashRatioLabel);
+        Controls.Add(finalsRatioValue);
+        Controls.Add(finalsRatioLabel);
+        Name = "SquadControl";
+        Size = new Size(527, 215);
+        Validating += SquadControl_Validating;
+        ((System.ComponentModel.ISupportInitialize)cashRatioValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)finalsRatioValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)squadErrorProvider).EndInit();
+        ((System.ComponentModel.ISupportInitialize)masPerPairValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)startingLaneValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numberOfLanesValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)entryFeeValue).EndInit();
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
@@ -290,4 +283,6 @@ partial class SquadControl
     private Controls.LabelControl numberOfLanesLabel;
     private Controls.NumericControl startingLaneValue;
     private Controls.LabelControl startingLaneLabel;
+    private NumericControl entryFeeValue;
+    private LabelControl entryFeeLabel;
 }
