@@ -178,6 +178,8 @@ VALUES ('20221020195709_SuperSweeperCashRatio', '6.0.10');
 
 COMMIT;
 
+--v0.7.0
+
 START TRANSACTION;
 
 ALTER TABLE `Bowlers` ADD `SocialSecurityNumber` longtext CHARACTER SET utf8mb4 NOT NULL;
@@ -186,6 +188,8 @@ INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
 VALUES ('20230316131029_BowlerSSN', '7.0.4');
 
 COMMIT;
+
+--v0.8.0
 
 START TRANSACTION;
 
