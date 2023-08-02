@@ -8,7 +8,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<RootNamespace>NortheastMegabuck</RootNamespace>
 		<UserSecretsId>745ea9ba-042a-436d-bfa8-5a5a19950236</UserSecretsId>
-		<VersionPrefix>0.7.0</VersionPrefix>
+		<VersionPrefix>0.8.0</VersionPrefix>
 		<ApplicationIcon>Resources\NMT.ico</ApplicationIcon>
 		<PackageIcon>NMT.ico</PackageIcon>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
