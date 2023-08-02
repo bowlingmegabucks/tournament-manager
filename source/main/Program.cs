@@ -44,6 +44,7 @@ internal static class Program
 
         Encryption.Key = config["EncryptionKey"] ?? throw new ConfigurationErrorsException("Cannot get encryption key");
 
-        Application.Run(new Tournaments.Retrieve.Form(config));
+        using var form = new Tournaments.Retrieve.Form(config);
+        Application.Run(form);
     }
 }

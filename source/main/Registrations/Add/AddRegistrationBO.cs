@@ -108,9 +108,9 @@ internal class BusinessLogic : IBusinessLogic
     {
         try
         {
-            //todo: UI search is doing a lot of the heavy lifting here.
-            //      when revisiting, add some validation methods to make sure the bowler is in the tournament
-            //      already and not already on the squad
+            //UI search is doing a lot of the heavy lifting here.
+            //when revisiting, add some validation methods to make sure the bowler is in the tournament
+            //already and not already on the squad
             return DataLayer.Execute(bowlerId, squadId);
         }
         catch (Exception ex)

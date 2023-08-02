@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel;
+using System.Globalization;
 
 namespace NortheastMegabuck.Scores;
 public partial class RecapSheetForm : System.Windows.Forms.Form
@@ -22,8 +23,8 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
 
     internal void Preview(IEnumerable<IRecapSheetViewModel> recaps, short games)
     {
-        dateLabel.Text = _squadDate.ToString("MM/dd/yyyy");
-        timeLabel.Text = _squadDate.ToString("hh:mm tt");
+        dateLabel.Text = _squadDate.ToString("MM/dd/yyyy", CultureInfo.CurrentCulture);
+        timeLabel.Text = _squadDate.ToString("hh:mm tt", CultureInfo.CurrentCulture);
 
         Show();
 
@@ -73,11 +74,11 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
 
         foreach (var assignment in recapSheet.Cross)
         {
-            _games[assignment.Key].LaneAssignment = assignment.Value;
-            _games[assignment.Key].Handicap = recapSheet.Handicap;
+            _games[assignment.Key].SetLaneAssignment(assignment.Value);
+            _games[assignment.Key].SetHandicap(recapSheet.Handicap);
         }
 
-        gamesFlowPanelLayout.Controls.OfType<Controls.RecapSheetGameTotalControl>().Single().Handicap = recapSheet.Handicap * _games.Count;
+        gamesFlowPanelLayout.Controls.OfType<Controls.RecapSheetGameTotalControl>().Single().SetHandicap(recapSheet.Handicap * _games.Count);
     }
 
     private void RecapsTrackBar_Scroll(object sender, EventArgs e)
@@ -117,7 +118,8 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
 
     private void ScrollRecapsTimer_Tick(object sender, EventArgs e)
     {
-        _recapSheets.Add(CaptureScreen());
+        using var recapSheet = CaptureScreen();
+        _recapSheets.Add(recapSheet);
 
         _counter += 1;
 

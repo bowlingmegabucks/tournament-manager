@@ -48,10 +48,10 @@ internal class Presenter
             _view.Verify(view => view.Close(), Times.Once);
 
             _view.Verify(view => view.SetPortalTitle(It.IsAny<string>()), Times.Never);
-            _view.VerifySet(view => view.StartingLane = It.IsAny<int>(), Times.Never);
-            _view.VerifySet(view => view.NumberOfLanes = It.IsAny<int>(), Times.Never);
-            _view.VerifySet(view => view.MaxPerPair = It.IsAny<int>(), Times.Never);
-            _view.VerifySet(view => view.Complete = It.IsAny<bool>(), Times.Never);
+            _view.Verify(view => view.SetStartingLane(It.IsAny<int>()), Times.Never);
+            _view.Verify(view => view.SetNumberOfLanes(It.IsAny<int>()), Times.Never);
+            _view.Verify(view => view.SetMaxPerPair(It.IsAny<int>()), Times.Never);
+            _view.Verify(view => view.SetComplete(It.IsAny<bool>()), Times.Never);
         });
     }
 
@@ -60,7 +60,7 @@ internal class Presenter
     {
         var squad = new NortheastMegabuck.Sweepers.ViewModel
         { 
-            Date = new DateTime(2000,1,2,9,30,30),
+            Date = new DateTime(2000,1,2,9,30,30, DateTimeKind.Unspecified),
             StartingLane = 1,
             NumberOfLanes = 2,
             MaxPerPair = 3,
@@ -74,10 +74,10 @@ internal class Presenter
         {
 
             _view.Verify(view => view.SetPortalTitle("01/02/2000 09:30AM"), Times.Once);
-            _view.VerifySet(view => view.StartingLane = 1, Times.Once);
-            _view.VerifySet(view => view.NumberOfLanes = 2, Times.Once);
-            _view.VerifySet(view => view.MaxPerPair = 3, Times.Once);
-            _view.VerifySet(view => view.Complete = complete, Times.Once);
+            _view.Verify(view => view.SetStartingLane(1), Times.Once);
+            _view.Verify(view => view.SetNumberOfLanes(2), Times.Once);
+            _view.Verify(view => view.SetMaxPerPair(3), Times.Once);
+            _view.Verify(view => view.SetComplete(complete), Times.Once);
         });
     }
 

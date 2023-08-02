@@ -7,7 +7,7 @@ internal class HandicapCalculator : IHandicapCalculator
     int IHandicapCalculator.Calculate(Models.Registration registration)
         => Calculate(registration.Average, registration.Division.HandicapBase, registration.Division.HandicapPercentage, registration.Division.MaximumHandicapPerGame);
 
-    private int Calculate(int? average, int? handicapBase, decimal? handicapPercentage, int? maxHandicap)
+    private static int Calculate(int? average, int? handicapBase, decimal? handicapPercentage, int? maxHandicap)
     {
         if (!(average.HasValue && handicapBase.HasValue && handicapPercentage.HasValue))
         {

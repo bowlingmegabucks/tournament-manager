@@ -50,7 +50,7 @@ internal class DataContext : DbContext, IDataContext
         => base.SaveChanges();
 
     async Task IDataContext.SaveChangesAsync()
-        => await base.SaveChangesAsync();
+        => await base.SaveChangesAsync().ConfigureAwait(false);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

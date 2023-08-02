@@ -54,10 +54,10 @@ internal class DataLayer
 
         Assert.Multiple(() =>
         {
-            _repository.Verify(repository => repository.Update(It.IsAny<IEnumerable<NortheastMegabuck.Database.Entities.SquadScore>>()), Times.Once);
+            _repository.Verify(repository => repository.Update(It.IsAny<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>()), Times.Once);
 
-            _repository.Verify(repository => repository.Update(It.Is<IEnumerable<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score=> score.BowlerId == scores[0].Bowler.Id))), Times.Once);
-            _repository.Verify(repository => repository.Update(It.Is<IEnumerable<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score => score.BowlerId == scores[1].Bowler.Id))), Times.Once);
+            _repository.Verify(repository => repository.Update(It.Is<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score=> score.BowlerId == scores[0].Bowler.Id))), Times.Once);
+            _repository.Verify(repository => repository.Update(It.Is<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score => score.BowlerId == scores[1].Bowler.Id))), Times.Once);
         });
     }
 }

@@ -24,7 +24,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-    public void BindResults(string divisionName, IEnumerable<IViewModel> scores)
+    public void BindResults(string divisionName, ICollection<IViewModel> scores)
     {
         var tabPage = new TabPage($"{divisionName}TabPage")
         {

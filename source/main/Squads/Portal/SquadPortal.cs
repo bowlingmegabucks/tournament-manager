@@ -8,7 +8,9 @@ public partial class Form : System.Windows.Forms.Form, IView
     private readonly short _numberOfGames;
     private readonly DateTime _squadDate;
 
-    public bool Complete { private get; set; }
+    private bool _complete;
+    public void SetComplete(bool complete)
+        => _complete = complete;
 
     public Form(IConfiguration config, TournamentId tournamentId, SquadId id, short numberOfGames, DateTime squadDate, bool complete)
     {
@@ -21,7 +23,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         _squadDate = squadDate;
 
         new Presenter(config, this).Load();
-        Complete = complete;
+        _complete = complete;
     }
 
     public void SetPortalTitle(string title)
@@ -30,25 +32,31 @@ public partial class Form : System.Windows.Forms.Form, IView
     SquadId IView.Id
         => _id;
 
-    public int StartingLane { private get; set; }
+    private int _startingLane;
+    public void SetStartingLane(int startingLane)
+        => _startingLane = startingLane;
 
-    public int NumberOfLanes { private get; set; }
+    private int _numberOfLanes;
+    public void SetNumberOfLanes(int numberOfLanes)
+        => _numberOfLanes = numberOfLanes;
 
-    public int MaxPerPair { private get; set; }
+    private int _maxPerPair;
+    public void SetMaxPerPair(int maxPerPair)
+        => _maxPerPair = maxPerPair;
 
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new LaneAssignments.Form(_config,_tournamentId, _id, StartingLane,NumberOfLanes,MaxPerPair, _numberOfGames, _squadDate, Complete);
+        using var form = new LaneAssignments.Form(_config, _tournamentId, _id, _startingLane, _numberOfLanes, _maxPerPair, _numberOfGames, _squadDate, _complete);
 
         form.ShowDialog(this);
     }
 
     private void ScoresMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Scores.Form(_config, _id, _numberOfGames, Complete);
+        using var form = new Scores.Form(_config, _id, _numberOfGames, _complete);
 
         form.ShowDialog(this);
     }

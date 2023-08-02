@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using NortheastMegabuck.Registrations.Retrieve;
 
 namespace NortheastMegabuck.Controls.Grids;
@@ -25,7 +26,7 @@ public partial class TournamentRegistrationGrid
         Remove(registration);
     }
 
-    public void AddSquadDates(IDictionary<SquadId, string> squadDates)
+    public void AddSquadDates([NotNull] IDictionary<SquadId, string> squadDates)
     {
         foreach (var squadDate in squadDates)
         {

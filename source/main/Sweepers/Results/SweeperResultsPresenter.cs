@@ -33,7 +33,7 @@ internal class Presenter
         }
         else
         {
-            _view.BindResults(results);
+            _view.BindResults(results.ToList());
         }
     }
 
@@ -47,7 +47,7 @@ internal class Presenter
         }
         else
         {
-            _view.BindResults(results);
+            _view.BindResults(results.ToList());
         }
     }
 }

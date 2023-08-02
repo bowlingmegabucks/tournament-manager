@@ -9,10 +9,10 @@ internal static class Encryption
 
     // This constant is used to determine the keysize of the encryption algorithm in bits.
     // We divide this by 8 within the code below to get the equivalent number of bytes.
-    static readonly int _keySize = 256;
+    const int _keySize = 256;
 
     // This constant determines the number of iterations for the password bytes generation function.
-    static readonly int _derivationIterations = 1000;
+    const int _derivationIterations = 100000;
 
     /// <summary>
     /// 

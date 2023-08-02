@@ -20,9 +20,9 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public IEnumerable<IViewModel> Execute(IEnumerable<IViewModel> squadScores)
+    public IEnumerable<IViewModel> Execute(IEnumerable<IViewModel> scores)
     {
-        var models = squadScores.Select(squadScore => new Models.SquadScore(squadScore));
+        var models = scores.Select(squadScore => new Models.SquadScore(squadScore));
 
         var invalidScores = _businessLogic.Execute(models.ToList());
 

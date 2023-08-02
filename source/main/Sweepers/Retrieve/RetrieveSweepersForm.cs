@@ -15,8 +15,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         new Presenter(_config, this).Execute();
     }
 
-    public void BindSweepers(IEnumerable<IViewModel> sweepers)
-        => sweepersGrid.Bind(sweepers);
+    public void BindSweepers(IEnumerable<IViewModel> squads)
+        => sweepersGrid.Bind(squads);
 
     public void Disable()
     {
