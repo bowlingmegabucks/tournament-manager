@@ -36,7 +36,7 @@ partial class SquadControl
         squadErrorProvider = new ErrorProvider(components);
         datePicker = new DateTimePicker();
         dateLabel = new LabelControl();
-        masPerPairValue = new NumericControl();
+        maxPerPairValue = new NumericControl();
         maxPerPairLabel = new LabelControl();
         startingLaneValue = new NumericControl();
         startingLaneLabel = new LabelControl();
@@ -47,7 +47,7 @@ partial class SquadControl
         ((System.ComponentModel.ISupportInitialize)cashRatioValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)finalsRatioValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)squadErrorProvider).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)masPerPairValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)maxPerPairValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)startingLaneValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numberOfLanesValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)entryFeeValue).BeginInit();
@@ -137,18 +137,18 @@ partial class SquadControl
         dateLabel.TabStop = false;
         dateLabel.Text = "Date:";
         // 
-        // masPerPairValue
+        // maxPerPairValue
         // 
-        masPerPairValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-        masPerPairValue.Location = new Point(355, 160);
-        masPerPairValue.Margin = new Padding(3, 4, 3, 10);
-        masPerPairValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
-        masPerPairValue.Name = "masPerPairValue";
-        masPerPairValue.Size = new Size(131, 27);
-        masPerPairValue.TabIndex = 6;
-        masPerPairValue.TextAlign = HorizontalAlignment.Right;
-        masPerPairValue.Validating += MaxPerPairValue_Validating;
-        masPerPairValue.Validated += Controls_Validated;
+        maxPerPairValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        maxPerPairValue.Location = new Point(355, 160);
+        maxPerPairValue.Margin = new Padding(3, 4, 3, 10);
+        maxPerPairValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+        maxPerPairValue.Name = "maxPerPairValue";
+        maxPerPairValue.Size = new Size(131, 27);
+        maxPerPairValue.TabIndex = 6;
+        maxPerPairValue.TextAlign = HorizontalAlignment.Right;
+        maxPerPairValue.Validating += MaxPerPairValue_Validating;
+        maxPerPairValue.Validated += Controls_Validated;
         // 
         // maxPerPairLabel
         // 
@@ -246,7 +246,7 @@ partial class SquadControl
         Controls.Add(numberOfLanesLabel);
         Controls.Add(startingLaneValue);
         Controls.Add(startingLaneLabel);
-        Controls.Add(masPerPairValue);
+        Controls.Add(maxPerPairValue);
         Controls.Add(maxPerPairLabel);
         Controls.Add(datePicker);
         Controls.Add(dateLabel);
@@ -260,7 +260,7 @@ partial class SquadControl
         ((System.ComponentModel.ISupportInitialize)cashRatioValue).EndInit();
         ((System.ComponentModel.ISupportInitialize)finalsRatioValue).EndInit();
         ((System.ComponentModel.ISupportInitialize)squadErrorProvider).EndInit();
-        ((System.ComponentModel.ISupportInitialize)masPerPairValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)maxPerPairValue).EndInit();
         ((System.ComponentModel.ISupportInitialize)startingLaneValue).EndInit();
         ((System.ComponentModel.ISupportInitialize)numberOfLanesValue).EndInit();
         ((System.ComponentModel.ISupportInitialize)entryFeeValue).EndInit();
@@ -277,7 +277,7 @@ partial class SquadControl
     private ErrorProvider squadErrorProvider;
     private DateTimePicker datePicker;
     private Controls.LabelControl dateLabel;
-    private Controls.NumericControl masPerPairValue;
+    private Controls.NumericControl maxPerPairValue;
     private Controls.LabelControl maxPerPairLabel;
     private Controls.NumericControl numberOfLanesValue;
     private Controls.LabelControl numberOfLanesLabel;

@@ -77,8 +77,8 @@ public partial class SquadControl : UserControl, Squads.IViewModel
 
     public short MaxPerPair
     {
-        get => (short)masPerPairValue.Value;
-        set => masPerPairValue.Value = value;
+        get => (short)maxPerPairValue.Value;
+        set => maxPerPairValue.Value = value;
     }
 
     private void MaxPerPairValue_Validating(object sender, CancelEventArgs e)
@@ -86,7 +86,7 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         if (MaxPerPair is <= 0 or > 10)
         {
             e.Cancel = true;
-            squadErrorProvider.SetError(masPerPairValue, "Max per pair must be between 1 and 10");
+            squadErrorProvider.SetError(maxPerPairValue, "Max per pair must be between 1 and 10");
         }
     }
 
