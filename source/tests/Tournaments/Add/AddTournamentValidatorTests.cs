@@ -4,7 +4,7 @@ using FluentValidation.TestHelper;
 namespace NortheastMegabuck.Tests.Tournaments.Add;
 
 [TestFixture]
-internal class Validation
+internal sealed class Validation
 {
     private IValidator<NortheastMegabuck.Models.Tournament> _validator;
 

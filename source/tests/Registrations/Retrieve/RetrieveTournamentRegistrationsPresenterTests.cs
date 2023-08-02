@@ -1,5 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Registrations.Retrieve;
-internal class TournamentRegistrationsPresenter
+
+[TestFixture]
+internal sealed class TournamentRegistrationsPresenter
 {
     private Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationsView> _view;
     private Mock<NortheastMegabuck.Registrations.Retrieve.IAdapter> _registrationsAdapter;
@@ -170,11 +172,11 @@ internal class TournamentRegistrationsPresenter
     {
         var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
-        squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0));
+        squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
 
         var squad2 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad2.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
-        squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0));
+        squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
 
         var squads = new[] { squad1.Object, squad2.Object };
         _squadsAdapter.Setup(squadsAdapter => squadsAdapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
@@ -210,11 +212,11 @@ internal class TournamentRegistrationsPresenter
     {
         var sweeper1 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper1.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
-        sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0));
+        sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
 
         var sweeper2 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper2.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
-        sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0));
+        sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
 
         var sweepers = new[] { sweeper1.Object, sweeper2.Object };
         _sweepersAdapter.Setup(sweepersAdapter => sweepersAdapter.Execute(It.IsAny<TournamentId>())).Returns(sweepers);

@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Bowlers.Update;
 
 [TestFixture]
-internal class NamePresenter
+internal sealed class NamePresenter
 {
     private Mock<NortheastMegabuck.Bowlers.Update.IBowlerNameView> _view;
     private Mock<NortheastMegabuck.Bowlers.Retrieve.IAdapter> _retrieveBowlerAdapter;

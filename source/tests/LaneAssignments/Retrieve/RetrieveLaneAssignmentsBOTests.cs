@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.LaneAssignments.Retrieve.IDataLayer> _dataLayer;
 

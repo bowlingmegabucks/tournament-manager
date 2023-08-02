@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Scores;
 
 [TestFixture]
-internal class GridViewModel
+internal sealed class GridViewModel
 {
     private Mock<NortheastMegabuck.LaneAssignments.IViewModel> _laneAssignment;
 

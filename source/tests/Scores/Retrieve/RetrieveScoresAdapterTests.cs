@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Scores.Retrieve;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Scores.Retrieve.IBusinessLogic> _businessLogic;
 

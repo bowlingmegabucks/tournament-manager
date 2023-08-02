@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Squads.Complete;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Squads.Complete.IDataLayer> _dataLayer;
 

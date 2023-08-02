@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class PersonName
+internal sealed class PersonName
 {
     [Test]
     public void Constructor_UpdateBowlerNameViewModel_FirstMapped()

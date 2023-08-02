@@ -109,6 +109,31 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
 
     private void Controls_DragLeave(object sender, EventArgs e)
         => OnDragLeave(e);
+
     public int CompareTo(LaneAssignments.IViewModel? other)
         => 0;
+
+    public override bool Equals(object? obj)
+        => obj is LaneAssignments.IViewModel other && CompareTo(other) == 0;
+
+    public override int GetHashCode()
+        => LaneAssignment.GetHashCode();
+
+    public static bool operator ==(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) == 0;
+
+    public static bool operator !=(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) != 0;
+
+    public static bool operator <(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) < 0;
+
+    public static bool operator >(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) > 0;
+
+    public static bool operator <=(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) <= 0;
+
+    public static bool operator >=(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) >= 0;
 }

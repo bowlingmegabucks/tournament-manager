@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Database;
 
 [TestFixture]
-internal class DateOnlyComparer
+internal sealed class DateOnlyComparer
 {
     [Test]
     public void Comparer_SameValues_ReturnsTrue()

@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Sweepers;
 
 [TestFixture]
-internal class SweeperViewModelTests
+internal sealed class SweeperViewModelTests
 {
     private NortheastMegabuck.Models.Sweeper _model;
     private NortheastMegabuck.Sweepers.IViewModel _viewModel;

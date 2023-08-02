@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.LaneAssignments;
 
 [TestFixture]
-internal class LaneAvailability
+internal sealed class LaneAvailability
 {
     private NortheastMegabuck.LaneAssignments.ILaneAvailability _laneAvailability;
 

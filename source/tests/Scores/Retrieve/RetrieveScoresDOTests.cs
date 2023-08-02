@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Scores.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Scores.IRepository> _repository;
     private Mock<NortheastMegabuck.Squads.IHandicapCalculator> _handicapCalculator;

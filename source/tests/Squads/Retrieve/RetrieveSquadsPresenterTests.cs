@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Squads.Retrieve;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Squads.Retrieve.IView> _view;
     private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _getSquadsAdapter;

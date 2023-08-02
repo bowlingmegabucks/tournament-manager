@@ -45,7 +45,7 @@ internal class Adapter
     [Test]
     public void Execute_SquadId_BusinessLogicNoError_ResultsReturnedCorrectly()
     {
-        var squad = new NortheastMegabuck.Models.Squad { Id = SquadId.New(), Date = new DateTime(2000, 1, 2, 9, 30, 0) };
+        var squad = new NortheastMegabuck.Models.Squad { Id = SquadId.New(), Date = new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified) };
 
         var division1 = new NortheastMegabuck.Models.Division { Name = "division1" };
         var division2 = new NortheastMegabuck.Models.Division { Name = "division2" };

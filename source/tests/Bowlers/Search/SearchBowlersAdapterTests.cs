@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Bowlers.Search;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Bowlers.Search.IBusinessLogic> _businessLogic;
 

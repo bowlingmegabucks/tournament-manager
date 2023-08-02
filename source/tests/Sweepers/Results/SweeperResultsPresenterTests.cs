@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NortheastMegabuck.Tests.Sweepers.Results;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Sweepers.Results.IView> _view;
     private Mock<NortheastMegabuck.Sweepers.Results.IAdapter> _adapter;

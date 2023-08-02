@@ -5,7 +5,7 @@ using NortheastMegabuck.Tests.Extensions;
 namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private BowlerId _validScoreBowlerId;
     private BowlerId _invalidScoreBowlerId;

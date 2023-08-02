@@ -9,7 +9,7 @@ using NortheastMegabuck.Tests.Extensions;
 namespace NortheastMegabuck.Tests.Bowlers.Update;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<IValidator<NortheastMegabuck.Models.PersonName>> _nameValidator;
     private Mock<NortheastMegabuck.Bowlers.Update.IDataLayer> _dataLayer;

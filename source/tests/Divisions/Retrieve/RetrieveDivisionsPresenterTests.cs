@@ -1,5 +1,5 @@
 ﻿namespace NortheastMegabuck.Tests.Divisions.Retrieve;
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Divisions.Retrieve.IView> _view;
     private Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter> _adapter;

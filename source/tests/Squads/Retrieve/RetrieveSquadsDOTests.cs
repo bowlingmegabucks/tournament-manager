@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Squads.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Squads.IRepository> _repository;
 

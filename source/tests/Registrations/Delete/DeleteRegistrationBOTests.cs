@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Registrations.Delete;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Registrations.Delete.IDataLayer> _dataLayer;
 

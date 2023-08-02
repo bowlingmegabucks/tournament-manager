@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Sweepers.Results;
 
 [TestFixture]
-internal class ViewModel
+internal sealed class ViewModel
 {
     [Test]
     public void Constructor_ModelsBowlerSquadScorePlaceCashingPositions_PlaceMapped()

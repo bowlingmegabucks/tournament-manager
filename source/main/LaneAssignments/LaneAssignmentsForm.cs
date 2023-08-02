@@ -68,9 +68,9 @@ public partial class Form : System.Windows.Forms.Form, IView
     {
         unassignedRegistrationsFlowLayoutPanel.Controls.Add(BuildLaneAssignmentControl(laneAssignment));
 
-        if (_divisionEntries.ContainsKey(laneAssignment.DivisionName))
+        if (_divisionEntries.TryGetValue(laneAssignment.DivisionName, out var entries))
         {
-            _divisionEntries[laneAssignment.DivisionName]++;
+            _divisionEntries[laneAssignment.DivisionName] = entries + 1;
         }
         else
         {

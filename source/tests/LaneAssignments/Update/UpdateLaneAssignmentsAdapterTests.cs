@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.LaneAssignments.Update;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.LaneAssignments.Update.IBusinessLogic> _businessLogic;
 

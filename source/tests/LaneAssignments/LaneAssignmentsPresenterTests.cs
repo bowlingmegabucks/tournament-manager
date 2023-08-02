@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.LaneAssignments;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.LaneAssignments.IView> _view;
     private Mock<NortheastMegabuck.LaneAssignments.ILaneAvailability> _laneAvailability;

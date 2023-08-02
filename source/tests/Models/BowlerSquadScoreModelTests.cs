@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class BowlerSquadScore
+internal sealed class BowlerSquadScore
 {
     [Test]
     public void Constructor_IGroupingBowlerModelSquadScoreModel_BowlerMapped()

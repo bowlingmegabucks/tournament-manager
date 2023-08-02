@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NortheastMegabuck.Tests.Tournaments.Seeding;
 
 [TestFixture]
-internal class Calculator
+internal sealed class Calculator
 {
     private NortheastMegabuck.Tournaments.Seeding.ICalculator _calculator;
 

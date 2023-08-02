@@ -4,7 +4,7 @@ using NortheastMegabuck.Tests.Extensions;
 namespace NortheastMegabuck.Tests.Tournaments.Add;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<IValidator<NortheastMegabuck.Models.Tournament>> _validator;
     private Mock<NortheastMegabuck.Tournaments.Add.IDataLayer> _dataLayer;

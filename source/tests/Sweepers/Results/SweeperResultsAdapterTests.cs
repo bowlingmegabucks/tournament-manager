@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Sweepers.Results;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Sweepers.Results.IBusinessLogic> _businessLogic;
 

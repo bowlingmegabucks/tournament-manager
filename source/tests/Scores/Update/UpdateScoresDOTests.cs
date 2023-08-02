@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Scores.IEntityMapper> _mapper;
     private Mock<NortheastMegabuck.Scores.IRepository> _repository;

@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Tournaments;
 
 [TestFixture]
-internal class ViewModel
+internal sealed class ViewModel
 {
     [Test]
     public void Constructor_TournamentModel_IdMapped()

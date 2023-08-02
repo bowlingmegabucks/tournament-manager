@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.LaneAssignments.IRepository> _repository;
 
@@ -52,7 +52,7 @@ internal class DataLayer
         Assert.Multiple(() =>
         {
             Assert.That(actual, Has.Count.EqualTo(3));
-            Assert.That(actual.All(laneAssignment => laneAssignment.Position == "12C"));
+            Assert.That(actual.TrueForAll(laneAssignment => laneAssignment.Position == "12C"));
         });
     }
 }

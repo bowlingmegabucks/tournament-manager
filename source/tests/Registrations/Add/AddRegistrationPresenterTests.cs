@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Registrations.Add;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Registrations.Add.IView> _view;
 

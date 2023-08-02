@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class Registration
+internal sealed class Registration
 {
     [Test]
     public void Constructor_BowlerSetToValue([Values]bool superSweeper)

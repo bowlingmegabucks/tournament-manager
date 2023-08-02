@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NortheastMegabuck.Tests.Bowlers.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Bowlers.IRepository> _repository;
 

@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Registrations.Delete;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Registrations.IRepository> _repository;
 

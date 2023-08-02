@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Sweepers.Results;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic> _retrieveSweeper;
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;

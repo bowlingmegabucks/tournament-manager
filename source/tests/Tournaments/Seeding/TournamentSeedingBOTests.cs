@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Tournaments.Seeding;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Tournaments.Results.IBusinessLogic> _tournamentResults;
     private Mock<NortheastMegabuck.Tournaments.Seeding.ICalculator> _calculator;

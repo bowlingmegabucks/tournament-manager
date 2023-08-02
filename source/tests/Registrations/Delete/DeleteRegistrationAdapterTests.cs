@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Registrations.Delete;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Registrations.Delete.IBusinessLogic> _businessLogic;
 

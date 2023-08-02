@@ -82,8 +82,6 @@ internal class Calculator
 
         scores.Shuffle();
 
-        //var previousAdvancersIds = new[] { bowler1.Bowler.Id, bowler2.Bowler.Id, bowler3.Bowler.Id, bowler4.Bowler.Id, bowler5.Bowler.Id };
-
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
@@ -170,8 +168,6 @@ internal class Calculator
                             bowler36, bowler37, bowler38, bowler39, bowler40 }.ToList();
 
         scores.Shuffle();
-
-        //var previousAdvancersIds = new[] { bowler1.Bowler.Id, bowler2.Bowler.Id, bowler3.Bowler.Id, bowler4.Bowler.Id, bowler5.Bowler.Id };
 
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
@@ -260,8 +256,6 @@ internal class Calculator
 
         scores.Shuffle();
 
-        //var previousAdvancersIds = new[] { bowler1.Bowler.Id, bowler2.Bowler.Id, bowler3.Bowler.Id, bowler4.Bowler.Id, bowler5.Bowler.Id };
-
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
@@ -299,8 +293,6 @@ internal class Calculator
 
         scores.Shuffle();
 
-        //var previousAdvancersIds = new[] { bowler1.Bowler.Id, bowler2.Bowler.Id, bowler3.Bowler.Id, bowler4.Bowler.Id, bowler5.Bowler.Id };
-
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
@@ -332,8 +324,6 @@ internal class Calculator
                              bowler4, bowler5, bowler6 }.ToList();
 
         scores.Shuffle();
-
-        //var previousAdvancersIds = new[] { bowler1.Bowler.Id, bowler2.Bowler.Id, bowler3.Bowler.Id, bowler4.Bowler.Id, bowler5.Bowler.Id };
 
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;

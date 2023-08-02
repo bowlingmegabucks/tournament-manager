@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Squads.Complete;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Squads.IRepository> _repository;
 

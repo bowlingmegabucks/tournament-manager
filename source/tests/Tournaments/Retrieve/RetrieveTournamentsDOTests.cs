@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Tournaments.IRepository> _repository;
 

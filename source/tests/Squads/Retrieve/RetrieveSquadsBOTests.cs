@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Squads.Retrieve;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Squads.Retrieve.IDataLayer> _dataLayer;
 
@@ -99,7 +99,7 @@ internal class BusinessLogic
 
         var id = SquadId.New();
 
-        var actual = _businessLogic.Execute(id);
+        _businessLogic.Execute(id);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }

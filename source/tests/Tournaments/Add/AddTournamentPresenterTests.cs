@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Tournaments.Add;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Tournaments.Add.IView> _view;
     private Mock<NortheastMegabuck.Tournaments.Add.IAdapter> _adapter;

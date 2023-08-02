@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Squads.Add;
 
 [TestFixture]
-internal class BusinesLogic
+internal sealed class BusinesLogic
 {
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
     private Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Squad>> _validator;

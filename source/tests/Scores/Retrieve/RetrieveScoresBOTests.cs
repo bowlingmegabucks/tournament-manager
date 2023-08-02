@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Scores.Retrieve;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Scores.Retrieve.IDataLayer> _dataLayer;
 

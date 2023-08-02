@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Sweepers.Complete;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Sweepers.IRepository> _repository;
 

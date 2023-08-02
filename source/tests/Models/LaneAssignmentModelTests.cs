@@ -2,7 +2,7 @@
 using NortheastMegabuck.Squads;
 
 namespace NortheastMegabuck.Tests.Models;
-internal class LaneAssignment
+internal sealed class LaneAssignment
 {
     private NortheastMegabuck.Models.LaneAssignment _laneAssignment;
 

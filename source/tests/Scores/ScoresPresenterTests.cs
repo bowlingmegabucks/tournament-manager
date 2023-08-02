@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Scores;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Scores.IView> _view;
     private Mock<NortheastMegabuck.LaneAssignments.Retrieve.IAdapter> _retrieveLaneAssignmentsAdapter;

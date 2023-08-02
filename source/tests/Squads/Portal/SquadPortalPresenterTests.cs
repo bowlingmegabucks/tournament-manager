@@ -58,7 +58,7 @@ internal class Presenter
     public void Load_RetrieveSquadAdapterHasNoError_ViewSetPortalTitle_CalledCorrectly()
     {
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 0));
+        squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified));
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(squad.Object);
 
         var squadId = new SquadId();

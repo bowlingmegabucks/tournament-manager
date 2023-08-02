@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Database;
 
 [TestFixture]
-internal class DateOnlyConverterTests
+internal sealed class DateOnlyConverterTests
 {
     [Test]
     public void DateOnlyToDateTime_MappedCorrectly()

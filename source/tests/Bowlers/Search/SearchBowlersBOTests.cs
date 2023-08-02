@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Bowlers.Search;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Bowlers.Search.IDataLayer> _dataLayer;
 

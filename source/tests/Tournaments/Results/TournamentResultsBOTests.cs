@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Tournaments.Results;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Tournaments.Results.ICalculator> _calculator;
     private Mock<NortheastMegabuck.Squads.Results.IBusinessLogic> _retrieveSquadResults;

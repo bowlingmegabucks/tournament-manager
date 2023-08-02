@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.LaneAssignments.Retrieve.IBusinessLogic> _businessLogic;
 
@@ -47,7 +47,7 @@ internal class Adapter
         Assert.Multiple(() =>
         {
             Assert.That(result, Has.Count.EqualTo(3));
-            Assert.That(result.All(laneAssignment => laneAssignment.Average == 200));
+            Assert.That(result.TrueForAll(laneAssignment => laneAssignment.Average == 200));
         });
     }
 }

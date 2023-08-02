@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Bowlers.Update;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Bowlers.IRepository> _repository;
 

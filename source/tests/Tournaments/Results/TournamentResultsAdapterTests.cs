@@ -4,7 +4,7 @@ using System.Security.Cryptography.Xml;
 namespace NortheastMegabuck.Tests.Tournaments.Results;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Tournaments.Results.IBusinessLogic> _businessLogic;
 

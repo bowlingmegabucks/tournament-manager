@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Tournaments;
 
 [TestFixture]
-internal class Repository
+internal sealed class Repository
 {
     private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 

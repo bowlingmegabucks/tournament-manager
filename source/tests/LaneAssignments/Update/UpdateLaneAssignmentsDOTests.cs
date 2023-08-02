@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.LaneAssignments.Update;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.LaneAssignments.IRepository> _repository;
 

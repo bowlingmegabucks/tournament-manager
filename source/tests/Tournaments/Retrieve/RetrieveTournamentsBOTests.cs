@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IDataLayer> _dataLayer;
 
@@ -20,7 +20,7 @@ internal class BusinessLogic
     {
         CancellationToken cancellationToken = default;
 
-        await _businessLogic.ExecuteAsync(cancellationToken);
+        await _businessLogic.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         _dataLayer.Verify(dataLayer=> dataLayer.ExecuteAsync(cancellationToken), Times.Once);
     }
@@ -31,7 +31,7 @@ internal class BusinessLogic
         var tournaments = new Mock<IEnumerable<NortheastMegabuck.Models.Tournament>>();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(tournaments.Object);
 
-        var result = await _businessLogic.ExecuteAsync(default);
+        var result = await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.That(result, Is.EqualTo(tournaments.Object));
     }
@@ -39,7 +39,7 @@ internal class BusinessLogic
     [Test]
     public async Task ExecuteAsync_NoErrors_ErrorNull()
     {
-        await _businessLogic.ExecuteAsync(default);
+        await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
@@ -50,7 +50,7 @@ internal class BusinessLogic
         var ex = new Exception();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        var result = await _businessLogic.ExecuteAsync(default);
+        var result = await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.That(result, Is.Empty);
     }
@@ -61,7 +61,7 @@ internal class BusinessLogic
         var ex = new Exception("message");
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        await _businessLogic.ExecuteAsync(default);
+        await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
         
         Assert.Multiple(() =>
         {

@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Sweepers.Portal;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Sweepers.Portal.IView> _view;
     private Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter> _retrieveAdapter;

@@ -8,7 +8,7 @@ using NortheastMegabuck.Scores;
 namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Scores.Update.IView> _view;
     private Mock<NortheastMegabuck.Scores.Update.IAdapter> _adapter;

@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Tournaments.Add;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Tournaments.Add.IBusinessLogic> _businessLogic;
 

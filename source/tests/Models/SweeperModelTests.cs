@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class Sweeper
+internal sealed class Sweeper
 {
     [Test]
     public void Constructor_IViewModel_IdMapped()

@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Divisions.Retrieve;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Divisions.Retrieve.IBusinessLogic> _businessLogic;
 

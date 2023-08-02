@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Registrations;
 
 [TestFixture]
-internal class EntityMapper
+internal sealed class EntityMapper
 {
     private Mock<NortheastMegabuck.Bowlers.IEntityMapper> _bowlerEntityMapper;
 

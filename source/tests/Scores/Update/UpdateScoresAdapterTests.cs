@@ -4,7 +4,7 @@ using NortheastMegabuck.Scores;
 namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Scores.Update.IBusinessLogic> _businessLogic;
 

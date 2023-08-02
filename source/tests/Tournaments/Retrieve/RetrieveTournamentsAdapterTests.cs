@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _businessLogic;
 
@@ -20,7 +20,7 @@ internal class Adapter
     {
         CancellationToken cancellationToken = default;
 
-        await _adapter.ExecuteAsync(cancellationToken);
+        await _adapter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(cancellationToken), Times.Once);
     }
@@ -30,7 +30,7 @@ internal class Adapter
     {
         _businessLogic.Setup(businessLogic => businessLogic.Error).Returns((NortheastMegabuck.Models.ErrorDetail)null);
 
-        await _adapter.ExecuteAsync(default);
+        await _adapter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.Null);
     }
@@ -41,7 +41,7 @@ internal class Adapter
         var errorDetail = new NortheastMegabuck.Models.ErrorDetail("message");
         _businessLogic.Setup(businessLogic => businessLogic.Error).Returns(errorDetail);
 
-        await _adapter.ExecuteAsync(default);
+        await _adapter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(errorDetail));
     }
@@ -57,7 +57,7 @@ internal class Adapter
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(tournaments);
 
-        var actual = await _adapter.ExecuteAsync(default);
+        var actual = await _adapter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

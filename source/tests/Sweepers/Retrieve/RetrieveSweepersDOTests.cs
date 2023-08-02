@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Sweepers.IRepository> _repository;
 
