@@ -117,7 +117,7 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
         => obj is LaneAssignments.IViewModel other && CompareTo(other) == 0;
 
     public override int GetHashCode()
-        => LaneAssignment.GetHashCode();
+        => LaneAssignment.GetHashCode(StringComparison.OrdinalIgnoreCase);
 
     public static bool operator ==(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
         => left?.CompareTo(right) == 0;
