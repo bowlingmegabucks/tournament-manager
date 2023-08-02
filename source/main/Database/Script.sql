@@ -187,3 +187,13 @@ VALUES ('20230316131029_BowlerSSN', '7.0.4');
 
 COMMIT;
 
+START TRANSACTION;
+
+ALTER TABLE `Squads` RENAME COLUMN `EntryFee` TO `SweeperEntryFee`;
+
+ALTER TABLE `Squads` ADD `SquadEntryFee` decimal(5,2) NULL;
+
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20230802154109_TournamentSquadEntryFee', '7.0.9');
+
+COMMIT;
