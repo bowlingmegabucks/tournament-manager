@@ -66,8 +66,8 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         stateDropdown.DisplayMember = "Value";
         stateDropdown.ValueMember = "Key";
 
-        dateOfBirthPicker.MaxDate = new DateTime(DateTime.Today.Year - 1, 12, 31);
-        dateOfBirthPicker.Value = new DateTime(1900, 1, 1);
+        dateOfBirthPicker.MaxDate = new DateTime(DateTime.Today.Year - 1, 12, 31, 0, 0, 0, DateTimeKind.Unspecified);
+        dateOfBirthPicker.Value = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
         dateOfBirthPicker.Checked = false;
 
         var genders = Enum.GetNames(typeof(Models.Gender)).ToDictionary(e => (int)Enum.Parse(typeof(Models.Gender), e), e => e);
@@ -161,12 +161,12 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
             if (value.HasValue)
             {
                 dateOfBirthPicker.Checked = true;
-                dateOfBirthPicker.Value = new DateTime(value.Value.Year, value.Value.Month, value.Value.Day);
+                dateOfBirthPicker.Value = new DateTime(value.Value.Year, value.Value.Month, value.Value.Day, 0, 0, 0, DateTimeKind.Unspecified);
             }
             else
             {
                 dateOfBirthPicker.Checked = false;
-                dateOfBirthPicker.Value = new DateTime(1900, 1, 1);
+                dateOfBirthPicker.Value = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
             }
         }
     }
@@ -174,7 +174,7 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     public Models.Gender? Gender
     {
         get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
-        set => genderDropdown.SelectedValue = (int?)value ?? null;
+        set => genderDropdown.SelectedValue = (int?)value;
     }
 
     public string SocialSecurityNumber

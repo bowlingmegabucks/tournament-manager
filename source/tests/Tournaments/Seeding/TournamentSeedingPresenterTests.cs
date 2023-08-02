@@ -40,7 +40,7 @@ internal class Presenter
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<IEnumerable<NortheastMegabuck.Tournaments.Seeding.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<ICollection<NortheastMegabuck.Tournaments.Seeding.IViewModel>>()), Times.Never);
         });
     }
 
@@ -70,10 +70,10 @@ internal class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<IEnumerable<NortheastMegabuck.Tournaments.Seeding.IViewModel>>()), Times.Exactly(2));
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<ICollection<NortheastMegabuck.Tournaments.Seeding.IViewModel>>()), Times.Exactly(2));
 
-            _view.Verify(view => view.BindResults("Division 1", It.Is<IEnumerable<NortheastMegabuck.Tournaments.Seeding.IViewModel>>(Execute => Execute.Count(x => x.Score == 100) == 1 && Execute.Count(x => x.Score == 101) == 1)), Times.Once);
-            _view.Verify(view => view.BindResults("Division 2", It.Is<IEnumerable<NortheastMegabuck.Tournaments.Seeding.IViewModel>>(Execute => Execute.Count(x => x.Score == 200) == 1 && Execute.Count(x => x.Score == 201) == 1)), Times.Once);
+            _view.Verify(view => view.BindResults("Division 1", It.Is<ICollection<NortheastMegabuck.Tournaments.Seeding.IViewModel>>(Execute => Execute.Count(x => x.Score == 100) == 1 && Execute.Count(x => x.Score == 101) == 1)), Times.Once);
+            _view.Verify(view => view.BindResults("Division 2", It.Is<ICollection<NortheastMegabuck.Tournaments.Seeding.IViewModel>>(Execute => Execute.Count(x => x.Score == 200) == 1 && Execute.Count(x => x.Score == 201) == 1)), Times.Once);
         });
     }
 }

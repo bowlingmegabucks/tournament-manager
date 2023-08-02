@@ -41,7 +41,7 @@ internal class Presenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<IEnumerable<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Never);
         });
     }
 
@@ -73,10 +73,10 @@ internal class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<IEnumerable<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Exactly(2));
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Exactly(2));
 
-            _view.Verify(view => view.BindResults("division1", It.Is<IEnumerable<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division1") == 2)), Times.Once);
-            _view.Verify(view => view.BindResults("division2", It.Is<IEnumerable<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division2") == 1)), Times.Once);
+            _view.Verify(view => view.BindResults("division1", It.Is<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division1") == 2)), Times.Once);
+            _view.Verify(view => view.BindResults("division2", It.Is<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division2") == 1)), Times.Once);
         });
     }
 }

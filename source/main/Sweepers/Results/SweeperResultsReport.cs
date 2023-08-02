@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Sweepers.Results;
 public partial class Report : System.Windows.Forms.Form
 {
-    //todo: this will take in the collection of viewmodels since the form will already have the data
+    //this will take in the collection of viewmodels since the form will already have the data
     public Report()
     {
         InitializeComponent();

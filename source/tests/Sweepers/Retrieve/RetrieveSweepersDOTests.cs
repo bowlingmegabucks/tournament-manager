@@ -100,4 +100,37 @@ internal class DataLayer
 
         Assert.That(actual.MaxPerPair, Is.EqualTo(entity.MaxPerPair));
     }
+
+    [Test]
+    public void SuperSweeperBowlers_RepositorySuperSweeperBowlers_CalledCorrectly()
+    {
+        var tournamentId = TournamentId.New();
+
+        _dataLayer.SuperSweeperBowlers(tournamentId);
+
+        _repository.Verify(repository => repository.SuperSweeperBowlers(tournamentId), Times.Once);
+    }
+
+    [Test]
+    public void SuperSweeperBowlers_ReturnsRepositorySuperSweeperBowlerIds()
+    {
+        var bowlerId1 = BowlerId.New();
+        var bowlerId2 = BowlerId.New();
+        var bowlerId3 = BowlerId.New();
+
+        var bowlerIds = new[] { bowlerId1, bowlerId2, bowlerId3 };
+
+        _repository.Setup(repository => repository.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(bowlerIds);
+
+        var actual = _dataLayer.SuperSweeperBowlers(TournamentId.New());
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(actual.Count(), Is.EqualTo(3));
+
+            Assert.That(actual.Count(bowlerId => bowlerId == bowlerId1), Is.EqualTo(1));
+            Assert.That(actual.Count(bowlerId => bowlerId == bowlerId2), Is.EqualTo(1));
+            Assert.That(actual.Count(bowlerId => bowlerId == bowlerId3), Is.EqualTo(1));
+        });
+    }
 }

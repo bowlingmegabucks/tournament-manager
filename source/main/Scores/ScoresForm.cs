@@ -17,7 +17,7 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
         _complete = complete; 
 
         scoresGrid.GenerateGameColumns(numberOfGames);
-        scoresGrid.SquadId = squadId;
+        scoresGrid.SetSquadId(squadId);
     }
 
     private void Form_Load(object sender, EventArgs e)

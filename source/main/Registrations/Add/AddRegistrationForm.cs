@@ -80,11 +80,11 @@ internal partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
-    public void BindSquads(IEnumerable<Squads.IViewModel> squads, SquadId squadToRegister)
+    public void BindSquads(IEnumerable<Squads.IViewModel> squads, SquadId squadId)
     {
         BindSquads(squads);
 
-        var squad = squadsFlowPanelLayout.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == squadToRegister);
+        var squad = squadsFlowPanelLayout.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == squadId);
 
         if (squad == null)
         {
@@ -103,11 +103,11 @@ internal partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
-    public void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers, SquadId sweeperToRegister)
+    public void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers, SquadId squadId)
     {
         BindSweepers(sweepers);
 
-        var sweeper = sweepersFlowLayoutPanel.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == sweeperToRegister);
+        var sweeper = sweepersFlowLayoutPanel.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == squadId);
 
         if (sweeper == null)
         {
@@ -119,7 +119,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
-    { }
+    { 
+        //will populate when loading existing bowlers
+    }
 
     public void Disable()
     {

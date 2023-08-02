@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+
 namespace NortheastMegabuck.Controls;
 public partial class RecapSheetGameRowControl : UserControl
 {
@@ -12,13 +14,9 @@ public partial class RecapSheetGameRowControl : UserControl
         totalLabel.Text = string.Empty;
     }
 
-    public int Handicap
-    {
-        set => handicapLabel.Text = value > 0 ? value.ToString() : "-";
-    }
+    public void SetHandicap(int handicap)
+        => handicapLabel.Text = handicap > 0 ? handicap.ToString(CultureInfo.CurrentCulture) : "-";
 
-    public string LaneAssignment
-    {
-        set => laneLabel.Text = value;
-    }
+    public void SetLaneAssignment(string laneAssignment)
+        => laneLabel.Text = laneAssignment;
 }

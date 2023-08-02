@@ -165,7 +165,7 @@ internal class Presenter
         _view.Setup(view => view.IsValid()).Returns(true);
 
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 00));
+        squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 00, DateTimeKind.Unspecified));
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         var squadId = SquadId.New();

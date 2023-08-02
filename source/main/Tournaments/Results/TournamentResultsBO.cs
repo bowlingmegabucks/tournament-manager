@@ -29,9 +29,9 @@ internal class BusinessLogic : IBusinessLogic
         _retrieveTournament = mockRetrieveTournament;
     }
 
-    public IEnumerable<Models.TournamentResults> Execute(TournamentId id)
+    public IEnumerable<Models.TournamentResults> Execute(TournamentId tournamentId)
     {
-        var tournament = _retrieveTournament.Execute(id);
+        var tournament = _retrieveTournament.Execute(tournamentId);
 
         if (_retrieveTournament.Error != null)
         {
@@ -40,7 +40,7 @@ internal class BusinessLogic : IBusinessLogic
             return Enumerable.Empty<Models.TournamentResults>();
         }
 
-        var squadResults = _retrieveSquadResults.Execute(id);
+        var squadResults = _retrieveSquadResults.Execute(tournamentId);
 
         if (_retrieveSquadResults.Error != null)
         {
@@ -49,7 +49,7 @@ internal class BusinessLogic : IBusinessLogic
             return Enumerable.Empty<Models.TournamentResults>();
         }
 
-        return squadResults.Select(squadResult => new Models.TournamentResults(squadResult.Key, squadResult, _calculator.Execute(squadResult.Key.Id, squadResult, tournament!.FinalsRatio))).ToList();
+        return squadResults.Select(squadResult => new Models.TournamentResults(squadResult.Key, squadResult, _calculator.Execute(squadResult.Key.Id, squadResult.ToList(), tournament!.FinalsRatio))).ToList();
     }
 }
 

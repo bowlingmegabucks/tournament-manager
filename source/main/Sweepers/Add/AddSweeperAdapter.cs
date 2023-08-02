@@ -19,9 +19,9 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
     
-    public SquadId? Execute(IViewModel viewModel)
+    public SquadId? Execute(IViewModel sweeper)
     {
-        var model = new Models.Sweeper(viewModel);
+        var model = new Models.Sweeper(sweeper);
 
         var guid = _businessLogic.Execute(model);
 

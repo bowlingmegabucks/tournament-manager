@@ -19,9 +19,9 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
     
-    public SquadId? Execute(IViewModel viewModel)
+    public SquadId? Execute(IViewModel squad)
     {
-        var model = new Models.Squad(viewModel);
+        var model = new Models.Squad(squad);
 
         var id = _businessLogic.Execute(model);
 

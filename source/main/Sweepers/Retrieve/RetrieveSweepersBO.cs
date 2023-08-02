@@ -47,12 +47,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    //todo: unit tests
-    public IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId id)
+    public IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId)
     {
         try
         {
-            return _dataLayer.SuperSweeperBowlers(id).ToList();
+            return _dataLayer.SuperSweeperBowlers(tournamentId).ToList();
         }
         catch (Exception ex)
         {

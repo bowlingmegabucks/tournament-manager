@@ -23,16 +23,15 @@ internal class DataLayer : IDataLayer
     public Models.Sweeper Execute(SquadId id)
         => new(_repository.Retrieve(id));
 
-    //todo: unit tests
-    public IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId id)
-        => _repository.SuperSweeperBowlers(id);
+    public IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId)
+        => _repository.SuperSweeperBowlers(tournamentId);
 }
 
 internal interface IDataLayer
 {
     IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId);
 
-    IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
-
     Models.Sweeper Execute(SquadId id);
+
+    IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
 }

@@ -45,14 +45,14 @@ internal class Presenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindResults(It.IsAny<IEnumerable<NortheastMegabuck.Sweepers.Results.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<ICollection<NortheastMegabuck.Sweepers.Results.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public void Execute_SquadId_AdapterExecuteNoError_ViewBindResults_CalledCorrectly()
     {
-        var results = new Mock<IEnumerable<NortheastMegabuck.Sweepers.Results.IViewModel>>().Object;
+        var results = new List<NortheastMegabuck.Sweepers.Results.IViewModel>();
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(results);
 
         _presenter.Execute(SquadId.New());
@@ -82,14 +82,14 @@ internal class Presenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindResults(It.IsAny<IEnumerable<NortheastMegabuck.Sweepers.Results.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<ICollection<NortheastMegabuck.Sweepers.Results.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public void Execute_TournamentId_AdapterExecuteNoError_ViewBindResults_CalledCorrectly()
     {
-        var results = new Mock<IEnumerable<NortheastMegabuck.Sweepers.Results.IViewModel>>().Object;
+        var results = new List<NortheastMegabuck.Sweepers.Results.IViewModel>();
         _adapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(results);
 
         _presenter.Execute(TournamentId.New());

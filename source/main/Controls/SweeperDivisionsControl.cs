@@ -1,4 +1,6 @@
 ﻿
+using System.Diagnostics.CodeAnalysis;
+
 namespace NortheastMegabuck.Controls;
 public partial class SweeperDivisionsControl : UserControl
 {
@@ -9,8 +11,8 @@ public partial class SweeperDivisionsControl : UserControl
 
     public IDictionary<DivisionId, int?> Divisions
         => sweeperDivisionsFlowLayoutPanel.Controls.OfType<SweeperDivisionControl>().ToDictionary(d => d.DivisionId, d => d.BonusPinsPerGame);
-    
-    public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
+
+    public void BindDivisions([NotNull] IEnumerable<Divisions.IViewModel> divisions)
     {
         foreach (var division in divisions)
         {
