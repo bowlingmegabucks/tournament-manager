@@ -36,6 +36,19 @@ internal class EntityMapper
     }
 
     [Test]
+    public void Execute_EntryFeeMapped([Values(null, 100)] decimal? entryFee)
+    {
+        var model = new NortheastMegabuck.Models.Squad
+        {
+            EntryFee = entryFee
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.EntryFee, Is.EqualTo(model.EntryFee));
+    }
+
+    [Test]
     public void Execute_CashRatioMapped([Values(null, 4.5)] decimal? cashRatio)
     {
         var model = new NortheastMegabuck.Models.Squad

@@ -12,6 +12,8 @@ internal class Squad
     public decimal? FinalsRatio { get; set; }
 
     public DateTime Date { get; set; }
+
+    public decimal? EntryFee { get; set; }
     
     public short MaxPerPair { get; set; }
 
@@ -32,6 +34,7 @@ internal class Squad
         StartingLane = squad.StartingLane;
         NumberOfLanes = squad.NumberOfLanes;
         Complete = squad.Complete;
+        EntryFee = squad.EntryFee;
     }
 
     public Squad(Squads.IViewModel viewModel)
@@ -45,6 +48,7 @@ internal class Squad
         StartingLane = viewModel.StartingLane;
         NumberOfLanes = viewModel.NumberOfLanes;
         Complete = viewModel.Complete;
+        EntryFee = viewModel.EntryFee;
     }
 
     /// <summary>

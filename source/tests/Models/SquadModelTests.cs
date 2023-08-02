@@ -32,6 +32,20 @@ internal class Squad
     }
 
     [Test]
+    public void Constructor_SquadEntity_EntryFeeMapped([Values(null, 100)] decimal? entryFee)
+    {
+        var entity =new NortheastMegabuck.Database.Entities.TournamentSquad
+        {
+            EntryFee = entryFee,
+            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+        };
+
+        var model = new NortheastMegabuck.Models.Squad(entity);
+
+        Assert.That(model.EntryFee, Is.EqualTo(entity.EntryFee));
+    }
+
+    [Test]
     public void Constructor_SquadEntity_CashRatioMapped([Values(null, 5.5)] decimal? cashRatio)
     {
         var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
@@ -149,6 +163,17 @@ internal class Squad
         var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
 
         Assert.That(model.TournamentId, Is.EqualTo(viewModel.Object.TournamentId));
+    }
+
+    [Test]
+    public void Constructor_SquadViewModel_EntryFeeMapped([Values(null, 100)] decimal? entryFee)
+    {
+        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        viewModel.SetupGet(v => v.EntryFee).Returns(entryFee);
+
+        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+
+        Assert.That(model.EntryFee, Is.EqualTo(entryFee));
     }
 
     [Test]

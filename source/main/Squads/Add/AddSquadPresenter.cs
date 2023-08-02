@@ -30,7 +30,7 @@ internal class Presenter
         _addSquadAdapter = new Lazy<IAdapter>(() => mockAddSquadAdapter);
     }
 
-    public void GetTournamentRatios()
+    public void GetTournamentDetails()
     {
         var tournament = _retrieveTournamentAdapter.Execute(_view.Squad.TournamentId);
 
@@ -40,7 +40,8 @@ internal class Presenter
         }
         else
         {
-            _view.SetTournamentFinalsRatio(tournament!.FinalsRatio.ToString("N1"));
+            _view.SetTournamentEntryFee(tournament!.EntryFee.ToString("C2"));
+            _view.SetTournamentFinalsRatio(tournament.FinalsRatio.ToString("N1"));
             _view.SetTournamentCashRatio(tournament.CashRatio.ToString("N1"));
         }
     }
