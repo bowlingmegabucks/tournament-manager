@@ -120,4 +120,8 @@
 	  </None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Update="SonarAnalyzer.CSharp" Version="9.6.0.74858" />
+	</ItemGroup>
+
 </Project>

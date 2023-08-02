@@ -39,4 +39,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\main\NortheastMegabuck.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="SonarAnalyzer.CSharp" Version="9.6.0.74858" />
+	</ItemGroup>
 </Project>
