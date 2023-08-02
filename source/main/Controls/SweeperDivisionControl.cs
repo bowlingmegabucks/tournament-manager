@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NortheastMegabuck.Controls;
 public partial class SweeperDivisionControl : UserControl
@@ -11,7 +12,7 @@ public partial class SweeperDivisionControl : UserControl
         set => bonusPinsPerGameValue.Value = value ?? 0;
     }
     
-    public SweeperDivisionControl(Divisions.IViewModel divisionViewModel)
+    public SweeperDivisionControl([NotNull]Divisions.IViewModel divisionViewModel)
     {
         InitializeComponent();
         

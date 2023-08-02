@@ -3,7 +3,7 @@ namespace NortheastMegabuck.Tournaments.Results;
 
 internal class Calculator : ICalculator
 {
-    public Models.AtLargeResults Execute(DivisionId divisionId, IEnumerable<Models.SquadResult> squadResults, decimal finalsRatio)
+    public Models.AtLargeResults Execute(DivisionId divisionId, ICollection<Models.SquadResult> squadResults, decimal finalsRatio)
     {
         var totalEntries = squadResults.Sum(squadResult => squadResult.Entries);
         var totalFinalsSpots = Convert.ToInt32(Math.Floor(totalEntries / finalsRatio));
@@ -20,12 +20,6 @@ internal class Calculator : ICalculator
         }
 
         var finalistBowlerIds = squadResults.SelectMany(squadResult=> squadResult.AdvancingScores.Select(score=> score.Bowler.Id)).ToList();
-
-        //var a = squadResults.SelectMany(squadResult => squadResult.AtLargeEligibleScores);
-        //var b = a.Where(score => !finalistBowlerIds.Contains(score.Bowler.Id));
-        //var c = b.GroupBy(score => score.Bowler);
-        //var d = c.Select(bowlerScore => bowlerScore.MaxBy(bowlerScore => bowlerScore.Score));
-        //var eligibleScores = d.Order().ToList();
 
         var eligibleScores = squadResults.SelectMany(squadResult => squadResult.AtLargeEligibleScores)
             .Where(score => !finalistBowlerIds.Contains(score.Bowler.Id))
@@ -48,5 +42,5 @@ internal class Calculator : ICalculator
 
 internal interface ICalculator
 {
-    Models.AtLargeResults Execute(DivisionId divisionId, IEnumerable<Models.SquadResult> squadResults, decimal finalsRatio);
+    Models.AtLargeResults Execute(DivisionId divisionId, ICollection<Models.SquadResult> squadResults, decimal finalsRatio);
 }

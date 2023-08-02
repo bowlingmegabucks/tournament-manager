@@ -147,7 +147,7 @@ internal class Presenter
         _view.Setup(view => view.IsValid()).Returns(true);
 
         var sweeper = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
-        sweeper.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 00));
+        sweeper.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 00, DateTimeKind.Unspecified));
         _view.SetupGet(view => view.Sweeper).Returns(sweeper.Object);
 
         var sweeperId = SquadId.New();

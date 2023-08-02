@@ -230,17 +230,17 @@ internal class Presenter
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1));
+        squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squad2 = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2));
+        squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squad2A = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad2A.SetupGet(squad=> squad.Complete).Returns(true);
-        squad2A.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
+        squad2A.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squad3 = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        squad3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
+        squad3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squads = new[] { squad3.Object, squad2A.Object, squad1.Object, squad2.Object };
         _squadsAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
@@ -251,9 +251,9 @@ internal class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[0].Date == new DateTime(2015, 1, 1))), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[1].Date == new DateTime(2015, 1, 2))), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[2].Date == new DateTime(2015, 1, 3))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[0].Date == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[1].Date == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList()[2].Date == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
 
             _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(squads => squads.ToList().Count == 3)), Times.Once);
         });
@@ -265,17 +265,17 @@ internal class Presenter
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var sweeper1 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
-        sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1));
+        sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweeper2 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
-        sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2));
+        sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweeper2A = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper2A.SetupGet(sweeper => sweeper.Complete).Returns(true);
-        sweeper2A.SetupGet(sweeper => sweeper.Date).Returns(new DateTime(2015, 1, 3));
+        sweeper2A.SetupGet(sweeper => sweeper.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweeper3 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
-        sweeper3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3));
+        sweeper3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweepers = new[] { sweeper3.Object, sweeper1.Object, sweeper2.Object };
         _sweepersAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
@@ -286,9 +286,9 @@ internal class Presenter
         
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].Date == new DateTime(2015, 1, 1))), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[1].Date == new DateTime(2015, 1, 2))), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[2].Date == new DateTime(2015, 1, 3))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].Date == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[1].Date == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[2].Date == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
 
             _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList().Count == 3)), Times.Once);
         });

@@ -3,13 +3,13 @@ internal interface IView
 {
     void SetPortalTitle(string title);
 
-    int StartingLane { set; }
+    void SetStartingLane(int startingLane);
 
-    int NumberOfLanes { set; }
+    void SetNumberOfLanes(int numberOfLanes);
 
-    int MaxPerPair { set; }
+    void SetMaxPerPair(int maxPerPair);
 
-    bool Complete { set; }
+    void SetComplete(bool complete);
 
     void DisplayMessage(string message);
 

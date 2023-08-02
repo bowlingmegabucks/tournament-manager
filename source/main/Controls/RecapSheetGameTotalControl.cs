@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+
 namespace NortheastMegabuck.Controls;
 public partial class RecapSheetGameTotalControl : UserControl
 {
@@ -11,8 +13,6 @@ public partial class RecapSheetGameTotalControl : UserControl
         handicapTotalLabel.Text = string.Empty;
     }
 
-    public int Handicap
-    {
-        set => handicapLabel.Text = value> 0 ? value.ToString() : "-";
-    }
+    public void SetHandicap(int handicap)
+        => handicapLabel.Text = handicap > 0 ? handicap.ToString(CultureInfo.CurrentCulture) : "-";
 }

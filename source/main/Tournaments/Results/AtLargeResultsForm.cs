@@ -24,7 +24,7 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-    public void BindResults(string divisionName, IEnumerable<IAtLargeViewModel> scores)
+    public void BindResults(string divisionName, IEnumerable<IAtLargeViewModel> results)
     {
         var tabPage = new TabPage($"{divisionName}TabPage")
         {
@@ -40,7 +40,7 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
 
         var toSpreadsheet = new StringBuilder();
 
-        foreach (var score in scores )
+        foreach (var score in results )
         {
             var control = new Controls.AtLargeResultsControl(score);
 

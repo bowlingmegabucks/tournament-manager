@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+
 namespace NortheastMegabuck.Scores;
 
 internal class GridViewModel : IGridViewModel
@@ -33,7 +35,7 @@ internal class GridViewModel : IGridViewModel
 
         for (var i = 5; currentGame <= gamesPerSquad && i < items.Length; i++)
         {
-            Scores.Add(currentGame++, Convert.ToInt32(items[i]));
+            Scores.Add(currentGame++, Convert.ToInt32(items[i], CultureInfo.CurrentCulture));
         }
     }
 }
@@ -46,5 +48,5 @@ public interface IGridViewModel
 
     string BowlerName { get; set; }
 
-    IDictionary<short, int> Scores { get; set; }
+    IDictionary<short, int> Scores { get; }
 }

@@ -28,6 +28,7 @@ internal class Adapter : IAdapter
 
         var atLarges = new List<IAtLargeViewModel>();
 
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
         foreach (var result in results)
         {
             short place = 1;
@@ -38,6 +39,7 @@ internal class Adapter : IAdapter
                 atLarges.Add(atLarge);
             }
         }
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 
         return atLarges;
     }

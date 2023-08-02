@@ -20,12 +20,12 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    void IRepository.Update(IEnumerable<Database.Entities.SquadScore> newSquadScores)
+    void IRepository.Update(ICollection<Database.Entities.SquadScore> scores)
     {
-        var squadId = newSquadScores.First().SquadId;
+        var squadId = scores.First().SquadId;
         var existingSquadScores = _dataContext.SquadScores.Where(score => score.SquadId == squadId).ToList();
 
-        foreach (var newSquadScore in newSquadScores)
+        foreach (var newSquadScore in scores)
         {
             var existingSquadScore = existingSquadScores.SingleOrDefault(score => score.BowlerId == newSquadScore.BowlerId && score.Game == newSquadScore.Game);
 
@@ -67,9 +67,9 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    void Update(IEnumerable<Database.Entities.SquadScore> scores);
+    void Update(ICollection<Database.Entities.SquadScore> scores);
 
-    IEnumerable<Database.Entities.SquadScore> Retrieve(SquadId sqauadId);
+    IEnumerable<Database.Entities.SquadScore> Retrieve(SquadId squadId);
 
     IEnumerable<Database.Entities.SquadScore> Retrieve(IEnumerable<SquadId> squadIds);
 }

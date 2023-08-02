@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class Bowler
+internal sealed class Bowler
 {
     [Test]
     public void Constructor_Entity_IdMapped()

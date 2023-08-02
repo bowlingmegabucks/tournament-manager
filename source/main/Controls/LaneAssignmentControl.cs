@@ -1,5 +1,5 @@
-﻿using System.Globalization;
-using NortheastMegabuck.Bowlers.Add;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace NortheastMegabuck.Controls;
 public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
@@ -25,7 +25,7 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
         BorderStyle = BorderStyle.FixedSingle;
     }
 
-    public void Bind(LaneAssignments.IViewModel viewModel)
+    public void Bind([NotNull]LaneAssignments.IViewModel viewModel)
     {
         BowlerId = viewModel.BowlerId;
         BowlerName = viewModel.BowlerName;

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace NortheastMegabuck.Registrations.Retrieve;
 internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRegistrationsView
@@ -26,16 +27,13 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-    public void DisplayMessage(string message)
-        => MessageBox.Show(message,string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
     public void SetDivisionEntries(IDictionary<string, int> divisionEntries)
     {
         var entries = new StringBuilder();
 
         foreach (var entry in divisionEntries)
         {
-            entries.AppendLine($"{entry.Key}: {entry.Value} Entries");
+            entries.AppendLine(CultureInfo.CurrentCulture, $"{entry.Key}: {entry.Value} Entries");
         }
 
         divisionEntriesLabel.Text = entries.ToString();
@@ -46,7 +44,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         foreach (var entry in squadEntries)
         {
-            entries.AppendLine($"{entry.Key}: {entry.Value} Entries");
+            entries.AppendLine(CultureInfo.CurrentCulture, $"{entry.Key}: {entry.Value} Entries");
         }
 
         squadEntriesLabel.Text = entries.ToString();
@@ -57,7 +55,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         foreach (var entry in sweeperEntries)
         {
-            entries.AppendLine($"{entry.Key}: {entry.Value} Entries");
+            entries.AppendLine(CultureInfo.CurrentCulture, $"{entry.Key}: {entry.Value} Entries");
         }
 
         sweeperEntriesLabel.Text = entries.ToString();

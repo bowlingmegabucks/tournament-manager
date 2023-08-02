@@ -42,9 +42,9 @@ internal class Presenter
 
         _view.SetPortalTitle($"{squad!.Date:MM/dd/yyyy hh:mmtt}");
 
-        _view.StartingLane = squad.StartingLane;
-        _view.NumberOfLanes = squad.NumberOfLanes;
-        _view.MaxPerPair = squad.MaxPerPair;
+        _view.SetStartingLane(squad.StartingLane);
+        _view.SetNumberOfLanes(squad.NumberOfLanes);
+        _view.SetMaxPerPair(squad.MaxPerPair);
     }
 
     internal void Complete()

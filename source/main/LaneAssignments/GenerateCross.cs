@@ -2,15 +2,13 @@
 namespace NortheastMegabuck.LaneAssignments;
 internal abstract class GenerateCross : IGenerate
 {
-    //private readonly bool _flipEvenGameLane = true;
-
     IEnumerable<string> IGenerate.Execute(short startingLane, string letter, short games, IList<short> lanesUsed, short defaultSkip)
     {
         var lanes = new List<short> { startingLane };
 
         for (short gameNumber = 2; gameNumber <= games; gameNumber++)
         {
-            var previousLane = lanes.Last();
+            var previousLane = lanes[lanes.Count - 1];
             var previousIndex = lanesUsed.IndexOf(previousLane);
             var nextLane = NextLane(startingLane, lanesUsed, defaultSkip, previousIndex, gameNumber);
 
@@ -19,8 +17,6 @@ internal abstract class GenerateCross : IGenerate
 
         var adjustedLanes = new List<short>();
 
-        //if (_flipEvenGameLane)
-        //{
         for (var i = 0; i < lanes.Count; i++)
         {
             if (i % 2 == 0)
@@ -36,11 +32,6 @@ internal abstract class GenerateCross : IGenerate
                 adjustedLanes.Add(++lanes[i]);
             }
         }
-        //}
-        //else
-        //{
-        //    adjustedLanes.AddRange(lanes);
-        //}
 
         return adjustedLanes.Select(lane => $"{lane}{letter}").ToList();
     }

@@ -31,7 +31,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     
     public void OpenTournament(TournamentId id, string tournamentName, short gamesPerSquad) 
     {   
-        var portal = new Portal.Form(_config, id, tournamentName, gamesPerSquad);
+        using var portal = new Portal.Form(_config, id, tournamentName, gamesPerSquad);
 
         Hide();
 

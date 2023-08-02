@@ -3,7 +3,7 @@ namespace NortheastMegabuck.Models;
 
 internal class TournamentResults
 {
-    public Division Division { get; init; } = null!;
+    public Division Division { get; init; }
 
     public int Entries
         => SquadResults.Sum(squadResult => squadResult.Entries);

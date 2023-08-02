@@ -23,9 +23,9 @@ internal class Adapter : IAdapter
 
     public IEnumerable<IGrouping<string, IViewModel>> Execute(SquadId squadId)
     {
-        var squadResultsByDivision = _businessLogic.Execute(squadId);
+        var squadResultsByDivision = _businessLogic.Execute(squadId).ToList();
 
-        if (!squadResultsByDivision.Any())
+        if (squadResultsByDivision.Count == 0)
         {
             return Enumerable.Empty<IGrouping<string, ViewModel>>();
         }

@@ -141,7 +141,7 @@ internal class Validator
     {
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {
-            Date = new DateTime(2018, 1, 1),
+            Date = new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Unspecified),
             Tournament = new NortheastMegabuck.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2)
@@ -157,7 +157,7 @@ internal class Validator
     {
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {
-            Date = new DateTime(2018, 1, 2),
+            Date = new DateTime(2018, 1, 2, 0, 0, 0, DateTimeKind.Unspecified),
             Tournament = new NortheastMegabuck.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2),
@@ -174,7 +174,7 @@ internal class Validator
     {
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {
-            Date = new DateTime(2018, 1, 3),
+            Date = new DateTime(2018, 1, 3, 0, 0, 0, DateTimeKind.Unspecified),
             Tournament = new NortheastMegabuck.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2),
@@ -191,7 +191,7 @@ internal class Validator
     {
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {
-            Date = new DateTime(2018, 1, 1),
+            Date = new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Unspecified),
             Tournament = new NortheastMegabuck.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
@@ -207,7 +207,7 @@ internal class Validator
     {
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {
-            Date = new DateTime(2018, 1, 2),
+            Date = new DateTime(2018, 1, 2, 0, 0, 0, DateTimeKind.Unspecified),
             Tournament = new NortheastMegabuck.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
@@ -223,7 +223,7 @@ internal class Validator
     {
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {
-            Date = new DateTime(2018, 1, 3),
+            Date = new DateTime(2018, 1, 3, 0, 0, 0, DateTimeKind.Unspecified),
             Tournament = new NortheastMegabuck.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)

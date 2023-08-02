@@ -1,9 +1,13 @@
-﻿using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Text;
 using NortheastMegabuck.Controls;
 
 namespace NortheastMegabuck.LaneAssignments;
 public partial class Form : System.Windows.Forms.Form, IView
 {
+    private Scores.RecapSheetForm? _recapSheetForm;
+
     private readonly IConfiguration _config;
 
     public TournamentId TournamentId { get; }
@@ -20,7 +24,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private readonly bool _complete;
 
-    public void BuildLanes(IEnumerable<string> lanes)
+    public void BuildLanes([NotNull]IEnumerable<string> lanes)
     {
         foreach (var lane in lanes)
         {
@@ -60,26 +64,26 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void BindRegistrations(IEnumerable<IViewModel> registrations)
         => unassignedRegistrationsFlowLayoutPanel.Controls.AddRange(registrations.Select(BuildLaneAssignmentControl).ToArray());
 
-    public void AddToUnassigned(IViewModel registration)
+    public void AddToUnassigned([NotNull] IViewModel laneAssignment)
     {
-        unassignedRegistrationsFlowLayoutPanel.Controls.Add(BuildLaneAssignmentControl(registration));
+        unassignedRegistrationsFlowLayoutPanel.Controls.Add(BuildLaneAssignmentControl(laneAssignment));
 
-        if (_divisionEntries.ContainsKey(registration.DivisionName))
+        if (_divisionEntries.ContainsKey(laneAssignment.DivisionName))
         {
-            _divisionEntries[registration.DivisionName]++;
+            _divisionEntries[laneAssignment.DivisionName]++;
         }
         else
         {
-            _divisionEntries.Add(registration.DivisionName,1);
+            _divisionEntries.Add(laneAssignment.DivisionName,1);
         }
 
         BindEntriesPerDivision();
     }
         
 
-    public void BindLaneAssignments(IEnumerable<IViewModel> registrations)
+    public void BindLaneAssignments([NotNull] IEnumerable<IViewModel> assignments)
     {
-        foreach (var registration in registrations)
+        foreach (var registration in assignments)
         {
             var openLane = laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
 
@@ -324,9 +328,9 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     void IView.GenerateRecaps(IEnumerable<Scores.IRecapSheetViewModel> recaps)
     {
-        var form = new Scores.RecapSheetForm(_squadDate);
+        _recapSheetForm = new Scores.RecapSheetForm(_squadDate);
 
-        form.Preview(recaps, Games);
+        _recapSheetForm.Preview(recaps, Games);
     }
 
     private void DeleteLaneAssignmentMenuItem_Click(object sender, EventArgs e)
@@ -365,7 +369,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         foreach (var entry in _divisionEntries.Where(entries=> entries.Value > 0))
         {
-            entriesPerDivision.AppendLine($"{entry.Key}: {entry.Value}");
+            entriesPerDivision.AppendLine(CultureInfo.CurrentCulture, $"{entry.Key}: {entry.Value}");
             entriesPerDivision.AppendLine();
         }
 

@@ -47,7 +47,7 @@ internal class BusinessLogic
             Assert.That(_businessLogic.Error, Is.EqualTo(error));
 
             _retrieveSquadResults.Verify(retrieveSquadResults => retrieveSquadResults.Execute(It.IsAny<TournamentId>()), Times.Never);
-            _calculator.Verify(calculator => calculator.Execute(It.IsAny<DivisionId>(), It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>()), Times.Never);
+            _calculator.Verify(calculator => calculator.Execute(It.IsAny<DivisionId>(), It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>()), Times.Never);
         });
     }
 
@@ -77,7 +77,7 @@ internal class BusinessLogic
             Assert.That(result, Is.Empty);
             Assert.That(_businessLogic.Error, Is.EqualTo(error));
 
-            _calculator.Verify(calculator => calculator.Execute(It.IsAny<DivisionId>(), It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>()), Times.Never);
+            _calculator.Verify(calculator => calculator.Execute(It.IsAny<DivisionId>(), It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>()), Times.Never);
         });
     }
 
@@ -109,10 +109,10 @@ internal class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            _calculator.Verify(calculator => calculator.Execute(It.IsAny<DivisionId>(), It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>()), Times.Exactly(2));
+            _calculator.Verify(calculator => calculator.Execute(It.IsAny<DivisionId>(), It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>()), Times.Exactly(2));
 
-            _calculator.Verify(calculator => calculator.Execute(division1.Id, It.Is<IEnumerable<NortheastMegabuck.Models.SquadResult>>(squadResults => squadResults.Single() == squadResult1), 5), Times.Once);
-            _calculator.Verify(calculator => calculator.Execute(division2.Id, It.Is<IEnumerable<NortheastMegabuck.Models.SquadResult>>(squadResults => squadResults.Single() == squadResult2), 5), Times.Once);
+            _calculator.Verify(calculator => calculator.Execute(division1.Id, It.Is<ICollection<NortheastMegabuck.Models.SquadResult>>(squadResults => squadResults.Single() == squadResult1), 5), Times.Once);
+            _calculator.Verify(calculator => calculator.Execute(division2.Id, It.Is<ICollection<NortheastMegabuck.Models.SquadResult>>(squadResults => squadResults.Single() == squadResult2), 5), Times.Once);
         });
     }
 
@@ -145,8 +145,8 @@ internal class BusinessLogic
         var division1AtLarge = new NortheastMegabuck.Models.AtLargeResults { DivisionId = division1.Id };
         var division2AtLarge = new NortheastMegabuck.Models.AtLargeResults { DivisionId = division2.Id };
 
-        _calculator.Setup(calculator => calculator.Execute(division1.Id, It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>())).Returns(division1AtLarge);
-        _calculator.Setup(calculator => calculator.Execute(division2.Id, It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>())).Returns(division2AtLarge);
+        _calculator.Setup(calculator => calculator.Execute(division1.Id, It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>())).Returns(division1AtLarge);
+        _calculator.Setup(calculator => calculator.Execute(division2.Id, It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>())).Returns(division2AtLarge);
 
         var result = _businessLogic.Execute(TournamentId.New());
 

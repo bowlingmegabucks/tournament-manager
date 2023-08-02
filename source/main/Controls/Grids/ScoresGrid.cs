@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics.CodeAnalysis;
 using NortheastMegabuck.Scores;
 
 namespace NortheastMegabuck.Controls.Grids;
@@ -40,12 +41,10 @@ public partial class ScoresGrid
     }
 
     private SquadId _squadId;
-    public SquadId SquadId
-    {
-        set => _squadId = value;
-    }
+    public void SetSquadId(SquadId squadId)
+        => _squadId = squadId;
 
-    public void FillScores(IEnumerable<IGridViewModel> bowlerScores)
+    public void FillScores([NotNull]IEnumerable<IGridViewModel> bowlerScores)
     {
         foreach (var bowlerScore in bowlerScores)
         {
@@ -64,6 +63,7 @@ public partial class ScoresGrid
 
         var bowlerScores = GridView.Rows.OfType<DataGridViewRow>().Where(row => !string.IsNullOrEmpty(row.Cells["game1Column"].Value?.ToString())).ToList();
 
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
         foreach (var bowlerScore in bowlerScores)
         {
             var bowlerId = bowlerScore.Cells["bowlerIdColumn"].Value.ToString();
@@ -82,6 +82,7 @@ public partial class ScoresGrid
                 }  
             }
         }
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 
         return scores;
     }
