@@ -45,17 +45,17 @@ internal class Adapter
     {
         var bowlerSquadScore1 = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "200", LastName = "201" }
+            Bowler = new NortheastMegabuck.Models.Bowler {Name = new NortheastMegabuck.Models.PersonName { First = "200", Last = "201" } }
         };
 
         var bowlerSquadScore2 = new NortheastMegabuck.Models.BowlerSquadScore(250, 251)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "250", LastName = "251" }
+            Bowler = new NortheastMegabuck.Models.Bowler {Name = new NortheastMegabuck.Models.PersonName { First = "250", Last = "251" } }
         };
 
         var bowlerSquadScore3 = new NortheastMegabuck.Models.BowlerSquadScore(190, 191)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "190", LastName = "191" }
+            Bowler = new NortheastMegabuck.Models.Bowler {Name = new NortheastMegabuck.Models.PersonName { First = "190", Last = "191" } }
         };
 
         var sweeperCut = new NortheastMegabuck.Models.SweeperResult
@@ -117,17 +117,17 @@ internal class Adapter
     {
         var bowlerSquadScore1 = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "200", LastName = "201" }
+            Bowler = new NortheastMegabuck.Models.Bowler {Name = new NortheastMegabuck.Models.PersonName { First = "200", Last = "201" } }
         };
 
         var bowlerSquadScore2 = new NortheastMegabuck.Models.BowlerSquadScore(250, 251)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "250", LastName = "251" }
+            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "250", Last = "251" } }
         };
 
         var bowlerSquadScore3 = new NortheastMegabuck.Models.BowlerSquadScore(190, 191)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { FirstName = "190", LastName = "191" }
+            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "190", Last = "191" } }
         };
 
         var sweeperCut = new NortheastMegabuck.Models.SweeperResult

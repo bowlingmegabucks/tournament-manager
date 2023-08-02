@@ -57,7 +57,7 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         {"WI", "Wisconsin" },
         {"WY", "Wyoming" }
     };
-    
+
     public BowlerControl()
     {
         InitializeComponent();
@@ -81,44 +81,28 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
 
     public string FirstName
     {
-        get => firstNameText.Text;
-        set => firstNameText.Text = value;
-    }
-
-    private void FirstNameText_Validating(object sender, CancelEventArgs e)
-    {
-        if (string.IsNullOrWhiteSpace(FirstName))
-        {
-            bowlerErrorProvider.SetError(firstNameText, "First name is required");
-        }
+        get => personName.First;
+        set => personName.First = value;
     }
 
     public string MiddleInitial
     {
-        get => middleInitialText.Text;
-        set => middleInitialText.Text = value;
+        get => personName.MiddleInitial;
+        set => personName.MiddleInitial = value;
     }
 
     public string LastName
     {
-        get => lastNameText.Text;
-        set => lastNameText.Text = value;
-    }
-
-    private void LastNameText_Validating(object sender, CancelEventArgs e)
-    {
-        if (string.IsNullOrWhiteSpace(LastName))
-        {
-            bowlerErrorProvider.SetError(lastNameText, "Last name is required");
-        }
+        get => personName.Last;
+        set => personName.Last = value;
     }
 
     public string Suffix
     {
-        get => suffixText.Text;
-        set => suffixText.Text = value;
+        get => personName.Suffix;
+        set => personName.Suffix = value;
     }
-    
+
     public string StreetAddress
     {
         get => streetText.Text;
@@ -130,7 +114,7 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         get => cityText.Text;
         set => cityText.Text = value;
     }
-    
+
     public string StateAddress
     {
         get => stateDropdown.SelectedValue?.ToString() ?? string.Empty;
@@ -186,13 +170,19 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
             }
         }
     }
-    
+
     public Models.Gender? Gender
     {
-        get => genderDropdown.SelectedIndex == -1 ? null: (Models.Gender)genderDropdown.SelectedValue!;
+        get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
         set => genderDropdown.SelectedValue = (int?)value ?? null;
     }
-    
+
+    public string SocialSecurityNumber
+    {
+        get => socialSecurityNumberControl.Value;
+        set => socialSecurityNumberControl.Value = value;
+    }
+
     private void Control_Validated(object sender, EventArgs e)
         => bowlerErrorProvider.SetError((Control)sender, string.Empty);
 

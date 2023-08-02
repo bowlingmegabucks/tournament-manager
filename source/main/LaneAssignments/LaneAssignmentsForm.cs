@@ -61,7 +61,21 @@ public partial class Form : System.Windows.Forms.Form, IView
         => unassignedRegistrationsFlowLayoutPanel.Controls.AddRange(registrations.Select(BuildLaneAssignmentControl).ToArray());
 
     public void AddToUnassigned(IViewModel registration)
-        => unassignedRegistrationsFlowLayoutPanel.Controls.Add(BuildLaneAssignmentControl(registration));
+    {
+        unassignedRegistrationsFlowLayoutPanel.Controls.Add(BuildLaneAssignmentControl(registration));
+
+        if (_divisionEntries.ContainsKey(registration.DivisionName))
+        {
+            _divisionEntries[registration.DivisionName]++;
+        }
+        else
+        {
+            _divisionEntries.Add(registration.DivisionName,1);
+        }
+
+        BindEntriesPerDivision();
+    }
+        
 
     public void BindLaneAssignments(IEnumerable<IViewModel> registrations)
     {
@@ -78,10 +92,10 @@ public partial class Form : System.Windows.Forms.Form, IView
             openLane.ContextMenuStrip = laneAssignmentContextMenuStrip;
 
             RemoveOpenLaneEventsFromAssignedLane(openLane);
-        }   
+        }
     }
 
-    public void AssignToLane(IViewModel registration, string position) 
+    public void AssignToLane(IViewModel registration, string position)
     {
         var openLane = laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control => control.LaneAssignment == position);
 
@@ -95,7 +109,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         if (string.IsNullOrEmpty(registration!.LaneAssignment))
         {
-            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control=> control.BowlerId == registration.BowlerId));
+            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control => control.BowlerId == registration.BowlerId));
         }
         else
         {
@@ -110,7 +124,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         LaneAssignmentOpen_DragLeave(openLane, new EventArgs());
     }
 
-    public void RemoveLaneAssignment(IViewModel registration) 
+    public void RemoveLaneAssignment(IViewModel registration)
     {
         unassignedRegistrationsFlowLayoutPanel.Controls.Add(BuildLaneAssignmentControl(registration));
 
@@ -151,20 +165,24 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         if (assigned != null)
         {
+            _divisionEntries[assigned.DivisionName]--;
+
             assigned.ClearRegistration();
             assigned.KeyUp -= LaneAssignmentRegistered_KeyUp!;
 
             AddOpenLaneEventsToOpenLane(assigned);
 
             LaneAssignmentRegistered_Leave(assigned, new EventArgs());
-
-            return;
         }
         else
         {
             var unassigned = unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(registration => registration.BowlerId == bowlerId);
+
+            _divisionEntries[unassigned.DivisionName]--;
             unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassigned);
         }
+
+        BindEntriesPerDivision();
     }
 
     public bool Confirm(string message)
@@ -208,7 +226,7 @@ public partial class Form : System.Windows.Forms.Form, IView
     }
 
     private void UnassignedRegistration_MouseDown(object sender, MouseEventArgs e)
-    { 
+    {
         if (e.Button == MouseButtons.Right)
         {
             return;
@@ -218,7 +236,7 @@ public partial class Form : System.Windows.Forms.Form, IView
     }
 
     private void LaneAssignmentOpen_DragOver(object sender, DragEventArgs e)
-    { 
+    {
         if (e.GetDataPresent<LaneAssignmentControl>())
         {
             (sender as Control)!.BackColor = SystemColors.Highlight;
@@ -241,7 +259,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         var openLane = sender as LaneAssignmentControl;
 
-        new Presenter(_config, this).Update(SquadId, registration!, openLane!.LaneAssignment);  
+        new Presenter(_config, this).Update(SquadId, registration!, openLane!.LaneAssignment);
     }
 
     private void LaneAssignmentRegistered_KeyUp(object sender, KeyEventArgs e)
@@ -330,6 +348,28 @@ public partial class Form : System.Windows.Forms.Form, IView
         new Presenter(_config, this).Load();
 
         refreshAssignmentsLinkLabel.Enabled = true;
+    }
+
+    private IDictionary<string, int> _divisionEntries = new Dictionary<string, int>();
+
+    public void BindEntriesPerDivision(IDictionary<string, int> entriesPerDivision)
+    {
+        _divisionEntries = entriesPerDivision;
+
+        BindEntriesPerDivision();
+    }
+
+    private void BindEntriesPerDivision()
+    {
+        var entriesPerDivision = new StringBuilder(Environment.NewLine);
+
+        foreach (var entry in _divisionEntries.Where(entries=> entries.Value > 0))
+        {
+            entriesPerDivision.AppendLine($"{entry.Key}: {entry.Value}");
+            entriesPerDivision.AppendLine();
+        }
+
+        entriesPerDivisionLabel.Text = entriesPerDivision.ToString();
     }
 }
 

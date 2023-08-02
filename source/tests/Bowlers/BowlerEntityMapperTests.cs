@@ -25,12 +25,12 @@ internal class EntityMapper
     {
         var bowler = new NortheastMegabuck.Models.Bowler
         {
-            FirstName = "firstName"
+            Name = new NortheastMegabuck.Models.PersonName { First = "firstName" }
         };
 
         var entity = _mapper.Execute(bowler);
 
-        Assert.That(entity.FirstName, Is.EqualTo(bowler.FirstName));
+        Assert.That(entity.FirstName, Is.EqualTo(bowler.Name.First));
     }
 
     [Test]
@@ -38,12 +38,12 @@ internal class EntityMapper
     {
         var bowler = new NortheastMegabuck.Models.Bowler
         {
-            MiddleInitial = "middleInitial"
+            Name = new NortheastMegabuck.Models.PersonName { First = "middleInitial" }
         };
 
         var entity = _mapper.Execute(bowler);
 
-        Assert.That(entity.MiddleInitial, Is.EqualTo(bowler.MiddleInitial));
+        Assert.That(entity.MiddleInitial, Is.EqualTo(bowler.Name.MiddleInitial));
     }
 
     [Test]
@@ -51,12 +51,12 @@ internal class EntityMapper
     {
         var bowler = new NortheastMegabuck.Models.Bowler
         {
-            LastName = "lastName"
+            Name = new NortheastMegabuck.Models.PersonName { First = "lastName" }
         };
 
         var entity = _mapper.Execute(bowler);
 
-        Assert.That(entity.LastName, Is.EqualTo(bowler.LastName));
+        Assert.That(entity.LastName, Is.EqualTo(bowler.Name.Last));
     }
 
     [Test]
@@ -64,12 +64,12 @@ internal class EntityMapper
     {
         var bowler = new NortheastMegabuck.Models.Bowler
         {
-            Suffix = "suffix"
+            Name = new NortheastMegabuck.Models.PersonName { First = "suffix" }
         };
 
         var entity = _mapper.Execute(bowler);
 
-        Assert.That(entity.Suffix, Is.EqualTo(bowler.Suffix));
+        Assert.That(entity.Suffix, Is.EqualTo(bowler.Name.Suffix));
     }
 
     [Test]
@@ -187,5 +187,18 @@ internal class EntityMapper
         var entity = _mapper.Execute(bowler);
 
         Assert.That(entity.PhoneNumber, Is.EqualTo(bowler.PhoneNumber));
+    }
+
+    [Test]
+    public void Execute_SocialSecurityNumberMapped()
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            SocialSecurityNumber = "ssn"
+        };
+
+        var entity = _mapper.Execute(bowler);
+
+        Assert.That(entity.SocialSecurityNumber, Is.EqualTo(bowler.SocialSecurityNumber));
     }
 }

@@ -16,7 +16,7 @@ namespace NortheastMegabuck.Database.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("NortheastMegabuck.Database.Entities.Bowler", b =>
@@ -57,6 +57,10 @@ namespace NortheastMegabuck.Database.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("char(10)")
                         .IsFixedLength();
+
+                    b.Property<string>("SocialSecurityNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("StateAddress")
                         .IsRequired()
@@ -195,6 +199,8 @@ namespace NortheastMegabuck.Database.Migrations
                     b.ToTable("Squads", (string)null);
 
                     b.HasDiscriminator<int>("SquadType");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadRegistration", b =>

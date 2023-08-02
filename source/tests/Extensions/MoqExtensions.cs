@@ -12,7 +12,7 @@ internal static class Moq
         mockSet.As<IQueryable<TEntity>>().Setup(mock => mock.Provider).Returns(queryable.Provider);
         mockSet.As<IQueryable<TEntity>>().Setup(mock => mock.Expression).Returns(queryable.Expression);
         mockSet.As<IQueryable<TEntity>>().Setup(mock => mock.ElementType).Returns(queryable.ElementType);
-        mockSet.As<IQueryable<TEntity>>().Setup(mock => mock.GetEnumerator()).Returns(() => queryable.GetEnumerator());
+        mockSet.As<IQueryable<TEntity>>().Setup(mock => mock.GetEnumerator()).Returns(queryable.GetEnumerator);
 
         return mockSet.Object;
     }
@@ -33,4 +33,10 @@ internal static class Moq
         mockValidator.Setup(validator => validator.Validate(It.IsAny<T>())).Returns(result);
         mockValidator.Setup(validator => validator.ValidateAsync(It.IsAny<T>(), It.IsAny<CancellationToken>())).ReturnsAsync(result);
     }
+
+    internal static void IsValid_True<T>(this Mock<T> view) where T : class, IView
+        => view.Setup(v=> v.IsValid()).Returns(true);
+
+    internal static void IsValid_False<T>(this Mock<T> view) where T : class, IView
+        => view.Setup(v => v.IsValid()).Returns(false);
 }

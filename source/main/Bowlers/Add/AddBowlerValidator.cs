@@ -6,9 +6,7 @@ internal class Validator : AbstractValidator<Models.Bowler>
 {
     public Validator()
     {
-        RuleFor(bowler => bowler.FirstName).NotEmpty().WithMessage("First Name is Required");
-        RuleFor(bowler => bowler.MiddleInitial).Must(initial => string.IsNullOrEmpty(initial) || initial.Length == 1).WithMessage("Middle Initial must only be 1 character");
-        RuleFor(bowler => bowler.LastName).NotEmpty().WithMessage("Last Name is Required");
+        RuleFor(bowler=> bowler.Name).SetValidator(new PersonNameValidator());
 
         RuleFor(bowler => bowler.CityAddress).NotEmpty().When(StreetIsGiven).WithMessage("City is Required when Street is given");
         RuleFor(bowler => bowler.StateAddress).Length(2).When(StreetIsGiven).WithMessage("State must be Postal Abbreviation");
@@ -31,6 +29,8 @@ internal class Validator : AbstractValidator<Models.Bowler>
         RuleFor(bowler => bowler.DateOfBirth).PastDate().When(bowler => bowler.DateOfBirth.HasValue).WithMessage("Date of Birth must be in the past");
 
         RuleFor(bowler => bowler.USBCId).Matches(@"^\d+-\d+$").When(bowler=> !string.IsNullOrEmpty(bowler.USBCId)).WithMessage("Invalid USBC Id");
+
+        RuleFor(bowler => bowler.SocialSecurityNumber).SocialSecurityNumber().When(bowler => !string.IsNullOrEmpty(bowler.SocialSecurityNumber)).WithMessage("Invalid Social Security Number");
     }
 
     private bool StreetIsGiven(Models.Bowler bowler) => !string.IsNullOrWhiteSpace(bowler.StreetAddress);

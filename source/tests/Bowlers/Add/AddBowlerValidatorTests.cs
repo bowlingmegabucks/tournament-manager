@@ -13,67 +13,8 @@ internal class Validator
         => _validator = new NortheastMegabuck.Bowlers.Add.Validator();
 
     [Test]
-    public void FirstName_NullWhitespace_HasValidatorError([Values(null, "", " ")] string firstName)
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { FirstName = firstName };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldHaveValidationErrorFor(b => b.FirstName).WithErrorMessage("First Name is Required");
-    }
-
-    [Test]
-    public void FirstName_NotNullOrWhitespace_NoValidatorError()
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { FirstName = "John" };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldNotHaveValidationErrorFor(b => b.FirstName);
-    }
-
-    [Test]
-    public void MiddleInitial_NullEmpty_HasNoValidatorError([Values(null, "")] string middleInitial)
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { MiddleInitial = middleInitial };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldNotHaveValidationErrorFor(b => b.MiddleInitial);
-    }
-
-    [Test]
-    public void MiddleInitial_Length1_HasNoValidatorError()
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { MiddleInitial = "J" };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldNotHaveValidationErrorFor(b => b.MiddleInitial);
-    }
-
-    [Test]
-    public void MiddleInitial_LengthGreaterThan1_HasValidatorError([Range(2, 10)] int length)
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { MiddleInitial = new string('J', length) };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldHaveValidationErrorFor(b => b.MiddleInitial).WithErrorMessage("Middle Initial must only be 1 character");
-    }
-
-    [Test]
-    public void LastName_NullWhitespace_HasValidatorError([Values(null, "", " ")] string lastName)
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { LastName = lastName };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldHaveValidationErrorFor(b => b.LastName).WithErrorMessage("Last Name is Required");
-    }
-
-    [Test]
-    public void LastName_NotNullWhitespace_NoValidatorError()
-    {
-        var bowler = new NortheastMegabuck.Models.Bowler { LastName = "Doe" };
-
-        var result = _validator.TestValidate(bowler);
-        result.ShouldNotHaveValidationErrorFor(b => b.LastName);
-    }
+    public void Name_HasPersonNameValidator()
+        => _validator.ShouldHaveChildValidator(bowler => bowler.Name, typeof(NortheastMegabuck.Bowlers.PersonNameValidator));
 
     [Test]
     public void CityAddress_NullOrEmpty_With_Street_Has_Error([Values(null, "", " ")] string city)
@@ -190,7 +131,6 @@ internal class Validator
             StreetAddress = "123 Main St",
             ZipCode = new string('J', length)
         };
-
 
         var result = _validator.TestValidate(bowler);
         result.ShouldHaveValidationErrorFor(a => a.ZipCode).WithErrorMessage("Valid Zip Code required when Street is given");
@@ -429,5 +369,48 @@ internal class Validator
 
         var result = _validator.TestValidate(bowler);
         result.ShouldNotHaveValidationErrorFor(bowler => bowler.USBCId);
+    }
+
+    [TestCase("12345678")]
+    [TestCase("18754628a")]
+    public void SSN_Invalid_HasValidatorError(string ssn)
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            SocialSecurityNumber = ssn.Encrypt()
+        };
+
+        var result = _validator.TestValidate(bowler);
+        result.ShouldHaveValidationErrorFor(b => b.SocialSecurityNumber).WithErrorMessage("Invalid Social Security Number");
+    }
+
+    [Test]
+    public void SSN_Valid_NoValidatorError()
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            SocialSecurityNumber = "123456789".Encrypt()
+        };
+
+        var result = _validator.TestValidate(bowler);
+        result.ShouldNotHaveValidationErrorFor(b => b.SocialSecurityNumber);
+    }
+
+    [Test]
+    public void SSN_Whitespace_HasValidatorError([Values(" ", "  ", "         ")] string ssn)
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler { SocialSecurityNumber = ssn.Encrypt() };
+
+        var result = _validator.TestValidate(bowler);
+        result.ShouldHaveValidationErrorFor(b => b.SocialSecurityNumber).WithErrorMessage("Invalid Social Security Number");
+    }
+
+    [Test]
+    public void SSN_NullOrEmpty_NoValidatorError([Values(null, "")] string ssn)
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler { SocialSecurityNumber = ssn.Encrypt() };
+
+        var result = _validator.TestValidate(bowler);
+        result.ShouldNotHaveValidationErrorFor(b => b.SocialSecurityNumber);
     }
 }

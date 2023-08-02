@@ -6,10 +6,10 @@ internal class EntityMapper : IEntityMapper
         => new()
         {
             Id = bowler.Id,
-            FirstName = bowler.FirstName,
-            MiddleInitial = bowler.MiddleInitial,
-            LastName = bowler.LastName,
-            Suffix = bowler.Suffix,
+            FirstName = bowler.Name.First,
+            MiddleInitial = bowler.Name.MiddleInitial,
+            LastName = bowler.Name.Last,
+            Suffix = bowler.Name.Suffix,
             StreetAddress = bowler.StreetAddress,
             CityAddress = bowler.CityAddress,
             StateAddress = bowler.StateAddress,
@@ -18,7 +18,8 @@ internal class EntityMapper : IEntityMapper
             DateOfBirth = bowler.DateOfBirth,
             Gender = bowler.Gender,
             USBCId = bowler.USBCId,
-            PhoneNumber = bowler.PhoneNumber
+            PhoneNumber = bowler.PhoneNumber,
+            SocialSecurityNumber = bowler.SocialSecurityNumber
         };
 }
 

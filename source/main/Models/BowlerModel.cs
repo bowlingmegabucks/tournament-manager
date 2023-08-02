@@ -1,5 +1,6 @@
 ﻿
 using System.Text;
+using NortheastMegabuck.Database.Entities;
 
 namespace NortheastMegabuck.Models;
 
@@ -7,13 +8,7 @@ internal class Bowler
 {
     public BowlerId Id { get; set; }
 
-    public string FirstName { get; set; } = string.Empty;
-
-    public string MiddleInitial { get; set; } = string.Empty;
-
-    public string LastName { get; set; } = string.Empty;
-
-    public string Suffix { get; set; } = string.Empty;
+    public PersonName Name { get; set; }
 
     public string StreetAddress { get; set; } = string.Empty;
 
@@ -52,13 +47,20 @@ internal class Bowler
         return age;
     }
 
+    public string SocialSecurityNumber { get; set; } = string.Empty;
+
     public Bowler(Database.Entities.Bowler bowler)
     {
         Id = bowler.Id;
-        FirstName = bowler.FirstName;
-        MiddleInitial = bowler.MiddleInitial;
-        LastName = bowler.LastName;
-        Suffix = bowler.Suffix;
+
+        Name = new PersonName
+        {
+            First = bowler.FirstName,
+            MiddleInitial = bowler.MiddleInitial,
+            Last = bowler.LastName,
+            Suffix = bowler.Suffix,
+        };
+        
         StreetAddress = bowler.StreetAddress;
         CityAddress = bowler.CityAddress;
         StateAddress = bowler.StateAddress;
@@ -68,15 +70,21 @@ internal class Bowler
         PhoneNumber = bowler.PhoneNumber;
         DateOfBirth = bowler.DateOfBirth;
         Gender = bowler.Gender;
+        SocialSecurityNumber = bowler.SocialSecurityNumber;
     }
 
     public Bowler(Bowlers.Add.IViewModel viewModel)
     {
         Id = viewModel.Id;
-        FirstName = viewModel.FirstName;
-        MiddleInitial = viewModel.MiddleInitial;
-        LastName = viewModel.LastName;
-        Suffix = viewModel.Suffix;
+
+        Name = new PersonName
+        {
+            First = viewModel.FirstName,
+            MiddleInitial = viewModel.MiddleInitial,
+            Last = viewModel.LastName,
+            Suffix = viewModel.Suffix,
+        };
+
         StreetAddress = viewModel.StreetAddress;
         CityAddress = viewModel.CityAddress;
         StateAddress = viewModel.StateAddress;
@@ -86,6 +94,7 @@ internal class Bowler
         USBCId = viewModel.USBCId;
         DateOfBirth = viewModel.DateOfBirth;
         Gender = viewModel.Gender;
+        SocialSecurityNumber = viewModel.SocialSecurityNumber;
     }
 
     /// <summary>
@@ -93,24 +102,15 @@ internal class Bowler
     /// </summary>
     internal Bowler()
     {
-
+        Name = new PersonName();
     }
 
     public override string ToString()
-    {
-        var name = new StringBuilder($"{FirstName} {LastName}");
-
-        if (!string.IsNullOrEmpty(Suffix))
-        {
-            name.Append($", {Suffix}");
-        }
-
-        return name.ToString();
-    }
+        => Name.ToString();
 
     public override int GetHashCode()
         => Id.GetHashCode();
 
     public override bool Equals(object? obj) 
-        => obj != null && obj is Bowler model && Id == model.Id;
+        => obj is Bowler model && Id == model.Id;
 }

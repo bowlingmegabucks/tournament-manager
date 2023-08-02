@@ -20,7 +20,7 @@ internal class BusinessLogic : IBusinessLogic
     {
         _getDivisionBO = new Divisions.Retrieve.BusinessLogic(config);
         _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
-        _getBowlerBO = new Lazy<Bowlers.Retrieve.IBusinessLogic>(() => new Bowlers.Retrieve.BusinessLogic());
+        _getBowlerBO = new Lazy<Bowlers.Retrieve.IBusinessLogic>(() => new Bowlers.Retrieve.BusinessLogic(config));
         _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(() => new Validator());
         _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
     }

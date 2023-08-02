@@ -28,197 +28,217 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.components = new System.ComponentModel.Container();
-            this.laneAssignmentGroupBox = new System.Windows.Forms.GroupBox();
-            this.laneAssignmentFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.unassignedRegistrationsGroupBox = new System.Windows.Forms.GroupBox();
-            this.unassignedRegistrationsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.addToRegistrationButton = new System.Windows.Forms.Button();
-            this.laneAssignmentToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.newRegistrationButton = new System.Windows.Forms.Button();
-            this.generateRecapSheetsButton = new System.Windows.Forms.Button();
-            this.copyAssignmentsToClipboardLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.laneSkipGroupBox = new System.Windows.Forms.GroupBox();
-            this.sameSkipRadioButton = new System.Windows.Forms.RadioButton();
-            this.staggeredSkipRadioButton = new System.Windows.Forms.RadioButton();
-            this.laneAssignmentContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteLaneAssignmentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshAssignmentsLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.laneAssignmentGroupBox.SuspendLayout();
-            this.unassignedRegistrationsGroupBox.SuspendLayout();
-            this.laneSkipGroupBox.SuspendLayout();
-            this.laneAssignmentContextMenuStrip.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // laneAssignmentGroupBox
-            // 
-            this.laneAssignmentGroupBox.Controls.Add(this.laneAssignmentFlowLayoutPanel);
-            this.laneAssignmentGroupBox.Location = new System.Drawing.Point(12, 12);
-            this.laneAssignmentGroupBox.Name = "laneAssignmentGroupBox";
-            this.laneAssignmentGroupBox.Size = new System.Drawing.Size(850, 740);
-            this.laneAssignmentGroupBox.TabIndex = 0;
-            this.laneAssignmentGroupBox.TabStop = false;
-            this.laneAssignmentGroupBox.Text = "Assigned";
-            // 
-            // laneAssignmentFlowLayoutPanel
-            // 
-            this.laneAssignmentFlowLayoutPanel.AutoScroll = true;
-            this.laneAssignmentFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.laneAssignmentFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.laneAssignmentFlowLayoutPanel.Location = new System.Drawing.Point(3, 19);
-            this.laneAssignmentFlowLayoutPanel.Name = "laneAssignmentFlowLayoutPanel";
-            this.laneAssignmentFlowLayoutPanel.Size = new System.Drawing.Size(844, 718);
-            this.laneAssignmentFlowLayoutPanel.TabIndex = 1;
-            // 
-            // unassignedRegistrationsGroupBox
-            // 
-            this.unassignedRegistrationsGroupBox.Controls.Add(this.unassignedRegistrationsFlowLayoutPanel);
-            this.unassignedRegistrationsGroupBox.Location = new System.Drawing.Point(868, 12);
-            this.unassignedRegistrationsGroupBox.Name = "unassignedRegistrationsGroupBox";
-            this.unassignedRegistrationsGroupBox.Size = new System.Drawing.Size(435, 737);
-            this.unassignedRegistrationsGroupBox.TabIndex = 0;
-            this.unassignedRegistrationsGroupBox.TabStop = false;
-            this.unassignedRegistrationsGroupBox.Text = "Registrations";
-            // 
-            // unassignedRegistrationsFlowLayoutPanel
-            // 
-            this.unassignedRegistrationsFlowLayoutPanel.AutoScroll = true;
-            this.unassignedRegistrationsFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.unassignedRegistrationsFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.unassignedRegistrationsFlowLayoutPanel.Location = new System.Drawing.Point(3, 19);
-            this.unassignedRegistrationsFlowLayoutPanel.Name = "unassignedRegistrationsFlowLayoutPanel";
-            this.unassignedRegistrationsFlowLayoutPanel.Size = new System.Drawing.Size(429, 715);
-            this.unassignedRegistrationsFlowLayoutPanel.TabIndex = 2;
-            this.unassignedRegistrationsFlowLayoutPanel.WrapContents = false;
-            // 
-            // addToRegistrationButton
-            // 
-            this.addToRegistrationButton.Location = new System.Drawing.Point(15, 755);
-            this.addToRegistrationButton.Name = "addToRegistrationButton";
-            this.addToRegistrationButton.Size = new System.Drawing.Size(123, 29);
-            this.addToRegistrationButton.TabIndex = 5;
-            this.addToRegistrationButton.Text = "Add to Registration";
-            this.laneAssignmentToolTip.SetToolTip(this.addToRegistrationButton, "Add bowler to squad who has already bowled in the tournament");
-            this.addToRegistrationButton.UseVisualStyleBackColor = true;
-            this.addToRegistrationButton.Click += new System.EventHandler(this.AddToRegistrationButton_Click);
-            // 
-            // newRegistrationButton
-            // 
-            this.newRegistrationButton.Location = new System.Drawing.Point(733, 752);
-            this.newRegistrationButton.Name = "newRegistrationButton";
-            this.newRegistrationButton.Size = new System.Drawing.Size(123, 29);
-            this.newRegistrationButton.TabIndex = 6;
-            this.newRegistrationButton.Text = "New Registration";
-            this.laneAssignmentToolTip.SetToolTip(this.newRegistrationButton, "Add bowler to squad who has NOT bowled in the tournament");
-            this.newRegistrationButton.UseVisualStyleBackColor = true;
-            this.newRegistrationButton.Click += new System.EventHandler(this.NewRegistrationButton_Click);
-            // 
-            // generateRecapSheetsButton
-            // 
-            this.generateRecapSheetsButton.Location = new System.Drawing.Point(1309, 97);
-            this.generateRecapSheetsButton.Name = "generateRecapSheetsButton";
-            this.generateRecapSheetsButton.Size = new System.Drawing.Size(161, 29);
-            this.generateRecapSheetsButton.TabIndex = 9;
-            this.generateRecapSheetsButton.Text = "Generate Recap Sheets";
-            this.generateRecapSheetsButton.UseVisualStyleBackColor = true;
-            this.generateRecapSheetsButton.Click += new System.EventHandler(this.GenerateRecapSheetsButton_Click);
-            // 
-            // copyAssignmentsToClipboardLinkLabel
-            // 
-            this.copyAssignmentsToClipboardLinkLabel.AutoSize = true;
-            this.copyAssignmentsToClipboardLinkLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.copyAssignmentsToClipboardLinkLabel.Location = new System.Drawing.Point(1082, 752);
-            this.copyAssignmentsToClipboardLinkLabel.Name = "copyAssignmentsToClipboardLinkLabel";
-            this.copyAssignmentsToClipboardLinkLabel.Size = new System.Drawing.Size(218, 20);
-            this.copyAssignmentsToClipboardLinkLabel.TabIndex = 7;
-            this.copyAssignmentsToClipboardLinkLabel.TabStop = true;
-            this.copyAssignmentsToClipboardLinkLabel.Text = "Copy Assignments to Clipboard";
-            this.copyAssignmentsToClipboardLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CopyAssignmentsToClipboardLinkLabel_LinkClicked);
-            // 
-            // laneSkipGroupBox
-            // 
-            this.laneSkipGroupBox.Controls.Add(this.sameSkipRadioButton);
-            this.laneSkipGroupBox.Controls.Add(this.staggeredSkipRadioButton);
-            this.laneSkipGroupBox.Location = new System.Drawing.Point(1309, 12);
-            this.laneSkipGroupBox.Name = "laneSkipGroupBox";
-            this.laneSkipGroupBox.Size = new System.Drawing.Size(161, 79);
-            this.laneSkipGroupBox.TabIndex = 8;
-            this.laneSkipGroupBox.TabStop = false;
-            this.laneSkipGroupBox.Text = "Lane Skip";
-            // 
-            // sameSkipRadioButton
-            // 
-            this.sameSkipRadioButton.AutoSize = true;
-            this.sameSkipRadioButton.Location = new System.Drawing.Point(6, 22);
-            this.sameSkipRadioButton.Name = "sameSkipRadioButton";
-            this.sameSkipRadioButton.Size = new System.Drawing.Size(79, 19);
-            this.sameSkipRadioButton.TabIndex = 9;
-            this.sameSkipRadioButton.Text = "Same Skip";
-            this.sameSkipRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // staggeredSkipRadioButton
-            // 
-            this.staggeredSkipRadioButton.AutoSize = true;
-            this.staggeredSkipRadioButton.Checked = true;
-            this.staggeredSkipRadioButton.Location = new System.Drawing.Point(6, 47);
-            this.staggeredSkipRadioButton.Name = "staggeredSkipRadioButton";
-            this.staggeredSkipRadioButton.Size = new System.Drawing.Size(103, 19);
-            this.staggeredSkipRadioButton.TabIndex = 10;
-            this.staggeredSkipRadioButton.TabStop = true;
-            this.staggeredSkipRadioButton.Text = "Staggered Skip";
-            this.staggeredSkipRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // laneAssignmentContextMenuStrip
-            // 
-            this.laneAssignmentContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteLaneAssignmentMenuItem});
-            this.laneAssignmentContextMenuStrip.Name = "laneAssignmentContextMenuStrip";
-            this.laneAssignmentContextMenuStrip.Size = new System.Drawing.Size(183, 26);
-            // 
-            // deleteLaneAssignmentMenuItem
-            // 
-            this.deleteLaneAssignmentMenuItem.Name = "deleteLaneAssignmentMenuItem";
-            this.deleteLaneAssignmentMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.deleteLaneAssignmentMenuItem.Text = "Remove from Squad";
-            this.deleteLaneAssignmentMenuItem.Click += new System.EventHandler(this.DeleteLaneAssignmentMenuItem_Click);
-            // 
-            // refreshAssignmentsLinkLabel
-            // 
-            this.refreshAssignmentsLinkLabel.AutoSize = true;
-            this.refreshAssignmentsLinkLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.refreshAssignmentsLinkLabel.Location = new System.Drawing.Point(871, 755);
-            this.refreshAssignmentsLinkLabel.Name = "refreshAssignmentsLinkLabel";
-            this.refreshAssignmentsLinkLabel.Size = new System.Drawing.Size(58, 20);
-            this.refreshAssignmentsLinkLabel.TabIndex = 10;
-            this.refreshAssignmentsLinkLabel.TabStop = true;
-            this.refreshAssignmentsLinkLabel.Text = "Refresh";
-            this.refreshAssignmentsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RefreshAssignmentsLinkLabel_LinkClicked);
-            // 
-            // Form
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1482, 796);
-            this.Controls.Add(this.refreshAssignmentsLinkLabel);
-            this.Controls.Add(this.generateRecapSheetsButton);
-            this.Controls.Add(this.laneSkipGroupBox);
-            this.Controls.Add(this.copyAssignmentsToClipboardLinkLabel);
-            this.Controls.Add(this.newRegistrationButton);
-            this.Controls.Add(this.addToRegistrationButton);
-            this.Controls.Add(this.unassignedRegistrationsGroupBox);
-            this.Controls.Add(this.laneAssignmentGroupBox);
-            this.MaximizeBox = false;
-            this.Name = "Form";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Lane Assignments";
-            this.laneAssignmentGroupBox.ResumeLayout(false);
-            this.unassignedRegistrationsGroupBox.ResumeLayout(false);
-            this.laneSkipGroupBox.ResumeLayout(false);
-            this.laneSkipGroupBox.PerformLayout();
-            this.laneAssignmentContextMenuStrip.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        components = new System.ComponentModel.Container();
+        laneAssignmentGroupBox = new GroupBox();
+        laneAssignmentFlowLayoutPanel = new FlowLayoutPanel();
+        unassignedRegistrationsGroupBox = new GroupBox();
+        unassignedRegistrationsFlowLayoutPanel = new FlowLayoutPanel();
+        addToRegistrationButton = new Button();
+        laneAssignmentToolTip = new ToolTip(components);
+        newRegistrationButton = new Button();
+        generateRecapSheetsButton = new Button();
+        copyAssignmentsToClipboardLinkLabel = new LinkLabel();
+        laneSkipGroupBox = new GroupBox();
+        sameSkipRadioButton = new RadioButton();
+        staggeredSkipRadioButton = new RadioButton();
+        laneAssignmentContextMenuStrip = new ContextMenuStrip(components);
+        deleteLaneAssignmentMenuItem = new ToolStripMenuItem();
+        refreshAssignmentsLinkLabel = new LinkLabel();
+        divisionBreakdownHeader = new Label();
+        entriesPerDivisionLabel = new Label();
+        laneAssignmentGroupBox.SuspendLayout();
+        unassignedRegistrationsGroupBox.SuspendLayout();
+        laneSkipGroupBox.SuspendLayout();
+        laneAssignmentContextMenuStrip.SuspendLayout();
+        SuspendLayout();
+        // 
+        // laneAssignmentGroupBox
+        // 
+        laneAssignmentGroupBox.Controls.Add(laneAssignmentFlowLayoutPanel);
+        laneAssignmentGroupBox.Location = new Point(12, 12);
+        laneAssignmentGroupBox.Name = "laneAssignmentGroupBox";
+        laneAssignmentGroupBox.Size = new Size(850, 740);
+        laneAssignmentGroupBox.TabIndex = 0;
+        laneAssignmentGroupBox.TabStop = false;
+        laneAssignmentGroupBox.Text = "Assigned";
+        // 
+        // laneAssignmentFlowLayoutPanel
+        // 
+        laneAssignmentFlowLayoutPanel.AutoScroll = true;
+        laneAssignmentFlowLayoutPanel.Dock = DockStyle.Fill;
+        laneAssignmentFlowLayoutPanel.FlowDirection = FlowDirection.TopDown;
+        laneAssignmentFlowLayoutPanel.Location = new Point(3, 19);
+        laneAssignmentFlowLayoutPanel.Name = "laneAssignmentFlowLayoutPanel";
+        laneAssignmentFlowLayoutPanel.Size = new Size(844, 718);
+        laneAssignmentFlowLayoutPanel.TabIndex = 1;
+        // 
+        // unassignedRegistrationsGroupBox
+        // 
+        unassignedRegistrationsGroupBox.Controls.Add(unassignedRegistrationsFlowLayoutPanel);
+        unassignedRegistrationsGroupBox.Location = new Point(868, 12);
+        unassignedRegistrationsGroupBox.Name = "unassignedRegistrationsGroupBox";
+        unassignedRegistrationsGroupBox.Size = new Size(435, 737);
+        unassignedRegistrationsGroupBox.TabIndex = 0;
+        unassignedRegistrationsGroupBox.TabStop = false;
+        unassignedRegistrationsGroupBox.Text = "Registrations";
+        // 
+        // unassignedRegistrationsFlowLayoutPanel
+        // 
+        unassignedRegistrationsFlowLayoutPanel.AutoScroll = true;
+        unassignedRegistrationsFlowLayoutPanel.Dock = DockStyle.Fill;
+        unassignedRegistrationsFlowLayoutPanel.FlowDirection = FlowDirection.TopDown;
+        unassignedRegistrationsFlowLayoutPanel.Location = new Point(3, 19);
+        unassignedRegistrationsFlowLayoutPanel.Name = "unassignedRegistrationsFlowLayoutPanel";
+        unassignedRegistrationsFlowLayoutPanel.Size = new Size(429, 715);
+        unassignedRegistrationsFlowLayoutPanel.TabIndex = 2;
+        unassignedRegistrationsFlowLayoutPanel.WrapContents = false;
+        // 
+        // addToRegistrationButton
+        // 
+        addToRegistrationButton.Location = new Point(15, 755);
+        addToRegistrationButton.Name = "addToRegistrationButton";
+        addToRegistrationButton.Size = new Size(123, 29);
+        addToRegistrationButton.TabIndex = 5;
+        addToRegistrationButton.Text = "Add to Registration";
+        laneAssignmentToolTip.SetToolTip(addToRegistrationButton, "Add bowler to squad who has already bowled in the tournament");
+        addToRegistrationButton.UseVisualStyleBackColor = true;
+        addToRegistrationButton.Click += AddToRegistrationButton_Click;
+        // 
+        // newRegistrationButton
+        // 
+        newRegistrationButton.Location = new Point(733, 752);
+        newRegistrationButton.Name = "newRegistrationButton";
+        newRegistrationButton.Size = new Size(123, 29);
+        newRegistrationButton.TabIndex = 6;
+        newRegistrationButton.Text = "New Registration";
+        laneAssignmentToolTip.SetToolTip(newRegistrationButton, "Add bowler to squad who has NOT bowled in the tournament");
+        newRegistrationButton.UseVisualStyleBackColor = true;
+        newRegistrationButton.Click += NewRegistrationButton_Click;
+        // 
+        // generateRecapSheetsButton
+        // 
+        generateRecapSheetsButton.Location = new Point(1309, 752);
+        generateRecapSheetsButton.Name = "generateRecapSheetsButton";
+        generateRecapSheetsButton.Size = new Size(239, 29);
+        generateRecapSheetsButton.TabIndex = 9;
+        generateRecapSheetsButton.Text = "Generate Recap Sheets";
+        generateRecapSheetsButton.UseVisualStyleBackColor = true;
+        generateRecapSheetsButton.Click += GenerateRecapSheetsButton_Click;
+        // 
+        // copyAssignmentsToClipboardLinkLabel
+        // 
+        copyAssignmentsToClipboardLinkLabel.AutoSize = true;
+        copyAssignmentsToClipboardLinkLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        copyAssignmentsToClipboardLinkLabel.Location = new Point(1082, 752);
+        copyAssignmentsToClipboardLinkLabel.Name = "copyAssignmentsToClipboardLinkLabel";
+        copyAssignmentsToClipboardLinkLabel.Size = new Size(218, 20);
+        copyAssignmentsToClipboardLinkLabel.TabIndex = 7;
+        copyAssignmentsToClipboardLinkLabel.TabStop = true;
+        copyAssignmentsToClipboardLinkLabel.Text = "Copy Assignments to Clipboard";
+        copyAssignmentsToClipboardLinkLabel.LinkClicked += CopyAssignmentsToClipboardLinkLabel_LinkClicked;
+        // 
+        // laneSkipGroupBox
+        // 
+        laneSkipGroupBox.Controls.Add(sameSkipRadioButton);
+        laneSkipGroupBox.Controls.Add(staggeredSkipRadioButton);
+        laneSkipGroupBox.Location = new Point(1309, 667);
+        laneSkipGroupBox.Name = "laneSkipGroupBox";
+        laneSkipGroupBox.Size = new Size(239, 79);
+        laneSkipGroupBox.TabIndex = 8;
+        laneSkipGroupBox.TabStop = false;
+        laneSkipGroupBox.Text = "Lane Skip";
+        // 
+        // sameSkipRadioButton
+        // 
+        sameSkipRadioButton.AutoSize = true;
+        sameSkipRadioButton.Location = new Point(6, 22);
+        sameSkipRadioButton.Name = "sameSkipRadioButton";
+        sameSkipRadioButton.Size = new Size(79, 19);
+        sameSkipRadioButton.TabIndex = 9;
+        sameSkipRadioButton.Text = "Same Skip";
+        sameSkipRadioButton.UseVisualStyleBackColor = true;
+        // 
+        // staggeredSkipRadioButton
+        // 
+        staggeredSkipRadioButton.AutoSize = true;
+        staggeredSkipRadioButton.Checked = true;
+        staggeredSkipRadioButton.Location = new Point(6, 47);
+        staggeredSkipRadioButton.Name = "staggeredSkipRadioButton";
+        staggeredSkipRadioButton.Size = new Size(103, 19);
+        staggeredSkipRadioButton.TabIndex = 10;
+        staggeredSkipRadioButton.TabStop = true;
+        staggeredSkipRadioButton.Text = "Staggered Skip";
+        staggeredSkipRadioButton.UseVisualStyleBackColor = true;
+        // 
+        // laneAssignmentContextMenuStrip
+        // 
+        laneAssignmentContextMenuStrip.Items.AddRange(new ToolStripItem[] { deleteLaneAssignmentMenuItem });
+        laneAssignmentContextMenuStrip.Name = "laneAssignmentContextMenuStrip";
+        laneAssignmentContextMenuStrip.Size = new Size(183, 26);
+        // 
+        // deleteLaneAssignmentMenuItem
+        // 
+        deleteLaneAssignmentMenuItem.Name = "deleteLaneAssignmentMenuItem";
+        deleteLaneAssignmentMenuItem.Size = new Size(182, 22);
+        deleteLaneAssignmentMenuItem.Text = "Remove from Squad";
+        deleteLaneAssignmentMenuItem.Click += DeleteLaneAssignmentMenuItem_Click;
+        // 
+        // refreshAssignmentsLinkLabel
+        // 
+        refreshAssignmentsLinkLabel.AutoSize = true;
+        refreshAssignmentsLinkLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        refreshAssignmentsLinkLabel.Location = new Point(871, 755);
+        refreshAssignmentsLinkLabel.Name = "refreshAssignmentsLinkLabel";
+        refreshAssignmentsLinkLabel.Size = new Size(58, 20);
+        refreshAssignmentsLinkLabel.TabIndex = 10;
+        refreshAssignmentsLinkLabel.TabStop = true;
+        refreshAssignmentsLinkLabel.Text = "Refresh";
+        refreshAssignmentsLinkLabel.LinkClicked += RefreshAssignmentsLinkLabel_LinkClicked;
+        // 
+        // divisionBreakdownHeader
+        // 
+        divisionBreakdownHeader.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+        divisionBreakdownHeader.Location = new Point(1315, 12);
+        divisionBreakdownHeader.Name = "divisionBreakdownHeader";
+        divisionBreakdownHeader.Size = new Size(233, 23);
+        divisionBreakdownHeader.TabIndex = 11;
+        divisionBreakdownHeader.Text = "Entries per Division";
+        divisionBreakdownHeader.TextAlign = ContentAlignment.TopCenter;
+        // 
+        // entriesPerDivisionLabel
+        // 
+        entriesPerDivisionLabel.Location = new Point(1309, 35);
+        entriesPerDivisionLabel.Name = "entriesPerDivisionLabel";
+        entriesPerDivisionLabel.Size = new Size(239, 629);
+        entriesPerDivisionLabel.TabIndex = 12;
+        entriesPerDivisionLabel.Text = "label1";
+        // 
+        // Form
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new Size(1560, 796);
+        Controls.Add(entriesPerDivisionLabel);
+        Controls.Add(divisionBreakdownHeader);
+        Controls.Add(refreshAssignmentsLinkLabel);
+        Controls.Add(generateRecapSheetsButton);
+        Controls.Add(laneSkipGroupBox);
+        Controls.Add(copyAssignmentsToClipboardLinkLabel);
+        Controls.Add(newRegistrationButton);
+        Controls.Add(addToRegistrationButton);
+        Controls.Add(unassignedRegistrationsGroupBox);
+        Controls.Add(laneAssignmentGroupBox);
+        MaximizeBox = false;
+        Name = "Form";
+        StartPosition = FormStartPosition.CenterScreen;
+        Text = "Lane Assignments";
+        laneAssignmentGroupBox.ResumeLayout(false);
+        unassignedRegistrationsGroupBox.ResumeLayout(false);
+        laneSkipGroupBox.ResumeLayout(false);
+        laneSkipGroupBox.PerformLayout();
+        laneAssignmentContextMenuStrip.ResumeLayout(false);
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
@@ -238,4 +258,6 @@ partial class Form
     private ContextMenuStrip laneAssignmentContextMenuStrip;
     private ToolStripMenuItem deleteLaneAssignmentMenuItem;
     private LinkLabel refreshAssignmentsLinkLabel;
+    private Label divisionBreakdownHeader;
+    private Label entriesPerDivisionLabel;
 }
