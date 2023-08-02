@@ -62,7 +62,7 @@ partial class SquadControl
         cashRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
         cashRatioValue.Name = "cashRatioValue";
         cashRatioValue.Size = new Size(131, 27);
-        cashRatioValue.TabIndex = 2;
+        cashRatioValue.TabIndex = 3;
         cashRatioValue.TextAlign = HorizontalAlignment.Right;
         cashRatioValue.Validating += CashRatioValue_Validating;
         cashRatioValue.Validated += Controls_Validated;
@@ -88,7 +88,7 @@ partial class SquadControl
         finalsRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
         finalsRatioValue.Name = "finalsRatioValue";
         finalsRatioValue.Size = new Size(131, 27);
-        finalsRatioValue.TabIndex = 1;
+        finalsRatioValue.TabIndex = 2;
         finalsRatioValue.TextAlign = HorizontalAlignment.Right;
         finalsRatioValue.Validating += FinalsRatioValue_Validating;
         finalsRatioValue.Validated += Controls_Validated;
@@ -145,7 +145,7 @@ partial class SquadControl
         masPerPairValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
         masPerPairValue.Name = "masPerPairValue";
         masPerPairValue.Size = new Size(131, 27);
-        masPerPairValue.TabIndex = 5;
+        masPerPairValue.TabIndex = 6;
         masPerPairValue.TextAlign = HorizontalAlignment.Right;
         masPerPairValue.Validating += MaxPerPairValue_Validating;
         masPerPairValue.Validated += Controls_Validated;
@@ -171,7 +171,7 @@ partial class SquadControl
         startingLaneValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
         startingLaneValue.Name = "startingLaneValue";
         startingLaneValue.Size = new Size(131, 27);
-        startingLaneValue.TabIndex = 3;
+        startingLaneValue.TabIndex = 4;
         startingLaneValue.TextAlign = HorizontalAlignment.Right;
         startingLaneValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
         // 
@@ -196,7 +196,7 @@ partial class SquadControl
         numberOfLanesValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
         numberOfLanesValue.Name = "numberOfLanesValue";
         numberOfLanesValue.Size = new Size(131, 27);
-        numberOfLanesValue.TabIndex = 4;
+        numberOfLanesValue.TabIndex = 5;
         numberOfLanesValue.TextAlign = HorizontalAlignment.Right;
         numberOfLanesValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
         // 
@@ -221,7 +221,7 @@ partial class SquadControl
         entryFeeValue.Maximum = new decimal(new int[] { 99999, 0, 0, 131072 });
         entryFeeValue.Name = "entryFeeValue";
         entryFeeValue.Size = new Size(131, 27);
-        entryFeeValue.TabIndex = 120;
+        entryFeeValue.TabIndex = 1;
         entryFeeValue.TextAlign = HorizontalAlignment.Right;
         // 
         // entryFeeLabel
@@ -231,7 +231,7 @@ partial class SquadControl
         entryFeeLabel.Location = new Point(355, 5);
         entryFeeLabel.Name = "entryFeeLabel";
         entryFeeLabel.Required = false;
-        entryFeeLabel.Size = new Size(99, 19);
+        entryFeeLabel.Size = new Size(117, 19);
         entryFeeLabel.TabIndex = 121;
         entryFeeLabel.TabStop = false;
         entryFeeLabel.Text = "Entry Fee:";

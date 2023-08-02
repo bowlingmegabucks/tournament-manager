@@ -16,7 +16,7 @@ public partial class SquadControl : UserControl, Squads.IViewModel
     public TournamentId TournamentId { get; set; }
 
     public decimal? EntryFee
-    { 
+    {
         get => entryFeeValue.Value == 0 ? null : entryFeeValue.Value;
         set => entryFeeValue.Value = value ?? 0;
     }
