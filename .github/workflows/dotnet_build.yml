@@ -8,14 +8,14 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
     - name: Clean
       run: dotnet clean source --configuration Release && dotnet nuget locals all --clear
     - name: Build
-      run: dotnet build source --configuration Release
+      run: dotnet build source --no-restore --configuration Release
     - name: Test
       run: dotnet test source/tests --no-build --verbosity normal --configuration Release
