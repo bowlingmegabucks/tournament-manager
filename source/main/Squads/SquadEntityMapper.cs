@@ -7,6 +7,7 @@ internal class EntityMapper : IEntityMapper
         {
             Id = model.Id,
             TournamentId = model.TournamentId,
+            EntryFee = model.EntryFee,
             CashRatio = model.CashRatio,
             FinalsRatio = model.FinalsRatio,
             Date = model.Date,
