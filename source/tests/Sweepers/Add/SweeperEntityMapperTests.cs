@@ -126,7 +126,7 @@ internal sealed class EntityMapper
         var model = new NortheastMegabuck.Models.Sweeper
         {
             Id = SquadId.New(),
-            Divisions = new Dictionary<NortheastMegabuck.DivisionId, int?>
+            Divisions = new Dictionary<DivisionId, int?>
             {
                 { division0, null},
                 { division1, 1},

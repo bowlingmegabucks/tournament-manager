@@ -19,23 +19,25 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void AtLarge_AdapterAtLarge_CalledCorrectly()
+    public async Task AtLargeAsync_AdapterAtLarge_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         _view.SetupGet(view=> view.Id).Returns(tournamentId);
 
-        _presenter.AtLarge();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.AtLarge(tournamentId), Times.Once);
+        await _presenter.AtLargeAsync(cancellationToken).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.AtLargeAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void AtLarge_AdapterHasError_ErrorFlow()
+    public async Task AtLargeAsync_AdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.AtLarge();
+        await _presenter.AtLargeAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -45,7 +47,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void AtLarge_AdapterHasNoError_ViewBindResults_CalledCorrectly()
+    public async Task AtLargeAsync_AdapterHasNoError_ViewBindResults_CalledCorrectly()
     {
         var result1 = new Mock<NortheastMegabuck.Tournaments.Results.IAtLargeViewModel>();
         result1.SetupGet(result => result.DivisionName).Returns("Division 1");
@@ -64,9 +66,9 @@ internal sealed class Presenter
         result4.SetupGet(result => result.Score).Returns(201);
 
         var results = new[] { result1.Object, result2.Object, result3.Object, result4.Object };
-        _adapter.Setup(adapter => adapter.AtLarge(It.IsAny<TournamentId>())).Returns(results);
+        _adapter.Setup(adapter => adapter.AtLargeAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(results);
 
-        _presenter.AtLarge();
+        await _presenter.AtLargeAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

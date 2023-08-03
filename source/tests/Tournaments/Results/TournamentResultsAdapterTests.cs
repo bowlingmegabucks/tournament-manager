@@ -19,22 +19,23 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void AtLarge_BusinessLogicExecute_CalledCorrectly()
+    public async Task AtLargeAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.AtLarge(tournamentId);
+        await _adapter.AtLargeAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic=> businessLogic.Execute(tournamentId), Times.Once);
+        _businessLogic.Verify(businessLogic=> businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void AtLarge_BusinessLogicHasError_ErrorMapped()
+    public async Task AtLargeAsync_BusinessLogicHasError_ErrorMapped()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        var result = _adapter.AtLarge(TournamentId.New());
+        var result = await _adapter.AtLargeAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -44,7 +45,7 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void AtLarge_NoError_ResultsMapped()
+    public async Task AtLargeAsync_NoError_ResultsMapped()
     {
         var previousCasherId = BowlerId.New();
 
@@ -76,9 +77,9 @@ internal sealed class Adapter
             new NortheastMegabuck.Models.TournamentResults {AtLarge = division2Result }
          };
 
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(tournamentResults);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournamentResults);
 
-        var results = _adapter.AtLarge(TournamentId.New()).ToList();
+        var results = (await _adapter.AtLargeAsync(TournamentId.New(), default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

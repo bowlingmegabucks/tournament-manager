@@ -79,7 +79,7 @@ internal sealed class Presenter
     [Test]
     public void AddDivision_ViewAddDivisionReturnsNull_ViewRefreshDivisions_NotCalled()
     {
-        _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns((NortheastMegabuck.DivisionId?)null);
+        _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns((DivisionId?)null);
 
         _presenter.AddDivision();
 

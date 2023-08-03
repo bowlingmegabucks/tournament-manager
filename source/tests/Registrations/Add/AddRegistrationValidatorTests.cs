@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Registrations.Add;
 
 [TestFixture]
-internal class Validator
+internal sealed class Validator
 {
     private NortheastMegabuck.Registrations.Add.Validator _validator;
 

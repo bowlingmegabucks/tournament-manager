@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
-internal class Presenters
+internal sealed class Presenters
 {
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IView> _view;
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IAdapter> _adapter;
@@ -24,7 +24,7 @@ internal class Presenters
     {
         CancellationToken cancellationToken = default;
 
-        await _presenter.ExecuteAsync(cancellationToken);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         _adapter.Verify(adapter => adapter.ExecuteAsync(cancellationToken), Times.Once);
     }
@@ -35,7 +35,7 @@ internal class Presenters
         var errorDetail = new NortheastMegabuck.Models.ErrorDetail("message");
         _adapter.SetupGet(adapter=> adapter.Error).Returns(errorDetail);
 
-        await _presenter.ExecuteAsync(default);
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -51,7 +51,7 @@ internal class Presenters
     {
         _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(Enumerable.Empty<NortheastMegabuck.Tournaments.IViewModel>());
 
-        await _presenter.ExecuteAsync(default);
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.DisableOpenTournament(), Times.Once);
     }
@@ -62,7 +62,7 @@ internal class Presenters
         var tournaments = Enumerable.Repeat(new Mock<NortheastMegabuck.Tournaments.IViewModel>().Object, 3).ToList();
         _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(tournaments);
 
-        await _presenter.ExecuteAsync(default);
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.BindTournaments(tournaments), Times.Once);
     }

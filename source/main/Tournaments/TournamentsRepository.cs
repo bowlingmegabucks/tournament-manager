@@ -17,27 +17,32 @@ internal class Repository : IRepository
     {
         _dataContext = mockDataContext;
     }
-    
+
     IQueryable<Database.Entities.Tournament> IRepository.RetrieveAll()
         => _dataContext.Tournaments.AsNoTracking();
 
-    Database.Entities.Tournament IRepository.Retrieve(TournamentId id)
-        => _dataContext.Tournaments.AsNoTrackingWithIdentityResolution()
-            .Include(tournament=> tournament.Sweepers)
-            .Include(tournament=> tournament.Squads)
-        .Single(tournament=> tournament.Id == id);
+    async Task<Database.Entities.Tournament> IRepository.RetrieveAsync(TournamentId id, CancellationToken cancellationToken)
+        => await _dataContext.Tournaments.AsNoTrackingWithIdentityResolution()
+            .Include(tournament => tournament.Sweepers)
+            .Include(tournament => tournament.Squads)
+        .FirstAsync(tournament => tournament.Id == id, cancellationToken).ConfigureAwait(false);
 
-    Database.Entities.Tournament IRepository.Retrieve(DivisionId divisionId)
-        => _dataContext.Tournaments.Include(tournament => tournament.Divisions).Include(tournament=> tournament.Sweepers).ThenInclude(sweeper=> sweeper.Divisions).AsNoTracking().Single(tournament => tournament.Divisions.Any(division => division.Id == divisionId));
+    async Task<Database.Entities.Tournament> IRepository.RetrieveAsync(DivisionId divisionId, CancellationToken cancellationToken)
+        => await _dataContext.Tournaments.Include(tournament => tournament.Divisions)
+                                         .Include(tournament => tournament.Sweepers)
+                                            .ThenInclude(sweeper => sweeper.Divisions).AsNoTrackingWithIdentityResolution()
+                    .FirstAsync(tournament => tournament.Divisions.Any(division => division.Id == divisionId), cancellationToken).ConfigureAwait(false);
 
-    Database.Entities.Tournament IRepository.Retrieve(SquadId squadId)
-        => _dataContext.Tournaments.Include(tournament => tournament.Squads).Include(tournament => tournament.Sweepers).AsNoTracking().Single(tournament => tournament.Squads.Any(squad => squad.Id == squadId) || tournament.Sweepers.Any(sweeper=> sweeper.Id == squadId));
+    async Task<Database.Entities.Tournament> IRepository.RetrieveAsync(SquadId squadId, CancellationToken cancellationToken)
+        => await _dataContext.Tournaments.Include(tournament => tournament.Squads)
+                                         .Include(tournament => tournament.Sweepers).AsNoTrackingWithIdentityResolution()
+                    .FirstAsync(tournament => tournament.Squads.Any(squad => squad.Id == squadId) || tournament.Sweepers.Any(sweeper => sweeper.Id == squadId), cancellationToken).ConfigureAwait(false);
 
     TournamentId IRepository.Add(Database.Entities.Tournament tournament)
     {
         _dataContext.Tournaments.Add(tournament);
         _dataContext.SaveChanges();
-        
+
         return tournament.Id;
     }
 }
@@ -46,11 +51,11 @@ internal interface IRepository
 {
     IQueryable<Database.Entities.Tournament> RetrieveAll();
 
-    Database.Entities.Tournament Retrieve(TournamentId id);
+    Task<Database.Entities.Tournament> RetrieveAsync(TournamentId id, CancellationToken cancellationToken);
 
-    Database.Entities.Tournament Retrieve(DivisionId divisionId);
+    Task<Database.Entities.Tournament> RetrieveAsync(DivisionId divisionId, CancellationToken cancellationToken);
 
-    Database.Entities.Tournament Retrieve(SquadId squadId);
+    Task<Database.Entities.Tournament> RetrieveAsync(SquadId squadId, CancellationToken cancellationToken);
 
     TournamentId Add(Database.Entities.Tournament tournament);
 }

@@ -4,7 +4,7 @@ using FluentValidation.TestHelper;
 namespace NortheastMegabuck.Tests.names;
 
 [TestFixture]
-internal class PersonNameValidator
+internal sealed class PersonNameValidator
 {
 
     private IValidator<NortheastMegabuck.Models.PersonName> _validator;

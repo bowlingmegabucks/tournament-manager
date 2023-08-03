@@ -19,22 +19,23 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_TournamentResultsExecute_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentResultsExecute_CalledCorrectly()
     {
         var id = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(id);
+        await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
-        _tournamentResults.Verify(tournamentResults => tournamentResults.Execute(id), Times.Once);
+        _tournamentResults.Verify(tournamentResults => tournamentResults.ExecuteAsync(id, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentResultsHasError_ErrorFlow()
+    public async Task ExecuteAsync_TournamentResultsHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _tournamentResults.SetupGet(tournamentResults => tournamentResults.Error).Returns(error);
 
-        var result = _businessLogic.Execute(TournamentId.New());
+        var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -44,7 +45,7 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_TournamentResultsHasNoError_CorrectSeedingReturned()
+    public async Task ExecuteAsync_TournamentResultsHasNoError_CorrectSeedingReturned()
     {
         var division1Result = new NortheastMegabuck.Models.TournamentResults
         {
@@ -57,12 +58,12 @@ internal sealed class BusinessLogic
         };
 
         var results = new[] { division1Result, division2Result };
-        _tournamentResults.Setup(tournamentResult => tournamentResult.Execute(It.IsAny<TournamentId>())).Returns(results);
+        _tournamentResults.Setup(tournamentResult => tournamentResult.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(results);
 
         static NortheastMegabuck.Models.TournamentFinalsSeeding seedingReturn(NortheastMegabuck.Models.TournamentResults result) => new() { Division = result.Division };
         _calculator.Setup(calculator => calculator.Execute(It.IsAny<NortheastMegabuck.Models.TournamentResults>())).Returns(seedingReturn);
 
-        var actual = _businessLogic.Execute(TournamentId.New());
+        var actual = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

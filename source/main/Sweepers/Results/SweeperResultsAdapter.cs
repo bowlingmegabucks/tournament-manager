@@ -24,8 +24,8 @@ internal class Adapter : IAdapter
     public IEnumerable<IViewModel> Execute(SquadId squadId)
         => Execute(_businessLogic.Execute(squadId));
 
-    public IEnumerable<IViewModel> Execute(TournamentId tournamentId)
-        => Execute(_businessLogic.Execute(tournamentId));
+    public async Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
+        => Execute(await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false));
 
     private static IEnumerable<IViewModel> Execute(Models.SweeperResult? result)
     {
@@ -53,5 +53,5 @@ internal interface IAdapter
 
     IEnumerable<IViewModel> Execute(SquadId squadId);
 
-    IEnumerable<IViewModel> Execute(TournamentId tournamentId);
+    Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

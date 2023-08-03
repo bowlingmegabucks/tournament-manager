@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Squads.Results;
 
 [TestFixture]
-internal class Calculator
+internal sealed class Calculator
 {
     private NortheastMegabuck.Squads.Results.ICalculator _calculator;
 

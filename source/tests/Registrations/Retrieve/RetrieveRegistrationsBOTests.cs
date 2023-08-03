@@ -29,7 +29,7 @@ internal sealed class BusinessLogic
     public void Execute_TournamentId_ReturnsDataLayerExecute()
     {
         var registrations = Enumerable.Repeat(new NortheastMegabuck.Models.Registration(), 2);
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(registrations);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(registrations);
 
         var tournamentId = NortheastMegabuck.TournamentId.New();
 
@@ -41,7 +41,7 @@ internal sealed class BusinessLogic
     [Test]
     public void Execute_TournamentId_DataLayerExecuteThrowsException_ExceptionFlow()
     {
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Throws(new Exception("exception"));
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(new Exception("exception"));
 
         var tournamentId = NortheastMegabuck.TournamentId.New();
 

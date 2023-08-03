@@ -61,22 +61,23 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_TournamentId_AdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_AdapterExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _presenter.Execute(tournamentId);
+        await _presenter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _adapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
+        _adapter.Verify(adapter => adapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentId_AdapterHasError_ErrorFlow()
+    public async Task ExecuteAsync_TournamentId_AdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Execute(TournamentId.New());
+        await _presenter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -87,12 +88,12 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_TournamentId_AdapterExecuteNoError_ViewBindResults_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_AdapterExecuteNoError_ViewBindResults_CalledCorrectly()
     {
         var results = new List<NortheastMegabuck.Sweepers.Results.IViewModel>();
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(results);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(results);
 
-        _presenter.Execute(TournamentId.New());
+        await _presenter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         _view.Verify(view => view.BindResults(results), Times.Once);
     }

@@ -318,25 +318,25 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValid_Called()
+    public async Task ExecuteAsync_ViewIsValid_Called()
     {
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.IsValid(), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidFalse_InvalidFlow()
+    public async Task ExecuteAsync_ViewIsValidFalse_InvalidFlow()
     {
         _view.Setup(view => view.IsValid()).Returns(false);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Bowlers.Add.IViewModel>(), It.IsAny<NortheastMegabuck.DivisionId>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>()), Times.Never);
+            _adapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Bowlers.Add.IViewModel>(), It.IsAny<DivisionId>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>(), It.IsAny<CancellationToken>()), Times.Never);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
@@ -344,7 +344,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterExecute_CalledCorrectly([Values] bool superSweeper)
+    public async Task ExecuteAsync_ViewIsValidTrue_AdapterExecute_CalledCorrectly([Values] bool superSweeper)
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
@@ -361,20 +361,22 @@ internal sealed class Presenter
         _view.SetupGet(view => view.Average).Returns(average);
         _view.SetupGet(view => view.SuperSweeper).Returns(superSweeper);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(bowler.Object, divisionId, squads, sweepers, superSweeper, average), Times.Once);
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers, superSweeper, average, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterHasErrors_ErrorFlow()
+    public async Task ExecuteAsync_ViewIsValidTrue_AdapterHasErrors_ErrorFlow()
     {
         var errors = new[] { new NortheastMegabuck.Models.ErrorDetail("error1"), new NortheastMegabuck.Models.ErrorDetail("error2") };
         _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
         _view.Setup(view => view.IsValid()).Returns(true);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -387,11 +389,11 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterSuccessful_SuccessFlow()
+    public async Task ExecuteAsync_ViewIsValidTrue_AdapterSuccessful_SuccessFlow()
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

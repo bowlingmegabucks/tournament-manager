@@ -3,10 +3,10 @@
 namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<IEntityMapper> _mapper;
-    private Mock<NortheastMegabuck.Sweepers.IRepository> _repository;
+    private Mock<IRepository> _repository;
     
     private NortheastMegabuck.Sweepers.Add.IDataLayer _dataLayer;
 
@@ -14,7 +14,7 @@ internal class DataLayer
     public void SetUp()
     {
         _mapper = new Mock<IEntityMapper>();
-        _repository = new Mock<NortheastMegabuck.Sweepers.IRepository>();
+        _repository = new Mock<IRepository>();
 
         _dataLayer = new NortheastMegabuck.Sweepers.Add.DataLayer(_mapper.Object, _repository.Object);
     }

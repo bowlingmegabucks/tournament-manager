@@ -41,7 +41,7 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Retrieve_ReturnsTournament()
+    public async Task RetrieveAsync_ReturnsTournament()
     {
         var tournament1 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
         var tournament2 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
@@ -51,7 +51,7 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(tournaments.SetUpDbContext());
 
-        var actual = _tournamentsRepository.Retrieve(tournament1.Id);
+        var actual = await _tournamentsRepository.RetrieveAsync(tournament1.Id, default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(tournament1.Id));
     }
@@ -81,7 +81,7 @@ internal sealed class Repository
     }
 
     [Test]
-    public void RetrieveByDivision_ReturnsTournamentWithDivision()
+    public async Task RetrieveByDivisionAsync_ReturnsTournamentWithDivision()
     {
         var division1 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
         var division2 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
@@ -104,13 +104,13 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(tournaments.SetUpDbContext());
 
-        var actual = _tournamentsRepository.Retrieve(division2.Id);
+        var actual = await _tournamentsRepository.RetrieveAsync(division2.Id, default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(tournament1.Id));
     }
 
     [Test]
-    public void RetrieveBySquadId_SquadIdIsASquad_ReturnsTournament()
+    public async Task RetrieveBySquadIdAsync_SquadIdIsASquad_ReturnsTournament()
     {
         var squadId = SquadId.New();
 
@@ -138,13 +138,13 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(new[] { tournament }.SetUpDbContext());
 
-        var result = _tournamentsRepository.Retrieve(squadId);
+        var result = await _tournamentsRepository.RetrieveAsync(squadId, default).ConfigureAwait(false);
 
         Assert.That(result, Is.Not.Null);
     }
 
     [Test]
-    public void RetrieveBySquadId_SquadIdIsASweeper_ReturnsTournament()
+    public async Task RetrieveBySquadIdAsync_SquadIdIsASweeper_ReturnsTournament()
     {
         var squadId = SquadId.New();
 
@@ -172,7 +172,7 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(new[] { tournament }.SetUpDbContext());
 
-        var result = _tournamentsRepository.Retrieve(squadId);
+        var result = await _tournamentsRepository.RetrieveAsync(squadId, default).ConfigureAwait(false);
 
         Assert.That(result, Is.Not.Null);
     }

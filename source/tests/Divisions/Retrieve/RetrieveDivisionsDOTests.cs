@@ -63,7 +63,7 @@ internal sealed class DataLayer
     public void Execute_RepositoryRetrieve_CalledCorrectly()
     {
         var division = new NortheastMegabuck.Database.Entities.Division();
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(division);
 
         var id = NortheastMegabuck.DivisionId.New();
 
@@ -76,7 +76,7 @@ internal sealed class DataLayer
     public void Execute_DivisionId_ReturnsRepositoryRetrieveResponse()
     {
         var division = new NortheastMegabuck.Database.Entities.Division { Name = "name"};
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(division);
 
         var id = NortheastMegabuck.DivisionId.New();
 

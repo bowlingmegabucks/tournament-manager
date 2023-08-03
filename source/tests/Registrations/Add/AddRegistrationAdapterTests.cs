@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Registrations.Add;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Registrations.Add.IBusinessLogic> _businessLogic;
 
@@ -17,7 +17,7 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_AddBowlerViewModel_BusinessLogicExecute_CalledCorrectly([Values]bool superSweeper)
+    public async Task ExecuteAsync_AddBowlerViewModel_BusinessLogicExecute_CalledCorrectly([Values]bool superSweeper)
     {
         var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
@@ -25,19 +25,20 @@ internal class Adapter
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(bowler.Object, divisionId, squads, sweepers, superSweeper, average);
+        await _adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers, superSweeper, average, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NortheastMegabuck.Models.Registration>(registration => registration.Bowler.Name.Last == "lastName" &&
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<NortheastMegabuck.Models.Registration>(registration => registration.Bowler.Name.Last == "lastName" &&
                                                                                                                                 registration.Division.Id == divisionId &&
                                                                                                                                 registration.Sweepers.Select(sweeper=> sweeper.Id) == sweepers &&
                                                                                                                                 registration.SuperSweeper == superSweeper &&
                                                                                                                                 registration.Squads.Select(squad=> squad.Id) == squads &&
-                                                                                                                                registration.Average == average)), Times.Once);
+                                                                                                                                registration.Average == average), cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_AddBowlerView_ErrorsSetToBusinessLogicErrors([Values] bool superSweeper)
+    public async Task ExecuteAsync_AddBowlerViewModel_ErrorsSetToBusinessLogicErrors([Values] bool superSweeper)
     {
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), 5);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
@@ -48,16 +49,16 @@ internal class Adapter
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
-        _adapter.Execute(bowler.Object, divisionId, squads, sweepers,superSweeper, average);
+        await _adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers,superSweeper, average, default).ConfigureAwait(false);
 
         Assert.That(_adapter.Errors, Is.EqualTo(errors));
     }
 
     [Test]
-    public void Execute_AddBowlerView_ReturnsBusinessLogicExecute([Values] bool superSweeper)
+    public async Task ExecuteAsync_AddBowlerView_ReturnsBusinessLogicExecute([Values] bool superSweeper)
     {
         var id = RegistrationId.New();
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(id);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         var divisionId = DivisionId.New();
@@ -65,7 +66,7 @@ internal class Adapter
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
-        var actual = _adapter.Execute(bowler.Object, divisionId, squads, sweepers, superSweeper, average);
+        var actual = await _adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers, superSweeper, average, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(id));
     }

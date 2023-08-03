@@ -4,7 +4,7 @@ using NortheastMegabuck.Tests.Extensions;
 namespace NortheastMegabuck.Tests.Divisions.Add;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<IValidator<NortheastMegabuck.Models.Division>> _validator;
     private Mock<NortheastMegabuck.Divisions.Add.IDataLayer> _dataLayer;

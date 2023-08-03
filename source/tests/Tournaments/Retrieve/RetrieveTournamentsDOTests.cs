@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
+﻿using NortheastMegabuck.Tests.Extensions;
+
+namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
@@ -18,7 +20,8 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_RepositoryRetrieveAll_Called()
     {
-        await _dataLayer.ExecuteAsync(default);
+        _repository.Setup(repository => repository.RetrieveAll()).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Tournament>().SetUpDbContext());
+        await _dataLayer.ExecuteAsync(default).ConfigureAwait(false);
 
         _repository.Verify(repository => repository.RetrieveAll(), Times.Once);
     }
@@ -38,7 +41,7 @@ internal sealed class DataLayer
 
         _repository.Setup(repository=> repository.RetrieveAll()).Returns(tournaments.BuildMock());
 
-        var actual = (await _dataLayer.ExecuteAsync(default)).ToList();
+        var actual = (await _dataLayer.ExecuteAsync(default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {
@@ -51,73 +54,76 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_Id_RepositoryExecuteId_CalledCorrectly()
+    public async Task ExecuteAsync_Id_RepositoryExecuteId_CalledCorrectly()
     {
         var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(tournament);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var id = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(id);
+        await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
+        _repository.Verify(repository => repository.RetrieveAsync(id, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_Id_ReturnsTournament()
+    public async Task ExecuteAsync_Id_ReturnsTournament()
     {
         var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(tournament);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var actual = _dataLayer.Execute(tournament.Id);
+        var actual = await _dataLayer.ExecuteAsync(tournament.Id, default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(tournament.Id));
     }
 
     [Test]
-    public void Execute_DivisionId_RepositoryExecuteDivisionId_CalledCorrectly()
+    public async Task ExecuteAsync_DivisionId_RepositoryExecuteDivisionId_CalledCorrectly()
     {
         var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(tournament);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var id = DivisionId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(id);
+        await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
+        _repository.Verify(repository => repository.RetrieveAsync(id, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_DivisionId_ReturnsTournament()
+    public async Task ExecuteAsync_DivisionId_ReturnsTournament()
     {
         var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(tournament);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var actual = _dataLayer.Execute(DivisionId.New());
+        var actual = await _dataLayer.ExecuteAsync(DivisionId.New(), default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(tournament.Id));
     }
 
     [Test]
-    public void Execute_SquadId_RepositoryExecuteSquadId_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_RepositoryExecuteSquadId_CalledCorrectly()
     {
         var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(tournament);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var id = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(id);
+        await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
+        _repository.Verify(repository => repository.RetrieveAsync(id, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_ReturnsTournament()
+    public async Task ExecuteAsync_SquadId_ReturnsTournament()
     {
         var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(tournament);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var actual = _dataLayer.Execute(SquadId.New());
+        var actual = await _dataLayer.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(tournament.Id));
     }

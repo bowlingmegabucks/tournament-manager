@@ -48,7 +48,7 @@ internal sealed class Adapter
             new NortheastMegabuck.Models.Registration{ Id = RegistrationId.New()}
         };
 
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.TournamentId>())).Returns(registrations);
+        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(registrations);
 
         var tournamentId = TournamentId.New();
 
@@ -56,8 +56,8 @@ internal sealed class Adapter
 
         Assert.Multiple(() =>
         {
-            Assert.That(actual.First().Id, Is.EqualTo(registrations.First().Id));
-            Assert.That(actual.Last().Id, Is.EqualTo(registrations.Last().Id));
+            Assert.That(actual.First().Id, Is.EqualTo(registrations[0].Id));
+            Assert.That(actual.Last().Id, Is.EqualTo(registrations[registrations.Length - 1].Id));
         });
     }
 }

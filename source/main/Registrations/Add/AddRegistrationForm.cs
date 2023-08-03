@@ -119,7 +119,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
-    { 
+    {
         //will populate when loading existing bowlers
     }
 
@@ -153,6 +153,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void KeepOpen()
         => DialogResult = DialogResult.None;
 
-    private void SaveButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).Execute();
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

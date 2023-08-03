@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Divisions;
 
 [TestFixture]
-internal class ViewModel
+internal sealed class ViewModel
 {
     [Test]
     public void Constructor_Model_IdMapped()

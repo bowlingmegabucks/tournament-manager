@@ -71,59 +71,61 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_TournamentId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_BusinessLogicExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(tournamentId);
+        await _adapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(tournamentId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentId_BusinessLogicExecuteReturnsNull_NullReturned()
+    public async Task ExecuteAsync_TournamentId_BusinessLogicExecuteReturnsNull_NullReturned()
     {
-        var result = _adapter.Execute(TournamentId.New());
+        var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void Execute_TournamentId_BusinessLogicExecuteReturnsTournament_TournamentReturned()
+    public async Task ExecuteAsync_TournamentId_BusinessLogicExecuteReturnsTournament_TournamentReturned()
     {
         var tournament = new NortheastMegabuck.Models.Tournament { Id = TournamentId.New() };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var result = _adapter.Execute(TournamentId.New());
+        var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.That(result.Id, Is.EqualTo(tournament.Id));
     }
 
     [Test]
-    public void Execute_SquadId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_BusinessLogicExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(squadId);
+        await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadIdId_BusinessLogicExecuteReturnsNull_NullReturned()
+    public async Task ExecuteAsync_SquadIdId_BusinessLogicExecuteReturnsNull_NullReturned()
     {
-        var result = _adapter.Execute(SquadId.New());
+        var result = await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void Execute_SquadId_BusinessLogicExecuteReturnsSquad_SquadReturned()
+    public async Task ExecuteAsync_SquadId_BusinessLogicExecuteReturnsSquad_SquadReturned()
     {
         var tournament = new NortheastMegabuck.Models.Tournament { Id = TournamentId.New() };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<SquadId>())).Returns(tournament);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var result = _adapter.Execute(SquadId.New());
+        var result = await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(result.Id, Is.EqualTo(tournament.Id));
     }

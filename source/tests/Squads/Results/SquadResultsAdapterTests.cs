@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Squads.Results;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Squads.Results.IBusinessLogic> _businessLogic;
 
@@ -17,22 +17,23 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_SquadId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_BusinessLogicExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(squadId);
+        await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_BusinessLogicHasError_ErrorFlow()
+    public async Task ExecuteAsync_SquadId_BusinessLogicHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        var result = _adapter.Execute(SquadId.New());
+        var result = await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -43,7 +44,7 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_SquadId_BusinessLogicNoError_ResultsReturnedCorrectly()
+    public async Task ExecuteAsync_SquadId_BusinessLogicNoError_ResultsReturnedCorrectly()
     {
         var squad = new NortheastMegabuck.Models.Squad { Id = SquadId.New(), Date = new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified) };
 
@@ -169,9 +170,9 @@ internal class Adapter
 
         var results = new[] { division1Result, division2Result }.GroupBy(result => result.Division);
 
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<SquadId>())).Returns(results);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(results);
 
-        var actual = _adapter.Execute(SquadId.New());
+        var actual = await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

@@ -22,7 +22,7 @@ internal sealed class SweeperViewModelTests
             StartingLane = 15,
             NumberOfLanes = 5,
             Complete = true,
-            Divisions = new Dictionary<NortheastMegabuck.DivisionId, int?>
+            Divisions = new Dictionary<DivisionId, int?>
             {
                 { NortheastMegabuck.DivisionId.New(), 1 },
                 { NortheastMegabuck.DivisionId.New(), 2 },

@@ -82,7 +82,7 @@ internal sealed class BusinessLogic
     public void Execute_ReturnsDataLayerExecuteResult()
     {
         var division = new NortheastMegabuck.Models.Division();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var divisionId = NortheastMegabuck.DivisionId.New();
 
@@ -95,7 +95,7 @@ internal sealed class BusinessLogic
     public void Execute_DataLayerExecutetNoException_ErrorNull()
     {
         var division = new NortheastMegabuck.Models.Division();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Returns(division);
 
         var divisionId = NortheastMegabuck.DivisionId.New();
 
@@ -108,7 +108,7 @@ internal sealed class BusinessLogic
     public void Execute_DivisionId_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Throws(ex);
 
         var divisionId = NortheastMegabuck.DivisionId.New();
 

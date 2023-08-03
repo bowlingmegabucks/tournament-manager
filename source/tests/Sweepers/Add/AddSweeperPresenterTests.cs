@@ -66,26 +66,26 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValid_Called()
+    public async Task ExecuteAsync_ViewIsValid_Called()
     {
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.IsValid(), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidFalse_NothingElseCalled()
+    public async Task ExecuteAsync_ViewIsValidFalse_NothingElseCalled()
     {
         _view.Setup(view => view.IsValid()).Returns(false);
 
         var sweeper = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         _view.SetupGet(view => view.Sweeper).Returns(sweeper.Object);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Sweepers.IViewModel>()), Times.Never);
+            _adapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Sweepers.IViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.KeepOpen(), Times.Once);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
@@ -96,7 +96,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_ViewIsValidTrue_AdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
@@ -104,15 +104,17 @@ internal sealed class Presenter
         _view.SetupGet(view => view.Sweeper).Returns(sweeper.Object);
 
         var sweeperId = SquadId.New();
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Sweepers.IViewModel>())).Returns(sweeperId);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Sweepers.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeperId);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(sweeper.Object), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.ExecuteAsync(sweeper.Object, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterHasErrors_ErrorFlow()
+    public async Task ExecuteAsync_ViewIsValidTrue_AdapterHasErrors_ErrorFlow()
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
@@ -128,7 +130,7 @@ internal sealed class Presenter
 
         _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -142,7 +144,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterSuccessful_SuccessPath()
+    public async Task ExecuteAsync_ViewIsValidTrue_AdapterSuccessful_SuccessPath()
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
@@ -151,9 +153,9 @@ internal sealed class Presenter
         _view.SetupGet(view => view.Sweeper).Returns(sweeper.Object);
 
         var sweeperId = SquadId.New();
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Sweepers.IViewModel>())).Returns(sweeperId);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Sweepers.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeperId);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

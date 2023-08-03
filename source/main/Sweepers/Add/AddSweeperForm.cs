@@ -2,9 +2,9 @@
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
-    
+
     public TournamentId TournamentId { get; }
-    
+
     public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
@@ -39,6 +39,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public bool IsValid()
         => ValidateChildren();
 
-    private void SaveButton_Click(object sender, EventArgs e)
-     => new Presenter(_config, this).Execute();
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

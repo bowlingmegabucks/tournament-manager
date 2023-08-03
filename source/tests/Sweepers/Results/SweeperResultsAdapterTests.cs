@@ -89,21 +89,23 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_TournamentId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_BusinessLogicExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
-        _adapter.Execute(tournamentId);
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(tournamentId), Times.Once);
+        await _adapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
+
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentId_BusinessLogicExecuteHasError_ErrorFlow()
+    public async Task ExecuteAsync_TournamentId_BusinessLogicExecuteHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        var result = _adapter.Execute(TournamentId.New());
+        var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -113,7 +115,7 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_TournamentId_BusinessLogicExecuteSuccess_PlacingsMappedCorrectly()
+    public async Task ExecuteAsync_TournamentId_BusinessLogicExecuteSuccess_PlacingsMappedCorrectly()
     {
         var bowlerSquadScore1 = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
         {
@@ -137,9 +139,9 @@ internal sealed class Adapter
             Scores = new[] { bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3 }
         };
 
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(sweeperCut);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeperCut);
 
-        var result = _adapter.Execute(TournamentId.New()).ToList();
+        var result = (await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

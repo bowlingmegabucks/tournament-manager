@@ -44,7 +44,7 @@ internal class BusinessLogic : IBusinessLogic
 
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
 
-    public RegistrationId? Execute(Models.Registration registration)
+    public async Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
     {
         var division = _getDivisionBO.Execute(registration.Division.Id);
 
@@ -57,7 +57,7 @@ internal class BusinessLogic : IBusinessLogic
 
         registration.Division = division!;
 
-        var tournament = GetTournamentBO.Execute(division!.Id);
+        var tournament = await GetTournamentBO.ExecuteAsync(division!.Id, cancellationToken).ConfigureAwait(false);
 
         if (GetTournamentBO.Error is not null)
         {
@@ -83,7 +83,7 @@ internal class BusinessLogic : IBusinessLogic
             registration.Bowler = bowler!;
         }
 
-        var validatorResults = Validator.Validate(registration);
+        var validatorResults = await Validator.ValidateAsync(registration, cancellationToken).ConfigureAwait(false);
 
         if (!validatorResults.IsValid)
         {
@@ -126,7 +126,7 @@ internal interface IBusinessLogic
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    RegistrationId? Execute(Models.Registration registration);
+    Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken);
 
     Models.Registration? Execute(BowlerId bowlerId, SquadId squadId);
 }

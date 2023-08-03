@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Divisions.Add;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Divisions.Add.IView> _view;
     private Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter> _retrieveAdapter;

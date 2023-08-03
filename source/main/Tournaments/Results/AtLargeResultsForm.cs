@@ -16,7 +16,7 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
 
         _toSpreadsheet = new Dictionary<TabPage, string>();
 
-        new Presenter(config, this).AtLarge();
+        _ = new Presenter(config, this).AtLargeAsync(default);
     }
 
     public TournamentId Id { get; }

@@ -45,7 +45,7 @@ internal class Presenter
         }
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())
         {
@@ -53,7 +53,7 @@ internal class Presenter
             return;
         }
         
-        var id = Adapter.Execute(_view.Sweeper);
+        var id = await Adapter.ExecuteAsync(_view.Sweeper, cancellationToken).ConfigureAwait(true);
 
         if (Adapter.Errors.Any())
         {

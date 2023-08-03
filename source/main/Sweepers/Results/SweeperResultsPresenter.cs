@@ -37,9 +37,9 @@ internal class Presenter
         }
     }
 
-    public void Execute(TournamentId tournamentId)
+    public async Task ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var results = _adapter.Execute(tournamentId);
+        var results = await _adapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
 
         if (_adapter.Error != null)
         {

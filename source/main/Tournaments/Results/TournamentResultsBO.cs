@@ -29,9 +29,9 @@ internal class BusinessLogic : IBusinessLogic
         _retrieveTournament = mockRetrieveTournament;
     }
 
-    public IEnumerable<Models.TournamentResults> Execute(TournamentId tournamentId)
+    public async Task<IEnumerable<Models.TournamentResults>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var tournament = _retrieveTournament.Execute(tournamentId);
+        var tournament = await _retrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         if (_retrieveTournament.Error != null)
         {
@@ -40,7 +40,7 @@ internal class BusinessLogic : IBusinessLogic
             return Enumerable.Empty<Models.TournamentResults>();
         }
 
-        var squadResults = _retrieveSquadResults.Execute(tournamentId);
+        var squadResults = await _retrieveSquadResults.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         if (_retrieveSquadResults.Error != null)
         {
@@ -57,5 +57,5 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.TournamentResults> Execute(TournamentId tournamentId);
+    Task<IEnumerable<Models.TournamentResults>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

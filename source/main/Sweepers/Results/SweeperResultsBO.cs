@@ -47,9 +47,9 @@ internal class BusinessLogic : IBusinessLogic
         return Execute(scores, sweeper!.CashRatio);
     }
 
-    public Models.SweeperResult? Execute(TournamentId tournamentId)
+    public async Task<Models.SweeperResult?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var tournament = RetrieveTournament.Execute(tournamentId);
+        var tournament = await RetrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         if (RetrieveTournament.Error != null)
         {
@@ -107,5 +107,5 @@ internal interface IBusinessLogic
 
     Models.SweeperResult? Execute(SquadId squadId);
 
-    Models.SweeperResult? Execute(TournamentId tournamentId);
+    Task<Models.SweeperResult?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

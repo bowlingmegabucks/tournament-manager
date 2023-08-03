@@ -33,11 +33,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    Models.Tournament? IBusinessLogic.Execute(TournamentId id)
+    async Task<Models.Tournament?> IBusinessLogic.ExecuteAsync(TournamentId id, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(id);
+            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -47,11 +47,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    Models.Tournament? IBusinessLogic.Execute(DivisionId id)
+    async Task<Models.Tournament?> IBusinessLogic.ExecuteAsync(DivisionId id, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(id);
+            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -61,11 +61,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    Models.Tournament? IBusinessLogic.Execute(SquadId id)
+    async Task<Models.Tournament?> IBusinessLogic.ExecuteAsync(SquadId id, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(id);
+            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -82,9 +82,9 @@ internal interface IBusinessLogic
 
     Task<IEnumerable<Models.Tournament>> ExecuteAsync(CancellationToken cancellationToken);
 
-    Models.Tournament? Execute(TournamentId id);
+    Task<Models.Tournament?> ExecuteAsync(TournamentId id, CancellationToken cancellationToken);
 
-    Models.Tournament? Execute(DivisionId id);
+    Task<Models.Tournament?> ExecuteAsync(DivisionId id, CancellationToken cancellationToken);
 
-    Models.Tournament? Execute(SquadId id);
+    Task<Models.Tournament?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 }

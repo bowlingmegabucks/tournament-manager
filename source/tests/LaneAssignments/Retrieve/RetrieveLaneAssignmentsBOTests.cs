@@ -39,7 +39,7 @@ internal sealed class BusinessLogic
     [Test]
     public void Execute_DataLayerExecuteThrowsException_ErrorFlow()
     {
-        var ex = new System.Exception("exception");
+        var ex = new Exception("exception");
         _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Throws(ex);
 
         var actual = _businessLogic.Execute(SquadId.New());

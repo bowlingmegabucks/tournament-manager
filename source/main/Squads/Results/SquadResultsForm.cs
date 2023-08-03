@@ -16,7 +16,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         _toSpreadsheet = new Dictionary<TabPage, string>();
 
-        new Presenter(config, this).Execute();
+        _ = new Presenter(config, this).ExecuteAsync(default);
     }
 
     public SquadId SquadId { get; }

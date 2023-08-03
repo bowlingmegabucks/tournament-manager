@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Registrations.Add;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Registrations.IEntityMapper> _mapper;
     private Mock<NortheastMegabuck.Registrations.IRepository> _repository;

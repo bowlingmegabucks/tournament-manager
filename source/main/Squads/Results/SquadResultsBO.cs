@@ -28,9 +28,9 @@ internal class BusinessLogic : IBusinessLogic
         _retrieveScores = mockRetrieveScores;
     }
 
-    public IEnumerable<IGrouping<Models.Division,Models.SquadResult>> Execute(SquadId squadId)
+    public async Task<IEnumerable<IGrouping<Models.Division,Models.SquadResult>>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
-        var tournament = _retrieveTournament.Execute(squadId);
+        var tournament = await _retrieveTournament.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
         if (_retrieveTournament.Error != null)
         {
@@ -51,9 +51,9 @@ internal class BusinessLogic : IBusinessLogic
         return Execute(scores, tournament).Where(result => result.Squad.Id == squadId).GroupBy(result=> result.Division).ToList();
     }
 
-    public IEnumerable<IGrouping<Models.Division, Models.SquadResult>> Execute(TournamentId tournamentId)
+    public async Task<IEnumerable<IGrouping<Models.Division, Models.SquadResult>>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var tournament = _retrieveTournament.Execute(tournamentId);
+        var tournament = await _retrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         if (_retrieveTournament.Error != null)
         {
@@ -108,7 +108,7 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IGrouping<Models.Division, Models.SquadResult>> Execute(SquadId squadId);
+    Task<IEnumerable<IGrouping<Models.Division, Models.SquadResult>>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 
-    IEnumerable<IGrouping<Models.Division, Models.SquadResult>> Execute(TournamentId tournamentId);
+    Task<IEnumerable<IGrouping<Models.Division, Models.SquadResult>>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

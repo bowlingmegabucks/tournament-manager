@@ -23,23 +23,23 @@ internal class DataLayer : IDataLayer
     async Task<IEnumerable<Models.Tournament>> IDataLayer.ExecuteAsync(CancellationToken cancellationToken)
         => (await _repository.RetrieveAll().ToListAsync(cancellationToken).ConfigureAwait(false)).Select(tournament => new Models.Tournament(tournament));
 
-    Models.Tournament IDataLayer.Execute(TournamentId id)
-        => new(_repository.Retrieve(id));
+    async Task<Models.Tournament> IDataLayer.ExecuteAsync(TournamentId id, CancellationToken cancellationToken)
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
 
-    Models.Tournament IDataLayer.Execute(DivisionId id)
-        => new(_repository.Retrieve(id));
+    async Task<Models.Tournament> IDataLayer.ExecuteAsync(DivisionId id, CancellationToken cancellationToken)
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
 
-    Models.Tournament IDataLayer.Execute(SquadId id)
-        => new(_repository.Retrieve(id));
+    async Task<Models.Tournament> IDataLayer.ExecuteAsync(SquadId id, CancellationToken cancellationToken)
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
 }
 
 internal interface IDataLayer
 {
     Task<IEnumerable<Models.Tournament>> ExecuteAsync(CancellationToken cancellationToken);
 
-    Models.Tournament Execute(TournamentId id);
+    Task<Models.Tournament> ExecuteAsync(TournamentId id, CancellationToken cancellationToken);
 
-    Models.Tournament Execute(DivisionId id);
+    Task<Models.Tournament> ExecuteAsync(DivisionId id, CancellationToken cancellationToken);
 
-    Models.Tournament Execute(SquadId id);
+    Task<Models.Tournament> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 }

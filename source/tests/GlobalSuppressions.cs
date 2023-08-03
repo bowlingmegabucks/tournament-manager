@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Usage", "CA2201:Do not raise reserved exception types", Justification = "This is a test assembly", Scope = "namespaceanddescendants", Target = "~N:NortheastMegabuck.Tests")]
+[assembly: SuppressMessage("Usage", "CA1812:Avoid uninstantiated internal classes", Justification = "This is a test assembly", Scope = "namespaceanddescendants", Target = "~N:NortheastMegabuck.Tests")]

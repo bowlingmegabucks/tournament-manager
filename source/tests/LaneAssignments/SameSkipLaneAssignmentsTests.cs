@@ -1,5 +1,7 @@
 ﻿
 namespace NortheastMegabuck.Tests.LaneAssignments;
+
+[TestFixture]
 internal sealed class SameSkip : Generate
 {
     protected override NortheastMegabuck.LaneAssignments.IGenerate InstanciateInterface()

@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Squads.Add;
+﻿using System.Globalization;
+
+namespace NortheastMegabuck.Squads.Add;
 
 internal class Presenter
 {
@@ -30,9 +32,9 @@ internal class Presenter
         _addSquadAdapter = new Lazy<IAdapter>(() => mockAddSquadAdapter);
     }
 
-    public void GetTournamentDetails()
+    public async Task GetTournamentDetailsAsync(CancellationToken cancellationToken)
     {
-        var tournament = _retrieveTournamentAdapter.Execute(_view.Squad.TournamentId);
+        var tournament = await _retrieveTournamentAdapter.ExecuteAsync(_view.Squad.TournamentId, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveTournamentAdapter.Error != null)
         {
@@ -40,13 +42,13 @@ internal class Presenter
         }
         else
         {
-            _view.SetTournamentEntryFee(tournament!.EntryFee.ToString("C2"));
-            _view.SetTournamentFinalsRatio(tournament.FinalsRatio.ToString("N1"));
-            _view.SetTournamentCashRatio(tournament.CashRatio.ToString("N1"));
+            _view.SetTournamentEntryFee(tournament!.EntryFee.ToString("C2", CultureInfo.CurrentCulture));
+            _view.SetTournamentFinalsRatio(tournament.FinalsRatio.ToString("N1", CultureInfo.CurrentCulture));
+            _view.SetTournamentCashRatio(tournament.CashRatio.ToString("N1", CultureInfo.CurrentCulture));
         }
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())
         {
@@ -54,7 +56,7 @@ internal class Presenter
             return;
         }
         
-        var id = AddSquadAdapter.Execute(_view.Squad);
+        var id = await AddSquadAdapter.ExecuteAsync(_view.Squad, cancellationToken).ConfigureAwait(true);
 
         if (AddSquadAdapter.Errors.Any())
         {
