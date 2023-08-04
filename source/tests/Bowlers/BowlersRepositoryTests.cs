@@ -521,7 +521,7 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Update_BowlerName_NameUpdated()
+    public async Task UpdateAsync_BowlerName_NameUpdated()
     {
         var bowler1 = new NortheastMegabuck.Database.Entities.Bowler
         {
@@ -534,7 +534,7 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler1 }.SetUpDbContext());
 
-        _repository.Update(bowler1.Id, "firstName2", "middleInitial2", "lastName2", "suffix2");
+        await _repository.UpdateAsync(bowler1.Id, "firstName2", "middleInitial2", "lastName2", "suffix2", default).ConfigureAwait(false);
 
         var updated = _repository.Search(new NortheastMegabuck.Models.BowlerSearchCriteria { LastName = "lastName2" });
 
