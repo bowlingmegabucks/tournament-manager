@@ -72,7 +72,7 @@ internal class Repository : IRepository
             : bowlers;
     }
 
-    void IRepository.Update(BowlerId id, string firstName, string middleInitial, string lastName, string suffix)
+    async Task IRepository.UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken)
     {
         var bowler = _dataContext.Bowlers.Single(b=> b.Id == id);
 
@@ -81,7 +81,7 @@ internal class Repository : IRepository
         bowler.LastName = lastName;
         bowler.Suffix = suffix;
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
     Database.Entities.Bowler IRepository.Retrieve(BowlerId id)
@@ -92,7 +92,7 @@ internal interface IRepository
 {
     IQueryable<Database.Entities.Bowler> Search(Models.BowlerSearchCriteria searchCriteria);
 
-    void Update(BowlerId id, string firstName, string middleInitial, string lastName, string suffix);
+    Task UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken);
 
     Database.Entities.Bowler Retrieve(BowlerId id);
 }

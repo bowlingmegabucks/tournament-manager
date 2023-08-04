@@ -23,9 +23,9 @@ internal sealed class BusinessLogic : IBusinessLogic
         _dataLayer = mockDataLayer;
     }
 
-    void IBusinessLogic.Execute(BowlerId id, Models.PersonName name)
+    async Task IBusinessLogic.ExecuteAsync(BowlerId id, Models.PersonName name, CancellationToken cancellationToken)
     {
-        var validation = NameValidator.Validate(name);
+        var validation = await NameValidator.ValidateAsync(name, cancellationToken).ConfigureAwait(false);
 
         if (!validation.IsValid)
         {
@@ -36,7 +36,7 @@ internal sealed class BusinessLogic : IBusinessLogic
 
         try
         {
-            _dataLayer.Execute(id, name);
+            await _dataLayer.ExecuteAsync(id, name, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -49,5 +49,5 @@ internal interface IBusinessLogic
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    void Execute(BowlerId id, Models.PersonName name);
+    Task ExecuteAsync(BowlerId id, Models.PersonName name, CancellationToken cancellationToken);
 }

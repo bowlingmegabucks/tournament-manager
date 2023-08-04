@@ -47,9 +47,12 @@ internal partial class NameForm : Form, IBowlerNameView
     public void KeepOpen()
         => DialogResult = DialogResult.None;
 
+    public void OkToClose()
+        => DialogResult = DialogResult.OK;
+
     public void DisplayMessage(string message)
         => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-    private void SaveButton_Click(object sender, EventArgs e)
-        => new NamePresenter(_config, this).Execute();
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new NamePresenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

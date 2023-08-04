@@ -49,8 +49,8 @@ internal class DataContext : DbContext, IDataContext
     void IDataContext.SaveChanges()
         => base.SaveChanges();
 
-    async Task IDataContext.SaveChangesAsync()
-        => await base.SaveChangesAsync().ConfigureAwait(false);
+    async Task IDataContext.SaveChangesAsync(CancellationToken cancellationToken)
+        => await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -106,5 +106,5 @@ internal interface IDataContext
 
     void SaveChanges();
 
-    Task SaveChangesAsync();
+    Task SaveChangesAsync(CancellationToken cancellationToken);
 }
