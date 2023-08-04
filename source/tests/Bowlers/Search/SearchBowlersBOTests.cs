@@ -16,50 +16,51 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_DataLayerExecute_CalledCorrectly()
     {
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(searchCriteria);
+        await _businessLogic.ExecuteAsync(searchCriteria, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(searchCriteria), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(searchCriteria, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsDataLayerExecuteResults()
+    public async Task ExecuteAsync_ReturnsDataLayerExecuteResults()
     {
         var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(divisions);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
-        var actual = _businessLogic.Execute(searchCriteria);
+        var actual = await _businessLogic.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(divisions));
     }
 
     [Test]
-    public void Execute_DataLayerExecuteNoException_ErrorNull()
+    public async Task ExecuteAsync_DataLayerExecuteNoException_ErrorNull()
     {
         var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(divisions);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
-         _businessLogic.Execute(searchCriteria);
+        await _businessLogic.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void Execute_DataLayerExecuteThrowsException_ErrorFlow()
+    public async Task ExecuteAsync_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
-        var actual = _businessLogic.Execute(searchCriteria);
+        var actual = await _businessLogic.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

@@ -24,15 +24,15 @@ internal class Presenter
         _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var bowlers = Adapter.Execute(_view.SearchCriteria).ToList();
+        var bowlers = (await Adapter.ExecuteAsync(_view.SearchCriteria, cancellationToken).ConfigureAwait(true)).ToList();
 
         if (Adapter.Error != null)
         {
             _view.DisplayError(Adapter.Error.Message);
         }
-        else if (!bowlers.Any())
+        else if (bowlers.Count == 0)
         {
             _view.DisplayMessage("No Results");
         }

@@ -19,11 +19,11 @@ internal class BusinessLogic : IBusinessLogic
     
     public Models.ErrorDetail? Error { get; private set; }
 
-    public IEnumerable<Models.Bowler> Execute(Models.BowlerSearchCriteria searchCriteria)
+    public async Task<IEnumerable<Models.Bowler>> ExecuteAsync(Models.BowlerSearchCriteria searchCriteria, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(searchCriteria).ToList();
+            return (await _dataLayer.ExecuteAsync(searchCriteria, cancellationToken).ConfigureAwait(false)).ToList();
         }
         catch (Exception ex)
         {
@@ -38,5 +38,5 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.Bowler> Execute(Models.BowlerSearchCriteria searchCriteria);
+    Task<IEnumerable<Models.Bowler>> ExecuteAsync(Models.BowlerSearchCriteria searchCriteria, CancellationToken cancellationToken);
 }

@@ -16,17 +16,18 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_RepositorySearch_CalledCorrectly()
+    public async Task ExecuteAsync_RepositorySearch_CalledCorrectly()
     {
+        _repository.Setup(repository => repository.Search(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Bowler>().BuildMock());
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
-        _dataLayer.Execute(searchCriteria);
+        await _dataLayer.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
         _repository.Verify(repository => repository.Search(searchCriteria), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsCorrectResult()
+    public async Task ExecuteAsync_ReturnsCorrectResult()
     {
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
@@ -51,9 +52,9 @@ internal sealed class DataLayer
             }
         };
 
-        _repository.Setup(repository => repository.Search(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(bowlers);
+        _repository.Setup(repository => repository.Search(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(bowlers.BuildMock());
 
-        var actual = _dataLayer.Execute(searchCriteria).ToList();
+        var actual = (await _dataLayer.ExecuteAsync(searchCriteria, default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

@@ -18,10 +18,11 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    IEnumerable<Database.Entities.Bowler> IRepository.Search(Models.BowlerSearchCriteria searchCriteria)
+    IQueryable<Database.Entities.Bowler> IRepository.Search(Models.BowlerSearchCriteria searchCriteria)
     {
         IQueryable<Database.Entities.Bowler> bowlers;
 
+#pragma warning disable IDE0045 // Convert to conditional expression
         if (searchCriteria.WithoutRegistrationOnSquads.Any() && searchCriteria.RegisteredInTournament.HasValue)
         {
             bowlers = _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Squads)
@@ -39,6 +40,7 @@ internal class Repository : IRepository
         {
             bowlers = _dataContext.Bowlers.AsNoTracking();
         }
+#pragma warning restore IDE0045 // Convert to conditional expression
 
         if (!string.IsNullOrWhiteSpace(searchCriteria.LastName))
         {
@@ -66,8 +68,8 @@ internal class Repository : IRepository
         }
 
         return searchCriteria.WithoutRegistrationOnSquads.Any()
-            ? bowlers.AsEnumerable().Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
-            : bowlers.AsEnumerable();
+            ? bowlers.Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
+            : bowlers;
     }
 
     void IRepository.Update(BowlerId id, string firstName, string middleInitial, string lastName, string suffix)
@@ -88,7 +90,7 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    IEnumerable<Database.Entities.Bowler> Search(Models.BowlerSearchCriteria searchCriteria);
+    IQueryable<Database.Entities.Bowler> Search(Models.BowlerSearchCriteria searchCriteria);
 
     void Update(BowlerId id, string firstName, string middleInitial, string lastName, string suffix);
 

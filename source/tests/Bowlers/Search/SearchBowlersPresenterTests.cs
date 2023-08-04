@@ -19,18 +19,20 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_AdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterExecute_CalledCorrectly()
     {
         var searchCritiera = new NortheastMegabuck.Models.BowlerSearchCriteria();
         _view.SetupGet(view => view.SearchCriteria).Returns(searchCritiera);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(searchCritiera), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.ExecuteAsync(searchCritiera, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_AdapterHasError_ErrorFlow()
+    public async Task ExecuteAsync_AdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
@@ -38,7 +40,7 @@ internal sealed class Presenter
         var searchCritiera = new NortheastMegabuck.Models.BowlerSearchCriteria();
         _view.SetupGet(view => view.SearchCriteria).Returns(searchCritiera);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -48,12 +50,12 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_AdapterHasNoError_NoResults_NoResultsFlow()
+    public async Task ExecuteAsync_AdapterHasNoError_NoResults_NoResultsFlow()
     {
         var searchCritiera = new NortheastMegabuck.Models.BowlerSearchCriteria();
         _view.SetupGet(view => view.SearchCriteria).Returns(searchCritiera);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -64,7 +66,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_AdapterHasNoError_ViewBindResults_CalledSorted()
+    public async Task ExecuteAsync_AdapterHasNoError_ViewBindResults_CalledSorted()
     {
         var bowler1 = new Mock<NortheastMegabuck.Bowlers.Search.IViewModel>();
         bowler1.SetupGet(bowler => bowler.LastName).Returns("Smith");
@@ -83,12 +85,12 @@ internal sealed class Presenter
 
         var bowlers = new[] { bowler1.Object, bowler2.Object, bowler3.Object };
 
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(bowlers);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowlers);
 
         var searchCritiera = new NortheastMegabuck.Models.BowlerSearchCriteria();
         _view.SetupGet(view => view.SearchCriteria).Returns(searchCritiera);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
