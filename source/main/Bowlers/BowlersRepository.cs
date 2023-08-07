@@ -84,8 +84,8 @@ internal class Repository : IRepository
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    Database.Entities.Bowler IRepository.Retrieve(BowlerId id)
-        => _dataContext.Bowlers.AsNoTracking().Single(bowler => bowler.Id == id);
+    async Task<Database.Entities.Bowler> IRepository.RetrieveAsync(BowlerId id, CancellationToken cancellationToken)
+        => await _dataContext.Bowlers.AsNoTracking().FirstAsync(bowler => bowler.Id == id, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IRepository
@@ -94,5 +94,5 @@ internal interface IRepository
 
     Task UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken);
 
-    Database.Entities.Bowler Retrieve(BowlerId id);
+    Task<Database.Entities.Bowler> RetrieveAsync(BowlerId id, CancellationToken cancellationToken);
 }

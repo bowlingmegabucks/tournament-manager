@@ -1,4 +1,6 @@
 ﻿
+using System.Threading;
+
 namespace NortheastMegabuck.Registrations.Add;
 internal class Presenter
 {
@@ -49,7 +51,7 @@ internal class Presenter
         _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
-    public void Load(TournamentId tournamentId)
+    public void Load(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         var bowlerId = _view.SelectBowler();
 
@@ -66,14 +68,15 @@ internal class Presenter
 
         var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
 
-        var bowlerTask = Task.Run(() => RetrieveBowlerAdapter.Execute(bowlerId.Value));
+        Task<Bowlers.Retrieve.IViewModel?>? bowlerTask = null;
 
         if (bowlerId != BowlerId.Empty)
         {
+            bowlerTask = RetrieveBowlerAdapter.ExecuteAsync(bowlerId.Value, cancellationToken);
             tasks.Add(bowlerTask);
         }
 
-        Task.WaitAll(tasks.ToArray());
+        Task.WaitAll(tasks.ToArray(), cancellationToken);
 
         if (_retrieveDivisionsAdapter.Error != null)
         {
@@ -102,14 +105,14 @@ internal class Presenter
             _view.BindSquads(squadsTask.Result.Where(squad=> !squad.Complete).OrderBy(squad => squad.Date));
             _view.BindSweepers(sweepersTask.Result.Where(squad=> !squad.Complete).OrderBy(sweeper => sweeper.Date));
 
-            if (tasks.Contains(bowlerTask))
+            if (bowlerTask is not null)
             {
                 _view.BindBowler(bowlerTask.Result!);
             }   
         }
     }
 
-    public void Load(TournamentId tournamentId, SquadId squadId)
+    public void Load(TournamentId tournamentId, SquadId squadId, CancellationToken cancellationToken)
     {
         var bowlerId = _view.SelectBowler();
 
@@ -126,14 +129,15 @@ internal class Presenter
 
         var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
 
-        var bowlerTask = Task.Run(() => RetrieveBowlerAdapter.Execute(bowlerId.Value));
+        Task<Bowlers.Retrieve.IViewModel?>? bowlerTask = null;
 
         if (bowlerId != BowlerId.Empty)
         {
+            bowlerTask = RetrieveBowlerAdapter.ExecuteAsync(bowlerId.Value, cancellationToken);
             tasks.Add(bowlerTask);
         }
 
-        Task.WaitAll(tasks.ToArray());
+        Task.WaitAll(tasks.ToArray(), cancellationToken);
 
         if (_retrieveDivisionsAdapter.Error != null)
         {
@@ -162,7 +166,7 @@ internal class Presenter
             _view.BindSquads(squadsTask.Result.Where(squad=> !squad.Complete).OrderBy(squad => squad.Date), squadId);
             _view.BindSweepers(sweepersTask.Result.Where(sweeper=> !sweeper.Complete).OrderBy(sweeper => sweeper.Date), squadId);
 
-            if (tasks.Contains(bowlerTask))
+            if (bowlerTask is not null)
             {
                 _view.BindBowler(bowlerTask.Result!);
             }

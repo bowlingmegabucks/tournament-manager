@@ -31,7 +31,7 @@ internal sealed class Presenter
     [Test]
     public void Load_TournamentId_ViewSelectBowler_Called()
     {
-        _presenter.Load(new TournamentId());
+        _presenter.Load(new TournamentId(), default);
 
         _view.Verify(view => view.SelectBowler(), Times.Once);
     }
@@ -41,7 +41,7 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns((BowlerId?)null);
 
-        _presenter.Load(new TournamentId());
+        _presenter.Load(new TournamentId(), default);
 
         Assert.Multiple(() =>
         {
@@ -50,7 +50,7 @@ internal sealed class Presenter
             _divisionsAdapter.Verify(adapter => adapter.Execute(It.IsAny<TournamentId>()), Times.Never);
             _squadsAdapter.Verify(adapter => adapter.Execute(It.IsAny<TournamentId>()), Times.Never);
             _sweepersAdapter.Verify(adapter => adapter.Execute(It.IsAny<TournamentId>()), Times.Never);
-            _bowlersAdapter.Verify(adapter=> adapter.Execute(It.IsAny<BowlerId>()), Times.Never);
+            _bowlersAdapter.Verify(adapter=> adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Disable(), Times.Never);
@@ -69,7 +69,7 @@ internal sealed class Presenter
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
 
         _divisionsAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
     }
@@ -81,7 +81,7 @@ internal sealed class Presenter
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
 
         _squadsAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
     }
@@ -93,22 +93,21 @@ internal sealed class Presenter
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
 
         _sweepersAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
     }
 
     [Test]
-    [Ignore("Need to figure out how to test inside Task.Run")]
     public void Load_TournamentId_ViewSelectBowler_ReturnsEmptyId_BowlerAdapterExecute_NotCalled()
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
 
-        _bowlersAdapter.Verify(adapter => adapter.Execute(It.IsAny<BowlerId>()), Times.Never);
+        _bowlersAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Test]
@@ -118,10 +117,11 @@ internal sealed class Presenter
         _view.Setup(view => view.SelectBowler()).Returns(bowlerId);
 
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, cancellationToken);
 
-        _bowlersAdapter.Verify(adapter => adapter.Execute(bowlerId), Times.Once);
+        _bowlersAdapter.Verify(adapter => adapter.ExecuteAsync(bowlerId, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -143,7 +143,7 @@ internal sealed class Presenter
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
 
         Assert.Multiple(() =>
         {
@@ -165,7 +165,7 @@ internal sealed class Presenter
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
 
         Assert.Multiple(() =>
         {
@@ -184,7 +184,7 @@ internal sealed class Presenter
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
 
         Assert.Multiple(() =>
         {
@@ -212,7 +212,7 @@ internal sealed class Presenter
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
 
         Assert.Multiple(() =>
         {
@@ -247,7 +247,7 @@ internal sealed class Presenter
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
 
         Assert.Multiple(() =>
         {
@@ -282,7 +282,7 @@ internal sealed class Presenter
 
         var tournamentId = TournamentId.New();
 
-        _presenter.Load(tournamentId);
+        _presenter.Load(tournamentId, default);
         
         Assert.Multiple(() =>
         {
@@ -299,7 +299,7 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        _presenter.Load(new TournamentId());
+        _presenter.Load(new TournamentId(), default);
 
         _view.Verify(view => view.BindBowler(It.IsAny<NortheastMegabuck.Bowlers.Retrieve.IViewModel>()), Times.Never);
     }
@@ -310,9 +310,9 @@ internal sealed class Presenter
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.New());
 
         var bowler = new Mock<NortheastMegabuck.Bowlers.Retrieve.IViewModel>();
-        _bowlersAdapter.Setup(adapter => adapter.Execute(It.IsAny<BowlerId>())).Returns(bowler.Object);
+        _bowlersAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler.Object);
 
-        _presenter.Load(new TournamentId());
+        _presenter.Load(new TournamentId(), default);
 
         _view.Verify(view => view.BindBowler(bowler.Object), Times.Once);
     }

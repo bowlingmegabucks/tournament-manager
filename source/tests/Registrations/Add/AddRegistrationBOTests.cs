@@ -63,7 +63,7 @@ internal sealed class BusinessLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
+            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
             _getTournamentBO.Verify(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
@@ -107,7 +107,7 @@ internal sealed class BusinessLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
+            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
             _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
         });
@@ -178,9 +178,11 @@ internal sealed class BusinessLogic
             Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId }
         };
 
-        await _businessLogic.ExecuteAsync(registration, default).ConfigureAwait(false);
+        CancellationToken cancellationToken = default;
 
-        _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(bowlerId), Times.Once);
+        await _businessLogic.ExecuteAsync(registration, cancellationToken).ConfigureAwait(false);
+
+        _getBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(bowlerId, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -203,7 +205,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(registration, default).ConfigureAwait(false);
 
-        _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
+        _getBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Test]
@@ -249,7 +251,7 @@ internal sealed class BusinessLogic
         _validator.Validate_IsValid();
 
         var bowler = new NortheastMegabuck.Models.Bowler();
-        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>())).Returns(bowler);
+        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
         var bowlerId = BowlerId.New();
 
@@ -280,7 +282,7 @@ internal sealed class BusinessLogic
         _validator.Validate_IsValid();
 
         var bowler = new NortheastMegabuck.Models.Bowler();
-        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>())).Returns(bowler);
+        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
         var bowlerId = BowlerId.Empty;
 

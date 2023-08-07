@@ -19,7 +19,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _config = config;
         _tournamentId = tournamentId;
 
-        new Presenter(config, this).Load(tournamentId);
+        new Presenter(config, this).Load(tournamentId, default);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _config = config;
         _tournamentId = tournamentId;
 
-        new Presenter(config, this).Load(tournamentId, squadId);
+        new Presenter(config, this).Load(tournamentId, squadId, default);
     }
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)

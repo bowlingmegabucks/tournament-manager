@@ -22,27 +22,28 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_BowlerId_RepositoryRetrieve_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerId_RepositoryRetrieve_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<BowlerId>())).Returns(new NortheastMegabuck.Database.Entities.Bowler());
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Database.Entities.Bowler());
 
         var bowlerId = BowlerId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(bowlerId);
+        await _dataLayer.ExecuteAsync(bowlerId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository=> repository.Retrieve(bowlerId), Times.Once);
+        _repository.Verify(repository=> repository.RetrieveAsync(bowlerId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerId_ReturnsRepositoryRetrieve()
+    public async Task ExecuteAsync_BowlerId_ReturnsRepositoryRetrieve()
     {
         var bowler = new NortheastMegabuck.Database.Entities.Bowler
         {
             LastName = "test"
         };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<BowlerId>())).Returns(bowler);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
-        var actual = _dataLayer.Execute(BowlerId.New());
+        var actual = await _dataLayer.ExecuteAsync(BowlerId.New(), default).ConfigureAwait(false);
 
         Assert.That(actual.Name.Last, Is.EqualTo("test"));
     }

@@ -22,23 +22,25 @@ internal sealed class NamePresenter
     }
 
     [Test]
-    public void Load_RetrieveBowlerAdapterExecute_CalledCorrectly()
+    public async Task LoadAsync_RetrieveBowlerAdapterExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         _view.SetupGet(view => view.Id).Returns(bowlerId);
 
-        _namePresenter.Load();
+        CancellationToken cancellationToken = default;
 
-        _retrieveBowlerAdapter.Verify(adapter => adapter.Execute(bowlerId), Times.Once);
+        await _namePresenter.LoadAsync(cancellationToken).ConfigureAwait(false);
+
+        _retrieveBowlerAdapter.Verify(adapter => adapter.ExecuteAsync(bowlerId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Load_RetrieveBowlerAdapterErrorNotNull_ErrorFlow()
+    public async Task LoadAsync_RetrieveBowlerAdapterErrorNotNull_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveBowlerAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _namePresenter.Load();
+        await _namePresenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -50,12 +52,12 @@ internal sealed class NamePresenter
     }
 
     [Test]
-    public void Load_RetrievebowlerAdapterSuccessful_ViewBind_CalledCorrectly()
+    public async Task LoadAsync_RetrievebowlerAdapterSuccessful_ViewBind_CalledCorrectly()
     {
         var bowler = new Mock<NortheastMegabuck.Bowlers.Retrieve.IViewModel>().Object;
-        _retrieveBowlerAdapter.Setup(adapter => adapter.Execute(It.IsAny<BowlerId>())).Returns(bowler);
+        _retrieveBowlerAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
-        _namePresenter.Load();
+        await _namePresenter.LoadAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.Bind(bowler), Times.Once);
     }

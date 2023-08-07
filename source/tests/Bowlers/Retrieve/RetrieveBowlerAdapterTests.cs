@@ -17,24 +17,25 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(bowlerId);
+        await _adapter.ExecuteAsync(bowlerId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(bowlerId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(bowlerId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BusinessLogicHasError_ErrorFlow()
+    public async Task ExecuteAsync_BusinessLogicHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var bowlerId = BowlerId.New();
 
-        var actual = _adapter.Execute(bowlerId);
+        var actual = await _adapter.ExecuteAsync(bowlerId, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -45,17 +46,17 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicSuccess_ReturnsMappedViewModel()
+    public async Task ExecuteAsync_BusinessLogicSuccess_ReturnsMappedViewModel()
     {
         var bowler = new NortheastMegabuck.Models.Bowler
         {
             Id = BowlerId.New()
         };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<BowlerId>())).Returns(bowler);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
         var bowlerId = BowlerId.New();
 
-        var actual = _adapter.Execute(bowlerId);
+        var actual = await _adapter.ExecuteAsync(bowlerId, default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(bowler.Id));
     }

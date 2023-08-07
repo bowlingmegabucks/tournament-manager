@@ -71,7 +71,7 @@ internal class BusinessLogic : IBusinessLogic
 
         if (registration.Bowler.Id.Value != Guid.Empty)
         {
-            var bowler = GetBowlerBO.Execute(registration.Bowler.Id);
+            var bowler = await GetBowlerBO.ExecuteAsync(registration.Bowler.Id, cancellationToken).ConfigureAwait(false);
 
             if (GetBowlerBO.Error != null)
             {

@@ -10,7 +10,7 @@ internal partial class NameForm : Form, IBowlerNameView
         Id = id;
         _config = config;
 
-        new NamePresenter(config, this).Load();
+        _ = new NamePresenter(config, this).LoadAsync(default);
     }
 
     public BowlerId Id { get; }

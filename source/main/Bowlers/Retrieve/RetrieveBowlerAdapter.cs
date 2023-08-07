@@ -21,11 +21,11 @@ internal class Adapter : IAdapter
     public Models.ErrorDetail? Error
         => _businessLogic.Error;
 
-    public IViewModel? Execute(BowlerId bowlerId)
+    public async Task<IViewModel?> ExecuteAsync(BowlerId bowlerId, CancellationToken cancellationToken)
     {
-        var bowler = _businessLogic.Execute(bowlerId);
+        var bowler = await _businessLogic.ExecuteAsync(bowlerId, cancellationToken).ConfigureAwait(false);
 
-        return bowler != null ? new ViewModel(bowler) : null;
+        return bowler is not null ? new ViewModel(bowler) : null;
     }
 }
 
@@ -33,5 +33,5 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IViewModel? Execute(BowlerId bowlerId);
+    Task<IViewModel?> ExecuteAsync(BowlerId bowlerId, CancellationToken cancellationToken);
 }

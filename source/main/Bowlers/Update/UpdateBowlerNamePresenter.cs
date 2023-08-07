@@ -30,9 +30,9 @@ internal class NamePresenter
         _updateBowlerNameAdapter = new Lazy<IAdapter>(() => mockUpdateBowlerNameAdapter);
     }
 
-    public void Load()
+    public async Task LoadAsync(CancellationToken cancellationToken)
     {
-        var bowler = _retrieveBowlerAdapter.Execute(_view.Id);
+        var bowler = await _retrieveBowlerAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveBowlerAdapter.Error != null)
         {

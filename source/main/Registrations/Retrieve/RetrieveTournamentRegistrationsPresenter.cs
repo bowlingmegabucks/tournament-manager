@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Retrieve;
+﻿using System.Globalization;
+
+namespace NortheastMegabuck.Registrations.Retrieve;
 internal class TournamentRegistrationsPresenter
 {
     private readonly ITournamentRegistrationsView _view;
@@ -57,12 +59,12 @@ internal class TournamentRegistrationsPresenter
             return;
         }
 
-        var squads = squadsTask.Result.ToDictionary(squad => squad.Id, squad => squad.Date.ToString("MM/dd/yy htt"));
+        var squads = squadsTask.Result.ToDictionary(squad => squad.Id, squad => squad.Date.ToString("MM/dd/yy htt", CultureInfo.CurrentCulture));
         var squadEntries = squads.ToDictionary(squad => squad.Value, squad => registrationsTask.Result.Count(registration => registration.SquadsEntered.Contains(squad.Key)));
         _view.SetSquadEntries(squadEntries);
         _view.BindSquadDates(squads);
 
-        var sweepers = sweepersTask.Result.ToDictionary(sweeper => sweeper.Id, sweeper => sweeper.Date.ToString("MM/dd/yy htt"));
+        var sweepers = sweepersTask.Result.ToDictionary(sweeper => sweeper.Id, sweeper => sweeper.Date.ToString("MM/dd/yy htt", CultureInfo.CurrentCulture));
         var sweeperEntries = sweepers.ToDictionary(sweeper => sweeper.Value, sweeper => registrationsTask.Result.Count(registration => registration.SweepersEntered.Contains(sweeper.Key)));
         sweeperEntries.Add("Super Sweeper", registrationsTask.Result.Count(registration => registration.SuperSweeperEntered));
         _view.SetSweeperEntries(sweeperEntries);

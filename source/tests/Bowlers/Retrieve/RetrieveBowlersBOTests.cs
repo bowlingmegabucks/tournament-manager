@@ -17,33 +17,34 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_BowlerId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerId_DataLayerExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(bowlerId);
+        await _businessLogic.ExecuteAsync(bowlerId, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(bowlerId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(bowlerId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerId_DataLayerExecuteSuccessful_ReturnsBowler()
+    public async Task ExecuteAsync_BowlerId_DataLayerExecuteSuccessful_ReturnsBowler()
     {
         var bowler = new NortheastMegabuck.Models.Bowler();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<BowlerId>())).Returns(bowler);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
-        var actual = _businessLogic.Execute(BowlerId.New());
+        var actual = await _businessLogic.ExecuteAsync(BowlerId.New(), default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(bowler));
     }
 
     [Test]
-    public void Execute_BowlerId_DataLayerExecuteThrowsException_ExceptionFlow()
+    public async Task ExecuteAsync_BowlerId_DataLayerExecuteThrowsException_ExceptionFlow()
     {
         var ex = new Exception("ex");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<BowlerId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        var actual = _businessLogic.Execute(BowlerId.New());
+        var actual = await _businessLogic.ExecuteAsync(BowlerId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

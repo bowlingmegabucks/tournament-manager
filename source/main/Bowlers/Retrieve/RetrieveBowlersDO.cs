@@ -23,11 +23,11 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    Models.Bowler IDataLayer.Execute(BowlerId id)
-        => new (_repository.Retrieve(id));
+    async Task<Models.Bowler> IDataLayer.ExecuteAsync(BowlerId id, CancellationToken cancellationToken)
+        => new (await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
 }
 
 internal interface IDataLayer
 {
-    Models.Bowler Execute(BowlerId id);
+    Task<Models.Bowler> ExecuteAsync(BowlerId id, CancellationToken cancellationToken);
 }
