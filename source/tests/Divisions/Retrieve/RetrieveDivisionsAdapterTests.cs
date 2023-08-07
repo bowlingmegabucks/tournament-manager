@@ -16,40 +16,41 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(tournamentId);
+        await _adapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(tournamentId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
+    public async Task ExecuteAsync_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
         var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var tournamentId = TournamentId.New();
 
-        _adapter.Execute(tournamentId);
+        await _adapter.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }
 
     [Test]
-    public void Execute_ReturnsDivisionsFromBusinessLogic()
+    public async Task ExecuteAsync_ReturnsDivisionsFromBusinessLogic()
     {
         var division1 = new NortheastMegabuck.Models.Division { Name = "Division 1" };
         var division2 = new NortheastMegabuck.Models.Division { Name = "Division 2" };
         var divisions = new[] { division1, division2 };
 
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(divisions);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
         var tournamentId = TournamentId.New();
 
-        var actual = _adapter.Execute(tournamentId).ToList();
+        var actual = (await _adapter.ExecuteAsync(tournamentId, default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

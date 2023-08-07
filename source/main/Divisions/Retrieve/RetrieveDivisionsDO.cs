@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Divisions.Retrieve;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NortheastMegabuck.Divisions.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
@@ -17,8 +19,8 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    public IEnumerable<Models.Division> Execute(TournamentId tournamentId)
-        => _repository.Retrieve(tournamentId).Select(division=> new Models.Division(division));
+    public async Task<IEnumerable<Models.Division>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
+        => (await _repository.Retrieve(tournamentId).ToListAsync(cancellationToken).ConfigureAwait(false)).Select(division=> new Models.Division(division));
 
     public Models.Division? Execute(NortheastMegabuck.DivisionId id)
         => new(_repository.Retrieve(id));
@@ -26,7 +28,7 @@ internal class DataLayer : IDataLayer
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.Division> Execute(TournamentId tournamentId);
+    Task<IEnumerable<Models.Division>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    Models.Division? Execute(NortheastMegabuck.DivisionId id);
+    Models.Division? Execute(DivisionId id);
 }

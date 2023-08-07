@@ -13,7 +13,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         TournamentId = tournamentId;
         _config = config;
 
-        new Presenter(config, this).Execute();
+        _ = new Presenter(config, this).ExecuteAsync(default);
     }
 
     public void DisplayError(string message)
@@ -25,8 +25,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void Disable()
         => addButton.Enabled = false;
 
-    private void AddButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).AddDivision();
+    private async void AddButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).AddDivisionAsync(default).ConfigureAwait(true);
 
     public NortheastMegabuck.DivisionId? AddDivision(TournamentId tournamentId)
     {
@@ -35,6 +35,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
         return form.ShowDialog() == DialogResult.OK ? form.Division.Id : null;
     }
 
-    public void RefreshDivisions()
-        => new Presenter(_config, this).Execute();
+    public async Task RefreshDivisionsAsync(CancellationToken cancellationToken)
+        => await new Presenter(_config, this).ExecuteAsync(cancellationToken).ConfigureAwait(true);
 }

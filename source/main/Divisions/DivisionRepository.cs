@@ -27,10 +27,10 @@ internal class Repository : IRepository
         return division.Id;
     }
 
-    IEnumerable<Database.Entities.Division> IRepository.Retrieve(TournamentId tournamentId)
-        => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId).AsEnumerable();
+    IQueryable<Database.Entities.Division> IRepository.Retrieve(TournamentId tournamentId)
+        => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId);
 
-    Database.Entities.Division IRepository.Retrieve(NortheastMegabuck.DivisionId id)
+    Database.Entities.Division IRepository.Retrieve(DivisionId id)
         => _dataContext.Divisions.Single(division => division.Id == id);
 }
 
@@ -38,7 +38,7 @@ internal interface IRepository
 {
     DivisionId Add(Database.Entities.Division division);
 
-    IEnumerable<Database.Entities.Division> Retrieve(TournamentId tournamentId);
+    IQueryable<Database.Entities.Division> Retrieve(TournamentId tournamentId);
 
     Database.Entities.Division Retrieve(DivisionId id);
 }

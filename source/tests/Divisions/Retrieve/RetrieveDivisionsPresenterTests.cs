@@ -16,23 +16,25 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_AdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_AdapterErrorNotNull_ErrorFlow()
+    public async Task ExecuteAsync_AdapterErrorNotNull_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -44,45 +46,49 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_AdapterErrorNull_ViewBindDivisions_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterErrorNull_ViewBindDivisions_CalledCorrectly()
     {
         var divisions = new List<NortheastMegabuck.Divisions.IViewModel>();
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(divisions);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.BindDivisions(divisions), Times.Once);
     }
 
     [Test]
-    public void AddDivision_ViewAddDivision_Called()
+    public async Task AddDivisionAsync_ViewAddDivision_Called()
     {
         var id = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(id);
         
-        _presenter.AddDivision();
+        await _presenter.AddDivisionAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.AddDivision(id), Times.Once);
     }
 
     [Test]
-    public void AddDivision_ViewAddDivisionReturnsId_ViewRefreshDivisions_Called()
+    public async Task AddDivisionAsync_ViewAddDivisionReturnsId_ViewRefreshDivisions_Called()
     {
         var id = NortheastMegabuck.DivisionId.New();
         _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns(id);
 
-        _presenter.AddDivision();
+        CancellationToken cancellationToken = default;
 
-        _view.Verify(view => view.RefreshDivisions(), Times.Once);
+        await _presenter.AddDivisionAsync(cancellationToken).ConfigureAwait(false);
+
+        _view.Verify(view => view.RefreshDivisionsAsync(cancellationToken), Times.Once);
     }
 
     [Test]
-    public void AddDivision_ViewAddDivisionReturnsNull_ViewRefreshDivisions_NotCalled()
+    public async Task AddDivisionAsync_ViewAddDivisionReturnsNull_ViewRefreshDivisions_NotCalled()
     {
         _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns((DivisionId?)null);
 
-        _presenter.AddDivision();
+        CancellationToken cancellationToken = default;
 
-        _view.Verify(view => view.RefreshDivisions(), Times.Never);
+        await _presenter.AddDivisionAsync(cancellationToken).ConfigureAwait(false);
+
+        _view.Verify(view => view.RefreshDivisionsAsync(cancellationToken), Times.Never);
     }
 }

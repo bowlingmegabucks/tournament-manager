@@ -30,9 +30,9 @@ internal class Presenter
         _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
-    public void GetDivisions()
+    public async Task GetDivisionsAsync(CancellationToken cancellationToken)
     {
-        var divisions = _retrieveDivisionsAdapter.Execute(_view.TournamentId);
+        var divisions = await _retrieveDivisionsAdapter.ExecuteAsync(_view.TournamentId, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveDivisionsAdapter.Error != null)
         {

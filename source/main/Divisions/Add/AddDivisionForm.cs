@@ -9,10 +9,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
         
         _config = config;
         
-        Division.TournamentId = tournamentId;
-        
+        Division.TournamentId = tournamentId; 
 
-        new Presenter(config, this).GetNextDivisionNumber();
+        _ = new Presenter(config, this).GetNextDivisionNumberAsync(default);
         
         newDivision.Focus();
     }

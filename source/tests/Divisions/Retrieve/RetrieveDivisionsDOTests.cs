@@ -16,17 +16,18 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryRetrieve_Called()
+    public async Task ExecuteAsync_RepositoryRetrieve_Called()
     {
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Division>().BuildMock());
         var id = TournamentId.New();
 
-        _dataLayer.Execute(id);
+        await _dataLayer.ExecuteAsync(id, default).ConfigureAwait(false);
 
         _repository.Verify(repository => repository.Retrieve(id), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsRepositoryRetrieveResponse()
+    public async Task ExecuteAsync_ReturnsRepositoryRetrieveResponse()
     {
         var division1 = new NortheastMegabuck.Database.Entities.Division
         {
@@ -45,9 +46,9 @@ internal sealed class DataLayer
 
         var divisions = new[] { division1, division2, division3 };
 
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(divisions);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(divisions.BuildMock());
 
-        var actual = _dataLayer.Execute(TournamentId.New());
+        var actual = await _dataLayer.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -65,7 +66,7 @@ internal sealed class DataLayer
         var division = new NortheastMegabuck.Database.Entities.Division();
         _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(division);
 
-        var id = NortheastMegabuck.DivisionId.New();
+        var id = DivisionId.New();
 
         _dataLayer.Execute(id);
 

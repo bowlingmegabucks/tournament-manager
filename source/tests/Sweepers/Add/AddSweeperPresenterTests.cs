@@ -21,18 +21,20 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void GetDivisions_RetrieveDivisionsAdapter_CalledCorrectly()
+    public async Task GetDivisionsAsync_RetrieveDivisionsAdapter_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.GetDivisions();
+        CancellationToken cancellationToken = default;
 
-        _retrieveDivisionsAdapter.Verify(adapter => adapter.Execute(tournamentId));
+        await _presenter.GetDivisionsAsync(cancellationToken).ConfigureAwait(false);
+
+        _retrieveDivisionsAdapter.Verify(adapter => adapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void GetDivisions_RetrieveDivisionsAdapterHasError_ErrorFlow()
+    public async Task GetDivisionsAsync_RetrieveDivisionsAdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveDivisionsAdapter.SetupGet(adapter => adapter.Error).Returns(error);
@@ -40,8 +42,8 @@ internal sealed class Presenter
         var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.GetDivisions();
-
+        await _presenter.GetDivisionsAsync(default).ConfigureAwait(false);
+        
         Assert.Multiple(()=>
         {
             _view.Verify(view => view.DisplayError(error.Message), Times.Once);
@@ -52,15 +54,15 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void GetDivisions_RetrieveDivisionsAdapterHasNoError_ViewBindDivisions_CalledCorrectly()
+    public async Task GetDivisionsAsync_RetrieveDivisionsAdapterHasNoError_ViewBindDivisions_CalledCorrectly()
     {
         var divisions = new Mock<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>();
-        _retrieveDivisionsAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(divisions.Object);
+        _retrieveDivisionsAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions.Object);
 
         var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.GetDivisions();
+        await _presenter.GetDivisionsAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.BindDivisions(divisions.Object), Times.Once);
     }

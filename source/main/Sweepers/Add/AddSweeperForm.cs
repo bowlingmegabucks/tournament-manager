@@ -15,7 +15,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         newSweeper.Date = DateTime.Today;
         newSweeper.TournamentId = tournamentId;
 
-        new Presenter(_config, this).GetDivisions();
+        _ = new Presenter(_config, this).GetDivisionsAsync(default);
     }
 
     public IViewModel Sweeper
