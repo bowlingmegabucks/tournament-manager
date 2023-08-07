@@ -33,11 +33,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public Models.Division? Execute(DivisionId id)
+    public async Task<Models.Division?> ExecuteAsync(DivisionId id, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(id);
+            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -54,5 +54,5 @@ internal interface IBusinessLogic
 
     Task<IEnumerable<Models.Division>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    Models.Division? Execute(NortheastMegabuck.DivisionId id);
+    Task<Models.Division?> ExecuteAsync(DivisionId id, CancellationToken cancellationToken);
 }

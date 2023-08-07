@@ -46,7 +46,7 @@ internal class BusinessLogic : IBusinessLogic
 
     public async Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
     {
-        var division = _getDivisionBO.Execute(registration.Division.Id);
+        var division = await _getDivisionBO.ExecuteAsync(registration.Division.Id, cancellationToken).ConfigureAwait(false);
 
         if (_getDivisionBO.Error != null)
         {

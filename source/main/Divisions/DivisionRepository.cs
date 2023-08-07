@@ -30,8 +30,8 @@ internal class Repository : IRepository
     IQueryable<Database.Entities.Division> IRepository.Retrieve(TournamentId tournamentId)
         => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId);
 
-    Database.Entities.Division IRepository.Retrieve(DivisionId id)
-        => _dataContext.Divisions.Single(division => division.Id == id);
+    async Task<Database.Entities.Division> IRepository.RetrieveAsync(DivisionId id, CancellationToken cancellationToken)
+        => await _dataContext.Divisions.FirstAsync(division => division.Id == id, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IRepository
@@ -40,5 +40,5 @@ internal interface IRepository
 
     IQueryable<Database.Entities.Division> Retrieve(TournamentId tournamentId);
 
-    Database.Entities.Division Retrieve(DivisionId id);
+    Task<Database.Entities.Division> RetrieveAsync(DivisionId id, CancellationToken cancellationToken);
 }

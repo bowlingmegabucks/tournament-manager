@@ -50,21 +50,21 @@ internal sealed class Repository
 
         var division1 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
         var division2 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
         var division3 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };
@@ -82,9 +82,9 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Retrieve_ReturnsDivision()
+    public async Task RetrieveAsync_ReturnsDivision()
     {
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = DivisionId.New();
 
         var division1 = new NortheastMegabuck.Database.Entities.Division
         {
@@ -95,14 +95,14 @@ internal sealed class Repository
 
         var division2 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };
 
         var division3 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };
@@ -110,7 +110,7 @@ internal sealed class Repository
         var divisions = new[] { division1, division2, division3 };
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(divisions.SetUpDbContext());
 
-        var division = _repository.Retrieve(divisionId);
+        var division = await _repository.RetrieveAsync(divisionId, default).ConfigureAwait(false);
 
         Assert.That(division.Id, Is.EqualTo(divisionId));
     }

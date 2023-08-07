@@ -22,13 +22,13 @@ internal class DataLayer : IDataLayer
     public async Task<IEnumerable<Models.Division>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
         => (await _repository.Retrieve(tournamentId).ToListAsync(cancellationToken).ConfigureAwait(false)).Select(division=> new Models.Division(division));
 
-    public Models.Division? Execute(NortheastMegabuck.DivisionId id)
-        => new(_repository.Retrieve(id));
+    public async Task<Models.Division> ExecuteAsync(DivisionId id, CancellationToken cancellationToken)
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
 }
 
 internal interface IDataLayer
 {
     Task<IEnumerable<Models.Division>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    Models.Division? Execute(DivisionId id);
+    Task<Models.Division> ExecuteAsync(DivisionId id, CancellationToken cancellationToken);
 }

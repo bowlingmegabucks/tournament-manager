@@ -70,50 +70,51 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_DivisionId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_DivisionId_DataLayerExecute_CalledCorrectly()
     {
         var divisionId = DivisionId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(divisionId);
+        await _businessLogic.ExecuteAsync(divisionId, default).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(divisionId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(divisionId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsDataLayerExecuteResult()
+    public async Task ExecuteAsync_ReturnsDataLayerExecuteResult()
     {
         var division = new NortheastMegabuck.Models.Division();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Returns(division);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var divisionId = DivisionId.New();
 
-        var actual = _businessLogic.Execute(divisionId);
+        var actual = await _businessLogic.ExecuteAsync(divisionId, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(division));
     }
 
     [Test]
-    public void Execute_DataLayerExecutetNoException_ErrorNull()
+    public async Task ExecuteAsync_DataLayerExecutetNoException_ErrorNull()
     {
         var division = new NortheastMegabuck.Models.Division();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Returns(division);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var divisionId = DivisionId.New();
 
-        _businessLogic.Execute(divisionId);
+        await _businessLogic.ExecuteAsync(divisionId, default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void Execute_DivisionId_DataLayerExecuteThrowsException_ErrorFlow()
+    public async Task ExecuteAsync_DivisionId_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<DivisionId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var divisionId = DivisionId.New();
 
-        var actual = _businessLogic.Execute(divisionId);
+        var actual = await _businessLogic.ExecuteAsync(divisionId, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

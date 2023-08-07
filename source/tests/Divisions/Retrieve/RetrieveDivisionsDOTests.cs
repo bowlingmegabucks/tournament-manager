@@ -61,27 +61,28 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryRetrieve_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryRetrieve_CalledCorrectly()
     {
         var division = new NortheastMegabuck.Database.Entities.Division();
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(division);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var id = DivisionId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(id);
+        await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Retrieve(id), Times.Once);
+        _repository.Verify(repository => repository.RetrieveAsync(id, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_DivisionId_ReturnsRepositoryRetrieveResponse()
+    public async Task ExecuteAsync_DivisionId_ReturnsRepositoryRetrieveResponse()
     {
         var division = new NortheastMegabuck.Database.Entities.Division { Name = "name"};
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<DivisionId>())).Returns(division);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
-        var id = NortheastMegabuck.DivisionId.New();
+        var id = DivisionId.New();
 
-        var actual = _dataLayer.Execute(id);
+        var actual = await _dataLayer.ExecuteAsync(id, default).ConfigureAwait(false);
 
         Assert.That(actual.Name, Is.EqualTo(division.Name));
     }
