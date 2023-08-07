@@ -19,27 +19,28 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Add_DivisionAddedWithId()
+    public async Task AddAsync_DivisionAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Division>().SetUpDbContext());
 
         var division = new NortheastMegabuck.Database.Entities.Division();
 
-        var id = _repository.Add(division);
+        var id = await _repository.AddAsync(division, default).ConfigureAwait(false);
 
         Assert.That(division.Id, Is.EqualTo(id));
     }
 
     [Test]
-    public void Add_DataContextSaveChanges_Called()
+    public async Task AddAsync_DataContextSaveChanges_Called()
     {
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Division>().SetUpDbContext());
 
         var division = new NortheastMegabuck.Database.Entities.Division();
+        CancellationToken cancellationToken = default;
 
-        _repository.Add(division);
+        await _repository.AddAsync(division, cancellationToken).ConfigureAwait(false);
 
-        _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once);
+        _dataContext.Verify(dataContext => dataContext.SaveChangesAsync(cancellationToken), Times.Once);
     }
 
     [Test]

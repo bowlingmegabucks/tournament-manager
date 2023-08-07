@@ -21,11 +21,11 @@ internal class Adapter : IAdapter
         _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
     }
 
-    public NortheastMegabuck.DivisionId? Execute(IViewModel viewModel)
+    public async Task<DivisionId?> ExecuteAsync(IViewModel viewModel, CancellationToken cancellationToken)
     {
         var model = new Models.Division(viewModel);
 
-        var id = BusinessLogic.Execute(model);
+        var id = await BusinessLogic.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
 
         Errors = BusinessLogic.Errors;
 
@@ -37,5 +37,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    DivisionId? Execute(IViewModel viewModel);
+    Task<DivisionId?> ExecuteAsync(IViewModel viewModel, CancellationToken cancellationToken);
 }

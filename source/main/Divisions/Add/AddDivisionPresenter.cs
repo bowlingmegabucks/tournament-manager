@@ -44,7 +44,7 @@ internal class Presenter
         }
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())
         {
@@ -52,7 +52,7 @@ internal class Presenter
             return;
         }
 
-        var id = AddDivisionAdapter.Execute(_view.Division);
+        var id = await AddDivisionAdapter.ExecuteAsync(_view.Division, cancellationToken).ConfigureAwait(true);
 
         if (AddDivisionAdapter.Errors.Any())
         {

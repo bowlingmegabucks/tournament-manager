@@ -19,10 +19,10 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    DivisionId IRepository.Add(Database.Entities.Division division)
+    async Task<DivisionId> IRepository.AddAsync(Database.Entities.Division division, CancellationToken cancellationToken)
     {
-        _dataContext.Divisions.Add(division);
-        _dataContext.SaveChanges();
+        await _dataContext.Divisions.AddAsync(division, cancellationToken).ConfigureAwait(false);
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return division.Id;
     }
@@ -36,7 +36,7 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    DivisionId Add(Database.Entities.Division division);
+    Task<DivisionId> AddAsync(Database.Entities.Division division, CancellationToken cancellationToken);
 
     IQueryable<Database.Entities.Division> Retrieve(TournamentId tournamentId);
 

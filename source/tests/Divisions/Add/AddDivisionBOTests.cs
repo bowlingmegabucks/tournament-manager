@@ -21,58 +21,60 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_ValidatorValidate_CalledCorrectly()
+    public async Task ExecuteAsync_ValidatorValidate_CalledCorrectly()
     {
         _validator.Validate_IsValid();
         
         var division = new NortheastMegabuck.Models.Division();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(division);
+        await _businessLogic.ExecuteAsync(division, cancellationToken).ConfigureAwait(true);
 
-        _validator.Verify(validator => validator.Validate(division), Times.Once);
+        _validator.Verify(validator => validator.ValidateAsync(division, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ValidatorValidateFalse_ErrorFlow()
+    public async Task ExecuteAsync_ValidatorValidateFalse_ErrorFlow()
     {
         _validator.Validate_IsNotValid("error");
 
         var division = new NortheastMegabuck.Models.Division();
 
-        var result = _businessLogic.Execute(division);
+        var result = await _businessLogic.ExecuteAsync(division, default).ConfigureAwait(true);
 
         Assert.Multiple(() =>
         {
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(result, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Division>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Division>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_ValidatorValidateTrue_DataLayerExecute_CalledCorrectly()
     {
         _validator.Validate_IsValid();
 
         var division = new NortheastMegabuck.Models.Division();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(division);
+        await _businessLogic.ExecuteAsync(division, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(division), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(division, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecuteThrowsException_ExceptionFlow()
+    public async Task ExecuteAsync_ValidatorValidateTrue_DataLayerExecuteThrowsException_ExceptionFlow()
     {
         _validator.Validate_IsValid();
         
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Division>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Division>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var division = new NortheastMegabuck.Models.Division();
 
-        var result = _businessLogic.Execute(division);
+        var result = await _businessLogic.ExecuteAsync(division, default).ConfigureAwait(true);
 
         Assert.Multiple(() =>
         {
@@ -82,16 +84,16 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsId_IdReturned()
+    public async Task ExecuteAsync_ValidatorValidateTrue_DataLayerExecuteReturnsId_IdReturned()
     {
         _validator.Validate_IsValid();
 
         var divisionId = NortheastMegabuck.DivisionId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Division>())).Returns(divisionId);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Division>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisionId);
 
         var division = new NortheastMegabuck.Models.Division();
 
-        var result = _businessLogic.Execute(division);
+        var result = await _businessLogic.ExecuteAsync(division, default).ConfigureAwait(true);
 
         Assert.That(result, Is.EqualTo(divisionId));
     }
