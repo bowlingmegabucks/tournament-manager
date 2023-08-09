@@ -5,7 +5,7 @@ internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Squads.Retrieve.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Squads.Retrieve.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Squads.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()

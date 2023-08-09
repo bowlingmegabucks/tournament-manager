@@ -11,7 +11,7 @@ internal sealed class BusinessLogic
     private Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Registration>> _validator;
     private Mock<NortheastMegabuck.Registrations.Add.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Registrations.Add.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Registrations.Add.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()

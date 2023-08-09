@@ -6,7 +6,7 @@ internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Sweepers.Complete.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Sweepers.Complete.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Sweepers.Complete.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()

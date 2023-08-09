@@ -4,7 +4,7 @@ using System.Text;
 namespace NortheastMegabuck.Tournaments.Results;
 internal partial class AtLarge : System.Windows.Forms.Form, IView
 {
-    private readonly IDictionary<TabPage, string> _toSpreadsheet;
+    private readonly Dictionary<TabPage, string> _toSpreadsheet;
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab];
 

@@ -9,7 +9,7 @@ internal sealed class BusinessLogic
     private Mock<IValidator<NortheastMegabuck.Models.Division>> _validator;
     private Mock<NortheastMegabuck.Divisions.Add.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Divisions.Add.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Divisions.Add.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()

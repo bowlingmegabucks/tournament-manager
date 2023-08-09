@@ -52,7 +52,7 @@ internal class TournamentRegistrationsPresenter
 
         var errors = new[] { _registrationsAdapter.Error, _squadsAdapter.Error, _sweepersAdapter.Error }.Where(error => error != null).ToList();
 
-        if (errors.Any())
+        if (errors.Count > 0)
         {
             _view.DisplayError(string.Join(Environment.NewLine, errors.Select(error => error!.Message).Distinct()));
 

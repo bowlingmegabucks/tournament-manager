@@ -8,7 +8,7 @@ internal sealed class DataLayer
     private Mock<IEntityMapper> _mapper;
     private Mock<IRepository> _repository;
     
-    private NortheastMegabuck.Sweepers.Add.IDataLayer _dataLayer;
+    private NortheastMegabuck.Sweepers.Add.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()

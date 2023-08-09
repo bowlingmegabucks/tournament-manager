@@ -10,7 +10,7 @@ public partial class TournamentRegistrationGrid
     : DataGrid<Registrations.Retrieve.ITournamentRegistrationViewModel>
 #endif
 {
-    private readonly IDictionary<SquadId, string> _squadDates;
+    private readonly Dictionary<SquadId, string> _squadDates;
 
     public TournamentRegistrationGrid()
     {

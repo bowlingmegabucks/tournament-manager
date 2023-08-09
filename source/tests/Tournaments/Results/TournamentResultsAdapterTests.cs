@@ -8,7 +8,7 @@ internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Tournaments.Results.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Tournaments.Results.IAdapter _adapter;
+    private NortheastMegabuck.Tournaments.Results.Adapter _adapter;
 
     [SetUp]
     public void SetUp()

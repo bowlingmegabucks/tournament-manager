@@ -9,7 +9,7 @@ internal sealed class BusinesLogic
     private Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Sweeper>> _validator;
     private Mock<NortheastMegabuck.Sweepers.Add.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Sweepers.Add.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Sweepers.Add.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()

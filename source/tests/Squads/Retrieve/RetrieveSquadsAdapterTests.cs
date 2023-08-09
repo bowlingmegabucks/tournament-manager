@@ -5,7 +5,7 @@ internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Squads.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Squads.Retrieve.IAdapter _adapter;
+    private NortheastMegabuck.Squads.Retrieve.Adapter _adapter;
 
     [SetUp]
     public void SetUp()

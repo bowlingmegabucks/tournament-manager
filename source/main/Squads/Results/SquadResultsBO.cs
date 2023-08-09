@@ -74,7 +74,7 @@ internal class BusinessLogic : IBusinessLogic
         return Execute(scores, tournament).GroupBy(result=> result.Division).ToList();
     }
 
-    private IEnumerable<Models.SquadResult> Execute(IEnumerable<Models.SquadScore> scores, Models.Tournament tournament)
+    private List<Models.SquadResult> Execute(IEnumerable<Models.SquadScore> scores, Models.Tournament tournament)
     {
         var scoresBySquad = scores.GroupBy(score => score.SquadId).Select(group => new { Squad = tournament.Squads.Single(squad => squad.Id == group.Key), Scores = group }).OrderBy(scores => scores.Squad.Date).ToList();
 

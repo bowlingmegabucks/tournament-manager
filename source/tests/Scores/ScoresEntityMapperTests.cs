@@ -9,7 +9,7 @@ namespace NortheastMegabuck.Tests.Scores;
 [TestFixture]
 internal sealed class EntityMapper
 {
-    private NortheastMegabuck.Scores.IEntityMapper _mapper;
+    private NortheastMegabuck.Scores.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()

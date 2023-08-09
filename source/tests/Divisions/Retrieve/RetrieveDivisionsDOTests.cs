@@ -5,7 +5,7 @@ internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Divisions.IRepository> _repository;
 
-    private NortheastMegabuck.Divisions.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Divisions.Retrieve.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()

@@ -7,7 +7,7 @@ internal sealed class Repository
 {
     private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
-    private NortheastMegabuck.Sweepers.IRepository _repository;
+    private NortheastMegabuck.Sweepers.Repository _repository;
 
     [SetUp]
     public void SetUp()

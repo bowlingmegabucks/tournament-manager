@@ -6,7 +6,7 @@ internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Bowlers.Retrieve.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Bowlers.Retrieve.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Bowlers.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()

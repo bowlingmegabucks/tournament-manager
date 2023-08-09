@@ -6,7 +6,7 @@ namespace NortheastMegabuck.Tests.Tournaments.Results;
 [TestFixture]
 internal sealed class Calculator
 {
-    private NortheastMegabuck.Tournaments.Results.ICalculator _calculator;
+    private NortheastMegabuck.Tournaments.Results.Calculator _calculator;
 
     [OneTimeSetUp]
     public void SetUp()

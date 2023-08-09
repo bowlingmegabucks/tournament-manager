@@ -5,7 +5,7 @@ namespace NortheastMegabuck.Tests.Sweepers.Add;
 [TestFixture]
 internal sealed class EntityMapper
 {
-    private IEntityMapper _mapper;
+    private NortheastMegabuck.Sweepers.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()

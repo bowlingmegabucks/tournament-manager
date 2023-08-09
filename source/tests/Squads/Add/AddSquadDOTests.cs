@@ -6,7 +6,7 @@ internal sealed class DataLayer
     private Mock<NortheastMegabuck.Squads.IEntityMapper> _mapper;
     private Mock<NortheastMegabuck.Squads.IRepository> _repository;
 
-    private NortheastMegabuck.Squads.Add.IDataLayer _dataLayer;
+    private NortheastMegabuck.Squads.Add.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()

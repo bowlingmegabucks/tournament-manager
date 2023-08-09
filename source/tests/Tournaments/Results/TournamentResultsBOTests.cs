@@ -8,7 +8,7 @@ internal sealed class BusinessLogic
     private Mock<NortheastMegabuck.Squads.Results.IBusinessLogic> _retrieveSquadResults;
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
 
-    private NortheastMegabuck.Tournaments.Results.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Tournaments.Results.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()

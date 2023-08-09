@@ -7,7 +7,7 @@ internal sealed class DataLayer
     private Mock<NortheastMegabuck.Scores.IRepository> _repository;
     private Mock<NortheastMegabuck.Squads.IHandicapCalculator> _handicapCalculator;
 
-    private NortheastMegabuck.Scores.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Scores.Retrieve.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()

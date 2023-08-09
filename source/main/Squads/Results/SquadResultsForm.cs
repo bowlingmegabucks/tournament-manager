@@ -4,7 +4,7 @@ using System.Text;
 namespace NortheastMegabuck.Squads.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
-    private readonly IDictionary<TabPage, string> _toSpreadsheet;
+    private readonly Dictionary<TabPage, string> _toSpreadsheet;
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab];
 
@@ -50,7 +50,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
             panel.Controls.Add(control);
         }
 
-        if (advancers.Any())
+        if (advancers.Count > 0)
         {
             panel.Controls.Add(new Controls.SquadResultsControl());
         }
@@ -65,7 +65,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
             panel.Controls.Add(control);
         }
 
-        if (cashers.Any())
+        if (cashers.Count > 0)
         {
             panel.Controls.Add(new Controls.SquadResultsControl());
         }

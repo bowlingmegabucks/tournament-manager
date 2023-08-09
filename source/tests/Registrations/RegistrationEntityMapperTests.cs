@@ -6,7 +6,7 @@ internal sealed class EntityMapper
 {
     private Mock<NortheastMegabuck.Bowlers.IEntityMapper> _bowlerEntityMapper;
 
-    private NortheastMegabuck.Registrations.IEntityMapper _mapper;
+    private NortheastMegabuck.Registrations.EntityMapper _mapper;
 
     [SetUp]
     public void SetUp()

@@ -44,7 +44,7 @@ internal class Repository : IRepository
 
         var noBowl = squadBowlerIds.Where(bowlerId => !squadScores.Select(score => score.BowlerId).Contains(bowlerId)).ToList();
 
-        if (noBowl.Any())
+        if (noBowl.Count > 0)
         {
             var tournament = _dataContext.Tournaments.AsNoTrackingWithIdentityResolution().Include(tournament => tournament.Squads).Single(tournament => tournament.Squads.Select(squad => squad.Id).Contains(id));
             var games = tournament.Games;

@@ -5,7 +5,7 @@ namespace NortheastMegabuck.Tests.Squads.Results;
 [TestFixture]
 internal sealed class Calculator
 {
-    private NortheastMegabuck.Squads.Results.ICalculator _calculator;
+    private NortheastMegabuck.Squads.Results.Calculator _calculator;
 
     [OneTimeSetUp]
     public void SetUp()

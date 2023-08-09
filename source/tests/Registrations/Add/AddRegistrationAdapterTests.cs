@@ -6,7 +6,7 @@ internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Registrations.Add.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Registrations.Add.IAdapter _adapter;
+    private NortheastMegabuck.Registrations.Add.Adapter _adapter;
 
     [SetUp]
     public void SetUp()

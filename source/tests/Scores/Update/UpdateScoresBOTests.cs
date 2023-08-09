@@ -20,7 +20,7 @@ internal sealed class BusinessLogic
     private Mock<FluentValidation.IValidator<IEnumerable<NortheastMegabuck.Models.SquadScore>>> _validator;
     private Mock<NortheastMegabuck.Scores.Update.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Scores.Update.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Scores.Update.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
