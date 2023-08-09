@@ -54,7 +54,7 @@ internal class Presenter
         _deleteAdapter = new Lazy<Registrations.Delete.IAdapter>(() => mockDeleteAdapter);
     }
 
-    public void Load()
+    public async Task LoadAsync(CancellationToken cancellationToken)
     {
         try
         {
@@ -70,7 +70,7 @@ internal class Presenter
             return;
         }    
 
-        var assignments = RetrieveAdapter.Execute(_view.SquadId);
+        var assignments = await RetrieveAdapter.ExecuteAsync(_view.SquadId, cancellationToken).ConfigureAwait(true);
 
         if (RetrieveAdapter.Error != null)
         {
@@ -132,7 +132,7 @@ internal class Presenter
         _view.AddToUnassigned(laneAssignment);
     }
 
-    public void NewRegistration()
+    public async Task NewRegistrationAsync(CancellationToken cancellationToken)
     {
         var added = _view.NewRegistration(_view.TournamentId, _view.SquadId);
 
@@ -146,7 +146,7 @@ internal class Presenter
         _view.ClearLanes();
         _view.ClearUnassigned();
 
-        Load();
+        await LoadAsync(cancellationToken).ConfigureAwait(true);
     }
 
     internal void GenerateRecaps(IEnumerable<IViewModel> assignments)

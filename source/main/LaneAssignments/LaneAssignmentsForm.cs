@@ -206,7 +206,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         _squadDate = squadDate;
         _complete = complete;
 
-        new Presenter(_config, this).Load();
+        _ = new Presenter(_config, this).LoadAsync(default);
 
         if (complete)
         {
@@ -299,8 +299,8 @@ public partial class Form : System.Windows.Forms.Form, IView
         openLane.DragDrop += LaneAssignmentOpen_DragDrop!;
     }
 
-    private void NewRegistrationButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).NewRegistration();
+    private async void NewRegistrationButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).NewRegistrationAsync(default).ConfigureAwait(true);
 
     private void AddToRegistrationButton_Click(object sender, EventArgs e)
         => new Presenter(_config, this).AddToRegistration();
@@ -342,14 +342,14 @@ public partial class Form : System.Windows.Forms.Form, IView
         new Presenter(_config, this).Delete(assignment!.BowlerId);
     }
 
-    private void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private async void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         refreshAssignmentsLinkLabel.Enabled = false;
 
         laneAssignmentFlowLayoutPanel.Controls.Clear();
         unassignedRegistrationsFlowLayoutPanel.Controls.Clear();
 
-        new Presenter(_config, this).Load();
+        await new Presenter(_config, this).LoadAsync(default).ConfigureAwait(true);
 
         refreshAssignmentsLinkLabel.Enabled = true;
     }

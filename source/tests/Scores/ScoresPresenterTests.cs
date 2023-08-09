@@ -26,9 +26,11 @@ internal sealed class Presenter
         var squadId = SquadId.New();
         _view.SetupGet(view => view.SquadId).Returns(squadId);
 
-        _presenter.Load();
+        CancellationToken cancellationToken = default;
+        
+        _presenter.Load(cancellationToken);
 
-        _retrieveLaneAssignmentsAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        _retrieveLaneAssignmentsAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -37,7 +39,7 @@ internal sealed class Presenter
         var squadId = SquadId.New();
         _view.SetupGet(view => view.SquadId).Returns(squadId);
 
-        _presenter.Load();
+        _presenter.Load(default);
 
         _retrieveSquadScoresAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
     }
@@ -48,7 +50,7 @@ internal sealed class Presenter
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveLaneAssignmentsAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Load();
+        _presenter.Load(default);
 
         Assert.Multiple(() =>
         {
@@ -66,7 +68,7 @@ internal sealed class Presenter
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveSquadScoresAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Load();
+        _presenter.Load(default);
 
         Assert.Multiple(() =>
         {
@@ -87,7 +89,7 @@ internal sealed class Presenter
         var error2 = new NortheastMegabuck.Models.ErrorDetail("error2");
         _retrieveSquadScoresAdapter.SetupGet(adapter => adapter.Error).Returns(error2);
 
-        _presenter.Load();
+        _presenter.Load(default);
 
         Assert.Multiple(() =>
         {
@@ -105,9 +107,9 @@ internal sealed class Presenter
 
         var laneAssignments = new[] { assignment1, assignment2, assignment3 };
 
-        _retrieveLaneAssignmentsAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(laneAssignments);
+        _retrieveLaneAssignmentsAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(laneAssignments);
 
-        _presenter.Load();
+        _presenter.Load(default);
 
         Assert.Multiple(() =>
         {
@@ -123,7 +125,7 @@ internal sealed class Presenter
         var scores = new List<NortheastMegabuck.Scores.IViewModel>();
         _retrieveSquadScoresAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(scores);
 
-        _presenter.Load();
+        _presenter.Load(default);
 
         _view.Verify(view => view.BindSquadScores(scores), Times.Once);
     }

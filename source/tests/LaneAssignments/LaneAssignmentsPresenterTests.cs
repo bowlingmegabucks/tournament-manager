@@ -28,65 +28,66 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_LaneAvailabilityGenerate_CalledCorrectly()
+    public async Task LoadAsync_LaneAvailabilityGenerate_CalledCorrectly()
     {
         _view.SetupGet(view => view.StartingLane).Returns(1);
         _view.SetupGet(view => view.NumberOfLanes).Returns(10);
         _view.SetupGet(view => view.MaxPerPair).Returns(4);
 
-        _presenter.Load();
-
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
+ 
         _laneAvailability.Verify(laneAvailability => laneAvailability.Generate(1, 10, 4), Times.Once);
     }
 
     [Test]
-    public void Load_LaneAvailabilityGenerateNoErrors_ViewBuildLanes_CalledCorrectly()
+    public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_ViewBuildLanes_CalledCorrectly()
     {
         var lanes = new[] { "1", "2" };
         _laneAvailability.Setup(laneAvailability => laneAvailability.Generate(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(lanes);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.BuildLanes(lanes), Times.Once);
     }
 
     [Test]
-    public void Load_LaneAvailabilityGenerateThrowsException_ExceptionFlow()
+    public async Task LoadAsync_LaneAvailabilityGenerateThrowsException_ExceptionFlow()
     {
         var ex = new Exception("exception");
         _laneAvailability.Setup(laneAvailability => laneAvailability.Generate(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Throws(ex);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayError("exception"), Times.Once);
             _view.Verify(view => view.Disable(), Times.Once);
 
-            _retrieveAdapter.Verify(adapter => adapter.Execute(It.IsAny<SquadId>()), Times.Never);
+            _retrieveAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>()), Times.Never);
             _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>()), Times.Never);
             _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
-    public void Load_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecute_CalledCorrectly()
+    public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
         _view.SetupGet(view => view.SquadId).Returns(squadId);
 
-        _presenter.Load();
+        CancellationToken cancellationToken = default;
+        await _presenter.LoadAsync(cancellationToken).ConfigureAwait(false);
 
-        _retrieveAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        _retrieveAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Load_LaneAvailabilityGenerateNoErrors_RetrieveAdapterHasError_ErrorFlow()
+    public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -99,7 +100,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindRegistrations_CalledCorrectly()
+    public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindRegistrations_CalledCorrectly()
     {
         var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
@@ -114,9 +115,9 @@ internal sealed class Presenter
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(assignments);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -126,7 +127,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindEntriesPerDivision_CalledCorrectly()
+    public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindEntriesPerDivision_CalledCorrectly()
     {
         var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
@@ -141,9 +142,9 @@ internal sealed class Presenter
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(assignments);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -155,7 +156,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignmments_CalledCorrectly()
+    public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignmments_CalledCorrectly()
     {
         var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
@@ -170,9 +171,9 @@ internal sealed class Presenter
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(assignments);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -349,7 +350,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistration_CalledCorrectly()
+    public async Task NewRegistrationAsync_ViewNewRegistration_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         var squadId = SquadId.New();
@@ -357,15 +358,15 @@ internal sealed class Presenter
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
         _view.SetupGet(view => view.SquadId).Returns(squadId);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.NewRegistration(tournamentId, squadId), Times.Once);
     }
 
     [Test]
-    public void NewRegistration_RegistrationFalse_CancelFlow()
+    public async Task NewRegistrationAsync_RegistrationFalse_CancelFlow()
     {
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -376,27 +377,27 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_ViewClearLanes_Called()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_ViewClearLanes_Called()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.ClearLanes(), Times.Once);
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_ViewClearUnassigned_Called()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_ViewClearUnassigned_Called()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.ClearUnassigned(), Times.Once);
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerate_CalledCorrectly()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerate_CalledCorrectly()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
@@ -404,67 +405,69 @@ internal sealed class Presenter
         _view.SetupGet(view => view.NumberOfLanes).Returns(10);
         _view.SetupGet(view => view.MaxPerPair).Returns(4);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         _laneAvailability.Verify(laneAvailability => laneAvailability.Generate(1, 10, 4), Times.Once);
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_ViewBuildLanes_CalledCorrectly()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_ViewBuildLanes_CalledCorrectly()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
         var lanes = new[] { "1", "2" };
         _laneAvailability.Setup(laneAvailability => laneAvailability.Generate(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(lanes);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.BuildLanes(lanes), Times.Once);
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateThrowsException_ExceptionFlow()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateThrowsException_ExceptionFlow()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
         var ex = new Exception("exception");
         _laneAvailability.Setup(laneAvailability => laneAvailability.Generate(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Throws(ex);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayError("exception"), Times.Once);
             _view.Verify(view => view.Disable(), Times.Once);
 
-            _retrieveAdapter.Verify(adapter => adapter.Execute(It.IsAny<SquadId>()), Times.Never);
+            _retrieveAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>()), Times.Never);
             _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>()), Times.Never);
             _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<NortheastMegabuck.LaneAssignments.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecute_CalledCorrectly()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
         var squadId = SquadId.New();
         _view.SetupGet(view => view.SquadId).Returns(squadId);
 
-        _presenter.NewRegistration();
+        CancellationToken cancellationToken = default;
 
-        _retrieveAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        await _presenter.NewRegistrationAsync(cancellationToken).ConfigureAwait(false);
+
+        _retrieveAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterHasError_ErrorFlow()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterHasError_ErrorFlow()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -477,7 +480,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindRegistrations_CalledCorrectly()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindRegistrations_CalledCorrectly()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
@@ -494,9 +497,9 @@ internal sealed class Presenter
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(assignments);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -506,7 +509,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindEntriesPerDivision_CalledCorrectly()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindEntriesPerDivision_CalledCorrectly()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
@@ -523,9 +526,9 @@ internal sealed class Presenter
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(assignments);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -537,7 +540,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void NewRegistration_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignmments_CalledCorrectly()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignmments_CalledCorrectly()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
@@ -554,9 +557,9 @@ internal sealed class Presenter
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
         var assignments = new[] { assignment1.Object, assignment2.Object, assignment3.Object };
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(assignments);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(assignments);
 
-        _presenter.NewRegistration();
+        await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
