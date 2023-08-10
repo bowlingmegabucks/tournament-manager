@@ -257,16 +257,16 @@ public partial class Form : System.Windows.Forms.Form, IView
     private void LaneAssignmentOpen_DragLeave(object sender, EventArgs e)
         => (sender as Control)!.BackColor = SystemColors.Control;
 
-    private void LaneAssignmentOpen_DragDrop(object sender, DragEventArgs e)
+    private async void LaneAssignmentOpen_DragDrop(object sender, DragEventArgs e)
     {
         var registration = e.Data<LaneAssignmentControl>();
 
         var openLane = sender as LaneAssignmentControl;
 
-        new Presenter(_config, this).Update(SquadId, registration!, openLane!.LaneAssignment);
+        await new Presenter(_config, this).UpdateAsync(SquadId, registration!, openLane!.LaneAssignment, default).ConfigureAwait(true);
     }
 
-    private void LaneAssignmentRegistered_KeyUp(object sender, KeyEventArgs e)
+    private async void LaneAssignmentRegistered_KeyUp(object sender, KeyEventArgs e)
     {
         if (e.KeyCode != Keys.Escape)
         {
@@ -275,7 +275,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         var registeredLane = sender as IViewModel;
 
-        new Presenter(_config, this).Update(SquadId, registeredLane!, string.Empty);
+        await new Presenter(_config, this).UpdateAsync(SquadId, registeredLane!, string.Empty, default).ConfigureAwait(true);
     }
 
     private void LaneAssignmentRegistered_Enter(object sender, EventArgs e)

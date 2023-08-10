@@ -87,9 +87,9 @@ internal class Presenter
         _view.BindEntriesPerDivision(entriesPerDivision);
     }
 
-    public void Update(SquadId squadId, IViewModel registration, string position)
+    public async Task UpdateAsync(SquadId squadId, IViewModel registration, string position, CancellationToken cancellationToken)
     {
-        UpdateAdapter.Execute(squadId, registration.BowlerId, position);
+        await UpdateAdapter.ExecuteAsync(squadId, registration.BowlerId, position, cancellationToken).ConfigureAwait(true);
 
         if (UpdateAdapter.Error != null)
         {

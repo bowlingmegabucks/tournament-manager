@@ -183,7 +183,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Update_UpdateAdapterExecute_CalledCorrectly([Values("","21A")]string position)
+    public async Task UpdateAsync_UpdateAdapterExecute_CalledCorrectly([Values("","21A")]string position)
     {
         var squadId = SquadId.New();
         
@@ -191,13 +191,15 @@ internal sealed class Presenter
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         registration.SetupGet(r => r.BowlerId).Returns(bowlerId);
 
-        _presenter.Update(squadId, registration.Object, position);
+        CancellationToken cancellationToken = default;
 
-        _updateAdapter.Verify(adapter => adapter.Execute(squadId, bowlerId, position), Times.Once);
+        await _presenter.UpdateAsync(squadId, registration.Object, position, cancellationToken).ConfigureAwait(false);
+
+        _updateAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, bowlerId, position, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Update_UpdateAdapterHasError_ErrorFlow([Values("", "21A")] string position)
+    public async Task UpdateAsync_UpdateAdapterHasError_ErrorFlow([Values("", "21A")] string position)
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _updateAdapter.SetupGet(adapter => adapter.Error).Returns(error);
@@ -205,7 +207,7 @@ internal sealed class Presenter
         var squadId = SquadId.New();
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
 
-        _presenter.Update(squadId, registration.Object, position);
+        await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -217,49 +219,49 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Update_UpdateAdapterHasNoError_PositionEmpty_ViewRemoveLaneAssignment_CalledCorrectly()
+    public async Task UpdateAsync_UpdateAdapterHasNoError_PositionEmpty_ViewRemoveLaneAssignment_CalledCorrectly()
     {
         var squadId = SquadId.New();
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         var position = string.Empty;
 
-        _presenter.Update(squadId, registration.Object, position);
+        await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
 
         _view.Verify(view => view.RemoveLaneAssignment(registration.Object), Times.Once);
     }
 
     [Test]
-    public void Update_UpdateAdapterHasNoError_PositionEmpty_ViewAssignToLane_NotCalled()
+    public async Task UpdateAsync_UpdateAdapterHasNoError_PositionEmpty_ViewAssignToLane_NotCalled()
     {
         var squadId = SquadId.New();
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         var position = string.Empty;
 
-        _presenter.Update(squadId, registration.Object, position);
+        await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
 
         _view.Verify(view => view.AssignToLane(It.IsAny<NortheastMegabuck.LaneAssignments.IViewModel>(), It.IsAny<string>()), Times.Never);
     }
 
     [Test]
-    public void Update_UpdateAdapterHasNoError_PositionHasValue_ViewAssignToLane_CalledCorrectly()
+    public async Task UpdateAsync_UpdateAdapterHasNoError_PositionHasValue_ViewAssignToLane_CalledCorrectly()
     {
         var squadId = SquadId.New();
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         var position = "21A";
 
-        _presenter.Update(squadId, registration.Object, position);
+        await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
 
         _view.Verify(view => view.AssignToLane(registration.Object, position), Times.Once);
     }
 
     [Test]
-    public void Update_UpdateAdapterHasNoError_PositionHasValue_RemoveLaneAssignment_NotCalled()
+    public async Task UpdateAsync_UpdateAdapterHasNoError_PositionHasValue_RemoveLaneAssignment_NotCalled()
     {
         var squadId = SquadId.New();
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         var position = "21A";
 
-        _presenter.Update(squadId, registration.Object, position);
+        await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
 
         _view.Verify(view => view.RemoveLaneAssignment(It.IsAny<NortheastMegabuck.LaneAssignments.IViewModel>()), Times.Never);
     }

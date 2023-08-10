@@ -37,13 +37,15 @@ internal class Repository : IRepository
                 .SelectMany(sweeper => sweeper.Registrations);
     }
 
-    void IRepository.Update(SquadId squadId, BowlerId bowlerId, string position)
+    async Task IRepository.UpdateAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken)
     {
-        var registration = _dataContext.Registrations.Where(registration => registration.BowlerId == bowlerId).SelectMany(registration => registration.Squads).Single(squadRegistration => squadRegistration.SquadId == squadId);
+        var registration = await _dataContext.Registrations.Where(registration => registration.BowlerId == bowlerId)
+            .SelectMany(registration => registration.Squads)
+            .FirstAsync(squadRegistration => squadRegistration.SquadId == squadId, cancellationToken).ConfigureAwait(false);
 
         registration.LaneAssignment = position;
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 }
 
@@ -51,5 +53,5 @@ internal interface IRepository
 {
     IQueryable<Database.Entities.SquadRegistration> Retrieve(SquadId squadId);
 
-    void Update(SquadId squadId, BowlerId bowlerId, string position);
+    Task UpdateAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken);
 }
