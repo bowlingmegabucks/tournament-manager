@@ -94,7 +94,7 @@ internal class BusinessLogic : IBusinessLogic
 
         try
         {
-            return DataLayer.Execute(registration);
+            return await DataLayer.ExecuteAsync(registration, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {

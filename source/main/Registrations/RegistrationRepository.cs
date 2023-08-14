@@ -19,10 +19,10 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    RegistrationId IRepository.Add(Database.Entities.Registration registration)
+    async Task<RegistrationId> IRepository.AddAsync(Database.Entities.Registration registration, CancellationToken cancellationToken)
     {
-        _dataContext.Registrations.Add(registration);
-        _dataContext.SaveChanges();
+        await _dataContext.Registrations.AddAsync(registration, cancellationToken).ConfigureAwait(false);
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return registration.Id;
     }
@@ -84,7 +84,7 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    RegistrationId Add(Database.Entities.Registration registration);
+    Task<RegistrationId> AddAsync(Database.Entities.Registration registration, CancellationToken cancellationToken);
 
     Database.Entities.Registration AddSquad(BowlerId bowlerId, SquadId squadId);
 

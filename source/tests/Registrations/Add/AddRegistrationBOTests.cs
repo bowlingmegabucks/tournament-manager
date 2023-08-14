@@ -67,7 +67,7 @@ internal sealed class BusinessLogic
             _getBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
             _getTournamentBO.Verify(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -110,7 +110,7 @@ internal sealed class BusinessLogic
 
             _getBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -157,7 +157,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             _validator.Verify(validator => validator.ValidateAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.Division == division), cancellationToken), Times.Once);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<NortheastMegabuck.Models.Registration>(r => r.Division == division)), Times.Once);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.Division == division), cancellationToken), Times.Once);
         });
     }
 
@@ -236,7 +236,7 @@ internal sealed class BusinessLogic
             Assert.That(actual, Is.Null);
 
             _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -267,7 +267,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             _validator.Verify(validator => validator.ValidateAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler), cancellationToken), Times.Once);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler)), Times.Once);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler), cancellationToken), Times.Once);
         });
     }
 
@@ -296,8 +296,8 @@ internal sealed class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            _validator.Verify(validator => validator.Validate(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler)), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler)), Times.Never);
+            _validator.Verify(validator => validator.ValidateAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler), It.IsAny<CancellationToken>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -321,7 +321,7 @@ internal sealed class BusinessLogic
             _businessLogic.Errors.Assert_HasErrorMessage("errorMessage");
             Assert.That(actual, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -337,7 +337,7 @@ internal sealed class BusinessLogic
         _validator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>())).Throws(ex);
 
         var registration = new NortheastMegabuck.Models.Registration();
 
@@ -362,7 +362,7 @@ internal sealed class BusinessLogic
         _validator.Validate_IsValid();
 
         var id = RegistrationId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(id);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var registration = new NortheastMegabuck.Models.Registration();
 

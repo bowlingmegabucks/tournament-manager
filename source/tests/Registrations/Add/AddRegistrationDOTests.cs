@@ -18,34 +18,36 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_Model_MapperExecute_Model_CalledCorrectly()
+    public async Task ExecuteAsync_Model_MapperExecute_Model_CalledCorrectly()
     {
         var registration = new NortheastMegabuck.Models.Registration();
-        _dataLayer.Execute(registration);
+        await _dataLayer.ExecuteAsync(registration, default).ConfigureAwait(false);
 
         _mapper.Verify(mapper => mapper.Execute(registration), Times.Once);
     }
 
     [Test]
-    public void Execute_Model_RepositoryExecute_Model_CalledCorrectly()
+    public async Task ExecuteAsync_Model_RepositoryExecute_Model_CalledCorrectly()
     {
         var entity = new NortheastMegabuck.Database.Entities.Registration();
         _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(entity);
 
         var model = new NortheastMegabuck.Models.Registration();
-        _dataLayer.Execute(model);
+        CancellationToken cancellationToken = default;
 
-        _repository.Verify(repository => repository.Add(entity), Times.Once);
+        await _dataLayer.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
+
+        _repository.Verify(repository => repository.AddAsync(entity, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_Model_ReturnsRepositoryAddResponse()
+    public async Task ExecuteAsync_Model_ReturnsRepositoryAddResponse()
     {
         var registrationId = RegistrationId.New();
-        _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(registrationId);
+        _repository.Setup(repository => repository.AddAsync(It.IsAny<NortheastMegabuck.Database.Entities.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrationId);
 
         var model = new NortheastMegabuck.Models.Registration();
-        var actual = _dataLayer.Execute(model);
+        var actual = await _dataLayer.ExecuteAsync(model, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(registrationId));
     }

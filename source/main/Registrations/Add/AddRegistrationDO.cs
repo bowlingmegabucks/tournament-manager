@@ -22,11 +22,11 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    public RegistrationId Execute(Models.Registration registration)
+    public async Task<RegistrationId> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
     {
         var entity = _mapper.Execute(registration);
         
-        return _repository.Add(entity);
+        return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
     public Models.Registration Execute(BowlerId bowlerId, SquadId squadId)
         => new(_repository.AddSquad(bowlerId, squadId));
@@ -34,7 +34,7 @@ internal class DataLayer : IDataLayer
 
 internal interface IDataLayer
 {
-    RegistrationId Execute(Models.Registration registration);
+    Task<RegistrationId> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken);
 
     Models.Registration Execute(BowlerId bowlerId, SquadId squadId);
 }
