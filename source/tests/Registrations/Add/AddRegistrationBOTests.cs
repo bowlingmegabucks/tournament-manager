@@ -372,23 +372,24 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_DataLayerExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(bowlerId, squadId);
+        await _businessLogic.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(bowlerId, squadId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_ReturnsDataLayerExecute()
+    public async Task ExecuteAsync_BowlerIdSquadId_ReturnsDataLayerExecute()
     {
         var registration = new NortheastMegabuck.Models.Registration();
-        _dataLayer.Setup(dataLayer=> dataLayer.Execute(It.IsAny<BowlerId>(), It.IsAny<SquadId>())).Returns(registration);
+        _dataLayer.Setup(dataLayer=> dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration);
 
-        var actual = _businessLogic.Execute(BowlerId.New(), SquadId.New());
+        var actual = await _businessLogic.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(registration));
     }

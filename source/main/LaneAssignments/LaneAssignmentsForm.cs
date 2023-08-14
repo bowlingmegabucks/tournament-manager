@@ -302,8 +302,8 @@ public partial class Form : System.Windows.Forms.Form, IView
     private async void NewRegistrationButton_Click(object sender, EventArgs e)
         => await new Presenter(_config, this).NewRegistrationAsync(default).ConfigureAwait(true);
 
-    private void AddToRegistrationButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).AddToRegistration();
+    private async void AddToRegistrationButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).AddToRegistrationAsync(default).ConfigureAwait(true);
 
     private void CopyAssignmentsToClipboardLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {

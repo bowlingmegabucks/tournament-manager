@@ -27,18 +27,18 @@ internal class Repository : IRepository
         return registration.Id;
     }
 
-    Database.Entities.Registration IRepository.AddSquad(BowlerId bowlerId, SquadId squadId)
+    async Task<Database.Entities.Registration> IRepository.AddSquadAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
-        var tournamentId = _dataContext.Tournaments.Include(tournament=> tournament.Squads).Include(tournament=> tournament.Sweepers).Single(tournament => tournament.Squads.Select(squad => squad.Id).Contains(squadId) || tournament.Sweepers.Select(sweeper => sweeper.Id).Contains(squadId)).Id;
-        var registration = _dataContext.Registrations.Include(registration => registration.Division)
+        var tournamentId = (await _dataContext.Tournaments.Include(tournament=> tournament.Squads).Include(tournament=> tournament.Sweepers).FirstAsync(tournament => tournament.Squads.Select(squad => squad.Id).Contains(squadId) || tournament.Sweepers.Select(sweeper => sweeper.Id).Contains(squadId), cancellationToken).ConfigureAwait(false)).Id;
+        var registration = await _dataContext.Registrations.Include(registration => registration.Division)
                                                      .Include(registration=> registration.Squads)
                                                      .Include(registration=> registration.Bowler)
                                                      .Include(registration=> registration.Division)
-                                                     .Single(registration => registration.BowlerId == bowlerId && registration.Division.TournamentId == tournamentId);
+                                                     .FirstAsync(registration => registration.BowlerId == bowlerId && registration.Division.TournamentId == tournamentId, cancellationToken).ConfigureAwait(false);
 
         registration.Squads.Add(new Database.Entities.SquadRegistration { RegistrationId = registration.Id, SquadId = squadId });
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return registration;
     }
@@ -86,7 +86,7 @@ internal interface IRepository
 {
     Task<RegistrationId> AddAsync(Database.Entities.Registration registration, CancellationToken cancellationToken);
 
-    Database.Entities.Registration AddSquad(BowlerId bowlerId, SquadId squadId);
+    Task<Database.Entities.Registration> AddSquadAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
     IQueryable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
 

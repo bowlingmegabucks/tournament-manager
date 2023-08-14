@@ -28,13 +28,13 @@ internal class DataLayer : IDataLayer
         
         return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
-    public Models.Registration Execute(BowlerId bowlerId, SquadId squadId)
-        => new(_repository.AddSquad(bowlerId, squadId));
+    public async Task<Models.Registration> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
+        => new(await _repository.AddSquadAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false));
 }
 
 internal interface IDataLayer
 {
     Task<RegistrationId> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken);
 
-    Models.Registration Execute(BowlerId bowlerId, SquadId squadId);
+    Task<Models.Registration> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 }

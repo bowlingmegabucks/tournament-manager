@@ -267,7 +267,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void AddToRegistration_ViewSelectBowler_CalledCorrectly()
+    public async Task AddToRegistrationAsync_ViewSelectBowler_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         var squadId = SquadId.New();
@@ -275,28 +275,28 @@ internal sealed class Presenter
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
         _view.SetupGet(view => view.SquadId).Returns(squadId);
 
-        _presenter.AddToRegistration();
+        await _presenter.AddToRegistrationAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.SelectBowler(tournamentId, squadId), Times.Once);
     }
 
     [Test]
-    public void AddToRegistration_ViewSelectBowlerNull_CancelFlow()
+    public async Task AddToRegistrationAsync_ViewSelectBowlerNull_CancelFlow()
     {
-        _presenter.AddToRegistration();
+        await _presenter.AddToRegistrationAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayMessage("Add to Registration Canceled"));
 
-            _addRegistrationAdapter.Verify(adapter => adapter.Execute(It.IsAny<BowlerId>(), It.IsAny<SquadId>()), Times.Never);
+            _addRegistrationAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>()), Times.Never);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.AddToUnassigned(It.IsAny<NortheastMegabuck.LaneAssignments.IViewModel>()), Times.Never);
         });
     }
 
     [Test]
-    public void AddToRegistration_ViewGetBowlerReturnsId_AddRegistrationAdapterExecute_CalledCorrectly()
+    public async Task AddToRegistrationAsync_ViewGetBowlerReturnsId_AddRegistrationAdapterExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
         _view.SetupGet(view => view.SquadId).Returns(squadId);
@@ -306,15 +306,17 @@ internal sealed class Presenter
 
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         registration.SetupGet(r => r.BowlerName).Returns("bowler name");
-        _addRegistrationAdapter.Setup(adapter => adapter.Execute(It.IsAny<BowlerId>(), It.IsAny<SquadId>())).Returns(registration.Object);
+        _addRegistrationAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration.Object);
 
-        _presenter.AddToRegistration();
+        CancellationToken cancellationToken = default;
 
-        _addRegistrationAdapter.Verify(adapter => adapter.Execute(bowlerId, squadId), Times.Once);
+        await _presenter.AddToRegistrationAsync(cancellationToken).ConfigureAwait(false);
+
+        _addRegistrationAdapter.Verify(adapter => adapter.ExecuteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void AddToRegistration_ViewGetBowlerReturnsId_AddRegistrationAdapterHasErrors_ErrorFlow()
+    public async Task AddToRegistrationAsync_ViewGetBowlerReturnsId_AddRegistrationAdapterHasErrors_ErrorFlow()
     {
         var bowlerId = BowlerId.New();
         _view.Setup(view => view.SelectBowler(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(bowlerId);
@@ -322,7 +324,7 @@ internal sealed class Presenter
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), 3);
         _addRegistrationAdapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
-        _presenter.AddToRegistration();
+        await _presenter.AddToRegistrationAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -333,16 +335,16 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void AddToRegistration_ViewGetBowlerReturnsId_AddRegistrationAdapterSuccessful_Successflow()
+    public async Task AddToRegistrationAsync_ViewGetBowlerReturnsId_AddRegistrationAdapterSuccessful_Successflow()
     {
         var bowlerId = BowlerId.New();
         _view.Setup(view => view.SelectBowler(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(bowlerId);
 
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         registration.SetupGet(r => r.BowlerName).Returns("bowler name");
-        _addRegistrationAdapter.Setup(adapter => adapter.Execute(It.IsAny<BowlerId>(), It.IsAny<SquadId>())).Returns(registration.Object);
+        _addRegistrationAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration.Object);
 
-        _presenter.AddToRegistration();
+        await _presenter.AddToRegistrationAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

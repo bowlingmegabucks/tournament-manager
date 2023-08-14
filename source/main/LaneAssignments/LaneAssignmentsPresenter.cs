@@ -108,7 +108,7 @@ internal class Presenter
         }
     }
 
-    public void AddToRegistration()
+    public async Task AddToRegistrationAsync(CancellationToken cancellationToken)
     {
         var bowlerId = _view.SelectBowler(_view.TournamentId, _view.SquadId);
 
@@ -119,7 +119,7 @@ internal class Presenter
             return;
         }
 
-        var laneAssignment = AddRegistrationAdapter.Execute(bowlerId.Value, _view.SquadId);
+        var laneAssignment = await AddRegistrationAdapter.ExecuteAsync(bowlerId.Value, _view.SquadId, cancellationToken).ConfigureAwait(true);
 
         if (AddRegistrationAdapter.Errors.Any())
         {

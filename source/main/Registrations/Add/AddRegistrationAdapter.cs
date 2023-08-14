@@ -28,9 +28,9 @@ internal class Adapter : IAdapter
     private async Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
         => await BusinessLogic.ExecuteAsync(registration, cancellationToken).ConfigureAwait(false);
 
-    public LaneAssignments.IViewModel? Execute(BowlerId bowlerId, SquadId squadId)
+    public async Task<LaneAssignments.IViewModel?> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
-        var registration = BusinessLogic.Execute(bowlerId, squadId);
+        var registration = await BusinessLogic.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
         return registration is not null ? new LaneAssignments.ViewModel(registration) : null;
     }
@@ -42,5 +42,5 @@ internal interface IAdapter
 
     Task<RegistrationId?> ExecuteAsync(Bowlers.Add.IViewModel bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average, CancellationToken cancellationToken);
 
-    LaneAssignments.IViewModel? Execute(BowlerId bowlerId, SquadId squadId);
+    Task<LaneAssignments.IViewModel?> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 }

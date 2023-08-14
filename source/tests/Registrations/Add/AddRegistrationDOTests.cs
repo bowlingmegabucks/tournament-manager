@@ -53,10 +53,10 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_RepositoryAddSquad_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_RepositoryAddSquad_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.AddSquad(It.IsAny<BowlerId>(), It.IsAny<SquadId>()))
-            .Returns(new NortheastMegabuck.Database.Entities.Registration 
+        _repository.Setup(repository => repository.AddSquadAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new NortheastMegabuck.Database.Entities.Registration 
             {
                 Squads = new List<NortheastMegabuck.Database.Entities.SquadRegistration>(), 
                 Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
@@ -65,19 +65,20 @@ internal sealed class DataLayer
 
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(bowlerId, squadId);
+        await _dataLayer.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.AddSquad(bowlerId, squadId), Times.Once);
+        _repository.Verify(repository => repository.AddSquadAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_ReturnsRegistration()
+    public async Task ExecuteAsync_BowlerIdSquadId_ReturnsRegistration()
     {
         var registrationId = RegistrationId.New();
 
-        _repository.Setup(repository => repository.AddSquad(It.IsAny<BowlerId>(), It.IsAny<SquadId>()))
-            .Returns(new NortheastMegabuck.Database.Entities.Registration
+        _repository.Setup(repository => repository.AddSquadAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new NortheastMegabuck.Database.Entities.Registration
             {
                 Id = registrationId,
                 Squads = new List<NortheastMegabuck.Database.Entities.SquadRegistration>(),
@@ -88,7 +89,7 @@ internal sealed class DataLayer
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var actual = _dataLayer.Execute(bowlerId, squadId);
+        var actual = await _dataLayer.ExecuteAsync(bowlerId, squadId, default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(registrationId));
     }

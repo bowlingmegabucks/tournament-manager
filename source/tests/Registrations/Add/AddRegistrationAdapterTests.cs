@@ -72,18 +72,19 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_BusinessLogicExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(bowlerId, squadId);
+        await _adapter.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(bowlerId, squadId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_ErrorsSetToBusinessLogicErrors()
+    public async Task ExecuteAsync_BowlerIdSquadId_ErrorsSetToBusinessLogicErrors()
     {
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), 5);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
@@ -91,32 +92,32 @@ internal sealed class Adapter
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        _adapter.Execute(bowlerId, squadId);
+        await _adapter.ExecuteAsync(bowlerId, squadId, default).ConfigureAwait(false);
 
         Assert.That(_adapter.Errors, Is.EqualTo(errors));
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_BusinessLogicExecuteReturnsNull_ReturnsNull()
+    public async Task ExecuteAsync_BowlerIdSquadId_BusinessLogicExecuteReturnsNull_ReturnsNull()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var actual = _adapter.Execute(bowlerId, squadId);
+        var actual = await _adapter.ExecuteAsync(bowlerId, squadId, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.Null);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_BusinessLogicExecuteHasNoError_ReturnsLaneAssignment()
+    public async Task ExecuteAsync_BowlerIdSquadId_BusinessLogicExecuteHasNoError_ReturnsLaneAssignment()
     {
         var registration = new NortheastMegabuck.Models.Registration { Average = 200};
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<BowlerId>(), It.IsAny<SquadId>())).Returns(registration);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration);
 
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var actual = _adapter.Execute(bowlerId, squadId);
+        var actual = await _adapter.ExecuteAsync(bowlerId, squadId, default).ConfigureAwait(false);
 
         Assert.That(actual.Average, Is.EqualTo(200));
     }

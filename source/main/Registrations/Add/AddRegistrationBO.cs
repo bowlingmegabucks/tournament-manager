@@ -104,14 +104,14 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public Models.Registration? Execute(BowlerId bowlerId, SquadId squadId)
+    public async Task<Models.Registration?> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
         try
         {
             //UI search is doing a lot of the heavy lifting here.
             //when revisiting, add some validation methods to make sure the bowler is in the tournament
             //already and not already on the squad
-            return DataLayer.Execute(bowlerId, squadId);
+            return await DataLayer.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -128,5 +128,5 @@ internal interface IBusinessLogic
 
     Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken);
 
-    Models.Registration? Execute(BowlerId bowlerId, SquadId squadId);
+    Task<Models.Registration?> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 }
