@@ -182,14 +182,14 @@ internal class Presenter
         _view.GenerateRecaps(recaps);
     }
 
-    public void Delete(BowlerId bowlerId)
+    public async Task DeleteAsync(BowlerId bowlerId, CancellationToken cancellationToken)
     {
         if (!_view.Confirm("Are you sure you want remove bowler from this squad (Refund may be required)?"))
         {
             return;
         }
 
-        DeleteAdapter.Execute(bowlerId, _view.SquadId);
+        await DeleteAdapter.ExecuteAsync(bowlerId, _view.SquadId, cancellationToken).ConfigureAwait(true);
 
         if (DeleteAdapter.Error != null)
         {

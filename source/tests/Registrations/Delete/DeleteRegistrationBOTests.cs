@@ -17,23 +17,24 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_DataLayerExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(bowlerId, squadId);
+        await _businessLogic.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(bowlerId, squadId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_DataLayerExecuteThrowsException_ErrorMapped()
+    public async Task ExecuteAsync_BowlerIdSquadId_DataLayerExecuteThrowsException_ErrorMapped()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<BowlerId>(), It.IsAny<SquadId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        _businessLogic.Execute(BowlerId.New(), SquadId.New());
+        await _businessLogic.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
     }

@@ -17,14 +17,15 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_RepositoryDelete_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_RepositoryDelete_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(bowlerId, squadId);
+        await _dataLayer.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Delete(bowlerId, squadId), Times.Once);
+        _repository.Verify(repository => repository.DeleteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]

@@ -17,23 +17,24 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_BusinessLogicExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(bowlerId, squadId);
+        await _adapter.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(bowlerId, squadId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_ErrorSetToBusinessLogicError()
+    public async Task ExecuteAsync_BowlerIdSquadId_ErrorSetToBusinessLogicError()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        _adapter.Execute(BowlerId.New(), SquadId.New());
+        await _adapter.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }

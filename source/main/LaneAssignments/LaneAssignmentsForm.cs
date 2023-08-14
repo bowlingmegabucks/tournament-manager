@@ -333,13 +333,13 @@ public partial class Form : System.Windows.Forms.Form, IView
         _recapSheetForm.Preview(recaps, Games);
     }
 
-    private void DeleteLaneAssignmentMenuItem_Click(object sender, EventArgs e)
+    private async void DeleteLaneAssignmentMenuItem_Click(object sender, EventArgs e)
     {
         var menuItem = sender as ToolStripMenuItem;
         var contextMenu = menuItem?.Owner as ContextMenuStrip;
         var assignment = contextMenu?.SourceControl as LaneAssignmentControl;
 
-        new Presenter(_config, this).Delete(assignment!.BowlerId);
+        await new Presenter(_config, this).DeleteAsync(assignment!.BowlerId, default).ConfigureAwait(true);
     }
 
     private async void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

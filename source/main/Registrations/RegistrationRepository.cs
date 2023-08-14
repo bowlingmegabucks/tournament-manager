@@ -50,19 +50,19 @@ internal class Repository : IRepository
             .AsNoTracking()
             .Where(registration => registration.Division.TournamentId == tournamentId);
 
-    void IRepository.Delete(BowlerId bowlerId, SquadId squadId)
+    async Task IRepository.DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
         if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId))
         {
             throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
         }
 
-        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration=> registration.BowlerId == bowlerId && registration.Squads.Count(squad=> squad.SquadId == squadId) == 1);
+        var registration = await _dataContext.Registrations.Include(registration=> registration.Squads).FirstAsync(registration=> registration.BowlerId == bowlerId && registration.Squads.Count(squad=> squad.SquadId == squadId) == 1, cancellationToken).ConfigureAwait(false);
         var squad = registration.Squads.Single(squad => squad.SquadId == squadId);
 
         registration.Squads.Remove(squad);
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
     void IRepository.Delete(RegistrationId id)
@@ -90,7 +90,7 @@ internal interface IRepository
 
     IQueryable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
 
-    void Delete(BowlerId bowlerId, SquadId squadId);
+    Task DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
     void Delete(RegistrationId id);
 }
