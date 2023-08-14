@@ -22,13 +22,13 @@ internal class DataLayer : IDataLayer
     public async Task ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
         => await _repository.DeleteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-    public void Execute(RegistrationId id)
-        => _repository.Delete(id);
+    public async Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
+        => await _repository.DeleteAsync(id, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IDataLayer
 {
     Task ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
-    void Execute(RegistrationId id);
+    Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
 }

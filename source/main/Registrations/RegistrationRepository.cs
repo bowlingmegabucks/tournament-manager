@@ -65,11 +65,11 @@ internal class Repository : IRepository
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    void IRepository.Delete(RegistrationId id)
+    async Task IRepository.DeleteAsync(RegistrationId id, CancellationToken cancellationToken)
     {
-        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration => registration.Id == id);
+        var registration = await _dataContext.Registrations.Include(registration=> registration.Squads).FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 
-        if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == registration.BowlerId && registration.Squads.Select(squad => squad.SquadId).Contains(squadScore.SquadId)))
+        if (await _dataContext.SquadScores.AnyAsync(squadScore => squadScore.BowlerId == registration.BowlerId && registration.Squads.Select(squad => squad.SquadId).Contains(squadScore.SquadId), cancellationToken).ConfigureAwait(false))
         {
             throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
         }
@@ -78,7 +78,7 @@ internal class Repository : IRepository
 
         _dataContext.Registrations.Remove(registration);
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 }
 
@@ -92,5 +92,5 @@ internal interface IRepository
 
     Task DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
-    void Delete(RegistrationId id);
+    Task DeleteAsync(RegistrationId id, CancellationToken cancellationToken);
 }

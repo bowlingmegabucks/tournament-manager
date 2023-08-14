@@ -76,14 +76,14 @@ internal class TournamentRegistrationsPresenter
         _view.SetDivisionEntries(divisionEntries);
     }
 
-    public void Delete(RegistrationId id)
+    public async Task DeleteAsync(RegistrationId id, CancellationToken cancellationToken)
     {
         if (!_view.Confirm("Are you sure you want to delete this bowler's entire registration?"))
         {
             return;
         }
 
-        DeleteAdapter.Execute(id);
+        await DeleteAdapter.ExecuteAsync(id, cancellationToken).ConfigureAwait(true);
 
         if (DeleteAdapter.Error != null)
         {

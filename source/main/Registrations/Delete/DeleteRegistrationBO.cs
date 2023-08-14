@@ -32,11 +32,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public void Execute(RegistrationId id)
+    public async Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
     {
         try
         {
-            _dataLayer.Execute(id);
+            await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -51,5 +51,5 @@ internal interface IBusinessLogic
 
     Task ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
-    void Execute(RegistrationId id);
+    Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
 }

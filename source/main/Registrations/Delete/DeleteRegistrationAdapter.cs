@@ -24,8 +24,8 @@ internal class Adapter : IAdapter
     public async Task ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
         => await _businessLogic.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-    public void Execute(RegistrationId id)
-        => _businessLogic.Execute(id);
+    public async Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
+        => await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IAdapter
@@ -34,5 +34,5 @@ internal interface IAdapter
 
     Task ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
-    void Execute(RegistrationId id);
+    Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
 }

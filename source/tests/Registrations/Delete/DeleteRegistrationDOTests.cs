@@ -29,12 +29,13 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_RegistrationId_RepositoryDelete_CalledCorrectly()
+    public async Task ExecuteAsync_RegistrationId_RepositoryDelete_CalledCorrectly()
     {
         var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(registrationId);
+        await _dataLayer.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Delete(registrationId), Times.Once);
+        _repository.Verify(repository => repository.DeleteAsync(registrationId, cancellationToken), Times.Once);
     }
 }

@@ -40,22 +40,23 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_RegistrationId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_RegistrationId_BusinessLogicExecute_CalledCorrectly()
     {
         var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(registrationId);
+        await _adapter.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(registrationId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(registrationId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_RegistrationId_ErrorSetToBusinessLogicError()
+    public async Task ExecuteAsync_RegistrationId_ErrorSetToBusinessLogicError()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        _adapter.Execute(RegistrationId.New());
+        await _adapter.ExecuteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }

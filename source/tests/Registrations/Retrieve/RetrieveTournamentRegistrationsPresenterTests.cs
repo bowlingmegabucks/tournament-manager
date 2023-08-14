@@ -254,49 +254,50 @@ internal sealed class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public void Delete_ViewConfirm_CalledCorrectly()
+    public async Task DeleteAsync_ViewConfirm_CalledCorrectly()
     {
-        _presenter.Delete(RegistrationId.New());
+        await _presenter.DeleteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
         _view.Verify(view => view.Confirm("Are you sure you want to delete this bowler's entire registration?"), Times.Once);
     }
 
     [Test]
-    public void Delete_ViewConfirmFalse_NothingElseHappens()
+    public async Task DeleteAsync_ViewConfirmFalse_NothingElseHappens()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
 
-        _presenter.Delete(RegistrationId.New());
+        await _presenter.DeleteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _deleteAdapter.Verify(adapter => adapter.Execute(It.IsAny<RegistrationId>()), Times.Never);
+            _deleteAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.RemoveRegistration(It.IsAny<RegistrationId>()), Times.Never);
         });
     }
 
     [Test]
-    public void Delete_ViewConfirmTrue_DeleteAdapterExecute_CalledCorrectly()
+    public async Task DeleteAsync_ViewConfirmTrue_DeleteAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
 
-        _presenter.Delete(registrationId);
+        await _presenter.DeleteAsync(registrationId, cancellationToken).ConfigureAwait(false);
 
-        _deleteAdapter.Verify(adapter => adapter.Execute(registrationId), Times.Once);
+        _deleteAdapter.Verify(adapter => adapter.ExecuteAsync(registrationId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Delete_ViewConfirmTrue_DeleteAdapterHasError_ErrorFlow()
+    public async Task DeleteAsync_ViewConfirmTrue_DeleteAdapterHasError_ErrorFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _deleteAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Delete(RegistrationId.New());
+        await _presenter.DeleteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -307,13 +308,13 @@ internal sealed class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public void Delete_ViewConfirmTrue_DeleteAdapterSuccess_ViewRemoveRegistration_CalledCorrectly()
+    public async Task DeleteAsync_ViewConfirmTrue_DeleteAdapterSuccess_ViewRemoveRegistration_CalledCorrectly()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var registrationId = RegistrationId.New();
 
-        _presenter.Delete(registrationId);
+        await _presenter.DeleteAsync(registrationId, default).ConfigureAwait(false);
 
         _view.Verify(view=> view.RemoveRegistration(registrationId), Times.Once);
     }

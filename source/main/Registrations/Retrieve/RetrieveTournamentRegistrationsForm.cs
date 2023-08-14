@@ -67,11 +67,11 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     public void RemoveRegistration(RegistrationId id)
         => tournamentRegistrationsGrid.Remove(id);
 
-    private void DeleteMenuItem_Click(object sender, EventArgs e)
+    private async void DeleteMenuItem_Click(object sender, EventArgs e)
     {
         var registration = tournamentRegistrationsGrid.SelectedRegistration;
 
-        new TournamentRegistrationsPresenter(this, _config).Delete(registration.Id);
+        await new TournamentRegistrationsPresenter(this, _config).DeleteAsync(registration.Id, default).ConfigureAwait(true);
     }
 
     private void UpdateBowlerNameMenuItem_Click(object sender, EventArgs e)
