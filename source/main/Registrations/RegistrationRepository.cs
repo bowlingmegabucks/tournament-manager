@@ -43,15 +43,12 @@ internal class Repository : IRepository
         return registration;
     }
 
-    IEnumerable<Database.Entities.Registration> IRepository.Retrieve(TournamentId tournamentId)
+    IQueryable<Database.Entities.Registration> IRepository.Retrieve(TournamentId tournamentId)
         => _dataContext.Registrations.Include(registration => registration.Division)
             .Include(registration => registration.Squads).ThenInclude(squadRegistration=> squadRegistration.Squad)
             .Include(registration => registration.Bowler)
             .AsNoTracking()
             .Where(registration => registration.Division.TournamentId == tournamentId);
-
-    IEnumerable<Database.Entities.SquadRegistration> IRepository.RetrieveForSquad(SquadId squadId)
-        => Enumerable.Empty<Database.Entities.SquadRegistration>();
 
     void IRepository.Delete(BowlerId bowlerId, SquadId squadId)
     {
@@ -91,9 +88,7 @@ internal interface IRepository
 
     Database.Entities.Registration AddSquad(BowlerId bowlerId, SquadId squadId);
 
-    IEnumerable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
-
-    IEnumerable<Database.Entities.SquadRegistration> RetrieveForSquad(SquadId squadId);
+    IQueryable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
 
     void Delete(BowlerId bowlerId, SquadId squadId);
 

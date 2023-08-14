@@ -13,7 +13,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
         _config = config;
         TournamentId = tournamentId;
 
-        new TournamentRegistrationsPresenter(this, config).Execute();
+        new TournamentRegistrationsPresenter(this, config).Execute(default);
     }
 
     public TournamentId TournamentId { get; }

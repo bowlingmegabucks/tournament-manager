@@ -40,15 +40,15 @@ internal class TournamentRegistrationsPresenter
         _deleteAdapter = new Lazy<Delete.IAdapter>(()=> mockDeleteAdapter);
     }
 
-    public void Execute()
+    public void Execute(CancellationToken cancellationToken)
     {
-        var registrationsTask = Task.Run(() => _registrationsAdapter.Execute(_view.TournamentId));
+        var registrationsTask = _registrationsAdapter.ExecuteAsync(_view.TournamentId, cancellationToken);
         var squadsTask = Task.Run(() => _squadsAdapter.Execute(_view.TournamentId));
         var sweepersTask = Task.Run(() => _sweepersAdapter.Execute(_view.TournamentId));
 
         var tasks = new List<Task> { registrationsTask, squadsTask, sweepersTask };
 
-        Task.WaitAll(tasks.ToArray());
+        Task.WaitAll(tasks.ToArray(), cancellationToken);
 
         var errors = new[] { _registrationsAdapter.Error, _squadsAdapter.Error, _sweepersAdapter.Error }.Where(error => error != null).ToList();
 

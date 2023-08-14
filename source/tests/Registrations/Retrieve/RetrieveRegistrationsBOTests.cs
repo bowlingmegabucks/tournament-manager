@@ -16,36 +16,37 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_TournamentId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_DataLayerExecute_CalledCorrectly()
     {
-        var tournamentId = NortheastMegabuck.TournamentId.New();
+        var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(tournamentId);
+        await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(tournamentId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentId_ReturnsDataLayerExecute()
+    public async Task ExecuteAsync_TournamentId_ReturnsDataLayerExecute()
     {
         var registrations = Enumerable.Repeat(new NortheastMegabuck.Models.Registration(), 2);
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(registrations);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrations);
 
-        var tournamentId = NortheastMegabuck.TournamentId.New();
+        var tournamentId = TournamentId.New();
 
-        var actual = _businessLogic.Execute(tournamentId);
+        var actual = await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(registrations));
     }
 
     [Test]
-    public void Execute_TournamentId_DataLayerExecuteThrowsException_ExceptionFlow()
+    public async Task ExecuteAsync_TournamentId_DataLayerExecuteThrowsException_ExceptionFlow()
     {
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(new Exception("exception"));
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ThrowsAsync(new Exception("exception"));
 
-        var tournamentId = NortheastMegabuck.TournamentId.New();
+        var tournamentId = TournamentId.New();
 
-        var actual = _businessLogic.Execute(tournamentId);
+        var actual = await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
