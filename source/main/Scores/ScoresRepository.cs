@@ -19,7 +19,7 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    void IRepository.Update(ICollection<Database.Entities.SquadScore> scores)
+    async Task IRepository.UpdateAsync(ICollection<Database.Entities.SquadScore> scores, CancellationToken cancellationToken)
     {
         var squadId = scores.First().SquadId;
         var existingSquadScores = _dataContext.SquadScores.Where(score => score.SquadId == squadId).ToList();
@@ -30,7 +30,7 @@ internal class Repository : IRepository
 
             if (existingSquadScore == null) //this is a new score
             {
-                _dataContext.SquadScores.Add(newSquadScore);
+                await _dataContext.SquadScores.AddAsync(newSquadScore, cancellationToken).ConfigureAwait(false);
             }
             else if (newSquadScore.Score != existingSquadScore.Score) //updated score for bowler in game
             {
@@ -49,7 +49,7 @@ internal class Repository : IRepository
 
         _dataContext.SquadScores.RemoveRange(existingSquadScores); //this removes scores that were cleared out in UI
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
     public IQueryable<Database.Entities.SquadScore> Retrieve(params SquadId[] squadIds)
@@ -63,7 +63,7 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    void Update(ICollection<Database.Entities.SquadScore> scores);
+    Task UpdateAsync(ICollection<Database.Entities.SquadScore> scores, CancellationToken cancellationToken);
 
     IQueryable<Database.Entities.SquadScore> Retrieve(params SquadId[] squadIds);
 }

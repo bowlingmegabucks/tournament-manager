@@ -8,4 +8,6 @@ internal interface IView
     void DisplayMessage(string message);
 
     void KeepOpen();
+
+    void OkToClose();
 }

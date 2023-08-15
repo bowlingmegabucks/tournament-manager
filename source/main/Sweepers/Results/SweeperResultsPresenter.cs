@@ -25,7 +25,7 @@ internal class Presenter
 
     public async Task ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
-        var results = await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
+        var results = await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(true);
 
         if (_adapter.Error != null)
         {

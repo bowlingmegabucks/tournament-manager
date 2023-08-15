@@ -19,7 +19,7 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
 
@@ -48,32 +48,33 @@ internal sealed class Adapter
         };
 
         var scores = new[] { score1, score2, score3 };
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(scores);
+        await _adapter.ExecuteAsync(scores, cancellationToken).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count() == 3)), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count() == 3), cancellationToken), Times.Once);
 
-            _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore=> squadScore.SquadId == squadId))), Times.Once);
-            _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore=> squadScore.Bowler.Id == score1.BowlerId) == 2)), Times.Once);
-            _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.Bowler.Id == score3.BowlerId) == 1)), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore=> squadScore.SquadId == squadId)), cancellationToken), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore=> squadScore.Bowler.Id == score1.BowlerId) == 2), cancellationToken), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.Bowler.Id == score3.BowlerId) == 1), cancellationToken), Times.Once);
         });
     }
 
     [Test]
-    public void Execute_ErrorsSetToBusinessLogicErrors()
+    public async Task ExecuteAsync_ErrorsSetToBusinessLogicErrors()
     {
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), 2);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
-        _adapter.Execute(Enumerable.Empty<IViewModel>());
+        await _adapter.ExecuteAsync(Enumerable.Empty<IViewModel>(), default).ConfigureAwait(false);
 
         Assert.That(_adapter.Errors, Is.EqualTo(errors));
     }
 
     [Test]
-    public void Execute_InvalidScoresReturnedIfAny()
+    public async Task ExecuteAsync_InvalidScoresReturnedIfAny()
     {
         var invalidScore1 = new NortheastMegabuck.Models.SquadScore
         {
@@ -90,9 +91,9 @@ internal sealed class Adapter
         };
 
         var invalidScores = new[] { invalidScore1, invalidScore2 };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadScore>>())).Returns(invalidScores);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadScore>>(), It.IsAny<CancellationToken>())).ReturnsAsync(invalidScores);
 
-        var result = _adapter.Execute(Enumerable.Empty<IViewModel>()).ToList();
+        var result = (await _adapter.ExecuteAsync(Enumerable.Empty<IViewModel>(), default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {
