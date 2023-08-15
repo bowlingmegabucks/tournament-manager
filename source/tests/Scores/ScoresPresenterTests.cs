@@ -21,36 +21,37 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_RetrieveLaneAssignmentsAdapterExecute_CalledCorrectly()
+    public async Task LoadAsync_RetrieveLaneAssignmentsAdapterExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
         _view.SetupGet(view => view.SquadId).Returns(squadId);
 
         CancellationToken cancellationToken = default;
         
-        _presenter.Load(cancellationToken);
+        await _presenter.LoadAsync(cancellationToken).ConfigureAwait(false);
 
         _retrieveLaneAssignmentsAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Load_RetrieveSquadScoresAdapterExecute_CalledCorrectly()
+    public async Task LoadAsync_RetrieveSquadScoresAdapterExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
         _view.SetupGet(view => view.SquadId).Returns(squadId);
+        CancellationToken cancellationToken = default;
 
-        _presenter.Load(default);
+        await _presenter.LoadAsync(cancellationToken).ConfigureAwait(false);
 
-        _retrieveSquadScoresAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        _retrieveSquadScoresAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Load_RetrieveLaneAssignmentsAdapterHasError_ErrorFlow()
+    public async Task LoadAsync_RetrieveLaneAssignmentsAdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveLaneAssignmentsAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Load(default);
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -63,12 +64,12 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_RetrieveSquadScoresAdapterHasError_ErrorFlow()
+    public async Task LoadAsync_RetrieveSquadScoresAdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveSquadScoresAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Load(default);
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -81,7 +82,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_RetrieveLaneAssignmentsAdapterAndRetrieveSquadScoresAdapterHaveErrors_LaneAssignmentAdapterErrorDisplayed()
+    public async Task LoadAsync_RetrieveLaneAssignmentsAdapterAndRetrieveSquadScoresAdapterHaveErrors_LaneAssignmentAdapterErrorDisplayed()
     {
         var error1 = new NortheastMegabuck.Models.ErrorDetail("error1");
         _retrieveLaneAssignmentsAdapter.SetupGet(adapter => adapter.Error).Returns(error1);
@@ -89,7 +90,7 @@ internal sealed class Presenter
         var error2 = new NortheastMegabuck.Models.ErrorDetail("error2");
         _retrieveSquadScoresAdapter.SetupGet(adapter => adapter.Error).Returns(error2);
 
-        _presenter.Load(default);
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -99,7 +100,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_RetrieveLaneAssignmentsSuccess_ViewBindLaneAssignments_CalledCorrectly()
+    public async Task LoadAsync_RetrieveLaneAssignmentsSuccess_ViewBindLaneAssignments_CalledCorrectly()
     {
         var assignment1 = new NortheastMegabuck.LaneAssignments.ViewModel("15A");
         var assignment2 = new NortheastMegabuck.LaneAssignments.ViewModel(string.Empty);
@@ -109,7 +110,7 @@ internal sealed class Presenter
 
         _retrieveLaneAssignmentsAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(laneAssignments);
 
-        _presenter.Load(default);
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -120,12 +121,12 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_RetrieveSquadScoresAdapterSuccess_ViewBindSquadScores_CalledCorrectly()
+    public async Task LoadAsync_RetrieveSquadScoresAdapterSuccess_ViewBindSquadScores_CalledCorrectly()
     {
         var scores = new List<NortheastMegabuck.Scores.IViewModel>();
-        _retrieveSquadScoresAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(scores);
+        _retrieveSquadScoresAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(scores);
 
-        _presenter.Load(default);
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.BindSquadScores(scores), Times.Once);
     }

@@ -22,7 +22,7 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
 
     private void Form_Load(object sender, EventArgs e)
     {
-        new Presenter(_config, this).Load(default);
+        _ = new Presenter(_config, this).LoadAsync(default);
 
         if (_complete)
         {

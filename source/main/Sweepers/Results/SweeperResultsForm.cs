@@ -6,7 +6,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public Form(IConfiguration config, SquadId squadId) : this()
     {
-        new Presenter(config, this).Execute(squadId);
+        _ = new Presenter(config, this).ExecuteAsync(squadId, default);
     }
 
     public Form(IConfiguration config, TournamentId tournamentId) : this()

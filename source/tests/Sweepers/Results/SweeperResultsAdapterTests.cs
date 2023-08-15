@@ -17,21 +17,23 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_SquadId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_BusinessLogicExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
-        _adapter.Execute(squadId);
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId), Times.Once);
+        await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
+
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_BusinessLogicExecuteHasError_ErrorFlow()
+    public async Task ExecuteAsync_SquadId_BusinessLogicExecuteHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        var result = _adapter.Execute(SquadId.New());
+        var result = await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -41,7 +43,7 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_SquadId_BusinessLogicExecuteSuccess_PlacingsMappedCorrectly()
+    public async Task ExecuteAsync_SquadId_BusinessLogicExecuteSuccess_PlacingsMappedCorrectly()
     {
         var bowlerSquadScore1 = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
         {
@@ -65,9 +67,9 @@ internal sealed class Adapter
             Scores = new[] { bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3 }
         };
 
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<SquadId>())).Returns(sweeperCut);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeperCut);
 
-        var result = _adapter.Execute(SquadId.New()).ToList();
+        var result = (await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

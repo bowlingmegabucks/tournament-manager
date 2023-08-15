@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace NortheastMegabuck.Scores;
 
@@ -53,10 +52,7 @@ internal class Repository : IRepository
         _dataContext.SaveChanges();
     }
 
-    IEnumerable<Database.Entities.SquadScore> IRepository.Retrieve(SquadId squadId)
-        => Retrieve(new[] { squadId });
-
-    public IEnumerable<Database.Entities.SquadScore> Retrieve(IEnumerable<SquadId> squadIds)
+    public IQueryable<Database.Entities.SquadScore> Retrieve(params SquadId[] squadIds)
     => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
             .Include(squadScore => squadScore.Bowler)
                 .ThenInclude(bowler => bowler.Registrations.Where(registration => registration.Squads.Any(squad => squadIds.Contains(squad.SquadId))))
@@ -69,7 +65,5 @@ internal interface IRepository
 {
     void Update(ICollection<Database.Entities.SquadScore> scores);
 
-    IEnumerable<Database.Entities.SquadScore> Retrieve(SquadId squadId);
-
-    IEnumerable<Database.Entities.SquadScore> Retrieve(IEnumerable<SquadId> squadIds);
+    IQueryable<Database.Entities.SquadScore> Retrieve(params SquadId[] squadIds);
 }

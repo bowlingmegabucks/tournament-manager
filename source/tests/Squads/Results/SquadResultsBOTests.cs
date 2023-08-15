@@ -49,7 +49,7 @@ internal sealed class BusinessLogic
             Assert.That(_businessLogic.Error, Is.EqualTo(error));
             Assert.That(result, Is.Empty);
 
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>()), Times.Never);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Never);
             _squadResultCalculator.Verify(calculator => calculator.Execute(It.IsAny<NortheastMegabuck.Models.Squad>(), It.IsAny<NortheastMegabuck.Models.Division>(), It.IsAny<List<NortheastMegabuck.Models.BowlerSquadScore>>(), It.IsAny<IEnumerable<BowlerId>>(), It.IsAny<decimal>(), It.IsAny<decimal>()), Times.Never);
         });
     }
@@ -81,14 +81,15 @@ internal sealed class BusinessLogic
         };
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        await _businessLogic.ExecuteAsync(currentSquad.Id, default).ConfigureAwait(false);
+        CancellationToken cancellationToken = default;
+        await _businessLogic.ExecuteAsync(currentSquad.Id, cancellationToken).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.Is<IEnumerable<SquadId>>(squads => squads.Count() == 2)), Times.Once);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.Is<IEnumerable<SquadId>>(squads => squads.Count() == 2), cancellationToken), Times.Once);
 
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.Is<IEnumerable<SquadId>>(squads => squads.Contains(pastSquad.Id))), Times.Once);
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.Is<IEnumerable<SquadId>>(squads => squads.Contains(currentSquad.Id))), Times.Once);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.Is<IEnumerable<SquadId>>(squads => squads.Contains(pastSquad.Id)), cancellationToken), Times.Once);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.Is<IEnumerable<SquadId>>(squads => squads.Contains(currentSquad.Id)), cancellationToken), Times.Once);
         });
     }
 
@@ -145,7 +146,7 @@ internal sealed class BusinessLogic
         };
 
         var scores = new[] { currentSquadBowler2Score1, pastSquadBowler1Score1 };
-        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(scores);
+        _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(scores);
 
         await _businessLogic.ExecuteAsync(currentSquad.Id, default).ConfigureAwait(false);
 

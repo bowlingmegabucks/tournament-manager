@@ -17,28 +17,29 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(squadId);
+        await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(new[] { squadId }, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_AdapterError_SetToBusinessLogicError()
+    public async Task ExecuteAsync_AdapterError_SetToBusinessLogicError()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        _adapter.Execute(SquadId.New());
+        await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }
 
     [Test]
-    public void Execute_ReturnsAdapterExecute()
+    public async Task ExecuteAsync_ReturnsAdapterExecute()
     {
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
@@ -53,9 +54,9 @@ internal sealed class Adapter
         };
 
         var scores = new[] { score1, score2 };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<SquadId>())).Returns(scores);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(scores);
 
-        var actual = _adapter.Execute(SquadId.New()).ToList();
+        var actual = (await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

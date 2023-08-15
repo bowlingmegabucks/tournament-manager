@@ -23,9 +23,9 @@ internal class Presenter
         _adapter = mockAdapter;
     }
 
-    public void Execute(SquadId squadId)
+    public async Task ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
-        var results = _adapter.Execute(squadId);
+        var results = await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
         if (_adapter.Error != null)
         {
