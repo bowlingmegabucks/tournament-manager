@@ -19,24 +19,26 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_GetSquadsAdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_GetSquadsAdapterExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _getSquadsAdapter.Verify(a => a.Execute(tournamentId), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _getSquadsAdapter.Verify(a => a.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_GetSquadsAdapterHasError_ErrorFlow()
+    public async Task ExecuteAsync_GetSquadsAdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
 
         _getSquadsAdapter.SetupGet(getSquadsAdapter => getSquadsAdapter.Error).Returns(error);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -48,7 +50,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_GetSquadsAdapterReturnsSquads_ViewBindSquads_CalledCorrectly()
+    public async Task ExecuteAsync_GetSquadsAdapterReturnsSquads_ViewBindSquads_CalledCorrectly()
     {
         var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Date).Returns(DateTime.Now);
@@ -63,9 +65,9 @@ internal sealed class Presenter
         squad3.SetupGet(squad => squad.MaxPerPair).Returns(3);
 
         var squads = new[] { squad1.Object, squad2.Object, squad3.Object };
-        _getSquadsAdapter.Setup(getSquadsAdapter => getSquadsAdapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
+        _getSquadsAdapter.Setup(getSquadsAdapter => getSquadsAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squads);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -76,33 +78,34 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void AddSquad_ViewAddSquad_CalledCorrectly()
+    public async Task AddSquadAsync_ViewAddSquad_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.AddSquad();
+        await _presenter.AddSquadAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.AddSquad(tournamentId), Times.Once);
     }
 
     [Test]
-    public void AddSquad_ViewAddSquadReturnsNull_ViewRefreshSquads_NotCalled()
+    public async Task AddSquadAsync_ViewAddSquadReturnsNull_ViewRefreshSquads_NotCalled()
     {
         _view.Setup(view => view.AddSquad(It.IsAny<TournamentId>())).Returns((SquadId?)null);
 
-        _presenter.AddSquad();
+        await _presenter.AddSquadAsync(default).ConfigureAwait(false);
 
-        _view.Verify(view => view.RefreshSquads(), Times.Never);
+        _view.Verify(view => view.RefreshSquadsAsync(It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Test]
-    public void AddSquad_ViewAddSquadReturnsId_ViewRefreshSquads_Called()
+    public async Task AddSquadAsync_ViewAddSquadReturnsId_ViewRefreshSquads_Called()
     {
         _view.Setup(view => view.AddSquad(It.IsAny<TournamentId>())).Returns(SquadId.New());
+        CancellationToken cancellationToken = default;
 
-        _presenter.AddSquad();
+        await _presenter.AddSquadAsync(cancellationToken).ConfigureAwait(false);
 
-        _view.Verify(view => view.RefreshSquads(), Times.Once);
+        _view.Verify(view => view.RefreshSquadsAsync(cancellationToken), Times.Once);
     }
 }

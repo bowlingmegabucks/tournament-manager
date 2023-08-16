@@ -42,9 +42,11 @@ internal sealed class TournamentRegistrationsPresenter
         var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Execute(default);
+        CancellationToken cancellationToken = default;
 
-        _squadsAdapter.Verify(squadsAdapter => squadsAdapter.Execute(tournamentId), Times.Once);
+        _presenter.Execute(cancellationToken);
+
+        _squadsAdapter.Verify(squadsAdapter => squadsAdapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -181,7 +183,7 @@ internal sealed class TournamentRegistrationsPresenter
         squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
 
         var squads = new[] { squad1.Object, squad2.Object };
-        _squadsAdapter.Setup(squadsAdapter => squadsAdapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
+        _squadsAdapter.Setup(squadsAdapter => squadsAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squads);
 
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");

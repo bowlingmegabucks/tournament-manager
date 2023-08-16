@@ -43,7 +43,7 @@ internal class TournamentRegistrationsPresenter
     public void Execute(CancellationToken cancellationToken)
     {
         var registrationsTask = _registrationsAdapter.ExecuteAsync(_view.TournamentId, cancellationToken);
-        var squadsTask = Task.Run(() => _squadsAdapter.Execute(_view.TournamentId));
+        var squadsTask = _squadsAdapter.ExecuteAsync(_view.TournamentId, cancellationToken);
         var sweepersTask = Task.Run(() => _sweepersAdapter.Execute(_view.TournamentId));
 
         var tasks = new List<Task> { registrationsTask, squadsTask, sweepersTask };

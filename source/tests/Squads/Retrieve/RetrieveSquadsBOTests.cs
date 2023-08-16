@@ -16,50 +16,51 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_TournamnetId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_DataLayerExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(tournamentId);
+        await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(tournamentId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamnetId_ReturnsDataLayerExecuteResults()
+    public async Task ExecuteAsync_TournamentId_ReturnsDataLayerExecuteResults()
     {
         var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad(), 2);
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squads);
 
         var tournamentId = TournamentId.New();
 
-        var actual = _businessLogic.Execute(tournamentId);
+        var actual = await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(squads));
     }
 
     [Test]
-    public void Execute_TournamnetId_DataLayerExecuteNoException_ErrorNull()
+    public async Task ExecuteAsync_TournamentId_DataLayerExecuteNoException_ErrorNull()
     {
         var squads = Enumerable.Repeat(new NortheastMegabuck.Models.Squad(), 2);
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Returns(squads);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squads);
 
         var tournamentId = TournamentId.New();
 
-         _businessLogic.Execute(tournamentId);
+         await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void Execute_TournamnetId_DataLayerExecuteThrowsException_ErrorFlow()
+    public async Task ExecuteAsync_TournamentId_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<TournamentId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var tournamentId = TournamentId.New();
 
-        var actual = _businessLogic.Execute(tournamentId);
+        var actual = await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

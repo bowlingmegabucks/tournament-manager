@@ -1,5 +1,5 @@
-﻿
-namespace NortheastMegabuck.Squads.Retrieve;
+﻿namespace NortheastMegabuck.Squads.Retrieve;
+
 internal interface IView
 {
     TournamentId TournamentId { get; }
@@ -12,5 +12,5 @@ internal interface IView
 
     SquadId? AddSquad(TournamentId tournamentId);
 
-    void RefreshSquads();
+    Task RefreshSquadsAsync(CancellationToken cancellationToken);
 }

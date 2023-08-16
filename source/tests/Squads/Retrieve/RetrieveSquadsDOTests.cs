@@ -16,17 +16,19 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_TournamentId_RepositoryRetrieve_Called()
+    public async Task ExecuteAsync_TournamentId_RepositoryRetrieve_Called()
     {
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.TournamentSquad>().BuildMock());
+
         var id = TournamentId.New();
 
-        _dataLayer.Execute(id);
+        await _dataLayer.ExecuteAsync(id, default).ConfigureAwait(false);
 
         _repository.Verify(repository => repository.Retrieve(id), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentId_ReturnsRepositoryRetrieveResponse()
+    public async Task ExecuteAsync_TournamentId_ReturnsRepositoryRetrieveResponse()
     {
         var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
@@ -45,9 +47,9 @@ internal sealed class DataLayer
 
         var squads = new[] { squad1, squad2, squad3 };
 
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(squads);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(squads.BuildMock());
 
-        var actual = _dataLayer.Execute(TournamentId.New());
+        var actual = await _dataLayer.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
