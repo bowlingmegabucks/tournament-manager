@@ -27,9 +27,9 @@ internal class Adapter : IAdapter
         return squads.Select(squad => new ViewModel(squad));
     }
 
-    public IViewModel? Execute(SquadId id)
+    public async Task<IViewModel?> ExecuteAsync(SquadId id, CancellationToken cancellationToken)
     {
-        var squad = _businessLogic.Execute(id);
+        var squad = await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
         return squad is not null ? new ViewModel(squad) : null;
     }
@@ -41,5 +41,5 @@ internal interface IAdapter
 
     Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    IViewModel? Execute(SquadId id);
+    Task<IViewModel?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 }

@@ -22,7 +22,7 @@ public partial class Form : System.Windows.Forms.Form, IView
         _numberOfGames = numberOfGames;
         _squadDate = squadDate;
 
-        new Presenter(config, this).Load();
+        _ = new Presenter(config, this).LoadAsync(default);
         _complete = complete;
     }
 

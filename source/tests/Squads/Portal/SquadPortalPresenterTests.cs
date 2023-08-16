@@ -21,21 +21,23 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterExecute_CalledCorrectly()
+    public async Task LoadAsync_RetrieveSquadAdapterExecute_CalledCorrectly()
     {
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(squad.Object);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad.Object);
 
         var squadId = new SquadId();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Load();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterHasError_ErrorFlow()
+    public async Task LoadAsync_RetrieveSquadAdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
@@ -43,7 +45,7 @@ internal sealed class Presenter
         var squadId = new SquadId();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -55,16 +57,16 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterHasNoError_ViewSetPortalTitle_CalledCorrectly()
+    public async Task LoadAsync_RetrieveSquadAdapterHasNoError_ViewSetPortalTitle_CalledCorrectly()
     {
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified));
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(squad.Object);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad.Object);
 
         var squadId = new SquadId();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.SetPortalTitle("01/02/2000 09:30AM"), Times.Once);
     }

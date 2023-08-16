@@ -61,38 +61,39 @@ internal sealed class Adapter
     }
 
     [Test]
-    public void Execute_SquadId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_BusinessLogicExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(squadId);
+        await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
+    public async Task ExecuteAsync_SquadId_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
         var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var squadId = SquadId.New();
 
-        _adapter.Execute(squadId);
+        await _adapter.ExecuteAsync(squadId, default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }
 
     [Test]
-    public void Execute_SquadId_ReturnsSquadsFromBusinessLogic()
+    public async Task ExecuteAsync_SquadId_ReturnsSquadsFromBusinessLogic()
     {
         var squad = new NortheastMegabuck.Models.Squad { MaxPerPair = 1 };
 
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<SquadId>())).Returns(squad);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad);
 
         var squadId = SquadId.New();
 
-        var actual = _adapter.Execute(squadId);
+        var actual = await _adapter.ExecuteAsync(squadId, default).ConfigureAwait(false);
 
         Assert.That(actual.MaxPerPair, Is.EqualTo(squad.MaxPerPair));
     }

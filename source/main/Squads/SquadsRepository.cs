@@ -30,8 +30,8 @@ internal class Repository : IRepository
     public IQueryable<Database.Entities.TournamentSquad> Retrieve(TournamentId tournamentId)
         => _dataContext.Squads.AsNoTracking().Where(squad => squad.TournamentId == tournamentId);
 
-    public Database.Entities.TournamentSquad Retrieve(SquadId id)
-        => _dataContext.Squads.AsNoTracking().Single(squad => squad.Id == id);
+    public async Task<Database.Entities.TournamentSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken)
+        => await _dataContext.Squads.AsNoTracking().FirstAsync(squad => squad.Id == id, cancellationToken).ConfigureAwait(false);
 
     public void Complete(SquadId id)
     {
@@ -68,7 +68,7 @@ internal interface IRepository
 
     IQueryable<Database.Entities.TournamentSquad> Retrieve(TournamentId tournamentId);
 
-    Database.Entities.TournamentSquad Retrieve(SquadId id);
+    Task<Database.Entities.TournamentSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken);
 
     void Complete(SquadId id);
 }

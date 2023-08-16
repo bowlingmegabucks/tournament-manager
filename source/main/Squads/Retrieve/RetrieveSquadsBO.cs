@@ -33,11 +33,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public Models.Squad? Execute(SquadId id)
+    public async Task<Models.Squad?> ExecuteAsync(SquadId id, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(id);
+            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -54,5 +54,5 @@ internal interface IBusinessLogic
 
     Task<IEnumerable<Models.Squad>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    Models.Squad? Execute(SquadId id);
+    Task<Models.Squad?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 }

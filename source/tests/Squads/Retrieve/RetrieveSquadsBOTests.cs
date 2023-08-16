@@ -70,50 +70,51 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_SquadId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_DataLayerExecute_CalledCorrectly()
     {
         var id = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(id);
+        await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(id), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(id, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_ReturnsDataLayerExecuteResults()
+    public async Task ExecuteAsync_SquadId_ReturnsDataLayerExecuteResults()
     {
         var squad = new NortheastMegabuck.Models.Squad();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(squad);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad);
 
         var id = SquadId.New();
 
-        var actual = _businessLogic.Execute(id);
+        var actual = await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(squad));
     }
 
     [Test]
-    public void Execute_SquadId_DataLayerExecuteNoException_ErrorNull()
+    public async Task ExecuteAsync_SquadId_DataLayerExecuteNoException_ErrorNull()
     {
         var squad = new NortheastMegabuck.Models.Squad();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(squad);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad);
 
         var id = SquadId.New();
 
-        _businessLogic.Execute(id);
+        await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void Execute_SquadId_DataLayerExecuteThrowsException_ErrorFlow()
+    public async Task ExecuteAsync_SquadId_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var id = SquadId.New();
 
-        var actual = _businessLogic.Execute(id);
+        var actual = await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

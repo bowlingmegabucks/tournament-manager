@@ -27,9 +27,9 @@ internal class Presenter
         _completeSquadAdapter = new Lazy<Complete.IAdapter>(() => mockCompleteSquadAdapter);
     }
 
-    public void Load()
+    public async Task LoadAsync(CancellationToken cancellationToken)
     {
-        var squad = _retrieveSquadAdapter.Execute(_view.Id);
+        var squad = await _retrieveSquadAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveSquadAdapter.Error != null)
         {
