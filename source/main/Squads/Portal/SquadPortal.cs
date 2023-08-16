@@ -74,6 +74,6 @@ public partial class Form : System.Windows.Forms.Form, IView
     public void DisplayMessage(string message)
         => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-    private void CompleteMenuItem_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).Complete();
+    private async void CompleteMenuItem_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).CompleteAsync(default).ConfigureAwait(false);
 }

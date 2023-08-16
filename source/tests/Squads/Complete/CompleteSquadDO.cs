@@ -17,12 +17,13 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryComplete_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryComplete_CalledCorrectly()
     {
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(squadId);
-
-        _repository.Verify(repository => repository.Complete(squadId), Times.Once);
+        await _dataLayer.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
+        
+        _repository.Verify(repository => repository.CompleteAsync(squadId, cancellationToken), Times.Once);
     }
 }

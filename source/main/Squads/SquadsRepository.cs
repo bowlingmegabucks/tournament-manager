@@ -33,32 +33,32 @@ internal class Repository : IRepository
     public async Task<Database.Entities.TournamentSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken)
         => await _dataContext.Squads.AsNoTracking().FirstAsync(squad => squad.Id == id, cancellationToken).ConfigureAwait(false);
 
-    public void Complete(SquadId id)
+    public async Task CompleteAsync(SquadId id, CancellationToken cancellationToken)
     {
-        var squad = _dataContext.Squads.Single(sweeper => sweeper.Id == id);
+        var squad = await _dataContext.Squads.FirstAsync(sweeper => sweeper.Id == id, cancellationToken).ConfigureAwait(false);
         squad.Complete = true;
 
-        var squadScores = _dataContext.SquadScores.AsNoTracking().Where(score => score.SquadId == id).ToList();
-        var registrations = _dataContext.Registrations.AsNoTrackingWithIdentityResolution().Include(registration => registration.Squads).Where(registration => registration.Squads.Select(squad => squad.SquadId).Contains(id)).ToList();
-        var squadBowlerIds = registrations.Select(registration => registration.BowlerId).ToList();
-
-        var noBowl = squadBowlerIds.Where(bowlerId => !squadScores.Select(score => score.BowlerId).Contains(bowlerId)).ToList();
+        var squadScores = await _dataContext.SquadScores.AsNoTracking().Where(score => score.SquadId == id).ToListAsync(cancellationToken).ConfigureAwait(false);
+        var noBowl = await _dataContext.Registrations.AsNoTrackingWithIdentityResolution().Include(registration => registration.Squads)
+                                .Where(registration => registration.Squads.Select(squad => squad.SquadId).Contains(id))
+                                .Select(registration => registration.BowlerId)
+                                .Where(bowlerId => !squadScores.Select(score => score.BowlerId).Contains(bowlerId)).ToListAsync(cancellationToken).ConfigureAwait(false);
 
         if (noBowl.Count > 0)
         {
-            var tournament = _dataContext.Tournaments.AsNoTrackingWithIdentityResolution().Include(tournament => tournament.Squads).Single(tournament => tournament.Squads.Select(squad => squad.Id).Contains(id));
+            var tournament = await _dataContext.Tournaments.AsNoTrackingWithIdentityResolution().Include(tournament => tournament.Squads).FirstAsync(tournament => tournament.Squads.Select(squad => squad.Id).Contains(id), cancellationToken).ConfigureAwait(false);
             var games = tournament.Games;
 
             foreach (var noShow in noBowl)
             {
                 for (short game = 1; game <= games; game++)
                 {
-                    _dataContext.SquadScores.Add(new Database.Entities.SquadScore { BowlerId = noShow, SquadId = id, Score = -1, Game = game });
+                    await _dataContext.SquadScores.AddAsync(new Database.Entities.SquadScore { BowlerId = noShow, SquadId = id, Score = -1, Game = game }, cancellationToken).ConfigureAwait(false);
                 }
             }
         }
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 }
 
@@ -70,5 +70,5 @@ internal interface IRepository
 
     Task<Database.Entities.TournamentSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken);
 
-    void Complete(SquadId id);
+    Task CompleteAsync(SquadId id, CancellationToken cancellationToken);
 }

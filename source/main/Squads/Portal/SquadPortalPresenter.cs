@@ -47,14 +47,14 @@ internal class Presenter
         _view.SetMaxPerPair(squad.MaxPerPair);
     }
 
-    internal void Complete()
+    internal async Task CompleteAsync(CancellationToken cancellationToken)
     {
         if (!_view.Confirm("Are you sure you want to complete this squad?"))
         {
             return;
         }
 
-        CompleteSquadAdapter.Execute(_view.Id);
+        await CompleteSquadAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
 
         if (CompleteSquadAdapter.Error != null)
         {

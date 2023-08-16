@@ -17,13 +17,13 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public void Execute(SquadId id)
-        => _businessLogic.Execute(id);
+    public async Task ExecuteAsync(SquadId id, CancellationToken cancellationToken)
+        => await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    void Execute(SquadId id);
+    Task ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 }
