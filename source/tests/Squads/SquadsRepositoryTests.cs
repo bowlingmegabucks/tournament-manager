@@ -17,27 +17,28 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Add_SquadAddedWithId()
+    public async Task AddAsync_SquadAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.TournamentSquad>().SetUpDbContext());
 
         var squad = new NortheastMegabuck.Database.Entities.TournamentSquad();
 
-        var id = _repository.Add(squad);
+        var id = await _repository.AddAsync(squad, default).ConfigureAwait(false);
 
         Assert.That(squad.Id, Is.EqualTo(id));
     }
 
     [Test]
-    public void Add_DataContextSaveChanges_Called()
+    public async Task AddAsync_DataContextSaveChanges_Called()
     {
         _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.TournamentSquad>().SetUpDbContext());
 
         var squad = new NortheastMegabuck.Database.Entities.TournamentSquad();
+        CancellationToken cancellationToken = default;
 
-        _repository.Add(squad);
+        await _repository.AddAsync(squad, cancellationToken).ConfigureAwait(false);
 
-        _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once());
+        _dataContext.Verify(dataContext => dataContext.SaveChangesAsync(cancellationToken), Times.Once());
     }
 
     [Test]

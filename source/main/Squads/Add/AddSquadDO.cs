@@ -21,15 +21,15 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    public SquadId Execute(Models.Squad squad)
+    public async Task<SquadId> ExecuteAsync(Models.Squad squad, CancellationToken cancellationToken)
     {
         var entity = _mapper.Execute(squad);
         
-        return _repository.Add(entity);
+        return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
 }
 
 internal interface IDataLayer
 {
-    SquadId Execute(Models.Squad squad);
+    Task<SquadId> ExecuteAsync(Models.Squad squad, CancellationToken cancellationToken);
 }

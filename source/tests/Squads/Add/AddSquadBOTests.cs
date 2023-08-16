@@ -56,7 +56,7 @@ internal sealed class BusinesLogic
             Assert.That(actual, Is.Null);
 
             _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Squad>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Squad>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Squad>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -122,7 +122,7 @@ internal sealed class BusinesLogic
             _businessLogic.Errors.Assert_HasErrorMessage("invalid");
             Assert.That(actual, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Squad>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Squad>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -139,9 +139,11 @@ internal sealed class BusinesLogic
             TournamentId = TournamentId.New()
         };
 
-        await _businessLogic.ExecuteAsync(squad, default).ConfigureAwait(false);
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(squad), Times.Once);
+        await _businessLogic.ExecuteAsync(squad, cancellationToken).ConfigureAwait(false);
+
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(squad, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -150,7 +152,7 @@ internal sealed class BusinesLogic
         _validator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Squad>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Squad>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
@@ -175,7 +177,7 @@ internal sealed class BusinesLogic
         _validator.Validate_IsValid();
 
         var id = SquadId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Squad>())).Returns(id);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Squad>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);

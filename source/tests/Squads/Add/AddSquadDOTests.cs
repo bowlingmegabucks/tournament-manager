@@ -18,34 +18,37 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_MapperExecute_CalledCorrectly()
+    public async Task ExecuteAsync_MapperExecute_CalledCorrectly()
     {
         var squad = new NortheastMegabuck.Models.Squad();
-        _dataLayer.Execute(squad);
+        
+        await _dataLayer.ExecuteAsync(squad, default).ConfigureAwait(false);
 
         _mapper.Verify(mapper => mapper.Execute(squad), Times.Once);
     }
 
     [Test]
-    public void Execute_RepositoryExecute_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryExecute_CalledCorrectly()
     {
         var entity = new NortheastMegabuck.Database.Entities.TournamentSquad();
         _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Squad>())).Returns(entity);
 
         var model = new NortheastMegabuck.Models.Squad();
-        _dataLayer.Execute(model);
+        CancellationToken cancellationToken = default;
 
-        _repository.Verify(repository => repository.Add(entity), Times.Once);
+        await _dataLayer.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
+
+        _repository.Verify(repository => repository.AddAsync(entity, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsRepositoryAddResponse()
+    public async Task ExecuteAsync_ReturnsRepositoryAddResponse()
     {
         var id = SquadId.New();
-        _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.TournamentSquad>())).Returns(id);
+        _repository.Setup(repository => repository.AddAsync(It.IsAny<NortheastMegabuck.Database.Entities.TournamentSquad>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var model = new NortheastMegabuck.Models.Squad();
-        var actual = _dataLayer.Execute(model);
+        var actual = await _dataLayer.ExecuteAsync(model, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(id));
     }
