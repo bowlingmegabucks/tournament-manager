@@ -64,7 +64,7 @@ internal class Presenter
 
         var divisionsTask = _retrieveDivisionsAdapter.ExecuteAsync(tournamentId, cancellationToken);
         var squadsTask = _retrieveSquadsAdapter.ExecuteAsync(tournamentId, cancellationToken);
-        var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.Execute(tournamentId));
+        var sweepersTask = _retrieveSweepersAdapter.ExecuteAsync(tournamentId, cancellationToken);
 
         var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
 
@@ -125,7 +125,7 @@ internal class Presenter
 
         var divisionsTask = _retrieveDivisionsAdapter.ExecuteAsync(tournamentId, cancellationToken);
         var squadsTask = _retrieveSquadsAdapter.ExecuteAsync(tournamentId, cancellationToken);
-        var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.Execute(tournamentId));
+        var sweepersTask = _retrieveSweepersAdapter.ExecuteAsync(tournamentId, cancellationToken);
 
         var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
 

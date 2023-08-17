@@ -49,7 +49,7 @@ internal sealed class Presenter
 
             _divisionsAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Never);
             _squadsAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Never);
-            _sweepersAdapter.Verify(adapter => adapter.Execute(It.IsAny<TournamentId>()), Times.Never);
+            _sweepersAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Never);
             _bowlersAdapter.Verify(adapter=> adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
@@ -94,10 +94,11 @@ internal sealed class Presenter
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _presenter.Load(tournamentId, default);
+        _presenter.Load(tournamentId, cancellationToken);
 
-        _sweepersAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
+        _sweepersAdapter.Verify(adapter => adapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -280,7 +281,7 @@ internal sealed class Presenter
         sweeper3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweepers = new[] { sweeper3.Object, sweeper1.Object, sweeper2.Object };
-        _sweepersAdapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
+        _sweepersAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweepers);
 
         var tournamentId = TournamentId.New();
 

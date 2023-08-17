@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Sweepers.Retrieve;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
@@ -17,8 +19,8 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    public IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId)
-        => _repository.Retrieve(tournamentId).Select(sweeper=> new Models.Sweeper(sweeper));
+    public async Task <IEnumerable<Models.Sweeper>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
+        => (await _repository.Retrieve(tournamentId).ToListAsync(cancellationToken).ConfigureAwait(false)).Select(sweeper=> new Models.Sweeper(sweeper));
 
     public Models.Sweeper Execute(SquadId id)
         => new(_repository.Retrieve(id));
@@ -29,7 +31,7 @@ internal class DataLayer : IDataLayer
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId);
+    Task<IEnumerable<Models.Sweeper>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
     Models.Sweeper Execute(SquadId id);
 

@@ -21,11 +21,11 @@ internal class BusinessLogic : IBusinessLogic
 
     public Models.ErrorDetail? Error { get; private set; }
 
-    public IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId)
+    public async Task<IEnumerable<Models.Sweeper>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(tournamentId).ToList();
+            return (await _dataLayer.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false)).ToList();
         }
         catch (Exception ex)
         {
@@ -68,7 +68,7 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId);
+    Task<IEnumerable<Models.Sweeper>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
     Models.Sweeper? Execute(SquadId id);
 
