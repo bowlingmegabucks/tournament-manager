@@ -56,7 +56,7 @@ internal class BusinessLogic : IBusinessLogic
         
         try
         {
-            return DataLayer.Execute(sweeper);
+            return await DataLayer.ExecuteAsync(sweeper, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {

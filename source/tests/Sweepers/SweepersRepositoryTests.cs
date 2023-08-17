@@ -17,27 +17,28 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Add_SquadAddedWithId()
+    public async Task AddAsync_SquadAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperSquad>().SetUpDbContext());
 
         var sweeper = new NortheastMegabuck.Database.Entities.SweeperSquad();
 
-        var id = _repository.Add(sweeper);
+        var id = await _repository.AddAsync(sweeper, default).ConfigureAwait(false);
 
         Assert.That(sweeper.Id, Is.EqualTo(id));
     }
 
     [Test]
-    public void Add_DataContextSaveChanges_Called()
+    public async Task AddAsync_DataContextSaveChanges_Called()
     {
         _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperSquad>().SetUpDbContext());
 
         var sweeper = new NortheastMegabuck.Database.Entities.SweeperSquad();
 
-        _repository.Add(sweeper);
+        CancellationToken cancellationToken = default;
+        await _repository.AddAsync(sweeper, cancellationToken).ConfigureAwait(false);
 
-        _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once());
+        _dataContext.Verify(dataContext => dataContext.SaveChangesAsync(cancellationToken), Times.Once());
     }
 
     [Test]

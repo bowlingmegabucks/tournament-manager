@@ -55,8 +55,8 @@ internal sealed class BusinesLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Sweeper>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>()), Times.Never);
+            _validator.Verify(validator => validator.ValidateAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -122,7 +122,7 @@ internal sealed class BusinesLogic
             _businessLogic.Errors.Assert_HasErrorMessage("invalid");
             Assert.That(actual, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -139,9 +139,10 @@ internal sealed class BusinesLogic
             TournamentId = TournamentId.New()
         };
 
-        await _businessLogic.ExecuteAsync(sweeper, default).ConfigureAwait(false);
+        CancellationToken cancellationToken = default;
+        await _businessLogic.ExecuteAsync(sweeper, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(sweeper), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(sweeper, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -150,7 +151,7 @@ internal sealed class BusinesLogic
         _validator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
@@ -175,7 +176,7 @@ internal sealed class BusinesLogic
         _validator.Validate_IsValid();
 
         var id = SquadId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>())).Returns(id);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
