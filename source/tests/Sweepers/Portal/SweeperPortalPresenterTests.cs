@@ -83,23 +83,23 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Complete_ViewConfirm_CalledCorrectly()
+    public async Task CompleteAsync_ViewConfirm_CalledCorrectly()
     {
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.Confirm("Are you sure you want to complete this sweeper?"), Times.Once);
     }
 
     [Test]
-    public void Complete_ViewConfirmFalse_CancelFlow()
+    public async Task CompleteAsync_ViewConfirmFalse_CancelFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
 
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _completeAdapter.Verify(adapter => adapter.Execute(It.IsAny<SquadId>()), Times.Never);
+            _completeAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
@@ -108,27 +108,29 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Complete_ViewConfirmTrue_CompleteAdapterExecute_CalledCorrectly()
+    public async Task CompleteAsync_ViewConfirmTrue_CompleteAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var squadId = SquadId.New();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Complete();
+        CancellationToken cancellationToken = default;
 
-        _completeAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        await _presenter.CompleteAsync(cancellationToken).ConfigureAwait(false);
+
+        _completeAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Complete_ViewConfirmTrue_CompleteAdapterHasError_ErrorFlow()
+    public async Task CompleteAsync_ViewConfirmTrue_CompleteAdapterHasError_ErrorFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _completeAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -140,11 +142,11 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Complete_ViewConfirmTrue_ComplateAdapterSuccessful_SuccessFlow()
+    public async Task CompleteAsync_ViewConfirmTrue_ComplateAdapterSuccessful_SuccessFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

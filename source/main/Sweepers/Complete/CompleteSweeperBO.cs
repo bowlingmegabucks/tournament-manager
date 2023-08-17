@@ -20,11 +20,11 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = mockDataLayer;
     }
 
-    public void Execute(SquadId id)
+    public async Task ExecuteAsync(SquadId id, CancellationToken cancellationToken)
     {
         try
         {
-            _dataLayer.Execute(id);
+            await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -37,5 +37,5 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    void Execute(SquadId id);
+    Task ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 }

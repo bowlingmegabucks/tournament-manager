@@ -33,12 +33,12 @@ internal class Repository : IRepository
     public async Task<Database.Entities.SweeperSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken)
         => await _dataContext.Sweepers.AsNoTracking().FirstAsync(sweeper => sweeper.Id == id, cancellationToken).ConfigureAwait(false);
 
-    public void Complete(SquadId id)
+    public async Task CompleteAsync(SquadId id, CancellationToken cancellationToken)
     {
-        var sweeper = _dataContext.Sweepers.Single(sweeper => sweeper.Id == id);
+        var sweeper = await _dataContext.Sweepers.FirstAsync(sweeper => sweeper.Id == id, cancellationToken).ConfigureAwait(false);
         sweeper.Complete = true;
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
     public IQueryable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId)
         => _dataContext.Registrations.AsNoTrackingWithIdentityResolution().Include(registration => registration.Division).ThenInclude(division => division.Tournament)
@@ -53,7 +53,7 @@ internal interface IRepository
 
     Task<Database.Entities.SweeperSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken);
 
-    void Complete(SquadId id);
+    Task CompleteAsync(SquadId id, CancellationToken cancellationToken);
 
     IQueryable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
 }

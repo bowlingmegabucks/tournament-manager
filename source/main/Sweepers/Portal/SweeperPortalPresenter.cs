@@ -49,14 +49,14 @@ internal class Presenter
         _view.SetComplete(squad.Complete);
     }
 
-    internal void Complete()
+    internal async Task CompleteAsync(CancellationToken cancellationToken)
     {
         if (!_view.Confirm("Are you sure you want to complete this sweeper?"))
         {
             return;
         }
 
-        CompleteSweeperAdapter.Execute(_view.Id);
+        await CompleteSweeperAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
 
         if (CompleteSweeperAdapter.Error != null)
         {

@@ -74,8 +74,8 @@ public partial class Form : System.Windows.Forms.Form, IView
         form.ShowDialog(this);
     }
 
-    private void CompleteMenuItem_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).Complete();
+    private async void CompleteMenuItem_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).CompleteAsync(default).ConfigureAwait(true);
 
     public bool Confirm(string message)
         => MessageBox.Show(message, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;
