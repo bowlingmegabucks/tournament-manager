@@ -40,7 +40,7 @@ internal class Repository : IRepository
 
         _dataContext.SaveChanges();
     }
-    public IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId)
+    public IQueryable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId)
         => _dataContext.Registrations.AsNoTrackingWithIdentityResolution().Include(registration => registration.Division).ThenInclude(division => division.Tournament)
             .Where(registration => registration.Division.TournamentId == tournamentId && registration.SuperSweeper).Select(registration => registration.BowlerId);
 }
@@ -55,5 +55,5 @@ internal interface IRepository
 
     void Complete(SquadId id);
 
-    IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
+    IQueryable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
 }

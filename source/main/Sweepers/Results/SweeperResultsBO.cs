@@ -58,7 +58,7 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var superSweeperBowlers = RetrieveSweeper.SuperSweeperBowlers(tournamentId);
+        var superSweeperBowlers = await RetrieveSweeper.SuperSweeperBowlersAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         if (RetrieveSweeper.Error != null)
         {

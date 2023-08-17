@@ -23,7 +23,7 @@ internal class DataLayer : IDataLayer
     public Models.Sweeper Execute(SquadId id)
         => new(_repository.Retrieve(id));
 
-    public IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId)
+    public IQueryable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId)
         => _repository.SuperSweeperBowlers(tournamentId);
 }
 
@@ -33,5 +33,5 @@ internal interface IDataLayer
 
     Models.Sweeper Execute(SquadId id);
 
-    IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
+    IQueryable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
 }

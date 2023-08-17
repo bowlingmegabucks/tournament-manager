@@ -432,7 +432,7 @@ internal sealed class BusinessLogic
                                   bowler4SquadScore1, bowler4SquadScore2};
 
         var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlersAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(superSweeperBowlers);
 
         _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
@@ -533,7 +533,7 @@ internal sealed class BusinessLogic
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlersAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(superSweeperBowlers);
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
@@ -629,7 +629,7 @@ internal sealed class BusinessLogic
                                   bowler5SquadScore1, bowler5SquadScore2};
 
         var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlersAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(superSweeperBowlers);
 
         _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 

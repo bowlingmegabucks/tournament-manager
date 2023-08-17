@@ -120,7 +120,7 @@ internal sealed class DataLayer
 
         var bowlerIds = new[] { bowlerId1, bowlerId2, bowlerId3 };
 
-        _repository.Setup(repository => repository.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(bowlerIds);
+        _repository.Setup(repository => repository.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(bowlerIds.AsQueryable());
 
         var actual = _dataLayer.SuperSweeperBowlers(TournamentId.New());
 

@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Sweepers.Retrieve;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;
@@ -47,11 +49,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId)
+    public async Task<IEnumerable<BowlerId>> SuperSweeperBowlersAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.SuperSweeperBowlers(tournamentId).ToList();
+            return await _dataLayer.SuperSweeperBowlers(tournamentId).ToListAsync(cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -70,5 +72,5 @@ internal interface IBusinessLogic
 
     Models.Sweeper? Execute(SquadId id);
 
-    IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
+    Task<IEnumerable<BowlerId>> SuperSweeperBowlersAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }
