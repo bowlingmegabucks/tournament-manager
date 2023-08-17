@@ -68,7 +68,7 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_SquadId_RepositoryRetrieve_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_RepositoryRetrieve_CalledCorrectly()
     {
         var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
@@ -76,17 +76,18 @@ internal sealed class DataLayer
             CashRatio = 1.5m
         };
 
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(entity);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(entity);
 
         var squadId = new SquadId();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(squadId);
+        await _dataLayer.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Retrieve(squadId), Times.Once);
+        _repository.Verify(repository => repository.RetrieveAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_ReturnsModel()
+    public async Task ExecuteAsync_SquadId_ReturnsModel()
     {
         var entity = new NortheastMegabuck.Database.Entities.SweeperSquad
         {
@@ -94,11 +95,11 @@ internal sealed class DataLayer
             CashRatio = 1.5m
         };
 
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(entity);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(entity);
 
         var squadId = new SquadId();
 
-        var actual = _dataLayer.Execute(squadId);
+        var actual = await _dataLayer.ExecuteAsync(squadId, default).ConfigureAwait(false);
 
         Assert.That(actual.MaxPerPair, Is.EqualTo(entity.MaxPerPair));
     }

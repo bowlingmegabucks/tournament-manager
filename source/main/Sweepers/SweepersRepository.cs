@@ -30,8 +30,8 @@ internal class Repository : IRepository
     public IQueryable<Database.Entities.SweeperSquad> Retrieve(TournamentId tournamentId)
         => _dataContext.Sweepers.Include(sweeper=> sweeper.Divisions).AsNoTracking().Where(squad => squad.TournamentId == tournamentId);
 
-    public Database.Entities.SweeperSquad Retrieve(SquadId id)
-        => _dataContext.Sweepers.AsNoTracking().Single(sweeper => sweeper.Id == id);
+    public async Task<Database.Entities.SweeperSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken)
+        => await _dataContext.Sweepers.AsNoTracking().FirstAsync(sweeper => sweeper.Id == id, cancellationToken).ConfigureAwait(false);
 
     public void Complete(SquadId id)
     {
@@ -51,7 +51,7 @@ internal interface IRepository
 
     IQueryable<Database.Entities.SweeperSquad> Retrieve(TournamentId tournamentId);
 
-    Database.Entities.SweeperSquad Retrieve(SquadId id);
+    Task<Database.Entities.SweeperSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken);
 
     void Complete(SquadId id);
 

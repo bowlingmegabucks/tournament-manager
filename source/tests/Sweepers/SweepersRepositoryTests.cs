@@ -80,7 +80,7 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Retrieve_SquadId_ReturnsSquad()
+    public async Task RetrieveAsync_SquadId_ReturnsSquad()
     {
         var tournamentId = TournamentId.New();
 
@@ -108,7 +108,7 @@ internal sealed class Repository
         var sweepers = new[] { sweeper1, sweeper2, sweeper3 };
         _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(sweepers.SetUpDbContext());
 
-        var actual = _repository.Retrieve(sweeper2.Id);
+        var actual = await _repository.RetrieveAsync(sweeper2.Id, default).ConfigureAwait(false);
 
         Assert.That(actual.MaxPerPair, Is.EqualTo(sweeper2.MaxPerPair));
     }

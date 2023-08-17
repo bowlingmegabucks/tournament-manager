@@ -33,7 +33,7 @@ internal class BusinessLogic : IBusinessLogic
 
     public async Task<Models.SweeperResult?> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
-        var sweeper = RetrieveSweeper.Execute(squadId);
+        var sweeper = await RetrieveSweeper.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
         if (RetrieveSweeper.Error != null)
         {

@@ -23,13 +23,14 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecute_CalledCorrectly()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
 
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        await _businessLogic.ExecuteAsync(squadId, default).ConfigureAwait(false);
+        await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveSweeper.Verify(retrieveSweeper => retrieveSweeper.Execute(squadId), Times.Once);
+        _retrieveSweeper.Verify(retrieveSweeper => retrieveSweeper.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -52,7 +53,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecute_CalledCorrectly()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
 
         var squadId = SquadId.New();
         CancellationToken cancellationToken = default;
@@ -65,7 +66,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteHasError_ErrorFlow()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveScores.SetupGet(retrieveScores => retrieveScores.Error).Returns(error);
@@ -82,7 +83,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteReturnsNoScores_NoScoreFlow()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
 
         var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
@@ -174,7 +175,7 @@ internal sealed class BusinessLogic
             CashRatio = 2
         };
 
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(sweeper);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeper);
 
         var result = await _businessLogic.ExecuteAsync(squadId, default).ConfigureAwait(false);
 
@@ -272,7 +273,7 @@ internal sealed class BusinessLogic
             CashRatio = 500
         };
 
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(sweeper);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeper);
 
         var result = await _businessLogic.ExecuteAsync(squadId, default).ConfigureAwait(false);
 

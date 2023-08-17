@@ -21,26 +21,27 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterExecute_CalledCorrectly()
+    public async Task LoadAsync_RetrieveSquadAdapterExecute_CalledCorrectly()
     {
         var squad = new NortheastMegabuck.Sweepers.ViewModel();
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(squad);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad);
 
         var squadId = SquadId.New();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Load();
+        CancellationToken cancellationToken = default;
+        await _presenter.LoadAsync(cancellationToken).ConfigureAwait(false);
 
-        _retrieveAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        _retrieveAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterHasError_ErrorFlow()
+    public async Task LoadAsync_RetrieveSquadAdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -56,7 +57,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterSuccessful_ViewFieldsSetCorrectly([Values] bool complete)
+    public async Task LoadAsync_RetrieveSquadAdapterSuccessful_ViewFieldsSetCorrectly([Values] bool complete)
     {
         var squad = new NortheastMegabuck.Sweepers.ViewModel
         { 
@@ -66,9 +67,9 @@ internal sealed class Presenter
             MaxPerPair = 3,
             Complete = complete
         };
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(squad);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

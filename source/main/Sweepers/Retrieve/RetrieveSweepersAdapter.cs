@@ -27,9 +27,9 @@ internal class Adapter : IAdapter
         return sweepers.Select(sweeper => new ViewModel(sweeper));
     }
 
-    public IViewModel? Execute(SquadId id)
+    public async Task<IViewModel?> ExecuteAsync(SquadId id, CancellationToken cancellationToken)
     {
-        var sweeper = _businessLogic.Execute(id);
+        var sweeper = await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
         return sweeper is not null ? new ViewModel(sweeper) : null;
     }
@@ -41,5 +41,5 @@ internal interface IAdapter
 
     Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    IViewModel? Execute(SquadId id);
+    Task<IViewModel?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 }

@@ -26,7 +26,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         completeMenuItem.Visible = !complete;
 
-        new Presenter(config, this).Load();
+        _ = new Presenter(config, this).LoadAsync(default);
     }
 
     public void SetPortalTitle(string title)

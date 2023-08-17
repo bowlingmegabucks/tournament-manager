@@ -35,11 +35,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public Models.Sweeper? Execute(SquadId id)
+    public async Task<Models.Sweeper?> ExecuteAsync(SquadId id, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(id);
+            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -70,7 +70,7 @@ internal interface IBusinessLogic
 
     Task<IEnumerable<Models.Sweeper>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    Models.Sweeper? Execute(SquadId id);
+    Task<Models.Sweeper?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 
     Task<IEnumerable<BowlerId>> SuperSweeperBowlersAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }
