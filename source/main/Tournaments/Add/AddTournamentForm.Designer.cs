@@ -28,81 +28,65 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.newTournament = new NortheastMegabuck.Controls.TournamentControl();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.cancelButton = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // newTournament
-            // 
-            this.newTournament.BowlingCenter = "";
-            this.newTournament.CashRatio = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.newTournament.Completed = false;
-            this.newTournament.EntryFee = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.newTournament.FinalsRatio = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.newTournament.Games = ((short)(0));
-            this.newTournament.Location = new System.Drawing.Point(12, 12);
-            this.newTournament.Name = "newTournament";
-            this.newTournament.Size = new System.Drawing.Size(354, 388);
-            this.newTournament.SuperSweeperCashRatio = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.newTournament.TabIndex = 0;
-            this.newTournament.TournamentName = "";
-            // 
-            // saveButton
-            // 
-            this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.saveButton.Location = new System.Drawing.Point(282, 406);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 1;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(12, 406);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 2;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            // 
-            // Form
-            // 
-            this.AcceptButton = this.saveButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(369, 441);
-            this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.newTournament);
-            this.MaximizeBox = false;
-            this.Name = "Form";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "New Tournament";
-            this.ResumeLayout(false);
-
+        newTournament = new Controls.TournamentControl();
+        saveButton = new Button();
+        cancelButton = new Button();
+        SuspendLayout();
+        // 
+        // newTournament
+        // 
+        newTournament.BowlingCenter = "";
+        newTournament.CashRatio = new decimal(new int[] { 0, 0, 0, 0 });
+        newTournament.Completed = false;
+        newTournament.End = new DateOnly(2023, 8, 21);
+        newTournament.EntryFee = new decimal(new int[] { 0, 0, 0, 0 });
+        newTournament.FinalsRatio = new decimal(new int[] { 0, 0, 0, 0 });
+        newTournament.Games = 0;
+        newTournament.Location = new Point(12, 12);
+        newTournament.Name = "newTournament";
+        newTournament.Size = new Size(354, 388);
+        newTournament.Start = new DateOnly(2023, 8, 21);
+        newTournament.SuperSweeperCashRatio = new decimal(new int[] { 0, 0, 0, 0 });
+        newTournament.TabIndex = 0;
+        newTournament.TournamentName = "";
+        // 
+        // saveButton
+        // 
+        saveButton.Location = new Point(282, 406);
+        saveButton.Name = "saveButton";
+        saveButton.Size = new Size(75, 23);
+        saveButton.TabIndex = 1;
+        saveButton.Text = "Save";
+        saveButton.UseVisualStyleBackColor = true;
+        saveButton.Click += SaveButton_Click;
+        // 
+        // cancelButton
+        // 
+        cancelButton.DialogResult = DialogResult.Cancel;
+        cancelButton.Location = new Point(12, 406);
+        cancelButton.Name = "cancelButton";
+        cancelButton.Size = new Size(75, 23);
+        cancelButton.TabIndex = 2;
+        cancelButton.Text = "Cancel";
+        cancelButton.UseVisualStyleBackColor = true;
+        // 
+        // Form
+        // 
+        AcceptButton = saveButton;
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        AutoValidate = AutoValidate.EnableAllowFocusChange;
+        CancelButton = cancelButton;
+        ClientSize = new Size(369, 441);
+        Controls.Add(cancelButton);
+        Controls.Add(saveButton);
+        Controls.Add(newTournament);
+        MaximizeBox = false;
+        Name = "Form";
+        ShowInTaskbar = false;
+        StartPosition = FormStartPosition.CenterScreen;
+        Text = "New Tournament";
+        ResumeLayout(false);
     }
 
     #endregion

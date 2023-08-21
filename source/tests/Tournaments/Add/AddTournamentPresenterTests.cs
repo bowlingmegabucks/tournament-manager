@@ -18,57 +18,59 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValid_Called()
+    public async Task ExecuteAsync_ViewIsValid_Called()
     {
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.IsValid(), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidFalse_InvalidViewFlow()
+    public async Task ExecuteAsync_ViewIsValidFalse_InvalidViewFlow()
     {
         _view.Setup(view => view.IsValid()).Returns(false);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _adapter.Verify(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>()), Times.Never);
+            _adapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.DisplayErrors(It.IsAny<IEnumerable<string>>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.VerifySet(view => view.Tournament.Id = It.IsAny<TournamentId>(), Times.Never);
+            _view.Verify(view=> view.OkToClose(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_ViewIsValidTrue_AdapterExecute_CalledCorrectly()
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel();
         _view.SetupGet(view => view.Tournament).Returns(viewModel);
 
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>())).Returns(TournamentId.Empty);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(TournamentId.Empty);
 
         _view.Setup(view => view.IsValid()).Returns(true);
+        CancellationToken cancellationToken = default;
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
-        _adapter.Verify(adapter => adapter.Execute(viewModel), Times.Once);
+        _adapter.Verify(adapter => adapter.ExecuteAsync(viewModel, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterHasErrors_AdapterErrorFlow()
+    public async Task ExecuteAsync_ViewIsValidTrue_AdapterHasErrors_AdapterErrorFlow()
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("message"), 3);
         _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(()=>
         {
@@ -77,17 +79,18 @@ internal sealed class Presenter
             
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.VerifySet(view => view.Tournament.Id = It.IsAny<TournamentId>(), Times.Never);
+            _view.Verify(view => view.OkToClose(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AdapterHasNoErrors_SuccessFlow()
+    public async Task ExecuteAsync_ViewIsValidTrue_AdapterHasNoErrors_SuccessFlow()
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
         var id = TournamentId.New();
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>())).Returns(id);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel
         { 
@@ -96,12 +99,13 @@ internal sealed class Presenter
 
         _view.SetupGet(view => view.Tournament).Returns(viewModel);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayMessage("name successfully added"), Times.Once);
             Assert.That(viewModel.Id, Is.EqualTo(id));
+            _view.Verify(view => view.OkToClose(), Times.Once);
             _view.Verify(view => view.Close(), Times.Once);
 
             _view.Verify(view => view.KeepOpen(), Times.Never);

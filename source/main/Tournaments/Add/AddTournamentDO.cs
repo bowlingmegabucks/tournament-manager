@@ -22,15 +22,15 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    TournamentId IDataLayer.Execute(Models.Tournament tournament)
+    async Task<TournamentId> IDataLayer.ExecuteAsync(Models.Tournament tournament, CancellationToken cancellationToken)
     {
         var entity = _mapper.Execute(tournament);
         
-        return _repository.Add(entity);
+        return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
 }
 
 internal interface IDataLayer
 {
-    TournamentId Execute(Models.Tournament tournament);
+    Task<TournamentId> ExecuteAsync(Models.Tournament tournament, CancellationToken cancellationToken);
 }

@@ -21,58 +21,60 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_ValidatorValidate_CalledCorrectly()
+    public async Task ExecuteAsync_ValidatorValidate_CalledCorrectly()
     {
         _validator.Validate_IsValid();
         
         var tournament = new NortheastMegabuck.Models.Tournament();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(tournament);
+        await _businessLogic.ExecuteAsync(tournament, cancellationToken).ConfigureAwait(false);
 
-        _validator.Verify(validator => validator.Validate(tournament), Times.Once);
+        _validator.Verify(validator => validator.ValidateAsync(tournament, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ValidatorValidateFalse_ErrorFlow()
+    public async Task ExecuteAsync_ValidatorValidateFalse_ErrorFlow()
     {
         _validator.Validate_IsNotValid("error");
 
         var tournament = new NortheastMegabuck.Models.Tournament();
 
-        var result = _businessLogic.Execute(tournament);
+        var result = await _businessLogic.ExecuteAsync(tournament, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(result, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Tournament>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_ValidatorValidateTrue_DataLayerExecute_CalledCorrectly()
     {
         _validator.Validate_IsValid();
 
         var tournament = new NortheastMegabuck.Models.Tournament();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(tournament);
+        await _businessLogic.ExecuteAsync(tournament, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(tournament), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(tournament, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecuteThrowsException_ExceptionFlow()
+    public async Task ExecuteAsync_ValidatorValidateTrue_DataLayerExecuteThrowsException_ExceptionFlow()
     {
         _validator.Validate_IsValid();
         
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Tournament>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
 
-        var result = _businessLogic.Execute(tournament);
+        var result = await _businessLogic.ExecuteAsync(tournament, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -82,16 +84,16 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public void Execute_ValidatorValidateTrue_DataLayerExecuteReturnsId_IdReturned()
+    public async Task ExecuteAsync_ValidatorValidateTrue_DataLayerExecuteReturnsId_IdReturned()
     {
         _validator.Validate_IsValid();
 
         var id = TournamentId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>())).Returns(id);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Tournament>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
 
-        var result = _businessLogic.Execute(tournament);
+        var result = await _businessLogic.ExecuteAsync(tournament, default).ConfigureAwait(false);
 
         Assert.That(result, Is.EqualTo(id));
     }

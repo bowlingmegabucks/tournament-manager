@@ -38,10 +38,10 @@ internal class Repository : IRepository
                                          .Include(tournament => tournament.Sweepers).AsNoTrackingWithIdentityResolution()
                     .FirstAsync(tournament => tournament.Squads.Any(squad => squad.Id == squadId) || tournament.Sweepers.Any(sweeper => sweeper.Id == squadId), cancellationToken).ConfigureAwait(false);
 
-    TournamentId IRepository.Add(Database.Entities.Tournament tournament)
+    async Task<TournamentId> IRepository.AddAsync(Database.Entities.Tournament tournament, CancellationToken cancellationToken)
     {
-        _dataContext.Tournaments.Add(tournament);
-        _dataContext.SaveChanges();
+        await _dataContext.Tournaments.AddAsync(tournament, cancellationToken).ConfigureAwait(false);
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return tournament.Id;
     }
@@ -57,5 +57,5 @@ internal interface IRepository
 
     Task<Database.Entities.Tournament> RetrieveAsync(SquadId squadId, CancellationToken cancellationToken);
 
-    TournamentId Add(Database.Entities.Tournament tournament);
+    Task<TournamentId> AddAsync(Database.Entities.Tournament tournament, CancellationToken cancellationToken);
 }

@@ -18,37 +18,38 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public void Execute_MapperExecute_CalledCorrectly()
+    public async Task ExecuteAsync_MapperExecute_CalledCorrectly()
     {
         var tournament = new NortheastMegabuck.Models.Tournament();
 
-        _dataLayer.Execute(tournament);
+        await _dataLayer.ExecuteAsync(tournament, default).ConfigureAwait(false);
         
         _mapper.Verify(mapper => mapper.Execute(tournament), Times.Once);
     }
 
     [Test]
-    public void Execute_RepositoryAdd_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryAdd_CalledCorrectly()
     {
         var entity = new NortheastMegabuck.Database.Entities.Tournament();
         _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>())).Returns(entity);
         
         var tournament = new NortheastMegabuck.Models.Tournament();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(tournament);
+        await _dataLayer.ExecuteAsync(tournament, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Add(entity), Times.Once);
+        _repository.Verify(repository => repository.AddAsync(entity, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsNewGUID()
+    public async Task ExecuteAsync_ReturnsNewGUID()
     {
         var id = TournamentId.New();
-        _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.Tournament>())).Returns(id);
+        _repository.Setup(repository => repository.AddAsync(It.IsAny<NortheastMegabuck.Database.Entities.Tournament>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
 
-        var result = _dataLayer.Execute(tournament);
+        var result = await _dataLayer.ExecuteAsync(tournament, default).ConfigureAwait(false);
 
         Assert.That(result, Is.EqualTo(id));
     }

@@ -22,12 +22,15 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void KeepOpen()
         => DialogResult = DialogResult.None;
 
+    public void OkToClose()
+        => DialogResult = DialogResult.OK;
+
     public void DisplayErrors(IEnumerable<string> errorMessages)
         => MessageBox.Show(string.Join(Environment.NewLine, errorMessages), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     public void DisplayMessage(string message)
         => MessageBox.Show(message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-    private void SaveButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).Execute();
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

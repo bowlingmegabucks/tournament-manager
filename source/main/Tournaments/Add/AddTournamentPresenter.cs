@@ -22,7 +22,7 @@ internal class Presenter
         _adapter = mockAdapter;
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())
         {
@@ -30,7 +30,7 @@ internal class Presenter
             return;
         }
 
-        var id = _adapter.Execute(_view.Tournament);
+        var id = await _adapter.ExecuteAsync(_view.Tournament, cancellationToken).ConfigureAwait(true);
 
         if (_adapter.Errors.Any())
         {
@@ -41,6 +41,7 @@ internal class Presenter
         {
             _view.DisplayMessage($"{_view.Tournament.TournamentName} successfully added");
             _view.Tournament.Id = id!.Value;
+            _view.OkToClose();
             _view.Close();
         }
     }
