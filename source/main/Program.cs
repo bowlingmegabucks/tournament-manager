@@ -29,7 +29,7 @@ internal static class Program
         
         var builtConfiguration = configBuilder.Build();
         
-        var kvUrl = builtConfiguration["KeyVaultConfig:KVUrl"];
+        var kvUrl = builtConfiguration["KeyVaultConfig:KVUrl"]!;
         var tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
         var clientId = builtConfiguration["KeyVaultConfig:ClientId"];
         var clientSecret = builtConfiguration["KeyVaultConfig:ClientSecret"];
