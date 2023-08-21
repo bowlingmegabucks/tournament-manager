@@ -42,11 +42,8 @@ internal class DataContext : DbContext, IDataContext
     private static readonly ILoggerFactory _consoleLogger = LoggerFactory.Create(builder => builder.AddConsole());
 #endif
 
-    bool IDataContext.Ping()
-        => Database.CanConnect();
-
-    void IDataContext.SaveChanges()
-        => base.SaveChanges();
+    async Task<bool> IDataContext.PingAsync(CancellationToken cancellationToken)
+        => await Database.CanConnectAsync(cancellationToken).ConfigureAwait(false);
 
     async Task IDataContext.SaveChangesAsync(CancellationToken cancellationToken)
         => await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -85,7 +82,7 @@ internal class DataContext : DbContext, IDataContext
 
 internal interface IDataContext
 {
-    bool Ping();
+    Task<bool> PingAsync(CancellationToken cancellationToken);
 
     EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
@@ -102,8 +99,6 @@ internal interface IDataContext
     DbSet<Entities.Registration> Registrations { get; }
 
     DbSet<Entities.SquadScore> SquadScores { get; }
-
-    void SaveChanges();
 
     Task SaveChangesAsync(CancellationToken cancellationToken);
 }
