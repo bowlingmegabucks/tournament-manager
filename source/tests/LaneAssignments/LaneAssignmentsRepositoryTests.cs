@@ -61,7 +61,7 @@ internal sealed class LaneAssignmentsRepositoryTests
         {
             Assert.That(actual, Has.Count.EqualTo(3));
 
-            Assert.That(actual.TrueForAll(registration => registration.LaneAssignment.StartsWith("3", StringComparison.Ordinal)));
+            Assert.That(actual.TrueForAll(registration => registration.LaneAssignment.StartsWith('3')));
         });
     }
 }

@@ -10,7 +10,7 @@ internal class PastDate<T> : PropertyValidator<T, DateOnly>
     => "Property {PropertyName} must be in the past";
 
     public override bool IsValid(ValidationContext<T> context, DateOnly value)
-     => value is DateOnly date && date < DateOnly.FromDateTime(DateTime.Today);
+     => value < DateOnly.FromDateTime(DateTime.Today);
 }
 
 internal static partial class Extensions
