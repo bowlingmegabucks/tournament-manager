@@ -80,6 +80,15 @@ internal class Repository : IRepository
 
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
+
+    async Task IRepository.UpdateAsync(RegistrationId id, bool superSweeper, CancellationToken cancellationToken)
+    {
+        var registration = await _dataContext.Registrations.FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
+
+        registration.SuperSweeper = superSweeper;
+
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
 }
 
 internal interface IRepository
@@ -93,4 +102,6 @@ internal interface IRepository
     Task DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
     Task DeleteAsync(RegistrationId id, CancellationToken cancellationToken);
+
+    Task UpdateAsync(RegistrationId id, bool superSweeper, CancellationToken cancellationToken);
 }
