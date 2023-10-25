@@ -1,7 +1,7 @@
 ﻿using NortheastMegabuck.Squads;
 
 namespace NortheastMegabuck.Tests.Squads;
-internal class HandicapCalculator
+internal sealed class HandicapCalculator
 {
     private IHandicapCalculator _calculator;
 

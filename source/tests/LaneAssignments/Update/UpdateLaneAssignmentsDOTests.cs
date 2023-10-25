@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.LaneAssignments.Update;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.LaneAssignments.IRepository> _repository;
 
@@ -17,14 +17,15 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryUpdate_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryUpdate_CalledCorrectly()
     {
         var squadId = SquadId.New();
         var bowlerId = BowlerId.New();
         var position = "21A";
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(squadId, bowlerId, position);
+        await _dataLayer.ExecuteAsync(squadId, bowlerId, position, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Update(squadId, bowlerId, position), Times.Once);
+        _repository.Verify(repository => repository.UpdateAsync(squadId, bowlerId, position, cancellationToken), Times.Once);
     }
 }

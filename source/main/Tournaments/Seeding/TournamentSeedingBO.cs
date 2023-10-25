@@ -26,14 +26,14 @@ internal class BusinessLogic : IBusinessLogic
         _calculator = mockCalculator;
     }
 
-    public IEnumerable<Models.TournamentFinalsSeeding> Execute(TournamentId id)
-        => _tournamentResults.Execute(id).Select(_calculator.Execute).ToList();
+    public async Task<IEnumerable<Models.TournamentFinalsSeeding>> ExecuteAsync(TournamentId id, CancellationToken cancellationToken)
+        => (await _tournamentResults.ExecuteAsync(id, cancellationToken).ConfigureAwait(false)).Select(_calculator.Execute).ToList();
 }
 
 internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.TournamentFinalsSeeding> Execute(TournamentId id);
+    Task<IEnumerable<Models.TournamentFinalsSeeding>> ExecuteAsync(TournamentId id, CancellationToken cancellationToken);
 }
 

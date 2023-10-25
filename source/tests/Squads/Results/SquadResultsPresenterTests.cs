@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Squads.Results;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Squads.Results.IView> _view;
     private Mock<NortheastMegabuck.Squads.Results.IAdapter> _adapter;
@@ -19,23 +19,25 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_AdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
         _view.SetupGet(view => view.SquadId).Returns(squadId);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+        
+        _adapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_AdapterHasError_ErrorFlow()
+    public async Task ExecuteAsync_AdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -46,7 +48,7 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_AdapterHasNoError_ViewBindResults_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterHasNoError_ViewBindResults_CalledCorrectly()
     {
         var division1Score1 = new NortheastMegabuck.Squads.Results.ViewModel
         {
@@ -67,9 +69,9 @@ internal class Presenter
         };
 
         var scores = new[] { division1Score2, division2Score, division1Score1 }.GroupBy(score => score.DivisionName);
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(scores);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(scores);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

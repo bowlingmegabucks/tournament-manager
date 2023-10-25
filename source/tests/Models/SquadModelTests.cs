@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class Squad
+internal sealed class Squad
 {
     [Test]
     public void Constructor_SquadEntity_IdMapped()

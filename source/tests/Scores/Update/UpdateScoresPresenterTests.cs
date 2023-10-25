@@ -8,7 +8,7 @@ using NortheastMegabuck.Scores;
 namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Scores.Update.IView> _view;
     private Mock<NortheastMegabuck.Scores.Update.IAdapter> _adapter;
@@ -25,18 +25,20 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_AdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterExecute_CalledCorrectly()
     {
         var scores = new Mock<IEnumerable<IViewModel>>();
         _view.SetupGet(view => view.Scores).Returns(scores.Object);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(scores.Object), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.ExecuteAsync(scores.Object, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_AdapterHasErrors_ErrorFlow()
+    public async Task ExecuteAsync_AdapterHasErrors_ErrorFlow()
     {
         var error1 = new NortheastMegabuck.Models.ErrorDetail("error1");
         var error2 = new NortheastMegabuck.Models.ErrorDetail("error2");
@@ -44,7 +46,7 @@ internal class Presenter
         var errors = new[] { error1, error2 };
         _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -56,9 +58,9 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_AdapterHasNoErrors_SuccessFlow()
+    public async Task ExecuteAsync_AdapterHasNoErrors_SuccessFlow()
     {
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

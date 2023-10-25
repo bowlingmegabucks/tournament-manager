@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NortheastMegabuck.Tests.LaneAssignments;
 
 [TestFixture]
-internal class GenerateFactory
+internal sealed class GenerateFactory
 {
     [Test]
     public void Execute_StaggeredSkipTrue_ReturnsStaggeredSkip()

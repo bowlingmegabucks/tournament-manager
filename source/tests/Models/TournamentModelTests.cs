@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class Tournament
+internal sealed class Tournament
 {
     [Test]
     public void Constructor_TournamentEntity_IdMapped()

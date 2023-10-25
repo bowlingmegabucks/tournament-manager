@@ -19,27 +19,28 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Add_DivisionAddedWithId()
+    public async Task AddAsync_DivisionAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Division>().SetUpDbContext());
 
         var division = new NortheastMegabuck.Database.Entities.Division();
 
-        var id = _repository.Add(division);
+        var id = await _repository.AddAsync(division, default).ConfigureAwait(false);
 
         Assert.That(division.Id, Is.EqualTo(id));
     }
 
     [Test]
-    public void Add_DataContextSaveChanges_Called()
+    public async Task AddAsync_DataContextSaveChanges_Called()
     {
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Division>().SetUpDbContext());
 
         var division = new NortheastMegabuck.Database.Entities.Division();
+        CancellationToken cancellationToken = default;
 
-        _repository.Add(division);
+        await _repository.AddAsync(division, cancellationToken).ConfigureAwait(false);
 
-        _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once);
+        _dataContext.Verify(dataContext => dataContext.SaveChangesAsync(cancellationToken), Times.Once);
     }
 
     [Test]
@@ -49,21 +50,21 @@ internal sealed class Repository
 
         var division1 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
         var division2 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
         var division3 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };
@@ -81,9 +82,9 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Retrieve_ReturnsDivision()
+    public async Task RetrieveAsync_ReturnsDivision()
     {
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = DivisionId.New();
 
         var division1 = new NortheastMegabuck.Database.Entities.Division
         {
@@ -94,14 +95,14 @@ internal sealed class Repository
 
         var division2 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };
 
         var division3 = new NortheastMegabuck.Database.Entities.Division
         {
-            Id = NortheastMegabuck.DivisionId.New(),
+            Id = DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };
@@ -109,7 +110,7 @@ internal sealed class Repository
         var divisions = new[] { division1, division2, division3 };
         _dataContext.Setup(dataContext => dataContext.Divisions).Returns(divisions.SetUpDbContext());
 
-        var division = _repository.Retrieve(divisionId);
+        var division = await _repository.RetrieveAsync(divisionId, default).ConfigureAwait(false);
 
         Assert.That(division.Id, Is.EqualTo(divisionId));
     }

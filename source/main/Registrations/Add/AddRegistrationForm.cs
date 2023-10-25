@@ -19,7 +19,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _config = config;
         _tournamentId = tournamentId;
 
-        new Presenter(config, this).Load(tournamentId);
+        new Presenter(config, this).Load(tournamentId, default);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _config = config;
         _tournamentId = tournamentId;
 
-        new Presenter(config, this).Load(tournamentId, squadId);
+        new Presenter(config, this).Load(tournamentId, squadId, default);
     }
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
@@ -119,7 +119,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
-    { 
+    {
         //will populate when loading existing bowlers
     }
 
@@ -153,6 +153,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void KeepOpen()
         => DialogResult = DialogResult.None;
 
-    private void SaveButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).Execute();
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

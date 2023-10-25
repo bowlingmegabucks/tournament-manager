@@ -27,9 +27,9 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
-    public DivisionId? Execute(Models.Division division)
+    public async Task<DivisionId?> ExecuteAsync(Models.Division division, CancellationToken cancellationToken)
     {
-        var validation = _validator.Validate(division);
+        var validation = await _validator.ValidateAsync(division, cancellationToken).ConfigureAwait(false);
 
         if (!validation.IsValid)
         {
@@ -39,7 +39,7 @@ internal class BusinessLogic : IBusinessLogic
 
         try
         {
-            return DataLayer.Execute(division);
+            return await DataLayer.ExecuteAsync(division, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -53,5 +53,5 @@ internal interface IBusinessLogic
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    DivisionId? Execute(Models.Division division);
+    Task<DivisionId?> ExecuteAsync(Models.Division division, CancellationToken cancellationToken);
 }

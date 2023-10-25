@@ -28,12 +28,10 @@ internal class Presenter
         _retrieveSquadScoresAdapter = mockRetrieveSquadScoresAdapter;
     }
 
-    public void Load()
+    public async Task LoadAsync(CancellationToken cancellationToken)
     {
-        var laneAssignmentTask = Task.Run(() => _retrieveLaneAssignmentsAdapter.Execute(_view.SquadId).Where(assignment => !string.IsNullOrWhiteSpace(assignment.LaneAssignment)).ToList());
-        var squadScoreTask = Task.Run(() => _retrieveSquadScoresAdapter.Execute(_view.SquadId).ToList());
-        
-        Task.WaitAll(laneAssignmentTask, squadScoreTask);
+        var laneAssignments = (await _retrieveLaneAssignmentsAdapter.ExecuteAsync(_view.SquadId, cancellationToken).ConfigureAwait(true)).Where(assignment => !string.IsNullOrWhiteSpace(assignment.LaneAssignment)).Order().ToList();
+        var squadScores = await _retrieveSquadScoresAdapter.ExecuteAsync(_view.SquadId, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveLaneAssignmentsAdapter.Error != null)
         {
@@ -46,12 +44,8 @@ internal class Presenter
             _view.Disable();
         }
         else
-        {
-            var laneAssignments = laneAssignmentTask.Result.Order().ToList();
-            
+        {            
             _view.BindLaneAssignments(laneAssignments);
-
-            var squadScores = squadScoreTask.Result;
             _view.BindSquadScores(squadScores);
         }
     }

@@ -23,9 +23,9 @@ internal class Presenter
         _adapter = mockAdapter;
     }
 
-    public void AtLarge()
+    public async Task AtLargeAsync(CancellationToken cancellationToken)
     {
-        var atLargeResults = _adapter.AtLarge(_view.Id).GroupBy(result=> result.DivisionName);
+        var atLargeResults = (await _adapter.AtLargeAsync(_view.Id, cancellationToken).ConfigureAwait(true)).GroupBy(result=> result.DivisionName);
 
         if (_adapter.Error != null)
         {

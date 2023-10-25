@@ -21,9 +21,9 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public IEnumerable<IGrouping<string, IViewModel>> Execute(SquadId squadId)
+    public async Task<IEnumerable<IGrouping<string, IViewModel>>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
-        var squadResultsByDivision = _businessLogic.Execute(squadId).ToList();
+        var squadResultsByDivision = (await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false)).ToList();
 
         if (squadResultsByDivision.Count == 0)
         {
@@ -67,5 +67,5 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IGrouping<string, IViewModel>> Execute(SquadId squadId);
+    Task<IEnumerable<IGrouping<string, IViewModel>>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 }

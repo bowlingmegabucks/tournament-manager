@@ -25,9 +25,9 @@ internal class Presenter
         _adapter = mockAdapter;
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        _adapter.Execute(_view.Scores);
+        await _adapter.ExecuteAsync(_view.Scores, cancellationToken).ConfigureAwait(true);
 
         if (_adapter.Errors.Any())
         {
@@ -37,6 +37,7 @@ internal class Presenter
         else
         {
             _view.DisplayMessage("Scores updated");
+            _view.OkToClose();
         }
     }
 }

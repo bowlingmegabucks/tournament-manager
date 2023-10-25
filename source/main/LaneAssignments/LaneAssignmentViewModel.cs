@@ -109,10 +109,7 @@ internal class ViewModel : IViewModel
 
     public int CompareTo(IViewModel? other)
     {
-        if (other == null)
-        {
-            throw new ArgumentNullException(nameof(other));
-        }
+        ArgumentNullException.ThrowIfNull(other);
 
         var lane = this.LaneNumber();
         var otherLane = other.LaneNumber();

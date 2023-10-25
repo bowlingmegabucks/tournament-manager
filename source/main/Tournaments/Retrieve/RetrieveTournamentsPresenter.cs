@@ -24,9 +24,9 @@ internal class Presenter
         _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var tournaments = Adapter.Execute();
+        var tournaments = await Adapter.ExecuteAsync(cancellationToken).ConfigureAwait(true);
 
         if (Adapter.Error != null)
         {

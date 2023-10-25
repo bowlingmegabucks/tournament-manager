@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Registrations.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Registrations.IRepository> _repository;
 
@@ -17,17 +17,18 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_TournamentId_RepositoryRetrieve_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_RepositoryRetrieve_CalledCorrectly()
     {
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Registration>().BuildMock());
         var tournamentId = TournamentId.New();
 
-        _dataLayer.Execute(tournamentId);
+        await _dataLayer.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         _repository.Verify(repository => repository.Retrieve(tournamentId), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentId_ReturnsRepositoryRetrieve()
+    public async Task ExecuteAsync_TournamentId_ReturnsRepositoryRetrieve()
     {
         var registration1 = new NortheastMegabuck.Database.Entities.Registration
         {
@@ -61,9 +62,9 @@ internal class DataLayer
 
         var registrations = new[] { registration1, registration2, registration3 };
 
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(registrations);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(registrations.BuildMock());
 
-        var actual = _dataLayer.Execute(TournamentId.New()).ToList();
+        var actual = (await _dataLayer.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

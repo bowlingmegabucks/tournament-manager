@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class Gender
+internal sealed class Gender
 {
     [TestCase(NortheastMegabuck.Models.Gender.Male, 0)]
     [TestCase(NortheastMegabuck.Models.Gender.Female, 1)]

@@ -1,5 +1,6 @@
 ﻿
 namespace NortheastMegabuck.Bowlers.Update;
+
 internal sealed class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
@@ -18,11 +19,11 @@ internal sealed class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    void IDataLayer.Execute(BowlerId id, Models.PersonName name)
-        => _repository.Update(id, name.First, name.MiddleInitial, name.Last, name.Suffix);
+    async Task IDataLayer.ExecuteAsync(BowlerId id, Models.PersonName name, CancellationToken cancellationToken)
+        => await _repository.UpdateAsync(id, name.First, name.MiddleInitial, name.Last, name.Suffix, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IDataLayer
 {
-    void Execute(BowlerId id, Models.PersonName name);
+    Task ExecuteAsync(BowlerId id, Models.PersonName name, CancellationToken cancellationToken);
 }

@@ -1,11 +1,11 @@
 ﻿namespace NortheastMegabuck.Tests.Squads.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Squads.IRepository> _repository;
 
-    private NortheastMegabuck.Squads.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Squads.Retrieve.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
@@ -16,17 +16,19 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_TournamentId_RepositoryRetrieve_Called()
+    public async Task ExecuteAsync_TournamentId_RepositoryRetrieve_Called()
     {
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.TournamentSquad>().BuildMock());
+
         var id = TournamentId.New();
 
-        _dataLayer.Execute(id);
+        await _dataLayer.ExecuteAsync(id, default).ConfigureAwait(false);
 
         _repository.Verify(repository => repository.Retrieve(id), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentId_ReturnsRepositoryRetrieveResponse()
+    public async Task ExecuteAsync_TournamentId_ReturnsRepositoryRetrieveResponse()
     {
         var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
@@ -45,9 +47,9 @@ internal class DataLayer
 
         var squads = new[] { squad1, squad2, squad3 };
 
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(squads);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(squads.BuildMock());
 
-        var actual = _dataLayer.Execute(TournamentId.New());
+        var actual = await _dataLayer.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -60,35 +62,36 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_SquadId_RepositoryRetrieve_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_RepositoryRetrieve_CalledCorrectly()
     {
         var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             MaxPerPair = 1
         };
 
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(entity);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(entity);
 
         var squadId = new SquadId();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(squadId);
+        await _dataLayer.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Retrieve(squadId), Times.Once);
+        _repository.Verify(repository => repository.RetrieveAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_ReturnsModel()
+    public async Task ExecuteAsync_SquadId_ReturnsModel()
     {
         var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             MaxPerPair = 1
         };
 
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(entity);
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(entity);
 
         var squadId = new SquadId();
 
-        var actual = _dataLayer.Execute(squadId);
+        var actual = await _dataLayer.ExecuteAsync(squadId, default).ConfigureAwait(false);
 
         Assert.That(actual.MaxPerPair, Is.EqualTo(entity.MaxPerPair));
     }

@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Divisions;
 
 [TestFixture]
-internal class EntityMapper
+internal sealed class EntityMapper
 {
     private NortheastMegabuck.Divisions.IEntityMapper _mapper;
 

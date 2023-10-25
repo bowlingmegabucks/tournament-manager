@@ -2,11 +2,11 @@
 namespace NortheastMegabuck.Tests.Registrations.Delete;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Registrations.IRepository> _repository;
 
-    private NortheastMegabuck.Registrations.Delete.IDataLayer _dataLayer;
+    private NortheastMegabuck.Registrations.Delete.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
@@ -17,23 +17,25 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_RepositoryDelete_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_RepositoryDelete_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(bowlerId, squadId);
+        await _dataLayer.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Delete(bowlerId, squadId), Times.Once);
+        _repository.Verify(repository => repository.DeleteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_RegistrationId_RepositoryDelete_CalledCorrectly()
+    public async Task ExecuteAsync_RegistrationId_RepositoryDelete_CalledCorrectly()
     {
         var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(registrationId);
+        await _dataLayer.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Delete(registrationId), Times.Once);
+        _repository.Verify(repository => repository.DeleteAsync(registrationId, cancellationToken), Times.Once);
     }
 }

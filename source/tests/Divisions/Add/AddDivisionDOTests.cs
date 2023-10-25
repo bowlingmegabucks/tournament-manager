@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Divisions.Add;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Divisions.IEntityMapper> _mapper;
     private Mock<NortheastMegabuck.Divisions.IRepository> _repository;
@@ -18,37 +18,38 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_MapperExecute_CalledCorrectly()
+    public async Task ExecuteAsync_MapperExecute_CalledCorrectly()
     {
         var division = new NortheastMegabuck.Models.Division();
 
-        _dataLayer.Execute(division);
+        await _dataLayer.ExecuteAsync(division, default).ConfigureAwait(false);
 
         _mapper.Verify(mapper => mapper.Execute(division), Times.Once);
     }
 
     [Test]
-    public void Execute_RepositoryAdd_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryAdd_CalledCorrectly()
     {
         var entity = new NortheastMegabuck.Database.Entities.Division();
         _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Division>())).Returns(entity);
 
         var division = new NortheastMegabuck.Models.Division();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(division);
+        await _dataLayer.ExecuteAsync(division, cancellationToken).ConfigureAwait(true);
 
-        _repository.Verify(repository => repository.Add(entity), Times.Once);
+        _repository.Verify(repository => repository.AddAsync(entity, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsNewGUID()
+    public async Task ExecuteAsync_ReturnsNewGUID()
     {
         var divisionId = NortheastMegabuck.DivisionId.New();
-        _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.Division>())).Returns(divisionId);
+        _repository.Setup(repository => repository.AddAsync(It.IsAny<NortheastMegabuck.Database.Entities.Division>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisionId);
 
         var division = new NortheastMegabuck.Models.Division();
 
-        var result = _dataLayer.Execute(division);
+        var result = await _dataLayer.ExecuteAsync(division, default).ConfigureAwait(false);
 
         Assert.That(result, Is.EqualTo(divisionId));
     }

@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Tournaments;
 
 [TestFixture]
-internal class Repository
+internal sealed class Repository
 {
     private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
@@ -41,7 +41,7 @@ internal class Repository
     }
 
     [Test]
-    public void Retrieve_ReturnsTournament()
+    public async Task RetrieveAsync_ReturnsTournament()
     {
         var tournament1 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
         var tournament2 = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
@@ -51,37 +51,38 @@ internal class Repository
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(tournaments.SetUpDbContext());
 
-        var actual = _tournamentsRepository.Retrieve(tournament1.Id);
+        var actual = await _tournamentsRepository.RetrieveAsync(tournament1.Id, default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(tournament1.Id));
     }
 
     [Test]
-    public void Add_TournamentAddedWithId()
+    public async Task AddAsync_TournamentAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Tournament>().SetUpDbContext());
 
         var tournament = new NortheastMegabuck.Database.Entities.Tournament();
 
-        var id = _tournamentsRepository.Add(tournament);
+        var id = await _tournamentsRepository.AddAsync(tournament, default).ConfigureAwait(false);
 
         Assert.That(tournament.Id, Is.EqualTo(id));
     }
 
     [Test]
-    public void Add_DataContextSaveChanges_Called()
+    public async Task AddAsync_DataContextSaveChanges_Called()
     {
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Tournament>().SetUpDbContext());
 
         var tournament = new NortheastMegabuck.Database.Entities.Tournament();
+        CancellationToken cancellationToken = default;
 
-        _tournamentsRepository.Add(tournament);
+        await _tournamentsRepository.AddAsync(tournament, cancellationToken).ConfigureAwait(false);
 
-        _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once);
+        _dataContext.Verify(dataContext => dataContext.SaveChangesAsync(cancellationToken), Times.Once);
     }
 
     [Test]
-    public void RetrieveByDivision_ReturnsTournamentWithDivision()
+    public async Task RetrieveByDivisionAsync_ReturnsTournamentWithDivision()
     {
         var division1 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
         var division2 = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() };
@@ -104,13 +105,13 @@ internal class Repository
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(tournaments.SetUpDbContext());
 
-        var actual = _tournamentsRepository.Retrieve(division2.Id);
+        var actual = await _tournamentsRepository.RetrieveAsync(division2.Id, default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(tournament1.Id));
     }
 
     [Test]
-    public void RetrieveBySquadId_SquadIdIsASquad_ReturnsTournament()
+    public async Task RetrieveBySquadIdAsync_SquadIdIsASquad_ReturnsTournament()
     {
         var squadId = SquadId.New();
 
@@ -138,13 +139,13 @@ internal class Repository
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(new[] { tournament }.SetUpDbContext());
 
-        var result = _tournamentsRepository.Retrieve(squadId);
+        var result = await _tournamentsRepository.RetrieveAsync(squadId, default).ConfigureAwait(false);
 
         Assert.That(result, Is.Not.Null);
     }
 
     [Test]
-    public void RetrieveBySquadId_SquadIdIsASweeper_ReturnsTournament()
+    public async Task RetrieveBySquadIdAsync_SquadIdIsASweeper_ReturnsTournament()
     {
         var squadId = SquadId.New();
 
@@ -172,7 +173,7 @@ internal class Repository
 
         _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(new[] { tournament }.SetUpDbContext());
 
-        var result = _tournamentsRepository.Retrieve(squadId);
+        var result = await _tournamentsRepository.RetrieveAsync(squadId, default).ConfigureAwait(false);
 
         Assert.That(result, Is.Not.Null);
     }

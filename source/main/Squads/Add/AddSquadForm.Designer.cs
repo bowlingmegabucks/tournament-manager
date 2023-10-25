@@ -52,7 +52,6 @@ partial class Form
         // 
         // saveButton
         // 
-        saveButton.DialogResult = DialogResult.OK;
         saveButton.Location = new Point(430, 352);
         saveButton.Name = "saveButton";
         saveButton.Size = new Size(75, 23);
@@ -66,6 +65,7 @@ partial class Form
         newSquad.CashRatio = null;
         newSquad.Complete = false;
         newSquad.Date = new DateTime(2022, 6, 8, 10, 30, 39, 618);
+        newSquad.EntryFee = null;
         newSquad.FinalsRatio = null;
         newSquad.Location = new Point(12, 139);
         newSquad.MaxPerPair = 0;

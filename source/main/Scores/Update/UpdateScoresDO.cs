@@ -22,11 +22,11 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    public void Execute(IEnumerable<Models.SquadScore> scores)
-        => _repository.Update(scores.Select(_entityMapper.Execute).ToList());
+    public async Task ExecuteAsync(IEnumerable<Models.SquadScore> scores, CancellationToken cancellationToken)
+        => await _repository.UpdateAsync(scores.Select(_entityMapper.Execute).ToList(), cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IDataLayer
 {
-    void Execute(IEnumerable<Models.SquadScore> scores);
+    Task ExecuteAsync(IEnumerable<Models.SquadScore> scores, CancellationToken cancellationToken);
 }

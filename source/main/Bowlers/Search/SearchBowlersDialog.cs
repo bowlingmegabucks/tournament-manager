@@ -59,6 +59,6 @@ internal partial class Dialog : Form, IView
     private void CancelButton_Click(object sender, EventArgs e)
         => SelectedBowlerId = null;
 
-    private void SearchButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).Execute();
+    private async void SearchButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

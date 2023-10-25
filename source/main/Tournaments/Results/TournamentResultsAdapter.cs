@@ -22,9 +22,9 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public IEnumerable<IAtLargeViewModel> AtLarge(TournamentId id)
+    public async Task<IEnumerable<IAtLargeViewModel>> AtLargeAsync(TournamentId id, CancellationToken cancellationToken)
     {
-        var results = _businessLogic.Execute(id);
+        var results = await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
         var atLarges = new List<IAtLargeViewModel>();
 
@@ -49,5 +49,5 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IAtLargeViewModel> AtLarge(TournamentId id);
+    Task<IEnumerable<IAtLargeViewModel>> AtLargeAsync(TournamentId id, CancellationToken cancellationToken);
 }

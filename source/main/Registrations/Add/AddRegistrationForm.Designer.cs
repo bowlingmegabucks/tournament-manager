@@ -173,7 +173,6 @@ partial class Form
         // 
         // saveButton
         // 
-        saveButton.DialogResult = DialogResult.OK;
         saveButton.Location = new Point(808, 463);
         saveButton.Name = "saveButton";
         saveButton.Size = new Size(75, 23);

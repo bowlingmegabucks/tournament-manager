@@ -22,7 +22,7 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
 
     private void Form_Load(object sender, EventArgs e)
     {
-        new Presenter(_config, this).Load();
+        _ = new Presenter(_config, this).LoadAsync(default);
 
         if (_complete)
         {
@@ -73,12 +73,15 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
         scoresGrid.FillScores(squadScores);
     }
 
-    private void SaveButton_Click(object sender, EventArgs e)
+    private async void SaveButton_Click(object sender, EventArgs e)
     {
         UseWaitCursor = true;
 
-        new Update.Presenter(_config, this).Execute();
+        await new Update.Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 
         UseWaitCursor = false;
     }
+
+    public void OkToClose()
+        => DialogResult = DialogResult.OK;
 }

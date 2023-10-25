@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+
 namespace NortheastMegabuck.Scores.Retrieve;
 internal class DataLayer : IDataLayer
 {
@@ -22,16 +24,11 @@ internal class DataLayer : IDataLayer
         _handicapCalculator = mockHandicapCalculator;
     }
 
-    public IEnumerable<Models.SquadScore> Execute(SquadId squadId)
-        => _repository.Retrieve(squadId).Select(squadScore => new Models.SquadScore(squadScore, _handicapCalculator));
-
-    public IEnumerable<Models.SquadScore> Execute(IEnumerable<SquadId> squadIds)
-        => _repository.Retrieve(squadIds).Select(squadScore => new Models.SquadScore(squadScore, _handicapCalculator));
+    public async Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<SquadId> squadIds, CancellationToken cancellationToken)
+        => (await _repository.Retrieve(squadIds.ToArray()).ToListAsync(cancellationToken).ConfigureAwait(false)).Select(squadScore => new Models.SquadScore(squadScore, _handicapCalculator));
 }
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.SquadScore> Execute(SquadId squadId);
-
-    IEnumerable<Models.SquadScore> Execute(IEnumerable<SquadId> squadIds);
+    Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<SquadId> squadIds, CancellationToken cancellationToken);
 }

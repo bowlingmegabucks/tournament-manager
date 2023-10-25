@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Squads.Portal;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Squads.Portal.IView> _view;
     private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _adapter;
@@ -21,21 +21,23 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterExecute_CalledCorrectly()
+    public async Task LoadAsync_RetrieveSquadAdapterExecute_CalledCorrectly()
     {
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(squad.Object);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad.Object);
 
         var squadId = new SquadId();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Load();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterHasError_ErrorFlow()
+    public async Task LoadAsync_RetrieveSquadAdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
@@ -43,7 +45,7 @@ internal class Presenter
         var squadId = new SquadId();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -55,38 +57,38 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterHasNoError_ViewSetPortalTitle_CalledCorrectly()
+    public async Task LoadAsync_RetrieveSquadAdapterHasNoError_ViewSetPortalTitle_CalledCorrectly()
     {
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 0));
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(squad.Object);
+        squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified));
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad.Object);
 
         var squadId = new SquadId();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.SetPortalTitle("01/02/2000 09:30AM"), Times.Once);
     }
 
     [Test]
-    public void Complete_ViewConfirm_CalledCorrectly()
+    public async Task CompleteAsync_ViewConfirm_CalledCorrectly()
     {
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.Confirm("Are you sure you want to complete this squad?"), Times.Once);
     }
 
     [Test]
-    public void Complete_ViewConfirmFalse_CancelFlow()
+    public async Task CompleteAsync_ViewConfirmFalse_CancelFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
 
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _completeAdapter.Verify(adapter => adapter.Execute(It.IsAny<SquadId>()), Times.Never);
+            _completeAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
@@ -95,27 +97,29 @@ internal class Presenter
     }
 
     [Test]
-    public void Complete_ViewConfirmTrue_CompleteAdapterExecute_CalledCorrectly()
+    public async Task CompleteAsync_ViewConfirmTrue_CompleteAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var squadId = SquadId.New();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Complete();
+        CancellationToken cancellationToken = default;
 
-        _completeAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        await _presenter.CompleteAsync(cancellationToken).ConfigureAwait(false);
+
+        _completeAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Complete_ViewConfirmTrue_CompleteAdapterHasError_ErrorFlow()
+    public async Task CompleteAsync_ViewConfirmTrue_CompleteAdapterHasError_ErrorFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _completeAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -127,11 +131,11 @@ internal class Presenter
     }
 
     [Test]
-    public void Complete_ViewConfirmTrue_ComplateAdapterSuccessful_SuccessFlow()
+    public async Task CompleteAsync_ViewConfirmTrue_ComplateAdapterSuccessful_SuccessFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

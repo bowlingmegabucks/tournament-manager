@@ -9,7 +9,7 @@ using NortheastMegabuck.Tests.Extensions;
 namespace NortheastMegabuck.Tests.Bowlers.Update;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<IValidator<NortheastMegabuck.Models.PersonName>> _nameValidator;
     private Mock<NortheastMegabuck.Bowlers.Update.IDataLayer> _dataLayer;
@@ -26,61 +26,63 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_BowlerIdPersonName_NameValidatorValidate_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdPersonName_NameValidatorValidate_CalledCorrectly()
     {
         _nameValidator.Validate_IsValid();
 
         var bowlerId = BowlerId.New();
         var name = new NortheastMegabuck.Models.PersonName();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(bowlerId, name);
+        await _businessLogic.ExecuteAsync(bowlerId, name, cancellationToken).ConfigureAwait(false);
 
-        _nameValidator.Verify(validator=> validator.Validate(name), Times.Once);
+        _nameValidator.Verify(validator=> validator.ValidateAsync(name, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdPersonName_NameValidatorValidateFalse_ErrorFlow()
+    public async Task ExecuteAsync_BowlerIdPersonName_NameValidatorValidateFalse_ErrorFlow()
     {
         _nameValidator.Validate_IsNotValid("errorMessage");
 
         var bowlerId = BowlerId.New();
         var name = new NortheastMegabuck.Models.PersonName();
 
-        _businessLogic.Execute(bowlerId, name);
+        await _businessLogic.ExecuteAsync(bowlerId, name, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _businessLogic.Errors.Assert_HasErrorMessage("errorMessage");
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Models.PersonName>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Models.PersonName>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_BowlerIdPersonName_NameValidatorValidateTrue_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdPersonName_NameValidatorValidateTrue_DataLayerExecute_CalledCorrectly()
     {
         _nameValidator.Validate_IsValid();
 
         var bowlerId = BowlerId.New();
         var name = new NortheastMegabuck.Models.PersonName();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(bowlerId, name);
+        await _businessLogic.ExecuteAsync(bowlerId, name, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(bowlerId, name), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(bowlerId, name, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdPersonName_NameValidatorValidateTrue_DataLayerExecuteThrowsException_ExceptionFlow()
+    public async Task ExecuteAsync_BowlerIdPersonName_NameValidatorValidateTrue_DataLayerExecuteThrowsException_ExceptionFlow()
     {
         _nameValidator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Models.PersonName>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Models.PersonName>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var bowlerId = BowlerId.New();
         var name = new NortheastMegabuck.Models.PersonName();
 
-        _businessLogic.Execute(bowlerId, name);
+        await _businessLogic.ExecuteAsync(bowlerId, name, default).ConfigureAwait(false);
 
         _businessLogic.Errors.Assert_HasErrorMessage("exception");
     }

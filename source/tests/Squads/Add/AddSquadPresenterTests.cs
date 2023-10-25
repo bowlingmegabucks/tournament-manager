@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Squads.Add;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Squads.Add.IView> _view;
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IAdapter> _retrieveTournamentAdapter;
@@ -20,7 +20,7 @@ internal class Presenter
     }
 
     [Test]
-    public void GetTournamentDetails_RetrieveTournamentAdapterExecute_CalledCorrectly()
+    public async Task GetTournamentDetailsAsync_RetrieveTournamentAdapterExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         
@@ -30,15 +30,17 @@ internal class Presenter
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         var tournament = new Mock<NortheastMegabuck.Tournaments.IViewModel>();
-        _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(It.IsAny<TournamentId>())).Returns(tournament.Object);
+        _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament.Object);
 
-        _presenter.GetTournamentDetails();
+        CancellationToken cancellationToken = default;
 
-        _retrieveTournamentAdapter.Verify(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(tournamentId), Times.Once);
+        await _presenter.GetTournamentDetailsAsync(cancellationToken).ConfigureAwait(false);
+
+        _retrieveTournamentAdapter.Verify(retrieveTournamentAdapter => retrieveTournamentAdapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void GetTournamentDetails_RetrieveTournamentAdapterHasError_ErrorFlow()
+    public async Task GetTournamentDetailsAsync_RetrieveTournamentAdapterHasError_ErrorFlow()
     {
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
@@ -46,7 +48,7 @@ internal class Presenter
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveTournamentAdapter.SetupGet(retrieveTournamentAdapter => retrieveTournamentAdapter.Error).Returns(error);
 
-        _presenter.GetTournamentDetails();
+        await _presenter.GetTournamentDetailsAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(()=>
         {
@@ -59,19 +61,19 @@ internal class Presenter
     }
 
     [Test]
-    public void GetTournamentDetails_RetrieveTournamentAdapterHasNoError_SuccessFlow()
+    public async Task GetTournamentDetailsAsync_RetrieveTournamentAdapterHasNoError_SuccessFlow()
     {
         var tournament = new Mock<NortheastMegabuck.Tournaments.IViewModel>();
         tournament.SetupGet(t => t.FinalsRatio).Returns(1m);
         tournament.SetupGet(t => t.CashRatio).Returns(3m);
         tournament.SetupGet(t => t.EntryFee).Returns(50m);
 
-        _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.Execute(It.IsAny<TournamentId>())).Returns(tournament.Object);
+        _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament.Object);
 
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
-        _presenter.GetTournamentDetails();
+        await _presenter.GetTournamentDetailsAsync(default).ConfigureAwait(false);
         
         Assert.Multiple(() =>
         {
@@ -84,26 +86,26 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValid_Called()
+    public async Task ExecuteAsync_ViewIsValid_Called()
     {
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.IsValid(), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidFalse_NothingElseCalled()
+    public async Task ExecuteAsync_ViewIsValidFalse_NothingElseCalled()
     {
         _view.Setup(view => view.IsValid()).Returns(false);
 
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(()=>
         {
-            _addSquadAdapter.Verify(addSquadAdapter => addSquadAdapter.Execute(It.IsAny<NortheastMegabuck.Squads.IViewModel>()), Times.Never);
+            _addSquadAdapter.Verify(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Squads.IViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.KeepOpen(), Times.Once);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
@@ -114,7 +116,7 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AddSquadAdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_ViewIsValidTrue_AddSquadAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
@@ -122,15 +124,17 @@ internal class Presenter
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         var squadId = SquadId.New();
-        _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.Execute(It.IsAny<NortheastMegabuck.Squads.IViewModel>())).Returns(squadId);
+        _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Squads.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadId);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _addSquadAdapter.Verify(addSquadAdapter => addSquadAdapter.Execute(squad.Object), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _addSquadAdapter.Verify(addSquadAdapter => addSquadAdapter.ExecuteAsync(squad.Object, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AddSquadAdapterHasErrors_ErrorFlow()
+    public async Task ExecuteAsync_ViewIsValidTrue_AddSquadAdapterHasErrors_ErrorFlow()
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
@@ -146,7 +150,7 @@ internal class Presenter
 
         _addSquadAdapter.SetupGet(addSquadAdapter => addSquadAdapter.Errors).Returns(errors);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(()=>
         {
@@ -160,7 +164,7 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_AddSquadAdapterSuccessful_SuccessPath()
+    public async Task ExecuteAsync_ViewIsValidTrue_AddSquadAdapterSuccessful_SuccessPath()
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
@@ -169,9 +173,9 @@ internal class Presenter
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         var squadId = SquadId.New();
-        _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.Execute(It.IsAny<NortheastMegabuck.Squads.IViewModel>())).Returns(squadId);
+        _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Squads.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadId);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

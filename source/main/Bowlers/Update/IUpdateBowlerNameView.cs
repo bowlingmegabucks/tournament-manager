@@ -12,6 +12,8 @@ internal interface IBowlerNameView : IView
 
     void Disable();
 
+    void OkToClose();
+
     INameViewModel BowlerName { get; }
 
     string FullName { get; }

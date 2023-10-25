@@ -21,11 +21,11 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public IEnumerable<IViewModel> Execute(SquadId squadId)
-        => Execute(_businessLogic.Execute(squadId));
+    public async Task<IEnumerable<IViewModel>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
+        => Execute(await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false));
 
-    public IEnumerable<IViewModel> Execute(TournamentId tournamentId)
-        => Execute(_businessLogic.Execute(tournamentId));
+    public async Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
+        => Execute(await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false));
 
     private static IEnumerable<IViewModel> Execute(Models.SweeperResult? result)
     {
@@ -51,7 +51,7 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IViewModel> Execute(SquadId squadId);
+    Task<IEnumerable<IViewModel>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 
-    IEnumerable<IViewModel> Execute(TournamentId tournamentId);
+    Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

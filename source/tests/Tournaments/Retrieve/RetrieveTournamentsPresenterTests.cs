@@ -1,7 +1,9 @@
-﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
+﻿using Newtonsoft.Json.Serialization;
+
+namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
-internal class Presenters
+internal sealed class Presenters
 {
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IView> _view;
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IAdapter> _adapter;
@@ -18,20 +20,22 @@ internal class Presenters
     }
 
     [Test]
-    public void Execute_AdapterExecute_Called()
+    public async Task ExecuteAsync_AdapterExecute_Called()
     {
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.ExecuteAsync(cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_AdapterErrorNotNull_ErrorFlow()
+    public async Task ExecuteAsync_AdapterErrorNotNull_ErrorFlow()
     {
         var errorDetail = new NortheastMegabuck.Models.ErrorDetail("message");
         _adapter.SetupGet(adapter=> adapter.Error).Returns(errorDetail);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -43,22 +47,22 @@ internal class Presenters
     }
 
     [Test]
-    public void Execute_AdapterErrorDetailNull_NoTournamentsReturned_ViewDisableOpenTournamentCalled()
+    public async Task ExecuteAsync_AdapterErrorDetailNull_NoTournamentsReturned_ViewDisableOpenTournamentCalled()
     {
-        _adapter.Setup(adapter => adapter.Execute()).Returns(Enumerable.Empty<NortheastMegabuck.Tournaments.IViewModel>());
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(Enumerable.Empty<NortheastMegabuck.Tournaments.IViewModel>());
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.DisableOpenTournament(), Times.Once);
     }
 
     [Test]
-    public void Execute_AdapterErrorDetailNull_TournamentsReturned_ViewBindTournamentsCalled()
+    public async Task ExecuteAsync_AdapterErrorDetailNull_TournamentsReturned_ViewBindTournamentsCalled()
     {
         var tournaments = Enumerable.Repeat(new Mock<NortheastMegabuck.Tournaments.IViewModel>().Object, 3).ToList();
-        _adapter.Setup(adapter => adapter.Execute()).Returns(tournaments);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(tournaments);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.BindTournaments(tournaments), Times.Once);
     }

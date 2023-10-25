@@ -1,11 +1,11 @@
 ﻿namespace NortheastMegabuck.Tests.Bowlers.Search;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Bowlers.Search.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Bowlers.Search.IAdapter _adapter;
+    private NortheastMegabuck.Bowlers.Search.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
@@ -16,40 +16,41 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(searchCriteria);
+        await _adapter.ExecuteAsync(searchCriteria, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(searchCriteria), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(searchCriteria, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
+    public async Task ExecuteAsync_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
         var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
-        _adapter.Execute(searchCriteria);
+        await _adapter.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }
 
     [Test]
-    public void Execute_ReturnsBowlersFromBusinessLogic()
+    public async Task ExecuteAsync_ReturnsBowlersFromBusinessLogic()
     {
         var bowler1 = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { Last = "Bowler 1" } };
         var bowler2 = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { Last = "Bowler 2" } };
         var bowlers = new[] { bowler1, bowler2 };
 
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(bowlers);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowlers);
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 
-        var actual = _adapter.Execute(searchCriteria).ToList();
+        var actual = (await _adapter.ExecuteAsync(searchCriteria, default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

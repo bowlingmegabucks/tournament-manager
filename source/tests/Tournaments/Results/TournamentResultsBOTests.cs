@@ -2,13 +2,13 @@
 namespace NortheastMegabuck.Tests.Tournaments.Results;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Tournaments.Results.ICalculator> _calculator;
     private Mock<NortheastMegabuck.Squads.Results.IBusinessLogic> _retrieveSquadResults;
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
 
-    private NortheastMegabuck.Tournaments.Results.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Tournaments.Results.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
@@ -21,56 +21,58 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_RetrieveTournamentExecute_CalledCorrectly()
+    public async Task ExecuteAsync_RetrieveTournamentExecute_CalledCorrectly()
     {
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(tournamentId);
+        await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveTournament.Verify(retrieveTournament=> retrieveTournament.Execute(tournamentId), Times.Once);
+        _retrieveTournament.Verify(retrieveTournament=> retrieveTournament.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_RetrieveTournamentHasError_ErrorFlow()
+    public async Task ExecuteAsync_RetrieveTournamentHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.Error).Returns(error);
 
-        var result = _businessLogic.Execute(TournamentId.New());
+        var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Empty);
             Assert.That(_businessLogic.Error, Is.EqualTo(error));
 
-            _retrieveSquadResults.Verify(retrieveSquadResults => retrieveSquadResults.Execute(It.IsAny<TournamentId>()), Times.Never);
+            _retrieveSquadResults.Verify(retrieveSquadResults => retrieveSquadResults.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Never);
             _calculator.Verify(calculator => calculator.Execute(It.IsAny<DivisionId>(), It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_RetrieveTournamentNoError_RetrieveSquadResultsExecute_CalledCorrectly()
+    public async Task ExecuteAsync_RetrieveTournamentNoError_RetrieveSquadResultsExecute_CalledCorrectly()
     {
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(tournamentId);
+        await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveSquadResults.Verify(retrieveSquadResults => retrieveSquadResults.Execute(tournamentId), Times.Once);
+        _retrieveSquadResults.Verify(retrieveSquadResults => retrieveSquadResults.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_RetrieveTournamentNoError_RetrieveSquadResultsHasError_ErrorFlow()
+    public async Task ExecuteAsync_RetrieveTournamentNoError_RetrieveSquadResultsHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveSquadResults.SetupGet(retrieveSquadResults => retrieveSquadResults.Error).Returns(error);
 
-        var result = _businessLogic.Execute(TournamentId.New());
+        var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -82,7 +84,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_RetrieveTournamentNoError_RetrieveSquadResultsNoError_Calculator_CalledCorrectly()
+    public async Task ExecuteAsync_RetrieveTournamentNoError_RetrieveSquadResultsNoError_Calculator_CalledCorrectly()
     {
         var division1 = new NortheastMegabuck.Models.Division();
         var division2 = new NortheastMegabuck.Models.Division();
@@ -97,15 +99,16 @@ internal class BusinessLogic
         };
 
         var squadResults = new[] { squadResult1, squadResult2 }.GroupBy(squadResult => squadResult.Division);
-        _retrieveSquadResults.Setup(retrieveSquadResult => retrieveSquadResult.Execute(It.IsAny<TournamentId>())).Returns(squadResults);
+        _retrieveSquadResults.Setup(retrieveSquadResult => retrieveSquadResult.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadResults);
 
         var tournament = new NortheastMegabuck.Models.Tournament
         { 
             FinalsRatio = 5m
         };
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
 
-        _businessLogic.Execute(TournamentId.New());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
+
+        await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -117,7 +120,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_RetrieveTournamentNoError_RetrieveSquadResultsNoError_Calculator_ReturnsAtLargeModel()
+    public async Task ExecuteAsync_RetrieveTournamentNoError_RetrieveSquadResultsNoError_Calculator_ReturnsAtLargeModel()
     {
         var division1 = new NortheastMegabuck.Models.Division();
         var division2 = new NortheastMegabuck.Models.Division();
@@ -134,13 +137,13 @@ internal class BusinessLogic
         };
 
         var squadResults = new[] { squadResult1, squadResult2 }.GroupBy(squadResult => squadResult.Division);
-        _retrieveSquadResults.Setup(retrieveSquadResult => retrieveSquadResult.Execute(It.IsAny<TournamentId>())).Returns(squadResults);
+        _retrieveSquadResults.Setup(retrieveSquadResult => retrieveSquadResult.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadResults);
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
             FinalsRatio = 5m
         };
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var division1AtLarge = new NortheastMegabuck.Models.AtLargeResults { DivisionId = division1.Id };
         var division2AtLarge = new NortheastMegabuck.Models.AtLargeResults { DivisionId = division2.Id };
@@ -148,7 +151,7 @@ internal class BusinessLogic
         _calculator.Setup(calculator => calculator.Execute(division1.Id, It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>())).Returns(division1AtLarge);
         _calculator.Setup(calculator => calculator.Execute(division2.Id, It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>())).Returns(division2AtLarge);
 
-        var result = _businessLogic.Execute(TournamentId.New());
+        var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

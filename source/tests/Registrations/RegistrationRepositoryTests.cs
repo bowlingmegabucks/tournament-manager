@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Registrations;
 
 [TestFixture]
-internal class Repository
+internal sealed class Repository
 {
     private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
@@ -17,27 +17,28 @@ internal class Repository
     }
 
     [Test]
-    public void Add_RegistrationAddedWithId()
+    public async Task AddAsync_RegistrationAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Registration>().SetUpDbContext());
 
         var registration = new NortheastMegabuck.Database.Entities.Registration();
 
-        var id = _repository.Add(registration);
+        var id = await _repository.AddAsync(registration, default).ConfigureAwait(false);
 
         Assert.That(registration.Id, Is.EqualTo(id));
     }
 
     [Test]
-    public void Add_DataContextSaveChanges_Called()
+    public async Task AddAsync_DataContextSaveChanges_Called()
     {
         _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Registration>().SetUpDbContext());
 
         var registration = new NortheastMegabuck.Database.Entities.Registration();
+        CancellationToken cancellationToken = default;
 
-        _repository.Add(registration);
+        await _repository.AddAsync(registration, cancellationToken).ConfigureAwait(false);
 
-        _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once());
+        _dataContext.Verify(dataContext => dataContext.SaveChangesAsync(cancellationToken), Times.Once());
     }
 
     [Test]

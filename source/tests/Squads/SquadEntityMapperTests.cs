@@ -1,9 +1,9 @@
 ﻿namespace NortheastMegabuck.Tests.Squads;
 
 [TestFixture]
-internal class EntityMapper
+internal sealed class EntityMapper
 {
-    private NortheastMegabuck.Squads.IEntityMapper _mapper;
+    private NortheastMegabuck.Squads.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()

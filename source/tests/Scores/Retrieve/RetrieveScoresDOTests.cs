@@ -2,12 +2,12 @@
 namespace NortheastMegabuck.Tests.Scores.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Scores.IRepository> _repository;
     private Mock<NortheastMegabuck.Squads.IHandicapCalculator> _handicapCalculator;
 
-    private NortheastMegabuck.Scores.Retrieve.IDataLayer _dataLayer;
+    private NortheastMegabuck.Scores.Retrieve.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
@@ -19,78 +19,18 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_SquadId_RepositoryRetrieve_CalledCorrectly()
+    public async Task ExecuteAsync_SquadIds_RepositoryRetrieve_CalledCorrectly()
     {
-        var squadId = SquadId.New();
-
-        _dataLayer.Execute(squadId);
-
-        _repository.Verify(repository => repository.Retrieve(squadId), Times.Once);
-    }
-
-    [Test]
-    public void Execute_SquadId_ReturnsRepositoryRetrieve()
-    {
-        var entity1 = new NortheastMegabuck.Database.Entities.SquadScore
-        {
-            SquadId = SquadId.New(),
-            Squad = new NortheastMegabuck.Database.Entities.TournamentSquad
-            {
-                Date = DateTime.Now
-            },
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler 
-            { 
-                Id = BowlerId.New() ,
-                Registrations = new[]
-                { 
-                    new NortheastMegabuck.Database.Entities.Registration {Division = new NortheastMegabuck.Database.Entities.Division() }
-                }
-            }
-        };
-
-        var entity2 = new NortheastMegabuck.Database.Entities.SquadScore
-        {
-            SquadId = SquadId.New(),
-            Squad = new NortheastMegabuck.Database.Entities.TournamentSquad
-            {
-                Date = DateTime.Now
-            },
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler
-            {
-                Id = BowlerId.New(),
-                Registrations = new[]
-                {
-                    new NortheastMegabuck.Database.Entities.Registration {Division = new NortheastMegabuck.Database.Entities.Division() }
-                }
-            }
-        };
-
-        var entities = new[] { entity1, entity2 };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(entities);
-
-        var actual = _dataLayer.Execute(SquadId.New()).ToList();
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(actual, Has.Count.EqualTo(2));
-
-            Assert.That(actual[0].Bowler.Id, Is.EqualTo(entity1.Bowler.Id));
-            Assert.That(actual[1].SquadId, Is.EqualTo(entity2.SquadId));
-        });
-    }
-
-    [Test]
-    public void Execute_SquadIds_RepositoryRetrieve_CalledCorrectly()
-    {
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId[]>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.SquadScore>().BuildMock());
         var squadIds = new[] { SquadId.New(), SquadId.New() };
 
-        _dataLayer.Execute(squadIds);
+        await _dataLayer.ExecuteAsync(squadIds, default).ConfigureAwait(false);
 
         _repository.Verify(repository => repository.Retrieve(squadIds), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadIds_ReturnsRepositoryRetrieve()
+    public async Task ExecuteAsync_SquadIds_ReturnsRepositoryRetrieve()
     {
         var entity1 = new NortheastMegabuck.Database.Entities.SquadScore
         {
@@ -127,9 +67,9 @@ internal class DataLayer
         };
 
         var entities = new[] { entity1, entity2 };
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<IEnumerable<SquadId>>())).Returns(entities);
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId[]>())).Returns(entities.BuildMock());
 
-        var actual = _dataLayer.Execute(new[] { SquadId.New(), SquadId.New() }).ToList();
+        var actual = (await _dataLayer.ExecuteAsync(new[] { SquadId.New(), SquadId.New() }, default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

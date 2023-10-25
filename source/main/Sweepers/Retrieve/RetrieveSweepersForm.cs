@@ -1,4 +1,5 @@
 ﻿namespace NortheastMegabuck.Sweepers.Retrieve;
+
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
@@ -12,7 +13,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _config = config;
         TournamentId = tournamentId;
 
-        new Presenter(_config, this).Execute();
+        _ = new Presenter(_config, this).ExecuteAsync(default);
     }
 
     public void BindSweepers(IEnumerable<IViewModel> squads)
@@ -44,8 +45,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private void SweepersGrid_GridRowDoubleClicked(object sender, Controls.Grids.GridRowDoubleClickEventArgs e)
         => OpenButton_Click(sender, e);
 
-    private void AddButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).AddSweeper();
+    private async void AddButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).AddSweeperAsync(default).ConfigureAwait(true);
 
     public SquadId? AddSweeper(TournamentId tournamentId)
     {
@@ -54,6 +55,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
         return form.ShowDialog() == DialogResult.OK ? form.Sweeper.Id : null;
     }
 
-    public void RefreshSweepers()
-        => new Presenter(_config, this).Execute();
+    public async Task RefreshSweepersAsync(CancellationToken cancellationToken)
+        => await new Presenter(_config, this).ExecuteAsync(cancellationToken).ConfigureAwait(true);
 }

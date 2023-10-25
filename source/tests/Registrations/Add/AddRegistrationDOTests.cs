@@ -1,12 +1,12 @@
 ﻿namespace NortheastMegabuck.Tests.Registrations.Add;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Registrations.IEntityMapper> _mapper;
     private Mock<NortheastMegabuck.Registrations.IRepository> _repository;
 
-    private NortheastMegabuck.Registrations.Add.IDataLayer _dataLayer;
+    private NortheastMegabuck.Registrations.Add.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
@@ -18,43 +18,45 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_Model_MapperExecute_Model_CalledCorrectly()
+    public async Task ExecuteAsync_Model_MapperExecute_Model_CalledCorrectly()
     {
         var registration = new NortheastMegabuck.Models.Registration();
-        _dataLayer.Execute(registration);
+        await _dataLayer.ExecuteAsync(registration, default).ConfigureAwait(false);
 
         _mapper.Verify(mapper => mapper.Execute(registration), Times.Once);
     }
 
     [Test]
-    public void Execute_Model_RepositoryExecute_Model_CalledCorrectly()
+    public async Task ExecuteAsync_Model_RepositoryExecute_Model_CalledCorrectly()
     {
         var entity = new NortheastMegabuck.Database.Entities.Registration();
         _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(entity);
 
         var model = new NortheastMegabuck.Models.Registration();
-        _dataLayer.Execute(model);
+        CancellationToken cancellationToken = default;
 
-        _repository.Verify(repository => repository.Add(entity), Times.Once);
+        await _dataLayer.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
+
+        _repository.Verify(repository => repository.AddAsync(entity, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_Model_ReturnsRepositoryAddResponse()
+    public async Task ExecuteAsync_Model_ReturnsRepositoryAddResponse()
     {
         var registrationId = RegistrationId.New();
-        _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(registrationId);
+        _repository.Setup(repository => repository.AddAsync(It.IsAny<NortheastMegabuck.Database.Entities.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrationId);
 
         var model = new NortheastMegabuck.Models.Registration();
-        var actual = _dataLayer.Execute(model);
+        var actual = await _dataLayer.ExecuteAsync(model, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(registrationId));
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_RepositoryAddSquad_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_RepositoryAddSquad_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.AddSquad(It.IsAny<BowlerId>(), It.IsAny<SquadId>()))
-            .Returns(new NortheastMegabuck.Database.Entities.Registration 
+        _repository.Setup(repository => repository.AddSquadAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new NortheastMegabuck.Database.Entities.Registration 
             {
                 Squads = new List<NortheastMegabuck.Database.Entities.SquadRegistration>(), 
                 Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
@@ -63,19 +65,20 @@ internal class DataLayer
 
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(bowlerId, squadId);
+        await _dataLayer.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.AddSquad(bowlerId, squadId), Times.Once);
+        _repository.Verify(repository => repository.AddSquadAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_ReturnsRegistration()
+    public async Task ExecuteAsync_BowlerIdSquadId_ReturnsRegistration()
     {
         var registrationId = RegistrationId.New();
 
-        _repository.Setup(repository => repository.AddSquad(It.IsAny<BowlerId>(), It.IsAny<SquadId>()))
-            .Returns(new NortheastMegabuck.Database.Entities.Registration
+        _repository.Setup(repository => repository.AddSquadAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new NortheastMegabuck.Database.Entities.Registration
             {
                 Id = registrationId,
                 Squads = new List<NortheastMegabuck.Database.Entities.SquadRegistration>(),
@@ -86,7 +89,7 @@ internal class DataLayer
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var actual = _dataLayer.Execute(bowlerId, squadId);
+        var actual = await _dataLayer.ExecuteAsync(bowlerId, squadId, default).ConfigureAwait(false);
 
         Assert.That(actual.Id, Is.EqualTo(registrationId));
     }

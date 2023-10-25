@@ -3,11 +3,11 @@
 namespace NortheastMegabuck.Tests.Squads;
 
 [TestFixture]
-internal class Repository
+internal sealed class Repository
 {
     private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
-    private NortheastMegabuck.Squads.IRepository _repository;
+    private NortheastMegabuck.Squads.Repository _repository;
 
     [SetUp]
     public void SetUp()
@@ -17,27 +17,28 @@ internal class Repository
     }
 
     [Test]
-    public void Add_SquadAddedWithId()
+    public async Task AddAsync_SquadAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.TournamentSquad>().SetUpDbContext());
 
         var squad = new NortheastMegabuck.Database.Entities.TournamentSquad();
 
-        var id = _repository.Add(squad);
+        var id = await _repository.AddAsync(squad, default).ConfigureAwait(false);
 
         Assert.That(squad.Id, Is.EqualTo(id));
     }
 
     [Test]
-    public void Add_DataContextSaveChanges_Called()
+    public async Task AddAsync_DataContextSaveChanges_Called()
     {
         _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.TournamentSquad>().SetUpDbContext());
 
         var squad = new NortheastMegabuck.Database.Entities.TournamentSquad();
+        CancellationToken cancellationToken = default;
 
-        _repository.Add(squad);
+        await _repository.AddAsync(squad, cancellationToken).ConfigureAwait(false);
 
-        _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once());
+        _dataContext.Verify(dataContext => dataContext.SaveChangesAsync(cancellationToken), Times.Once());
     }
 
     [Test]
@@ -79,7 +80,7 @@ internal class Repository
     }
 
     [Test]
-    public void Retrieve_SquadId_ReturnsSquad()
+    public async Task RetrieveAsync_SquadId_ReturnsSquad()
     {
         var tournamentId = TournamentId.New();
 
@@ -107,7 +108,7 @@ internal class Repository
         var squads = new[] { squad1, squad2, squad3 };
         _dataContext.Setup(dataContext => dataContext.Squads).Returns(squads.SetUpDbContext());
 
-        var actual = _repository.Retrieve(squad2.Id);
+        var actual = await _repository.RetrieveAsync(squad2.Id, default).ConfigureAwait(false);
 
         Assert.That(actual.MaxPerPair, Is.EqualTo(squad2.MaxPerPair));
     }

@@ -4,7 +4,7 @@ using FluentValidation.TestHelper;
 namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
-internal class Validator
+internal sealed class Validator
 {
     private IValidator<NortheastMegabuck.Models.Sweeper> _validator;
 

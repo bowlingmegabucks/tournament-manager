@@ -1,6 +1,8 @@
 ﻿
 namespace NortheastMegabuck.Tests.LaneAssignments;
-internal class Staggered : Generate
+
+[TestFixture]
+internal sealed class Staggered : Generate
 {
     protected override NortheastMegabuck.LaneAssignments.IGenerate InstanciateInterface()
         => new NortheastMegabuck.LaneAssignments.StaggeredSkip();

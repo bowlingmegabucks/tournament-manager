@@ -21,13 +21,13 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public IEnumerable<IViewModel> Execute(SquadId squadId)
-        => _businessLogic.Execute(squadId).Select(squadScore => new ViewModel(squadScore));
+    public async Task<IEnumerable<IViewModel>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
+        => (await _businessLogic.ExecuteAsync(new[] { squadId }, cancellationToken).ConfigureAwait(false)).Select(squadScore => new ViewModel(squadScore));
 }
 
 internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IViewModel> Execute(SquadId squadId);
+    Task<IEnumerable<IViewModel>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 }

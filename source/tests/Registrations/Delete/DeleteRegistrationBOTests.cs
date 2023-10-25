@@ -2,11 +2,11 @@
 namespace NortheastMegabuck.Tests.Registrations.Delete;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Registrations.Delete.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Registrations.Delete.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Registrations.Delete.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
@@ -17,44 +17,46 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_DataLayerExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(bowlerId, squadId);
+        await _businessLogic.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(bowlerId, squadId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_DataLayerExecuteThrowsException_ErrorMapped()
+    public async Task ExecuteAsync_BowlerIdSquadId_DataLayerExecuteThrowsException_ErrorMapped()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<BowlerId>(), It.IsAny<SquadId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        _businessLogic.Execute(BowlerId.New(), SquadId.New());
+        await _businessLogic.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
     }
 
     [Test]
-    public void Execute_RegistrationId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_RegistrationId_DataLayerExecute_CalledCorrectly()
     {
         var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(registrationId);
+        await _businessLogic.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(registrationId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(registrationId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_RegistrationId_DataLayerExecuteThrowsException_ErrorMapped()
+    public async Task ExecuteAsync_RegistrationId_DataLayerExecuteThrowsException_ErrorMapped()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<RegistrationId>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        _businessLogic.Execute(RegistrationId.New());
+        await _businessLogic.ExecuteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
     }

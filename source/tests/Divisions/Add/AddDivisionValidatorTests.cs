@@ -4,7 +4,7 @@ using FluentValidation.TestHelper;
 namespace NortheastMegabuck.Tests.Divisions.Add;
 
 [TestFixture]
-internal class Validator
+internal sealed class Validator
 {
     private IValidator<NortheastMegabuck.Models.Division> _validator;
 

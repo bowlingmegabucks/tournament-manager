@@ -10,7 +10,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         var presenter = new Presenter(config, this);
 
-        presenter.Execute();
+        _ = presenter.ExecuteAsync(default);
     }
 
     public void BindTournaments(ICollection<IViewModel> viewModels)

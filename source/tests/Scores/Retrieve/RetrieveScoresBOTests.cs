@@ -2,11 +2,11 @@
 namespace NortheastMegabuck.Tests.Scores.Retrieve;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Scores.Retrieve.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Scores.Retrieve.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Scores.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
@@ -17,58 +17,23 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_SquadId_DataLayerExecute_SquadId_CalledCorrectly()
-    {
-        var squadId = SquadId.New();
-
-        _businessLogic.Execute(squadId);
-
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(squadId), Times.Once);
-    }
-
-    [Test]
-    public void Execute_SquadId_DataLayerExecuteThrowsException_ExceptionFlow()
-    {
-        var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Throws(ex);
-
-        var result = _businessLogic.Execute(SquadId.New());
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(result, Is.Empty);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
-        });
-    }
-
-    [Test]
-    public void Execute_SquadId_ReturnsDataLayerExecute()
-    {
-        var scores = new Mock<IEnumerable<NortheastMegabuck.Models.SquadScore>>();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>())).Returns(scores.Object);
-
-        var actual = _businessLogic.Execute(SquadId.New());
-
-        Assert.That(actual, Is.EqualTo(scores.Object));
-    }
-
-    [Test]
-    public void Execute_SquadIds_DataLayerExecute_SquadIds_CalledCorrectly()
+    public async Task ExecuteAsync_SquadIds_DataLayerExecute_SquadIds_CalledCorrectly()
     {
         var squadIds = new[] { SquadId.New(), SquadId.New() };
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(squadIds);
+        await _businessLogic.ExecuteAsync(squadIds, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(squadIds), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(squadIds, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadIds_DataLayerExecuteThrowsException_ExceptionFlow()
+    public async Task ExecuteAsync_SquadIds_DataLayerExecuteThrowsException_ExceptionFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<IEnumerable<SquadId>>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        var result = _businessLogic.Execute(new[] { SquadId.New(), SquadId.New() });
+        var result = await _businessLogic.ExecuteAsync(new[] { SquadId.New(), SquadId.New() }, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -78,12 +43,12 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_SquadIds_ReturnsDataLayerExecute()
+    public async Task ExecuteAsync_SquadIds_ReturnsDataLayerExecute()
     {
         var scores = new Mock<IEnumerable<NortheastMegabuck.Models.SquadScore>>();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(scores.Object);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(scores.Object);
 
-        var actual = _businessLogic.Execute(new[] { SquadId.New(), SquadId.New() });
+        var actual = await _businessLogic.ExecuteAsync(new[] { SquadId.New(), SquadId.New() }, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(scores.Object));
     }

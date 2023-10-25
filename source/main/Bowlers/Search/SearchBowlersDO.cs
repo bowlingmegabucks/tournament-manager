@@ -1,5 +1,7 @@
-﻿
+﻿using Microsoft.EntityFrameworkCore;
+
 namespace NortheastMegabuck.Bowlers.Search;
+
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
@@ -18,11 +20,11 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    IEnumerable<Models.Bowler> IDataLayer.Execute(Models.BowlerSearchCriteria searchCriteria)
-        => _repository.Search(searchCriteria).Select(bowler => new Models.Bowler(bowler));
+    async Task<IEnumerable<Models.Bowler>> IDataLayer.ExecuteAsync(Models.BowlerSearchCriteria searchCriteria, CancellationToken cancellationToken)
+        => (await _repository.Search(searchCriteria).ToListAsync(cancellationToken).ConfigureAwait(false)).Select(bowler => new Models.Bowler(bowler));
 }
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.Bowler> Execute(Models.BowlerSearchCriteria searchCriteria);
+    Task<IEnumerable<Models.Bowler>> ExecuteAsync(Models.BowlerSearchCriteria searchCriteria, CancellationToken cancellationToken);
 }

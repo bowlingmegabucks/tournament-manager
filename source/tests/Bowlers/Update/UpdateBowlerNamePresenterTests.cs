@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Bowlers.Update;
 
 [TestFixture]
-internal class NamePresenter
+internal sealed class NamePresenter
 {
     private Mock<NortheastMegabuck.Bowlers.Update.IBowlerNameView> _view;
     private Mock<NortheastMegabuck.Bowlers.Retrieve.IAdapter> _retrieveBowlerAdapter;
@@ -22,23 +22,25 @@ internal class NamePresenter
     }
 
     [Test]
-    public void Load_RetrieveBowlerAdapterExecute_CalledCorrectly()
+    public async Task LoadAsync_RetrieveBowlerAdapterExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         _view.SetupGet(view => view.Id).Returns(bowlerId);
 
-        _namePresenter.Load();
+        CancellationToken cancellationToken = default;
 
-        _retrieveBowlerAdapter.Verify(adapter => adapter.Execute(bowlerId), Times.Once);
+        await _namePresenter.LoadAsync(cancellationToken).ConfigureAwait(false);
+
+        _retrieveBowlerAdapter.Verify(adapter => adapter.ExecuteAsync(bowlerId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Load_RetrieveBowlerAdapterErrorNotNull_ErrorFlow()
+    public async Task LoadAsync_RetrieveBowlerAdapterErrorNotNull_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveBowlerAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _namePresenter.Load();
+        await _namePresenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -50,43 +52,44 @@ internal class NamePresenter
     }
 
     [Test]
-    public void Load_RetrievebowlerAdapterSuccessful_ViewBind_CalledCorrectly()
+    public async Task LoadAsync_RetrievebowlerAdapterSuccessful_ViewBind_CalledCorrectly()
     {
         var bowler = new Mock<NortheastMegabuck.Bowlers.Retrieve.IViewModel>().Object;
-        _retrieveBowlerAdapter.Setup(adapter => adapter.Execute(It.IsAny<BowlerId>())).Returns(bowler);
+        _retrieveBowlerAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
-        _namePresenter.Load();
+        await _namePresenter.LoadAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.Bind(bowler), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValid_Called()
+    public async Task ExecuteAsync_ViewIsValid_Called()
     {
-        _namePresenter.Execute();
+        await _namePresenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.IsValid(), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidFalse_NothingElseCalled()
+    public async Task ExecuteAsync_ViewIsValidFalse_NothingElseCalled()
     {
         _view.IsValid_False();
 
-        _namePresenter.Execute();
+        await _namePresenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _updateBowlerAdapter.Verify(adapter => adapter.Execute(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Bowlers.Update.INameViewModel>()), Times.Never);
+            _updateBowlerAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Bowlers.Update.INameViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
             _view.Verify(view => view.DisplayErrors(It.IsAny<IEnumerable<string>>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.OkToClose(), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_UpdateBowlerNameAdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_ViewIsValidTrue_UpdateBowlerNameAdapterExecute_CalledCorrectly()
     {
         _view.IsValid_True();
 
@@ -96,20 +99,22 @@ internal class NamePresenter
         var bowlerName = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>().Object;
         _view.SetupGet(view => view.BowlerName).Returns(bowlerName);
 
-        _namePresenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _updateBowlerAdapter.Verify(adapter => adapter.Execute(bowlerId, bowlerName), Times.Once);
+        await _namePresenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _updateBowlerAdapter.Verify(adapter => adapter.ExecuteAsync(bowlerId, bowlerName, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_UpdateBowlerNameAdapterExecuteHasErrors_ErrorFlow()
+    public async Task ExecuteAsync_ViewIsValidTrue_UpdateBowlerNameAdapterExecuteHasErrors_ErrorFlow()
     {
         _view.IsValid_True();
 
         var errors = new[] { new NortheastMegabuck.Models.ErrorDetail("error1"), new NortheastMegabuck.Models.ErrorDetail("error2") };
         _updateBowlerAdapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
-        _namePresenter.Execute();
+        await _namePresenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -117,19 +122,33 @@ internal class NamePresenter
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.OkToClose(), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_ViewIsValidTrue_UpdateBowlerNameAdapterExecuteSuccessful_ViewDisplayMessage_CalledCorrectly()
+    public async Task ExecuteAsync_ViewIsValidTrue_UpdateBowlerNameAdapterExecuteSuccessful_ViewDisplayMessage_CalledCorrectly()
     {
         _view.IsValid_True();
 
         var fullName = "fullName";
         _view.SetupGet(view => view.FullName).Returns(fullName);
 
-        _namePresenter.Execute();
+        await _namePresenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.DisplayMessage("fullName's name updated"), Times.Once);
+    }
+
+    [Test]
+    public async Task ExecuteAsync_ViewIsValidTrue_UpdateBowlerNameAdapterExecuteSuccessful_ViewOkToClose_Called()
+    {
+        _view.IsValid_True();
+
+        var fullName = "fullName";
+        _view.SetupGet(view => view.FullName).Returns(fullName);
+
+        await _namePresenter.ExecuteAsync(default).ConfigureAwait(false);
+
+        _view.Verify(view => view.OkToClose(), Times.Once);
     }
 }

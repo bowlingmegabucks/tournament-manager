@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class ErrorDetailModelTests
+internal sealed class ErrorDetailModelTests
 {
     [Test]
     public void Constructor_Exception_FieldsMapped()

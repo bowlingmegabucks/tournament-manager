@@ -32,9 +32,9 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
-    public SquadId? Execute(Models.Sweeper sweeper)
+    public async Task<SquadId?> ExecuteAsync(Models.Sweeper sweeper, CancellationToken cancellationToken)
     {
-        var tournament = _getTournamentBO.Execute(sweeper.TournamentId);
+        var tournament = await _getTournamentBO.ExecuteAsync(sweeper.TournamentId, cancellationToken).ConfigureAwait(false);
 
         if (_getTournamentBO.Error != null)
         {
@@ -45,7 +45,7 @@ internal class BusinessLogic : IBusinessLogic
 
         sweeper.Tournament = tournament!;
 
-        var validationResults = Validator.Validate(sweeper);
+        var validationResults = await Validator.ValidateAsync(sweeper, cancellationToken).ConfigureAwait(false);
 
         if (!validationResults.IsValid)
         {
@@ -56,7 +56,7 @@ internal class BusinessLogic : IBusinessLogic
         
         try
         {
-            return DataLayer.Execute(sweeper);
+            return await DataLayer.ExecuteAsync(sweeper, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -71,5 +71,5 @@ internal interface IBusinessLogic
 { 
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    SquadId? Execute(Models.Sweeper sweeper);
+    Task<SquadId?> ExecuteAsync(Models.Sweeper sweeper, CancellationToken cancellationToken);
 }

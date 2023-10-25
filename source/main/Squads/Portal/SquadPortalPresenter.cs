@@ -27,9 +27,9 @@ internal class Presenter
         _completeSquadAdapter = new Lazy<Complete.IAdapter>(() => mockCompleteSquadAdapter);
     }
 
-    public void Load()
+    public async Task LoadAsync(CancellationToken cancellationToken)
     {
-        var squad = _retrieveSquadAdapter.Execute(_view.Id);
+        var squad = await _retrieveSquadAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveSquadAdapter.Error != null)
         {
@@ -47,14 +47,14 @@ internal class Presenter
         _view.SetMaxPerPair(squad.MaxPerPair);
     }
 
-    internal void Complete()
+    internal async Task CompleteAsync(CancellationToken cancellationToken)
     {
         if (!_view.Confirm("Are you sure you want to complete this squad?"))
         {
             return;
         }
 
-        CompleteSquadAdapter.Execute(_view.Id);
+        await CompleteSquadAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
 
         if (CompleteSquadAdapter.Error != null)
         {

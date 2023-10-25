@@ -4,9 +4,9 @@ using System.Security.Policy;
 namespace NortheastMegabuck.Tests.Tournaments.Results;
 
 [TestFixture]
-internal class Calculator
+internal sealed class Calculator
 {
-    private NortheastMegabuck.Tournaments.Results.ICalculator _calculator;
+    private NortheastMegabuck.Tournaments.Results.Calculator _calculator;
 
     [OneTimeSetUp]
     public void SetUp()

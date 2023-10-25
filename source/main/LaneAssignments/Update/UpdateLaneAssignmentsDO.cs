@@ -18,11 +18,11 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    void IDataLayer.Execute(SquadId squadId, BowlerId bowlerId, string position)
-        => _repository.Update(squadId, bowlerId, position);
+    async Task IDataLayer.ExecuteAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken)
+        => await _repository.UpdateAsync(squadId, bowlerId, position, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IDataLayer
 {
-    void Execute(SquadId squadId, BowlerId bowlerId, string position);
+    Task ExecuteAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken);
 }

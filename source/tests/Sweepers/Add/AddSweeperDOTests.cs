@@ -3,51 +3,53 @@
 namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<IEntityMapper> _mapper;
-    private Mock<NortheastMegabuck.Sweepers.IRepository> _repository;
+    private Mock<IRepository> _repository;
     
-    private NortheastMegabuck.Sweepers.Add.IDataLayer _dataLayer;
+    private NortheastMegabuck.Sweepers.Add.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
         _mapper = new Mock<IEntityMapper>();
-        _repository = new Mock<NortheastMegabuck.Sweepers.IRepository>();
+        _repository = new Mock<IRepository>();
 
         _dataLayer = new NortheastMegabuck.Sweepers.Add.DataLayer(_mapper.Object, _repository.Object);
     }
 
     [Test]
-    public void Execute_MapperExecute_CalledCorrectly()
+    public async Task ExecuteAsync_MapperExecute_CalledCorrectly()
     {
         var sweeper = new NortheastMegabuck.Models.Sweeper();
-        _dataLayer.Execute(sweeper);
+        await _dataLayer.ExecuteAsync(sweeper, default).ConfigureAwait(false);
 
         _mapper.Verify(mapper => mapper.Execute(sweeper), Times.Once);
     }
 
     [Test]
-    public void Execute_RepositoryExecute_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryExecute_CalledCorrectly()
     {
         var entity = new NortheastMegabuck.Database.Entities.SweeperSquad();
         _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Sweeper>())).Returns(entity);
 
         var model = new NortheastMegabuck.Models.Sweeper();
-        _dataLayer.Execute(model);
+        CancellationToken cancellationToken = default;
 
-        _repository.Verify(repository => repository.Add(entity), Times.Once);
+        await _dataLayer.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
+
+        _repository.Verify(repository => repository.AddAsync(entity, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsRepositoryAddResponse()
+    public async Task ExecuteAsync_ReturnsRepositoryAddResponse()
     {
         var id = SquadId.New();
-        _repository.Setup(repository => repository.Add(It.IsAny<NortheastMegabuck.Database.Entities.SweeperSquad>())).Returns(id);
+        _repository.Setup(repository => repository.AddAsync(It.IsAny<NortheastMegabuck.Database.Entities.SweeperSquad>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var model = new NortheastMegabuck.Models.Sweeper();
-        var actual = _dataLayer.Execute(model);
+        var actual = await _dataLayer.ExecuteAsync(model, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(id));
     }

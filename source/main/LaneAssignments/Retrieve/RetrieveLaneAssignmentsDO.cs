@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.LaneAssignments.Retrieve;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NortheastMegabuck.LaneAssignments.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
@@ -17,11 +19,11 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    IEnumerable<Models.LaneAssignment> IDataLayer.Execute(SquadId squadId)
-        => _repository.Retrieve(squadId).Select(squadRegistration => new Models.LaneAssignment(squadRegistration));
+    async Task<IEnumerable<Models.LaneAssignment>> IDataLayer.ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
+        => (await _repository.Retrieve(squadId).ToListAsync(cancellationToken).ConfigureAwait(false)).Select(squadRegistration => new Models.LaneAssignment(squadRegistration));
 }
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.LaneAssignment> Execute(SquadId squadId);
+    Task<IEnumerable<Models.LaneAssignment>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 }

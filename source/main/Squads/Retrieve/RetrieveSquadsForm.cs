@@ -15,7 +15,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         TournamentId = tournamentId;
         _gamesPerSquad = gamesPerSquad;
 
-        new Presenter(_config, this).Execute();
+        _ = new Presenter(_config, this).ExecuteAsync(default);
     }
 
     public void BindSquads(IEnumerable<IViewModel> squads)
@@ -47,8 +47,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private void SquadsGrid_GridRowDoubleClicked(object sender, Controls.Grids.GridRowDoubleClickEventArgs e)
         => OpenButton_Click(sender, e);
 
-    private void AddButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).AddSquad();
+    private async void AddButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).AddSquadAsync(default).ConfigureAwait(true);
 
     public SquadId? AddSquad(TournamentId tournamentId)
     {
@@ -57,6 +57,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
         return form.ShowDialog() == DialogResult.OK ? form.Squad.Id : null;
     }
 
-    public void RefreshSquads()
-        => new Presenter(_config, this).Execute();
+    public async Task RefreshSquadsAsync(CancellationToken cancellationToken)
+        => await new Presenter(_config, this).ExecuteAsync(cancellationToken).ConfigureAwait(true);
 }

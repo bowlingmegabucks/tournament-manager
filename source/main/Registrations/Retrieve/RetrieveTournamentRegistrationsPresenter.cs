@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Retrieve;
+﻿using System.Globalization;
+
+namespace NortheastMegabuck.Registrations.Retrieve;
 internal class TournamentRegistrationsPresenter
 {
     private readonly ITournamentRegistrationsView _view;
@@ -38,50 +40,46 @@ internal class TournamentRegistrationsPresenter
         _deleteAdapter = new Lazy<Delete.IAdapter>(()=> mockDeleteAdapter);
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var registrationsTask = Task.Run(() => _registrationsAdapter.Execute(_view.TournamentId));
-        var squadsTask = Task.Run(() => _squadsAdapter.Execute(_view.TournamentId));
-        var sweepersTask = Task.Run(() => _sweepersAdapter.Execute(_view.TournamentId));
-
-        var tasks = new List<Task> { registrationsTask, squadsTask, sweepersTask };
-
-        Task.WaitAll(tasks.ToArray());
+        var registrations = await _registrationsAdapter.ExecuteAsync(_view.TournamentId, cancellationToken).ConfigureAwait(true);
+        var squads = await _squadsAdapter.ExecuteAsync(_view.TournamentId, cancellationToken).ConfigureAwait(true);
+        var sweepers = await _sweepersAdapter.ExecuteAsync(_view.TournamentId, cancellationToken).ConfigureAwait(true);
 
         var errors = new[] { _registrationsAdapter.Error, _squadsAdapter.Error, _sweepersAdapter.Error }.Where(error => error != null).ToList();
 
-        if (errors.Any())
+        if (errors.Count > 0)
         {
             _view.DisplayError(string.Join(Environment.NewLine, errors.Select(error => error!.Message).Distinct()));
 
             return;
         }
 
-        var squads = squadsTask.Result.ToDictionary(squad => squad.Id, squad => squad.Date.ToString("MM/dd/yy htt"));
-        var squadEntries = squads.ToDictionary(squad => squad.Value, squad => registrationsTask.Result.Count(registration => registration.SquadsEntered.Contains(squad.Key)));
+        var squadsDictionary = squads.ToDictionary(squad => squad.Id, squad => squad.Date.ToString("MM/dd/yy htt", CultureInfo.CurrentCulture));
+        var squadEntries = squadsDictionary.ToDictionary(squad => squad.Value, squad => registrations.Count(registration => registration.SquadsEntered.Contains(squad.Key)));
         _view.SetSquadEntries(squadEntries);
-        _view.BindSquadDates(squads);
+        _view.BindSquadDates(squadsDictionary);
 
-        var sweepers = sweepersTask.Result.ToDictionary(sweeper => sweeper.Id, sweeper => sweeper.Date.ToString("MM/dd/yy htt"));
-        var sweeperEntries = sweepers.ToDictionary(sweeper => sweeper.Value, sweeper => registrationsTask.Result.Count(registration => registration.SweepersEntered.Contains(sweeper.Key)));
-        sweeperEntries.Add("Super Sweeper", registrationsTask.Result.Count(registration => registration.SuperSweeperEntered));
+        var sweepersDictionary = sweepers.ToDictionary(sweeper => sweeper.Id, sweeper => sweeper.Date.ToString("MM/dd/yy htt", CultureInfo.CurrentCulture));
+        var sweeperEntries = sweepersDictionary.ToDictionary(sweeper => sweeper.Value, sweeper => registrations.Count(registration => registration.SweepersEntered.Contains(sweeper.Key)));
+        sweeperEntries.Add("Super Sweeper", registrations.Count(registration => registration.SuperSweeperEntered));
         _view.SetSweeperEntries(sweeperEntries);
-        _view.BindSquadDates(sweepers);
+        _view.BindSquadDates(sweepersDictionary);
 
-        _view.BindRegistrations(registrationsTask.Result.OrderBy(registration => registration.LastName).ThenBy(registration => registration.FirstName));
+        _view.BindRegistrations(registrations.OrderBy(registration => registration.LastName).ThenBy(registration => registration.FirstName));
 
-        var divisionEntries = registrationsTask.Result.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Sum(r=> r.SquadsEnteredCount));
+        var divisionEntries = registrations.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Sum(r=> r.SquadsEnteredCount));
         _view.SetDivisionEntries(divisionEntries);
     }
 
-    public void Delete(RegistrationId id)
+    public async Task DeleteAsync(RegistrationId id, CancellationToken cancellationToken)
     {
         if (!_view.Confirm("Are you sure you want to delete this bowler's entire registration?"))
         {
             return;
         }
 
-        DeleteAdapter.Execute(id);
+        await DeleteAdapter.ExecuteAsync(id, cancellationToken).ConfigureAwait(true);
 
         if (DeleteAdapter.Error != null)
         {

@@ -21,25 +21,11 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = mockDataLayer;
     }
 
-    public IEnumerable<Models.SquadScore> Execute(SquadId squadId)
+    public async Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<SquadId> squadIds, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(squadId);
-        }
-        catch (Exception ex)
-        {
-            Error = new Models.ErrorDetail(ex);
-
-            return Enumerable.Empty<Models.SquadScore>();
-        }
-    }
-
-    public IEnumerable<Models.SquadScore> Execute(IEnumerable<SquadId> squadIds)
-    {
-        try
-        {
-            return _dataLayer.Execute(squadIds);
+            return await _dataLayer.ExecuteAsync(squadIds, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -54,7 +40,5 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.SquadScore> Execute(SquadId squadId);
-
-    IEnumerable<Models.SquadScore> Execute(IEnumerable<SquadId> squadIds);
+    Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<SquadId> squadIds, CancellationToken cancellationToken);
 }

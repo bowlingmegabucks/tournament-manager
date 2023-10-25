@@ -31,9 +31,9 @@ internal class BusinessLogic : IBusinessLogic
         _retrieveScores = mockRetrieveScores;
     }
 
-    public Models.SweeperResult? Execute(SquadId squadId)
+    public async Task<Models.SweeperResult?> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
-        var sweeper = RetrieveSweeper.Execute(squadId);
+        var sweeper = await RetrieveSweeper.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
         if (RetrieveSweeper.Error != null)
         {
@@ -42,14 +42,14 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var scores = _retrieveScores.Execute(squadId);
+        var scores = await _retrieveScores.ExecuteAsync(new[] { squadId }, cancellationToken).ConfigureAwait(false);
 
         return Execute(scores, sweeper!.CashRatio);
     }
 
-    public Models.SweeperResult? Execute(TournamentId tournamentId)
+    public async Task<Models.SweeperResult?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var tournament = RetrieveTournament.Execute(tournamentId);
+        var tournament = await RetrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         if (RetrieveTournament.Error != null)
         {
@@ -58,7 +58,7 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var superSweeperBowlers = RetrieveSweeper.SuperSweeperBowlers(tournamentId);
+        var superSweeperBowlers = await RetrieveSweeper.SuperSweeperBowlersAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         if (RetrieveSweeper.Error != null)
         {
@@ -67,7 +67,7 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var scores = _retrieveScores.Execute(tournament!.Sweepers.Select(sweeper=> sweeper.Id)).Where(score=> superSweeperBowlers.Contains(score.Bowler.Id));
+        var scores = (await _retrieveScores.ExecuteAsync(tournament!.Sweepers.Select(sweeper=> sweeper.Id), cancellationToken).ConfigureAwait(false)).Where(score=> superSweeperBowlers.Contains(score.Bowler.Id));
 
         return Execute(scores, tournament!.SuperSweeperCashRatio);
     }
@@ -105,7 +105,7 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    Models.SweeperResult? Execute(SquadId squadId);
+    Task<Models.SweeperResult?> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 
-    Models.SweeperResult? Execute(TournamentId tournamentId);
+    Task<Models.SweeperResult?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

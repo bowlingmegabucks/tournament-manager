@@ -18,41 +18,40 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    IEnumerable<Database.Entities.SquadRegistration> IRepository.Retrieve(SquadId squadId)
-    { 
-        if (_dataContext.Squads.Any(squad => squad.Id == squadId))
-        {
-            return _dataContext.Squads
+    IQueryable<Database.Entities.SquadRegistration> IRepository.Retrieve(SquadId squadId)
+    {
+        return _dataContext.Squads.Any(squad => squad.Id == squadId)
+            ? _dataContext.Squads
                 .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
                 .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)
                 .Include(squad=> squad.Registrations).ThenInclude(squadRegistration=> squadRegistration.Squad)
                 .AsNoTracking()
                 .Where(squad => squad.Id == squadId)
-                .SelectMany(squad => squad.Registrations);
-        }
-
-        return _dataContext.Sweepers
-            .Include(sweeper => sweeper.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
-            .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)
-            .Include(sweeper => sweeper.Registrations).ThenInclude(squadRegistration => squadRegistration.Squad).ThenInclude(sweeper => (sweeper as Database.Entities.SweeperSquad)!.Divisions)
-            .AsNoTracking()
-            .Where(sweeper => sweeper.Id == squadId)
-            .SelectMany(sweeper => sweeper.Registrations);
+                .SelectMany(squad => squad.Registrations)
+            : _dataContext.Sweepers
+                .Include(sweeper => sweeper.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
+                .Include(sweeper => sweeper.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)
+                .Include(sweeper => sweeper.Registrations).ThenInclude(squadRegistration => squadRegistration.Squad).ThenInclude(sweeper => (sweeper as Database.Entities.SweeperSquad)!.Divisions)
+                .AsNoTracking()
+                .Where(sweeper => sweeper.Id == squadId)
+                .SelectMany(sweeper => sweeper.Registrations);
     }
 
-    void IRepository.Update(SquadId squadId, BowlerId bowlerId, string position)
+    async Task IRepository.UpdateAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken)
     {
-        var registration = _dataContext.Registrations.Where(registration => registration.BowlerId == bowlerId).SelectMany(registration => registration.Squads).Single(squadRegistration => squadRegistration.SquadId == squadId);
+        var registration = await _dataContext.Registrations.Where(registration => registration.BowlerId == bowlerId)
+            .SelectMany(registration => registration.Squads)
+            .FirstAsync(squadRegistration => squadRegistration.SquadId == squadId, cancellationToken).ConfigureAwait(false);
 
         registration.LaneAssignment = position;
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 }
 
 internal interface IRepository
 {
-    IEnumerable<Database.Entities.SquadRegistration> Retrieve(SquadId squadId);
+    IQueryable<Database.Entities.SquadRegistration> Retrieve(SquadId squadId);
 
-    void Update(SquadId squadId, BowlerId bowlerId, string position);
+    Task UpdateAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken);
 }

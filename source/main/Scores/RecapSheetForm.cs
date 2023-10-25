@@ -5,7 +5,7 @@ using System.Globalization;
 namespace NortheastMegabuck.Scores;
 public partial class RecapSheetForm : System.Windows.Forms.Form
 {
-    private readonly IDictionary<short, Controls.RecapSheetGameRowControl> _games;
+    private readonly Dictionary<short, Controls.RecapSheetGameRowControl> _games;
     private readonly DateTime _squadDate;
     private readonly Pen _pen;
 
@@ -93,7 +93,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
     private void CancelButton_Click(object sender, EventArgs e)
         => Dispose();
 
-    private readonly IList<Image> _recapSheets = new List<Image>();
+    private readonly List<Image> _recapSheets = new List<Image>();
     private int _counter;
 
     private void PrintButton_Click(object sender, EventArgs e)
@@ -137,7 +137,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
         }
     }
 
-    private Image CaptureScreen()
+    private Bitmap CaptureScreen()
     {
         var myGraphics = CreateGraphics();
         var s = Size;

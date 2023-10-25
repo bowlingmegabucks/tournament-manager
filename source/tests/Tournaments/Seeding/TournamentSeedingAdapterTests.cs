@@ -2,11 +2,11 @@
 namespace NortheastMegabuck.Tests.Tournaments.Seeding;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Tournaments.Seeding.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Tournaments.Seeding.IAdapter _adapter;
+    private NortheastMegabuck.Tournaments.Seeding.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
@@ -17,22 +17,23 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(tournamentId);
+        await _adapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic=> businessLogic.Execute(tournamentId), Times.Once);
+        _businessLogic.Verify(businessLogic=> businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BusinessLogicHasError_ErrorFlow()
+    public async Task ExecuteAsync_BusinessLogicHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic=> businessLogic.Error).Returns(error);
 
-        var result = _adapter.Execute(TournamentId.New());
+        var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -43,7 +44,7 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicHasNoError_ReturnsSeedingByDivision()
+    public async Task ExecuteAsync_BusinessLogicHasNoError_ReturnsSeedingByDivision()
     {
         var division1 = new NortheastMegabuck.Models.Division() { Name = "Division 1" };
         var division2 = new NortheastMegabuck.Models.Division() { Name = "Division 2" };
@@ -75,9 +76,9 @@ internal class Adapter
         };
 
         var results = new[] { division1Result, division2Result };
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<TournamentId>())).Returns(results);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(results);
 
-        var actual = _adapter.Execute(TournamentId.New());
+        var actual = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

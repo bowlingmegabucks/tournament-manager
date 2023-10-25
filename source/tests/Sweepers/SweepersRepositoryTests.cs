@@ -3,11 +3,11 @@
 namespace NortheastMegabuck.Tests.Sweepers;
 
 [TestFixture]
-internal class Repository
+internal sealed class Repository
 {
     private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
-    private NortheastMegabuck.Sweepers.IRepository _repository;
+    private NortheastMegabuck.Sweepers.Repository _repository;
 
     [SetUp]
     public void SetUp()
@@ -17,27 +17,28 @@ internal class Repository
     }
 
     [Test]
-    public void Add_SquadAddedWithId()
+    public async Task AddAsync_SquadAddedWithId()
     {
         _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperSquad>().SetUpDbContext());
 
         var sweeper = new NortheastMegabuck.Database.Entities.SweeperSquad();
 
-        var id = _repository.Add(sweeper);
+        var id = await _repository.AddAsync(sweeper, default).ConfigureAwait(false);
 
         Assert.That(sweeper.Id, Is.EqualTo(id));
     }
 
     [Test]
-    public void Add_DataContextSaveChanges_Called()
+    public async Task AddAsync_DataContextSaveChanges_Called()
     {
         _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperSquad>().SetUpDbContext());
 
         var sweeper = new NortheastMegabuck.Database.Entities.SweeperSquad();
 
-        _repository.Add(sweeper);
+        CancellationToken cancellationToken = default;
+        await _repository.AddAsync(sweeper, cancellationToken).ConfigureAwait(false);
 
-        _dataContext.Verify(dataContext => dataContext.SaveChanges(), Times.Once());
+        _dataContext.Verify(dataContext => dataContext.SaveChangesAsync(cancellationToken), Times.Once());
     }
 
     [Test]
@@ -79,7 +80,7 @@ internal class Repository
     }
 
     [Test]
-    public void Retrieve_SquadId_ReturnsSquad()
+    public async Task RetrieveAsync_SquadId_ReturnsSquad()
     {
         var tournamentId = TournamentId.New();
 
@@ -107,7 +108,7 @@ internal class Repository
         var sweepers = new[] { sweeper1, sweeper2, sweeper3 };
         _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(sweepers.SetUpDbContext());
 
-        var actual = _repository.Retrieve(sweeper2.Id);
+        var actual = await _repository.RetrieveAsync(sweeper2.Id, default).ConfigureAwait(false);
 
         Assert.That(actual.MaxPerPair, Is.EqualTo(sweeper2.MaxPerPair));
     }

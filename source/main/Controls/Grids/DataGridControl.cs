@@ -31,7 +31,7 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
         GridView.MouseDown += GridView_RightMouseDown!;
     }
 
-    private IList<TModel> _models;
+    private List<TModel> _models;
     /// <summary>
     ///
     /// </summary>

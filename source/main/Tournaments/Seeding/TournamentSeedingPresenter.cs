@@ -17,9 +17,9 @@ internal class Presenter
         _adapter = mockAdapter;
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var scoresByDivision = _adapter.Execute(_view.Id).GroupBy(score=> score.DivisionName);
+        var scoresByDivision = (await _adapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true)).GroupBy(score=> score.DivisionName);
 
         if (_adapter.Error != null)
         {

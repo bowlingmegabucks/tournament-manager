@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Tournaments;
 
 [TestFixture]
-internal class EntityMapperTests
+internal sealed class EntityMapperTests
 {
     private NortheastMegabuck.Tournaments.IEntityMapper _mapper;
 

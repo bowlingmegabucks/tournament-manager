@@ -13,7 +13,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         newSquad.TournamentId = tournamentId;
         newSquad.Date = DateTime.Today;
 
-        new Presenter(config, this).GetTournamentDetails();
+        _ = new Presenter(config, this).GetTournamentDetailsAsync(default);
     }
 
     public bool IsValid()
@@ -40,6 +40,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public IViewModel Squad
         => newSquad;
 
-    private void SaveButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).Execute();
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

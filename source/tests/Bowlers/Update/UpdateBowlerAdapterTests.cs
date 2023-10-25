@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Bowlers.Update;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Bowlers.Update.IBusinessLogic> _businessLogic;
 
@@ -17,7 +17,7 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_INameViewModel_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsyncINameViewModel_BusinessLogicExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var firstName = "firstName";
@@ -25,20 +25,22 @@ internal class Adapter
         var personName = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>();
         personName.SetupGet(p => p.FirstName).Returns(firstName);
 
-        _adapter.Execute(bowlerId, personName.Object);
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(bowlerId, It.Is<NortheastMegabuck.Models.PersonName>(name => name.First == "firstName")), Times.Once);
+        await _adapter.ExecuteAsync(bowlerId, personName.Object, cancellationToken).ConfigureAwait(false);
+
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(bowlerId, It.Is<NortheastMegabuck.Models.PersonName>(name => name.First == "firstName"), cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_INameViewModel_ErrorDetailSetToBusinessLogic()
+    public async Task ExecuteAsyncINameViewModel_ErrorDetailSetToBusinessLogic()
     {
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), 3);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
         var personName = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>().Object;
 
-        _adapter.Execute(BowlerId.New(), personName);
+        await _adapter.ExecuteAsync(BowlerId.New(), personName, default).ConfigureAwait(false);
 
         Assert.That(_adapter.Errors, Is.EqualTo(errors));
     }
