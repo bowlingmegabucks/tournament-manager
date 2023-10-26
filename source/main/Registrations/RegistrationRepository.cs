@@ -50,6 +50,12 @@ internal class Repository : IRepository
             .AsNoTracking()
             .Where(registration => registration.Division.TournamentId == tournamentId);
 
+    async Task<Database.Entities.Registration> IRepository.RetrieveAsync(RegistrationId id, CancellationToken cancellationToken)
+        => await _dataContext.Registrations
+            .Include(registration => registration.Squads).ThenInclude(squad => squad.Squad)
+            .AsNoTracking()
+            .FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
+
     async Task IRepository.DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
         if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId))
@@ -98,6 +104,8 @@ internal interface IRepository
     Task<Database.Entities.Registration> AddSquadAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
     IQueryable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
+
+    Task<Database.Entities.Registration> RetrieveAsync(RegistrationId id, CancellationToken cancellationToken);
 
     Task DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
