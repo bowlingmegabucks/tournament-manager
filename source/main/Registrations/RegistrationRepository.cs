@@ -53,6 +53,8 @@ internal class Repository : IRepository
     async Task<Database.Entities.Registration> IRepository.RetrieveAsync(RegistrationId id, CancellationToken cancellationToken)
         => await _dataContext.Registrations
             .Include(registration => registration.Squads).ThenInclude(squad => squad.Squad)
+            .Include(registration => registration.Bowler)
+            .Include(registration => registration.Division)
             .AsNoTracking()
             .FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 

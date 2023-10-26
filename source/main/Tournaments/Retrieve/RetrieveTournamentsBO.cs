@@ -74,6 +74,20 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
     }
+
+    async Task<Models.Tournament?> IBusinessLogic.ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Error = new Models.ErrorDetail(ex);
+
+            return null;
+        }
+    }
 }
 
 internal interface IBusinessLogic
@@ -87,4 +101,6 @@ internal interface IBusinessLogic
     Task<Models.Tournament?> ExecuteAsync(DivisionId id, CancellationToken cancellationToken);
 
     Task<Models.Tournament?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
+
+    Task<Models.Tournament?> ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
 }

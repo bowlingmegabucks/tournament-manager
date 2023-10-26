@@ -38,6 +38,11 @@ internal class Repository : IRepository
                                          .Include(tournament => tournament.Sweepers).AsNoTrackingWithIdentityResolution()
                     .FirstAsync(tournament => tournament.Squads.Any(squad => squad.Id == squadId) || tournament.Sweepers.Any(sweeper => sweeper.Id == squadId), cancellationToken).ConfigureAwait(false);
 
+    async Task<Database.Entities.Tournament> IRepository.RetrieveAsync(RegistrationId registrationId, CancellationToken cancellationToken)
+        => await _dataContext.Tournaments.Include(tournament => tournament.Squads)
+                                         .Include(tournament => tournament.Sweepers).AsNoTrackingWithIdentityResolution()
+                                         .FirstAsync(tournament => tournament.Squads.Any(squad => squad.Registrations.Any(registration => registration.RegistrationId == registrationId)) || tournament.Sweepers.Any(sweeper => sweeper.Registrations.Any(registration => registration.RegistrationId == registrationId)), cancellationToken).ConfigureAwait(false);
+
     async Task<TournamentId> IRepository.AddAsync(Database.Entities.Tournament tournament, CancellationToken cancellationToken)
     {
         await _dataContext.Tournaments.AddAsync(tournament, cancellationToken).ConfigureAwait(false);
@@ -56,6 +61,8 @@ internal interface IRepository
     Task<Database.Entities.Tournament> RetrieveAsync(DivisionId divisionId, CancellationToken cancellationToken);
 
     Task<Database.Entities.Tournament> RetrieveAsync(SquadId squadId, CancellationToken cancellationToken);
+
+    Task<Database.Entities.Tournament> RetrieveAsync(RegistrationId registrationId, CancellationToken cancellationToken);
 
     Task<TournamentId> AddAsync(Database.Entities.Tournament tournament, CancellationToken cancellationToken);
 }
