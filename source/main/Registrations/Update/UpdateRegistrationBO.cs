@@ -48,7 +48,7 @@ internal sealed class BusinessLogic : IBusinessLogic
 
         var tournament = await _retrieveTournamentBusinessLogic.ExecuteAsync(registration.Id, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveBusinessLogic.Error is not null)
+        if (_retrieveTournamentBusinessLogic.Error is not null)
         {
             Error = _retrieveTournamentBusinessLogic.Error;
 
