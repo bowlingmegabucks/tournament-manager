@@ -64,6 +64,9 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     public bool Confirm(string message)
         => MessageBox.Show(message, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;
 
+    public void DisplayMessage(string message)
+        => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
     public void RemoveRegistration(RegistrationId id)
         => tournamentRegistrationsGrid.Remove(id);
 
@@ -90,4 +93,11 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     public void UpdateBowlerName(string bowlerName)
         => tournamentRegistrationsGrid.SelectedRegistration.BowlerName = bowlerName;
+
+    private async void AddSuperSweeperMenuItem_Click(object sender, EventArgs e)
+    {
+        var registration = tournamentRegistrationsGrid.SelectedRegistration;
+
+        await new TournamentRegistrationsPresenter(this, _config).AddSuperSweeperAsync(registration.Id, default).ConfigureAwait(true);
+    }
 }
