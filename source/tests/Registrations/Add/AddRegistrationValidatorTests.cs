@@ -789,7 +789,6 @@ internal sealed class Validator
         var registration = new NortheastMegabuck.Models.Registration
         {
             Sweepers = sweepers,
-            SweeperCount = 3,
             SuperSweeper = false
         };
 
@@ -805,7 +804,7 @@ internal sealed class Validator
         var registration = new NortheastMegabuck.Models.Registration
         {
             Sweepers = sweepers,
-            SweeperCount = 3,
+            TournamentSweeperCount = 3,
             SuperSweeper = true
         };
 
@@ -821,7 +820,7 @@ internal sealed class Validator
         var registration = new NortheastMegabuck.Models.Registration
         {
             Sweepers = sweepers,
-            SweeperCount = 3,
+            TournamentSweeperCount = 3,
             SuperSweeper = true
         };
 

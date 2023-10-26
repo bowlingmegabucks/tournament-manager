@@ -50,6 +50,14 @@ internal class Repository : IRepository
             .AsNoTracking()
             .Where(registration => registration.Division.TournamentId == tournamentId);
 
+    async Task<Database.Entities.Registration> IRepository.RetrieveAsync(RegistrationId id, CancellationToken cancellationToken)
+        => await _dataContext.Registrations
+            .Include(registration => registration.Squads).ThenInclude(squad => squad.Squad)
+            .Include(registration => registration.Bowler)
+            .Include(registration => registration.Division)
+            .AsNoTracking()
+            .FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
+
     async Task IRepository.DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
         if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId))
@@ -80,6 +88,15 @@ internal class Repository : IRepository
 
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
+
+    async Task IRepository.UpdateAsync(RegistrationId id, bool superSweeper, CancellationToken cancellationToken)
+    {
+        var registration = await _dataContext.Registrations.FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
+
+        registration.SuperSweeper = superSweeper;
+
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
 }
 
 internal interface IRepository
@@ -90,7 +107,11 @@ internal interface IRepository
 
     IQueryable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
 
+    Task<Database.Entities.Registration> RetrieveAsync(RegistrationId id, CancellationToken cancellationToken);
+
     Task DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
     Task DeleteAsync(RegistrationId id, CancellationToken cancellationToken);
+
+    Task UpdateAsync(RegistrationId id, bool superSweeper, CancellationToken cancellationToken);
 }

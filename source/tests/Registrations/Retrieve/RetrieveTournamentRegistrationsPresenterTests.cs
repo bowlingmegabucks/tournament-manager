@@ -8,6 +8,7 @@ internal sealed class TournamentRegistrationsPresenter
     private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _squadsAdapter;
     private Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
     private Mock<NortheastMegabuck.Registrations.Delete.IAdapter> _deleteAdapter;
+    private Mock<NortheastMegabuck.Registrations.Update.IAdapter> _updateRegistrationAdapter;
 
     private NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter _presenter;
 
@@ -19,8 +20,9 @@ internal sealed class TournamentRegistrationsPresenter
         _squadsAdapter = new Mock<NortheastMegabuck.Squads.Retrieve.IAdapter>();
         _sweepersAdapter = new Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter>();
         _deleteAdapter = new Mock<NortheastMegabuck.Registrations.Delete.IAdapter>();
+        _updateRegistrationAdapter = new Mock<NortheastMegabuck.Registrations.Update.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter(_view.Object, _registrationsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _deleteAdapter.Object);
+        _presenter = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter(_view.Object, _registrationsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _deleteAdapter.Object, _updateRegistrationAdapter.Object);
     }
 
     [Test]

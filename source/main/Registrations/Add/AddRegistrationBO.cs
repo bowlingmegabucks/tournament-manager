@@ -67,7 +67,7 @@ internal class BusinessLogic : IBusinessLogic
         }
 
         registration.TournamentStartDate = tournament!.Start;
-        registration.SweeperCount = tournament!.Sweepers.Count();
+        registration.TournamentSweeperCount = tournament!.Sweepers.Count();
 
         if (registration.Bowler.Id.Value != Guid.Empty)
         {

@@ -12,6 +12,9 @@ internal class TournamentRegistrationsPresenter
     private readonly Lazy<Delete.IAdapter> _deleteAdapter;
     private Delete.IAdapter DeleteAdapter => _deleteAdapter.Value;
 
+    private readonly Lazy<Update.IAdapter> _updateAdapter;
+    private Update.IAdapter UpdateAdapter => _updateAdapter.Value;
+
     public TournamentRegistrationsPresenter(ITournamentRegistrationsView view, IConfiguration config)
     {
         _view = view;
@@ -21,6 +24,7 @@ internal class TournamentRegistrationsPresenter
         _sweepersAdapter = new Sweepers.Retrieve.Adapter(config);
 
         _deleteAdapter = new Lazy<Delete.IAdapter>(() => new Delete.Adapter(config));
+        _updateAdapter = new Lazy<Update.IAdapter>(() => new Update.Adapter(config));
     }
 
     /// <summary>
@@ -31,13 +35,14 @@ internal class TournamentRegistrationsPresenter
     /// <param name="mockSquadsAdapter"></param>
     /// <param name="mockSweepersAdapter"></param>
     /// <param name="mockDeleteAdapter"></param>
-    internal TournamentRegistrationsPresenter(ITournamentRegistrationsView mockView, IAdapter mockRgistrationsAdapter, Squads.Retrieve.IAdapter mockSquadsAdapter, Sweepers.Retrieve.IAdapter mockSweepersAdapter, Delete.IAdapter mockDeleteAdapter)
+    internal TournamentRegistrationsPresenter(ITournamentRegistrationsView mockView, IAdapter mockRgistrationsAdapter, Squads.Retrieve.IAdapter mockSquadsAdapter, Sweepers.Retrieve.IAdapter mockSweepersAdapter, Delete.IAdapter mockDeleteAdapter, Update.IAdapter mockUpdateAdapter)
     {
         _view = mockView;
         _registrationsAdapter = mockRgistrationsAdapter;
         _squadsAdapter = mockSquadsAdapter;
         _sweepersAdapter = mockSweepersAdapter;
         _deleteAdapter = new Lazy<Delete.IAdapter>(()=> mockDeleteAdapter);
+        _updateAdapter = new Lazy<Update.IAdapter>(()=> mockUpdateAdapter);
     }
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -101,5 +106,25 @@ internal class TournamentRegistrationsPresenter
         }
 
         _view.UpdateBowlerName(updatedName!);
+    }
+
+    public async Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
+    {
+        if (!_view.Confirm("Are you sure you want to add a Super Sweeper entry to this registration?"))
+        {
+            return;
+        }
+
+        await UpdateAdapter.AddSuperSweeperAsync(id, cancellationToken).ConfigureAwait(false);
+
+        if (UpdateAdapter.Error is not null)
+        { 
+            _view.DisplayError(UpdateAdapter.Error.Message);
+
+            return;
+        }
+
+        _view.DisplayMessage("Super Sweeper has been added");
+        _view.UpdateBowlerSuperSweeper(id);
     }
 }
