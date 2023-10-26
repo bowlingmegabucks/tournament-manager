@@ -37,7 +37,7 @@ internal class Validator : AbstractValidator<Models.Registration>
         RuleFor(registration => registration.Squads).NotEmpty().WithMessage("Bowler must enter at least one squad");
 
         RuleFor(registration => registration.SuperSweeper).Must(superSweeper => !superSweeper)
-            .When(registration => registration.Sweepers.Count() != registration.SweeperCount)
+            .When(registration => registration.Sweepers.Count() != registration.TournamentSweeperCount)
             .WithMessage("Must enter all sweepers to enter Super Sweeper");
     }
 }

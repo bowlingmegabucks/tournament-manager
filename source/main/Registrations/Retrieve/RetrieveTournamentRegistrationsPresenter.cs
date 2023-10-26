@@ -125,5 +125,6 @@ internal class TournamentRegistrationsPresenter
         }
 
         _view.DisplayMessage("Super Sweeper has been added");
+        _view.UpdateBowlerSuperSweeper(id);
     }
 }

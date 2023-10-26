@@ -134,7 +134,7 @@ internal sealed class BusinessLogic
         {
             Assert.That(registration.TournamentStartDate, Is.EqualTo(tournament.Start));
 
-            _validator.Verify(validator => validator.ValidateAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.TournamentStartDate == tournament.Start && registration.SweeperCount == 4), cancellationToken), Times.Once);
+            _validator.Verify(validator => validator.ValidateAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.TournamentStartDate == tournament.Start && registration.TournamentSweeperCount == 4), cancellationToken), Times.Once);
         });
     }
 

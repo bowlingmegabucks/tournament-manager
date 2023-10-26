@@ -24,4 +24,5 @@ internal interface ITournamentRegistrationsView
     string? UpdateBowlerName(BowlerId id);
 
     void UpdateBowlerName(string bowlerName);
+    void UpdateBowlerSuperSweeper(RegistrationId id);
 }

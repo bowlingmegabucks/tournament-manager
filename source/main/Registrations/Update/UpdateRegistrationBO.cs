@@ -62,7 +62,7 @@ internal sealed class BusinessLogic : IBusinessLogic
             return;
         }
         
-        if (tournament!.Sweepers.Count() != registration.SweeperCount)
+        if (tournament!.Sweepers.Count() != tournament.Sweepers.Count())
         {
             Error = new Models.ErrorDetail("Bowler is not registered for all sweepers.");
 

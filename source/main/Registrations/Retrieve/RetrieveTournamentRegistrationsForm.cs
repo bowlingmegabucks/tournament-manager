@@ -94,6 +94,9 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     public void UpdateBowlerName(string bowlerName)
         => tournamentRegistrationsGrid.SelectedRegistration.BowlerName = bowlerName;
 
+    public void UpdateBowlerSuperSweeper(RegistrationId id)
+        => tournamentRegistrationsGrid.SelectedRegistration.SuperSweeperEntered = true;
+
     private async void AddSuperSweeperMenuItem_Click(object sender, EventArgs e)
     {
         var registration = tournamentRegistrationsGrid.SelectedRegistration;
