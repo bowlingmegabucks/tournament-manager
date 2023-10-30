@@ -5,7 +5,6 @@ namespace NortheastMegabuck.Registrations.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
-    private readonly TournamentId _tournamentId;
 
     /// <summary>
     /// Add Registration from Tournament Portal
@@ -17,7 +16,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
         InitializeComponent();
 
         _config = config;
-        _tournamentId = tournamentId;
 
         _ = new Presenter(config, this).LoadAsync(tournamentId, default);
     }
@@ -32,7 +30,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
         InitializeComponent();
 
         _config = config;
-        _tournamentId = tournamentId;
 
         _ = new Presenter(config, this).LoadAsync(tournamentId, squadId, default);
     }
@@ -120,7 +117,21 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
     {
-        //will populate when loading existing bowlers
+        bowlerControl.Id = bowler.Id;
+        bowlerControl.FirstName = bowler.FirstName;
+        bowlerControl.MiddleInitial = bowler.MiddleInitial;
+        bowlerControl.LastName = bowler.LastName;
+        bowlerControl.Suffix = bowler.Suffix;
+        bowlerControl.StreetAddress = bowler.Street;
+        bowlerControl.CityAddress = bowler.City;
+        bowlerControl.StateAddress = bowler.State;
+        bowlerControl.ZipCode = bowler.ZipCode;
+        bowlerControl.EmailAddress = bowler.Email;
+        bowlerControl.DateOfBirth = bowler.DateOfBirth;
+        bowlerControl.PhoneNumber = bowler.PhoneNumber;
+        bowlerControl.USBCId = bowler.USBCId;
+        bowlerControl.Gender = bowler.Gender;
+        bowlerControl.SocialSecurityNumber = bowler.SSN;
     }
 
     public void Disable()
@@ -142,7 +153,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public BowlerId? SelectBowler()
     {
-        using var form = new Bowlers.Search.Dialog(_config, true, _tournamentId);
+        using var form = new Bowlers.Search.Dialog(_config, true);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }

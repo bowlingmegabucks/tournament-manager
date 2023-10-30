@@ -5,7 +5,7 @@ internal class Validator : AbstractValidator<Models.Registration>
 {
     public Validator()
     {
-        RuleFor(registration => registration.Bowler).SetValidator(new Bowlers.Add.Validator());
+        RuleFor(registration => registration.Bowler).SetValidator(new Bowlers.Validator());
 
         RuleFor(registration => registration.Average).NotNull().When(registration => registration.Division.MinimumAverage.HasValue || registration.Division.MaximumAverage.HasValue).WithMessage("Average is required for selected division");
         RuleFor(registration => registration.Average).GreaterThanOrEqualTo(registration => registration.Division.MinimumAverage!.Value).When(registration => registration.Division.MinimumAverage.HasValue).WithMessage("Minimum average requirement for division not met");

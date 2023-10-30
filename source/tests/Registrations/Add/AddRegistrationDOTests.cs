@@ -20,7 +20,10 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_Model_MapperExecute_Model_CalledCorrectly()
     {
+        _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(new NortheastMegabuck.Database.Entities.Registration());
+
         var registration = new NortheastMegabuck.Models.Registration();
+
         await _dataLayer.ExecuteAsync(registration, default).ConfigureAwait(false);
 
         _mapper.Verify(mapper => mapper.Execute(registration), Times.Once);
@@ -43,6 +46,8 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_Model_ReturnsRepositoryAddResponse()
     {
+        _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(new NortheastMegabuck.Database.Entities.Registration());
+
         var registrationId = RegistrationId.New();
         _repository.Setup(repository => repository.AddAsync(It.IsAny<NortheastMegabuck.Database.Entities.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrationId);
 

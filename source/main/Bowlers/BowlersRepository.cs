@@ -67,6 +67,11 @@ internal class Repository : IRepository
             bowlers = bowlers.Where(bowler => !bowler.Registrations.Any(registration => registration.Division.TournamentId == searchCriteria.NotRegisteredInTournament.Value));
         }
 
+        if (searchCriteria.BowlerId.HasValue)
+        {
+            bowlers = bowlers.Where(bowler => bowler.Id == searchCriteria.BowlerId.Value);
+        }
+
         return searchCriteria.WithoutRegistrationOnSquads.Any()
             ? bowlers.Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
             : bowlers;
@@ -74,13 +79,35 @@ internal class Repository : IRepository
 
     async Task IRepository.UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken)
     {
-        var bowler = _dataContext.Bowlers.Single(b=> b.Id == id);
+        var bowler = _dataContext.Bowlers.Single(b => b.Id == id);
 
         bowler.FirstName = firstName;
         bowler.MiddleInitial = middleInitial;
         bowler.LastName = lastName;
         bowler.Suffix = suffix;
 
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    async Task IRepository.UpdateAsync(Database.Entities.Bowler bowler, CancellationToken cancellationToken)
+    {
+        var current = await _dataContext.Bowlers.FirstAsync(b => b.Id == bowler.Id, cancellationToken).ConfigureAwait(false);
+
+        current.FirstName = bowler.FirstName;
+        current.MiddleInitial = bowler.MiddleInitial;
+        current.LastName = bowler.LastName;
+        current.Suffix = bowler.Suffix;
+        current.StreetAddress = bowler.StreetAddress;
+        current.CityAddress = bowler.CityAddress;
+        current.StateAddress = bowler.StateAddress;
+        current.ZipCode = bowler.ZipCode;
+        current.EmailAddress = bowler.EmailAddress;
+        current.PhoneNumber = bowler.PhoneNumber;
+        current.DateOfBirth = bowler.DateOfBirth;
+        current.SocialSecurityNumber = bowler.SocialSecurityNumber;
+        current.Gender = bowler.Gender;
+        current.USBCId = bowler.USBCId;
+        
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
@@ -93,6 +120,8 @@ internal interface IRepository
     IQueryable<Database.Entities.Bowler> Search(Models.BowlerSearchCriteria searchCriteria);
 
     Task UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken);
+
+    Task UpdateAsync(Database.Entities.Bowler bowler, CancellationToken cancellationToken);
 
     Task<Database.Entities.Bowler> RetrieveAsync(BowlerId id, CancellationToken cancellationToken);
 }

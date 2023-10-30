@@ -7,11 +7,14 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
     private Tournaments.Retrieve.IBusinessLogic GetTournamentBO => _getTournamentBO.Value;
 
-    private readonly Lazy<Bowlers.Retrieve.IBusinessLogic> _getBowlerBO;
-    private Bowlers.Retrieve.IBusinessLogic GetBowlerBO => _getBowlerBO.Value;
+    private readonly Lazy<Bowlers.Search.IBusinessLogic> _searchBowlerBO;
+    private Bowlers.Search.IBusinessLogic SearchBowlerBO => _searchBowlerBO.Value;
 
     private readonly Lazy<FluentValidation.IValidator<Models.Registration>> _validator;
     private FluentValidation.IValidator<Models.Registration> Validator => _validator.Value;
+
+    private readonly Lazy<Bowlers.Update.IBusinessLogic> _updateBowlerBO;
+    private Bowlers.Update.IBusinessLogic UpdateBowlerBO => _updateBowlerBO.Value;
 
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
@@ -20,7 +23,8 @@ internal class BusinessLogic : IBusinessLogic
     {
         _getDivisionBO = new Divisions.Retrieve.BusinessLogic(config);
         _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
-        _getBowlerBO = new Lazy<Bowlers.Retrieve.IBusinessLogic>(() => new Bowlers.Retrieve.BusinessLogic(config));
+        _searchBowlerBO = new Lazy<Bowlers.Search.IBusinessLogic>(() => new Bowlers.Search.BusinessLogic(config));
+        _updateBowlerBO = new Lazy<Bowlers.Update.IBusinessLogic>(() => new Bowlers.Update.BusinessLogic(config));
         _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(() => new Validator());
         _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
     }
@@ -30,14 +34,15 @@ internal class BusinessLogic : IBusinessLogic
     /// </summary>
     /// <param name="mockGetDivisionBO"></param>
     /// <param name="mockGetTournamentBO"></param>
-    /// <param name="mockGetBowlerBO"></param>
+    /// <param name="mockSearchBowlerBO"></param>
     /// <param name="mockValidator"></param>
     /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(Divisions.Retrieve.IBusinessLogic mockGetDivisionBO, Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, Bowlers.Retrieve.IBusinessLogic mockGetBowlerBO, FluentValidation.IValidator<Models.Registration> mockValidator, IDataLayer mockDataLayer)
+    internal BusinessLogic(Divisions.Retrieve.IBusinessLogic mockGetDivisionBO, Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, Bowlers.Search.IBusinessLogic mockSearchBowlerBO, Bowlers.Update.IBusinessLogic mockUpdateBowlerBO, FluentValidation.IValidator<Models.Registration> mockValidator, IDataLayer mockDataLayer)
     {
         _getDivisionBO = mockGetDivisionBO;
         _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => mockGetTournamentBO);
-        _getBowlerBO = new Lazy<Bowlers.Retrieve.IBusinessLogic>(() => mockGetBowlerBO);
+        _searchBowlerBO = new Lazy<Bowlers.Search.IBusinessLogic>(() => mockSearchBowlerBO);
+        _updateBowlerBO = new Lazy<Bowlers.Update.IBusinessLogic>(() => mockUpdateBowlerBO);
         _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(()=> mockValidator);
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
@@ -69,20 +74,6 @@ internal class BusinessLogic : IBusinessLogic
         registration.TournamentStartDate = tournament!.Start;
         registration.TournamentSweeperCount = tournament!.Sweepers.Count();
 
-        if (registration.Bowler.Id.Value != Guid.Empty)
-        {
-            var bowler = await GetBowlerBO.ExecuteAsync(registration.Bowler.Id, cancellationToken).ConfigureAwait(false);
-
-            if (GetBowlerBO.Error != null)
-            {
-                Errors = new[] { GetBowlerBO.Error };
-
-                return null;
-            }
-
-            registration.Bowler = bowler!;
-        }
-
         var validatorResults = await Validator.ValidateAsync(registration, cancellationToken).ConfigureAwait(false);
 
         if (!validatorResults.IsValid)
@@ -90,6 +81,40 @@ internal class BusinessLogic : IBusinessLogic
             Errors = validatorResults.Errors.Select(e => new Models.ErrorDetail(e.ErrorMessage));
 
             return null;
+        }
+
+        if (registration.Bowler.Id.Value != Guid.Empty)
+        {
+            var searchCriteria = new Models.BowlerSearchCriteria
+            {
+                BowlerId = registration.Bowler.Id,
+                RegisteredInTournament = tournament.Id
+            };
+
+            var registeredInTournament = (await SearchBowlerBO.ExecuteAsync(searchCriteria, cancellationToken).ConfigureAwait(false)).Any();
+
+            if (SearchBowlerBO.Error is not null)
+            {
+                Errors = new[] { SearchBowlerBO.Error };
+
+                return null;
+            }
+
+            if (registeredInTournament)
+            {
+                Errors = new[] { new Models.ErrorDetail("Bowler already registered for this tournament") };
+
+                return null;
+            }
+
+            await UpdateBowlerBO.ExecuteAsync(registration.Bowler, cancellationToken).ConfigureAwait(false);
+
+            if (UpdateBowlerBO.Errors.Any())
+            {
+                Errors = UpdateBowlerBO.Errors;
+
+                return null;
+            }
         }
 
         try
