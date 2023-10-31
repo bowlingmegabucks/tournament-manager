@@ -4,6 +4,7 @@
 internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Bowlers.IRepository> _repository;
+    private Mock<NortheastMegabuck.Bowlers.IEntityMapper> _entityMapper;
 
     private NortheastMegabuck.Bowlers.Update.IDataLayer _dataLayer;
 
@@ -11,8 +12,9 @@ internal sealed class DataLayer
     public void SetUp()
     {
         _repository = new Mock<NortheastMegabuck.Bowlers.IRepository>();
+        _entityMapper = new Mock<NortheastMegabuck.Bowlers.IEntityMapper>();
 
-        _dataLayer = new NortheastMegabuck.Bowlers.Update.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Bowlers.Update.DataLayer(_repository.Object, _entityMapper.Object);
     }
 
     [Test]

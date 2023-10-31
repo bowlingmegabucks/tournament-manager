@@ -13,4 +13,6 @@ internal class BowlerSearchCriteria
     public TournamentId? RegisteredInTournament { get; set; }
 
     public TournamentId? NotRegisteredInTournament { get; set; }
+
+    internal BowlerId? BowlerId { get; set; }
 }

@@ -15,7 +15,8 @@ internal class EntityMapper : IEntityMapper
             FinalsRatio = tournament.FinalsRatio,
             EntryFee = tournament.EntryFee,
             CashRatio = tournament.CashRatio,
-            Completed = tournament.Completed
+            Completed = tournament.Completed,
+            SuperSweperCashRatio = tournament.SuperSweeperCashRatio
         };
 }
 

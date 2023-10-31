@@ -25,6 +25,11 @@ internal class DataLayer : IDataLayer
     public async Task<RegistrationId> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
     {
         var entity = _mapper.Execute(registration);
+
+        if (entity.BowlerId != BowlerId.Empty)
+        {
+            entity.Bowler = null!;
+        }
         
         return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }

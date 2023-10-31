@@ -126,4 +126,14 @@ internal sealed class EntityMapperTests
 
         Assert.That(entity.Completed, Is.EqualTo(completed));
     }
+
+    [Test]
+    public void Execute_SuperSweeperCashRatioMapped()
+    {
+        var model = new NortheastMegabuck.Models.Tournament { SuperSweeperCashRatio = 1.2m };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.SuperSweperCashRatio, Is.EqualTo(1.2m));
+    }
 }

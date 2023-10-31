@@ -8,9 +8,11 @@ internal partial class Dialog : Form, IView
     private readonly TournamentId? _registeredInTournament;
     private readonly TournamentId? _notRegisteredInTournament;
 
-    public Dialog(IConfiguration config, bool allowNewBowler, TournamentId notRegisteredInTournament) : this(config, allowNewBowler, null,Enumerable.Empty<SquadId>(), notRegisteredInTournament) { }
+    public Dialog(IConfiguration config, bool allowNewBowler) : this(config, allowNewBowler, null,Enumerable.Empty<SquadId>()) 
+    { }
 
-    public Dialog(IConfiguration config, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad) : this(config, allowNewBowler, registeredInTournament, registrationWithoutSquad, null) { }
+    public Dialog(IConfiguration config, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad) : this(config, allowNewBowler, registeredInTournament, registrationWithoutSquad, null) 
+    { }
 
     private Dialog(IConfiguration config, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad, TournamentId? notRegisteredInTournament)
     {
@@ -51,7 +53,10 @@ internal partial class Dialog : Form, IView
         => SelectedBowlerId = searchResultsGrid.SelectedBowler!.Id;
 
     private void SearchResultsGrid_GridRowDoubleClicked(object sender, Controls.Grids.GridRowDoubleClickEventArgs e)
-     => SelectButton_Click(sender, e);
+    {
+        SelectButton_Click(sender, e);
+        DialogResult = DialogResult.OK;
+    }
 
     private void NewButton_Click(object sender, EventArgs e)
         => SelectedBowlerId = BowlerId.Empty;

@@ -12,8 +12,8 @@ internal sealed class Validator
         => _validator = new NortheastMegabuck.Registrations.Add.Validator();
 
     [Test]
-    public void Bowler_HasAddBowlerValidator()
-        => _validator.ShouldHaveChildValidator(registration => registration.Bowler, typeof(NortheastMegabuck.Bowlers.Add.Validator));
+    public void Bowler_HasBowlerValidator()
+        => _validator.ShouldHaveChildValidator(registration => registration.Bowler, typeof(NortheastMegabuck.Bowlers.Validator));
 
     [Test]
     public void AverageNull_MinimumAverageAndMaximumAverageForDivsionNull_NoError()
