@@ -9,6 +9,8 @@ internal interface ITournamentRegistrationsView
 
     void DisplayError(string message);
 
+    void DisplayMessage(string message);
+
     void RemoveRegistration(RegistrationId id);
 
     void SetDivisionEntries(IDictionary<string, int> divisionEntries);
@@ -22,4 +24,5 @@ internal interface ITournamentRegistrationsView
     string? UpdateBowlerName(BowlerId id);
 
     void UpdateBowlerName(string bowlerName);
+    void UpdateBowlerSuperSweeper(RegistrationId id);
 }

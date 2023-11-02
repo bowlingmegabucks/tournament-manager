@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace NortheastMegabuck.Registrations.Retrieve;
 internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRegistrationsView
@@ -12,7 +13,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
         _config = config;
         TournamentId = tournamentId;
 
-        new TournamentRegistrationsPresenter(this, config).Execute();
+        _ = new TournamentRegistrationsPresenter(this, config).ExecuteAsync(default);
     }
 
     public TournamentId TournamentId { get; }
@@ -26,16 +27,13 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-    public void DisplayMessage(string message)
-        => MessageBox.Show(message,string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
     public void SetDivisionEntries(IDictionary<string, int> divisionEntries)
     {
         var entries = new StringBuilder();
 
         foreach (var entry in divisionEntries)
         {
-            entries.AppendLine($"{entry.Key}: {entry.Value} Entries");
+            entries.AppendLine(CultureInfo.CurrentCulture, $"{entry.Key}: {entry.Value} Entries");
         }
 
         divisionEntriesLabel.Text = entries.ToString();
@@ -46,7 +44,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         foreach (var entry in squadEntries)
         {
-            entries.AppendLine($"{entry.Key}: {entry.Value} Entries");
+            entries.AppendLine(CultureInfo.CurrentCulture, $"{entry.Key}: {entry.Value} Entries");
         }
 
         squadEntriesLabel.Text = entries.ToString();
@@ -57,7 +55,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         foreach (var entry in sweeperEntries)
         {
-            entries.AppendLine($"{entry.Key}: {entry.Value} Entries");
+            entries.AppendLine(CultureInfo.CurrentCulture, $"{entry.Key}: {entry.Value} Entries");
         }
 
         sweeperEntriesLabel.Text = entries.ToString();
@@ -66,14 +64,17 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     public bool Confirm(string message)
         => MessageBox.Show(message, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;
 
+    public void DisplayMessage(string message)
+        => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
     public void RemoveRegistration(RegistrationId id)
         => tournamentRegistrationsGrid.Remove(id);
 
-    private void DeleteMenuItem_Click(object sender, EventArgs e)
+    private async void DeleteMenuItem_Click(object sender, EventArgs e)
     {
         var registration = tournamentRegistrationsGrid.SelectedRegistration;
 
-        new TournamentRegistrationsPresenter(this, _config).Delete(registration.Id);
+        await new TournamentRegistrationsPresenter(this, _config).DeleteAsync(registration.Id, default).ConfigureAwait(true);
     }
 
     private void UpdateBowlerNameMenuItem_Click(object sender, EventArgs e)
@@ -92,4 +93,14 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     public void UpdateBowlerName(string bowlerName)
         => tournamentRegistrationsGrid.SelectedRegistration.BowlerName = bowlerName;
+
+    public void UpdateBowlerSuperSweeper(RegistrationId id)
+        => tournamentRegistrationsGrid.SelectedRegistration.SuperSweeperEntered = true;
+
+    private async void AddSuperSweeperMenuItem_Click(object sender, EventArgs e)
+    {
+        var registration = tournamentRegistrationsGrid.SelectedRegistration;
+
+        await new TournamentRegistrationsPresenter(this, _config).AddSuperSweeperAsync(registration.Id, default).ConfigureAwait(true);
+    }
 }

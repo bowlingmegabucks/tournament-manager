@@ -5,7 +5,7 @@ using NortheastMegabuck.Tests.Extensions;
 namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private BowlerId _validScoreBowlerId;
     private BowlerId _invalidScoreBowlerId;
@@ -20,7 +20,7 @@ internal class BusinessLogic
     private Mock<FluentValidation.IValidator<IEnumerable<NortheastMegabuck.Models.SquadScore>>> _validator;
     private Mock<NortheastMegabuck.Scores.Update.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Scores.Update.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Scores.Update.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
@@ -29,12 +29,12 @@ internal class BusinessLogic
 
         var validResult = new FluentValidation.Results.ValidationResult();
 
-        _validator.Setup(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Select(squadScore => squadScore.Bowler.Id).Contains(_validScoreBowlerId)))).Returns(validResult);
+        _validator.Setup(validator => validator.ValidateAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Select(squadScore => squadScore.Bowler.Id).Contains(_validScoreBowlerId)), It.IsAny<CancellationToken>())).ReturnsAsync(validResult);
 
         var invalidResult = new FluentValidation.Results.ValidationResult();
         invalidResult.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, "errorMessage"));
 
-        _validator.Setup(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Select(squadScore => squadScore.Bowler.Id).Contains(_invalidScoreBowlerId)))).Returns(invalidResult);
+        _validator.Setup(validator => validator.ValidateAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Select(squadScore => squadScore.Bowler.Id).Contains(_invalidScoreBowlerId)), It.IsAny<CancellationToken>())).ReturnsAsync(invalidResult);
 
         _dataLayer = new Mock<NortheastMegabuck.Scores.Update.IDataLayer>();
 
@@ -42,7 +42,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_ValidatorValidate_CalledForEachBowlersScores()
+    public async Task ExecuteAsync_ValidatorValidate_CalledForEachBowlersScores()
     {
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
@@ -69,20 +69,21 @@ internal class BusinessLogic
         };
 
         var scores = new[] { score1, score2, score3, score4 };
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(scores);
+        await _businessLogic.ExecuteAsync(scores, cancellationToken).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _validator.Verify(validator => validator.Validate(It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadScore>>()), Times.Exactly(2));
+            _validator.Verify(validator => validator.ValidateAsync(It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadScore>>(), cancellationToken), Times.Exactly(2));
 
-            _validator.Verify(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id == _validScoreBowlerId) && squadScores.Any(squadScore => squadScore.GameNumber == 1) && squadScores.Any(squadScore => squadScore.GameNumber == 3))), Times.Once);
-            _validator.Verify(validator => validator.Validate(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id == _invalidScoreBowlerId) && squadScores.Any(squadScore => squadScore.GameNumber == 2) && squadScores.Any(squadScore => squadScore.GameNumber == 4))), Times.Once);
+            _validator.Verify(validator => validator.ValidateAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id == _validScoreBowlerId) && squadScores.Any(squadScore => squadScore.GameNumber == 1) && squadScores.Any(squadScore => squadScore.GameNumber == 3)), cancellationToken), Times.Once);
+            _validator.Verify(validator => validator.ValidateAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id == _invalidScoreBowlerId) && squadScores.Any(squadScore => squadScore.GameNumber == 2) && squadScores.Any(squadScore => squadScore.GameNumber == 4)), cancellationToken), Times.Once);
         });
     }
 
     [Test]
-    public void Execute_DataLayerExecute_CalledWithValidScores()
+    public async Task ExecuteAsync_DataLayerExecute_CalledWithValidScores()
     {
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
@@ -109,18 +110,19 @@ internal class BusinessLogic
         };
 
         var scores = new[] { score1, score2, score3, score4 };
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(scores);
+        await _businessLogic.ExecuteAsync(scores, cancellationToken).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id == _validScoreBowlerId))), Times.Once);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Any(squadScore => squadScore.Bowler.Id == _invalidScoreBowlerId))), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.Bowler.Id == _validScoreBowlerId)), cancellationToken), Times.Once);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Any(squadScore => squadScore.Bowler.Id == _invalidScoreBowlerId)), cancellationToken), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_ReturnsInvalidScores()
+    public async Task ExecuteAsync_ReturnsInvalidScores()
     {
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
@@ -148,16 +150,16 @@ internal class BusinessLogic
 
         var scores = new[] { score1, score2, score3, score4 };
 
-        var invalidScores = _businessLogic.Execute(scores);
+        var invalidScores = await _businessLogic.ExecuteAsync(scores, default).ConfigureAwait(false);
 
         Assert.That(invalidScores.All(score => score.Bowler.Id == _invalidScoreBowlerId));
     }
 
     [Test]
-    public void Execute_DataLayerExecuteThrowsException_ExceptionFlow()
+    public async Task ExecuteAsync_DataLayerExecuteThrowsException_ExceptionFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadScore>>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadScore>>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var score1 = new NortheastMegabuck.Models.SquadScore
         {
@@ -185,7 +187,7 @@ internal class BusinessLogic
 
         var scores = new[] { score1, score2, score3, score4 };
 
-        var invalidScores = _businessLogic.Execute(scores);
+        var invalidScores = await _businessLogic.ExecuteAsync(scores, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

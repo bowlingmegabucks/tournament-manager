@@ -19,26 +19,26 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    DivisionId IRepository.Add(Database.Entities.Division division)
+    async Task<DivisionId> IRepository.AddAsync(Database.Entities.Division division, CancellationToken cancellationToken)
     {
-        _dataContext.Divisions.Add(division);
-        _dataContext.SaveChanges();
+        await _dataContext.Divisions.AddAsync(division, cancellationToken).ConfigureAwait(false);
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return division.Id;
     }
 
-    IEnumerable<Database.Entities.Division> IRepository.Retrieve(TournamentId tournamentId)
-        => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId).AsEnumerable();
+    IQueryable<Database.Entities.Division> IRepository.Retrieve(TournamentId tournamentId)
+        => _dataContext.Divisions.AsNoTracking().Where(division => division.TournamentId == tournamentId);
 
-    Database.Entities.Division IRepository.Retrieve(NortheastMegabuck.DivisionId id)
-        => _dataContext.Divisions.Single(division => division.Id == id);
+    async Task<Database.Entities.Division> IRepository.RetrieveAsync(DivisionId id, CancellationToken cancellationToken)
+        => await _dataContext.Divisions.FirstAsync(division => division.Id == id, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IRepository
 {
-    DivisionId Add(Database.Entities.Division division);
+    Task<DivisionId> AddAsync(Database.Entities.Division division, CancellationToken cancellationToken);
 
-    IEnumerable<Database.Entities.Division> Retrieve(TournamentId tournamentId);
+    IQueryable<Database.Entities.Division> Retrieve(TournamentId tournamentId);
 
-    Database.Entities.Division Retrieve(DivisionId id);
+    Task<Database.Entities.Division> RetrieveAsync(DivisionId id, CancellationToken cancellationToken);
 }

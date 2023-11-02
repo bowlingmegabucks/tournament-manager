@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Sweepers.Retrieve;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;
@@ -19,11 +21,11 @@ internal class BusinessLogic : IBusinessLogic
 
     public Models.ErrorDetail? Error { get; private set; }
 
-    public IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId)
+    public async Task<IEnumerable<Models.Sweeper>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(tournamentId).ToList();
+            return (await _dataLayer.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false)).ToList();
         }
         catch (Exception ex)
         {
@@ -33,11 +35,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public Models.Sweeper? Execute(SquadId id)
+    public async Task<Models.Sweeper?> ExecuteAsync(SquadId id, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(id);
+            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -47,12 +49,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    //todo: unit tests
-    public IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId id)
+    public async Task<IEnumerable<BowlerId>> SuperSweeperBowlersAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.SuperSweeperBowlers(id).ToList();
+            return await _dataLayer.SuperSweeperBowlers(tournamentId).ToListAsync(cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -67,9 +68,9 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.Sweeper> Execute(TournamentId tournamentId);
+    Task<IEnumerable<Models.Sweeper>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    Models.Sweeper? Execute(SquadId id);
+    Task<Models.Sweeper?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 
-    IEnumerable<BowlerId> SuperSweeperBowlers(TournamentId tournamentId);
+    Task<IEnumerable<BowlerId>> SuperSweeperBowlersAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

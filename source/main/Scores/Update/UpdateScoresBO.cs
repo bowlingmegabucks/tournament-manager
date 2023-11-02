@@ -25,7 +25,7 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(()=> mockDataLayer);
     }
 
-    public IEnumerable<Models.SquadScore> Execute(IEnumerable<Models.SquadScore> squadScores)
+    public async Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<Models.SquadScore> squadScores, CancellationToken cancellationToken)
     {
         var valid = new List<Models.SquadScore>();
         var invalid = new List<Models.SquadScore>();
@@ -34,7 +34,7 @@ internal class BusinessLogic : IBusinessLogic
 
         foreach (var bowlerScore in bowlerScores)
         {
-            var result = _validator.Validate(bowlerScore);
+            var result = await _validator.ValidateAsync(bowlerScore, cancellationToken).ConfigureAwait(false);
 
             if (result.IsValid)
             {
@@ -48,7 +48,7 @@ internal class BusinessLogic : IBusinessLogic
 
         try
         {
-            DataLayer.Execute(valid);
+            await DataLayer.ExecuteAsync(valid, cancellationToken).ConfigureAwait(false);
 
             return invalid;
         }
@@ -65,10 +65,5 @@ internal interface IBusinessLogic
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="squadScores"></param>
-    /// <returns>Any scores that have an error</returns>
-    IEnumerable<Models.SquadScore> Execute(IEnumerable<Models.SquadScore> squadScores);
+    Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<Models.SquadScore> squadScores, CancellationToken cancellationToken);
 }

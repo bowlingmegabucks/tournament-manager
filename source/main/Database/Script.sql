@@ -178,6 +178,8 @@ VALUES ('20221020195709_SuperSweeperCashRatio', '6.0.10');
 
 COMMIT;
 
+--v0.7.0
+
 START TRANSACTION;
 
 ALTER TABLE `Bowlers` ADD `SocialSecurityNumber` longtext CHARACTER SET utf8mb4 NOT NULL;
@@ -187,3 +189,15 @@ VALUES ('20230316131029_BowlerSSN', '7.0.4');
 
 COMMIT;
 
+--v0.8.0
+
+START TRANSACTION;
+
+ALTER TABLE `Squads` RENAME COLUMN `EntryFee` TO `SweeperEntryFee`;
+
+ALTER TABLE `Squads` ADD `SquadEntryFee` decimal(5,2) NULL;
+
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20230802154109_TournamentSquadEntryFee', '7.0.9');
+
+COMMIT;

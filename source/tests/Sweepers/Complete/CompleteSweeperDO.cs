@@ -2,11 +2,11 @@
 namespace NortheastMegabuck.Tests.Sweepers.Complete;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Sweepers.IRepository> _repository;
 
-    private NortheastMegabuck.Sweepers.Complete.IDataLayer _dataLayer;
+    private NortheastMegabuck.Sweepers.Complete.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
@@ -17,12 +17,13 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryComplete_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryComplete_CalledCorrectly()
     {
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(squadId);
+        await _dataLayer.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Complete(squadId), Times.Once);
+        _repository.Verify(repository => repository.CompleteAsync(squadId, cancellationToken), Times.Once);
     }
 }

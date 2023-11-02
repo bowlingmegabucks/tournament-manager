@@ -22,9 +22,9 @@ internal class Presenter
         _getSquadsAdapter = mockGetSquadsAdapter;
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var squads = _getSquadsAdapter.Execute(_view.TournamentId);
+        var squads = await _getSquadsAdapter.ExecuteAsync(_view.TournamentId, cancellationToken).ConfigureAwait(true);
 
         if (_getSquadsAdapter.Error != null)
         {
@@ -37,13 +37,13 @@ internal class Presenter
         }
     }
 
-    internal void AddSquad()
+    internal async Task AddSquadAsync(CancellationToken cancellationToken)
     {
         var squadId = _view.AddSquad(_view.TournamentId);
         
         if (squadId != null)
         {
-            _view.RefreshSquads();
+            await _view.RefreshSquadsAsync(cancellationToken).ConfigureAwait(true);
         }
     }
 }

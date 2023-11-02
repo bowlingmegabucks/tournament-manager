@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.LaneAssignments;
 
 [TestFixture]
-internal class ViewModel
+internal sealed class ViewModel
 {
     [Test]
     public void Constructor_LaneAssignment_BowlerIdMapped()

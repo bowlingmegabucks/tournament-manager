@@ -22,19 +22,24 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    public RegistrationId Execute(Models.Registration registration)
+    public async Task<RegistrationId> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
     {
         var entity = _mapper.Execute(registration);
+
+        if (entity.BowlerId != BowlerId.Empty)
+        {
+            entity.Bowler = null!;
+        }
         
-        return _repository.Add(entity);
+        return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
-    public Models.Registration Execute(BowlerId bowlerId, SquadId squadId)
-        => new(_repository.AddSquad(bowlerId, squadId));
+    public async Task<Models.Registration> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
+        => new(await _repository.AddSquadAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false));
 }
 
 internal interface IDataLayer
 {
-    RegistrationId Execute(Models.Registration registration);
+    Task<RegistrationId> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken);
 
-    Models.Registration Execute(BowlerId bowlerId, SquadId squadId);
+    Task<Models.Registration> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 }

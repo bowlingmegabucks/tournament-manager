@@ -2,12 +2,12 @@
 namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Scores.IEntityMapper> _mapper;
     private Mock<NortheastMegabuck.Scores.IRepository> _repository;
 
-    private NortheastMegabuck.Scores.Update.IDataLayer _dataLayer;
+    private NortheastMegabuck.Scores.Update.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
@@ -19,7 +19,7 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_EntityMapperExecute_CalledCorrectly()
+    public async Task ExecuteAsync_EntityMapperExecute_CalledCorrectly()
     {
         var scores = new List<NortheastMegabuck.Models.SquadScore>
         {
@@ -27,7 +27,7 @@ internal class DataLayer
             new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
         };
 
-        _dataLayer.Execute(scores);
+        await _dataLayer.ExecuteAsync(scores, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -39,7 +39,7 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryUpdate_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryUpdate_CalledCorrectly()
     {
         static NortheastMegabuck.Database.Entities.SquadScore mapper(NortheastMegabuck.Models.SquadScore model) => new() { BowlerId = model.Bowler.Id };
         _mapper.Setup(map => map.Execute(It.IsAny<NortheastMegabuck.Models.SquadScore>())).Returns(mapper);
@@ -50,14 +50,15 @@ internal class DataLayer
             new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
         };
 
-        _dataLayer.Execute(scores);
+        CancellationToken cancellationToken = default;
+        await _dataLayer.ExecuteAsync(scores, cancellationToken).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _repository.Verify(repository => repository.Update(It.IsAny<IEnumerable<NortheastMegabuck.Database.Entities.SquadScore>>()), Times.Once);
+            _repository.Verify(repository => repository.UpdateAsync(It.IsAny<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>(), cancellationToken), Times.Once);
 
-            _repository.Verify(repository => repository.Update(It.Is<IEnumerable<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score=> score.BowlerId == scores[0].Bowler.Id))), Times.Once);
-            _repository.Verify(repository => repository.Update(It.Is<IEnumerable<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score => score.BowlerId == scores[1].Bowler.Id))), Times.Once);
+            _repository.Verify(repository => repository.UpdateAsync(It.Is<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score=> score.BowlerId == scores[0].Bowler.Id)), cancellationToken), Times.Once);
+            _repository.Verify(repository => repository.UpdateAsync(It.Is<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score => score.BowlerId == scores[1].Bowler.Id)), cancellationToken), Times.Once);
         });
     }
 }

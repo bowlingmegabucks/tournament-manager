@@ -1,4 +1,6 @@
 ﻿
+using System.Threading;
+
 namespace NortheastMegabuck.Registrations.Add;
 internal class Presenter
 {
@@ -49,7 +51,7 @@ internal class Presenter
         _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
-    public void Load(TournamentId tournamentId)
+    public async Task LoadAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         var bowlerId = _view.SelectBowler();
 
@@ -60,20 +62,16 @@ internal class Presenter
             return;
         }
 
-        var divisionsTask = Task.Run(() => _retrieveDivisionsAdapter.Execute(tournamentId));
-        var squadsTask = Task.Run(() => _retrieveSquadsAdapter.Execute(tournamentId));
-        var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.Execute(tournamentId));
+        var divisions = await _retrieveDivisionsAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
+        var squads = await _retrieveSquadsAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
+        var sweepers = await _retrieveSweepersAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
 
-        var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
-
-        var bowlerTask = Task.Run(() => RetrieveBowlerAdapter.Execute(bowlerId.Value));
-
+        Bowlers.Retrieve.IViewModel? bowler = null;
+        
         if (bowlerId != BowlerId.Empty)
         {
-            tasks.Add(bowlerTask);
+            bowler = await RetrieveBowlerAdapter.ExecuteAsync(bowlerId.Value, cancellationToken).ConfigureAwait(true);
         }
-
-        Task.WaitAll(tasks.ToArray());
 
         if (_retrieveDivisionsAdapter.Error != null)
         {
@@ -97,19 +95,19 @@ internal class Presenter
         }
         else
         {
-            _view.BindDivisions(divisionsTask.Result.OrderBy(division => division.Number));
+            _view.BindDivisions(divisions.OrderBy(division => division.Number));
 
-            _view.BindSquads(squadsTask.Result.Where(squad=> !squad.Complete).OrderBy(squad => squad.Date));
-            _view.BindSweepers(sweepersTask.Result.Where(squad=> !squad.Complete).OrderBy(sweeper => sweeper.Date));
+            _view.BindSquads(squads.Where(squad=> !squad.Complete).OrderBy(squad => squad.Date));
+            _view.BindSweepers(sweepers.Where(squad=> !squad.Complete).OrderBy(sweeper => sweeper.Date));
 
-            if (tasks.Contains(bowlerTask))
+            if (bowler is not null)
             {
-                _view.BindBowler(bowlerTask.Result!);
+                _view.BindBowler(bowler);
             }   
         }
     }
 
-    public void Load(TournamentId tournamentId, SquadId squadId)
+    public async Task LoadAsync(TournamentId tournamentId, SquadId squadId, CancellationToken cancellationToken)
     {
         var bowlerId = _view.SelectBowler();
 
@@ -120,20 +118,16 @@ internal class Presenter
             return;
         }
 
-        var divisionsTask = Task.Run(() => _retrieveDivisionsAdapter.Execute(tournamentId));
-        var squadsTask = Task.Run(() => _retrieveSquadsAdapter.Execute(tournamentId));
-        var sweepersTask = Task.Run(() => _retrieveSweepersAdapter.Execute(tournamentId));
+        var divisions = await _retrieveDivisionsAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
+        var squads = await _retrieveSquadsAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
+        var sweepers = await _retrieveSweepersAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
 
-        var tasks = new List<Task> { divisionsTask, squadsTask, sweepersTask };
-
-        var bowlerTask = Task.Run(() => RetrieveBowlerAdapter.Execute(bowlerId.Value));
+        Bowlers.Retrieve.IViewModel? bowler = null;
 
         if (bowlerId != BowlerId.Empty)
         {
-            tasks.Add(bowlerTask);
+            bowler = await RetrieveBowlerAdapter.ExecuteAsync(bowlerId.Value, cancellationToken).ConfigureAwait(true);
         }
-
-        Task.WaitAll(tasks.ToArray());
 
         if (_retrieveDivisionsAdapter.Error != null)
         {
@@ -157,19 +151,19 @@ internal class Presenter
         }
         else
         {
-            _view.BindDivisions(divisionsTask.Result.OrderBy(division => division.Number));
+            _view.BindDivisions(divisions.OrderBy(division => division.Number));
 
-            _view.BindSquads(squadsTask.Result.Where(squad=> !squad.Complete).OrderBy(squad => squad.Date), squadId);
-            _view.BindSweepers(sweepersTask.Result.Where(sweeper=> !sweeper.Complete).OrderBy(sweeper => sweeper.Date), squadId);
+            _view.BindSquads(squads.Where(squad=> !squad.Complete).OrderBy(squad => squad.Date), squadId);
+            _view.BindSweepers(sweepers.Where(sweeper=> !sweeper.Complete).OrderBy(sweeper => sweeper.Date), squadId);
 
-            if (tasks.Contains(bowlerTask))
+            if (bowler is not null)
             {
-                _view.BindBowler(bowlerTask.Result!);
+                _view.BindBowler(bowler);
             }
         }
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())
         {
@@ -177,7 +171,7 @@ internal class Presenter
             return;
         }
 
-        Adapter.Execute(_view.Bowler, _view.DivisionId, _view.Squads, _view.Sweepers, _view.SuperSweeper, _view.Average);
+        await Adapter.ExecuteAsync(_view.Bowler, _view.DivisionId, _view.Squads, _view.Sweepers, _view.SuperSweeper, _view.Average, cancellationToken).ConfigureAwait(true);
 
         if (Adapter.Errors.Any())
         {

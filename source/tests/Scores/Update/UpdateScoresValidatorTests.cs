@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
-internal class Validator
+internal sealed class Validator
 {
     private NortheastMegabuck.Scores.Update.Validator _validator;
 

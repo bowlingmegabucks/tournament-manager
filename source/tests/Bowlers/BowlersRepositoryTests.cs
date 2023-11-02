@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Bowlers;
 
 [TestFixture]
-internal class Repository
+internal sealed class Repository
 {
     private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
@@ -521,7 +521,7 @@ internal class Repository
     }
 
     [Test]
-    public void Update_BowlerName_NameUpdated()
+    public async Task UpdateAsync_BowlerName_NameUpdated()
     {
         var bowler1 = new NortheastMegabuck.Database.Entities.Bowler
         {
@@ -534,7 +534,7 @@ internal class Repository
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler1 }.SetUpDbContext());
 
-        _repository.Update(bowler1.Id, "firstName2", "middleInitial2", "lastName2", "suffix2");
+        await _repository.UpdateAsync(bowler1.Id, "firstName2", "middleInitial2", "lastName2", "suffix2", default).ConfigureAwait(false);
 
         var updated = _repository.Search(new NortheastMegabuck.Models.BowlerSearchCriteria { LastName = "lastName2" });
 
@@ -551,7 +551,7 @@ internal class Repository
     }
 
     [Test]
-    public void Retrieve_BowlerId_ReturnsBowler()
+    public async Task RetrieveAsync_BowlerId_ReturnsBowler()
     {
         var bowler1 = new NortheastMegabuck.Database.Entities.Bowler
         {
@@ -581,7 +581,7 @@ internal class Repository
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
 
-        var bowler = _repository.Retrieve(bowler2.Id);
+        var bowler = await _repository.RetrieveAsync(bowler2.Id, default).ConfigureAwait(false);
 
         Assert.That(bowler.LastName, Is.EqualTo(bowler2.LastName));
     }

@@ -24,7 +24,7 @@ internal class Validator : AbstractValidator<IEnumerable<Models.SquadScore>>
             .WithMessage("Duplicate game for bowler");
     }
 
-    private class SquadScoreValidator : AbstractValidator<Models.SquadScore>
+    private sealed class SquadScoreValidator : AbstractValidator<Models.SquadScore>
     {
         public SquadScoreValidator()
         {

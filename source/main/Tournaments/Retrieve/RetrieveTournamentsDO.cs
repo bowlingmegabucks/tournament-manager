@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tournaments.Retrieve;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NortheastMegabuck.Tournaments.Retrieve;
 
 internal class DataLayer : IDataLayer
 {
@@ -18,26 +20,31 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    IEnumerable<Models.Tournament> IDataLayer.Execute()
-        => _repository.RetrieveAll().Select(tournament => new Models.Tournament(tournament));
+    async Task<IEnumerable<Models.Tournament>> IDataLayer.ExecuteAsync(CancellationToken cancellationToken)
+        => (await _repository.RetrieveAll().ToListAsync(cancellationToken).ConfigureAwait(false)).Select(tournament => new Models.Tournament(tournament));
 
-    Models.Tournament IDataLayer.Execute(TournamentId id)
-        => new(_repository.Retrieve(id));
+    async Task<Models.Tournament> IDataLayer.ExecuteAsync(TournamentId id, CancellationToken cancellationToken)
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
 
-    Models.Tournament IDataLayer.Execute(DivisionId id)
-        => new(_repository.Retrieve(id));
+    async Task<Models.Tournament> IDataLayer.ExecuteAsync(DivisionId id, CancellationToken cancellationToken)
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
 
-    Models.Tournament IDataLayer.Execute(SquadId id)
-        => new(_repository.Retrieve(id));
+    async Task<Models.Tournament> IDataLayer.ExecuteAsync(SquadId id, CancellationToken cancellationToken)
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
+
+    async Task<Models.Tournament> IDataLayer.ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
 }
 
 internal interface IDataLayer
 {
-    IEnumerable<Models.Tournament> Execute();
+    Task<IEnumerable<Models.Tournament>> ExecuteAsync(CancellationToken cancellationToken);
 
-    Models.Tournament Execute(TournamentId id);
+    Task<Models.Tournament> ExecuteAsync(TournamentId id, CancellationToken cancellationToken);
 
-    Models.Tournament Execute(DivisionId id);
+    Task<Models.Tournament> ExecuteAsync(DivisionId id, CancellationToken cancellationToken);
 
-    Models.Tournament Execute(SquadId id);
+    Task<Models.Tournament> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
+
+    Task<Models.Tournament> ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
 }

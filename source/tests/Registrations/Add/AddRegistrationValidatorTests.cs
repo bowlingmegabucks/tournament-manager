@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Registrations.Add;
 
 [TestFixture]
-internal class Validator
+internal sealed class Validator
 {
     private NortheastMegabuck.Registrations.Add.Validator _validator;
 
@@ -12,8 +12,8 @@ internal class Validator
         => _validator = new NortheastMegabuck.Registrations.Add.Validator();
 
     [Test]
-    public void Bowler_HasAddBowlerValidator()
-        => _validator.ShouldHaveChildValidator(registration => registration.Bowler, typeof(NortheastMegabuck.Bowlers.Add.Validator));
+    public void Bowler_HasBowlerValidator()
+        => _validator.ShouldHaveChildValidator(registration => registration.Bowler, typeof(NortheastMegabuck.Bowlers.Validator));
 
     [Test]
     public void AverageNull_MinimumAverageAndMaximumAverageForDivsionNull_NoError()
@@ -789,7 +789,6 @@ internal class Validator
         var registration = new NortheastMegabuck.Models.Registration
         {
             Sweepers = sweepers,
-            SweeperCount = 3,
             SuperSweeper = false
         };
 
@@ -805,7 +804,7 @@ internal class Validator
         var registration = new NortheastMegabuck.Models.Registration
         {
             Sweepers = sweepers,
-            SweeperCount = 3,
+            TournamentSweeperCount = 3,
             SuperSweeper = true
         };
 
@@ -821,7 +820,7 @@ internal class Validator
         var registration = new NortheastMegabuck.Models.Registration
         {
             Sweepers = sweepers,
-            SweeperCount = 3,
+            TournamentSweeperCount = 3,
             SuperSweeper = true
         };
 

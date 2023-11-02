@@ -31,13 +31,13 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
     public DateOnly Start
     {
         get => DateOnly.FromDateTime(startDatePicker.Value);
-        set => startDatePicker.Value = new DateTime(value.Year, value.Month, value.Day);
+        set => startDatePicker.Value = new DateTime(value.Year, value.Month, value.Day, 0, 0, 0, DateTimeKind.Unspecified);
     }
 
     public DateOnly End
     {
         get => DateOnly.FromDateTime(endDatePicker.Value);
-        set => endDatePicker.Value = new DateTime(value.Year, value.Month, value.Day);
+        set => endDatePicker.Value = new DateTime(value.Year, value.Month, value.Day, 0, 0, 0, DateTimeKind.Unspecified);
     }
 
     private void TournamentDates_Validating(object sender, CancelEventArgs e)

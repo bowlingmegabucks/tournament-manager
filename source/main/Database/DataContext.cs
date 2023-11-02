@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
 
 namespace NortheastMegabuck.Database;
@@ -43,14 +42,11 @@ internal class DataContext : DbContext, IDataContext
     private static readonly ILoggerFactory _consoleLogger = LoggerFactory.Create(builder => builder.AddConsole());
 #endif
 
-    bool IDataContext.Ping()
-        => Database.CanConnect();
+    async Task<bool> IDataContext.PingAsync(CancellationToken cancellationToken)
+        => await Database.CanConnectAsync(cancellationToken).ConfigureAwait(false);
 
-    void IDataContext.SaveChanges()
-        => base.SaveChanges();
-
-    async Task IDataContext.SaveChangesAsync()
-        => await base.SaveChangesAsync();
+    async Task IDataContext.SaveChangesAsync(CancellationToken cancellationToken)
+        => await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -86,7 +82,7 @@ internal class DataContext : DbContext, IDataContext
 
 internal interface IDataContext
 {
-    bool Ping();
+    Task<bool> PingAsync(CancellationToken cancellationToken);
 
     EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
@@ -104,7 +100,5 @@ internal interface IDataContext
 
     DbSet<Entities.SquadScore> SquadScores { get; }
 
-    void SaveChanges();
-
-    Task SaveChangesAsync();
+    Task SaveChangesAsync(CancellationToken cancellationToken);
 }

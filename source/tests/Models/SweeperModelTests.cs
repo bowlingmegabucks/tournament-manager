@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
-internal class Sweeper
+internal sealed class Sweeper
 {
     [Test]
     public void Constructor_IViewModel_IdMapped()
@@ -117,7 +117,7 @@ internal class Sweeper
     [Test]
     public void Constructor_IViewModel_DivisionsMapped()
     {
-        var divisions = new Mock<IDictionary<NortheastMegabuck.DivisionId, int?>>();
+        var divisions = new Mock<IDictionary<DivisionId, int?>>();
 
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Divisions).Returns(divisions.Object);

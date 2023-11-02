@@ -1,11 +1,11 @@
 ﻿namespace NortheastMegabuck.Tests.Squads.Add;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Squads.Add.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Squads.Add.IAdapter _adapter;
+    private NortheastMegabuck.Squads.Add.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
@@ -16,53 +16,55 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var id = SquadId.New();
 
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(id);
 
-        _adapter.Execute(viewModel.Object);
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(It.Is<NortheastMegabuck.Models.Squad>(squad => squad.Id == id)), Times.Once);
+        await _adapter.ExecuteAsync(viewModel.Object, cancellationToken).ConfigureAwait(false);
+
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<NortheastMegabuck.Models.Squad>(squad => squad.Id == id), cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ErrorsSetToBusinessLogicErrors([Range(0, 2)] int errorCount)
+    public async Task ExecuteAsync_ErrorsSetToBusinessLogicErrors([Range(0, 2)] int errorCount)
     {
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), errorCount);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
 
-        _adapter.Execute(viewModel.Object);
+        await _adapter.ExecuteAsync(viewModel.Object, default).ConfigureAwait(false);
 
         Assert.That(_adapter.Errors, Is.EqualTo(errors));
     }
 
     [Test]
-    public void Execute_BusinessLogicExecuteReturnsNull_NullReturned()
+    public async Task ExecuteAsync_BusinessLogicExecuteReturnsNull_NullReturned()
     {
         SquadId? noId = null;
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.Models.Squad>())).Returns(noId);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Squad>(), It.IsAny<CancellationToken>())).ReturnsAsync(noId);
 
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
 
-        var actual = _adapter.Execute(viewModel.Object);
+        var actual = await _adapter.ExecuteAsync(viewModel.Object, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.Null);
     }
 
     [Test]
-    public void Execute_BusinessLogicExecuteReturnsId_IdReturned()
+    public async Task ExecuteAsync_BusinessLogicExecuteReturnsId_IdReturned()
     {
         var id = SquadId.New();
-        _businessLogic.Setup(businessLogic => businessLogic.Execute(It.IsAny<NortheastMegabuck.Models.Squad>())).Returns(id);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Squad>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
 
-        var actual = _adapter.Execute(viewModel.Object);
+        var actual = await _adapter.ExecuteAsync(viewModel.Object, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(id));
     }

@@ -2,7 +2,7 @@
 using NortheastMegabuck.Squads;
 
 namespace NortheastMegabuck.Tests.Models;
-internal class LaneAssignment
+internal sealed class LaneAssignment
 {
     private NortheastMegabuck.Models.LaneAssignment _laneAssignment;
 
@@ -78,7 +78,7 @@ internal class LaneAssignment
 
         var handicapCalculator = new Mock<IHandicapCalculator>();
 
-        new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
+        _ = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
 
         handicapCalculator.Verify(calculator => calculator.Calculate(entity.Registration), Times.Once);
     }
@@ -136,7 +136,7 @@ internal class LaneAssignment
 
         var handicapCalculator = new Mock<IHandicapCalculator>();
 
-        new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
+        _ = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
 
         handicapCalculator.Verify(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>()), Times.Never);
     }
@@ -210,6 +210,7 @@ internal class LaneAssignment
         Assert.That(model.SuperSweeper, Is.Null);
     }
 
+    [Test]
     public void Constructor_SqaudIsSweeperSquad_SuperSweeperMapped([Values]bool superSweeper)
     {
         var divisionId = DivisionId.New();

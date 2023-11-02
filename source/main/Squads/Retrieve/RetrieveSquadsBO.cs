@@ -19,11 +19,11 @@ internal class BusinessLogic : IBusinessLogic
 
     public Models.ErrorDetail? Error { get; private set; }
 
-    public IEnumerable<Models.Squad> Execute(TournamentId tournamentId)
+    public async Task<IEnumerable<Models.Squad>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(tournamentId).ToList();
+            return (await _dataLayer.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false)).ToList();
         }
         catch (Exception ex)
         {
@@ -33,11 +33,11 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
-    public Models.Squad? Execute(SquadId id)
+    public async Task<Models.Squad?> ExecuteAsync(SquadId id, CancellationToken cancellationToken)
     {
         try
         {
-            return _dataLayer.Execute(id);
+            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -52,7 +52,7 @@ internal interface IBusinessLogic
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<Models.Squad> Execute(TournamentId tournamentId);
+    Task<IEnumerable<Models.Squad>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    Models.Squad? Execute(SquadId id);
+    Task<Models.Squad?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 }

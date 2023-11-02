@@ -28,60 +28,58 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.scoresGrid = new NortheastMegabuck.Controls.Grids.ScoresGrid();
-            this.pasteScoresFromClipboardLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // scoresGrid
-            // 
-            this.scoresGrid.AllowRowSelection = true;
-            this.scoresGrid.AlternateRowColors = true;
-            this.scoresGrid.Location = new System.Drawing.Point(12, 12);
-            this.scoresGrid.Name = "scoresGrid";
-            this.scoresGrid.SelectedRowContextMenu = null;
-            this.scoresGrid.Size = new System.Drawing.Size(773, 588);
-            this.scoresGrid.TabIndex = 0;
-            // 
-            // pasteScoresFromClipboardLinkLabel
-            // 
-            this.pasteScoresFromClipboardLinkLabel.AutoSize = true;
-            this.pasteScoresFromClipboardLinkLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pasteScoresFromClipboardLinkLabel.Location = new System.Drawing.Point(589, 609);
-            this.pasteScoresFromClipboardLinkLabel.Name = "pasteScoresFromClipboardLinkLabel";
-            this.pasteScoresFromClipboardLinkLabel.Size = new System.Drawing.Size(196, 20);
-            this.pasteScoresFromClipboardLinkLabel.TabIndex = 8;
-            this.pasteScoresFromClipboardLinkLabel.TabStop = true;
-            this.pasteScoresFromClipboardLinkLabel.Text = "Paste Scores from Clipboard";
-            this.pasteScoresFromClipboardLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.PasteScoresFromClipboardLinkLabel_LinkClicked);
-            // 
-            // saveButton
-            // 
-            this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.saveButton.Location = new System.Drawing.Point(12, 606);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(94, 29);
-            this.saveButton.TabIndex = 9;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
-            // Form
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(805, 648);
-            this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.pasteScoresFromClipboardLinkLabel);
-            this.Controls.Add(this.scoresGrid);
-            this.MaximizeBox = false;
-            this.Name = "Form";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Scores";
-            this.Load += new System.EventHandler(this.Form_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        scoresGrid = new Controls.Grids.ScoresGrid();
+        pasteScoresFromClipboardLinkLabel = new LinkLabel();
+        saveButton = new Button();
+        SuspendLayout();
+        // 
+        // scoresGrid
+        // 
+        scoresGrid.AllowRowSelection = true;
+        scoresGrid.AlternateRowColors = true;
+        scoresGrid.Location = new Point(12, 12);
+        scoresGrid.Name = "scoresGrid";
+        scoresGrid.SelectedRowContextMenu = null;
+        scoresGrid.Size = new Size(773, 588);
+        scoresGrid.TabIndex = 0;
+        // 
+        // pasteScoresFromClipboardLinkLabel
+        // 
+        pasteScoresFromClipboardLinkLabel.AutoSize = true;
+        pasteScoresFromClipboardLinkLabel.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        pasteScoresFromClipboardLinkLabel.Location = new Point(589, 609);
+        pasteScoresFromClipboardLinkLabel.Name = "pasteScoresFromClipboardLinkLabel";
+        pasteScoresFromClipboardLinkLabel.Size = new Size(196, 20);
+        pasteScoresFromClipboardLinkLabel.TabIndex = 8;
+        pasteScoresFromClipboardLinkLabel.TabStop = true;
+        pasteScoresFromClipboardLinkLabel.Text = "Paste Scores from Clipboard";
+        pasteScoresFromClipboardLinkLabel.LinkClicked += PasteScoresFromClipboardLinkLabel_LinkClicked;
+        // 
+        // saveButton
+        // 
+        saveButton.Location = new Point(12, 606);
+        saveButton.Name = "saveButton";
+        saveButton.Size = new Size(94, 29);
+        saveButton.TabIndex = 9;
+        saveButton.Text = "Save";
+        saveButton.UseVisualStyleBackColor = true;
+        saveButton.Click += SaveButton_Click;
+        // 
+        // Form
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new Size(805, 648);
+        Controls.Add(saveButton);
+        Controls.Add(pasteScoresFromClipboardLinkLabel);
+        Controls.Add(scoresGrid);
+        MaximizeBox = false;
+        Name = "Form";
+        StartPosition = FormStartPosition.CenterScreen;
+        Text = "Scores";
+        Load += Form_Load;
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion

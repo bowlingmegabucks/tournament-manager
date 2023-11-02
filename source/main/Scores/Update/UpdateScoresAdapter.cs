@@ -20,11 +20,11 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public IEnumerable<IViewModel> Execute(IEnumerable<IViewModel> squadScores)
+    public async Task<IEnumerable<IViewModel>> ExecuteAsync(IEnumerable<IViewModel> scores, CancellationToken cancellationToken)
     {
-        var models = squadScores.Select(squadScore => new Models.SquadScore(squadScore));
+        var models = scores.Select(squadScore => new Models.SquadScore(squadScore)).ToList();
 
-        var invalidScores = _businessLogic.Execute(models.ToList());
+        var invalidScores = await _businessLogic.ExecuteAsync(models, cancellationToken).ConfigureAwait(false);
 
         return invalidScores.Select(score => new ViewModel(score));
     }
@@ -34,5 +34,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    IEnumerable<IViewModel> Execute(IEnumerable<IViewModel> scores);
+    Task<IEnumerable<IViewModel>> ExecuteAsync(IEnumerable<IViewModel> scores, CancellationToken cancellationToken);
 }

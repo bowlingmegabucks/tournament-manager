@@ -22,12 +22,13 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    public IEnumerable<IAtLargeViewModel> AtLarge(TournamentId id)
+    public async Task<IEnumerable<IAtLargeViewModel>> AtLargeAsync(TournamentId id, CancellationToken cancellationToken)
     {
-        var results = _businessLogic.Execute(id);
+        var results = await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
         var atLarges = new List<IAtLargeViewModel>();
 
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
         foreach (var result in results)
         {
             short place = 1;
@@ -38,6 +39,7 @@ internal class Adapter : IAdapter
                 atLarges.Add(atLarge);
             }
         }
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 
         return atLarges;
     }
@@ -47,5 +49,5 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IAtLargeViewModel> AtLarge(TournamentId id);
+    Task<IEnumerable<IAtLargeViewModel>> AtLargeAsync(TournamentId id, CancellationToken cancellationToken);
 }

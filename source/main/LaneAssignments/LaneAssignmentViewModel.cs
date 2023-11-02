@@ -101,15 +101,15 @@ internal class ViewModel : IViewModel
         => new StringBuilder(laneAssignment)
             .Append('\t').Append(BowlerId)
             .Append('\t').Append(BowlerName)
-            .Append('\t').Append(_superSweeper.HasValue ? _superSweeper.Value ? "Y" : "N" : DivisionNumber)
+            .Append('\t').Append(_superSweeper.HasValue ? IsSuperSweeper(_superSweeper.Value) : DivisionNumber)
             .Append('\t').Append(Handicap).ToString();
+
+    private static string IsSuperSweeper(bool superSweeper) 
+        => superSweeper ? "Y" : "N";
 
     public int CompareTo(IViewModel? other)
     {
-        if (other == null)
-        {
-            throw new ArgumentNullException(nameof(other));
-        }
+        ArgumentNullException.ThrowIfNull(other);
 
         var lane = this.LaneNumber();
         var otherLane = other.LaneNumber();
@@ -148,7 +148,7 @@ public interface IViewModel : IComparable<IViewModel>
 internal static class Extensions
 {
     internal static short LaneNumber(this IViewModel viewModel)
-        => Convert.ToInt16(viewModel.LaneAssignment.Substring(0, viewModel.LaneAssignment.Length - 1));
+        => Convert.ToInt16(viewModel.LaneAssignment.Substring(0, viewModel.LaneAssignment.Length - 1), CultureInfo.CurrentCulture);
 
     internal static string LaneLetter(this IViewModel viewModel)
         => viewModel.LaneAssignment.Substring(viewModel.LaneAssignment.Length - 1, 1);

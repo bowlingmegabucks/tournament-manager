@@ -20,7 +20,7 @@ internal class Calculator : ICalculator
                                       where score.Bowler.Id == bowlerId
                                       select score;
 
-        var cashers = previousAdvancersScores.Where(score => score.Score >= advancers.Last().Score).ToList(); //start cashers with list of would be advancers
+        var cashers = previousAdvancersScores.Where(score => score.Score >= advancers[advancers.Count - 1].Score).ToList(); //start cashers with list of would be advancers
 
         var scoresWithOutAdvancersFromPreviousOrCurrentSquad = scores.Where(score => !advancers.Select(advance => advance.Bowler.Id).Contains(score.Bowler.Id)).Where(score => !previousAdvancersIds.Contains(score.Bowler.Id)).ToList();
 
@@ -42,11 +42,6 @@ internal class Calculator : ICalculator
             NonQualifyingScores = nonQualifiers
         };
     }
-
-    //todo: look into leveraging this functionality for at large
-    //      only advancers carry over for at large (not cashers)
-    //      bring in collection of squad cashers as well to know who to indicate that we need to get back their cash spot
-    //      when doing at large, it's possible a bowler qualifies twice, make sure we only look at top score for each bowler (lookup?)
 }
 
 internal interface ICalculator

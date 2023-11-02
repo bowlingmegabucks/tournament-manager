@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests;
 
 [TestFixture]
-internal class Encryption
+internal sealed class Encryption
 {
     [OneTimeSetUp]
     public void SetUpKey()

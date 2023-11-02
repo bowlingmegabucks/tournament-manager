@@ -21,23 +21,23 @@ internal class Adapter : IAdapter
         _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
     }
 
-    public IEnumerable<IViewModel> Execute()
+    public async Task<IEnumerable<IViewModel>> ExecuteAsync(CancellationToken cancellationToken)
     {
-        var tournaments = BusinessLogic.Execute();
+        var tournaments = await BusinessLogic.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
         return tournaments.Select(tournament => new ViewModel(tournament)).ToList();
     }
 
-    public IViewModel? Execute(TournamentId tournamentId)
+    public async Task<IViewModel?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var tournament = BusinessLogic.Execute(tournamentId);
+        var tournament = await BusinessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         return tournament != null ? new ViewModel(tournament) : null;
     }
 
-    public IViewModel? Execute(SquadId squadId)
+    public async Task<IViewModel?> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
-        var tournament = BusinessLogic.Execute(squadId);
+        var tournament = await BusinessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
         return tournament != null ? new ViewModel(tournament) : null;
     }
@@ -47,9 +47,9 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IViewModel> Execute();
+    Task<IEnumerable<IViewModel>> ExecuteAsync(CancellationToken cancellationToken);
 
-    IViewModel? Execute(TournamentId tournamentId);
+    Task<IViewModel?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
-    IViewModel? Execute(SquadId squadId);
+    Task<IViewModel?> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 }

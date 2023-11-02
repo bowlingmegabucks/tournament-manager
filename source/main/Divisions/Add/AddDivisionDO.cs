@@ -22,15 +22,15 @@ internal class DataLayer : IDataLayer
         _repository = mockRepository;
     }
 
-    NortheastMegabuck.DivisionId IDataLayer.Execute(Models.Division division)
+    async Task<DivisionId> IDataLayer.ExecuteAsync(Models.Division division, CancellationToken cancellationToken)
     {
         var entity = _mapper.Execute(division);
         
-        return _repository.Add(entity);
+        return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
 }
 
 internal interface IDataLayer
 {
-    NortheastMegabuck.DivisionId Execute(Models.Division division);
+    Task<DivisionId> ExecuteAsync(Models.Division division, CancellationToken cancellationToken);
 }

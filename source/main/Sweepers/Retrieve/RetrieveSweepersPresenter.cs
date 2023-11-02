@@ -22,9 +22,9 @@ internal class Presenter
         _getSweepersAdapter = mockGetSweepersAdapter;
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var sweepers = _getSweepersAdapter.Execute(_view.TournamentId);
+        var sweepers = await _getSweepersAdapter.ExecuteAsync(_view.TournamentId, cancellationToken).ConfigureAwait(true);
 
         if (_getSweepersAdapter.Error != null)
         {
@@ -37,13 +37,13 @@ internal class Presenter
         }
     }
 
-    internal void AddSweeper()
+    internal async Task AddSweeperAsync(CancellationToken cancellationToken)
     {
         var sweeperId = _view.AddSweeper(_view.TournamentId);
         
         if (sweeperId != null)
         {
-            _view.RefreshSweepers();
+            await _view.RefreshSweepersAsync(cancellationToken).ConfigureAwait(true);
         }
     }
 }

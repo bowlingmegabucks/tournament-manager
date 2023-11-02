@@ -56,7 +56,6 @@ partial class NameForm
         // 
         // saveButton
         // 
-        saveButton.DialogResult = DialogResult.OK;
         saveButton.Location = new Point(562, 81);
         saveButton.Name = "saveButton";
         saveButton.Size = new Size(75, 23);
@@ -76,6 +75,7 @@ partial class NameForm
         Controls.Add(cancelButton);
         Controls.Add(saveButton);
         Controls.Add(personNameControl);
+        FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;
         MinimizeBox = false;
         Name = "NameForm";

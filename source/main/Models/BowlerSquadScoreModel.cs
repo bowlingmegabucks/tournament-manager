@@ -1,5 +1,10 @@
 ﻿
+using System.Diagnostics;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+
 namespace NortheastMegabuck.Models;
+
+[DebuggerDisplay("{Bowler}: {GameScoreTotal}")]
 internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<BowlerSquadScore>
 {
     public SquadId SquadId { get; set; }
@@ -11,6 +16,9 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
     public Division Division { get; set; }
 
     internal ILookup<short, int> GameScores { get; set; }
+
+    private int GameScoreTotal
+        => GameScores.SelectMany(score => score).Sum();
 
     public int ScratchScore
         => GameScores.SelectMany(gameScore=> gameScore).Sum();
@@ -67,16 +75,29 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         
     }
 
-#if DEBUG
-    public override string ToString()
-        => $"{Bowler}: {GameScores.SelectMany(score=> score).Sum()}";
-#endif
+    public override bool Equals(object? obj)
+        => Equals(obj as BowlerSquadScore);
 
     public bool Equals(BowlerSquadScore? other)
         => other != null && Bowler.Id == other.Bowler.Id && SquadId == other.SquadId;
 
-    public override bool Equals(object? obj)
-        => Equals(obj as BowlerSquadScore);
+    public static bool operator ==(BowlerSquadScore? left, BowlerSquadScore? right)
+        => left is null ? right is null : left.Equals(right);
+
+    public static bool operator !=(BowlerSquadScore? left, BowlerSquadScore? right)
+        => !(left == right);
+
+    public static bool operator >(BowlerSquadScore? left, BowlerSquadScore? right)
+        => left is null ? right is not null : left.CompareTo(right) > 0;
+
+    public static bool operator <(BowlerSquadScore? left, BowlerSquadScore? right)
+        => left is null ? right is null : left.CompareTo(right) < 0;
+
+    public static bool operator >=(BowlerSquadScore? left, BowlerSquadScore? right)
+        => left is null || left.CompareTo(right) >= 0;
+
+    public static bool operator <=(BowlerSquadScore? left, BowlerSquadScore? right)
+        => left is null ? right is null : left.CompareTo(right) <= 0;
 
     public override int GetHashCode()
         => Bowler.Id.GetHashCode() ^ SquadId.GetHashCode();

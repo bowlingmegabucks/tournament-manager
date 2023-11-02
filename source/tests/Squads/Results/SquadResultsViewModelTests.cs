@@ -2,14 +2,14 @@
 namespace NortheastMegabuck.Tests.Squads.Results;
 
 [TestFixture]
-internal class ViewModel
+internal sealed class ViewModel
 {
     [Test]
     public void Constructor_PlaceMapped()
     {
         short place = 5;
 
-        var model = new NortheastMegabuck.Squads.Results.ViewModel(new NortheastMegabuck.Models.BowlerSquadScore(200), new DateTime(), place, false, false);
+        var model = new NortheastMegabuck.Squads.Results.ViewModel(new NortheastMegabuck.Models.BowlerSquadScore(200), default, place, false, false);
 
         Assert.That(model.Place, Is.EqualTo(place));
     }
@@ -17,7 +17,7 @@ internal class ViewModel
     [Test]
     public void Constructor_SquadIdMapped()
     {
-        var squadDate = new DateTime(2000, 1, 2, 9, 30, 0);
+        var squadDate = new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified);
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200)
         {
             SquadId = SquadId.New()
@@ -31,7 +31,7 @@ internal class ViewModel
     [Test]
     public void Constructor_SquadDateMapped()
     {
-        var squadDate = new DateTime(2000, 1, 2, 9, 30, 0);
+        var squadDate = new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified);
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200)
         {
             SquadId = SquadId.New()
@@ -50,7 +50,7 @@ internal class ViewModel
             Division = new NortheastMegabuck.Models.Division { Name = "divisionName" }
         };
 
-        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, new DateTime(), 0, false, false);
+        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, default, 0, false, false);
 
         Assert.That(model.DivisionName, Is.EqualTo(bowlerSquadScore.Division.Name));
     }
@@ -60,7 +60,7 @@ internal class ViewModel
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200);
 
-        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, new DateTime(), 0, false, false);
+        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, default, 0, false, false);
 
         Assert.That(model.BowlerName, Is.EqualTo(bowlerSquadScore.Bowler.ToString()));
     }
@@ -70,7 +70,7 @@ internal class ViewModel
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200);
 
-        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, new DateTime(), 0, false, false);
+        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, default, 0, false, false);
 
         Assert.That(model.Score, Is.EqualTo(600));
     }
@@ -80,7 +80,7 @@ internal class ViewModel
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200);
 
-        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, new DateTime(), 0, false, false);
+        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, default, 0, false, false);
 
         Assert.That(model.ScratchScore, Is.EqualTo(600));
     }
@@ -90,7 +90,7 @@ internal class ViewModel
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 201);
 
-        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, new DateTime(), 0, false, false);
+        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, default, 0, false, false);
 
         Assert.That(model.HighGame, Is.EqualTo(201));
     }
@@ -100,7 +100,7 @@ internal class ViewModel
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 201);
 
-        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, new DateTime(), 0, false, false);
+        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, default, 0, false, false);
 
         Assert.That(model.HighGameScratch, Is.EqualTo(201));
     }
@@ -110,7 +110,7 @@ internal class ViewModel
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200);
 
-        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, new DateTime(), 0, advancer, false);
+        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, default, 0, advancer, false);
 
         Assert.That(model.Advancer, Is.EqualTo(advancer));
     }
@@ -120,7 +120,7 @@ internal class ViewModel
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200);
 
-        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, new DateTime(), 0, false, casher);
+        var model = new NortheastMegabuck.Squads.Results.ViewModel(bowlerSquadScore, default, 0, false, casher);
 
         Assert.That(model.Casher, Is.EqualTo(casher));
     }

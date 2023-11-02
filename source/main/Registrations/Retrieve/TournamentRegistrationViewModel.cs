@@ -24,7 +24,7 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
     public short SweepersEnteredCount
         => (short)SweepersEntered.Count();
 
-    public bool SuperSweeperEntered { get; }
+    public bool SuperSweeperEntered { get; set; }
 
     public TournamentRegistrationViewModel(Models.Registration registration)
     {
@@ -74,5 +74,5 @@ public interface ITournamentRegistrationViewModel
 
     short SweepersEnteredCount { get; }
 
-    bool SuperSweeperEntered { get; }
+    bool SuperSweeperEntered { get; set; }
 }

@@ -2,13 +2,13 @@
 namespace NortheastMegabuck.Tests.Sweepers.Results;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic> _retrieveSweeper;
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
     private Mock<NortheastMegabuck.Scores.Retrieve.IBusinessLogic> _retrieveScores;
 
-    private NortheastMegabuck.Sweepers.Results.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Sweepers.Results.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
@@ -21,55 +21,57 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_SquadId_RetrieveSweeperExecute_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_RetrieveSweeperExecute_CalledCorrectly()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
 
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(squadId);
+        await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveSweeper.Verify(retrieveSweeper => retrieveSweeper.Execute(squadId), Times.Once);
+        _retrieveSweeper.Verify(retrieveSweeper => retrieveSweeper.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_RetrieveSweeperExecuteHasError_ErrorFlow()
+    public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveSweeper.SetupGet(retrieveSweeper => retrieveSweeper.Error).Returns(error);
 
-        var result = _businessLogic.Execute(SquadId.New());
+        var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
             Assert.That(_businessLogic.Error, Is.EqualTo(error));
 
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.IsAny<SquadId>()), Times.Never);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecute_CalledCorrectly()
+    public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecute_CalledCorrectly()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
 
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(squadId);
+        await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(squadId), Times.Once);
+        _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(new[] { squadId }, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteHasError_ErrorFlow()
+    public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteHasError_ErrorFlow()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveScores.SetupGet(retrieveScores => retrieveScores.Error).Returns(error);
 
-        var result = _businessLogic.Execute(SquadId.New());
+        var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -79,11 +81,11 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteReturnsNoScores_NoScoreFlow()
+    public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteReturnsNoScores_NoScoreFlow()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
 
-        var result = _businessLogic.Execute(SquadId.New());
+        var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -93,7 +95,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteSuccess_SweeperCutReturnedWithCorrectFields()
+    public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteSuccess_SweeperCutReturnedWithCorrectFields()
     {
         var squadId = SquadId.New();
 
@@ -166,16 +168,16 @@ internal class BusinessLogic
                                   bowler3SquadScore1, bowler3SquadScore2,
                                   bowler4SquadScore1, bowler4SquadScore2};
 
-        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<SquadId>())).Returns(squadScores);
+        _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             CashRatio = 2
         };
 
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(sweeper);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeper);
 
-        var result = _businessLogic.Execute(squadId);
+        var result = await _businessLogic.ExecuteAsync(squadId, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -191,7 +193,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteSuccess_CashRatioMakesCasherCountLessThan1_SweeperCutReturnedWithCorrectFields()
+    public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteSuccess_CashRatioMakesCasherCountLessThan1_SweeperCutReturnedWithCorrectFields()
     {
         var squadId = SquadId.New();
 
@@ -264,16 +266,16 @@ internal class BusinessLogic
                                   bowler3SquadScore1, bowler3SquadScore2,
                                   bowler4SquadScore1, bowler4SquadScore2};
 
-        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<SquadId>())).Returns(squadScores);
+        _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {
             CashRatio = 500
         };
 
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.Execute(It.IsAny<SquadId>())).Returns(sweeper);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeper);
 
-        var result = _businessLogic.Execute(squadId);
+        var result = await _businessLogic.ExecuteAsync(squadId, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -286,60 +288,62 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_TournamentId_RetrieveTournamentExecute_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecute_CalledCorrectly()
     {
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(new NortheastMegabuck.Models.Tournament());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Tournament());
 
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(tournamentId);
+        await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveTournament.Verify(retrieveTournament => retrieveTournament.Execute(tournamentId), Times.Once);
+        _retrieveTournament.Verify(retrieveTournament => retrieveTournament.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentId_RetrieveTournamentExecuteHasError_ErrorFlow()
+    public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.Error).Returns(error);
 
-        var result = _businessLogic.Execute(TournamentId.New());
+        var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
             Assert.That(_businessLogic.Error, Is.EqualTo(error));
 
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>()), Times.Never);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresExecute_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresExecute_CalledCorrectly()
     {
         var tournament = new NortheastMegabuck.Models.Tournament
         {
             Sweepers = new[] { new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() } }
         };
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var tournamentId = TournamentId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(tournamentId);
+        await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.Is<IEnumerable<SquadId>>(squadIds=> squadIds.Contains(tournament.Sweepers.First().Id) && squadIds.Contains(tournament.Sweepers.Last().Id) && squadIds.Count() == 2)), Times.Once);
+        _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.Is<IEnumerable<SquadId>>(squadIds=> squadIds.Contains(tournament.Sweepers.First().Id) && squadIds.Contains(tournament.Sweepers.Last().Id) && squadIds.Count() == 2), cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperHasError_ErrorFlow()
+    public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveScores.SetupGet(retrieveScores => retrieveScores.Error).Returns(error);
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(new NortheastMegabuck.Models.Tournament());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Tournament());
 
-        var result = _businessLogic.Execute(TournamentId.New());
+        var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -349,11 +353,11 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperReturnsNoScores_NoScoreFlow()
+    public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperReturnsNoScores_NoScoreFlow()
     {
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(new NortheastMegabuck.Models.Tournament());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Tournament());
 
-        var result = _businessLogic.Execute(TournamentId.New());
+        var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -363,7 +367,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperSuccess_SweeperCutReturnedWithCorrectFields()
+    public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperSuccess_SweeperCutReturnedWithCorrectFields()
     {
         var tournamentId = TournamentId.New();
 
@@ -429,18 +433,18 @@ internal class BusinessLogic
                                   bowler4SquadScore1, bowler4SquadScore2};
 
         var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlersAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(superSweeperBowlers);
 
-        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(squadScores);
+        _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
             SuperSweeperCashRatio = 2
         };
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var result = _businessLogic.Execute(tournamentId);
+        var result = await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -456,7 +460,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveSuperSweeperSuccess_CashRatioMakesCasherCountLessThan1_SweeperCutReturnedWithCorrectFields()
+    public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveSuperSweeperSuccess_CashRatioMakesCasherCountLessThan1_SweeperCutReturnedWithCorrectFields()
     {
 
         var bowler1 = BowlerId.New();
@@ -520,19 +524,19 @@ internal class BusinessLogic
                                   bowler3SquadScore1, bowler3SquadScore2,
                                   bowler4SquadScore1, bowler4SquadScore2};
 
-        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(squadScores);
+        _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
             SuperSweeperCashRatio = 500
         };
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlersAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(superSweeperBowlers);
 
-        var result = _businessLogic.Execute(TournamentId.New());
+        var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -545,7 +549,7 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperSuccess_BowlerNotInSuperSweepers_SweeperCutReturnedWithCorrectFields()
+    public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperSuccess_BowlerNotInSuperSweepers_SweeperCutReturnedWithCorrectFields()
     {
         var tournamentId = TournamentId.New();
 
@@ -626,18 +630,18 @@ internal class BusinessLogic
                                   bowler5SquadScore1, bowler5SquadScore2};
 
         var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlers(It.IsAny<TournamentId>())).Returns(superSweeperBowlers);
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlersAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(superSweeperBowlers);
 
-        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(squadScores);
+        _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
             SuperSweeperCashRatio = 2
         };
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<TournamentId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var result = _businessLogic.Execute(tournamentId);
+        var result = await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

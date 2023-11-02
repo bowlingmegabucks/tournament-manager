@@ -5,7 +5,6 @@ namespace NortheastMegabuck.Registrations.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
-    private readonly TournamentId _tournamentId;
 
     /// <summary>
     /// Add Registration from Tournament Portal
@@ -17,9 +16,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         InitializeComponent();
 
         _config = config;
-        _tournamentId = tournamentId;
 
-        new Presenter(config, this).Load(tournamentId);
+        _ = new Presenter(config, this).LoadAsync(tournamentId, default);
     }
 
     /// <summary>
@@ -32,9 +30,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         InitializeComponent();
 
         _config = config;
-        _tournamentId = tournamentId;
 
-        new Presenter(config, this).Load(tournamentId, squadId);
+        _ = new Presenter(config, this).LoadAsync(tournamentId, squadId, default);
     }
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
@@ -80,11 +77,11 @@ internal partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
-    public void BindSquads(IEnumerable<Squads.IViewModel> squads, SquadId squadToRegister)
+    public void BindSquads(IEnumerable<Squads.IViewModel> squads, SquadId squadId)
     {
         BindSquads(squads);
 
-        var squad = squadsFlowPanelLayout.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == squadToRegister);
+        var squad = squadsFlowPanelLayout.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == squadId);
 
         if (squad == null)
         {
@@ -103,11 +100,11 @@ internal partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
-    public void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers, SquadId sweeperToRegister)
+    public void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers, SquadId squadId)
     {
         BindSweepers(sweepers);
 
-        var sweeper = sweepersFlowLayoutPanel.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == sweeperToRegister);
+        var sweeper = sweepersFlowLayoutPanel.Controls.OfType<Controls.SelectSquadControl>().SingleOrDefault(control => control.Id == squadId);
 
         if (sweeper == null)
         {
@@ -119,7 +116,23 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
-    { }
+    {
+        bowlerControl.Id = bowler.Id;
+        bowlerControl.FirstName = bowler.FirstName;
+        bowlerControl.MiddleInitial = bowler.MiddleInitial;
+        bowlerControl.LastName = bowler.LastName;
+        bowlerControl.Suffix = bowler.Suffix;
+        bowlerControl.StreetAddress = bowler.Street;
+        bowlerControl.CityAddress = bowler.City;
+        bowlerControl.StateAddress = bowler.State;
+        bowlerControl.ZipCode = bowler.ZipCode;
+        bowlerControl.EmailAddress = bowler.Email;
+        bowlerControl.DateOfBirth = bowler.DateOfBirth;
+        bowlerControl.PhoneNumber = bowler.PhoneNumber;
+        bowlerControl.USBCId = bowler.USBCId;
+        bowlerControl.Gender = bowler.Gender;
+        bowlerControl.SocialSecurityNumber = bowler.SSN;
+    }
 
     public void Disable()
     {
@@ -140,7 +153,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public BowlerId? SelectBowler()
     {
-        using var form = new Bowlers.Search.Dialog(_config, true, _tournamentId);
+        using var form = new Bowlers.Search.Dialog(_config, true);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }
@@ -151,6 +164,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void KeepOpen()
         => DialogResult = DialogResult.None;
 
-    private void SaveButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).Execute();
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

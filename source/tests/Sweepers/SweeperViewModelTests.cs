@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Sweepers;
 
 [TestFixture]
-internal class SweeperViewModelTests
+internal sealed class SweeperViewModelTests
 {
     private NortheastMegabuck.Models.Sweeper _model;
     private NortheastMegabuck.Sweepers.IViewModel _viewModel;
@@ -22,7 +22,7 @@ internal class SweeperViewModelTests
             StartingLane = 15,
             NumberOfLanes = 5,
             Complete = true,
-            Divisions = new Dictionary<NortheastMegabuck.DivisionId, int?>
+            Divisions = new Dictionary<DivisionId, int?>
             {
                 { NortheastMegabuck.DivisionId.New(), 1 },
                 { NortheastMegabuck.DivisionId.New(), 2 },

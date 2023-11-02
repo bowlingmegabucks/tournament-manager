@@ -2,11 +2,11 @@
 namespace NortheastMegabuck.Tests.Sweepers.Complete;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Sweepers.Complete.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Sweepers.Complete.IAdapter _adapter;
+    private NortheastMegabuck.Sweepers.Complete.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
@@ -17,22 +17,23 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(squadId);
+        await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ErrorSetToBusinessLogicError()
+    public async Task ExecuteAsync_ErrorSetToBusinessLogicError()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        _adapter.Execute(SquadId.New());
+        await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }

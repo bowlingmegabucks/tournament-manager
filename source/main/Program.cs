@@ -29,7 +29,7 @@ internal static class Program
         
         var builtConfiguration = configBuilder.Build();
         
-        var kvUrl = builtConfiguration["KeyVaultConfig:KVUrl"];
+        var kvUrl = builtConfiguration["KeyVaultConfig:KVUrl"]!;
         var tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
         var clientId = builtConfiguration["KeyVaultConfig:ClientId"];
         var clientSecret = builtConfiguration["KeyVaultConfig:ClientSecret"];
@@ -44,6 +44,7 @@ internal static class Program
 
         Encryption.Key = config["EncryptionKey"] ?? throw new ConfigurationErrorsException("Cannot get encryption key");
 
-        Application.Run(new Tournaments.Retrieve.Form(config));
+        using var form = new Tournaments.Retrieve.Form(config);
+        Application.Run(form);
     }
 }

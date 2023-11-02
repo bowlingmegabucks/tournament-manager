@@ -3,9 +3,9 @@
 namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
-internal class EntityMapper
+internal sealed class EntityMapper
 {
-    private IEntityMapper _mapper;
+    private NortheastMegabuck.Sweepers.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
@@ -55,7 +55,7 @@ internal class EntityMapper
     {
         var model = new NortheastMegabuck.Models.Sweeper
         {
-            Date = new DateTime(2018, 1, 1)
+            Date = new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Unspecified)
         };
 
         var entity = _mapper.Execute(model);
@@ -126,7 +126,7 @@ internal class EntityMapper
         var model = new NortheastMegabuck.Models.Sweeper
         {
             Id = SquadId.New(),
-            Divisions = new Dictionary<NortheastMegabuck.DivisionId, int?>
+            Divisions = new Dictionary<DivisionId, int?>
             {
                 { division0, null},
                 { division1, 1},

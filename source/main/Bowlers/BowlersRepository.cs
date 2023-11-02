@@ -18,10 +18,11 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    IEnumerable<Database.Entities.Bowler> IRepository.Search(Models.BowlerSearchCriteria searchCriteria)
+    IQueryable<Database.Entities.Bowler> IRepository.Search(Models.BowlerSearchCriteria searchCriteria)
     {
         IQueryable<Database.Entities.Bowler> bowlers;
 
+#pragma warning disable IDE0045 // Convert to conditional expression
         if (searchCriteria.WithoutRegistrationOnSquads.Any() && searchCriteria.RegisteredInTournament.HasValue)
         {
             bowlers = _dataContext.Bowlers.Include(bowler => bowler.Registrations).ThenInclude(registration => registration.Squads)
@@ -39,6 +40,7 @@ internal class Repository : IRepository
         {
             bowlers = _dataContext.Bowlers.AsNoTracking();
         }
+#pragma warning restore IDE0045 // Convert to conditional expression
 
         if (!string.IsNullOrWhiteSpace(searchCriteria.LastName))
         {
@@ -65,32 +67,61 @@ internal class Repository : IRepository
             bowlers = bowlers.Where(bowler => !bowler.Registrations.Any(registration => registration.Division.TournamentId == searchCriteria.NotRegisteredInTournament.Value));
         }
 
+        if (searchCriteria.BowlerId.HasValue)
+        {
+            bowlers = bowlers.Where(bowler => bowler.Id == searchCriteria.BowlerId.Value);
+        }
+
         return searchCriteria.WithoutRegistrationOnSquads.Any()
-            ? bowlers.AsEnumerable().Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
-            : bowlers.AsEnumerable();
+            ? bowlers.Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
+            : bowlers;
     }
 
-    void IRepository.Update(BowlerId id, string firstName, string middleInitial, string lastName, string suffix)
+    async Task IRepository.UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken)
     {
-        var bowler = _dataContext.Bowlers.Single(b=> b.Id == id);
+        var bowler = _dataContext.Bowlers.Single(b => b.Id == id);
 
         bowler.FirstName = firstName;
         bowler.MiddleInitial = middleInitial;
         bowler.LastName = lastName;
         bowler.Suffix = suffix;
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    Database.Entities.Bowler IRepository.Retrieve(BowlerId id)
-        => _dataContext.Bowlers.AsNoTracking().Single(bowler => bowler.Id == id);
+    async Task IRepository.UpdateAsync(Database.Entities.Bowler bowler, CancellationToken cancellationToken)
+    {
+        var current = await _dataContext.Bowlers.FirstAsync(b => b.Id == bowler.Id, cancellationToken).ConfigureAwait(false);
+
+        current.FirstName = bowler.FirstName;
+        current.MiddleInitial = bowler.MiddleInitial;
+        current.LastName = bowler.LastName;
+        current.Suffix = bowler.Suffix;
+        current.StreetAddress = bowler.StreetAddress;
+        current.CityAddress = bowler.CityAddress;
+        current.StateAddress = bowler.StateAddress;
+        current.ZipCode = bowler.ZipCode;
+        current.EmailAddress = bowler.EmailAddress;
+        current.PhoneNumber = bowler.PhoneNumber;
+        current.DateOfBirth = bowler.DateOfBirth;
+        current.SocialSecurityNumber = bowler.SocialSecurityNumber;
+        current.Gender = bowler.Gender;
+        current.USBCId = bowler.USBCId;
+        
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    async Task<Database.Entities.Bowler> IRepository.RetrieveAsync(BowlerId id, CancellationToken cancellationToken)
+        => await _dataContext.Bowlers.AsNoTracking().FirstAsync(bowler => bowler.Id == id, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IRepository
 {
-    IEnumerable<Database.Entities.Bowler> Search(Models.BowlerSearchCriteria searchCriteria);
+    IQueryable<Database.Entities.Bowler> Search(Models.BowlerSearchCriteria searchCriteria);
 
-    void Update(BowlerId id, string firstName, string middleInitial, string lastName, string suffix);
+    Task UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken);
 
-    Database.Entities.Bowler Retrieve(BowlerId id);
+    Task UpdateAsync(Database.Entities.Bowler bowler, CancellationToken cancellationToken);
+
+    Task<Database.Entities.Bowler> RetrieveAsync(BowlerId id, CancellationToken cancellationToken);
 }

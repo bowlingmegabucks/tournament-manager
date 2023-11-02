@@ -4,7 +4,7 @@ using System.Text;
 namespace NortheastMegabuck.Tournaments.Seeding;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
-    private readonly IDictionary<TabPage, string> _toSpreadsheet;
+    private readonly Dictionary<TabPage, string> _toSpreadsheet;
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab];
 
@@ -16,7 +16,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         _toSpreadsheet = new Dictionary<TabPage, string>();
 
-        new Presenter(config, this).Execute();
+        _ = new Presenter(config, this).ExecuteAsync(default);
     }
 
     public TournamentId Id { get; }
@@ -24,7 +24,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-    public void BindResults(string divisionName, IEnumerable<IViewModel> scores)
+    public void BindResults(string divisionName, ICollection<IViewModel> scores)
     {
         var tabPage = new TabPage($"{divisionName}TabPage")
         {

@@ -12,5 +12,5 @@ internal interface IView
 
     SquadId? AddSweeper(TournamentId tournamentId);
 
-    void RefreshSweepers();
+    Task RefreshSweepersAsync(CancellationToken cancellationToken);
 }

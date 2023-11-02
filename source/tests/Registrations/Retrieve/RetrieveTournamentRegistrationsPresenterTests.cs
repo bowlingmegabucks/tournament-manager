@@ -1,11 +1,14 @@
 ﻿namespace NortheastMegabuck.Tests.Registrations.Retrieve;
-internal class TournamentRegistrationsPresenter
+
+[TestFixture]
+internal sealed class TournamentRegistrationsPresenter
 {
     private Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationsView> _view;
     private Mock<NortheastMegabuck.Registrations.Retrieve.IAdapter> _registrationsAdapter;
     private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _squadsAdapter;
     private Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
     private Mock<NortheastMegabuck.Registrations.Delete.IAdapter> _deleteAdapter;
+    private Mock<NortheastMegabuck.Registrations.Update.IAdapter> _updateRegistrationAdapter;
 
     private NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter _presenter;
 
@@ -17,57 +20,63 @@ internal class TournamentRegistrationsPresenter
         _squadsAdapter = new Mock<NortheastMegabuck.Squads.Retrieve.IAdapter>();
         _sweepersAdapter = new Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter>();
         _deleteAdapter = new Mock<NortheastMegabuck.Registrations.Delete.IAdapter>();
+        _updateRegistrationAdapter = new Mock<NortheastMegabuck.Registrations.Update.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter(_view.Object, _registrationsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _deleteAdapter.Object);
+        _presenter = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter(_view.Object, _registrationsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _deleteAdapter.Object, _updateRegistrationAdapter.Object);
     }
 
     [Test]
-    public void Execute_RegistrationAdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_RegistrationAdapterExecute_CalledCorrectly()
     {
-        var tournamentId = NortheastMegabuck.TournamentId.New();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _registrationsAdapter.Verify(registrationsAdapter => registrationsAdapter.Execute(tournamentId), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _registrationsAdapter.Verify(registrationsAdapter => registrationsAdapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SquadAdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_SquadAdapterExecute_CalledCorrectly()
     {
-        var tournamentId = NortheastMegabuck.TournamentId.New();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _squadsAdapter.Verify(squadsAdapter => squadsAdapter.Execute(tournamentId), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _squadsAdapter.Verify(squadsAdapter => squadsAdapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_SweepersAdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_SweepersAdapterExecute_CalledCorrectly()
     {
-        var tournamentId = NortheastMegabuck.TournamentId.New();
+        var tournamentId = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
-        _sweepersAdapter.Verify(sweepersAdapter => sweepersAdapter.Execute(tournamentId), Times.Once);
+        _sweepersAdapter.Verify(sweepersAdapter => sweepersAdapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_TwoAdaptersHasSameError_ErrorDisplayedCorrectly()
+    public async Task ExecuteAsync_TwoAdaptersHasSameError_ErrorDisplayedCorrectly()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _registrationsAdapter.SetupGet(registrationAdapter => registrationAdapter.Error).Returns(error);
         _squadsAdapter.SetupGet(squadsAdapter => squadsAdapter.Error).Returns(error);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.DisplayError("error"), Times.Once);
     }
 
     [Test]
-    public void Execute_AllAdaptersHaveDifferentErrors_ErrorDisplayedCorrectly()
+    public async Task ExecuteAsync_AllAdaptersHaveDifferentErrors_ErrorDisplayedCorrectly()
     {
         var error1 = new NortheastMegabuck.Models.ErrorDetail("error1");
         _registrationsAdapter.SetupGet(registrationsAdapter => registrationsAdapter.Error).Returns(error1);
@@ -78,18 +87,18 @@ internal class TournamentRegistrationsPresenter
         var error3 = new NortheastMegabuck.Models.ErrorDetail("error3");
         _sweepersAdapter.SetupGet(sweepersAdapter => sweepersAdapter.Error).Returns(error3);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.DisplayError($"error1{Environment.NewLine}error2{Environment.NewLine}error3"), Times.Once);
     }
 
     [Test]
-    public void Execute_AdaperCallHasError_ErrorFlow()
+    public async Task ExecuteAsync_AdaperCallHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _registrationsAdapter.SetupGet(registrationAdapter => registrationAdapter.Error).Returns(error);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -103,7 +112,7 @@ internal class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public void Execute_AdapterCallsHaveNoErrors_ViewBindRegistrationsCalledCorrectly()
+    public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewBindRegistrationsCalledCorrectly()
     {
         var registrations = new List<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>
         {
@@ -124,9 +133,9 @@ internal class TournamentRegistrationsPresenter
             }
         };
 
-        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<TournamentId>())).Returns(registrations);
+        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrations);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -137,7 +146,7 @@ internal class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public void Execute_AdapterCallsHaveNoErrors_ViewSetDivisionEntries_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewSetDivisionEntries_CalledCorrectly()
     {
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
@@ -152,9 +161,9 @@ internal class TournamentRegistrationsPresenter
         registration3.SetupGet(registration => registration.SquadsEnteredCount).Returns(3);
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
-        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<TournamentId>())).Returns(registrations);
+        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrations);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -166,18 +175,18 @@ internal class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public void Execute_AdapterCallsHaveNoErors_ViewSetSquadEntries_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterCallsHaveNoErors_ViewSetSquadEntries_CalledCorrectly()
     {
         var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        squad1.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
-        squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0));
+        squad1.SetupGet(squad => squad.Id).Returns(SquadId.New());
+        squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
 
         var squad2 = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        squad2.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
-        squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0));
+        squad2.SetupGet(squad => squad.Id).Returns(SquadId.New());
+        squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
 
         var squads = new[] { squad1.Object, squad2.Object };
-        _squadsAdapter.Setup(squadsAdapter => squadsAdapter.Execute(It.IsAny<TournamentId>())).Returns(squads);
+        _squadsAdapter.Setup(squadsAdapter => squadsAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squads);
 
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
@@ -192,9 +201,9 @@ internal class TournamentRegistrationsPresenter
         registration3.SetupGet(registration => registration.SquadsEntered).Returns(new[] { squad1.Object.Id, squad2.Object.Id});
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
-        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<TournamentId>())).Returns(registrations);
+        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrations);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -206,18 +215,18 @@ internal class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public void Execute_AdapterCallsHaveNoErors_ViewSetSweeperdEntries_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterCallsHaveNoErors_ViewSetSweeperdEntries_CalledCorrectly()
     {
         var sweeper1 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper1.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
-        sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0));
+        sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
 
         var sweeper2 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper2.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
-        sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0));
+        sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
 
         var sweepers = new[] { sweeper1.Object, sweeper2.Object };
-        _sweepersAdapter.Setup(sweepersAdapter => sweepersAdapter.Execute(It.IsAny<TournamentId>())).Returns(sweepers);
+        _sweepersAdapter.Setup(sweepersAdapter => sweepersAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweepers);
 
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
@@ -235,9 +244,9 @@ internal class TournamentRegistrationsPresenter
         registration3.SetupGet(registration => registration.SuperSweeperEntered).Returns(true);
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
-        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.Execute(It.IsAny<TournamentId>())).Returns(registrations);
+        _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrations);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -250,49 +259,50 @@ internal class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public void Delete_ViewConfirm_CalledCorrectly()
+    public async Task DeleteAsync_ViewConfirm_CalledCorrectly()
     {
-        _presenter.Delete(RegistrationId.New());
+        await _presenter.DeleteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
         _view.Verify(view => view.Confirm("Are you sure you want to delete this bowler's entire registration?"), Times.Once);
     }
 
     [Test]
-    public void Delete_ViewConfirmFalse_NothingElseHappens()
+    public async Task DeleteAsync_ViewConfirmFalse_NothingElseHappens()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
 
-        _presenter.Delete(RegistrationId.New());
+        await _presenter.DeleteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _deleteAdapter.Verify(adapter => adapter.Execute(It.IsAny<RegistrationId>()), Times.Never);
+            _deleteAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.RemoveRegistration(It.IsAny<RegistrationId>()), Times.Never);
         });
     }
 
     [Test]
-    public void Delete_ViewConfirmTrue_DeleteAdapterExecute_CalledCorrectly()
+    public async Task DeleteAsync_ViewConfirmTrue_DeleteAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
 
-        _presenter.Delete(registrationId);
+        await _presenter.DeleteAsync(registrationId, cancellationToken).ConfigureAwait(false);
 
-        _deleteAdapter.Verify(adapter => adapter.Execute(registrationId), Times.Once);
+        _deleteAdapter.Verify(adapter => adapter.ExecuteAsync(registrationId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Delete_ViewConfirmTrue_DeleteAdapterHasError_ErrorFlow()
+    public async Task DeleteAsync_ViewConfirmTrue_DeleteAdapterHasError_ErrorFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _deleteAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Delete(RegistrationId.New());
+        await _presenter.DeleteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -303,13 +313,13 @@ internal class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public void Delete_ViewConfirmTrue_DeleteAdapterSuccess_ViewRemoveRegistration_CalledCorrectly()
+    public async Task DeleteAsync_ViewConfirmTrue_DeleteAdapterSuccess_ViewRemoveRegistration_CalledCorrectly()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var registrationId = RegistrationId.New();
 
-        _presenter.Delete(registrationId);
+        await _presenter.DeleteAsync(registrationId, default).ConfigureAwait(false);
 
         _view.Verify(view=> view.RemoveRegistration(registrationId), Times.Once);
     }

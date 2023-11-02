@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Registrations.Retrieve;
 
 [TestFixture]
-internal class TournamentRegistrationViewModel
+internal sealed class TournamentRegistrationViewModel
 {
     private NortheastMegabuck.Models.Registration _registration;
 

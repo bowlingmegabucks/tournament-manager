@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Bowlers;
-internal class EntityMapper
+internal sealed class EntityMapper
 {
-    private NortheastMegabuck.Bowlers.IEntityMapper _mapper;
+    private NortheastMegabuck.Bowlers.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()

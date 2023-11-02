@@ -2,11 +2,11 @@
 namespace NortheastMegabuck.Tests.Registrations.Delete;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.Registrations.Delete.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Registrations.Delete.IAdapter _adapter;
+    private NortheastMegabuck.Registrations.Delete.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
@@ -17,44 +17,46 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_BusinessLogicExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(bowlerId, squadId);
+        await _adapter.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(bowlerId, squadId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_ErrorSetToBusinessLogicError()
+    public async Task ExecuteAsync_BowlerIdSquadId_ErrorSetToBusinessLogicError()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        _adapter.Execute(BowlerId.New(), SquadId.New());
+        await _adapter.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }
 
     [Test]
-    public void Execute_RegistrationId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_RegistrationId_BusinessLogicExecute_CalledCorrectly()
     {
         var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(registrationId);
+        await _adapter.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(registrationId), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(registrationId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_RegistrationId_ErrorSetToBusinessLogicError()
+    public async Task ExecuteAsync_RegistrationId_ErrorSetToBusinessLogicError()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
-        _adapter.Execute(RegistrationId.New());
+        await _adapter.ExecuteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(error));
     }

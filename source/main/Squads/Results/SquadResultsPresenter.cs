@@ -17,9 +17,9 @@ internal class Presenter
         _adapter = mockAdapter;
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var scoresByDivision = _adapter.Execute(_view.SquadId).OrderBy(score=> score.Key);
+        var scoresByDivision = (await _adapter.ExecuteAsync(_view.SquadId, cancellationToken).ConfigureAwait(true)).OrderBy(score=> score.Key);
 
         if (_adapter.Error != null)
         {
@@ -30,7 +30,7 @@ internal class Presenter
 
         foreach (var divisionScores in scoresByDivision)
         {
-            _view.BindResults(divisionScores.Key, divisionScores);
+            _view.BindResults(divisionScores.Key, divisionScores.ToList());
         }
     }
 }

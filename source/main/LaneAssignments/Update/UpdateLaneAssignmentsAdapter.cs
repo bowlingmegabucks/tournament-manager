@@ -1,5 +1,4 @@
 ﻿
-
 namespace NortheastMegabuck.LaneAssignments.Update;
 internal class Adapter : IAdapter
 {
@@ -22,13 +21,13 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    void IAdapter.Execute(SquadId squadId, BowlerId bowlerId, string position)
-        => _businessLogic.Execute(squadId, bowlerId, position);
+    async Task IAdapter.ExecuteAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken)
+        => await _businessLogic.ExecuteAsync(squadId, bowlerId, position, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    void Execute(SquadId squadId, BowlerId bowlerId, string position);
+    Task ExecuteAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken);
 }

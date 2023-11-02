@@ -30,9 +30,9 @@ internal class Presenter
         _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
-    public void GetDivisions()
+    public async Task GetDivisionsAsync(CancellationToken cancellationToken)
     {
-        var divisions = _retrieveDivisionsAdapter.Execute(_view.TournamentId);
+        var divisions = await _retrieveDivisionsAdapter.ExecuteAsync(_view.TournamentId, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveDivisionsAdapter.Error != null)
         {
@@ -45,7 +45,7 @@ internal class Presenter
         }
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())
         {
@@ -53,7 +53,7 @@ internal class Presenter
             return;
         }
         
-        var id = Adapter.Execute(_view.Sweeper);
+        var id = await Adapter.ExecuteAsync(_view.Sweeper, cancellationToken).ConfigureAwait(true);
 
         if (Adapter.Errors.Any())
         {

@@ -30,9 +30,9 @@ internal class NamePresenter
         _updateBowlerNameAdapter = new Lazy<IAdapter>(() => mockUpdateBowlerNameAdapter);
     }
 
-    public void Load()
+    public async Task LoadAsync(CancellationToken cancellationToken)
     {
-        var bowler = _retrieveBowlerAdapter.Execute(_view.Id);
+        var bowler = await _retrieveBowlerAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveBowlerAdapter.Error != null)
         {
@@ -45,7 +45,7 @@ internal class NamePresenter
         _view.Bind(bowler!);
     }
 
-    public void Execute()
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())
         {
@@ -54,7 +54,7 @@ internal class NamePresenter
             return;
         }
 
-        UpdateBowlerNameAdapter.Execute(_view.Id, _view.BowlerName);
+        await UpdateBowlerNameAdapter.ExecuteAsync(_view.Id, _view.BowlerName, cancellationToken).ConfigureAwait(true);
 
         if (UpdateBowlerNameAdapter.Errors.Any())
         {
@@ -65,5 +65,6 @@ internal class NamePresenter
         }
 
         _view.DisplayMessage($"{_view.FullName}'s name updated");
+        _view.OkToClose();
     }
 }

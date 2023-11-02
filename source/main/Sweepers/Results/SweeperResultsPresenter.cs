@@ -23,9 +23,9 @@ internal class Presenter
         _adapter = mockAdapter;
     }
 
-    public void Execute(SquadId squadId)
+    public async Task ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
-        var results = _adapter.Execute(squadId);
+        var results = await _adapter.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(true);
 
         if (_adapter.Error != null)
         {
@@ -33,13 +33,13 @@ internal class Presenter
         }
         else
         {
-            _view.BindResults(results);
+            _view.BindResults(results.ToList());
         }
     }
 
-    public void Execute(TournamentId tournamentId)
+    public async Task ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var results = _adapter.Execute(tournamentId);
+        var results = await _adapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
 
         if (_adapter.Error != null)
         {
@@ -47,7 +47,7 @@ internal class Presenter
         }
         else
         {
-            _view.BindResults(results);
+            _view.BindResults(results.ToList());
         }
     }
 }

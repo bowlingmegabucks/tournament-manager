@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace NortheastMegabuck.Scores;
 
@@ -20,18 +19,18 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    void IRepository.Update(IEnumerable<Database.Entities.SquadScore> newSquadScores)
+    async Task IRepository.UpdateAsync(ICollection<Database.Entities.SquadScore> scores, CancellationToken cancellationToken)
     {
-        var squadId = newSquadScores.First().SquadId;
+        var squadId = scores.First().SquadId;
         var existingSquadScores = _dataContext.SquadScores.Where(score => score.SquadId == squadId).ToList();
 
-        foreach (var newSquadScore in newSquadScores)
+        foreach (var newSquadScore in scores)
         {
             var existingSquadScore = existingSquadScores.SingleOrDefault(score => score.BowlerId == newSquadScore.BowlerId && score.Game == newSquadScore.Game);
 
             if (existingSquadScore == null) //this is a new score
             {
-                _dataContext.SquadScores.Add(newSquadScore);
+                await _dataContext.SquadScores.AddAsync(newSquadScore, cancellationToken).ConfigureAwait(false);
             }
             else if (newSquadScore.Score != existingSquadScore.Score) //updated score for bowler in game
             {
@@ -50,13 +49,10 @@ internal class Repository : IRepository
 
         _dataContext.SquadScores.RemoveRange(existingSquadScores); //this removes scores that were cleared out in UI
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    IEnumerable<Database.Entities.SquadScore> IRepository.Retrieve(SquadId squadId)
-        => Retrieve(new[] { squadId });
-
-    public IEnumerable<Database.Entities.SquadScore> Retrieve(IEnumerable<SquadId> squadIds)
+    public IQueryable<Database.Entities.SquadScore> Retrieve(params SquadId[] squadIds)
     => _dataContext.SquadScores.AsNoTrackingWithIdentityResolution()
             .Include(squadScore => squadScore.Bowler)
                 .ThenInclude(bowler => bowler.Registrations.Where(registration => registration.Squads.Any(squad => squadIds.Contains(squad.SquadId))))
@@ -67,9 +63,7 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    void Update(IEnumerable<Database.Entities.SquadScore> scores);
+    Task UpdateAsync(ICollection<Database.Entities.SquadScore> scores, CancellationToken cancellationToken);
 
-    IEnumerable<Database.Entities.SquadScore> Retrieve(SquadId sqauadId);
-
-    IEnumerable<Database.Entities.SquadScore> Retrieve(IEnumerable<SquadId> squadIds);
+    IQueryable<Database.Entities.SquadScore> Retrieve(params SquadId[] squadIds);
 }

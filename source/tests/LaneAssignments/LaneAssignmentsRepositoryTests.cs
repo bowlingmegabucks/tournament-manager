@@ -1,7 +1,7 @@
 ﻿using NortheastMegabuck.Tests.Extensions;
 
 namespace NortheastMegabuck.Tests.LaneAssignments;
-internal class LaneAssignmentsRepositoryTests
+internal sealed class LaneAssignmentsRepositoryTests
 {
     private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
 
@@ -61,7 +61,7 @@ internal class LaneAssignmentsRepositoryTests
         {
             Assert.That(actual, Has.Count.EqualTo(3));
 
-            Assert.That(actual.All(registration => registration.LaneAssignment.StartsWith("3", StringComparison.Ordinal)));
+            Assert.That(actual.TrueForAll(registration => registration.LaneAssignment.StartsWith('3')));
         });
     }
 }

@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.LaneAssignments.Update;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.LaneAssignments.Update.IDataLayer> _dataLayer;
 
@@ -17,40 +17,41 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_DataLayerExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
         var bowlerId = BowlerId.New();
         var position = "21A";
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(squadId, bowlerId, position);
+        await _businessLogic.ExecuteAsync(squadId, bowlerId, position, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(squadId, bowlerId, position), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(squadId, bowlerId, position, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_DataLayerExecuteDoesNotThrowException_ErrorIsNull()
+    public async Task ExecuteAsync_DataLayerExecuteDoesNotThrowException_ErrorIsNull()
     {
         var squadId = SquadId.New();
         var bowlerId = BowlerId.New();
         var position = "21A";
 
-        _businessLogic.Execute(squadId, bowlerId, position);
+        await _businessLogic.ExecuteAsync(squadId, bowlerId, position, default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
-    public void Execute_DataLayerExecuteThrowsException_ErrorSet()
+    public async Task ExecuteAsync_DataLayerExecuteThrowsException_ErrorSet()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<SquadId>(), It.IsAny<BowlerId>(), It.IsAny<string>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<BowlerId>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var squadId = SquadId.New();
         var bowlerId = BowlerId.New();
         var position = "21A";
 
-        _businessLogic.Execute(squadId, bowlerId, position);
+        await _businessLogic.ExecuteAsync(squadId, bowlerId, position, default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
     }

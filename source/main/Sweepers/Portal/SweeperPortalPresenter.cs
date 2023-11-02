@@ -28,9 +28,9 @@ internal class Presenter
         _completeSweeperAdapter = new Lazy<Complete.IAdapter>(() => mockCompleteSweeperAdapter);
     }
 
-    public void Load()
+    public async Task LoadAsync(CancellationToken cancellationToken)
     {
-        var squad = _retrieveSquadAdapter.Execute(_view.Id);
+        var squad = await _retrieveSquadAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveSquadAdapter.Error != null)
         {
@@ -43,20 +43,20 @@ internal class Presenter
 
         _view.SetPortalTitle($"{squad!.Date:MM/dd/yyyy hh:mmtt}");
 
-        _view.StartingLane = squad.StartingLane;
-        _view.NumberOfLanes = squad.NumberOfLanes;
-        _view.MaxPerPair = squad.MaxPerPair;
-        _view.Complete = squad.Complete;
+        _view.SetStartingLane(squad.StartingLane);
+        _view.SetNumberOfLanes(squad.NumberOfLanes);
+        _view.SetMaxPerPair(squad.MaxPerPair);
+        _view.SetComplete(squad.Complete);
     }
 
-    internal void Complete()
+    internal async Task CompleteAsync(CancellationToken cancellationToken)
     {
         if (!_view.Confirm("Are you sure you want to complete this sweeper?"))
         {
             return;
         }
 
-        CompleteSweeperAdapter.Execute(_view.Id);
+        await CompleteSweeperAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
 
         if (CompleteSweeperAdapter.Error != null)
         {

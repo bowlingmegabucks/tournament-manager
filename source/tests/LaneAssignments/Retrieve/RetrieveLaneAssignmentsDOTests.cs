@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.LaneAssignments.IRepository> _repository;
 
@@ -16,17 +16,18 @@ internal class DataLayer
     }
 
     [Test]
-    public void Execute_RepositoryRetrieve_CalledCorrectly()
+    public async Task ExecuteAsync_RepositoryRetrieve_CalledCorrectly()
     {
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.SquadRegistration>().BuildMock());
         var squadId = SquadId.New();
 
-        _dataLayer.Execute(squadId);
+        await _dataLayer.ExecuteAsync(squadId, default).ConfigureAwait(false);
 
         _repository.Verify(repository => repository.Retrieve(squadId), Times.Once);
     }
 
     [Test]
-    public void Execute_ReturnsRepositoryRetrieve()
+    public async Task ExecuteAsync_ReturnsRepositoryRetrieve()
     {
         var laneAssignments = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration
         {
@@ -43,16 +44,16 @@ internal class DataLayer
                 Average = 200
             },
             LaneAssignment = "12C"
-        }, 3);
+        }, 3).BuildMock();
 
         _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(laneAssignments);
 
-        var actual = _dataLayer.Execute(SquadId.New()).ToList();
+        var actual = (await _dataLayer.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {
             Assert.That(actual, Has.Count.EqualTo(3));
-            Assert.That(actual.All(laneAssignment => laneAssignment.Position == "12C"));
+            Assert.That(actual.TrueForAll(laneAssignment => laneAssignment.Position == "12C"));
         });
     }
 }

@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Tournaments.Seeding;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Tournaments.Seeding.IView> _view;
     private Mock<NortheastMegabuck.Tournaments.Seeding.IAdapter> _adapter;
@@ -19,33 +19,35 @@ internal class Presenter
     }
 
     [Test]
-    public void Execute_AdapterExecute_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         _view.SetupGet(view=> view.Id).Returns(tournamentId);
 
-        _presenter.Execute();
+        CancellationToken cancellationToken = default;
 
-        _adapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
+        await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+
+        _adapter.Verify(adapter => adapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_AdapterHasError_ErrorFlow()
+    public async Task ExecuteAsync_AdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<IEnumerable<NortheastMegabuck.Tournaments.Seeding.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<ICollection<NortheastMegabuck.Tournaments.Seeding.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_AdapterHasNoError_ViewBindResults_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterHasNoError_ViewBindResults_CalledCorrectly()
     {
         var result1 = new Mock<NortheastMegabuck.Tournaments.Seeding.IViewModel>();
         result1.SetupGet(result => result.DivisionName).Returns("Division 1");
@@ -64,16 +66,16 @@ internal class Presenter
         result4.SetupGet(result => result.Score).Returns(201);
 
         var results = new[] { result1.Object, result2.Object, result3.Object, result4.Object };
-        _adapter.Setup(adapter => adapter.Execute(It.IsAny<TournamentId>())).Returns(results);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(results);
 
-        _presenter.Execute();
+        await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<IEnumerable<NortheastMegabuck.Tournaments.Seeding.IViewModel>>()), Times.Exactly(2));
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<ICollection<NortheastMegabuck.Tournaments.Seeding.IViewModel>>()), Times.Exactly(2));
 
-            _view.Verify(view => view.BindResults("Division 1", It.Is<IEnumerable<NortheastMegabuck.Tournaments.Seeding.IViewModel>>(Execute => Execute.Count(x => x.Score == 100) == 1 && Execute.Count(x => x.Score == 101) == 1)), Times.Once);
-            _view.Verify(view => view.BindResults("Division 2", It.Is<IEnumerable<NortheastMegabuck.Tournaments.Seeding.IViewModel>>(Execute => Execute.Count(x => x.Score == 200) == 1 && Execute.Count(x => x.Score == 201) == 1)), Times.Once);
+            _view.Verify(view => view.BindResults("Division 1", It.Is<ICollection<NortheastMegabuck.Tournaments.Seeding.IViewModel>>(Execute => Execute.Count(x => x.Score == 100) == 1 && Execute.Count(x => x.Score == 101) == 1)), Times.Once);
+            _view.Verify(view => view.BindResults("Division 2", It.Is<ICollection<NortheastMegabuck.Tournaments.Seeding.IViewModel>>(Execute => Execute.Count(x => x.Score == 200) == 1 && Execute.Count(x => x.Score == 201) == 1)), Times.Once);
         });
     }
 }

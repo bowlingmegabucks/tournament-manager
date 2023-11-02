@@ -1,9 +1,10 @@
 ﻿namespace NortheastMegabuck.Tests.Bowlers.Update;
 
 [TestFixture]
-internal class DataLayer
+internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.Bowlers.IRepository> _repository;
+    private Mock<NortheastMegabuck.Bowlers.IEntityMapper> _entityMapper;
 
     private NortheastMegabuck.Bowlers.Update.IDataLayer _dataLayer;
 
@@ -11,12 +12,13 @@ internal class DataLayer
     public void SetUp()
     {
         _repository = new Mock<NortheastMegabuck.Bowlers.IRepository>();
+        _entityMapper = new Mock<NortheastMegabuck.Bowlers.IEntityMapper>();
 
-        _dataLayer = new NortheastMegabuck.Bowlers.Update.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.Bowlers.Update.DataLayer(_repository.Object, _entityMapper.Object);
     }
 
     [Test]
-    public void Execute_BowlerName_RepositoryUpdate_CalledCorrectly()
+    public async Task Execute_BowlerName_RepositoryUpdate_CalledCorrectly()
     {
         var id = BowlerId.New();
 
@@ -27,9 +29,10 @@ internal class DataLayer
             Last = "lastName",
             Suffix = "suffix"
         };
+        CancellationToken cancellationToken = default;
 
-        _dataLayer.Execute(id, name);
+        await _dataLayer.ExecuteAsync(id, name, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository => repository.Update(id, name.First, name.MiddleInitial, name.Last, name.Suffix), Times.Once);
+        _repository.Verify(repository => repository.UpdateAsync(id, name.First, name.MiddleInitial, name.Last, name.Suffix, cancellationToken), Times.Once);
     }
 }

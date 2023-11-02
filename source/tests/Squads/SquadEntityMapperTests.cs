@@ -1,9 +1,9 @@
 ﻿namespace NortheastMegabuck.Tests.Squads;
 
 [TestFixture]
-internal class EntityMapper
+internal sealed class EntityMapper
 {
-    private NortheastMegabuck.Squads.IEntityMapper _mapper;
+    private NortheastMegabuck.Squads.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
@@ -33,6 +33,19 @@ internal class EntityMapper
         var entity = _mapper.Execute(model);
 
         Assert.That(entity.TournamentId, Is.EqualTo(model.TournamentId));
+    }
+
+    [Test]
+    public void Execute_EntryFeeMapped([Values(null, 100)] decimal? entryFee)
+    {
+        var model = new NortheastMegabuck.Models.Squad
+        {
+            EntryFee = entryFee
+        };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.EntryFee, Is.EqualTo(model.EntryFee));
     }
 
     [Test]

@@ -20,9 +20,9 @@ internal class Adapter : IAdapter
     public Models.ErrorDetail? Error
         => _businessLogic.Error;
 
-    public IEnumerable<IViewModel> Execute(TournamentId tournamentId)
+    public async Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var divisions = _businessLogic.Execute(tournamentId);
+        var divisions = await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         return divisions.Select(division => new ViewModel(division));
     }
@@ -32,5 +32,5 @@ internal interface IAdapter
 { 
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<IViewModel> Execute(TournamentId tournamentId);
+    Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Database;
 
 [TestFixture]
-internal class DateOnlyConverterTests
+internal sealed class DateOnlyConverterTests
 {
     [Test]
     public void DateOnlyToDateTime_MappedCorrectly()
@@ -22,7 +22,7 @@ internal class DateOnlyConverterTests
     {
         var dateOnlyConverter = new NortheastMegabuck.Database.DateOnlyConverter();
 
-        var dateTime = new DateTime(2000, 1, 2,3,4,5);
+        var dateTime = new DateTime(2000, 1, 2,3,4,5, DateTimeKind.Unspecified);
 
         var fromConverter = dateOnlyConverter.ConvertFromProviderExpression.Compile();
 

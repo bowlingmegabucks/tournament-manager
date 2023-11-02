@@ -17,10 +17,13 @@ internal class SweeperSquad : Squad
     internal new class Configuration : IEntityTypeConfiguration<SweeperSquad>
     {
         public void Configure(EntityTypeBuilder<SweeperSquad> builder)
-            => builder.HasOne(squad=> squad.Tournament)
-                      .WithMany(tournament => tournament.Sweepers)
-                      .HasForeignKey(squad => squad.TournamentId)
-                      .IsRequired();
+        {
+            builder.Property(squad=> squad.EntryFee).HasColumnName("SweeperEntryFee");
 
+            builder.HasOne(squad => squad.Tournament)
+                     .WithMany(tournament => tournament.Sweepers)
+                     .HasForeignKey(squad => squad.TournamentId)
+                     .IsRequired();
+        }
     }
 }

@@ -2,18 +2,18 @@
 
 internal partial class Form : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;    
-    
+    private readonly IConfiguration _config;
+
     public Form(IConfiguration config, TournamentId tournamentId)
     {
         InitializeComponent();
 
         _config = config;
-        
+
         newSquad.TournamentId = tournamentId;
         newSquad.Date = DateTime.Today;
 
-        new Presenter(config, this).GetTournamentRatios();
+        _ = new Presenter(config, this).GetTournamentDetailsAsync(default);
     }
 
     public bool IsValid()
@@ -26,7 +26,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     public void DisplayMessage(string message)
-        => MessageBox.Show(message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);    
+        => MessageBox.Show(message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+    public void SetTournamentEntryFee(string entryFee)
+        => tournamentEntryFeeValue.Text = entryFee;
 
     public void SetTournamentFinalsRatio(string ratio)
         => tournamentFinalsRatioValue.Text = ratio;
@@ -37,6 +40,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public IViewModel Squad
         => newSquad;
 
-    private void SaveButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).Execute();
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Divisions.Add;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Divisions.Add.IView> _view;
     private Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter> _retrieveAdapter;
@@ -20,7 +20,7 @@ internal class Presenter
     }
 
     [Test]
-    public void GetNextDivisionNumber_RetrieveDivisionsAdapterExecute_CalledCorrectly()
+    public async Task GetNextDivisionNumberAsync_RetrieveDivisionsAdapterExecute_CalledCorrectly()
     {
         var division = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
@@ -28,13 +28,15 @@ internal class Presenter
         var tournamentId = TournamentId.New();
         division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 
-        _presenter.GetNextDivisionNumber();
+        CancellationToken cancellationToken = default;
 
-        _retrieveAdapter.Verify(adapter => adapter.Execute(tournamentId), Times.Once);
+        await _presenter.GetNextDivisionNumberAsync(cancellationToken).ConfigureAwait(false);
+
+        _retrieveAdapter.Verify(adapter => adapter.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void GetNextDivisionNumber_RetrieveDivisionAdapterHasErrors_ErrorFlow()
+    public async Task GetNextDivisionNumberAsync_RetrieveDivisionAdapterHasErrors_ErrorFlow()
     {
         var division = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
@@ -45,7 +47,7 @@ internal class Presenter
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveAdapter.SetupGet(retrieveAdapter => retrieveAdapter.Error).Returns(error);
 
-        _presenter.GetNextDivisionNumber();
+        await _presenter.GetNextDivisionNumberAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -57,7 +59,7 @@ internal class Presenter
     [TestCase(0, 1)]
     [TestCase(1, 2)]
     [TestCase(2, 3)]
-    public void GetNextDivisionNumber_RetrieveDivisionAdapterHasNoErrors_NextDivisionNumberSet(short divisionCount, short expected)
+    public async Task GetNextDivisionNumber_RetrieveDivisionAdapterHasNoErrors_NextDivisionNumberSet(short divisionCount, short expected)
     {
         var division = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
@@ -66,9 +68,9 @@ internal class Presenter
         division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 
         var divisions = Enumerable.Repeat(new Mock<NortheastMegabuck.Divisions.IViewModel>(), divisionCount).Select(mock => mock.Object).ToList();
-        _retrieveAdapter.Setup(retrieveAdapter => retrieveAdapter.Execute(It.IsAny<TournamentId>())).Returns(divisions);
+        _retrieveAdapter.Setup(retrieveAdapter => retrieveAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
-        _presenter.GetNextDivisionNumber();
+        await _presenter.GetNextDivisionNumberAsync(default).ConfigureAwait(false);
 
         division.VerifySet(d => d.Number = expected, Times.Once);
     }

@@ -3,168 +3,177 @@
 namespace NortheastMegabuck.Tests.Registrations.Add;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Divisions.Retrieve.IBusinessLogic> _getDivisionBO;
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
-    private Mock<NortheastMegabuck.Bowlers.Retrieve.IBusinessLogic> _getBowlerBO;
+    private Mock<NortheastMegabuck.Bowlers.Search.IBusinessLogic> _searchBowlerBO;
+    private Mock<NortheastMegabuck.Bowlers.Update.IBusinessLogic> _updateBowlerBO;
     private Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Registration>> _validator;
     private Mock<NortheastMegabuck.Registrations.Add.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Registrations.Add.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Registrations.Add.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
         _getDivisionBO = new Mock<NortheastMegabuck.Divisions.Retrieve.IBusinessLogic>();
         _getTournamentBO = new Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic>();
-        _getBowlerBO = new Mock<NortheastMegabuck.Bowlers.Retrieve.IBusinessLogic>();
+        _searchBowlerBO = new Mock<NortheastMegabuck.Bowlers.Search.IBusinessLogic>();
+        _updateBowlerBO = new Mock<NortheastMegabuck.Bowlers.Update.IBusinessLogic>();
         _validator = new Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Registration>>();
         _dataLayer = new Mock<NortheastMegabuck.Registrations.Add.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.Registrations.Add.BusinessLogic(_getDivisionBO.Object, _getTournamentBO.Object, _getBowlerBO.Object, _validator.Object, _dataLayer.Object);
+        _businessLogic = new NortheastMegabuck.Registrations.Add.BusinessLogic(_getDivisionBO.Object, _getTournamentBO.Object, _searchBowlerBO.Object, _updateBowlerBO.Object, _validator.Object, _dataLayer.Object);
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecute_Model_CalledCorrectly()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecute_Model_CalledCorrectly()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
 
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = DivisionId.New();
 
         var registration = new NortheastMegabuck.Models.Registration
         {
             Division = new NortheastMegabuck.Models.Division { Id = divisionId }
         };
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(registration);
+        await _businessLogic.ExecuteAsync(registration, cancellationToken).ConfigureAwait(false);
 
-        _getDivisionBO.Verify(getDivisionBO => getDivisionBO.Execute(divisionId), Times.Once);
+        _getDivisionBO.Verify(getDivisionBO => getDivisionBO.ExecuteAsync(divisionId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecuteHasErrors_ErrorFlow()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteHasErrors_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _getDivisionBO.SetupGet(getDivisionBO => getDivisionBO.Error).Returns(error);
 
         var registration = new NortheastMegabuck.Models.Registration();
 
-        var actual = _businessLogic.Execute(registration);
+        var actual = await _businessLogic.ExecuteAsync(registration, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
-            _getTournamentBO.Verify(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>()), Times.Never);
+            _searchBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>()), Times.Never);
+            _getTournamentBO.Verify(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionId_CalledCorrectly()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionId_CalledCorrectly()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
         
         var registration = new NortheastMegabuck.Models.Registration();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(registration);
+        await _businessLogic.ExecuteAsync(registration, cancellationToken).ConfigureAwait(false);
 
-        _getTournamentBO.Verify(getTournamentBO => getTournamentBO.Execute(division.Id), Times.Once);
+        _getTournamentBO.Verify(getTournamentBO => getTournamentBO.ExecuteAsync(division.Id, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionIdHasError_ErrorFlow()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionIdHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _getTournamentBO.SetupGet(getDivisionBO => getDivisionBO.Error).Returns(error);
 
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var registration = new NortheastMegabuck.Models.Registration();
 
-        var actual = _businessLogic.Execute(registration);
+        var actual = await _businessLogic.ExecuteAsync(registration, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
+            _searchBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>()), Times.Never);
             _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionIdSuccessful_ValueSetOnRegistration()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionIdSuccessful_ValueSetOnRegistration()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today), Sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper(), 4)};
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
 
         var registration = new NortheastMegabuck.Models.Registration();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(registration);
+        await _businessLogic.ExecuteAsync(registration, cancellationToken).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(registration.TournamentStartDate, Is.EqualTo(tournament.Start));
 
-            _validator.Verify(validator => validator.Validate(It.Is<NortheastMegabuck.Models.Registration>(r => r.TournamentStartDate == tournament.Start && registration.SweeperCount == 4)), Times.Once);
+            _validator.Verify(validator => validator.ValidateAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.TournamentStartDate == tournament.Start && registration.TournamentSweeperCount == 4), cancellationToken), Times.Once);
         });
     }
 
     [Test]
-    public void Execute_Model_GetDivisonBOExecuteSuccessful_ValiationAndDataLayerCalledWithReturnedDivision()
+    public async Task ExecuteAsync_Model_GetDivisonBOExecuteSuccessful_ValiationAndDataLayerCalledWithReturnedDivision()
     {
         var division = new NortheastMegabuck.Models.Division();
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today) };
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
 
         var registration = new NortheastMegabuck.Models.Registration();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(registration);
+        await _businessLogic.ExecuteAsync(registration, cancellationToken).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _validator.Verify(validator => validator.Validate(It.Is<NortheastMegabuck.Models.Registration>(r => r.Division == division)), Times.Once);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<NortheastMegabuck.Models.Registration>(r => r.Division == division)), Times.Once);
+            _validator.Verify(validator => validator.ValidateAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.Division == division), cancellationToken), Times.Once);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.Is<NortheastMegabuck.Models.Registration>(r => r.Division == division), cancellationToken), Times.Once);
         });
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_GetBowlerBOExecute_Model_CalledCorrecctly()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_SearchBowlerBOExecute_CalledCorrecctly()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
-        var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
+        var tournament = new NortheastMegabuck.Models.Tournament
+        {
+            Id = TournamentId.New()
+        };
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
 
@@ -175,19 +184,21 @@ internal class BusinessLogic
             Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId }
         };
 
-        _businessLogic.Execute(registration);
+        CancellationToken cancellationToken = default;
 
-        _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(bowlerId), Times.Once);
+        await _businessLogic.ExecuteAsync(registration, cancellationToken).ConfigureAwait(false);
+
+        _searchBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(It.Is<NortheastMegabuck.Models.BowlerSearchCriteria>(searchCriteria => searchCriteria.BowlerId == bowlerId && searchCriteria.RegisteredInTournament.Value == tournament.Id), cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_BowlerIdEmpty_GetBowlerBOExecute_Model_NotCalled()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_BowlerIdEmpty_SearchBowlerBOExecute_Model_NotCalled()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
 
@@ -198,143 +209,52 @@ internal class BusinessLogic
             Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId }
         };
 
-        _businessLogic.Execute(registration);
+        await _businessLogic.ExecuteAsync(registration, default).ConfigureAwait(false);
 
-        _getBowlerBO.Verify(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>()), Times.Never);
+        _searchBowlerBO.Verify(getBowlerBO => getBowlerBO.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_GetBowlerBOExecuteHasError_ErrorFlow()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_ValidatorIsValid_False_ErrorFlow()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
-
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _getBowlerBO.SetupGet(getBowlerBO => getBowlerBO.Error).Returns(error);
-
-        var bowlerId = BowlerId.New();
-
-        var registration = new NortheastMegabuck.Models.Registration
-        {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId }
-        };
-
-        var actual = _businessLogic.Execute(registration);
-
-        Assert.Multiple(() =>
-        {
-            _businessLogic.Errors.Assert_HasErrorMessage("error");
-            Assert.That(actual, Is.Null);
-
-            _validator.Verify(validator => validator.Validate(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
-        });
-    }
-
-    [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_ValidatorAndDataLayerCalledWithReturnedBowler()
-    {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
-
-        var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
-
-        _validator.Validate_IsValid();
-
-        var bowler = new NortheastMegabuck.Models.Bowler();
-        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>())).Returns(bowler);
-
-        var bowlerId = BowlerId.New();
-
-        var registration = new NortheastMegabuck.Models.Registration
-        {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId }
-        };
-
-        _businessLogic.Execute(registration);
-
-        Assert.Multiple(() =>
-        {
-            _validator.Verify(validator => validator.Validate(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler)), Times.Once);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler)), Times.Once);
-        });
-    }
-
-    [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_BowlerIdEmpty_ValidatorAndDataLayerNotCalledWithAResponseFromGetBowlerBO()
-    {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
-
-        var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
-
-        _validator.Validate_IsValid();
-
-        var bowler = new NortheastMegabuck.Models.Bowler();
-        _getBowlerBO.Setup(getBowlerBO => getBowlerBO.Execute(It.IsAny<BowlerId>())).Returns(bowler);
-
-        var bowlerId = BowlerId.Empty;
-
-        var registration = new NortheastMegabuck.Models.Registration
-        {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowlerId }
-        };
-
-        _businessLogic.Execute(registration);
-
-        Assert.Multiple(() =>
-        {
-            _validator.Verify(validator => validator.Validate(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler)), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.Is<NortheastMegabuck.Models.Registration>(r => r.Bowler == bowler)), Times.Never);
-        });
-    }
-
-    [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_ValidatorIsValid_False_ErrorFlow()
-    {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
-
-        var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsNotValid("errorMessage");
 
         var registration = new NortheastMegabuck.Models.Registration();
 
-        var actual = _businessLogic.Execute(registration);
+        var actual = await _businessLogic.ExecuteAsync(registration, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             _businessLogic.Errors.Assert_HasErrorMessage("errorMessage");
             Assert.That(actual, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_ValidationIsValid_DataLayerExecuteThrowsException_ErrorFlow()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_ValidationIsValid_DataLayerExecuteThrowsException_ErrorFlow()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Throws(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>())).Throws(ex);
 
         var registration = new NortheastMegabuck.Models.Registration();
 
-        var actual = _businessLogic.Execute(registration);
+        var actual = await _businessLogic.ExecuteAsync(registration, default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -344,44 +264,45 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_Model_GetDivisionBOExecuteSuccessful_ValidationIsValid_ReeturnsDataLayerExecute()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_ValidationIsValid_ReeturnsDataLayerExecute()
     {
-        var division = new NortheastMegabuck.Models.Division { Id = NortheastMegabuck.DivisionId.New() };
-        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(division);
+        var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
+        _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.Execute(It.IsAny<NortheastMegabuck.DivisionId>())).Returns(tournament);
+        _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
 
         var id = RegistrationId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.Execute(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(id);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var registration = new NortheastMegabuck.Models.Registration();
 
-        var actual = _businessLogic.Execute(registration);
+        var actual = await _businessLogic.ExecuteAsync(registration, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(id));
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_DataLayerExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BowlerIdSquadId_DataLayerExecute_CalledCorrectly()
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(bowlerId, squadId);
+        await _businessLogic.ExecuteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer => dataLayer.Execute(bowlerId, squadId), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(bowlerId, squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_BowlerIdSquadId_ReturnsDataLayerExecute()
+    public async Task ExecuteAsync_BowlerIdSquadId_ReturnsDataLayerExecute()
     {
         var registration = new NortheastMegabuck.Models.Registration();
-        _dataLayer.Setup(dataLayer=> dataLayer.Execute(It.IsAny<BowlerId>(), It.IsAny<SquadId>())).Returns(registration);
+        _dataLayer.Setup(dataLayer=> dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration);
 
-        var actual = _businessLogic.Execute(BowlerId.New(), SquadId.New());
+        var actual = await _businessLogic.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(registration));
     }

@@ -19,60 +19,65 @@ internal class Repository : IRepository
         _dataContext = mockDataContext;
     }
 
-    RegistrationId IRepository.Add(Database.Entities.Registration registration)
+    async Task<RegistrationId> IRepository.AddAsync(Database.Entities.Registration registration, CancellationToken cancellationToken)
     {
-        _dataContext.Registrations.Add(registration);
-        _dataContext.SaveChanges();
+        await _dataContext.Registrations.AddAsync(registration, cancellationToken).ConfigureAwait(false);
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return registration.Id;
     }
 
-    Database.Entities.Registration IRepository.AddSquad(BowlerId bowlerId, SquadId squadId)
+    async Task<Database.Entities.Registration> IRepository.AddSquadAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
-        var tournamentId = _dataContext.Tournaments.Include(tournament=> tournament.Squads).Include(tournament=> tournament.Sweepers).Single(tournament => tournament.Squads.Select(squad => squad.Id).Contains(squadId) || tournament.Sweepers.Select(sweeper => sweeper.Id).Contains(squadId)).Id;
-        var registration = _dataContext.Registrations.Include(registration => registration.Division)
+        var tournamentId = (await _dataContext.Tournaments.Include(tournament=> tournament.Squads).Include(tournament=> tournament.Sweepers).FirstAsync(tournament => tournament.Squads.Select(squad => squad.Id).Contains(squadId) || tournament.Sweepers.Select(sweeper => sweeper.Id).Contains(squadId), cancellationToken).ConfigureAwait(false)).Id;
+        var registration = await _dataContext.Registrations.Include(registration => registration.Division)
                                                      .Include(registration=> registration.Squads)
                                                      .Include(registration=> registration.Bowler)
                                                      .Include(registration=> registration.Division)
-                                                     .Single(registration => registration.BowlerId == bowlerId && registration.Division.TournamentId == tournamentId);
+                                                     .FirstAsync(registration => registration.BowlerId == bowlerId && registration.Division.TournamentId == tournamentId, cancellationToken).ConfigureAwait(false);
 
         registration.Squads.Add(new Database.Entities.SquadRegistration { RegistrationId = registration.Id, SquadId = squadId });
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return registration;
     }
 
-    IEnumerable<Database.Entities.Registration> IRepository.Retrieve(TournamentId tournamentId)
+    IQueryable<Database.Entities.Registration> IRepository.Retrieve(TournamentId tournamentId)
         => _dataContext.Registrations.Include(registration => registration.Division)
             .Include(registration => registration.Squads).ThenInclude(squadRegistration=> squadRegistration.Squad)
             .Include(registration => registration.Bowler)
             .AsNoTracking()
             .Where(registration => registration.Division.TournamentId == tournamentId);
 
-    IEnumerable<Database.Entities.SquadRegistration> IRepository.RetrieveForSquad(SquadId squadId)
-        => Enumerable.Empty<Database.Entities.SquadRegistration>();
+    async Task<Database.Entities.Registration> IRepository.RetrieveAsync(RegistrationId id, CancellationToken cancellationToken)
+        => await _dataContext.Registrations
+            .Include(registration => registration.Squads).ThenInclude(squad => squad.Squad)
+            .Include(registration => registration.Bowler)
+            .Include(registration => registration.Division)
+            .AsNoTracking()
+            .FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 
-    void IRepository.Delete(BowlerId bowlerId, SquadId squadId)
+    async Task IRepository.DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
         if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId))
         {
             throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
         }
 
-        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration=> registration.BowlerId == bowlerId && registration.Squads.Count(squad=> squad.SquadId == squadId) == 1);
+        var registration = await _dataContext.Registrations.Include(registration=> registration.Squads).FirstAsync(registration=> registration.BowlerId == bowlerId && registration.Squads.Count(squad=> squad.SquadId == squadId) == 1, cancellationToken).ConfigureAwait(false);
         var squad = registration.Squads.Single(squad => squad.SquadId == squadId);
 
         registration.Squads.Remove(squad);
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    void IRepository.Delete(RegistrationId id)
+    async Task IRepository.DeleteAsync(RegistrationId id, CancellationToken cancellationToken)
     {
-        var registration = _dataContext.Registrations.Include(registration=> registration.Squads).Single(registration => registration.Id == id);
+        var registration = await _dataContext.Registrations.Include(registration=> registration.Squads).FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 
-        if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == registration.BowlerId && registration.Squads.Select(squad => squad.SquadId).Contains(squadScore.SquadId)))
+        if (await _dataContext.SquadScores.AnyAsync(squadScore => squadScore.BowlerId == registration.BowlerId && registration.Squads.Select(squad => squad.SquadId).Contains(squadScore.SquadId), cancellationToken).ConfigureAwait(false))
         {
             throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
         }
@@ -81,21 +86,32 @@ internal class Repository : IRepository
 
         _dataContext.Registrations.Remove(registration);
 
-        _dataContext.SaveChanges();
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    async Task IRepository.UpdateAsync(RegistrationId id, bool superSweeper, CancellationToken cancellationToken)
+    {
+        var registration = await _dataContext.Registrations.FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
+
+        registration.SuperSweeper = superSweeper;
+
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 }
 
 internal interface IRepository
 {
-    RegistrationId Add(Database.Entities.Registration registration);
+    Task<RegistrationId> AddAsync(Database.Entities.Registration registration, CancellationToken cancellationToken);
 
-    Database.Entities.Registration AddSquad(BowlerId bowlerId, SquadId squadId);
+    Task<Database.Entities.Registration> AddSquadAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
-    IEnumerable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
+    IQueryable<Database.Entities.Registration> Retrieve(TournamentId tournamentId);
 
-    IEnumerable<Database.Entities.SquadRegistration> RetrieveForSquad(SquadId squadId);
+    Task<Database.Entities.Registration> RetrieveAsync(RegistrationId id, CancellationToken cancellationToken);
 
-    void Delete(BowlerId bowlerId, SquadId squadId);
+    Task DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
-    void Delete(RegistrationId id);
+    Task DeleteAsync(RegistrationId id, CancellationToken cancellationToken);
+
+    Task UpdateAsync(RegistrationId id, bool superSweeper, CancellationToken cancellationToken);
 }

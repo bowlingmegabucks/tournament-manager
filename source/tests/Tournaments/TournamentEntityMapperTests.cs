@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.Tournaments;
 
 [TestFixture]
-internal class EntityMapperTests
+internal sealed class EntityMapperTests
 {
     private NortheastMegabuck.Tournaments.IEntityMapper _mapper;
 
@@ -125,5 +125,15 @@ internal class EntityMapperTests
         var entity = _mapper.Execute(model);
 
         Assert.That(entity.Completed, Is.EqualTo(completed));
+    }
+
+    [Test]
+    public void Execute_SuperSweeperCashRatioMapped()
+    {
+        var model = new NortheastMegabuck.Models.Tournament { SuperSweeperCashRatio = 1.2m };
+
+        var entity = _mapper.Execute(model);
+
+        Assert.That(entity.SuperSweperCashRatio, Is.EqualTo(1.2m));
     }
 }

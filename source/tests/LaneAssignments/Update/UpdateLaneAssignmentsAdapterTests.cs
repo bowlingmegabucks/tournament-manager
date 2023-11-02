@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tests.LaneAssignments.Update;
 
 [TestFixture]
-internal class Adapter
+internal sealed class Adapter
 {
     private Mock<NortheastMegabuck.LaneAssignments.Update.IBusinessLogic> _businessLogic;
 
@@ -16,19 +16,20 @@ internal class Adapter
     }
 
     [Test]
-    public void Execute_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var squadId = SquadId.New();
         var bowlerId = BowlerId.New();
         var position = "21A";
+        CancellationToken cancellationToken = default;
 
-        _adapter.Execute(squadId, bowlerId, position);
+        await _adapter.ExecuteAsync(squadId, bowlerId, position, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.Execute(squadId, bowlerId, position), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(squadId, bowlerId, position, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_ErrorSetToBusinessLogicError()
+    public async Task ExecuteAsync_ErrorSetToBusinessLogicError()
     {
         var errorDetail = new NortheastMegabuck.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(errorDetail);
@@ -37,7 +38,7 @@ internal class Adapter
         var bowlerId = BowlerId.New();
         var position = "21A";
 
-        _adapter.Execute(squadId, bowlerId, position);
+        await _adapter.ExecuteAsync(squadId, bowlerId, position, default).ConfigureAwait(false);
 
         Assert.That(_adapter.Error, Is.EqualTo(errorDetail));
     }

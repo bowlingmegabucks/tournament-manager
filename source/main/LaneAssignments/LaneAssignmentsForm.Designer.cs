@@ -15,6 +15,7 @@ partial class Form
     {
         if (disposing && (components != null))
         {
+            _recapSheetForm?.Dispose();
             components.Dispose();
         }
         base.Dispose(disposing);

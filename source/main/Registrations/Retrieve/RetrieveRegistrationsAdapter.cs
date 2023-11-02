@@ -20,9 +20,9 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    IEnumerable<ITournamentRegistrationViewModel> IAdapter.Execute(TournamentId tournamentId)
+    async Task<IEnumerable<ITournamentRegistrationViewModel>> IAdapter.ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var registrations = _businessLogic.Execute(tournamentId);
+        var registrations = await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         Error = _businessLogic.Error;
 
@@ -34,5 +34,5 @@ internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    IEnumerable<ITournamentRegistrationViewModel> Execute(TournamentId tournamentId);
+    Task<IEnumerable<ITournamentRegistrationViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

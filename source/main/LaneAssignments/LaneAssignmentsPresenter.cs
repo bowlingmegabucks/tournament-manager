@@ -54,7 +54,7 @@ internal class Presenter
         _deleteAdapter = new Lazy<Registrations.Delete.IAdapter>(() => mockDeleteAdapter);
     }
 
-    public void Load()
+    public async Task LoadAsync(CancellationToken cancellationToken)
     {
         try
         {
@@ -70,7 +70,7 @@ internal class Presenter
             return;
         }    
 
-        var assignments = RetrieveAdapter.Execute(_view.SquadId);
+        var assignments = await RetrieveAdapter.ExecuteAsync(_view.SquadId, cancellationToken).ConfigureAwait(true);
 
         if (RetrieveAdapter.Error != null)
         {
@@ -87,9 +87,9 @@ internal class Presenter
         _view.BindEntriesPerDivision(entriesPerDivision);
     }
 
-    public void Update(SquadId squadId, IViewModel registration, string position)
+    public async Task UpdateAsync(SquadId squadId, IViewModel registration, string position, CancellationToken cancellationToken)
     {
-        UpdateAdapter.Execute(squadId, registration.BowlerId, position);
+        await UpdateAdapter.ExecuteAsync(squadId, registration.BowlerId, position, cancellationToken).ConfigureAwait(true);
 
         if (UpdateAdapter.Error != null)
         {
@@ -108,7 +108,7 @@ internal class Presenter
         }
     }
 
-    public void AddToRegistration()
+    public async Task AddToRegistrationAsync(CancellationToken cancellationToken)
     {
         var bowlerId = _view.SelectBowler(_view.TournamentId, _view.SquadId);
 
@@ -119,7 +119,7 @@ internal class Presenter
             return;
         }
 
-        var laneAssignment = AddRegistrationAdapter.Execute(bowlerId.Value, _view.SquadId);
+        var laneAssignment = await AddRegistrationAdapter.ExecuteAsync(bowlerId.Value, _view.SquadId, cancellationToken).ConfigureAwait(true);
 
         if (AddRegistrationAdapter.Errors.Any())
         {
@@ -132,7 +132,7 @@ internal class Presenter
         _view.AddToUnassigned(laneAssignment);
     }
 
-    public void NewRegistration()
+    public async Task NewRegistrationAsync(CancellationToken cancellationToken)
     {
         var added = _view.NewRegistration(_view.TournamentId, _view.SquadId);
 
@@ -146,7 +146,7 @@ internal class Presenter
         _view.ClearLanes();
         _view.ClearUnassigned();
 
-        Load();
+        await LoadAsync(cancellationToken).ConfigureAwait(true);
     }
 
     internal void GenerateRecaps(IEnumerable<IViewModel> assignments)
@@ -182,14 +182,14 @@ internal class Presenter
         _view.GenerateRecaps(recaps);
     }
 
-    public void Delete(BowlerId bowlerId)
+    public async Task DeleteAsync(BowlerId bowlerId, CancellationToken cancellationToken)
     {
         if (!_view.Confirm("Are you sure you want remove bowler from this squad (Refund may be required)?"))
         {
             return;
         }
 
-        DeleteAdapter.Execute(bowlerId, _view.SquadId);
+        await DeleteAdapter.ExecuteAsync(bowlerId, _view.SquadId, cancellationToken).ConfigureAwait(true);
 
         if (DeleteAdapter.Error != null)
         {

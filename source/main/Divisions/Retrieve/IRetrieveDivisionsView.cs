@@ -12,5 +12,5 @@ internal interface IView
 
     NortheastMegabuck.DivisionId? AddDivision(TournamentId tournamentId);
 
-    void RefreshDivisions();
+    Task RefreshDivisionsAsync(CancellationToken cancellationToken);
 }

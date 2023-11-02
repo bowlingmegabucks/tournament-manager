@@ -1,5 +1,5 @@
-﻿using System.Globalization;
-using NortheastMegabuck.Bowlers.Add;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace NortheastMegabuck.Controls;
 public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
@@ -25,7 +25,7 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
         BorderStyle = BorderStyle.FixedSingle;
     }
 
-    public void Bind(LaneAssignments.IViewModel viewModel)
+    public void Bind([NotNull]LaneAssignments.IViewModel viewModel)
     {
         BowlerId = viewModel.BowlerId;
         BowlerName = viewModel.BowlerName;
@@ -109,6 +109,31 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
 
     private void Controls_DragLeave(object sender, EventArgs e)
         => OnDragLeave(e);
+
     public int CompareTo(LaneAssignments.IViewModel? other)
         => 0;
+
+    public override bool Equals(object? obj)
+        => obj is LaneAssignments.IViewModel other && CompareTo(other) == 0;
+
+    public override int GetHashCode()
+        => LaneAssignment.GetHashCode(StringComparison.OrdinalIgnoreCase);
+
+    public static bool operator ==(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) == 0;
+
+    public static bool operator !=(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) != 0;
+
+    public static bool operator <(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) < 0;
+
+    public static bool operator >(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) > 0;
+
+    public static bool operator <=(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) <= 0;
+
+    public static bool operator >=(LaneAssignmentControl? left, LaneAssignments.IViewModel? right)
+        => left?.CompareTo(right) >= 0;
 }

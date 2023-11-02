@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Tests.Sweepers.Portal;
 
 [TestFixture]
-internal class Presenter
+internal sealed class Presenter
 {
     private Mock<NortheastMegabuck.Sweepers.Portal.IView> _view;
     private Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter> _retrieveAdapter;
@@ -21,26 +21,27 @@ internal class Presenter
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterExecute_CalledCorrectly()
+    public async Task LoadAsync_RetrieveSquadAdapterExecute_CalledCorrectly()
     {
         var squad = new NortheastMegabuck.Sweepers.ViewModel();
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(squad);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad);
 
         var squadId = SquadId.New();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Load();
+        CancellationToken cancellationToken = default;
+        await _presenter.LoadAsync(cancellationToken).ConfigureAwait(false);
 
-        _retrieveAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        _retrieveAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterHasError_ErrorFlow()
+    public async Task LoadAsync_RetrieveSquadAdapterHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -48,57 +49,57 @@ internal class Presenter
             _view.Verify(view => view.Close(), Times.Once);
 
             _view.Verify(view => view.SetPortalTitle(It.IsAny<string>()), Times.Never);
-            _view.VerifySet(view => view.StartingLane = It.IsAny<int>(), Times.Never);
-            _view.VerifySet(view => view.NumberOfLanes = It.IsAny<int>(), Times.Never);
-            _view.VerifySet(view => view.MaxPerPair = It.IsAny<int>(), Times.Never);
-            _view.VerifySet(view => view.Complete = It.IsAny<bool>(), Times.Never);
+            _view.Verify(view => view.SetStartingLane(It.IsAny<int>()), Times.Never);
+            _view.Verify(view => view.SetNumberOfLanes(It.IsAny<int>()), Times.Never);
+            _view.Verify(view => view.SetMaxPerPair(It.IsAny<int>()), Times.Never);
+            _view.Verify(view => view.SetComplete(It.IsAny<bool>()), Times.Never);
         });
     }
 
     [Test]
-    public void Load_RetrieveSquadAdapterSuccessful_ViewFieldsSetCorrectly([Values] bool complete)
+    public async Task LoadAsync_RetrieveSquadAdapterSuccessful_ViewFieldsSetCorrectly([Values] bool complete)
     {
         var squad = new NortheastMegabuck.Sweepers.ViewModel
         { 
-            Date = new DateTime(2000,1,2,9,30,30),
+            Date = new DateTime(2000,1,2,9,30,30, DateTimeKind.Unspecified),
             StartingLane = 1,
             NumberOfLanes = 2,
             MaxPerPair = 3,
             Complete = complete
         };
-        _retrieveAdapter.Setup(adapter => adapter.Execute(It.IsAny<SquadId>())).Returns(squad);
+        _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad);
 
-        _presenter.Load();
+        await _presenter.LoadAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
 
             _view.Verify(view => view.SetPortalTitle("01/02/2000 09:30AM"), Times.Once);
-            _view.VerifySet(view => view.StartingLane = 1, Times.Once);
-            _view.VerifySet(view => view.NumberOfLanes = 2, Times.Once);
-            _view.VerifySet(view => view.MaxPerPair = 3, Times.Once);
-            _view.VerifySet(view => view.Complete = complete, Times.Once);
+            _view.Verify(view => view.SetStartingLane(1), Times.Once);
+            _view.Verify(view => view.SetNumberOfLanes(2), Times.Once);
+            _view.Verify(view => view.SetMaxPerPair(3), Times.Once);
+            _view.Verify(view => view.SetComplete(complete), Times.Once);
         });
     }
 
     [Test]
-    public void Complete_ViewConfirm_CalledCorrectly()
+    public async Task CompleteAsync_ViewConfirm_CalledCorrectly()
     {
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.Confirm("Are you sure you want to complete this sweeper?"), Times.Once);
     }
 
     [Test]
-    public void Complete_ViewConfirmFalse_CancelFlow()
+    public async Task CompleteAsync_ViewConfirmFalse_CancelFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
 
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _completeAdapter.Verify(adapter => adapter.Execute(It.IsAny<SquadId>()), Times.Never);
+            _completeAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
@@ -107,27 +108,29 @@ internal class Presenter
     }
 
     [Test]
-    public void Complete_ViewConfirmTrue_CompleteAdapterExecute_CalledCorrectly()
+    public async Task CompleteAsync_ViewConfirmTrue_CompleteAdapterExecute_CalledCorrectly()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var squadId = SquadId.New();
         _view.SetupGet(view => view.Id).Returns(squadId);
 
-        _presenter.Complete();
+        CancellationToken cancellationToken = default;
 
-        _completeAdapter.Verify(adapter => adapter.Execute(squadId), Times.Once);
+        await _presenter.CompleteAsync(cancellationToken).ConfigureAwait(false);
+
+        _completeAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Complete_ViewConfirmTrue_CompleteAdapterHasError_ErrorFlow()
+    public async Task CompleteAsync_ViewConfirmTrue_CompleteAdapterHasError_ErrorFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _completeAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -139,11 +142,11 @@ internal class Presenter
     }
 
     [Test]
-    public void Complete_ViewConfirmTrue_ComplateAdapterSuccessful_SuccessFlow()
+    public async Task CompleteAsync_ViewConfirmTrue_ComplateAdapterSuccessful_SuccessFlow()
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
-        _presenter.Complete();
+        await _presenter.CompleteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

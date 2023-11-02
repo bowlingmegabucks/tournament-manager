@@ -19,11 +19,11 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
     
-    public SquadId? Execute(IViewModel viewModel)
+    public async Task<SquadId?> ExecuteAsync(IViewModel sweeper, CancellationToken cancellationToken)
     {
-        var model = new Models.Sweeper(viewModel);
+        var model = new Models.Sweeper(sweeper);
 
-        var guid = _businessLogic.Execute(model);
+        var guid = await _businessLogic.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
 
         Errors = _businessLogic.Errors;
 
@@ -35,5 +35,5 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    SquadId? Execute(IViewModel sweeper);
+    Task<SquadId?> ExecuteAsync(IViewModel sweeper, CancellationToken cancellationToken);
 }

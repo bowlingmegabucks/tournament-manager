@@ -4,13 +4,13 @@ using System.Windows.Forms;
 namespace NortheastMegabuck.Tests.Squads.Results;
 
 [TestFixture]
-internal class BusinessLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
     private Mock<NortheastMegabuck.Squads.Results.ICalculator> _squadResultCalculator;
     private Mock<NortheastMegabuck.Scores.Retrieve.IBusinessLogic> _retrieveScores;
 
-    private NortheastMegabuck.Squads.Results.IBusinessLogic _businessLogic;
+    private NortheastMegabuck.Squads.Results.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
@@ -23,38 +23,39 @@ internal class BusinessLogic
     }
 
     [Test]
-    public void Execute_RetrieveTournamentExecute_CalledCorrectly()
+    public async Task ExecuteAsync_RetrieveTournamentExecute_CalledCorrectly()
     {
         var tournament = new NortheastMegabuck.Models.Tournament();
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<SquadId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var squadId = SquadId.New();
+        CancellationToken cancellationToken = default;
 
-        _businessLogic.Execute(squadId);
+        await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveTournament.Verify(retrieveTournament=> retrieveTournament.Execute(squadId), Times.Once);
+        _retrieveTournament.Verify(retrieveTournament=> retrieveTournament.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
-    public void Execute_RetrieveTournamentExecuteHasError_ErrorFlow()
+    public async Task ExecuteAsync_RetrieveTournamentExecuteHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
         _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.Error).Returns(error);
 
-        var result = _businessLogic.Execute(SquadId.New());
+        var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(_businessLogic.Error, Is.EqualTo(error));
             Assert.That(result, Is.Empty);
 
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>()), Times.Never);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Never);
             _squadResultCalculator.Verify(calculator => calculator.Execute(It.IsAny<NortheastMegabuck.Models.Squad>(), It.IsAny<NortheastMegabuck.Models.Division>(), It.IsAny<List<NortheastMegabuck.Models.BowlerSquadScore>>(), It.IsAny<IEnumerable<BowlerId>>(), It.IsAny<decimal>(), It.IsAny<decimal>()), Times.Never);
         });
     }
 
     [Test]
-    public void Execute_RetrieveTournamentExecuteNoError_RetrieveScoresExecute_CalledWithSquadsBeforeOrOnGivenSquadDate()
+    public async Task ExecuteAsync_RetrieveTournamentExecuteNoError_RetrieveScoresExecute_CalledWithSquadsBeforeOrOnGivenSquadDate()
     {
         var pastSquad = new NortheastMegabuck.Models.Squad
         {
@@ -78,21 +79,22 @@ internal class BusinessLogic
         {
             Squads = new[] { pastSquad, currentSquad, futureSquad }
         };
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<SquadId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        _businessLogic.Execute(currentSquad.Id);
+        CancellationToken cancellationToken = default;
+        await _businessLogic.ExecuteAsync(currentSquad.Id, cancellationToken).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.Is<IEnumerable<SquadId>>(squads => squads.Count() == 2)), Times.Once);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.Is<IEnumerable<SquadId>>(squads => squads.Count() == 2), cancellationToken), Times.Once);
 
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.Is<IEnumerable<SquadId>>(squads => squads.Contains(pastSquad.Id))), Times.Once);
-            _retrieveScores.Verify(retrieveScores => retrieveScores.Execute(It.Is<IEnumerable<SquadId>>(squads => squads.Contains(currentSquad.Id))), Times.Once);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.Is<IEnumerable<SquadId>>(squads => squads.Contains(pastSquad.Id)), cancellationToken), Times.Once);
+            _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.Is<IEnumerable<SquadId>>(squads => squads.Contains(currentSquad.Id)), cancellationToken), Times.Once);
         });
     }
 
     [Test]
-    public void Execute_RetrieveTournamentExecuteNoError_RetrieveScoresExecuteNoError_SquadResultCalculatorExecute_CalledInSequentialOrderBasedOnSquadDate()
+    public async Task ExecuteAsync_RetrieveTournamentExecuteNoError_RetrieveScoresExecuteNoError_SquadResultCalculatorExecute_CalledInSequentialOrderBasedOnSquadDate()
     {
         var pastSquad = new NortheastMegabuck.Models.Squad
         {
@@ -116,7 +118,7 @@ internal class BusinessLogic
         {
             Squads = new[] { currentSquad, futureSquad, pastSquad }
         };
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.Execute(It.IsAny<SquadId>())).Returns(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var mockResultCalculator = new Mock<NortheastMegabuck.Squads.Results.ICalculator>(MockBehavior.Strict);
         var sequence = new MockSequence();
@@ -144,12 +146,10 @@ internal class BusinessLogic
         };
 
         var scores = new[] { currentSquadBowler2Score1, pastSquadBowler1Score1 };
-        _retrieveScores.Setup(retrieveScores => retrieveScores.Execute(It.IsAny<IEnumerable<SquadId>>())).Returns(scores);
+        _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(scores);
 
-        _businessLogic.Execute(currentSquad.Id);
+        await _businessLogic.ExecuteAsync(currentSquad.Id, default).ConfigureAwait(false);
 
         mockResultCalculator.VerifyAll();
     }
-
-    //todo: need to test calling squadResultCalculator with correct groupings
 }
