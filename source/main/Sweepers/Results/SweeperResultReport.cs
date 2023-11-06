@@ -5,7 +5,7 @@ namespace NortheastMegabuck.Sweepers.Results;
 internal class SweeperResultReport : ResultReportBase<IViewModel>
 {
     internal SweeperResultReport(string title, DateTime? bowlDate, ICollection<IViewModel> results)
-        : base(title, bowlDate, results)
+        : base(title, bowlDate, string.Empty, results)
     { }
 
     protected override void ComposeColumnDefinitionDescriptor(TableColumnsDefinitionDescriptor columns)

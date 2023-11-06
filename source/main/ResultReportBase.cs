@@ -9,12 +9,14 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
     private readonly ICollection<TViewModel> _results;
     private readonly string _title;
     private readonly DateTime? _bowlDate;
+    private readonly string? _division;
     private readonly byte[] _logo;
 
-    protected ResultReportBase(string title, DateTime? bowlDate, ICollection<TViewModel> results)
+    protected ResultReportBase(string title, DateTime? bowlDate, string? division, ICollection<TViewModel> results)
     {
         _title = title;
         _bowlDate = bowlDate;
+        _division = division;
         _results = results;
 
         _logo = new ImageConverter().ConvertTo(Properties.Resources.NMT_Header, typeof(byte[])) as byte[] ?? throw new InvalidOperationException("Cannot convert image to byte array");
@@ -55,6 +57,17 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
                     {
                         text.Span("Date: ").SemiBold();
                         text.Span(_bowlDate.Value.ToString("MM/dd/yyyy - hh:mm tt", CultureInfo.CurrentCulture));
+                    });
+                }
+
+                if (!string.IsNullOrWhiteSpace(_division))
+                {
+                    column.Spacing(10);
+
+                    column.Item().AlignCenter().Text(text =>
+                    {
+                        text.Span("Division: ").SemiBold();
+                        text.Span(_division);
                     });
                 }
             });
