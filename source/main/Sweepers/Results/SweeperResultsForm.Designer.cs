@@ -28,56 +28,85 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.resultsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.copyToClipboardLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // resultsFlowLayoutPanel
-            // 
-            this.resultsFlowLayoutPanel.AutoScroll = true;
-            this.resultsFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.resultsFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.resultsFlowLayoutPanel.Name = "resultsFlowLayoutPanel";
-            this.resultsFlowLayoutPanel.Size = new System.Drawing.Size(579, 637);
-            this.resultsFlowLayoutPanel.TabIndex = 0;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToClipboardLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 615);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(579, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // copyToClipboardLabel
-            // 
-            this.copyToClipboardLabel.IsLink = true;
-            this.copyToClipboardLabel.Name = "copyToClipboardLabel";
-            this.copyToClipboardLabel.Size = new System.Drawing.Size(104, 17);
-            this.copyToClipboardLabel.Text = "Copy to Clipboard";
-            this.copyToClipboardLabel.Click += new System.EventHandler(this.CopyToClipboardLabel_Click);
-            // 
-            // Form
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 637);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.resultsFlowLayoutPanel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "Form";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Sweeper Results";
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        resultsFlowLayoutPanel = new FlowLayoutPanel();
+        statusStrip1 = new StatusStrip();
+        copyToClipboardLabel = new ToolStripStatusLabel();
+        menuStrip1 = new MenuStrip();
+        fileMenuItem = new ToolStripMenuItem();
+        fileSaveAsPDFMenuItem = new ToolStripMenuItem();
+        statusStrip1.SuspendLayout();
+        menuStrip1.SuspendLayout();
+        SuspendLayout();
+        // 
+        // resultsFlowLayoutPanel
+        // 
+        resultsFlowLayoutPanel.AutoScroll = true;
+        resultsFlowLayoutPanel.Dock = DockStyle.Fill;
+        resultsFlowLayoutPanel.Location = new Point(0, 0);
+        resultsFlowLayoutPanel.Name = "resultsFlowLayoutPanel";
+        resultsFlowLayoutPanel.Size = new Size(579, 637);
+        resultsFlowLayoutPanel.TabIndex = 0;
+        // 
+        // statusStrip1
+        // 
+        statusStrip1.Items.AddRange(new ToolStripItem[] { copyToClipboardLabel });
+        statusStrip1.Location = new Point(0, 615);
+        statusStrip1.Name = "statusStrip1";
+        statusStrip1.Size = new Size(579, 22);
+        statusStrip1.TabIndex = 0;
+        statusStrip1.Text = "statusStrip1";
+        // 
+        // copyToClipboardLabel
+        // 
+        copyToClipboardLabel.IsLink = true;
+        copyToClipboardLabel.Name = "copyToClipboardLabel";
+        copyToClipboardLabel.Size = new Size(104, 17);
+        copyToClipboardLabel.Text = "Copy to Clipboard";
+        copyToClipboardLabel.Click += CopyToClipboardLabel_Click;
+        // 
+        // menuStrip1
+        // 
+        menuStrip1.Items.AddRange(new ToolStripItem[] { fileMenuItem });
+        menuStrip1.Location = new Point(0, 0);
+        menuStrip1.Name = "menuStrip1";
+        menuStrip1.Size = new Size(579, 24);
+        menuStrip1.TabIndex = 1;
+        menuStrip1.Text = "menuStrip1";
+        // 
+        // fileMenuItem
+        // 
+        fileMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fileSaveAsPDFMenuItem });
+        fileMenuItem.Name = "fileMenuItem";
+        fileMenuItem.Size = new Size(37, 20);
+        fileMenuItem.Text = "File";
+        // 
+        // fileSaveAsPDFMenuItem
+        // 
+        fileSaveAsPDFMenuItem.Name = "fileSaveAsPDFMenuItem";
+        fileSaveAsPDFMenuItem.Size = new Size(180, 22);
+        fileSaveAsPDFMenuItem.Text = "Save as PDF";
+        fileSaveAsPDFMenuItem.Click += FileSaveAsPDFMenuItem_Click;
+        // 
+        // Form
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new Size(579, 637);
+        Controls.Add(statusStrip1);
+        Controls.Add(menuStrip1);
+        Controls.Add(resultsFlowLayoutPanel);
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MainMenuStrip = menuStrip1;
+        MaximizeBox = false;
+        Name = "Form";
+        StartPosition = FormStartPosition.CenterParent;
+        Text = "Sweeper Results";
+        statusStrip1.ResumeLayout(false);
+        statusStrip1.PerformLayout();
+        menuStrip1.ResumeLayout(false);
+        menuStrip1.PerformLayout();
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
@@ -85,4 +114,7 @@ partial class Form
     private FlowLayoutPanel resultsFlowLayoutPanel;
     private StatusStrip statusStrip1;
     private ToolStripStatusLabel copyToClipboardLabel;
+    private MenuStrip menuStrip1;
+    private ToolStripMenuItem fileMenuItem;
+    private ToolStripMenuItem fileSaveAsPDFMenuItem;
 }
