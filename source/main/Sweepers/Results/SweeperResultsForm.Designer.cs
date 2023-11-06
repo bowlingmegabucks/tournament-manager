@@ -31,20 +31,20 @@ partial class Form
         resultsFlowLayoutPanel = new FlowLayoutPanel();
         statusStrip1 = new StatusStrip();
         copyToClipboardLabel = new ToolStripStatusLabel();
-        menuStrip1 = new MenuStrip();
+        menuStripMain = new MenuStrip();
         fileMenuItem = new ToolStripMenuItem();
         fileSaveAsPDFMenuItem = new ToolStripMenuItem();
         statusStrip1.SuspendLayout();
-        menuStrip1.SuspendLayout();
+        menuStripMain.SuspendLayout();
         SuspendLayout();
         // 
         // resultsFlowLayoutPanel
         // 
         resultsFlowLayoutPanel.AutoScroll = true;
         resultsFlowLayoutPanel.Dock = DockStyle.Fill;
-        resultsFlowLayoutPanel.Location = new Point(0, 0);
+        resultsFlowLayoutPanel.Location = new Point(0, 24);
         resultsFlowLayoutPanel.Name = "resultsFlowLayoutPanel";
-        resultsFlowLayoutPanel.Size = new Size(579, 637);
+        resultsFlowLayoutPanel.Size = new Size(579, 613);
         resultsFlowLayoutPanel.TabIndex = 0;
         // 
         // statusStrip1
@@ -64,14 +64,14 @@ partial class Form
         copyToClipboardLabel.Text = "Copy to Clipboard";
         copyToClipboardLabel.Click += CopyToClipboardLabel_Click;
         // 
-        // menuStrip1
+        // menuStripMain
         // 
-        menuStrip1.Items.AddRange(new ToolStripItem[] { fileMenuItem });
-        menuStrip1.Location = new Point(0, 0);
-        menuStrip1.Name = "menuStrip1";
-        menuStrip1.Size = new Size(579, 24);
-        menuStrip1.TabIndex = 1;
-        menuStrip1.Text = "menuStrip1";
+        menuStripMain.Items.AddRange(new ToolStripItem[] { fileMenuItem });
+        menuStripMain.Location = new Point(0, 0);
+        menuStripMain.Name = "menuStripMain";
+        menuStripMain.Size = new Size(579, 24);
+        menuStripMain.TabIndex = 1;
+        menuStripMain.Text = "menuStrip1";
         // 
         // fileMenuItem
         // 
@@ -83,7 +83,7 @@ partial class Form
         // fileSaveAsPDFMenuItem
         // 
         fileSaveAsPDFMenuItem.Name = "fileSaveAsPDFMenuItem";
-        fileSaveAsPDFMenuItem.Size = new Size(180, 22);
+        fileSaveAsPDFMenuItem.Size = new Size(136, 22);
         fileSaveAsPDFMenuItem.Text = "Save as PDF";
         fileSaveAsPDFMenuItem.Click += FileSaveAsPDFMenuItem_Click;
         // 
@@ -93,18 +93,18 @@ partial class Form
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(579, 637);
         Controls.Add(statusStrip1);
-        Controls.Add(menuStrip1);
         Controls.Add(resultsFlowLayoutPanel);
+        Controls.Add(menuStripMain);
         FormBorderStyle = FormBorderStyle.FixedSingle;
-        MainMenuStrip = menuStrip1;
+        MainMenuStrip = menuStripMain;
         MaximizeBox = false;
         Name = "Form";
         StartPosition = FormStartPosition.CenterParent;
         Text = "Sweeper Results";
         statusStrip1.ResumeLayout(false);
         statusStrip1.PerformLayout();
-        menuStrip1.ResumeLayout(false);
-        menuStrip1.PerformLayout();
+        menuStripMain.ResumeLayout(false);
+        menuStripMain.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -114,7 +114,7 @@ partial class Form
     private FlowLayoutPanel resultsFlowLayoutPanel;
     private StatusStrip statusStrip1;
     private ToolStripStatusLabel copyToClipboardLabel;
-    private MenuStrip menuStrip1;
+    private MenuStrip menuStripMain;
     private ToolStripMenuItem fileMenuItem;
     private ToolStripMenuItem fileSaveAsPDFMenuItem;
 }
