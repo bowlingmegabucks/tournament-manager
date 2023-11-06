@@ -16,28 +16,26 @@ internal class SquadResultReport : ResultReportBase<IViewModel>
     {
         columns.ConstantColumn(40);
         columns.RelativeColumn(10);
+        columns.RelativeColumn();
+        columns.RelativeColumn(1);
 
         if (_handicap)
         {
             columns.RelativeColumn();
         }
-
-        columns.RelativeColumn();
-        columns.RelativeColumn(1);
     }
 
     protected override void ComposeHeaderDescriptor(TableCellDescriptor header)
     {
         header.Cell().Element(HeaderStyle).Text("Place");
         header.Cell().Element(HeaderStyle).Text("Name");
+        header.Cell().Element(HeaderStyle).AlignCenter().Text("Total");
+        header.Cell().Element(HeaderStyle).AlignCenter().Text("HG");
 
         if (_handicap)
         {
             header.Cell().Element(HeaderStyle).AlignCenter().Text("HDCP");
         }
-
-        header.Cell().Element(HeaderStyle).AlignCenter().Text("Total");
-        header.Cell().Element(HeaderStyle).AlignCenter().Text("HG");
     }
 
     protected override void PopulateTableData(ICollection<IViewModel> results, TableDescriptor table)
@@ -72,13 +70,12 @@ internal class SquadResultReport : ResultReportBase<IViewModel>
     {
         table.Cell().Element(CellStyle).Text(result.Place.ToString(CultureInfo.CurrentCulture));
         table.Cell().Element(CellStyle).Text(result.BowlerName);
+        table.Cell().Element(CellStyle).AlignCenter().Text(result.Score.ToString(CultureInfo.CurrentCulture));
+        table.Cell().Element(CellStyle).AlignCenter().Text(result.HighGame.ToString(CultureInfo.CurrentCulture));
 
         if (_handicap)
         {
             table.Cell().Element(CellStyle).AlignCenter().Text(result.Handicap.ToString(CultureInfo.CurrentCulture));
         }
-
-        table.Cell().Element(CellStyle).AlignCenter().Text(result.Score.ToString(CultureInfo.CurrentCulture));
-        table.Cell().Element(CellStyle).AlignCenter().Text(result.HighGame.ToString(CultureInfo.CurrentCulture));
     }
 }
