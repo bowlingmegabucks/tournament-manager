@@ -121,13 +121,13 @@
   <data name="DollarSign" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DollarSign.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NMT_Header" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Northeast Megabucks Tournament.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="NMT" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NMT.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Trophy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\trophy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NMT_Header" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nmt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
