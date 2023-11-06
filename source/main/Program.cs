@@ -5,6 +5,7 @@ using Azure.Security.KeyVault.Secrets;
 #endif
 
 using System.Configuration;
+using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck.UI;
 
@@ -43,7 +44,9 @@ internal static class Program
         var config = configBuilder.Build();
 
         Encryption.Key = config["EncryptionKey"] ?? throw new ConfigurationErrorsException("Cannot get encryption key");
-
+        
+        QuestPDF.Settings.License = LicenseType.Community;
+        
         using var form = new Tournaments.Retrieve.Form(config);
         Application.Run(form);
     }

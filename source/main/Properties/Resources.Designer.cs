@@ -93,6 +93,16 @@ namespace NortheastMegabuck.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NMT_Header_Color {
+            get {
+                object obj = ResourceManager.GetObject("NMT_Header_Color", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Trophy {
             get {
                 object obj = ResourceManager.GetObject("Trophy", resourceCulture);
