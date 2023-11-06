@@ -2,11 +2,11 @@
 using QuestPDF.Fluent;
 
 namespace NortheastMegabuck.Squads.Results;
-internal class SqaudResultReport : ResultReportBase<IViewModel>
+internal class SquadResultReport : ResultReportBase<IViewModel>
 {
     private readonly bool _handicap;
 
-    internal SqaudResultReport(DateTime bowlDate, string division, bool handicap, ICollection<IViewModel> results)
+    internal SquadResultReport(DateTime bowlDate, string division, bool handicap, ICollection<IViewModel> results)
         : base("Squad Results", bowlDate, division, results)
     {
         _handicap = handicap;

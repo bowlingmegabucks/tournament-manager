@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Drawing.Printing;
+using System.Globalization;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -130,5 +131,46 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
             document.GeneratePdf(fileStream);
         }
 #endif
+    }
+
+    public void Print()
+        => Print(this);
+
+    public static void Print(IDocument document)
+    {
+        //display print dialog
+        using var printDialog = new PrintDialog
+        {
+            AllowSomePages = true,
+            AllowSelection = false,
+            AllowCurrentPage = true,
+            AllowPrintToFile = false,
+            ShowHelp = false,
+            ShowNetwork = false,
+            UseEXDialog = true,
+        };
+
+        if (printDialog.ShowDialog() != DialogResult.OK)
+        {
+            return;
+        }
+
+        var imageConverter = new ImageConverter();
+
+        var images = document.GenerateImages(new ImageGenerationSettings { ImageFormat = ImageFormat.Png, RasterDpi = 90}).Select(x => imageConverter.ConvertFrom(x) as System.Drawing.Image).ToList();
+
+        var counter = 0;
+
+        //create print document
+        using var printDocument = new PrintDocument();
+
+        printDocument.PrintPage += (sender, args) =>
+        {
+            args.Graphics!.DrawImage(images[counter]!, 0, 0);
+            counter++;
+            args.HasMorePages = counter != images.Count;
+        };
+
+        printDocument.Print();
     }
 }

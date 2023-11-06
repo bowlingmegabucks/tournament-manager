@@ -1,6 +1,7 @@
 ﻿
 using System.Text;
 using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck.Squads.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
@@ -99,10 +100,22 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private void FileSaveAsPDFMenuItem_Click(object sender, EventArgs e)
     {
         //need to come back to handle handicap division
-        var reports = _results.Select(result => new SqaudResultReport(_bowlDate, result.Key.Key, result.Key.Value, result.Value.ToList())).ToList();
+        var report = GenerateReport();
 
-        var combined = Document.Merge(reports).UseOriginalPageNumbers();
+        ResultReportBase<IViewModel>.GeneratePDF(report);
+    }
 
-        ResultReportBase<IViewModel>.GeneratePDF(combined);
+    private void FilePrintMenuItem_Click(object sender, EventArgs e)
+    {
+        var report = GenerateReport();
+
+        ResultReportBase<IViewModel>.Print(report);
+    }
+
+    private MergedDocument GenerateReport()
+    {
+        var reports = _results.Select(result => new SquadResultReport(_bowlDate, result.Key.Key, result.Key.Value, result.Value.ToList())).ToList();
+
+        return Document.Merge(reports).UseOriginalPageNumbers();
     }
 }

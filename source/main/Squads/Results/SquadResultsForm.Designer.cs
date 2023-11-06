@@ -34,6 +34,7 @@ partial class Form
         menuStrip1 = new MenuStrip();
         fileToolStripMenuItem = new ToolStripMenuItem();
         fileSaveAsPDFMenuItem = new ToolStripMenuItem();
+        filePrintMenuItem = new ToolStripMenuItem();
         statusStrip1.SuspendLayout();
         menuStrip1.SuspendLayout();
         SuspendLayout();
@@ -75,7 +76,7 @@ partial class Form
         // 
         // fileToolStripMenuItem
         // 
-        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fileSaveAsPDFMenuItem });
+        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fileSaveAsPDFMenuItem, filePrintMenuItem });
         fileToolStripMenuItem.Name = "fileToolStripMenuItem";
         fileToolStripMenuItem.Size = new Size(37, 20);
         fileToolStripMenuItem.Text = "File";
@@ -86,6 +87,13 @@ partial class Form
         fileSaveAsPDFMenuItem.Size = new Size(180, 22);
         fileSaveAsPDFMenuItem.Text = "Save as PDF";
         fileSaveAsPDFMenuItem.Click += FileSaveAsPDFMenuItem_Click;
+        // 
+        // filePrintMenuItem
+        // 
+        filePrintMenuItem.Name = "filePrintMenuItem";
+        filePrintMenuItem.Size = new Size(180, 22);
+        filePrintMenuItem.Text = "&Print";
+        filePrintMenuItem.Click += FilePrintMenuItem_Click;
         // 
         // Form
         // 
@@ -118,4 +126,5 @@ partial class Form
     private MenuStrip menuStrip1;
     private ToolStripMenuItem fileToolStripMenuItem;
     private ToolStripMenuItem fileSaveAsPDFMenuItem;
+    private ToolStripMenuItem filePrintMenuItem;
 }
