@@ -83,7 +83,7 @@ partial class Form
         // fileSaveAsPDFMenuItem
         // 
         fileSaveAsPDFMenuItem.Name = "fileSaveAsPDFMenuItem";
-        fileSaveAsPDFMenuItem.Size = new Size(136, 22);
+        fileSaveAsPDFMenuItem.Size = new Size(180, 22);
         fileSaveAsPDFMenuItem.Text = "Save as PDF";
         fileSaveAsPDFMenuItem.Click += FileSaveAsPDFMenuItem_Click;
         // 

@@ -6,12 +6,12 @@ using QuestPDF.Infrastructure;
 namespace NortheastMegabuck;
 internal abstract class ResultReportBase<TViewModel> : IDocument
 {
-    private readonly IEnumerable<TViewModel> _results;
+    private readonly ICollection<TViewModel> _results;
     private readonly string _title;
     private readonly DateTime? _bowlDate;
     private readonly byte[] _logo;
 
-    protected ResultReportBase(string title, DateTime? bowlDate, IEnumerable<TViewModel> results)
+    protected ResultReportBase(string title, DateTime? bowlDate, ICollection<TViewModel> results)
     {
         _title = title;
         _bowlDate = bowlDate;
@@ -80,7 +80,7 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
             PopulateTableData(_results, table);
         });
 
-    protected abstract void PopulateTableData(IEnumerable<TViewModel> results, TableDescriptor table);
+    protected abstract void PopulateTableData(ICollection<TViewModel> results, TableDescriptor table);
 
     protected abstract void ComposeColumnDefinitionDescriptor(TableColumnsDefinitionDescriptor columns);
     protected abstract void ComposeHeaderDescriptor(TableCellDescriptor header);
@@ -92,5 +92,27 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
         => container.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5);
 
     protected static IContainer SpaceStyle(IContainer container)
-        => container.PaddingVertical(5);
+        => container.PaddingVertical(15);
+
+    public void GeneratePDF()
+    {
+#if DEBUG
+        this.GeneratePdfAndShow();
+#else
+        using var saveFileDialog = new SaveFileDialog
+        {
+            Filter = "PDF Files (*.pdf)|*.pdf",
+            FilterIndex = 1,
+            RestoreDirectory = true,
+            FileName = $"{_title}.pdf",
+        };
+
+        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        { 
+            //save file
+            using var fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            this.GeneratePdf(fileStream);
+        }
+#endif
+    }
 }

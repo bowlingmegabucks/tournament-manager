@@ -69,7 +69,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private void ResultsMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Results.Form(_config, _id);
+        using var form = new Results.Form(_config, _id, _squadDate);
 
         form.ShowDialog(this);
     }

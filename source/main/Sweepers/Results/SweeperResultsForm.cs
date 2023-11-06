@@ -1,18 +1,26 @@
 ﻿
+using System.Drawing.Printing;
+using QuestPDF.Fluent;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace NortheastMegabuck.Sweepers.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     internal string ToSpreadsheet { get; private set; }
 
     private IEnumerable<IViewModel> _results = new List<IViewModel>();
+    private readonly DateTime? _sweeperDate;
 
-    public Form(IConfiguration config, SquadId squadId) : this()
+    public Form(IConfiguration config, SquadId squadId, DateTime sweeperDate) : this()
     {
+        _sweeperDate = sweeperDate;
         _ = new Presenter(config, this).ExecuteAsync(squadId, default);
     }
 
     public Form(IConfiguration config, TournamentId tournamentId) : this()
     {
+        _sweeperDate = null;
+
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
         Text = "Super Sweeper Results";
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
@@ -63,9 +71,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void FileSaveAsPDFMenuItem_Click(object sender, EventArgs e)
     {
-        if (!_results.Any())
-        {
-            MessageBox.Show("This is just here for now to stop the errors until we export");
-        }
+        var title = _sweeperDate.HasValue ? "Sweeper Results" : "Super Sweeper Results";
+        var report = new SweeperResultReport(title, _sweeperDate, _results.ToList());
+        report.GeneratePDF();
     }
 }
