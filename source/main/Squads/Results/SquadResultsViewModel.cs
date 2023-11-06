@@ -25,6 +25,8 @@ internal class ViewModel : IViewModel
 
     public bool Casher { get; }
 
+    public int Handicap { get; }
+
     public ViewModel(Models.BowlerSquadScore bowlerScore, DateTime squadDate, short place, bool advancer, bool casher)
     {
         Place = place;
@@ -38,6 +40,7 @@ internal class ViewModel : IViewModel
         HighGameScratch = bowlerScore.HighGameScratch;
         Advancer = advancer;
         Casher = casher;
+        Handicap = bowlerScore.Handicap;
     }
 
     /// <summary>
@@ -73,4 +76,6 @@ internal interface IViewModel
     SquadId SquadId { get; }
 
     DateTime SquadDate { get; }
+
+    int Handicap { get; }
 }

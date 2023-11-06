@@ -24,15 +24,15 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         => GameScores.SelectMany(gameScore=> gameScore).Sum();
 
     public int Score
-        =>  ScratchScore + (_handicap * GameScores.SelectMany(gameScore=> gameScore).Count());
+        =>  ScratchScore + (Handicap * GameScores.SelectMany(gameScore=> gameScore).Count());
 
     public int HighGame
-        =>  HighGameScratch + _handicap;
+        =>  HighGameScratch + Handicap;
 
     public int HighGameScratch
         => GameScores.SelectMany(gameScore => gameScore).Max();
 
-    private readonly int _handicap;
+    public readonly int Handicap;
 
     public BowlerSquadScore(IGrouping<Bowler, SquadScore> bowlerScores)
     {
@@ -42,7 +42,7 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         SquadDate = bowlerScores.First().SquadDate;
         GameScores = bowlerScores.ToLookup(score => score.GameNumber, score => score.Score);
 
-        _handicap = bowlerScores.First().Handicap;
+        Handicap = bowlerScores.First().Handicap;
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
 
         for (var i = 1; i < GameScores.Count; i++)
         {
-            if (scores[i] + _handicap != otherScores[i] + _handicap)
+            if (scores[i] + Handicap != otherScores[i] + Handicap)
             {
                 return otherScores[i].CompareTo(scores[i]);
             }
