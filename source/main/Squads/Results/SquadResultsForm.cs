@@ -1,5 +1,6 @@
 ﻿
 using System.Text;
+using QuestPDF.Fluent;
 
 namespace NortheastMegabuck.Squads.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
@@ -8,11 +9,15 @@ internal partial class Form : System.Windows.Forms.Form, IView
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab];
 
-    public Form(IConfiguration config, SquadId squadId)
+    private readonly DateTime _bowlDate;
+    private readonly Dictionary<KeyValuePair<string, bool>, IEnumerable<IViewModel>> _results = new();
+
+    public Form(IConfiguration config, SquadId squadId, DateTime bowlDate)
     {
         InitializeComponent();
 
         SquadId = squadId;
+        _bowlDate = bowlDate;
 
         _toSpreadsheet = new Dictionary<TabPage, string>();
 
@@ -24,8 +29,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-    public void BindResults(string divisionName, ICollection<IViewModel> scores)
+    public void BindResults(string divisionName, bool isHandicap, ICollection<IViewModel> scores)
     {
+        _results.Add(new KeyValuePair<string, bool>(divisionName, isHandicap), scores);
+
         var tabPage = new TabPage($"{divisionName}TabPage")
         {
             Text = divisionName
@@ -35,7 +42,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         {
             Name = $"{divisionName}FlowLayoutPanel",
             Dock = DockStyle.Fill,
-            AutoScroll= true
+            AutoScroll = true
         };
 
         var toSpreadsheet = new StringBuilder();
@@ -88,4 +95,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void CopyToClipboardLabel_Click(object sender, EventArgs e)
         => Clipboard.SetText(ToSpreadsheet());
+
+    private void FileSaveAsPDFMenuItem_Click(object sender, EventArgs e)
+    {
+        //need to come back to handle handicap division
+        var reports = _results.Select(result => new SqaudResultReport(_bowlDate, result.Key.Key, result.Key.Value, result.Value.ToList())).ToList();
+
+        var combined = Document.Merge(reports).UseOriginalPageNumbers();
+
+        ResultReportBase<IViewModel>.GeneratePDF(combined);
+    }
 }

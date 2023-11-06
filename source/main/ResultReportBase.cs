@@ -108,9 +108,12 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
         => container.PaddingVertical(15);
 
     public void GeneratePDF()
+        => GeneratePDF(this);
+
+    public static void GeneratePDF(IDocument document)
     {
 #if DEBUG
-        this.GeneratePdfAndShow();
+        document.GeneratePdfAndShow();
 #else
         using var saveFileDialog = new SaveFileDialog
         {
@@ -124,7 +127,7 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
         { 
             //save file
             using var fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
-            this.GeneratePdf(fileStream);
+            document.GeneratePdf(fileStream);
         }
 #endif
     }

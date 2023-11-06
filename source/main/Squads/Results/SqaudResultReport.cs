@@ -42,7 +42,7 @@ internal class SqaudResultReport : ResultReportBase<IViewModel>
 
     protected override void PopulateTableData(ICollection<IViewModel> results, TableDescriptor table)
     { 
-        var advancers = results.Where(result => result.Advancer);
+        var advancers = results.Where(result => result.Advancer).ToList();
         var cashers = results.Where(result => result.Casher);
         var nonCashers = results.Where(result => !(result.Casher || result.Advancer));
 
@@ -51,8 +51,8 @@ internal class SqaudResultReport : ResultReportBase<IViewModel>
             MapRow(table, advancer);
         }
 
-        table.Cell().ColumnSpan(2).Element(SpaceStyle).AlignLeft().Text("Cut Line").Italic().FontSize(10);
-        table.Cell().ColumnSpan(2).Element(SpaceStyle);
+        table.Cell().ColumnSpan(2).Element(SpaceStyle).AlignLeft().Text(advancers.Count == 0 ? "No Advancers" : "Cut Line").Italic().FontSize(10);
+        table.Cell().ColumnSpan(_handicap ? (uint)3 : 2).Element(SpaceStyle);
 
         foreach (var casher in cashers)
         {
@@ -60,7 +60,7 @@ internal class SqaudResultReport : ResultReportBase<IViewModel>
         }
 
         table.Cell().ColumnSpan(2).Element(SpaceStyle).AlignLeft().Text("Cash Line").Italic().FontSize(10);
-        table.Cell().ColumnSpan(2).Element(SpaceStyle);
+        table.Cell().ColumnSpan(_handicap ? (uint)3 : 2).Element(SpaceStyle);
 
         foreach (var nonCasher in nonCashers)
         {
