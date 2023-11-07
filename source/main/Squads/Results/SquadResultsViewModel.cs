@@ -25,7 +25,7 @@ internal class ViewModel : IViewModel
 
     public bool Casher { get; }
 
-    public int Handicap { get; }
+    public int Handicap { get; init; }
 
     public ViewModel(Models.BowlerSquadScore bowlerScore, DateTime squadDate, short place, bool advancer, bool casher)
     {
