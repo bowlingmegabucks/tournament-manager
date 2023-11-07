@@ -109,9 +109,9 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
         => container.PaddingVertical(15);
 
     public void GeneratePDF()
-        => GeneratePDF(this);
+        => GeneratePDF(this, _title);
 
-    public static void GeneratePDF(IDocument document)
+    public static void GeneratePDF(IDocument document, string title)
     {
 #if DEBUG
         document.GeneratePdfAndShow();
@@ -121,7 +121,7 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
             Filter = "PDF Files (*.pdf)|*.pdf",
             FilterIndex = 1,
             RestoreDirectory = true,
-            FileName = $"{_title}.pdf",
+            FileName = $"{title}.pdf",
         };
 
         if (saveFileDialog.ShowDialog() == DialogResult.OK)

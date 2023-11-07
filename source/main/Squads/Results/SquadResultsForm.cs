@@ -99,10 +99,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void FileSaveAsPDFMenuItem_Click(object sender, EventArgs e)
     {
-        //need to come back to handle handicap division
         var report = GenerateReport();
 
-        ResultReportBase<IViewModel>.GeneratePDF(report);
+        ResultReportBase<IViewModel>.GeneratePDF(report, "Squad Results");
     }
 
     private void FilePrintMenuItem_Click(object sender, EventArgs e)
