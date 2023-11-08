@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Drawing.Printing;
+using System.Globalization;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -9,12 +10,14 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
     private readonly ICollection<TViewModel> _results;
     private readonly string _title;
     private readonly DateTime? _bowlDate;
+    private readonly string? _division;
     private readonly byte[] _logo;
 
-    protected ResultReportBase(string title, DateTime? bowlDate, ICollection<TViewModel> results)
+    protected ResultReportBase(string title, DateTime? bowlDate, string? division, ICollection<TViewModel> results)
     {
         _title = title;
         _bowlDate = bowlDate;
+        _division = division;
         _results = results;
 
         _logo = new ImageConverter().ConvertTo(Properties.Resources.NMT_Header, typeof(byte[])) as byte[] ?? throw new InvalidOperationException("Cannot convert image to byte array");
@@ -57,6 +60,17 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
                         text.Span(_bowlDate.Value.ToString("MM/dd/yyyy - hh:mm tt", CultureInfo.CurrentCulture));
                     });
                 }
+
+                if (!string.IsNullOrWhiteSpace(_division))
+                {
+                    column.Spacing(10);
+
+                    column.Item().AlignCenter().Text(text =>
+                    {
+                        text.Span("Division: ").SemiBold();
+                        text.Span(_division);
+                    });
+                }
             });
 
             row.ConstantItem(250).Height(125).Image(_logo);
@@ -95,24 +109,68 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
         => container.PaddingVertical(15);
 
     public void GeneratePDF()
+        => GeneratePDF(this, _title);
+
+    public static void GeneratePDF(IDocument document, string title)
     {
 #if DEBUG
-        this.GeneratePdfAndShow();
+        document.GeneratePdfAndShow();
 #else
         using var saveFileDialog = new SaveFileDialog
         {
             Filter = "PDF Files (*.pdf)|*.pdf",
             FilterIndex = 1,
             RestoreDirectory = true,
-            FileName = $"{_title}.pdf",
+            FileName = $"{title}.pdf",
         };
 
         if (saveFileDialog.ShowDialog() == DialogResult.OK)
         { 
             //save file
             using var fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
-            this.GeneratePdf(fileStream);
+            document.GeneratePdf(fileStream);
         }
 #endif
+    }
+
+    public void Print()
+        => Print(this);
+
+    public static void Print(IDocument document)
+    {
+        //display print dialog
+        using var printDialog = new PrintDialog
+        {
+            AllowSomePages = true,
+            AllowSelection = false,
+            AllowCurrentPage = true,
+            AllowPrintToFile = false,
+            ShowHelp = false,
+            ShowNetwork = false,
+            UseEXDialog = true,
+        };
+
+        if (printDialog.ShowDialog() != DialogResult.OK)
+        {
+            return;
+        }
+
+        var imageConverter = new ImageConverter();
+
+        var images = document.GenerateImages(new ImageGenerationSettings { ImageFormat = ImageFormat.Png, RasterDpi = 90}).Select(x => imageConverter.ConvertFrom(x) as System.Drawing.Image).ToList();
+
+        var counter = 0;
+
+        //create print document
+        using var printDocument = new PrintDocument();
+
+        printDocument.PrintPage += (sender, args) =>
+        {
+            args.Graphics!.DrawImage(images[counter]!, 0, 0);
+            counter++;
+            args.HasMorePages = counter != images.Count;
+        };
+
+        printDocument.Print();
     }
 }

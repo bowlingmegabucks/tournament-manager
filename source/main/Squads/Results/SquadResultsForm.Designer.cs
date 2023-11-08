@@ -28,57 +28,94 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.divisionsTabControl = new System.Windows.Forms.TabControl();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.copyToClipboardLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // divisionsTabControl
-            // 
-            this.divisionsTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.divisionsTabControl.Location = new System.Drawing.Point(0, 0);
-            this.divisionsTabControl.Name = "divisionsTabControl";
-            this.divisionsTabControl.SelectedIndex = 0;
-            this.divisionsTabControl.Size = new System.Drawing.Size(650, 776);
-            this.divisionsTabControl.TabIndex = 0;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToClipboardLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 776);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(650, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // copyToClipboardLabel
-            // 
-            this.copyToClipboardLabel.IsLink = true;
-            this.copyToClipboardLabel.Name = "copyToClipboardLabel";
-            this.copyToClipboardLabel.Size = new System.Drawing.Size(104, 17);
-            this.copyToClipboardLabel.Text = "Copy to Clipboard";
-            this.copyToClipboardLabel.Click += new System.EventHandler(this.CopyToClipboardLabel_Click);
-            // 
-            // Form
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(650, 798);
-            this.Controls.Add(this.divisionsTabControl);
-            this.Controls.Add(this.statusStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Form";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Squad Results";
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        divisionsTabControl = new TabControl();
+        statusStrip1 = new StatusStrip();
+        copyToClipboardLabel = new ToolStripStatusLabel();
+        menuStrip1 = new MenuStrip();
+        fileToolStripMenuItem = new ToolStripMenuItem();
+        fileSaveAsPDFMenuItem = new ToolStripMenuItem();
+        filePrintMenuItem = new ToolStripMenuItem();
+        statusStrip1.SuspendLayout();
+        menuStrip1.SuspendLayout();
+        SuspendLayout();
+        // 
+        // divisionsTabControl
+        // 
+        divisionsTabControl.Dock = DockStyle.Fill;
+        divisionsTabControl.Location = new Point(0, 24);
+        divisionsTabControl.Name = "divisionsTabControl";
+        divisionsTabControl.SelectedIndex = 0;
+        divisionsTabControl.Size = new Size(650, 752);
+        divisionsTabControl.TabIndex = 0;
+        // 
+        // statusStrip1
+        // 
+        statusStrip1.Items.AddRange(new ToolStripItem[] { copyToClipboardLabel });
+        statusStrip1.Location = new Point(0, 776);
+        statusStrip1.Name = "statusStrip1";
+        statusStrip1.Size = new Size(650, 22);
+        statusStrip1.TabIndex = 1;
+        statusStrip1.Text = "statusStrip1";
+        // 
+        // copyToClipboardLabel
+        // 
+        copyToClipboardLabel.IsLink = true;
+        copyToClipboardLabel.Name = "copyToClipboardLabel";
+        copyToClipboardLabel.Size = new Size(104, 17);
+        copyToClipboardLabel.Text = "Copy to Clipboard";
+        copyToClipboardLabel.Click += CopyToClipboardLabel_Click;
+        // 
+        // menuStrip1
+        // 
+        menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+        menuStrip1.Location = new Point(0, 0);
+        menuStrip1.Name = "menuStrip1";
+        menuStrip1.Size = new Size(650, 24);
+        menuStrip1.TabIndex = 2;
+        menuStrip1.Text = "menuStrip1";
+        // 
+        // fileToolStripMenuItem
+        // 
+        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fileSaveAsPDFMenuItem, filePrintMenuItem });
+        fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+        fileToolStripMenuItem.Size = new Size(37, 20);
+        fileToolStripMenuItem.Text = "File";
+        // 
+        // fileSaveAsPDFMenuItem
+        // 
+        fileSaveAsPDFMenuItem.Name = "fileSaveAsPDFMenuItem";
+        fileSaveAsPDFMenuItem.Size = new Size(180, 22);
+        fileSaveAsPDFMenuItem.Text = "Save as PDF";
+        fileSaveAsPDFMenuItem.Click += FileSaveAsPDFMenuItem_Click;
+        // 
+        // filePrintMenuItem
+        // 
+        filePrintMenuItem.Name = "filePrintMenuItem";
+        filePrintMenuItem.Size = new Size(180, 22);
+        filePrintMenuItem.Text = "&Print";
+        filePrintMenuItem.Click += FilePrintMenuItem_Click;
+        // 
+        // Form
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new Size(650, 798);
+        Controls.Add(divisionsTabControl);
+        Controls.Add(statusStrip1);
+        Controls.Add(menuStrip1);
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MainMenuStrip = menuStrip1;
+        MaximizeBox = false;
+        MinimizeBox = false;
+        Name = "Form";
+        StartPosition = FormStartPosition.CenterParent;
+        Text = "Squad Results";
+        statusStrip1.ResumeLayout(false);
+        statusStrip1.PerformLayout();
+        menuStrip1.ResumeLayout(false);
+        menuStrip1.PerformLayout();
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
@@ -86,4 +123,8 @@ partial class Form
     private TabControl divisionsTabControl;
     private StatusStrip statusStrip1;
     private ToolStripStatusLabel copyToClipboardLabel;
+    private MenuStrip menuStrip1;
+    private ToolStripMenuItem fileToolStripMenuItem;
+    private ToolStripMenuItem fileSaveAsPDFMenuItem;
+    private ToolStripMenuItem filePrintMenuItem;
 }

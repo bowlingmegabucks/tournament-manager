@@ -93,7 +93,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
     private void CancelButton_Click(object sender, EventArgs e)
         => Dispose();
 
-    private readonly List<Image> _recapSheets = new List<Image>();
+    private readonly List<Image> _recapSheets = new();
     private int _counter;
 
     private void PrintButton_Click(object sender, EventArgs e)

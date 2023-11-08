@@ -71,8 +71,19 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void FileSaveAsPDFMenuItem_Click(object sender, EventArgs e)
     {
-        var title = _sweeperDate.HasValue ? "Sweeper Results" : "Super Sweeper Results";
-        var report = new SweeperResultReport(title, _sweeperDate, _results.ToList());
+        var report = GenerateReport();
         report.GeneratePDF();
+    }
+
+    private void PrintMenuItem_Click(object sender, EventArgs e)
+    {
+        var report = GenerateReport();
+        report.Print();
+    }
+
+    private ResultReportBase<IViewModel> GenerateReport()
+    {
+        var title = _sweeperDate.HasValue ? "Sweeper Results" : "Super Sweeper Results";
+        return new SweeperResultReport(title, _sweeperDate, _results.ToList());
     }
 }
