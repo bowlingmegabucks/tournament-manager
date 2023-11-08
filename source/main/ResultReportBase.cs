@@ -20,8 +20,13 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
         _division = division;
         _results = results;
 
-        _logo = new ImageConverter().ConvertTo(Properties.Resources.NMT_Header, typeof(byte[])) as byte[] ?? throw new InvalidOperationException("Cannot convert image to byte array");
+        _logo = ConvertImage(Properties.Resources.NMT_Header);
     }
+
+    private readonly ImageConverter _imageConverter = new();
+
+    protected byte[] ConvertImage(Bitmap image)
+        => _imageConverter.ConvertTo(image, typeof(byte[])) as byte[] ?? throw new InvalidOperationException("Cannot convert image to byte array");
 
     public void Compose(IDocumentContainer container)
         => container
