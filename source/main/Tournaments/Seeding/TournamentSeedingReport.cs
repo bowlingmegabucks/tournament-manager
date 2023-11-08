@@ -14,7 +14,7 @@ internal class TournamentSeedingReport : ResultReportBase<IViewModel>
         columns.RelativeColumn(10);
         columns.RelativeColumn();
         columns.RelativeColumn(1);
-        columns.RelativeColumn();
+        columns.RelativeColumn(2);
     }
 
     protected override void ComposeHeaderDescriptor(TableCellDescriptor header)
@@ -49,10 +49,10 @@ internal class TournamentSeedingReport : ResultReportBase<IViewModel>
 
     private static void MapRow(TableDescriptor table, IViewModel result, byte[] cashLogo)
     { 
-        table.Cell().Element(CellStyle).Text($"#{result.Seed}");
-        table.Cell().Element(CellStyle).Text(result.BowlerName);
-        table.Cell().Element(CellStyle).AlignCenter().Text(result.Score.ToString(CultureInfo.CurrentCulture));
-        table.Cell().Element(CellStyle).AlignCenter().Text(result.HighGame.ToString(CultureInfo.CurrentCulture));
-        table.Cell().Element(CellStyle).AlignCenter().ShowIf(result.AtLargeCasher).Image(cashLogo);
+        table.Cell().Element(CellStyle).AlignMiddle().Text($"#{result.Seed}");
+        table.Cell().Element(CellStyle).AlignMiddle().Text(result.BowlerName);
+        table.Cell().Element(CellStyle).AlignMiddle().AlignCenter().Text(result.Score.ToString(CultureInfo.CurrentCulture));
+        table.Cell().Element(CellStyle).AlignMiddle().AlignCenter().Text(result.HighGame.ToString(CultureInfo.CurrentCulture));
+        table.Cell().Height(50).Element(CellStyle).AlignCenter().ShowIf(result.AtLargeCasher).Image(cashLogo).FitArea();
     }
 }

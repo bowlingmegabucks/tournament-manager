@@ -1,10 +1,15 @@
 ﻿
 using System.Text;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck.Tournaments.Seeding;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly Dictionary<TabPage, string> _toSpreadsheet;
+
+    private readonly Dictionary<string, IEnumerable<IViewModel>> _results = new();
+
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab];
 
@@ -26,6 +31,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public void BindResults(string divisionName, ICollection<IViewModel> scores)
     {
+        _results.Add(divisionName, scores);
+
         var tabPage = new TabPage($"{divisionName}TabPage")
         {
             Text = divisionName
@@ -35,12 +42,12 @@ internal partial class Form : System.Windows.Forms.Form, IView
         {
             Name = $"{divisionName}FlowLayoutPanel",
             Dock = DockStyle.Fill,
-            AutoScroll= true
+            AutoScroll = true
         };
 
         var toSpreadsheet = new StringBuilder();
 
-        foreach (var score in scores.Where(s=> s.Qualified))
+        foreach (var score in scores.Where(s => s.Qualified))
         {
             var control = new Controls.TournamentSeedingControl(score);
 
@@ -66,4 +73,25 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void CopyToClipboardLabel_Click(object sender, EventArgs e)
         => Clipboard.SetText(ToSpreadsheet());
+
+    private void FileSaveAsPdfMenuItem_Click(object sender, EventArgs e)
+    {
+        var report = GenerateReport();
+
+        ResultReportBase<IViewModel>.GeneratePDF(report, "Tournament Seeding");
+    }
+
+    private MergedDocument GenerateReport()
+    {
+        var reports = _results.Select(result => new TournamentSeedingReport(result.Key, result.Value.ToList()));
+
+        return Document.Merge(reports).UseOriginalPageNumbers();
+    }
+
+    private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var report = GenerateReport();
+
+        ResultReportBase<IViewModel>.Print(report);
+    }
 }
