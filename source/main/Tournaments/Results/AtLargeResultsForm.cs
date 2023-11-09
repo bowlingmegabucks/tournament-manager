@@ -1,10 +1,16 @@
 ﻿
 using System.Text;
+using NortheastMegabuck.Tournaments.Seeding;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck.Tournaments.Results;
 internal partial class AtLarge : System.Windows.Forms.Form, IView
 {
     private readonly Dictionary<TabPage, string> _toSpreadsheet;
+
+    private readonly Dictionary<string, IEnumerable<IAtLargeViewModel>> _results = new();
+
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab];
 
@@ -26,6 +32,8 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
 
     public void BindResults(string divisionName, IEnumerable<IAtLargeViewModel> results)
     {
+        _results.Add(divisionName, results);
+
         var tabPage = new TabPage($"{divisionName}TabPage")
         {
             Text = divisionName
@@ -35,12 +43,12 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
         {
             Name = $"{divisionName}FlowLayoutPanel",
             Dock = DockStyle.Fill,
-            AutoScroll= true
+            AutoScroll = true
         };
 
         var toSpreadsheet = new StringBuilder();
 
-        foreach (var score in results )
+        foreach (var score in results)
         {
             var control = new Controls.AtLargeResultsControl(score);
 
@@ -56,4 +64,25 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
 
     private void CopyToClipboardLabel_Click(object sender, EventArgs e)
         => Clipboard.SetText(ToSpreadsheet());
+
+    private void SaveAsPDFToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var report = GenerateReport();
+
+        ResultReportBase<IAtLargeViewModel>.GeneratePDF(report, "At Large Results");
+    }
+
+    private MergedDocument GenerateReport()
+    {
+        var reports = _results.Select(result => new AtLargeReport(result.Key, result.Value.ToList()));
+
+        return Document.Merge(reports).UseOriginalPageNumbers();
+    }
+
+    private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var report = GenerateReport();
+
+        ResultReportBase<IAtLargeViewModel>.Print(report);
+    }
 }

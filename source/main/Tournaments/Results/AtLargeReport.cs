@@ -5,13 +5,13 @@ namespace NortheastMegabuck.Tournaments.Results;
 internal class AtLargeReport : ResultReportBase<IAtLargeViewModel>
 {
     public AtLargeReport(string division, IList<IAtLargeViewModel> results)
-        : base("Finals Seeding", null, division, results)
+        : base("At Large", null, division, results)
     { }
 
     protected override void ComposeColumnDefinitionDescriptor(TableColumnsDefinitionDescriptor columns)
     { 
         columns.ConstantColumn(40);
-        columns.ConstantColumn(10);
+        columns.ConstantColumn(100);
         columns.RelativeColumn(8);
         columns.RelativeColumn();
         columns.RelativeColumn(1);
@@ -34,8 +34,8 @@ internal class AtLargeReport : ResultReportBase<IAtLargeViewModel>
 
         foreach (var result in results)
         {
-            table.Cell().Element(CellStyle).AlignMiddle().Text($"#{result.Place}");
-            table.Cell().Element(CellStyle).AlignMiddle().Text($"#{result.SquadDate}");
+            table.Cell().Element(CellStyle).AlignMiddle().Text(result.Place.ToString());
+            table.Cell().Element(CellStyle).AlignMiddle().Text(result.SquadDate);
             table.Cell().Element(CellStyle).AlignMiddle().Text(result.BowlerName);
             table.Cell().Element(CellStyle).AlignMiddle().AlignCenter().Text(result.Score.ToString(CultureInfo.CurrentCulture));
             table.Cell().Element(CellStyle).AlignMiddle().AlignCenter().Text(result.HighGame.ToString(CultureInfo.CurrentCulture));
