@@ -72,9 +72,17 @@ internal class Repository : IRepository
             bowlers = bowlers.Where(bowler => bowler.Id == searchCriteria.BowlerId.Value);
         }
 
-        return searchCriteria.WithoutRegistrationOnSquads.Any()
-            ? bowlers.Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
-            : bowlers;
+        if (searchCriteria.WithoutRegistrationOnSquads.Any())
+        {
+            //look into why bowler comes back once for each registration and squad (can remove distinct later once figured out
+            bowlers = from bowler in bowlers
+                      from registration in bowler.Registrations
+                      from squad in registration.Squads
+                      where !searchCriteria.WithoutRegistrationOnSquads.Contains(squad.SquadId)
+                      select bowler;
+        }
+
+        return bowlers;
     }
 
     async Task IRepository.UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken)

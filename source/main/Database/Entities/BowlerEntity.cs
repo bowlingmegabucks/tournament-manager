@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace NortheastMegabuck.Database.Entities;
-internal class Bowler
+internal class Bowler : IEquatable<Bowler>
 {
     [Key]
     public BowlerId Id { get; set; }
@@ -47,6 +47,15 @@ internal class Bowler
     public ICollection<Registration> Registrations { get; set; } = null!;
 
     public ICollection<SquadScore> SquadScores { get; set; } = null!;
+
+    public bool Equals(Bowler? other) 
+        => other is not null && (ReferenceEquals(this, other) || Id.Equals(other.Id));
+
+    public override bool Equals(object? obj)
+        => Equals(obj as Bowler);
+
+    public override int GetHashCode()
+        => Id.GetHashCode();
 
     internal class Configuration : IEntityTypeConfiguration<Bowler>
     {
