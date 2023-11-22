@@ -74,12 +74,20 @@ internal class Repository : IRepository
 
         if (searchCriteria.WithoutRegistrationOnSquads.Any())
         {
-            //look into why bowler comes back once for each registration and squad (can remove distinct later once figured out
-            bowlers = from bowler in bowlers
-                      from registration in bowler.Registrations
-                      from squad in registration.Squads
-                      where !searchCriteria.WithoutRegistrationOnSquads.Contains(squad.SquadId)
-                      select bowler;
+            var excludeIds = new List<BowlerId>();
+
+            foreach (var bowler in bowlers)
+            {  
+                var squadIds = bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId);
+                var alreadyOnSquad = squadIds.Intersect(searchCriteria.WithoutRegistrationOnSquads).Any();
+
+                if (alreadyOnSquad)
+                {
+                    excludeIds.Add(bowler.Id);
+                }
+            }
+
+            bowlers = bowlers.Where(bowler => !excludeIds.Contains(bowler.Id));
         }
 
         return bowlers;
