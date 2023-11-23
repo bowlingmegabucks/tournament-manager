@@ -118,7 +118,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
 
     private void ScrollRecapsTimer_Tick(object sender, EventArgs e)
     {
-        using var recapSheet = CaptureScreen();
+        var recapSheet = CaptureScreen();
         _recapSheets.Add(recapSheet);
 
         _counter += 1;
