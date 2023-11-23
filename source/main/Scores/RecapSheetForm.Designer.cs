@@ -25,18 +25,20 @@ partial class RecapSheetForm
         bowlerSignatureLabel = new Label();
         scrollRecapsTimer = new System.Windows.Forms.Timer(components);
         recapPrintDocument = new System.Drawing.Printing.PrintDocument();
-        miniLogoPictureBox = new PictureBox();
         sponsorPictureBox1 = new PictureBox();
         sponsorPictureBox2 = new PictureBox();
         sponsorPictureBox3 = new PictureBox();
         recapsPrintDialog = new PrintDialog();
+        pictureBox1 = new PictureBox();
+        pictureBox2 = new PictureBox();
         buttonsPanel.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)recapsTrackBar).BeginInit();
         ((System.ComponentModel.ISupportInitialize)headerPictureBox).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)miniLogoPictureBox).BeginInit();
         ((System.ComponentModel.ISupportInitialize)sponsorPictureBox1).BeginInit();
         ((System.ComponentModel.ISupportInitialize)sponsorPictureBox2).BeginInit();
         ((System.ComponentModel.ISupportInitialize)sponsorPictureBox3).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
         SuspendLayout();
         // 
         // buttonsPanel
@@ -80,7 +82,6 @@ partial class RecapSheetForm
         // 
         // gamesFlowPanelLayout
         // 
-        gamesFlowPanelLayout.Dock = DockStyle.Right;
         gamesFlowPanelLayout.Location = new Point(352, 0);
         gamesFlowPanelLayout.Name = "gamesFlowPanelLayout";
         gamesFlowPanelLayout.Size = new Size(419, 471);
@@ -88,7 +89,7 @@ partial class RecapSheetForm
         // 
         // headerPictureBox
         // 
-        headerPictureBox.Image = Properties.Resources.NMT_Header_Color;
+        headerPictureBox.Image = (Image)resources.GetObject("headerPictureBox.Image");
         headerPictureBox.Location = new Point(0, 0);
         headerPictureBox.Name = "headerPictureBox";
         headerPictureBox.Size = new Size(352, 106);
@@ -166,22 +167,12 @@ partial class RecapSheetForm
         recapPrintDocument.EndPrint += RecapPrintDocument_EndPrint;
         recapPrintDocument.PrintPage += RecapPrintDocument_PrintPage;
         // 
-        // miniLogoPictureBox
-        // 
-        miniLogoPictureBox.Image = (Image)resources.GetObject("miniLogoPictureBox.Image");
-        miniLogoPictureBox.Location = new Point(288, 294);
-        miniLogoPictureBox.Name = "miniLogoPictureBox";
-        miniLogoPictureBox.Size = new Size(58, 50);
-        miniLogoPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-        miniLogoPictureBox.TabIndex = 9;
-        miniLogoPictureBox.TabStop = false;
-        // 
         // sponsorPictureBox1
         // 
         sponsorPictureBox1.Image = (Image)resources.GetObject("sponsorPictureBox1.Image");
         sponsorPictureBox1.Location = new Point(12, 215);
         sponsorPictureBox1.Name = "sponsorPictureBox1";
-        sponsorPictureBox1.Size = new Size(144, 73);
+        sponsorPictureBox1.Size = new Size(109, 50);
         sponsorPictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         sponsorPictureBox1.TabIndex = 10;
         sponsorPictureBox1.TabStop = false;
@@ -189,9 +180,9 @@ partial class RecapSheetForm
         // sponsorPictureBox2
         // 
         sponsorPictureBox2.Image = (Image)resources.GetObject("sponsorPictureBox2.Image");
-        sponsorPictureBox2.Location = new Point(202, 215);
+        sponsorPictureBox2.Location = new Point(237, 215);
         sponsorPictureBox2.Name = "sponsorPictureBox2";
-        sponsorPictureBox2.Size = new Size(144, 73);
+        sponsorPictureBox2.Size = new Size(109, 50);
         sponsorPictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
         sponsorPictureBox2.TabIndex = 11;
         sponsorPictureBox2.TabStop = false;
@@ -211,14 +202,35 @@ partial class RecapSheetForm
         recapsPrintDialog.Document = recapPrintDocument;
         recapsPrintDialog.UseEXDialog = true;
         // 
+        // pictureBox1
+        // 
+        pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+        pictureBox1.Location = new Point(12, 271);
+        pictureBox1.Name = "pictureBox1";
+        pictureBox1.Size = new Size(109, 50);
+        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+        pictureBox1.TabIndex = 13;
+        pictureBox1.TabStop = false;
+        // 
+        // pictureBox2
+        // 
+        pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+        pictureBox2.Location = new Point(237, 271);
+        pictureBox2.Name = "pictureBox2";
+        pictureBox2.Size = new Size(109, 50);
+        pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+        pictureBox2.TabIndex = 14;
+        pictureBox2.TabStop = false;
+        // 
         // RecapSheetForm
         // 
         BackColor = Color.White;
         ClientSize = new Size(771, 505);
+        Controls.Add(pictureBox2);
+        Controls.Add(pictureBox1);
         Controls.Add(sponsorPictureBox3);
         Controls.Add(sponsorPictureBox2);
         Controls.Add(sponsorPictureBox1);
-        Controls.Add(miniLogoPictureBox);
         Controls.Add(bowlerSignatureLabel);
         Controls.Add(opposingSignatureLabel);
         Controls.Add(divisionLabel);
@@ -237,10 +249,11 @@ partial class RecapSheetForm
         buttonsPanel.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)recapsTrackBar).EndInit();
         ((System.ComponentModel.ISupportInitialize)headerPictureBox).EndInit();
-        ((System.ComponentModel.ISupportInitialize)miniLogoPictureBox).EndInit();
         ((System.ComponentModel.ISupportInitialize)sponsorPictureBox1).EndInit();
         ((System.ComponentModel.ISupportInitialize)sponsorPictureBox2).EndInit();
         ((System.ComponentModel.ISupportInitialize)sponsorPictureBox3).EndInit();
+        ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+        ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
         ResumeLayout(false);
     }
 
@@ -277,9 +290,10 @@ partial class RecapSheetForm
 	private Label bowlerSignatureLabel;
 	private System.Windows.Forms.Timer scrollRecapsTimer;
 	private System.Drawing.Printing.PrintDocument recapPrintDocument;
-    private PictureBox miniLogoPictureBox;
     private PictureBox sponsorPictureBox1;
     private PictureBox sponsorPictureBox2;
     private PictureBox sponsorPictureBox3;
     private PrintDialog recapsPrintDialog;
+    private PictureBox pictureBox1;
+    private PictureBox pictureBox2;
 }
