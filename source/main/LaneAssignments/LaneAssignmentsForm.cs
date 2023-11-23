@@ -309,6 +309,13 @@ public partial class Form : System.Windows.Forms.Form, IView
     {
         var assignments = laneAssignmentFlowLayoutPanel.Controls.OfType<IViewModel>().Where(assignment => assignment.BowlerId != BowlerId.Empty).ToList();
 
+        if (assignments.Count == 0)
+        {
+            MessageBox.Show("No lanes have been assigned", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return;
+        }
+
         var text = new StringBuilder();
 
         assignments.ForEach(assignment => text.AppendLine(assignment.ToString()));
