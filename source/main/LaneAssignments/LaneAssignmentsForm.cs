@@ -346,10 +346,28 @@ public partial class Form : System.Windows.Forms.Form, IView
     {
         refreshAssignmentsLinkLabel.Enabled = false;
 
-        laneAssignmentFlowLayoutPanel.Controls.Clear();
-        unassignedRegistrationsFlowLayoutPanel.Controls.Clear();
+        laneAssignmentFlowLayoutPanel.Visible = false;
+        unassignedRegistrationsFlowLayoutPanel.Visible = false;
+
+        //look into why we can't just clear the controls
+        var laneAssignments = laneAssignmentFlowLayoutPanel.Controls.OfType<IViewModel>().ToList();
+
+        foreach (var laneAssignment in laneAssignments)
+        { 
+            laneAssignmentFlowLayoutPanel.Controls.Remove(laneAssignment as Control);
+        }
+
+        var unassignedRegistrations = unassignedRegistrationsFlowLayoutPanel.Controls.OfType<IViewModel>().ToList();
+
+        foreach (var unassignedRegistration in unassignedRegistrations)
+        {
+            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedRegistration as Control);
+        }
 
         await new Presenter(_config, this).LoadAsync(default).ConfigureAwait(true);
+
+        laneAssignmentFlowLayoutPanel.Visible = true;
+        unassignedRegistrationsFlowLayoutPanel.Visible = true;
 
         refreshAssignmentsLinkLabel.Enabled = true;
     }
