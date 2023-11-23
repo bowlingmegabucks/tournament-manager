@@ -261,6 +261,11 @@ public partial class Form : System.Windows.Forms.Form, IView
     {
         var registration = e.Data<LaneAssignmentControl>();
 
+        if (registration!.BowlerId == BowlerId.Empty)
+        {
+            return;
+        }
+
         var openLane = sender as LaneAssignmentControl;
 
         await new Presenter(_config, this).UpdateAsync(SquadId, registration!, openLane!.LaneAssignment, default).ConfigureAwait(true);
