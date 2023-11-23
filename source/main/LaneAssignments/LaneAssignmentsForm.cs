@@ -24,7 +24,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     private readonly bool _complete;
 
-    public void BuildLanes([NotNull]IEnumerable<string> lanes)
+    public void BuildLanes([NotNull] IEnumerable<string> lanes)
     {
         foreach (var lane in lanes)
         {
@@ -74,12 +74,11 @@ public partial class Form : System.Windows.Forms.Form, IView
         }
         else
         {
-            _divisionEntries.Add(laneAssignment.DivisionName,1);
+            _divisionEntries.Add(laneAssignment.DivisionName, 1);
         }
 
         BindEntriesPerDivision();
     }
-        
 
     public void BindLaneAssignments([NotNull] IEnumerable<IViewModel> assignments)
     {
@@ -90,7 +89,6 @@ public partial class Form : System.Windows.Forms.Form, IView
             openLane!.Bind(registration);
 
             openLane.MouseDown += UnassignedRegistration_MouseDown!;
-            openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
             openLane.Enter += LaneAssignmentRegistered_Enter!;
             openLane.Leave += LaneAssignmentRegistered_Leave!;
             openLane.ContextMenuStrip = laneAssignmentContextMenuStrip;
@@ -106,14 +104,15 @@ public partial class Form : System.Windows.Forms.Form, IView
         openLane.Bind(registration);
 
         openLane.MouseDown += UnassignedRegistration_MouseDown!;
-        openLane.KeyUp += LaneAssignmentRegistered_KeyUp!;
         openLane.Enter += LaneAssignmentRegistered_Enter!;
         openLane.Leave += LaneAssignmentRegistered_Leave!;
         openLane.ContextMenuStrip = laneAssignmentContextMenuStrip;
 
         if (string.IsNullOrEmpty(registration!.LaneAssignment))
         {
-            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control => control.BowlerId == registration.BowlerId));
+            var unassignedLane = unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control => control.BowlerId == registration.BowlerId);
+            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedLane);
+            unassignedRegistrationsFlowLayoutPanel.Refresh();
         }
         else
         {
@@ -135,7 +134,6 @@ public partial class Form : System.Windows.Forms.Form, IView
         var registeredLane = laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control => control.LaneAssignment == registration.LaneAssignment);
 
         registeredLane!.ClearRegistration();
-        registeredLane.KeyUp -= LaneAssignmentRegistered_KeyUp!;
         registeredLane.ContextMenuStrip = null;
 
         AddOpenLaneEventsToOpenLane(registeredLane);
@@ -172,7 +170,6 @@ public partial class Form : System.Windows.Forms.Form, IView
             _divisionEntries[assigned.DivisionName]--;
 
             assigned.ClearRegistration();
-            assigned.KeyUp -= LaneAssignmentRegistered_KeyUp!;
 
             AddOpenLaneEventsToOpenLane(assigned);
 
@@ -257,7 +254,7 @@ public partial class Form : System.Windows.Forms.Form, IView
     private void LaneAssignmentOpen_DragLeave(object sender, EventArgs e)
         => (sender as Control)!.BackColor = SystemColors.Control;
 
-    private async void LaneAssignmentOpen_DragDrop(object sender, DragEventArgs e)
+    private void LaneAssignmentOpen_DragDrop(object sender, DragEventArgs e)
     {
         var registration = e.Data<LaneAssignmentControl>();
 
@@ -268,19 +265,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
         var openLane = sender as LaneAssignmentControl;
 
-        await new Presenter(_config, this).UpdateAsync(SquadId, registration!, openLane!.LaneAssignment, default).ConfigureAwait(true);
-    }
-
-    private async void LaneAssignmentRegistered_KeyUp(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode != Keys.Escape)
-        {
-            return;
-        }
-
-        var registeredLane = sender as IViewModel;
-
-        await new Presenter(_config, this).UpdateAsync(SquadId, registeredLane!, string.Empty, default).ConfigureAwait(true);
+        _ = new Presenter(_config, this).UpdateAsync(SquadId, registration!, openLane!.LaneAssignment, default).ConfigureAwait(true);
     }
 
     private void LaneAssignmentRegistered_Enter(object sender, EventArgs e)
@@ -304,11 +289,11 @@ public partial class Form : System.Windows.Forms.Form, IView
         openLane.DragDrop += LaneAssignmentOpen_DragDrop!;
     }
 
-    private async void NewRegistrationButton_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).NewRegistrationAsync(default).ConfigureAwait(true);
+    private void NewRegistrationButton_Click(object sender, EventArgs e)
+        => _ = new Presenter(_config, this).NewRegistrationAsync(default).ConfigureAwait(true);
 
-    private async void AddToRegistrationButton_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).AddToRegistrationAsync(default).ConfigureAwait(true);
+    private void AddToRegistrationButton_Click(object sender, EventArgs e)
+        => _ = new Presenter(_config, this).AddToRegistrationAsync(default).ConfigureAwait(true);
 
     private void CopyAssignmentsToClipboardLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
@@ -345,16 +330,16 @@ public partial class Form : System.Windows.Forms.Form, IView
         _recapSheetForm.Preview(recaps, Games);
     }
 
-    private async void DeleteLaneAssignmentMenuItem_Click(object sender, EventArgs e)
+    private void DeleteLaneAssignmentMenuItem_Click(object sender, EventArgs e)
     {
         var menuItem = sender as ToolStripMenuItem;
         var contextMenu = menuItem?.Owner as ContextMenuStrip;
         var assignment = contextMenu?.SourceControl as LaneAssignmentControl;
 
-        await new Presenter(_config, this).DeleteAsync(assignment!.BowlerId, default).ConfigureAwait(true);
+        _ = new Presenter(_config, this).DeleteAsync(assignment!.BowlerId, default).ConfigureAwait(true);
     }
 
-    private async void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         refreshAssignmentsLinkLabel.Enabled = false;
 
@@ -365,18 +350,22 @@ public partial class Form : System.Windows.Forms.Form, IView
         var laneAssignments = laneAssignmentFlowLayoutPanel.Controls.OfType<IViewModel>().ToList();
 
         foreach (var laneAssignment in laneAssignments)
-        { 
-            laneAssignmentFlowLayoutPanel.Controls.Remove(laneAssignment as Control);
+        {
+            var control = laneAssignment as Control;
+            laneAssignmentFlowLayoutPanel.Controls.Remove(control);
+            control!.Dispose();
         }
 
         var unassignedRegistrations = unassignedRegistrationsFlowLayoutPanel.Controls.OfType<IViewModel>().ToList();
 
         foreach (var unassignedRegistration in unassignedRegistrations)
         {
-            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedRegistration as Control);
+            var control = unassignedRegistration as Control;
+            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(control);
+            control!.Dispose();
         }
 
-        await new Presenter(_config, this).LoadAsync(default).ConfigureAwait(true);
+        _ = new Presenter(_config, this).LoadAsync(default).ConfigureAwait(true);
 
         laneAssignmentFlowLayoutPanel.Visible = true;
         unassignedRegistrationsFlowLayoutPanel.Visible = true;
@@ -397,13 +386,22 @@ public partial class Form : System.Windows.Forms.Form, IView
     {
         var entriesPerDivision = new StringBuilder(Environment.NewLine);
 
-        foreach (var entry in _divisionEntries.Where(entries=> entries.Value > 0))
+        foreach (var entry in _divisionEntries.Where(entries => entries.Value > 0))
         {
             entriesPerDivision.AppendLine(CultureInfo.CurrentCulture, $"{entry.Key}: {entry.Value}");
             entriesPerDivision.AppendLine();
         }
 
         entriesPerDivisionLabel.Text = entriesPerDivision.ToString();
+    }
+
+    private void RemoveFromLaneAssignmentToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var menuItem = sender as ToolStripMenuItem;
+        var contextMenu = menuItem?.Owner as ContextMenuStrip;
+        var assignment = contextMenu?.SourceControl as LaneAssignmentControl;
+
+        _ = new Presenter(_config, this).UpdateAsync(SquadId, assignment!, string.Empty, default).ConfigureAwait(true);
     }
 }
 
