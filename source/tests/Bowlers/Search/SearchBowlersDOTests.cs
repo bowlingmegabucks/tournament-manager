@@ -33,20 +33,23 @@ internal sealed class DataLayer
 
         var bowlers = new List<NortheastMegabuck.Database.Entities.Bowler>
         {
-            new NortheastMegabuck.Database.Entities.Bowler
+            new() 
             {
+                Id = BowlerId.New(),
                 FirstName = "John",
                 LastName = "Doe"
             },
             
-            new NortheastMegabuck.Database.Entities.Bowler
+            new() 
             {
+                Id = BowlerId.New(),
                 FirstName = "Jane",
                 LastName = "Doe"
             },
             
-            new NortheastMegabuck.Database.Entities.Bowler
+            new() 
             {
+                Id = BowlerId.New(),
                 FirstName = "John",
                 LastName = "Smith"
             }
