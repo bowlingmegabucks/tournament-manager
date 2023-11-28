@@ -4,8 +4,8 @@ internal sealed class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
 
-    public Models.ErrorDetail? Error
-        => _businessLogic.Error;
+    public IEnumerable<Models.ErrorDetail> Errors
+        => _businessLogic.Errors;
 
     public Adapter(IConfiguration config)
     {
@@ -27,7 +27,7 @@ internal sealed class Adapter : IAdapter
 
 internal interface IAdapter
 {
-    Models.ErrorDetail? Error { get; }
+    IEnumerable<Models.ErrorDetail> Errors { get; }
 
     Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken);
 }

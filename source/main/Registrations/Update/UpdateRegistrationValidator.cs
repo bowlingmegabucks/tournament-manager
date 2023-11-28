@@ -23,7 +23,6 @@ internal class Validator : AbstractValidator<UpdateRegistrationModel>
 
         RuleFor(registration => registration.USBCId).NotEmpty().When(registration => registration.Division.HandicapPercentage.HasValue).WithMessage("USBC Id is required for Handicap Divisions");
 
-
         RuleFor(registration => registration.Gender).Must(gender => gender.HasValue)
             .When(registration => registration.Division.Gender.HasValue)
             .When(registration => !(registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue))
