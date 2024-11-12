@@ -30,7 +30,7 @@ internal class Presenter
 
         foreach (var divisionScores in scoresByDivision)
         {
-            _view.BindResults(divisionScores.Key, divisionScores.Any(score => score.Handicap > 0), divisionScores.ToList());
+            _view.BindResults(divisionScores.Key, divisionScores.Any(score => score.Handicap > 0), [.. divisionScores]);
         }
     }
 }

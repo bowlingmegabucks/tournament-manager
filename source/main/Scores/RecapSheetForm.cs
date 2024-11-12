@@ -17,7 +17,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
         _pen = new Pen(Color.Black, 2);
     }
 
-    private IList<IRecapSheetViewModel> _recaps;
+    private List<IRecapSheetViewModel> _recaps;
 
     internal void Preview(IEnumerable<IRecapSheetViewModel> recaps, short games)
     {
@@ -45,7 +45,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
             _games.Add(i, new Controls.RecapSheetGameRowControl());
         }
 
-        gamesFlowPanelLayout.Controls.AddRange(_games.Values.ToArray());
+        gamesFlowPanelLayout.Controls.AddRange([.. _games.Values]);
         gamesFlowPanelLayout.Controls.Add(new Controls.RecapSheetGameTotalControl());
 
 #pragma warning disable CA1303 // Do not pass literals as localized parameters

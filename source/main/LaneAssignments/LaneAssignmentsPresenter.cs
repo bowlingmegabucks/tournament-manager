@@ -171,7 +171,7 @@ internal class Presenter
             allLanes.Add((short)(oddLane + 1));
         }
 
-        lanesUsed = allLanes.Distinct().Order().ToList();
+        lanesUsed = [.. allLanes.Distinct().Order()];
 
         var crossGenerator = _generateCrossFactory.Execute(_view.StaggeredSkipSelected);
 

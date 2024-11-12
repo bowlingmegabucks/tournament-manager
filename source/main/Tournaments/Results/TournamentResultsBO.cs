@@ -49,7 +49,7 @@ internal class BusinessLogic : IBusinessLogic
             return [];
         }
 
-        return squadResults.Select(squadResult => new Models.TournamentResults(squadResult.Key, squadResult, _calculator.Execute(squadResult.Key.Id, squadResult.ToList(), tournament!.FinalsRatio))).ToList();
+        return squadResults.Select(squadResult => new Models.TournamentResults(squadResult.Key, squadResult, _calculator.Execute(squadResult.Key.Id, [.. squadResult], tournament!.FinalsRatio))).ToList();
     }
 }
 
