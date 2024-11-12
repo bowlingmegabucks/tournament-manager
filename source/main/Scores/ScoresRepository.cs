@@ -22,7 +22,7 @@ internal class Repository : IRepository
     async Task IRepository.UpdateAsync(ICollection<Database.Entities.SquadScore> scores, CancellationToken cancellationToken)
     {
         var squadId = scores.First().SquadId;
-        var existingSquadScores = _dataContext.SquadScores.Where(score => score.SquadId == squadId).ToList();
+        var existingSquadScores = await _dataContext.SquadScores.Where(score => score.SquadId == squadId).ToListAsync(cancellationToken).ConfigureAwait(false);
 
         foreach (var newSquadScore in scores)
         {
