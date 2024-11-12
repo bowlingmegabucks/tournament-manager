@@ -25,7 +25,7 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
         BorderStyle = BorderStyle.FixedSingle;
     }
 
-    public void Bind([NotNull]LaneAssignments.IViewModel viewModel)
+    public void Bind([NotNull] LaneAssignments.IViewModel viewModel)
     {
         BowlerId = viewModel.BowlerId;
         BowlerName = viewModel.BowlerName;
@@ -45,7 +45,7 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
     public void ClearRegistration()
     {
         BowlerId = BowlerId.Empty;
-        
+
         BowlerName = string.Empty;
         DivisionNumber = 0;
         DivisionName = string.Empty;
@@ -86,7 +86,7 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
     }
 
     public int Handicap
-    { 
+    {
         get => handicapLabelValue.Text == "-" ? 0 : Convert.ToInt32(handicapLabelValue.Text, _culture);
         set => handicapLabelValue.Text = value == 0 ? "-" : value.ToString(_culture);
     }

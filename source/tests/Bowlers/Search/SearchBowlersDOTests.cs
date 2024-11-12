@@ -38,13 +38,13 @@ internal sealed class DataLayer
                 FirstName = "John",
                 LastName = "Doe"
             },
-            
+
             new NortheastMegabuck.Database.Entities.Bowler
             {
                 FirstName = "Jane",
                 LastName = "Doe"
             },
-            
+
             new NortheastMegabuck.Database.Entities.Bowler
             {
                 FirstName = "John",

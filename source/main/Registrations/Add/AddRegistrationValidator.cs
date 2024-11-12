@@ -11,15 +11,15 @@ internal class Validator : AbstractValidator<Models.Registration>
         RuleFor(registration => registration.Average).GreaterThanOrEqualTo(registration => registration.Division.MinimumAverage!.Value).When(registration => registration.Division.MinimumAverage.HasValue).WithMessage("Minimum average requirement for division not met");
         RuleFor(registration => registration.Average).LessThanOrEqualTo(registration => registration.Division.MaximumAverage!.Value).When(registration => registration.Division.MaximumAverage.HasValue).WithMessage("Maximum average requirement for division not met");
 
-        RuleFor(registration => registration.Bowler.DateOfBirth).Must(dateOfBirth=> dateOfBirth.HasValue)
-            .When(registration=> (registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue) && !registration.Division.Gender.HasValue)
+        RuleFor(registration => registration.Bowler.DateOfBirth).Must(dateOfBirth => dateOfBirth.HasValue)
+            .When(registration => (registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue) && !registration.Division.Gender.HasValue)
             .WithMessage("Date of birth required for selected division");
         RuleFor(registration => registration.Bowler.DateOfBirth).Must((registration, dateOfBirth) => registration.Bowler.AgeOn(registration.TournamentStartDate) >= registration.Division.MinimumAge!.Value)
-            .When(registration=> registration.Division.MinimumAge.HasValue)
+            .When(registration => registration.Division.MinimumAge.HasValue)
             .When(registration => (registration.Division.Gender.HasValue && registration.Division.Gender.Value != registration.Bowler.Gender) || !registration.Division.Gender.HasValue)
             .WithMessage("Bowler too young for selected division");
         RuleFor(registration => registration.Bowler.DateOfBirth).Must((registration, dateOfBirth) => registration.Bowler.AgeOn(registration.TournamentStartDate) <= registration.Division.MaximumAge!.Value)
-            .When(registration=> registration.Division.MaximumAge.HasValue)
+            .When(registration => registration.Division.MaximumAge.HasValue)
             .When(registration => (registration.Division.Gender.HasValue && registration.Division.Gender.Value != registration.Bowler.Gender) || !registration.Division.Gender.HasValue)
             .WithMessage("Bowler too old for selected division");
 
@@ -27,7 +27,7 @@ internal class Validator : AbstractValidator<Models.Registration>
 
         RuleFor(registration => registration.Bowler.Gender).Must(gender => gender.HasValue)
             .When(registration => registration.Division.Gender.HasValue)
-            .When(registration=> !(registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue))
+            .When(registration => !(registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue))
             .WithMessage("Gender is required for selected division");
         RuleFor(registration => registration.Bowler.Gender).Must((registration, gender) => registration.Division.Gender!.Value == gender)
             .When(registration => registration.Division.Gender.HasValue)

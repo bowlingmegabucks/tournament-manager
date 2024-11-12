@@ -20,7 +20,7 @@ internal class Sweeper
 
     public short StartingLane { get; set; }
 
-    public short NumberOfLanes { get;set; }
+    public short NumberOfLanes { get; set; }
 
     public bool Complete { get; set; }
 

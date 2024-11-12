@@ -21,7 +21,7 @@ internal class DataLayer : IDataLayer
     }
 
     async Task<IEnumerable<Models.Bowler>> IDataLayer.ExecuteAsync(Models.BowlerSearchCriteria searchCriteria, CancellationToken cancellationToken)
-    { 
+    {
         var bowlers = await _repository.Search(searchCriteria).Distinct().ToListAsync(cancellationToken).ConfigureAwait(false);
 
         return bowlers.Select(bowler => new Models.Bowler(bowler));

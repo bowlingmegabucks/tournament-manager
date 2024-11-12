@@ -22,7 +22,7 @@ internal class BusinessLogic : IBusinessLogic
     {
         _errors = new List<Models.ErrorDetail>();
         _validator = mockValidator;
-        _dataLayer = new Lazy<IDataLayer>(()=> mockDataLayer);
+        _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
     public async Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<Models.SquadScore> squadScores, CancellationToken cancellationToken)

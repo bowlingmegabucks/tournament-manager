@@ -5,7 +5,7 @@ internal class Calculator : ICalculator
 {
     public Models.TournamentFinalsSeeding Execute(Models.TournamentResults result)
     {
-        var advanceringBowlerIds = result.SquadResults.SelectMany(squadResult=> squadResult.AdvancingScores.Select(advancingScore=> advancingScore.Bowler.Id)).Union(result.AtLarge.AdvancingScores.Select(advancingScore=> advancingScore.Bowler.Id)).ToList();
+        var advanceringBowlerIds = result.SquadResults.SelectMany(squadResult => squadResult.AdvancingScores.Select(advancingScore => advancingScore.Bowler.Id)).Union(result.AtLarge.AdvancingScores.Select(advancingScore => advancingScore.Bowler.Id)).ToList();
 
         var bestScores = result.SquadResults.SelectMany(squadResult => squadResult.Scores).GroupBy(score => score.Bowler).Select(bowlerScore => bowlerScore.MaxBy(score => score.Score)!).ToList();
 

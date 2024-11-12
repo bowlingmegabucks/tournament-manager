@@ -51,10 +51,10 @@ internal sealed class Calculator
         var tournamentResult = new NortheastMegabuck.Models.TournamentResults()
         {
             Division = division,
-            SquadResults = new[] { squadResult1, squadResult2},
-            AtLarge= new NortheastMegabuck.Models.AtLargeResults
-            { 
-                AdvancingScores= new[] { atLargeScore1 },
+            SquadResults = new[] { squadResult1, squadResult2 },
+            AtLarge = new NortheastMegabuck.Models.AtLargeResults
+            {
+                AdvancingScores = new[] { atLargeScore1 },
                 DivisionId = division.Id
             }
         };
@@ -122,7 +122,7 @@ internal sealed class Calculator
             {
                 AdvancingScores = new[] { atLargeScore1 },
                 DivisionId = division.Id,
-                AdvancersWhoPreviouslyCashed = new[] { BowlerId.New(), BowlerId.New(), BowlerId.New()}
+                AdvancersWhoPreviouslyCashed = new[] { BowlerId.New(), BowlerId.New(), BowlerId.New() }
             }
         };
 

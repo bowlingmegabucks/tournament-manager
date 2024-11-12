@@ -63,7 +63,7 @@ internal class DataContext : DbContext, IDataContext
 
         modelBuilder.ApplyConfiguration(new Entities.SquadScore.Configuration());
     }
-        
+
 
     public DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
 

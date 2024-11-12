@@ -42,7 +42,7 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
-    internal TournamentRegistrationViewModel() 
+    internal TournamentRegistrationViewModel()
     {
         FirstName = string.Empty;
         LastName = string.Empty;

@@ -36,7 +36,7 @@ internal class ViewModel : IViewModel
         StartingLane = sweeper.StartingLane;
         NumberOfLanes = sweeper.NumberOfLanes;
         Complete = sweeper.Complete;
-        Divisions = sweeper.Divisions.ToDictionary(division=> division.Key, division=> division.Value);
+        Divisions = sweeper.Divisions.ToDictionary(division => division.Key, division => division.Value);
     }
 
     /// <summary>

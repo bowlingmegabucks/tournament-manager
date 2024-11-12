@@ -26,7 +26,7 @@ internal sealed class Adapter
 
         await _adapter.AtLargeAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic=> businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]

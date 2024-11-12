@@ -39,7 +39,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(bowlerId, name, cancellationToken).ConfigureAwait(false);
 
-        _nameValidator.Verify(validator=> validator.ValidateAsync(name, cancellationToken), Times.Once);
+        _nameValidator.Verify(validator => validator.ValidateAsync(name, cancellationToken), Times.Once);
     }
 
     [Test]

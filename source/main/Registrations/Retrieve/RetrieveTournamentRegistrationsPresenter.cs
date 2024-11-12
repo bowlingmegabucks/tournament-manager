@@ -41,8 +41,8 @@ internal class TournamentRegistrationsPresenter
         _registrationsAdapter = mockRgistrationsAdapter;
         _squadsAdapter = mockSquadsAdapter;
         _sweepersAdapter = mockSweepersAdapter;
-        _deleteAdapter = new Lazy<Delete.IAdapter>(()=> mockDeleteAdapter);
-        _updateAdapter = new Lazy<Update.IAdapter>(()=> mockUpdateAdapter);
+        _deleteAdapter = new Lazy<Delete.IAdapter>(() => mockDeleteAdapter);
+        _updateAdapter = new Lazy<Update.IAdapter>(() => mockUpdateAdapter);
     }
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -73,7 +73,7 @@ internal class TournamentRegistrationsPresenter
 
         _view.BindRegistrations(registrations.OrderBy(registration => registration.LastName).ThenBy(registration => registration.FirstName));
 
-        var divisionEntries = registrations.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Sum(r=> r.SquadsEnteredCount));
+        var divisionEntries = registrations.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Sum(r => r.SquadsEnteredCount));
         _view.SetDivisionEntries(divisionEntries);
     }
 
@@ -118,7 +118,7 @@ internal class TournamentRegistrationsPresenter
         await UpdateAdapter.AddSuperSweeperAsync(id, cancellationToken).ConfigureAwait(false);
 
         if (UpdateAdapter.Error is not null)
-        { 
+        {
             _view.DisplayError(UpdateAdapter.Error.Message);
 
             return;

@@ -114,9 +114,9 @@ internal sealed class Calculator
         var bowler2 = BuildBowlerSquadScore(139);
         var bowler3 = BuildBowlerSquadScore(138);
         var bowler4 = BuildBowlerSquadScore(137);
-        var bowler5 = BuildBowlerSquadScore(35,36,38);
+        var bowler5 = BuildBowlerSquadScore(35, 36, 38);
 
-        var bowler6 = BuildBowlerSquadScore(36,36,37);
+        var bowler6 = BuildBowlerSquadScore(36, 36, 37);
         var bowler7 = BuildBowlerSquadScore(34);
         var bowler8 = BuildBowlerSquadScore(33);
         var bowler9 = BuildBowlerSquadScore(32);
@@ -207,9 +207,9 @@ internal sealed class Calculator
         var bowler7 = BuildBowlerSquadScore(134);
         var bowler8 = BuildBowlerSquadScore(133);
         var bowler9 = BuildBowlerSquadScore(132);
-        var bowler10 = BuildBowlerSquadScore(30,31,33);
+        var bowler10 = BuildBowlerSquadScore(30, 31, 33);
 
-        var bowler11 = BuildBowlerSquadScore(31,31,32);
+        var bowler11 = BuildBowlerSquadScore(31, 31, 32);
         var bowler12 = BuildBowlerSquadScore(29);
         var bowler13 = BuildBowlerSquadScore(28);
         var bowler14 = BuildBowlerSquadScore(27);
@@ -289,7 +289,7 @@ internal sealed class Calculator
         var bowler3 = BuildBowlerSquadScore(38);
         var bowler4 = BuildBowlerSquadScore(37);
 
-        var scores = new[] {bowler1, bowler2, bowler3, bowler4 }.ToList();
+        var scores = new[] { bowler1, bowler2, bowler3, bowler4 }.ToList();
 
         scores.Shuffle();
 
@@ -320,7 +320,7 @@ internal sealed class Calculator
         var bowler5 = BuildBowlerSquadScore(36);
         var bowler6 = BuildBowlerSquadScore(35);
 
-        var scores = new[] { bowler1, bowler2, bowler3, 
+        var scores = new[] { bowler1, bowler2, bowler3,
                              bowler4, bowler5, bowler6 }.ToList();
 
         scores.Shuffle();
@@ -620,7 +620,7 @@ internal static class Extensions
         while (n > 1)
         {
             n--;
-            var k = RandomNumberGenerator.GetInt32(n+1);
+            var k = RandomNumberGenerator.GetInt32(n + 1);
             (list[n], list[k]) = (list[k], list[n]);
         }
     }

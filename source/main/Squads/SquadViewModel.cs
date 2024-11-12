@@ -36,7 +36,7 @@ internal class ViewModel : IViewModel
         NumberOfLanes = squad.NumberOfLanes;
         Complete = squad.Complete;
         EntryFee = squad.EntryFee;
-        
+
     }
 }
 
@@ -49,7 +49,7 @@ public interface IViewModel
     decimal? EntryFee { get; set; }
 
     decimal? CashRatio { get; set; }
-    
+
     decimal? FinalsRatio { get; set; }
 
     DateTime Date { get; set; }

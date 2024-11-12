@@ -47,7 +47,7 @@ public partial class TournamentRegistrationGrid
         if (row.Cells[nameof(squadsEnteredColumn)].ColumnIndex == column.ColumnIndex)
         {
             var squads = new StringBuilder();
-            
+
             foreach (var squad in registration!.SquadsEntered)
             {
                 squads.AppendLine(_squadDates[squad]);

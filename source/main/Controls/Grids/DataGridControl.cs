@@ -35,7 +35,7 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     /// <summary>
     ///
     /// </summary>
-    protected IEnumerable<TModel> Models 
+    protected IEnumerable<TModel> Models
         => _models;
 
     /// <summary>

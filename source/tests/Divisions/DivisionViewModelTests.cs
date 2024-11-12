@@ -90,7 +90,7 @@ internal sealed class ViewModel
 
         Assert.That(viewModel.MinimumAverage, Is.EqualTo(model.MinimumAverage));
     }
-    
+
     [Test]
     public void Constructor_Model_MaximumAverageMapped([Values(null, 200)] int? maximumAverage)
     {

@@ -39,7 +39,7 @@ internal sealed class DataLayer
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
-        _repository.Setup(repository=> repository.RetrieveAll()).Returns(tournaments.BuildMock());
+        _repository.Setup(repository => repository.RetrieveAll()).Returns(tournaments.BuildMock());
 
         var actual = (await _dataLayer.ExecuteAsync(default).ConfigureAwait(false)).ToList();
 

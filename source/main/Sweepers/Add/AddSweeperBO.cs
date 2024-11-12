@@ -53,7 +53,7 @@ internal class BusinessLogic : IBusinessLogic
 
             return null;
         }
-        
+
         try
         {
             return await DataLayer.ExecuteAsync(sweeper, cancellationToken).ConfigureAwait(false);
@@ -61,14 +61,14 @@ internal class BusinessLogic : IBusinessLogic
         catch (Exception ex)
         {
             Errors = new[] { new Models.ErrorDetail(ex) };
-            
+
             return null;
         }
     }
 }
 
 internal interface IBusinessLogic
-{ 
+{
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
     Task<SquadId?> ExecuteAsync(Models.Sweeper sweeper, CancellationToken cancellationToken);

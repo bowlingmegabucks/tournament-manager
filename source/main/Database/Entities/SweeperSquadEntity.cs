@@ -6,7 +6,7 @@ namespace NortheastMegabuck.Database.Entities;
 internal class SweeperSquad : Squad
 {
     [Required]
-    [Precision(5,2)]
+    [Precision(5, 2)]
     public decimal EntryFee { get; set; }
 
     [Required]
@@ -18,7 +18,7 @@ internal class SweeperSquad : Squad
     {
         public void Configure(EntityTypeBuilder<SweeperSquad> builder)
         {
-            builder.Property(squad=> squad.EntryFee).HasColumnName("SweeperEntryFee");
+            builder.Property(squad => squad.EntryFee).HasColumnName("SweeperEntryFee");
 
             builder.HasOne(squad => squad.Tournament)
                      .WithMany(tournament => tournament.Sweepers)

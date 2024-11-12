@@ -40,7 +40,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ReturnsLaneAssignments()
     {
-        var laneAssignments = Enumerable.Repeat(new NortheastMegabuck.Models.LaneAssignment { Average = 200}, 3);
+        var laneAssignments = Enumerable.Repeat(new NortheastMegabuck.Models.LaneAssignment { Average = 200 }, 3);
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(laneAssignments);
 
         var result = (await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false)).ToList();

@@ -25,7 +25,7 @@ internal class DataLayer : IDataLayer
     async Task<TournamentId> IDataLayer.ExecuteAsync(Models.Tournament tournament, CancellationToken cancellationToken)
     {
         var entity = _mapper.Execute(tournament);
-        
+
         return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
 }

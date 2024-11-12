@@ -31,7 +31,7 @@ internal sealed class DataLayer
 
         await _dataLayer.ExecuteAsync(bowlerId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository=> repository.RetrieveAsync(bowlerId, cancellationToken), Times.Once);
+        _repository.Verify(repository => repository.RetrieveAsync(bowlerId, cancellationToken), Times.Once);
     }
 
     [Test]

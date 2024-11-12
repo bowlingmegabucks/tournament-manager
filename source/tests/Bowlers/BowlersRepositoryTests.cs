@@ -18,7 +18,7 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Search_AllSearchCriteriaNullOrWhitespace_ReturnsAllBowlers([Values(null,""," ")]string value)
+    public void Search_AllSearchCriteriaNullOrWhitespace_ReturnsAllBowlers([Values(null, "", " ")] string value)
     {
         var bowler1 = new NortheastMegabuck.Database.Entities.Bowler
         {
@@ -47,7 +47,7 @@ internal sealed class Repository
         var bowlers = new[] { bowler1, bowler2, bowler3 };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
-        
+
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria()
         {
             LastName = value,
@@ -144,7 +144,7 @@ internal sealed class Repository
         };
 
         var bowlers = new[] { bowler1, bowler2, bowler3 };
-        
+
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria()
@@ -183,7 +183,7 @@ internal sealed class Repository
             LastName = "Doe",
             EmailAddress = "janedoe@gmail.com"
         };
-        
+
         var bowler3 = new NortheastMegabuck.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
@@ -195,7 +195,7 @@ internal sealed class Repository
         var bowlers = new[] { bowler1, bowler2, bowler3 };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
-        
+
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria()
         {
             LastName = value,
@@ -328,7 +328,7 @@ internal sealed class Repository
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria
         {
-            WithoutRegistrationOnSquads = new[] { squad4, squad5,squad3 }
+            WithoutRegistrationOnSquads = new[] { squad4, squad5, squad3 }
         };
 
         var results = _repository.Search(searchCriteria).ToList();

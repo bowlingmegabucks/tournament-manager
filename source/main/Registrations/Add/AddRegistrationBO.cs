@@ -43,7 +43,7 @@ internal class BusinessLogic : IBusinessLogic
         _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => mockGetTournamentBO);
         _searchBowlerBO = new Lazy<Bowlers.Search.IBusinessLogic>(() => mockSearchBowlerBO);
         _updateBowlerBO = new Lazy<Bowlers.Update.IBusinessLogic>(() => mockUpdateBowlerBO);
-        _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(()=> mockValidator);
+        _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(() => mockValidator);
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 

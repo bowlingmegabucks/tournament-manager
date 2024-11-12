@@ -6,7 +6,7 @@ public partial class SquadsGrid
 #else
     : DataGrid<Squads.IViewModel>
 #endif
-{ 
+{
     public SquadsGrid()
     {
         InitializeComponent();

@@ -21,14 +21,14 @@ internal class ViewModel : IViewModel
         LastName = bowler.Name.Last;
         EmailAddress = bowler.EmailAddress;
         City = bowler.CityAddress;
-        State = bowler.StateAddress;  
+        State = bowler.StateAddress;
     }
 }
 
 public interface IViewModel
 {
     BowlerId Id { get; }
-    
+
     string FirstName { get; }
 
     string LastName { get; }

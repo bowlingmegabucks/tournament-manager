@@ -14,7 +14,7 @@ internal class BusinessLogic : IBusinessLogic
 
     public BusinessLogic(IConfiguration config)
     {
-        _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(()=>  new Retrieve.BusinessLogic(config));
+        _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => new Retrieve.BusinessLogic(config));
         _retrieveTournament = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
         _retrieveScores = new Scores.Retrieve.BusinessLogic(config);
     }
@@ -67,7 +67,7 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var scores = (await _retrieveScores.ExecuteAsync(tournament!.Sweepers.Select(sweeper=> sweeper.Id), cancellationToken).ConfigureAwait(false)).Where(score=> superSweeperBowlers.Contains(score.Bowler.Id));
+        var scores = (await _retrieveScores.ExecuteAsync(tournament!.Sweepers.Select(sweeper => sweeper.Id), cancellationToken).ConfigureAwait(false)).Where(score => superSweeperBowlers.Contains(score.Bowler.Id));
 
         return Execute(scores, tournament!.SuperSweeperCashRatio);
     }

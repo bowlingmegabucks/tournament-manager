@@ -56,7 +56,7 @@ public interface IViewModel
     DivisionId Id { get; set; }
 
     short Number { get; set; }
-    
+
     string DivisionName { get; set; }
 
     TournamentId TournamentId { get; set; }

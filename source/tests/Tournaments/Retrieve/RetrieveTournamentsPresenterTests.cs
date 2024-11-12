@@ -33,7 +33,7 @@ internal sealed class Presenters
     public async Task ExecuteAsync_AdapterErrorNotNull_ErrorFlow()
     {
         var errorDetail = new NortheastMegabuck.Models.ErrorDetail("message");
-        _adapter.SetupGet(adapter=> adapter.Error).Returns(errorDetail);
+        _adapter.SetupGet(adapter => adapter.Error).Returns(errorDetail);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 

@@ -60,15 +60,15 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
             e.Cancel = true;
             divisionErrorProvider.SetError(minimumAgeValue, "Minimum age must be greater than or equal to 0");
         }
-    }        
+    }
 
     public short? MaximumAge
     {
         get => maximumAgeValue.Value == 0 ? null : Convert.ToInt16(maximumAgeValue.Value);
         set => maximumAgeValue.Value = value ?? 0;
     }
-    
-    
+
+
     private void MaximumAgeValue_Validating(object sender, CancelEventArgs e)
     {
         if (MaximumAge.HasValue && MaximumAge.Value < 0)
@@ -76,7 +76,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
             e.Cancel = true;
             divisionErrorProvider.SetError(maximumAgeValue, "Maximum age must be greater than or equal to 0");
         }
-    } 
+    }
 
     public int? MinimumAverage
     {
@@ -106,7 +106,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
             e.Cancel = true;
             divisionErrorProvider.SetError(maximumAverageValue, "Maximum average must be between 0 and 300");
         }
-    }    
+    }
 
     public decimal? HandicapPercentage
     {

@@ -31,7 +31,7 @@ internal sealed class ViewModel
     }
 
     [Test]
-    public void Constructor_Model_CashRatioMapped([Values(null,1.1)]decimal? cashRatio)
+    public void Constructor_Model_CashRatioMapped([Values(null, 1.1)] decimal? cashRatio)
     {
         var model = new NortheastMegabuck.Models.Squad
         {

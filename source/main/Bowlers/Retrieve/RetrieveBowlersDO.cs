@@ -24,7 +24,7 @@ internal class DataLayer : IDataLayer
     }
 
     async Task<Models.Bowler> IDataLayer.ExecuteAsync(BowlerId id, CancellationToken cancellationToken)
-        => new (await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
 }
 
 internal interface IDataLayer

@@ -29,7 +29,7 @@ internal class AtLargeViewModel : IAtLargeViewModel
         SquadDate = result.SquadDate.ToString("MM/dd hh:mm tt");
         PreviousCasher = previousCasher;
         Score = result.Score;
-        ScratchScore= result.ScratchScore;
+        ScratchScore = result.ScratchScore;
         HighGame = result.HighGame;
         HighGameScratch = result.HighGameScratch;
     }

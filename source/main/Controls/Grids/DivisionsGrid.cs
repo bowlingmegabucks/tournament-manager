@@ -19,7 +19,7 @@ public partial class DivisionsGrid
     private void GridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
     {
         var division = GridView.Rows[e.RowIndex].DataBoundItem as Divisions.IViewModel;
-        
+
         switch (GridView.Columns[e.ColumnIndex].Name)
         {
             case nameof(genderColumn):
@@ -28,14 +28,14 @@ public partial class DivisionsGrid
                     e.Value = division.Gender == NortheastMegabuck.Models.Gender.Male ? "Men" : "Women";
                     e.FormattingApplied = true;
                 }
-                
+
                 break;
             case nameof(handicapColumn):
                 if (division!.HandicapBase != null)
                 {
                     var handicap = new StringBuilder();
                     handicap.Append($"{division.HandicapPercentage!.Value:N0}% of {division.HandicapBase!.Value}");
-                    
+
                     if (division.MaximumHandicapPerGame.HasValue)
                     {
                         handicap.Append($" ({division.MaximumHandicapPerGame.Value} pins max)");

@@ -14,7 +14,7 @@ internal sealed class TournamentRegistrationViewModel
             Id = RegistrationId.New(),
             Bowler = new NortheastMegabuck.Models.Bowler
             {
-                Name = new NortheastMegabuck.Models.PersonName { First = "first" , MiddleInitial = "m", Last = "last"},
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", MiddleInitial = "m", Last = "last" },
                 Id = BowlerId.New()
             },
             Division = new NortheastMegabuck.Models.Division

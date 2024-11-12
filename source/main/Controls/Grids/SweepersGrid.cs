@@ -6,7 +6,7 @@ public partial class SweepersGrid
 #else
     : DataGrid<Sweepers.IViewModel>
 #endif
-{ 
+{
     public SweepersGrid()
     {
         InitializeComponent();

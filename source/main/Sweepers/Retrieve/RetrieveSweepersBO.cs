@@ -4,7 +4,7 @@ namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;
-    
+
     public BusinessLogic(IConfiguration config)
     {
         _dataLayer = new DataLayer(config);

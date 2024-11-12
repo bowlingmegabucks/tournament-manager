@@ -26,7 +26,7 @@ internal sealed class Validator
             StateAddress = "MA",
             ZipCode = "01234"
         };
-        
+
 
         var result = _validator.TestValidate(bowler);
 
@@ -215,7 +215,7 @@ internal sealed class Validator
         {
             EmailAddress = emailAddress,
         };
-        
+
         var result = _validator.TestValidate(bowler);
         result.ShouldNotHaveValidationErrorFor(a => a.EmailAddress);
     }

@@ -35,7 +35,7 @@ internal sealed class Presenter
         _view.SetupGet(view => view.MaxPerPair).Returns(4);
 
         await _presenter.LoadAsync(default).ConfigureAwait(false);
- 
+
         _laneAvailability.Verify(laneAvailability => laneAvailability.Generate(1, 10, 4), Times.Once);
     }
 
@@ -183,10 +183,10 @@ internal sealed class Presenter
     }
 
     [Test]
-    public async Task UpdateAsync_UpdateAdapterExecute_CalledCorrectly([Values("","21A")]string position)
+    public async Task UpdateAsync_UpdateAdapterExecute_CalledCorrectly([Values("", "21A")] string position)
     {
         var squadId = SquadId.New();
-        
+
         var bowlerId = BowlerId.New();
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         registration.SetupGet(r => r.BowlerId).Returns(bowlerId);
@@ -573,7 +573,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void GenerateRecaps_GenerateCrossFactoryExecute_CalledCorrectly([Values]bool staggeredSkipSelected)
+    public void GenerateRecaps_GenerateCrossFactoryExecute_CalledCorrectly([Values] bool staggeredSkipSelected)
     {
         var mockCrossGenerator = new Mock<NortheastMegabuck.LaneAssignments.IGenerate>();
         _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);

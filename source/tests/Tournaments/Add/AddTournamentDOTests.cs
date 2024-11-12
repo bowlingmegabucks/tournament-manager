@@ -23,7 +23,7 @@ internal sealed class DataLayer
         var tournament = new NortheastMegabuck.Models.Tournament();
 
         await _dataLayer.ExecuteAsync(tournament, default).ConfigureAwait(false);
-        
+
         _mapper.Verify(mapper => mapper.Execute(tournament), Times.Once);
     }
 
@@ -32,7 +32,7 @@ internal sealed class DataLayer
     {
         var entity = new NortheastMegabuck.Database.Entities.Tournament();
         _mapper.Setup(mapper => mapper.Execute(It.IsAny<NortheastMegabuck.Models.Tournament>())).Returns(entity);
-        
+
         var tournament = new NortheastMegabuck.Models.Tournament();
         CancellationToken cancellationToken = default;
 

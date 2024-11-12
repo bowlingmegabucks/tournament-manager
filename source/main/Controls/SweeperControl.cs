@@ -104,7 +104,7 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
     public IDictionary<DivisionId, int?> Divisions
         => sweeperDivisions.Divisions;
 
-    public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions) 
+    public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
         => sweeperDivisions.BindDivisions(divisions);
 
     private void SweeperControl_Validated(object sender, EventArgs e)

@@ -52,7 +52,7 @@ internal class Presenter
             _view.KeepOpen();
             return;
         }
-        
+
         var id = await Adapter.ExecuteAsync(_view.Sweeper, cancellationToken).ConfigureAwait(true);
 
         if (Adapter.Errors.Any())

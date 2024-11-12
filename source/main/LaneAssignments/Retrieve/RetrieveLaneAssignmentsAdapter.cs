@@ -25,7 +25,7 @@ internal class Adapter : IAdapter
 }
 
 internal interface IAdapter
-{ 
+{
     Models.ErrorDetail? Error { get; }
 
     Task<IEnumerable<IViewModel>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);

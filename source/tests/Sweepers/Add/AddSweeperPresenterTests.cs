@@ -43,8 +43,8 @@ internal sealed class Presenter
         _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
 
         await _presenter.GetDivisionsAsync(default).ConfigureAwait(false);
-        
-        Assert.Multiple(()=>
+
+        Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayError(error.Message), Times.Once);
             _view.Verify(view => view.Disable(), Times.Once);
@@ -167,4 +167,4 @@ internal sealed class Presenter
             _view.Verify(view => view.Close(), Times.Once);
         });
     }
-}   
+}

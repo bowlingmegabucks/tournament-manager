@@ -44,7 +44,7 @@ public partial class ScoresGrid
     public void SetSquadId(SquadId squadId)
         => _squadId = squadId;
 
-    public void FillScores([NotNull]IEnumerable<IGridViewModel> bowlerScores)
+    public void FillScores([NotNull] IEnumerable<IGridViewModel> bowlerScores)
     {
         foreach (var bowlerScore in bowlerScores)
         {
@@ -79,7 +79,7 @@ public partial class ScoresGrid
                         GameNumber = i,
                         Score = score
                     });
-                }  
+                }
             }
         }
 #pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions

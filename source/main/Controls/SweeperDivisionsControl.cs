@@ -16,7 +16,7 @@ public partial class SweeperDivisionsControl : UserControl
     {
         foreach (var division in divisions)
         {
-            sweeperDivisionsFlowLayoutPanel.Controls.Add(new SweeperDivisionControl(division)); 
+            sweeperDivisionsFlowLayoutPanel.Controls.Add(new SweeperDivisionControl(division));
         }
     }
 }

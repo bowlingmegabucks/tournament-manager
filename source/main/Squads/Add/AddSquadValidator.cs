@@ -10,14 +10,14 @@ internal class Validator : AbstractValidator<Models.Squad>
         RuleFor(squad => squad.Tournament).NotNull().WithMessage("Tournament is required");
         RuleFor(squad => squad.TournamentId).Equal(squad => squad.Tournament!.Id).When(squad => squad.Tournament != null).WithMessage("Tournament Id does not match");
 
-        RuleFor(squad => squad.FinalsRatio).GreaterThan(1).When(squad=> squad.FinalsRatio != null).WithMessage("Finals ratio must be greater than 1");
+        RuleFor(squad => squad.FinalsRatio).GreaterThan(1).When(squad => squad.FinalsRatio != null).WithMessage("Finals ratio must be greater than 1");
 
-        RuleFor(squad => squad.CashRatio).GreaterThan(1).When(squad=> squad.CashRatio != null).WithMessage("Cash ratio must be greater than 1");
+        RuleFor(squad => squad.CashRatio).GreaterThan(1).When(squad => squad.CashRatio != null).WithMessage("Cash ratio must be greater than 1");
 
-        RuleFor(squad => squad.Date).GreaterThanOrEqualTo(squad => squad.Tournament!.Start.ToDateTime(TimeOnly.MinValue)).When(squad=> squad.Tournament != null).WithMessage("Squad date must be after tournament start");
+        RuleFor(squad => squad.Date).GreaterThanOrEqualTo(squad => squad.Tournament!.Start.ToDateTime(TimeOnly.MinValue)).When(squad => squad.Tournament != null).WithMessage("Squad date must be after tournament start");
         RuleFor(squad => squad.Date).LessThanOrEqualTo(squad => squad.Tournament!.End.ToDateTime(TimeOnly.MaxValue)).When(squad => squad.Tournament != null).WithMessage("Squad date must be before tournament end");
 
-        RuleFor(squad => squad.MaxPerPair).Must(maxPerPair=> maxPerPair > 0).WithMessage("Max per pair must be greater than 0");
+        RuleFor(squad => squad.MaxPerPair).Must(maxPerPair => maxPerPair > 0).WithMessage("Max per pair must be greater than 0");
 
         RuleFor(squad => squad.NumberOfLanes).Must(numberOfLanes => numberOfLanes > 0).WithMessage("Number of lanes must be greater than 0");
         RuleFor(squad => squad.NumberOfLanes).Must(numberOfLanes => numberOfLanes % 2 == 0).WithMessage("Number of lanes must be even");

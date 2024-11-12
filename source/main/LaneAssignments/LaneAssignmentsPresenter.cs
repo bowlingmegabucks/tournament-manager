@@ -27,7 +27,7 @@ internal class Presenter
 
         _retrieveAdapter = new Lazy<Retrieve.IAdapter>(() => new Retrieve.Adapter(config));
         _updateAdapter = new Lazy<Update.IAdapter>(() => new Update.Adapter(config));
-        _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(()=> new Registrations.Add.Adapter(config));
+        _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(() => new Registrations.Add.Adapter(config));
         _deleteAdapter = new Lazy<Registrations.Delete.IAdapter>(() => new Registrations.Delete.Adapter(config));
 
         _generateCrossFactory = new GenerateCrossFactory();
@@ -68,7 +68,7 @@ internal class Presenter
             _view.Disable();
 
             return;
-        }    
+        }
 
         var assignments = await RetrieveAdapter.ExecuteAsync(_view.SquadId, cancellationToken).ConfigureAwait(true);
 
@@ -80,7 +80,7 @@ internal class Presenter
             return;
         }
 
-        _view.BindRegistrations(assignments.Where(assignment=> string.IsNullOrWhiteSpace(assignment.LaneAssignment)));
+        _view.BindRegistrations(assignments.Where(assignment => string.IsNullOrWhiteSpace(assignment.LaneAssignment)));
         _view.BindLaneAssignments(assignments.Where(assignment => !string.IsNullOrWhiteSpace(assignment.LaneAssignment)));
 
         var entriesPerDivision = assignments.GroupBy(assignment => assignment.DivisionName).ToDictionary(group => group.Key, group => group.Count());

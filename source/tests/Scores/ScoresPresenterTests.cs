@@ -27,7 +27,7 @@ internal sealed class Presenter
         _view.SetupGet(view => view.SquadId).Returns(squadId);
 
         CancellationToken cancellationToken = default;
-        
+
         await _presenter.LoadAsync(cancellationToken).ConfigureAwait(false);
 
         _retrieveLaneAssignmentsAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);

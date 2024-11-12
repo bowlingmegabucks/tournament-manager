@@ -24,14 +24,14 @@ internal sealed class Adapter
 
         await _adapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic=> businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
     public async Task ExecuteAsync_BusinessLogicHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _businessLogic.SetupGet(businessLogic=> businessLogic.Error).Returns(error);
+        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
 
         var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 

@@ -104,7 +104,7 @@ internal class ViewModel : IViewModel
             .Append('\t').Append(_superSweeper.HasValue ? IsSuperSweeper(_superSweeper.Value) : DivisionNumber)
             .Append('\t').Append(Handicap).ToString();
 
-    private static string IsSuperSweeper(bool superSweeper) 
+    private static string IsSuperSweeper(bool superSweeper)
         => superSweeper ? "Y" : "N";
 
     public int CompareTo(IViewModel? other)

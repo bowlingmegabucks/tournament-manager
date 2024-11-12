@@ -60,8 +60,8 @@ internal sealed class Presenter
     public async Task LoadAsync_RetrieveSquadAdapterSuccessful_ViewFieldsSetCorrectly([Values] bool complete)
     {
         var squad = new NortheastMegabuck.Sweepers.ViewModel
-        { 
-            Date = new DateTime(2000,1,2,9,30,30, DateTimeKind.Unspecified),
+        {
+            Date = new DateTime(2000, 1, 2, 9, 30, 30, DateTimeKind.Unspecified),
             StartingLane = 1,
             NumberOfLanes = 2,
             MaxPerPair = 3,

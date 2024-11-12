@@ -2,7 +2,7 @@
 internal class Adapter : IAdapter
 {
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
-    
+
     private readonly IBusinessLogic _businessLogic;
 
     public Adapter(IConfiguration config)
@@ -18,7 +18,7 @@ internal class Adapter : IAdapter
     {
         _businessLogic = mockBusinessLogic;
     }
-    
+
     public async Task<SquadId?> ExecuteAsync(IViewModel sweeper, CancellationToken cancellationToken)
     {
         var model = new Models.Sweeper(sweeper);

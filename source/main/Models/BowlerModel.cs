@@ -60,7 +60,7 @@ internal class Bowler
             Last = bowler.LastName,
             Suffix = bowler.Suffix,
         };
-        
+
         StreetAddress = bowler.StreetAddress;
         CityAddress = bowler.CityAddress;
         StateAddress = bowler.StateAddress;
@@ -111,6 +111,6 @@ internal class Bowler
     public override int GetHashCode()
         => Id.GetHashCode();
 
-    public override bool Equals(object? obj) 
+    public override bool Equals(object? obj)
         => obj is Bowler model && Id == model.Id;
 }

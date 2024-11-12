@@ -11,7 +11,7 @@ internal partial class TournamentsGrid
     {
         InitializeComponent();
     }
-    
+
     public Tournaments.IViewModel? SelectedTournament
         => SelectedRow;
 }

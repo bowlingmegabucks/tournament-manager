@@ -27,7 +27,7 @@ internal class SquadScore
         {
             builder.HasKey(squadScore => new { squadScore.BowlerId, squadScore.SquadId, squadScore.Game });
 
-            builder.Property(squadScore=> squadScore.BowlerId).HasConversion<BowlerId.EfCoreValueConverter>();
+            builder.Property(squadScore => squadScore.BowlerId).HasConversion<BowlerId.EfCoreValueConverter>();
             builder.Property(squadScore => squadScore.SquadId).HasConversion<SquadId.EfCoreValueConverter>();
 
             builder.HasOne(squadScore => squadScore.Bowler)

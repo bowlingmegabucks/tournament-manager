@@ -77,7 +77,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_DivisionId_ReturnsRepositoryRetrieveResponse()
     {
-        var division = new NortheastMegabuck.Database.Entities.Division { Name = "name"};
+        var division = new NortheastMegabuck.Database.Entities.Division { Name = "name" };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var id = DivisionId.New();

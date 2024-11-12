@@ -9,7 +9,7 @@ internal class AtLargeReport : ResultReportBase<IAtLargeViewModel>
     { }
 
     protected override void ComposeColumnDefinitionDescriptor(TableColumnsDefinitionDescriptor columns)
-    { 
+    {
         columns.ConstantColumn(40);
         columns.ConstantColumn(100);
         columns.RelativeColumn(8);
@@ -19,7 +19,7 @@ internal class AtLargeReport : ResultReportBase<IAtLargeViewModel>
     }
 
     protected override void ComposeHeaderDescriptor(TableCellDescriptor header)
-    { 
+    {
         header.Cell().Element(HeaderStyle).Text("Place");
         header.Cell().Element(HeaderStyle).Text("Squad");
         header.Cell().Element(HeaderStyle).Text("Name");

@@ -30,7 +30,7 @@ internal class DataLayer : IDataLayer
         {
             entity.Bowler = null!;
         }
-        
+
         return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
     public async Task<Models.Registration> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)

@@ -48,7 +48,7 @@ internal class Bowler : IEquatable<Bowler>
 
     public ICollection<SquadScore> SquadScores { get; set; } = null!;
 
-    public bool Equals(Bowler? other) 
+    public bool Equals(Bowler? other)
         => other is not null && (ReferenceEquals(this, other) || Id.Equals(other.Id));
 
     public override bool Equals(object? obj)
@@ -68,7 +68,7 @@ internal class Bowler : IEquatable<Bowler>
             builder.Property(bowler => bowler.DateOfBirth).HasConversion<DateOnlyConverter, DateOnlyComparer>();
 
             builder.Property(bowler => bowler.MiddleInitial).IsFixedLength();
-            
+
             builder.Property(bowler => bowler.StateAddress).IsFixedLength();
             builder.Property(bowler => bowler.ZipCode).IsFixedLength();
 

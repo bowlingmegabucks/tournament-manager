@@ -23,7 +23,7 @@ internal sealed class DataLayer
         CancellationToken cancellationToken = default;
 
         await _dataLayer.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
-        
+
         _repository.Verify(repository => repository.CompleteAsync(squadId, cancellationToken), Times.Once);
     }
 }

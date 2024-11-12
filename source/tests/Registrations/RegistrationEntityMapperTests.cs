@@ -10,7 +10,7 @@ internal sealed class EntityMapper
 
     [SetUp]
     public void SetUp()
-    { 
+    {
         _bowlerEntityMapper = new Mock<NortheastMegabuck.Bowlers.IEntityMapper>();
 
         _mapper = new NortheastMegabuck.Registrations.EntityMapper(_bowlerEntityMapper.Object);

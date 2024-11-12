@@ -4,7 +4,7 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
     private readonly IConfiguration _config;
     private readonly short _numberOfGames;
     private readonly bool _complete;
-    
+
     public SquadId SquadId { get; }
 
     public Form(IConfiguration config, SquadId squadId, short numberOfGames, bool complete)
@@ -14,7 +14,7 @@ public partial class Form : System.Windows.Forms.Form, IView, Update.IView
         _config = config;
         _numberOfGames = numberOfGames;
         SquadId = squadId;
-        _complete = complete; 
+        _complete = complete;
 
         scoresGrid.GenerateGameColumns(numberOfGames);
         scoresGrid.SetSquadId(squadId);

@@ -33,7 +33,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveTournament.Verify(retrieveTournament=> retrieveTournament.ExecuteAsync(squadId, cancellationToken), Times.Once);
+        _retrieveTournament.Verify(retrieveTournament => retrieveTournament.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
