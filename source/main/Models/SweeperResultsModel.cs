@@ -2,7 +2,7 @@
 namespace NortheastMegabuck.Models;
 internal class SweeperResult
 {
-    public IEnumerable<BowlerSquadScore> Scores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
+    public IEnumerable<BowlerSquadScore> Scores { get; init; } = [];
 
     public int CutScore { get; init; }
 

@@ -14,8 +14,8 @@ internal class Calculator : ICalculator
             return new()
             {
                 DivisionId = divisionId,
-                AdvancingScores = Enumerable.Empty<Models.BowlerSquadScore>(),
-                AdvancersWhoPreviouslyCashed = Enumerable.Empty<BowlerId>(),
+                AdvancingScores = [],
+                AdvancersWhoPreviouslyCashed = [],
             };
         }
 

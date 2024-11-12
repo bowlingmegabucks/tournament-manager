@@ -31,7 +31,7 @@ internal class Adapter : IAdapter
     {
         if (result == null)
         {
-            return Enumerable.Empty<IViewModel>();
+            return [];
         }
 
         var scores = result.Scores.ToList();

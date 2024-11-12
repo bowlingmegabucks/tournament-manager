@@ -60,8 +60,8 @@ internal class Tournament
         BowlingCenter = viewModel.BowlingCenter;
         Completed = viewModel.Completed;
 
-        Squads = Enumerable.Empty<Squad>();
-        Sweepers = Enumerable.Empty<Sweeper>();
+        Squads = [];
+        Sweepers = [];
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ internal class Tournament
     /// </summary>
     internal Tournament()
     {
-        Squads = Enumerable.Empty<Squad>();
-        Sweepers = Enumerable.Empty<Sweeper>();
+        Squads = [];
+        Sweepers = [];
     }
 }

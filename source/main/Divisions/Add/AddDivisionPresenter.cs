@@ -36,7 +36,7 @@ internal class Presenter
 
         if (RetrieveDivisionsAdapter.Error != null)
         {
-            _view.DisplayErrors(new[] { RetrieveDivisionsAdapter.Error.Message });
+            _view.DisplayErrors([RetrieveDivisionsAdapter.Error.Message]);
         }
         else
         {

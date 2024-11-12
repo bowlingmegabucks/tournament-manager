@@ -42,7 +42,7 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var scores = await _retrieveScores.ExecuteAsync(new[] { squadId }, cancellationToken).ConfigureAwait(false);
+        var scores = await _retrieveScores.ExecuteAsync([squadId], cancellationToken).ConfigureAwait(false);
 
         return Execute(scores, sweeper!.CashRatio);
     }

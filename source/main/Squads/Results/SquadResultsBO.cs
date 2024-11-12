@@ -36,7 +36,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = _retrieveTournament.Error;
 
-            return Enumerable.Empty<IGrouping<Models.Division, Models.SquadResult>>();
+            return [];
         }
 
         var scores = (await _retrieveScores.ExecuteAsync(tournament!.Squads.Where(squad => squad.Date <= tournament.Squads.Single(s => s.Id == squadId).Date).Select(squad => squad.Id), cancellationToken).ConfigureAwait(false)).ToList();
@@ -45,7 +45,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = _retrieveScores.Error;
 
-            return Enumerable.Empty<IGrouping<Models.Division, Models.SquadResult>>();
+            return [];
         }
 
         return Execute(scores, tournament).Where(result => result.Squad.Id == squadId).GroupBy(result => result.Division).ToList();
@@ -59,7 +59,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = _retrieveTournament.Error;
 
-            return Enumerable.Empty<IGrouping<Models.Division, Models.SquadResult>>();
+            return [];
         }
 
         var scores = (await _retrieveScores.ExecuteAsync(tournament!.Squads.Select(squad => squad.Id), cancellationToken).ConfigureAwait(false)).ToList();
@@ -68,7 +68,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = _retrieveScores.Error;
 
-            return Enumerable.Empty<IGrouping<Models.Division, Models.SquadResult>>();
+            return [];
         }
 
         return Execute(scores, tournament).GroupBy(result => result.Division).ToList();

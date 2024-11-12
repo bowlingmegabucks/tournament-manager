@@ -77,7 +77,7 @@ internal sealed class BusinessLogic
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
-            Squads = new[] { pastSquad, currentSquad, futureSquad }
+            Squads = [pastSquad, currentSquad, futureSquad]
         };
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
@@ -116,7 +116,7 @@ internal sealed class BusinessLogic
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
-            Squads = new[] { currentSquad, futureSquad, pastSquad }
+            Squads = [currentSquad, futureSquad, pastSquad]
         };
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 

@@ -8,7 +8,7 @@ internal partial class Dialog : Form, IView
     private readonly TournamentId? _registeredInTournament;
     private readonly TournamentId? _notRegisteredInTournament;
 
-    public Dialog(IConfiguration config, bool allowNewBowler) : this(config, allowNewBowler, null, Enumerable.Empty<SquadId>())
+    public Dialog(IConfiguration config, bool allowNewBowler) : this(config, allowNewBowler, null, [])
     { }
 
     public Dialog(IConfiguration config, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad) : this(config, allowNewBowler, registeredInTournament, registrationWithoutSquad, null)

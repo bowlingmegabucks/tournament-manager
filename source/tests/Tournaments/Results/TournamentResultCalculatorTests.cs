@@ -65,19 +65,19 @@ internal sealed class Calculator
         var squadResult = new NortheastMegabuck.Models.SquadResult
         {
             Division = division,
-            AdvancingScores = new[]
-            {
+            AdvancingScores =
+            [
                 new NortheastMegabuck.Models.BowlerSquadScore(250),
                 new NortheastMegabuck.Models.BowlerSquadScore(249)
-            },
-            CashingScores = Enumerable.Empty<NortheastMegabuck.Models.BowlerSquadScore>(),
-            NonQualifyingScores = new[]
-            {
+            ],
+            CashingScores = [],
+            NonQualifyingScores =
+            [
                 new NortheastMegabuck.Models.BowlerSquadScore(200),
                 new NortheastMegabuck.Models.BowlerSquadScore(199),
                 new NortheastMegabuck.Models.BowlerSquadScore(198),
                 new NortheastMegabuck.Models.BowlerSquadScore(197)
-            }
+            ]
         };
         var finalsRatio = 2m;
         var squadResults = new[] { squadResult };
@@ -104,21 +104,21 @@ internal sealed class Calculator
         var squadResult = new NortheastMegabuck.Models.SquadResult
         {
             Division = division,
-            AdvancingScores = new[]
-            {
+            AdvancingScores =
+            [
                 new NortheastMegabuck.Models.BowlerSquadScore(250),
                 new NortheastMegabuck.Models.BowlerSquadScore(249)
-            },
-            CashingScores = new[]
-            {
+            ],
+            CashingScores =
+            [
                 new NortheastMegabuck.Models.BowlerSquadScore(casherId, 200)
-            },
-            NonQualifyingScores = new[]
-            {
+            ],
+            NonQualifyingScores =
+            [
                 new NortheastMegabuck.Models.BowlerSquadScore(199),
                 new NortheastMegabuck.Models.BowlerSquadScore(198),
                 new NortheastMegabuck.Models.BowlerSquadScore(197)
-            }
+            ]
         };
         var finalsRatio = 2m;
         var squadResults = new[] { squadResult };

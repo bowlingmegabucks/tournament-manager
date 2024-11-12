@@ -64,15 +64,15 @@ internal sealed class Adapter
         var division1Result = new NortheastMegabuck.Models.TournamentFinalsSeeding
         {
             Division = division1,
-            Qualifiers = new[] { bowler1Division1, bowler2Division1 },
-            NonQualifiers = new[] { bowler3Division1, bowler4Division1, bowler5Division1 }
+            Qualifiers = [bowler1Division1, bowler2Division1],
+            NonQualifiers = [bowler3Division1, bowler4Division1, bowler5Division1]
         };
 
         var division2Result = new NortheastMegabuck.Models.TournamentFinalsSeeding
         {
             Division = division2,
-            Qualifiers = new[] { bowler1Division2, bowler2Division2, bowler3Division2 },
-            NonQualifiers = new[] { bowler4Division2, bowler5Division2 }
+            Qualifiers = [bowler1Division2, bowler2Division2, bowler3Division2],
+            NonQualifiers = [bowler4Division2, bowler5Division2]
         };
 
         var results = new[] { division1Result, division2Result };

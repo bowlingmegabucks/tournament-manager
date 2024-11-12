@@ -152,12 +152,12 @@ internal sealed class LaneAssignment
             SquadId = SquadId.New(),
             Squad = new NortheastMegabuck.Database.Entities.SweeperSquad
             {
-                Divisions = new[]
-                {
+                Divisions =
+                [
                     new NortheastMegabuck.Database.Entities.SweeperDivision {DivisionId = DivisionId.New(), BonusPinsPerGame = 5 },
                     new NortheastMegabuck.Database.Entities.SweeperDivision { DivisionId = divisionId, BonusPinsPerGame = bonusPinsPerGame},
                     new NortheastMegabuck.Database.Entities.SweeperDivision { DivisionId = DivisionId.New(), BonusPinsPerGame = 15}
-                }
+                ]
             },
             RegistrationId = RegistrationId.New(),
             Registration = new NortheastMegabuck.Database.Entities.Registration
@@ -220,11 +220,11 @@ internal sealed class LaneAssignment
             SquadId = SquadId.New(),
             Squad = new NortheastMegabuck.Database.Entities.SweeperSquad
             {
-                Divisions = new[]
-                {
+                Divisions =
+                [
                     new NortheastMegabuck.Database.Entities.SweeperDivision {DivisionId = DivisionId.New(), BonusPinsPerGame = 5 },
                     new NortheastMegabuck.Database.Entities.SweeperDivision { DivisionId = DivisionId.New(), BonusPinsPerGame = 15}
-                }
+                ]
             },
             RegistrationId = RegistrationId.New(),
             Registration = new NortheastMegabuck.Database.Entities.Registration

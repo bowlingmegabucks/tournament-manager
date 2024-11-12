@@ -49,7 +49,7 @@ internal sealed class Presenters
     [Test]
     public async Task ExecuteAsync_AdapterErrorDetailNull_NoTournamentsReturned_ViewDisableOpenTournamentCalled()
     {
-        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(Enumerable.Empty<NortheastMegabuck.Tournaments.IViewModel>());
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync([]);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 

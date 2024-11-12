@@ -48,8 +48,8 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
         LastName = string.Empty;
         BowlerName = string.Empty;
         DivisionName = string.Empty;
-        SquadsEntered = Enumerable.Empty<SquadId>();
-        SweepersEntered = Enumerable.Empty<SquadId>();
+        SquadsEntered = [];
+        SweepersEntered = [];
     }
 }
 

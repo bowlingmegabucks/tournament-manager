@@ -143,7 +143,7 @@ public partial class Form : System.Windows.Forms.Form, IView
 
     public BowlerId? SelectBowler(TournamentId tournamentId, SquadId squadId)
     {
-        using var form = new Bowlers.Search.Dialog(_config, false, tournamentId, new[] { squadId });
+        using var form = new Bowlers.Search.Dialog(_config, false, tournamentId, [squadId]);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }

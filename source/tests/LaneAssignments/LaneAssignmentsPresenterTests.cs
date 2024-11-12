@@ -580,7 +580,7 @@ internal sealed class Presenter
 
         _view.SetupGet(view => view.StaggeredSkipSelected).Returns(staggeredSkipSelected);
 
-        _presenter.GenerateRecaps(Enumerable.Empty<NortheastMegabuck.LaneAssignments.IViewModel>());
+        _presenter.GenerateRecaps([]);
 
         _generateCrossFactory.Verify(factory => factory.Execute(staggeredSkipSelected), Times.Once);
     }

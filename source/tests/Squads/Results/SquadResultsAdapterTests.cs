@@ -152,18 +152,18 @@ internal sealed class Adapter
 
         var division1Result = new NortheastMegabuck.Models.SquadResult
         {
-            AdvancingScores = new[] { division1AdvancerScore },
-            CashingScores = new[] { division1CasherScore1, division1CasherScore2 },
-            NonQualifyingScores = new[] { division1NonQualifierScore1, division1NonQualifierScore2, division1NonQualifierScore3 },
+            AdvancingScores = [division1AdvancerScore],
+            CashingScores = [division1CasherScore1, division1CasherScore2],
+            NonQualifyingScores = [division1NonQualifierScore1, division1NonQualifierScore2, division1NonQualifierScore3],
             Squad = squad,
             Division = division1
         };
 
         var division2Result = new NortheastMegabuck.Models.SquadResult
         {
-            AdvancingScores = new[] { division2AdvancerScore },
-            CashingScores = new[] { division2CasherScore1, division2CasherScore2 },
-            NonQualifyingScores = new[] { division2NonQualifierScore1, division2NonQualifierScore2, division2NonQualifierScore3 },
+            AdvancingScores = [division2AdvancerScore],
+            CashingScores = [division2CasherScore1, division2CasherScore2],
+            NonQualifyingScores = [division2NonQualifierScore1, division2NonQualifierScore2, division2NonQualifierScore3],
             Squad = squad,
             Division = division2
         };

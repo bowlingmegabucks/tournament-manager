@@ -130,13 +130,13 @@ internal sealed class Registration
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Average = 200,
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} }
-            },
+            ],
             SuperSweeper = superSweeper
         };
 
@@ -159,13 +159,13 @@ internal sealed class Registration
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Average = 200,
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} }
-            },
+            ],
             SuperSweeper = superSweeper
         };
 
@@ -188,13 +188,13 @@ internal sealed class Registration
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Average = 200,
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} }
-            },
+            ],
             SuperSweeper = superSweeper
         };
 
@@ -217,13 +217,13 @@ internal sealed class Registration
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Average = average,
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} }
-            },
+            ],
             SuperSweeper = superSweeper
         };
 
@@ -246,13 +246,13 @@ internal sealed class Registration
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Average = 200,
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} }
-            },
+            ],
             SuperSweeper = superSweeper
         };
 
@@ -281,13 +281,13 @@ internal sealed class Registration
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Average = 200,
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = new List < NortheastMegabuck.Database.Entities.SweeperDivision >()} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} }
-            },
+            ],
             SuperSweeper = superSweeper
         };
 
@@ -316,13 +316,13 @@ internal sealed class Registration
             Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
             Average = 200,
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
                 new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = new List<NortheastMegabuck.Database.Entities.SweeperDivision>()} }
-            },
+            ],
             SuperSweeper = superSweeper
         };
 

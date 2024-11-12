@@ -190,15 +190,15 @@ internal sealed class TournamentRegistrationsPresenter
 
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
-        registration1.SetupGet(registration => registration.SquadsEntered).Returns(new[] { squad1.Object.Id });
+        registration1.SetupGet(registration => registration.SquadsEntered).Returns([squad1.Object.Id]);
 
         var registration2 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration2.SetupGet(registration => registration.DivisionName).Returns("division2");
-        registration2.SetupGet(registration => registration.SquadsEntered).Returns(new[] { squad1.Object.Id });
+        registration2.SetupGet(registration => registration.SquadsEntered).Returns([squad1.Object.Id]);
 
         var registration3 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration3.SetupGet(registration => registration.DivisionName).Returns("division1");
-        registration3.SetupGet(registration => registration.SquadsEntered).Returns(new[] { squad1.Object.Id, squad2.Object.Id });
+        registration3.SetupGet(registration => registration.SquadsEntered).Returns([squad1.Object.Id, squad2.Object.Id]);
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
         _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrations);
@@ -230,17 +230,17 @@ internal sealed class TournamentRegistrationsPresenter
 
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
-        registration1.SetupGet(registration => registration.SweepersEntered).Returns(new[] { sweeper1.Object.Id });
+        registration1.SetupGet(registration => registration.SweepersEntered).Returns([sweeper1.Object.Id]);
         registration1.SetupGet(registration => registration.SuperSweeperEntered).Returns(true);
 
         var registration2 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration2.SetupGet(registration => registration.DivisionName).Returns("division2");
-        registration2.SetupGet(registration => registration.SweepersEntered).Returns(new[] { sweeper1.Object.Id });
+        registration2.SetupGet(registration => registration.SweepersEntered).Returns([sweeper1.Object.Id]);
         registration2.SetupGet(registration => registration.SuperSweeperEntered).Returns(false);
 
         var registration3 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration3.SetupGet(registration => registration.DivisionName).Returns("division1");
-        registration3.SetupGet(registration => registration.SweepersEntered).Returns(new[] { sweeper1.Object.Id, sweeper2.Object.Id });
+        registration3.SetupGet(registration => registration.SweepersEntered).Returns([sweeper1.Object.Id, sweeper2.Object.Id]);
         registration3.SetupGet(registration => registration.SuperSweeperEntered).Returns(true);
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };

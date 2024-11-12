@@ -52,23 +52,23 @@ internal sealed class Adapter
         var division1Result = new NortheastMegabuck.Models.AtLargeResults
         {
             DivisionId = DivisionId.New(),
-            AdvancingScores = new[]
-            {
+            AdvancingScores =
+            [
                 new NortheastMegabuck.Models.BowlerSquadScore(200),
                 new NortheastMegabuck.Models.BowlerSquadScore(199)
-            }
+            ]
         };
 
         var division2Result = new NortheastMegabuck.Models.AtLargeResults
         {
             DivisionId = DivisionId.New(),
-            AdvancingScores = new[]
-            {
+            AdvancingScores =
+            [
                 new NortheastMegabuck.Models.BowlerSquadScore(198),
                 new NortheastMegabuck.Models.BowlerSquadScore(previousCasherId, 197),
                 new NortheastMegabuck.Models.BowlerSquadScore(196)
-            },
-            AdvancersWhoPreviouslyCashed = new[] { previousCasherId }
+            ],
+            AdvancersWhoPreviouslyCashed = [previousCasherId]
         };
 
         var tournamentResults = new[]

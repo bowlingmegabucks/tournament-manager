@@ -37,7 +37,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = _retrieveTournament.Error;
 
-            return Enumerable.Empty<Models.TournamentResults>();
+            return [];
         }
 
         var squadResults = await _retrieveSquadResults.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
@@ -46,7 +46,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = _retrieveSquadResults.Error;
 
-            return Enumerable.Empty<Models.TournamentResults>();
+            return [];
         }
 
         return squadResults.Select(squadResult => new Models.TournamentResults(squadResult.Key, squadResult, _calculator.Execute(squadResult.Key.Id, squadResult.ToList(), tournament!.FinalsRatio))).ToList();

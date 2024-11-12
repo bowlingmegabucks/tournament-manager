@@ -2,7 +2,7 @@
 
 internal class BusinessLogic : IBusinessLogic
 {
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
+    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly Tournaments.Retrieve.IBusinessLogic _getTournamentBO;
 
@@ -38,7 +38,7 @@ internal class BusinessLogic : IBusinessLogic
 
         if (_getTournamentBO.Error != null)
         {
-            Errors = new[] { _getTournamentBO.Error };
+            Errors = [_getTournamentBO.Error];
 
             return null;
         }
@@ -60,7 +60,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex) };
+            Errors = [new Models.ErrorDetail(ex)];
 
             return null;
         }

@@ -85,7 +85,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -172,7 +172,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -259,7 +259,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -296,7 +296,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -328,7 +328,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, Enumerable.Empty<BowlerId>(), finalsRatio, cashRatio);
+        var result = _calculator.Execute(new NortheastMegabuck.Models.Squad(), new NortheastMegabuck.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {

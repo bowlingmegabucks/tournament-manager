@@ -22,17 +22,17 @@ internal sealed class TournamentRegistrationViewModel
                 Number = 5,
                 Name = "divisionName"
             },
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Models.Squad{ Id = SquadId.New()},
                 new NortheastMegabuck.Models.Squad{ Id = SquadId.New()}
-            },
-            Sweepers = new[]
-            {
+            ],
+            Sweepers =
+            [
                 new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()},
                 new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()},
                 new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()}
-            },
+            ],
             SuperSweeper = true
         };
     }

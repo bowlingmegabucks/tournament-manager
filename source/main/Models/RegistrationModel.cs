@@ -55,7 +55,7 @@ internal class Registration
         Bowler = new Bowler();
         Division = new Division();
 
-        Squads = Enumerable.Empty<Squad>();
-        Sweepers = Enumerable.Empty<Sweeper>();
+        Squads = [];
+        Sweepers = [];
     }
 }

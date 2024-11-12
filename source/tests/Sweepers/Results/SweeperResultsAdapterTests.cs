@@ -64,7 +64,7 @@ internal sealed class Adapter
         {
             CasherCount = 2,
             CutScore = 401,
-            Scores = new[] { bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3 }
+            Scores = [bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3]
         };
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeperCut);
@@ -138,7 +138,7 @@ internal sealed class Adapter
         {
             CasherCount = 2,
             CutScore = 401,
-            Scores = new[] { bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3 }
+            Scores = [bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3]
         };
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeperCut);

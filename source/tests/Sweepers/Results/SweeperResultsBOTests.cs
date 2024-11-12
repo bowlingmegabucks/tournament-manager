@@ -322,7 +322,7 @@ internal sealed class BusinessLogic
     {
         var tournament = new NortheastMegabuck.Models.Tournament
         {
-            Sweepers = new[] { new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() } }
+            Sweepers = [new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }]
         };
 
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);

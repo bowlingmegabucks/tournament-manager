@@ -860,7 +860,7 @@ internal sealed class Validator
             Average = null,
             Division = division,
             Squads = squads,
-            Sweepers = Enumerable.Empty<NortheastMegabuck.Models.Sweeper>(),
+            Sweepers = [],
             TournamentStartDate = new DateOnly(DateTime.Now.Year, 11, 24)
         };
 

@@ -47,7 +47,7 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
+    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     public async Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
     {
@@ -55,7 +55,7 @@ internal class BusinessLogic : IBusinessLogic
 
         if (_getDivisionBO.Error != null)
         {
-            Errors = new[] { _getDivisionBO.Error };
+            Errors = [_getDivisionBO.Error];
 
             return null;
         }
@@ -66,7 +66,7 @@ internal class BusinessLogic : IBusinessLogic
 
         if (GetTournamentBO.Error is not null)
         {
-            Errors = new[] { GetTournamentBO.Error };
+            Errors = [GetTournamentBO.Error];
 
             return null;
         }
@@ -95,14 +95,14 @@ internal class BusinessLogic : IBusinessLogic
 
             if (SearchBowlerBO.Error is not null)
             {
-                Errors = new[] { SearchBowlerBO.Error };
+                Errors = [SearchBowlerBO.Error];
 
                 return null;
             }
 
             if (registeredInTournament)
             {
-                Errors = new[] { new Models.ErrorDetail("Bowler already registered for this tournament") };
+                Errors = [new Models.ErrorDetail("Bowler already registered for this tournament")];
 
                 return null;
             }
@@ -123,7 +123,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex) };
+            Errors = [new Models.ErrorDetail(ex)];
 
             return null;
         }
@@ -140,7 +140,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex) };
+            Errors = [new Models.ErrorDetail(ex)];
 
             return null;
         }
