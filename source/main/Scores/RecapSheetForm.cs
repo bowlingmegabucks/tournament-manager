@@ -14,8 +14,8 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
         InitializeComponent();
 
         _squadDate = squadDate;
-        _games = new Dictionary<short, Controls.RecapSheetGameRowControl>();
-        _recaps = new List<IRecapSheetViewModel>();
+        _games = [];
+        _recaps = [];
         _pen = new Pen(Color.Black, 2);
     }
 
@@ -93,7 +93,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
     private void CancelButton_Click(object sender, EventArgs e)
         => Dispose();
 
-    private readonly List<Image> _recapSheets = new();
+    private readonly List<Image> _recapSheets = [];
     private int _counter;
 
     private void PrintButton_Click(object sender, EventArgs e)

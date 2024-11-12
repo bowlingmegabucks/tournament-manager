@@ -63,7 +63,7 @@ internal sealed class DataLayer
         _repository.Setup(repository => repository.AddSquadAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new NortheastMegabuck.Database.Entities.Registration
             {
-                Squads = new List<NortheastMegabuck.Database.Entities.SquadRegistration>(),
+                Squads = [],
                 Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
                 Division = new NortheastMegabuck.Database.Entities.Division()
             });
@@ -86,7 +86,7 @@ internal sealed class DataLayer
             .ReturnsAsync(new NortheastMegabuck.Database.Entities.Registration
             {
                 Id = registrationId,
-                Squads = new List<NortheastMegabuck.Database.Entities.SquadRegistration>(),
+                Squads = [],
                 Bowler = new NortheastMegabuck.Database.Entities.Bowler(),
                 Division = new NortheastMegabuck.Database.Entities.Division()
             });

@@ -11,7 +11,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => _toSpreadsheet[divisionsTabControl.SelectedTab];
 
     private readonly DateTime _bowlDate;
-    private readonly Dictionary<KeyValuePair<string, bool>, IEnumerable<IViewModel>> _results = new();
+    private readonly Dictionary<KeyValuePair<string, bool>, IEnumerable<IViewModel>> _results = [];
 
     public Form(IConfiguration config, SquadId squadId, DateTime bowlDate)
     {
@@ -20,7 +20,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         SquadId = squadId;
         _bowlDate = bowlDate;
 
-        _toSpreadsheet = new Dictionary<TabPage, string>();
+        _toSpreadsheet = [];
 
         _ = new Presenter(config, this).ExecuteAsync(default);
     }

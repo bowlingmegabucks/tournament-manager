@@ -16,7 +16,7 @@ public partial class TournamentRegistrationGrid
     {
         InitializeComponent();
 
-        _squadDates = new Dictionary<SquadId, string>();
+        _squadDates = [];
     }
 
     public void Remove(RegistrationId id)

@@ -20,7 +20,7 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     {
         InitializeComponent();
 
-        _models = new List<TModel>();
+        _models = [];
 
         AlternateRowColors = true;
         AllowRowSelection = true;

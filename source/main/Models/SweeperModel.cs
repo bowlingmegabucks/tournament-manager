@@ -53,7 +53,7 @@ internal class Sweeper
         StartingLane = sweeper.StartingLane;
         NumberOfLanes = sweeper.NumberOfLanes;
         Complete = sweeper.Complete;
-        Divisions = sweeper.Divisions?.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame) ?? new Dictionary<NortheastMegabuck.DivisionId, int?>();
+        Divisions = sweeper.Divisions?.ToDictionary(division => division.DivisionId, division => division.BonusPinsPerGame) ?? [];
     }
 
     /// <summary>
