@@ -1,10 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Runtime.Versioning;
 using System.Text;
 using NortheastMegabuck.Controls;
 
 namespace NortheastMegabuck.LaneAssignments;
-public partial class Form : System.Windows.Forms.Form, IView
+
+[SupportedOSPlatform("windows")]
+internal partial class Form : System.Windows.Forms.Form, IView
 {
     private Scores.RecapSheetForm? _recapSheetForm;
 
@@ -405,6 +408,7 @@ public partial class Form : System.Windows.Forms.Form, IView
     }
 }
 
+[SupportedOSPlatform("windows")]
 internal static class ExtensionMethods
 {
     internal static bool GetDataPresent<T>(this DragEventArgs e) where T : class

@@ -1,6 +1,10 @@
 ﻿
+using System.Runtime.Versioning;
+
 namespace NortheastMegabuck.Controls;
-public partial class SquadResultsControl : UserControl
+
+[SupportedOSPlatform("windows")]
+internal partial class SquadResultsControl : UserControl
 {
     internal SquadResultsControl(Squads.Results.IViewModel model)
     {

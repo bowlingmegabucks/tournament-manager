@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Controls;
 
-public partial class LabelControl
+[SupportedOSPlatform("windows")]
+internal partial class LabelControl
     : UserControl
 {
     /// <summary>

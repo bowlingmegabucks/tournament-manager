@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Controls;
-public partial class PersonNameControl : UserControl, Bowlers.Update.INameViewModel
+
+[SupportedOSPlatform("windows")]
+internal partial class PersonNameControl : UserControl, Bowlers.Update.INameViewModel
 {
     public PersonNameControl()
     {

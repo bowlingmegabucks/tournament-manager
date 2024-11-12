@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Controls;
-public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
+
+[SupportedOSPlatform("windows")]
+internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
 {
     private static readonly IDictionary<string, string> _states = new Dictionary<string, string>
     {

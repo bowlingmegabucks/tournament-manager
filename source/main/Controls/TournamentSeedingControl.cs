@@ -1,6 +1,10 @@
 ﻿
+using System.Runtime.Versioning;
+
 namespace NortheastMegabuck.Controls;
-public partial class TournamentSeedingControl : UserControl
+
+[SupportedOSPlatform("windows")]
+internal partial class TournamentSeedingControl : UserControl
 {
     internal TournamentSeedingControl(Tournaments.Seeding.IViewModel model)
     {

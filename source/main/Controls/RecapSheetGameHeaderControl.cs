@@ -1,6 +1,6 @@
 ﻿
 namespace NortheastMegabuck.Controls;
-public partial class RecapSheetGameHeaderControl : UserControl
+internal partial class RecapSheetGameHeaderControl : UserControl
 {
     public RecapSheetGameHeaderControl()
     {

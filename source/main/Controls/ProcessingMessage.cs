@@ -1,5 +1,8 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿using System.Runtime.Versioning;
 
+namespace NortheastMegabuck.Controls;
+
+[SupportedOSPlatform("windows")]
 public partial class ProcessingMessage : UserControl
 {
     private readonly CancellationTokenSource _cancelToken;

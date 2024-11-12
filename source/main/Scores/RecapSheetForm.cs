@@ -1,7 +1,10 @@
 ﻿using System.Globalization;
+using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Scores;
-public partial class RecapSheetForm : System.Windows.Forms.Form
+
+[SupportedOSPlatform("windows")]
+internal partial class RecapSheetForm : System.Windows.Forms.Form
 {
     private readonly Dictionary<short, Controls.RecapSheetGameRowControl> _games;
     private readonly DateTime _squadDate;
