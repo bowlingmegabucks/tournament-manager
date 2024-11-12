@@ -1,6 +1,5 @@
 ﻿
 using System.Text;
-using NortheastMegabuck.Tournaments.Seeding;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 

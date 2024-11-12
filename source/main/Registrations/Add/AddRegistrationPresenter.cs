@@ -1,7 +1,4 @@
-﻿
-using System.Threading;
-
-namespace NortheastMegabuck.Registrations.Add;
+﻿namespace NortheastMegabuck.Registrations.Add;
 internal class Presenter
 {
     private readonly IView _view;

@@ -1,6 +1,4 @@
-﻿
-using System.ComponentModel;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace NortheastMegabuck.Scores;
 public partial class RecapSheetForm : System.Windows.Forms.Form

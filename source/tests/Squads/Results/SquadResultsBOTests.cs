@@ -1,7 +1,4 @@
-﻿
-using System.Windows.Forms;
-
-namespace NortheastMegabuck.Tests.Squads.Results;
+﻿namespace NortheastMegabuck.Tests.Squads.Results;
 
 [TestFixture]
 internal sealed class BusinessLogic

@@ -1,8 +1,4 @@
-﻿
-using System.Text;
-using NortheastMegabuck.Database.Entities;
-
-namespace NortheastMegabuck.Models;
+﻿namespace NortheastMegabuck.Models;
 
 internal class Bowler
 {

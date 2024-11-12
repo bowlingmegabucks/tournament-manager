@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Serialization;
-
-namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal sealed class Presenters

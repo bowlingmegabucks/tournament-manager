@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NortheastMegabuck.Bowlers.Retrieve;
+﻿namespace NortheastMegabuck.Bowlers.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NortheastMegabuck.Tests.Bowlers.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Bowlers.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer

@@ -1,7 +1,4 @@
-﻿
-using System.Security.Cryptography.Xml;
-
-namespace NortheastMegabuck.Tests.Tournaments.Results;
+﻿namespace NortheastMegabuck.Tests.Tournaments.Results;
 
 [TestFixture]
 internal sealed class Adapter

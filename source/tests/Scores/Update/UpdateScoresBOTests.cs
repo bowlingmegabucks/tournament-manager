@@ -1,6 +1,4 @@
-﻿
-using NortheastMegabuck.Database.Entities;
-using NortheastMegabuck.Tests.Extensions;
+﻿using NortheastMegabuck.Tests.Extensions;
 
 namespace NortheastMegabuck.Tests.Scores.Update;
 

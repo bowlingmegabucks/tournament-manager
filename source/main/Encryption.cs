@@ -1,6 +1,5 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace NortheastMegabuck;
 internal static class Encryption

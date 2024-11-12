@@ -1,7 +1,4 @@
-﻿
-using NortheastMegabuck.Scores;
-
-namespace NortheastMegabuck.Tests.Scores.Update;
+﻿namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
 internal sealed class Adapter

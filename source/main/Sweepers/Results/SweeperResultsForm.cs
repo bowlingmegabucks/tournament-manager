@@ -1,8 +1,4 @@
-﻿
-using System.Drawing.Printing;
-using QuestPDF.Fluent;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace NortheastMegabuck.Sweepers.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
