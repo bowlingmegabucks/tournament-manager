@@ -1,6 +1,6 @@
 ﻿
 namespace NortheastMegabuck.Controls.Grids;
-public partial class SweepersGrid
+internal partial class SweepersGrid
 #if DEBUG
     : SweeperMiddleGrid
 #else
@@ -17,8 +17,7 @@ public partial class SweepersGrid
 }
 
 #if DEBUG
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-public class SweeperMiddleGrid : DataGrid<Sweepers.IViewModel>
+internal class SweeperMiddleGrid : DataGrid<Sweepers.IViewModel>
 {
     public SweeperMiddleGrid()
     {

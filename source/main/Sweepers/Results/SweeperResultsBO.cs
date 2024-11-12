@@ -23,6 +23,7 @@ internal class BusinessLogic : IBusinessLogic
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockRetrieveSweeper"></param>
+    /// <param name="mockRetrieveTournament"></param>
     /// <param name="mockRetrieveScores"></param>
     internal BusinessLogic(Retrieve.IBusinessLogic mockRetrieveSweeper, Tournaments.Retrieve.IBusinessLogic mockRetrieveTournament, Scores.Retrieve.IBusinessLogic mockRetrieveScores)
     {

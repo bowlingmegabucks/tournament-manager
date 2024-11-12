@@ -27,7 +27,6 @@ internal sealed class Validator
             ZipCode = "01234"
         };
 
-
         var result = _validator.TestValidate(bowler);
 
         result.ShouldHaveValidationErrorFor(a => a.CityAddress).WithErrorMessage("City is Required when Street is given");
@@ -86,7 +85,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void State_NullOrEmtpy_Street_Given_Has_Error([Values(null, "", " ")] string state)
+    public void State_NullOrEmpty_Street_Given_Has_Error([Values(null, "", " ")] string state)
     {
         var bowler = new NortheastMegabuck.Models.Bowler
         {
@@ -178,7 +177,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void State_NullOrEmtpy_City_Given_Has_Error([Values(null, "", " ")] string state)
+    public void State_NullOrEmpty_City_Given_Has_Error([Values(null, "", " ")] string state)
     {
         var bowler = new NortheastMegabuck.Models.Bowler
         {
@@ -192,15 +191,15 @@ internal sealed class Validator
 
     [Test]
     public void EmailAddress_Valid_Has_No_validator_Error([Values("email@domain1.com",
-                                                                       "firstname.lastname@domain2.com",
+                                                                       "firstName.lastName@domain2.com",
                                                                        "email@subdomain.domain3.com",
-                                                                       "firstname+lastname@domain4.com",
+                                                                       "firstName+lastName@domain4.com",
                                                                        "1234567890@domain5.com",
                                                                        "email@domain-one6.com",
                                                                        "_______@domain7.com",
                                                                        "email@domain8.name",
                                                                        "email@domain9.co.jp",
-                                                                       "firstname-lastname@domain10.com",
+                                                                       "firstName-lastName@domain10.com",
                                                                        "Joe Smith <email@domain.com>",
                                                                        ".email@domain.com",
                                                                        "email.@domain.com",
@@ -221,7 +220,7 @@ internal sealed class Validator
     }
 
     [TestCase(" ")]
-    [TestCase("plainaddress")]
+    [TestCase("plainAddress")]
     [TestCase("#@%^%#$@#$@#.com")]
     [TestCase("@domain.com")]
     [TestCase("email.domain.com")]
@@ -301,7 +300,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void DateOfBirth_Yesterrday_NoValidatorError()
+    public void DateOfBirth_Yesterday_NoValidatorError()
     {
         var bowler = new NortheastMegabuck.Models.Bowler
         {

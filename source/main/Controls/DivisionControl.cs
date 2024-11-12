@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
 
 namespace NortheastMegabuck.Controls;
-public partial class DivisionControl : UserControl, Divisions.IViewModel
+internal partial class DivisionControl : UserControl, Divisions.IViewModel
 {
     public DivisionControl()
     {
@@ -28,8 +29,8 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short Number
     {
-        get => Convert.ToInt16(numberText.Text);
-        set => numberText.Text = value.ToString();
+        get => Convert.ToInt16(numberText.Text, CultureInfo.InvariantCulture);
+        set => numberText.Text = value.ToString(CultureInfo.InvariantCulture);
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -73,7 +74,6 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         get => maximumAgeValue.Value == 0 ? null : Convert.ToInt16(maximumAgeValue.Value);
         set => maximumAgeValue.Value = value ?? 0;
     }
-
 
     private void MaximumAgeValue_Validating(object sender, CancelEventArgs e)
     {

@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
-
+using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Controls;
-public partial class SelectSquadControl : UserControl, ISelectedIds
+
+[SupportedOSPlatform("windows")]
+internal partial class SelectSquadControl : UserControl, ISelectedIds
 {
     public SelectSquadControl(SquadId id, string displayText, bool selected)
     {
@@ -23,6 +25,7 @@ public partial class SelectSquadControl : UserControl, ISelectedIds
         set => nameCheckBox.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool Selected
     {
         get => nameCheckBox.Checked;

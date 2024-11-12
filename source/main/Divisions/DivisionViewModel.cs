@@ -51,7 +51,7 @@ internal class ViewModel : IViewModel
     }
 }
 
-public interface IViewModel
+internal interface IViewModel
 {
     DivisionId Id { get; set; }
 

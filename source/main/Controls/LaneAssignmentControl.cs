@@ -3,7 +3,7 @@ using System.Globalization;
 using System.ComponentModel;
 
 namespace NortheastMegabuck.Controls;
-public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
+internal partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
 {
     private readonly CultureInfo _culture;
 
@@ -68,26 +68,31 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
         set => laneAssignmentLabel.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string BowlerName
     {
         get => bowlerNameLabel.Text;
         set => bowlerNameLabel.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int DivisionNumber { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string DivisionName
     {
         get => divisionLabelValue.Text;
         set => divisionLabelValue.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int Average
     {
         get => averageLabelValue.Text == "-" ? 0 : Convert.ToInt32(averageLabelValue.Text, _culture);
         set => averageLabelValue.Text = value == 0 ? "-" : value.ToString(_culture);
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int Handicap
     {
         get => handicapLabelValue.Text == "-" ? 0 : Convert.ToInt32(handicapLabelValue.Text, _culture);

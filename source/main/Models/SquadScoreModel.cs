@@ -31,6 +31,7 @@ internal class SquadScore
     /// Sweeper Score
     /// </summary>
     /// <param name="score"></param>
+    /// <param name="handicapCalculator"></param>
     public SquadScore(Database.Entities.SquadScore score, Squads.IHandicapCalculator handicapCalculator)
     {
         SquadId = score.SquadId;
@@ -46,7 +47,7 @@ internal class SquadScore
     }
 
     /// <summary>
-    /// Unit Test Constuctor
+    /// Unit Test Constructor
     /// </summary>
     internal SquadScore()
     {

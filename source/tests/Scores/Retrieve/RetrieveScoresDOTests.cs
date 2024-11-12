@@ -1,4 +1,6 @@
 ﻿
+using MockQueryable;
+
 namespace NortheastMegabuck.Tests.Scores.Retrieve;
 
 [TestFixture]

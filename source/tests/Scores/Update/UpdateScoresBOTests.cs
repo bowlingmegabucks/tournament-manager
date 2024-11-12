@@ -1,4 +1,5 @@
 ﻿using NortheastMegabuck.Tests.Extensions;
+using NUnit.Framework.Legacy;
 
 namespace NortheastMegabuck.Tests.Scores.Update;
 

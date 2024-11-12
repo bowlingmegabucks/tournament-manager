@@ -1,7 +1,8 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace NortheastMegabuck.Controls.Grids;
-public partial class DivisionsGrid
+internal partial class DivisionsGrid
 #if DEBUG
     : DivisionsMiddleGrid
 #else
@@ -34,11 +35,11 @@ public partial class DivisionsGrid
                 if (division!.HandicapBase != null)
                 {
                     var handicap = new StringBuilder();
-                    handicap.Append($"{division.HandicapPercentage!.Value:N0}% of {division.HandicapBase!.Value}");
+                    handicap.AppendFormat(CultureInfo.CurrentCulture, "{0:N0}% of {1}", division.HandicapPercentage!.Value, division.HandicapBase!.Value);
 
                     if (division.MaximumHandicapPerGame.HasValue)
                     {
-                        handicap.Append($" ({division.MaximumHandicapPerGame.Value} pins max)");
+                        handicap.AppendFormat(CultureInfo.CurrentCulture, " ({0} pins max)", division.MaximumHandicapPerGame.Value);
                     }
 
                     e.Value = handicap.ToString();
@@ -51,13 +52,14 @@ public partial class DivisionsGrid
                 e.FormattingApplied = true;
 
                 break;
+            default:
+                break;
         }
     }
 }
 
 #if DEBUG
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-public class DivisionsMiddleGrid : DataGrid<Divisions.IViewModel>
+internal class DivisionsMiddleGrid : DataGrid<Divisions.IViewModel>
 {
     public DivisionsMiddleGrid()
     {

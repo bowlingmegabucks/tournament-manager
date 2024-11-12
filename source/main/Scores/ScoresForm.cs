@@ -1,5 +1,5 @@
 ﻿namespace NortheastMegabuck.Scores;
-public partial class Form : System.Windows.Forms.Form, IView, Update.IView
+internal partial class Form : System.Windows.Forms.Form, IView, Update.IView
 {
     private readonly IConfiguration _config;
     private readonly short _numberOfGames;

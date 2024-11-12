@@ -48,7 +48,7 @@ internal class ViewModel : IViewModel
     }
 }
 
-public interface IViewModel
+internal interface IViewModel
 {
     SquadId Id { get; set; }
 

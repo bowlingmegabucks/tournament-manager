@@ -24,6 +24,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     /// Add Registration from Lane Assignment Screen
     /// </summary>
     /// <param name="config"></param>
+    /// <param name="tournamentId"></param>
     /// <param name="squadId"></param>
     public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId)
     {

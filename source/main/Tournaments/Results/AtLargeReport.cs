@@ -2,12 +2,8 @@
 using QuestPDF.Fluent;
 
 namespace NortheastMegabuck.Tournaments.Results;
-internal class AtLargeReport : ResultReportBase<IAtLargeViewModel>
+internal class AtLargeReport(string division, IList<IAtLargeViewModel> results) : ResultReportBase<IAtLargeViewModel>("At Large", null, division, results)
 {
-    public AtLargeReport(string division, IList<IAtLargeViewModel> results)
-        : base("At Large", null, division, results)
-    { }
-
     protected override void ComposeColumnDefinitionDescriptor(TableColumnsDefinitionDescriptor columns)
     {
         columns.ConstantColumn(40);

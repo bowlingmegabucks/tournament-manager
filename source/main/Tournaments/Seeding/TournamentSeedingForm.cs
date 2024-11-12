@@ -11,7 +11,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private readonly Dictionary<string, IEnumerable<IViewModel>> _results = [];
 
     internal string ToSpreadsheet()
-        => _toSpreadsheet[divisionsTabControl.SelectedTab];
+        => _toSpreadsheet[divisionsTabControl.SelectedTab!];
 
     public Form(IConfiguration config, TournamentId id)
     {

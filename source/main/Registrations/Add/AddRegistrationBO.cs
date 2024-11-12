@@ -35,6 +35,7 @@ internal class BusinessLogic : IBusinessLogic
     /// <param name="mockGetDivisionBO"></param>
     /// <param name="mockGetTournamentBO"></param>
     /// <param name="mockSearchBowlerBO"></param>
+    /// <param name="mockUpdateBowlerBO"></param>
     /// <param name="mockValidator"></param>
     /// <param name="mockDataLayer"></param>
     internal BusinessLogic(Divisions.Retrieve.IBusinessLogic mockGetDivisionBO, Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, Bowlers.Search.IBusinessLogic mockSearchBowlerBO, Bowlers.Update.IBusinessLogic mockUpdateBowlerBO, FluentValidation.IValidator<Models.Registration> mockValidator, IDataLayer mockDataLayer)

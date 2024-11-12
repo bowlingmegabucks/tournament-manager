@@ -53,7 +53,7 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
     }
 }
 
-public interface ITournamentRegistrationViewModel
+internal interface ITournamentRegistrationViewModel
 {
     string FirstName { get; }
 

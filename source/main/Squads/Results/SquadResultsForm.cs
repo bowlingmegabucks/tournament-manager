@@ -8,7 +8,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly Dictionary<TabPage, string> _toSpreadsheet;
     internal string ToSpreadsheet()
-        => _toSpreadsheet[divisionsTabControl.SelectedTab];
+        => _toSpreadsheet[divisionsTabControl.SelectedTab!];
 
     private readonly DateTime _bowlDate;
     private readonly Dictionary<KeyValuePair<string, bool>, IEnumerable<IViewModel>> _results = [];

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 
-
 namespace NortheastMegabuck.Bowlers.Search;
 internal partial class Dialog : Form, IView
 {

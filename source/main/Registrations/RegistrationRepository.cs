@@ -60,7 +60,7 @@ internal class Repository : IRepository
 
     async Task IRepository.DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
-        if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId))
+        if (await _dataContext.SquadScores.AnyAsync(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId, cancellationToken).ConfigureAwait(false))
         {
             throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
         }

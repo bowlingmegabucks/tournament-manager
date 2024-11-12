@@ -1,4 +1,5 @@
-﻿using NortheastMegabuck.Tests.Extensions;
+﻿using MockQueryable;
+using NortheastMegabuck.Tests.Extensions;
 
 namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 

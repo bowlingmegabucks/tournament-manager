@@ -6,7 +6,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     internal string ToSpreadsheet { get; private set; }
 
-    private IEnumerable<IViewModel> _results = new List<IViewModel>();
+    private IEnumerable<IViewModel> _results = [];
     private readonly DateTime? _sweeperDate;
 
     public Form(IConfiguration config, SquadId squadId, DateTime sweeperDate) : this()

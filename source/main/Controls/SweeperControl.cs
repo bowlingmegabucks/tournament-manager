@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NortheastMegabuck.Controls;
-public partial class SweeperControl : UserControl, Sweepers.IViewModel
+internal partial class SweeperControl : UserControl, Sweepers.IViewModel
 {
     public SweeperControl()
     {

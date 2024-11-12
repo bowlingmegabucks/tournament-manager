@@ -21,6 +21,8 @@ internal sealed class BusinessLogic : IBusinessLogic
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockDataLayer"></param>
+    /// <param name="mockRetrieveBusinessLogic"></param>
+    /// <param name="mockTournamentBusinessLogic"></param>
     internal BusinessLogic(IDataLayer mockDataLayer, Retrieve.IBusinessLogic mockRetrieveBusinessLogic, Tournaments.Retrieve.IBusinessLogic mockTournamentBusinessLogic)
     {
         _dataLayer = mockDataLayer;

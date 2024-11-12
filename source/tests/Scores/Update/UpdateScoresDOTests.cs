@@ -23,8 +23,8 @@ internal sealed class DataLayer
     {
         var scores = new List<NortheastMegabuck.Models.SquadScore>
         {
-            new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } },
-            new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
+            new() {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } },
+            new() {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
         };
 
         await _dataLayer.ExecuteAsync(scores, default).ConfigureAwait(false);
@@ -46,8 +46,8 @@ internal sealed class DataLayer
 
         var scores = new List<NortheastMegabuck.Models.SquadScore>
         {
-            new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } },
-            new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
+            new() {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } },
+            new() {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
         };
 
         CancellationToken cancellationToken = default;

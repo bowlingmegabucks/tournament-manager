@@ -191,7 +191,7 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     public Models.Gender? Gender
     {
         get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
-        set => genderDropdown.SelectedValue = (int?)value;
+        set => genderDropdown.SelectedValue = value!;
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

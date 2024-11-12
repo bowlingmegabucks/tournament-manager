@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Squads.Retrieve;
+﻿using MockQueryable;
+
+namespace NortheastMegabuck.Tests.Squads.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer

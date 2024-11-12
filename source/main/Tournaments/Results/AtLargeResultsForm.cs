@@ -11,7 +11,7 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
     private readonly Dictionary<string, IEnumerable<IAtLargeViewModel>> _results = [];
 
     internal string ToSpreadsheet()
-        => _toSpreadsheet[divisionsTabControl.SelectedTab];
+        => _toSpreadsheet[divisionsTabControl.SelectedTab!];
 
     public AtLarge(IConfiguration config, TournamentId tournamentId)
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NortheastMegabuck.Dialogs;
-public partial class ConfirmSensitiveInfoDialog : Form
+internal partial class ConfirmSensitiveInfoDialog : Form
 {
     /// <summary>
     ///

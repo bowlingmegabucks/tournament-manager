@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Controls;
 
 [SupportedOSPlatform("windows")]
-public partial class ProcessingMessage : UserControl
+internal partial class ProcessingMessage : UserControl
 {
     private readonly CancellationTokenSource _cancelToken;
 

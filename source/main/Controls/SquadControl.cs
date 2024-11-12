@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NortheastMegabuck.Controls;
-public partial class SquadControl : UserControl, Squads.IViewModel
+internal partial class SquadControl : UserControl, Squads.IViewModel
 {
     public SquadControl()
     {

@@ -5,7 +5,6 @@ internal partial class Form : System.Windows.Forms.Form
     private readonly TournamentId _id;
     private readonly short _gamesPerSquad;
 
-
     public Form(IConfiguration config, TournamentId id, string tournamentName, short gamesPerSquad)
     {
         InitializeComponent();

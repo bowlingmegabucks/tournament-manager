@@ -33,7 +33,9 @@ internal class Validator : AbstractValidator<Models.Bowler>
         RuleFor(bowler => bowler.SocialSecurityNumber).SocialSecurityNumber().When(bowler => !string.IsNullOrEmpty(bowler.SocialSecurityNumber)).WithMessage("Invalid Social Security Number");
     }
 
-    private bool StreetIsGiven(Models.Bowler bowler) => !string.IsNullOrWhiteSpace(bowler.StreetAddress);
+    private static bool StreetIsGiven(Models.Bowler bowler)
+        => !string.IsNullOrWhiteSpace(bowler.StreetAddress);
 
-    private bool CityIsGiven(Models.Bowler bowler) => !string.IsNullOrWhiteSpace(bowler.CityAddress);
+    private static bool CityIsGiven(Models.Bowler bowler)
+        => !string.IsNullOrWhiteSpace(bowler.CityAddress);
 }

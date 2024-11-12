@@ -124,7 +124,7 @@ internal class ViewModel : IViewModel
     }
 }
 
-public interface IViewModel : IComparable<IViewModel>
+internal interface IViewModel : IComparable<IViewModel>
 {
     BowlerId BowlerId { get; }
 

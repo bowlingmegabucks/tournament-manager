@@ -17,7 +17,6 @@ internal partial class TournamentsGrid
 }
 
 #if DEBUG
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 internal class TournamentMiddleGrid : DataGrid<Tournaments.IViewModel>
 {
     public TournamentMiddleGrid()

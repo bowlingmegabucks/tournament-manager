@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 namespace NortheastMegabuck.Controls;
-public partial class SweeperDivisionControl : UserControl
+internal partial class SweeperDivisionControl : UserControl
 {
     public DivisionId DivisionId { get; }
 

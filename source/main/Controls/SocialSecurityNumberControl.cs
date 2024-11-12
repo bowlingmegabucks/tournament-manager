@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NortheastMegabuck.Controls;
-public partial class SocialSecurityNumberControl : UserControl
+internal partial class SocialSecurityNumberControl : UserControl
 {
     /// <summary>
     ///
@@ -20,9 +20,6 @@ public partial class SocialSecurityNumberControl : UserControl
     ///
     /// </summary>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    /// <summary>
-    ///
-    /// </summary>
     public bool ReadOnly
     {
         get => ssnText.ReadOnly;
@@ -44,9 +41,6 @@ public partial class SocialSecurityNumberControl : UserControl
     ///
     /// </summary>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    /// <summary>
-    ///
-    /// </summary>
     public string Value
     {
         get => _value;

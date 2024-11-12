@@ -108,14 +108,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Database\Migrations\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Update="Resources\NMT.ico">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EditorConfigFiles Remove="Y:\northeast-megabuck-tournament\source\main\Database\Migrations\.editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Y:\northeast-megabuck-tournament\source\main\Database\.editorconfig" />
 	</ItemGroup>
 
 </Project>

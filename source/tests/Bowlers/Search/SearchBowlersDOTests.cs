@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Bowlers.Search;
+﻿using MockQueryable;
+
+namespace NortheastMegabuck.Tests.Bowlers.Search;
 
 [TestFixture]
 internal sealed class DataLayer
@@ -33,20 +35,17 @@ internal sealed class DataLayer
 
         var bowlers = new List<NortheastMegabuck.Database.Entities.Bowler>
         {
-            new NortheastMegabuck.Database.Entities.Bowler
-            {
+            new() {
                 FirstName = "John",
                 LastName = "Doe"
             },
 
-            new NortheastMegabuck.Database.Entities.Bowler
-            {
+            new() {
                 FirstName = "Jane",
                 LastName = "Doe"
             },
 
-            new NortheastMegabuck.Database.Entities.Bowler
-            {
+            new() {
                 FirstName = "John",
                 LastName = "Smith"
             }

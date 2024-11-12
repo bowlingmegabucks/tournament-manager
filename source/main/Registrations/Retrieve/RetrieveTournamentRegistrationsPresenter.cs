@@ -31,14 +31,15 @@ internal class TournamentRegistrationsPresenter
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockView"></param>
-    /// <param name="mockRgistrationsAdapter"></param>
+    /// <param name="mockRegistrationsAdapter"></param>
     /// <param name="mockSquadsAdapter"></param>
     /// <param name="mockSweepersAdapter"></param>
     /// <param name="mockDeleteAdapter"></param>
-    internal TournamentRegistrationsPresenter(ITournamentRegistrationsView mockView, IAdapter mockRgistrationsAdapter, Squads.Retrieve.IAdapter mockSquadsAdapter, Sweepers.Retrieve.IAdapter mockSweepersAdapter, Delete.IAdapter mockDeleteAdapter, Update.IAdapter mockUpdateAdapter)
+    /// <param name="mockUpdateAdapter"></param>
+    internal TournamentRegistrationsPresenter(ITournamentRegistrationsView mockView, IAdapter mockRegistrationsAdapter, Squads.Retrieve.IAdapter mockSquadsAdapter, Sweepers.Retrieve.IAdapter mockSweepersAdapter, Delete.IAdapter mockDeleteAdapter, Update.IAdapter mockUpdateAdapter)
     {
         _view = mockView;
-        _registrationsAdapter = mockRgistrationsAdapter;
+        _registrationsAdapter = mockRegistrationsAdapter;
         _squadsAdapter = mockSquadsAdapter;
         _sweepersAdapter = mockSweepersAdapter;
         _deleteAdapter = new Lazy<Delete.IAdapter>(() => mockDeleteAdapter);

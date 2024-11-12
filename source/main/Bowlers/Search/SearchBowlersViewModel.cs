@@ -1,31 +1,21 @@
 ﻿
 namespace NortheastMegabuck.Bowlers.Search;
-internal class ViewModel : IViewModel
+internal class ViewModel(Models.Bowler bowler) : IViewModel
 {
-    public BowlerId Id { get; set; }
+    public BowlerId Id { get; set; } = bowler.Id;
 
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = bowler.Name.First;
 
-    public string LastName { get; set; }
+    public string LastName { get; set; } = bowler.Name.Last;
 
-    public string EmailAddress { get; set; }
+    public string EmailAddress { get; set; } = bowler.EmailAddress;
 
-    public string City { get; set; }
+    public string City { get; set; } = bowler.CityAddress;
 
-    public string State { get; set; }
-
-    public ViewModel(Models.Bowler bowler)
-    {
-        Id = bowler.Id;
-        FirstName = bowler.Name.First;
-        LastName = bowler.Name.Last;
-        EmailAddress = bowler.EmailAddress;
-        City = bowler.CityAddress;
-        State = bowler.StateAddress;
-    }
+    public string State { get; set; } = bowler.StateAddress;
 }
 
-public interface IViewModel
+internal interface IViewModel
 {
     BowlerId Id { get; }
 
