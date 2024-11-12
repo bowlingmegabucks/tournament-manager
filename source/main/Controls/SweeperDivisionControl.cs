@@ -6,6 +6,7 @@ public partial class SweeperDivisionControl : UserControl
 {
     public DivisionId DivisionId { get; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int? BonusPinsPerGame
     {
         get => bonusPinsPerGameValue.Value == 0 ? null : (int)bonusPinsPerGameValue.Value;

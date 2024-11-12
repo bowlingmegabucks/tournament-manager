@@ -11,8 +11,10 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
     private void Controls_Validated(object sender, EventArgs e)
         => tournamentErrorProvider.SetError((Control)sender, string.Empty);
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public TournamentId Id { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string TournamentName
     {
         get => nameText.Text;
@@ -28,12 +30,14 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public DateOnly Start
     {
         get => DateOnly.FromDateTime(startDatePicker.Value);
         set => startDatePicker.Value = new DateTime(value.Year, value.Month, value.Day, 0, 0, 0, DateTimeKind.Unspecified);
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public DateOnly End
     {
         get => DateOnly.FromDateTime(endDatePicker.Value);
@@ -49,6 +53,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal EntryFee
     {
         get => entryFeeValue.Value;
@@ -64,6 +69,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short Games
     {
         get => (short)gamesValue.Value;
@@ -79,6 +85,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal FinalsRatio
     {
         get => finalsRatioValue.Value;
@@ -94,6 +101,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal CashRatio
     {
         get => cashRatioValue.Value;
@@ -109,6 +117,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal SuperSweeperCashRatio
     {
         get => superSweeperCashRatioValue.Value;
@@ -124,6 +133,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string BowlingCenter
     {
         get => bowlingCenterValue.Text;
@@ -139,6 +149,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool Completed
     {
         get => CheckboxComplete.Checked;

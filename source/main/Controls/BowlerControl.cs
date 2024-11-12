@@ -70,63 +70,73 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         dateOfBirthPicker.Value = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
         dateOfBirthPicker.Checked = false;
 
-        var genders = Enum.GetNames(typeof(Models.Gender)).ToDictionary(e => (int)Enum.Parse(typeof(Models.Gender), e), e => e);
+        var genders = Enum.GetNames<Models.Gender>().ToDictionary(e => (int)Enum.Parse<Models.Gender>(e), e => e);
 
         genderDropdown.DataSource = genders.ToList();
         genderDropdown.DisplayMember = "Value";
         genderDropdown.ValueMember = "Key";
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public BowlerId Id { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string FirstName
     {
         get => personName.First;
         set => personName.First = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string MiddleInitial
     {
         get => personName.MiddleInitial;
         set => personName.MiddleInitial = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string LastName
     {
         get => personName.Last;
         set => personName.Last = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string Suffix
     {
         get => personName.Suffix;
         set => personName.Suffix = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string StreetAddress
     {
         get => streetText.Text;
         set => streetText.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string CityAddress
     {
         get => cityText.Text;
         set => cityText.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string StateAddress
     {
         get => stateDropdown.SelectedValue?.ToString() ?? string.Empty;
         set => stateDropdown.SelectedValue = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string ZipCode
     {
         get => zipCodeText.Text;
         set => zipCodeText.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string EmailAddress
     {
         get => emailText.Text;
@@ -141,18 +151,21 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string PhoneNumber
     {
         get => phoneNumberText.Text;
         set => phoneNumberText.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string USBCId
     {
         get => usbcIdText.Text;
         set => usbcIdText.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public DateOnly? DateOfBirth
     {
         get => dateOfBirthPicker.Checked ? DateOnly.FromDateTime(dateOfBirthPicker.Value.Date) : null;
@@ -171,12 +184,14 @@ public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Models.Gender? Gender
     {
         get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
         set => genderDropdown.SelectedValue = (int?)value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string SocialSecurityNumber
     {
         get => socialSecurityNumberControl.Value;

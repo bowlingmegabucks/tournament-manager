@@ -27,6 +27,10 @@ public partial class SocialSecurityNumberControl : UserControl
     /// <summary>
     ///
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    /// <summary>
+    ///
+    /// </summary>
     public bool ReadOnly
     {
         get => ssnText.ReadOnly;
@@ -44,6 +48,10 @@ public partial class SocialSecurityNumberControl : UserControl
 
     private string _value = string.Empty;
 
+    /// <summary>
+    ///
+    /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     /// <summary>
     ///
     /// </summary>

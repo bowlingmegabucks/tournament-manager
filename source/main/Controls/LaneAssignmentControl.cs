@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.ComponentModel;
 
 namespace NortheastMegabuck.Controls;
 public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
@@ -57,8 +58,10 @@ public partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewM
         handicapPanel.Visible = false;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public BowlerId BowlerId { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string LaneAssignment
     {
         get => laneAssignmentLabel.Text;

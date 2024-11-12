@@ -22,14 +22,17 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         genderDropdown.DataSource = dictionary.ToList();
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public DivisionId Id { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short Number
     {
         get => Convert.ToInt16(numberText.Text);
         set => numberText.Text = value.ToString();
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string DivisionName
     {
         get => nameText.Text;
@@ -45,8 +48,10 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public TournamentId TournamentId { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short? MinimumAge
     {
         get => minimumAgeValue.Value == 0 ? null : Convert.ToInt16(minimumAgeValue.Value);
@@ -62,6 +67,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short? MaximumAge
     {
         get => maximumAgeValue.Value == 0 ? null : Convert.ToInt16(maximumAgeValue.Value);
@@ -78,6 +84,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int? MinimumAverage
     {
         get => minimumAverageValue.Value == 0 ? null : Convert.ToInt32(minimumAverageValue.Value);
@@ -93,6 +100,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int? MaximumAverage
     {
         get => maximumAverageValue.Value == 0 ? null : Convert.ToInt32(maximumAverageValue.Value);
@@ -108,6 +116,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal? HandicapPercentage
     {
         get => handicapPercentageValue.Value == 0 ? null : Convert.ToDecimal(handicapPercentageValue.Value);
@@ -123,6 +132,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int? HandicapBase
     {
         get => handicapBaseValue.Value == 0 ? null : Convert.ToInt32(handicapBaseValue.Value);
@@ -138,6 +148,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public int? MaximumHandicapPerGame
     {
         get => maximumHandicapPerGameValue.Value == 0 ? null : Convert.ToInt32(maximumHandicapPerGameValue.Value);
@@ -153,6 +164,7 @@ public partial class DivisionControl : UserControl, Divisions.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Models.Gender? Gender
     {
         get => (int)genderDropdown.SelectedValue! == -1 ? null : (Models.Gender)genderDropdown.SelectedValue;

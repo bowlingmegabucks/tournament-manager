@@ -1,4 +1,6 @@
-﻿
+﻿using System.ComponentModel;
+
+
 namespace NortheastMegabuck.Bowlers.Search;
 internal partial class Dialog : Form, IView
 {
@@ -27,6 +29,7 @@ internal partial class Dialog : Form, IView
 
         newBowlerButton.Visible = allowNewBowler;
     }
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public BowlerId? SelectedBowlerId { get; private set; }
 
     public Models.BowlerSearchCriteria SearchCriteria

@@ -54,6 +54,10 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     /// <summary>
     ///
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    /// <summary>
+    ///
+    /// </summary>
     public ContextMenuStrip? SelectedRowContextMenu
     {
         get => GridView.RowTemplate.ContextMenuStrip;
@@ -95,6 +99,10 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     /// <summary>
     ///
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    /// <summary>
+    ///
+    /// </summary>
     public bool AlternateRowColors
     {
         get => _alternateRowColors;
@@ -106,6 +114,10 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
         }
     }
 
+    /// <summary>
+    ///
+    /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     /// <summary>
     ///
     /// </summary>

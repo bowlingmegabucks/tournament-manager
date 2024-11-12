@@ -1,4 +1,6 @@
-﻿
+﻿using System.ComponentModel;
+
+
 namespace NortheastMegabuck.Controls;
 public partial class SelectSquadControl : UserControl, ISelectedIds
 {
@@ -11,8 +13,10 @@ public partial class SelectSquadControl : UserControl, ISelectedIds
         Selected = selected;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public SquadId Id { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string DisplayText
     {
         get => nameCheckBox.Text;
