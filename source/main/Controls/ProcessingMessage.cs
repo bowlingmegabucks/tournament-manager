@@ -19,7 +19,7 @@ public partial class ProcessingMessage : UserControl
         if (string.IsNullOrWhiteSpace(message))
         {
             messageLabel.Visible = false;
-            processingPicture.Location = new Point(processingPicture.Location.X, processingPicture.Location.Y - messageLabel.Height / 2);
+            processingPicture.Location = new Point(processingPicture.Location.X, processingPicture.Location.Y - (messageLabel.Height / 2));
         }
     }
 

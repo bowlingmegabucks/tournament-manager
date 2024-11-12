@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Controls;
 public partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
 {
-    private readonly static IDictionary<string, string> _states = new Dictionary<string, string>
+    private static readonly IDictionary<string, string> _states = new Dictionary<string, string>
     {
         {"", ""},
         {"AL", "Alabama" },
