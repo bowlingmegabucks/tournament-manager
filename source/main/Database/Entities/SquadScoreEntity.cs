@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace NortheastMegabuck.Database.Entities;
@@ -27,7 +22,7 @@ internal class SquadScore
         {
             builder.HasKey(squadScore => new { squadScore.BowlerId, squadScore.SquadId, squadScore.Game });
 
-            builder.Property(squadScore=> squadScore.BowlerId).HasConversion<BowlerId.EfCoreValueConverter>();
+            builder.Property(squadScore => squadScore.BowlerId).HasConversion<BowlerId.EfCoreValueConverter>();
             builder.Property(squadScore => squadScore.SquadId).HasConversion<SquadId.EfCoreValueConverter>();
 
             builder.HasOne(squadScore => squadScore.Bowler)

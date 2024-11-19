@@ -28,8 +28,8 @@ internal class BusinessLogic : IBusinessLogic
         catch (Exception ex)
         {
             Error = new Models.ErrorDetail(ex);
-            
-            return Enumerable.Empty<Models.Tournament>();
+
+            return [];
         }
     }
 

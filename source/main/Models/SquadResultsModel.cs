@@ -6,11 +6,11 @@ internal class SquadResult
 
     public Division Division { get; init; }
 
-    public IEnumerable<BowlerSquadScore> AdvancingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
+    public IEnumerable<BowlerSquadScore> AdvancingScores { get; init; } = [];
 
-    public IEnumerable<BowlerSquadScore> CashingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
+    public IEnumerable<BowlerSquadScore> CashingScores { get; init; } = [];
 
-    public IEnumerable<BowlerSquadScore> NonQualifyingScores { get; init; } = Enumerable.Empty<BowlerSquadScore>();
+    public IEnumerable<BowlerSquadScore> NonQualifyingScores { get; init; } = [];
 
     public IEnumerable<BowlerSquadScore> AtLargeEligibleScores
         => CashingScores.Union(NonQualifyingScores);

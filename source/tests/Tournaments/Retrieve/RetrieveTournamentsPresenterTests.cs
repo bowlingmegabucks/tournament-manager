@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Serialization;
-
-namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal sealed class Presenters
@@ -33,7 +31,7 @@ internal sealed class Presenters
     public async Task ExecuteAsync_AdapterErrorNotNull_ErrorFlow()
     {
         var errorDetail = new NortheastMegabuck.Models.ErrorDetail("message");
-        _adapter.SetupGet(adapter=> adapter.Error).Returns(errorDetail);
+        _adapter.SetupGet(adapter => adapter.Error).Returns(errorDetail);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
@@ -49,7 +47,7 @@ internal sealed class Presenters
     [Test]
     public async Task ExecuteAsync_AdapterErrorDetailNull_NoTournamentsReturned_ViewDisableOpenTournamentCalled()
     {
-        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(Enumerable.Empty<NortheastMegabuck.Tournaments.IViewModel>());
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync([]);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 

@@ -43,8 +43,8 @@ internal sealed class Validation
     {
         var tournament = new NortheastMegabuck.Models.Tournament
         {
-            Start = new DateOnly(2000,1,1),
-            End = new DateOnly(2000,1,2)
+            Start = new DateOnly(2000, 1, 1),
+            End = new DateOnly(2000, 1, 2)
         };
 
         var result = _validator.TestValidate(tournament);
@@ -194,14 +194,14 @@ internal sealed class Validation
         {
             Games = 1
         };
-        
+
         var result = _validator.TestValidate(tournament);
 
         result.ShouldNotHaveValidationErrorFor(tournament => tournament.Games);
     }
 
     [Test]
-    public void FinalsRatio_LessThanOne_HasError([Values(-1,0,.9)]decimal finalsRatio)
+    public void FinalsRatio_LessThanOne_HasError([Values(-1, 0, .9)] decimal finalsRatio)
     {
         var tournament = new NortheastMegabuck.Models.Tournament
         {

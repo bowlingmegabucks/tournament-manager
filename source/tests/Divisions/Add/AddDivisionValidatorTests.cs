@@ -85,7 +85,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void MinimumAge_Null_MaximumAgeNullOrValue_NoError([Values(null,50)]short maximumAge)
+    public void MinimumAge_Null_MaximumAgeNullOrValue_NoError([Values(null, 50)] short maximumAge)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -134,7 +134,7 @@ internal sealed class Validator
         var result = _validator.TestValidate(division);
         result.ShouldHaveValidationErrorFor(division => division.MaximumAge).WithErrorMessage("Maximum age must be greater than 0");
     }
-    
+
     [Test]
     public void MaximumAge_GreaterThanZero_NoError()
     {
@@ -185,7 +185,7 @@ internal sealed class Validator
         var result = _validator.TestValidate(division);
         result.ShouldNotHaveValidationErrorFor(division => division.MaximumAge);
     }
-    
+
     [Test]
     public void MinimumAverage_LessThanOrEqualToZero_HasError([Values(-1, 0)] int minimumAverage)
     {
@@ -199,7 +199,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void MinimumAverage_GreaterThanEqualTo300_HasError([Values(300,301)] int minimumAverage)
+    public void MinimumAverage_GreaterThanEqualTo300_HasError([Values(300, 301)] int minimumAverage)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -337,7 +337,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void HandicapPercentage_GreaterThanOrEqualToZero_NoError([Values(0,.1)]decimal handicapPercentage)
+    public void HandicapPercentage_GreaterThanOrEqualToZero_NoError([Values(0, .1)] decimal handicapPercentage)
     {
         var division = new NortheastMegabuck.Models.Division
         {

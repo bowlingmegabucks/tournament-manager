@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 namespace NortheastMegabuck.Controls;
-public partial class SweeperDivisionsControl : UserControl
+internal partial class SweeperDivisionsControl : UserControl
 {
     public SweeperDivisionsControl()
     {
@@ -16,7 +16,7 @@ public partial class SweeperDivisionsControl : UserControl
     {
         foreach (var division in divisions)
         {
-            sweeperDivisionsFlowLayoutPanel.Controls.Add(new SweeperDivisionControl(division)); 
+            sweeperDivisionsFlowLayoutPanel.Controls.Add(new SweeperDivisionControl(division));
         }
     }
 }

@@ -14,12 +14,12 @@ internal class Calculator : ICalculator
             return new()
             {
                 DivisionId = divisionId,
-                AdvancingScores = Enumerable.Empty<Models.BowlerSquadScore>(),
-                AdvancersWhoPreviouslyCashed = Enumerable.Empty<BowlerId>(),
+                AdvancingScores = [],
+                AdvancersWhoPreviouslyCashed = [],
             };
         }
 
-        var finalistBowlerIds = squadResults.SelectMany(squadResult=> squadResult.AdvancingScores.Select(score=> score.Bowler.Id)).ToList();
+        var finalistBowlerIds = squadResults.SelectMany(squadResult => squadResult.AdvancingScores.Select(score => score.Bowler.Id)).ToList();
 
         var eligibleScores = squadResults.SelectMany(squadResult => squadResult.AtLargeEligibleScores)
             .Where(score => !finalistBowlerIds.Contains(score.Bowler.Id))

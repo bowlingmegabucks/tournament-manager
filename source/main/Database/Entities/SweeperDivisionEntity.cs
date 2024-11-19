@@ -23,7 +23,7 @@ internal class SweeperDivision
             builder.Property(builder => builder.DivisionId).HasConversion<DivisionId.EfCoreValueConverter>();
 
             builder.HasKey(e => new { e.SweeperId, e.DivisionId });
-            
+
             builder.HasOne(squad => squad.Sweeper)
                    .WithMany(sweeper => sweeper.Divisions)
                    .HasForeignKey(squad => squad.SweeperId)

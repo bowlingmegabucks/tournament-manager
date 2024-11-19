@@ -77,7 +77,7 @@ internal class Repository : IRepository
             var excludeIds = new List<BowlerId>();
 
             foreach (var bowler in bowlers)
-            {  
+            {
                 var squadIds = bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId);
                 var alreadyOnSquad = squadIds.Intersect(searchCriteria.WithoutRegistrationOnSquads).Any();
 
@@ -95,7 +95,7 @@ internal class Repository : IRepository
 
     async Task IRepository.UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken)
     {
-        var bowler = _dataContext.Bowlers.Single(b => b.Id == id);
+        var bowler = await _dataContext.Bowlers.SingleAsync(b => b.Id == id, cancellationToken).ConfigureAwait(false);
 
         bowler.FirstName = firstName;
         bowler.MiddleInitial = middleInitial;
@@ -123,7 +123,7 @@ internal class Repository : IRepository
         current.SocialSecurityNumber = bowler.SocialSecurityNumber;
         current.Gender = bowler.Gender;
         current.USBCId = bowler.USBCId;
-        
+
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 

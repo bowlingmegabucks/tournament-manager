@@ -1,9 +1,12 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿using System.Runtime.Versioning;
+
+namespace NortheastMegabuck.Controls;
 
 /// <summary>
 ///
 /// </summary>
-public partial class NumericControl : NumericUpDown
+[SupportedOSPlatform("windows")]
+internal partial class NumericControl : NumericUpDown
 {
     /// <summary>
     ///

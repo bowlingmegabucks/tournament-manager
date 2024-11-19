@@ -21,7 +21,7 @@ internal sealed class DataLayer
     public async Task ExecuteAsync_MapperExecute_CalledCorrectly()
     {
         var squad = new NortheastMegabuck.Models.Squad();
-        
+
         await _dataLayer.ExecuteAsync(squad, default).ConfigureAwait(false);
 
         _mapper.Verify(mapper => mapper.Execute(squad), Times.Once);

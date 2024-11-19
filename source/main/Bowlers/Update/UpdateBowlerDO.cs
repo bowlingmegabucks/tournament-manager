@@ -16,6 +16,7 @@ internal sealed class DataLayer : IDataLayer
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockRepository"></param>
+    /// <param name="mockEntityMapper"></param>
     internal DataLayer(IRepository mockRepository, IEntityMapper mockEntityMapper)
     {
         _repository = mockRepository;

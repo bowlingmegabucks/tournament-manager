@@ -44,7 +44,7 @@ internal class Presenter
             _view.Disable();
         }
         else
-        {            
+        {
             _view.BindLaneAssignments(laneAssignments);
             _view.BindSquadScores(squadScores);
         }

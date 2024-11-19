@@ -55,7 +55,7 @@ internal class Presenter
             _view.KeepOpen();
             return;
         }
-        
+
         var id = await AddSquadAdapter.ExecuteAsync(_view.Squad, cancellationToken).ConfigureAwait(true);
 
         if (AddSquadAdapter.Errors.Any())

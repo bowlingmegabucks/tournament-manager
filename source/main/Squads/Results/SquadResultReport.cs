@@ -39,7 +39,7 @@ internal class SquadResultReport : ResultReportBase<IViewModel>
     }
 
     protected override void PopulateTableData(ICollection<IViewModel> results, TableDescriptor table)
-    { 
+    {
         var advancers = results.Where(result => result.Advancer).ToList();
         var cashers = results.Where(result => result.Casher);
         var nonCashers = results.Where(result => !(result.Casher || result.Advancer));

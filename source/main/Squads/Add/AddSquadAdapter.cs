@@ -1,8 +1,8 @@
 ﻿namespace NortheastMegabuck.Squads.Add;
 internal class Adapter : IAdapter
 {
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
-    
+    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
+
     private readonly IBusinessLogic _businessLogic;
 
     public Adapter(IConfiguration config)
@@ -18,7 +18,7 @@ internal class Adapter : IAdapter
     {
         _businessLogic = mockBusinessLogic;
     }
-    
+
     public async Task<SquadId?> ExecuteAsync(IViewModel squad, CancellationToken cancellationToken)
     {
         var model = new Models.Squad(squad);

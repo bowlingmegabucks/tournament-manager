@@ -6,7 +6,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private readonly short _gamesPerSquad;
 
     public TournamentId TournamentId { get; }
-    
+
     public Form(IConfiguration config, TournamentId tournamentId, short gamesPerSquad)
     {
         InitializeComponent();
@@ -28,7 +28,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     public void DisplayError(string message)
-        => MessageBox.Show(message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+        => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     private void OpenButton_Click(object sender, EventArgs e)
     {

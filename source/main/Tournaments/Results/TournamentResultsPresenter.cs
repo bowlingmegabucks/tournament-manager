@@ -25,7 +25,7 @@ internal class Presenter
 
     public async Task AtLargeAsync(CancellationToken cancellationToken)
     {
-        var atLargeResults = (await _adapter.AtLargeAsync(_view.Id, cancellationToken).ConfigureAwait(true)).GroupBy(result=> result.DivisionName);
+        var atLargeResults = (await _adapter.AtLargeAsync(_view.Id, cancellationToken).ConfigureAwait(true)).GroupBy(result => result.DivisionName);
 
         if (_adapter.Error != null)
         {

@@ -26,7 +26,7 @@ internal class Adapter : IAdapter
 
         Error = _businessLogic.Error;
 
-        return registrations.Select(registration=> new TournamentRegistrationViewModel(registration));
+        return registrations.Select(registration => new TournamentRegistrationViewModel(registration));
     }
 }
 

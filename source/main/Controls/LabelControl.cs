@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Controls;
 
-public partial class LabelControl : UserControl
+[SupportedOSPlatform("windows")]
+internal partial class LabelControl
+    : UserControl
 {
     /// <summary>
     ///
@@ -20,6 +23,7 @@ public partial class LabelControl : UserControl
     /// <summary>
     /// Show/hide required asterisk
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool Required
     {
         get => _required;
@@ -48,6 +52,7 @@ public partial class LabelControl : UserControl
     /// <summary>
     ///
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool Bold
     {
         get => LabelText.Font.Bold;

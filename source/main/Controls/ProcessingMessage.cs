@@ -1,6 +1,9 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿using System.Runtime.Versioning;
 
-public partial class ProcessingMessage : UserControl
+namespace NortheastMegabuck.Controls;
+
+[SupportedOSPlatform("windows")]
+internal partial class ProcessingMessage : UserControl
 {
     private readonly CancellationTokenSource _cancelToken;
 
@@ -19,7 +22,7 @@ public partial class ProcessingMessage : UserControl
         if (string.IsNullOrWhiteSpace(message))
         {
             messageLabel.Visible = false;
-            processingPicture.Location = new Point(processingPicture.Location.X, processingPicture.Location.Y - messageLabel.Height / 2);
+            processingPicture.Location = new Point(processingPicture.Location.X, processingPicture.Location.Y - (messageLabel.Height / 2));
         }
     }
 

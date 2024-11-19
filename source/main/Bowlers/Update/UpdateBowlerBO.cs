@@ -4,7 +4,7 @@ namespace NortheastMegabuck.Bowlers.Update;
 
 internal sealed class BusinessLogic : IBusinessLogic
 {
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
+    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly Lazy<IValidator<Models.PersonName>> _nameValidator;
     private IValidator<Models.PersonName> NameValidator => _nameValidator.Value;
@@ -46,7 +46,7 @@ internal sealed class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex) };
+            Errors = [new Models.ErrorDetail(ex)];
         }
     }
 
@@ -67,7 +67,7 @@ internal sealed class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex) };
+            Errors = [new Models.ErrorDetail(ex)];
         }
     }
 }

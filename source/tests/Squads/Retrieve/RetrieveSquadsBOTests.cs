@@ -47,7 +47,7 @@ internal sealed class BusinessLogic
 
         var tournamentId = TournamentId.New();
 
-         await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
+        await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
         Assert.That(_businessLogic.Error, Is.Null);
     }

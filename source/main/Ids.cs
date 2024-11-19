@@ -2,13 +2,12 @@
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using StronglyTypedIds;
 
-#pragma warning disable CA1036 
 #pragma warning disable S1210 // "Equals" and the comparison operators should be overridden when implementing "IComparable"
 
 namespace NortheastMegabuck;
 
 [StronglyTypedId]
-public partial struct BowlerId { }
+internal partial struct BowlerId { }
 
 internal class BowlerIdValueGenerator : ValueGenerator<BowlerId>
 {
@@ -20,7 +19,7 @@ internal class BowlerIdValueGenerator : ValueGenerator<BowlerId>
 }
 
 [StronglyTypedId]
-public partial struct RegistrationId { }
+internal partial struct RegistrationId { }
 
 internal class RegistrationIdValueGenerator : ValueGenerator<RegistrationId>
 {
@@ -32,7 +31,7 @@ internal class RegistrationIdValueGenerator : ValueGenerator<RegistrationId>
 }
 
 [StronglyTypedId]
-public partial struct SquadId { }
+internal partial struct SquadId { }
 
 internal class SquadIdValueGenerator : ValueGenerator<SquadId>
 {
@@ -44,7 +43,7 @@ internal class SquadIdValueGenerator : ValueGenerator<SquadId>
 }
 
 [StronglyTypedId]
-public partial struct TournamentId { }
+internal partial struct TournamentId { }
 
 internal class TournamentIdValueGenerator : ValueGenerator<TournamentId>
 {
@@ -56,7 +55,7 @@ internal class TournamentIdValueGenerator : ValueGenerator<TournamentId>
 }
 
 [StronglyTypedId]
-public partial struct DivisionId { }
+internal partial struct DivisionId { }
 
 internal class DivisionIdValueGenerator : ValueGenerator<DivisionId>
 {

@@ -1,46 +1,31 @@
 ﻿namespace NortheastMegabuck.Squads;
 
-internal class ViewModel : IViewModel
+internal class ViewModel(Models.Squad squad) : IViewModel
 {
-    public SquadId Id { get; set; }
+    public SquadId Id { get; set; } = squad.Id;
 
-    public TournamentId TournamentId { get; set; }
+    public TournamentId TournamentId { get; set; } = squad.TournamentId;
 
-    public decimal? EntryFee { get; set; }
+    public decimal? EntryFee { get; set; } = squad.EntryFee;
 
-    public decimal? CashRatio { get; set; }
+    public decimal? CashRatio { get; set; } = squad.CashRatio;
 
-    public decimal? FinalsRatio { get; set; }
+    public decimal? FinalsRatio { get; set; } = squad.FinalsRatio;
 
-    public DateTime Date { get; set; }
+    public DateTime Date { get; set; } = squad.Date;
 
-    public short MaxPerPair { get; set; }
+    public short MaxPerPair { get; set; } = squad.MaxPerPair;
 
-    public short StartingLane { get; set; }
+    public short StartingLane { get; set; } = squad.StartingLane;
 
-    public short NumberOfLanes { get; set; }
+    public short NumberOfLanes { get; set; } = squad.NumberOfLanes;
 
-    public bool Complete { get; set; }
+    public bool Complete { get; set; } = squad.Complete;
 
     public short NumberOfGames { get; set; }
-
-    public ViewModel(Models.Squad squad)
-    {
-        Id = squad.Id;
-        TournamentId = squad.TournamentId;
-        CashRatio = squad.CashRatio;
-        FinalsRatio = squad.FinalsRatio;
-        Date = squad.Date;
-        MaxPerPair = squad.MaxPerPair;
-        StartingLane = squad.StartingLane;
-        NumberOfLanes = squad.NumberOfLanes;
-        Complete = squad.Complete;
-        EntryFee = squad.EntryFee;
-        
-    }
 }
 
-public interface IViewModel
+internal interface IViewModel
 {
     SquadId Id { get; set; }
 
@@ -49,7 +34,7 @@ public interface IViewModel
     decimal? EntryFee { get; set; }
 
     decimal? CashRatio { get; set; }
-    
+
     decimal? FinalsRatio { get; set; }
 
     DateTime Date { get; set; }

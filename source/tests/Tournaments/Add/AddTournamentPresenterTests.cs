@@ -41,7 +41,7 @@ internal sealed class Presenter
             _view.Verify(view => view.DisplayErrors(It.IsAny<IEnumerable<string>>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.VerifySet(view => view.Tournament.Id = It.IsAny<TournamentId>(), Times.Never);
-            _view.Verify(view=> view.OkToClose(), Times.Never);
+            _view.Verify(view => view.OkToClose(), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
         });
     }
@@ -72,11 +72,11 @@ internal sealed class Presenter
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
-        Assert.Multiple(()=>
+        Assert.Multiple(() =>
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
-            _view.Verify(view => view.DisplayErrors(new[] { "message", "message", "message"}), Times.Once);
-            
+            _view.Verify(view => view.DisplayErrors(new[] { "message", "message", "message" }), Times.Once);
+
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.VerifySet(view => view.Tournament.Id = It.IsAny<TournamentId>(), Times.Never);
             _view.Verify(view => view.OkToClose(), Times.Never);
@@ -93,7 +93,7 @@ internal sealed class Presenter
         _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel
-        { 
+        {
             TournamentName = "name"
         };
 

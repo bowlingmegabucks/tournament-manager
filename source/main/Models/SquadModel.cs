@@ -14,7 +14,7 @@ internal class Squad
     public DateTime Date { get; set; }
 
     public decimal? EntryFee { get; set; }
-    
+
     public short MaxPerPair { get; set; }
 
     public short StartingLane { get; set; }

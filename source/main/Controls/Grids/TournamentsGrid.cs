@@ -11,13 +11,12 @@ internal partial class TournamentsGrid
     {
         InitializeComponent();
     }
-    
+
     public Tournaments.IViewModel? SelectedTournament
         => SelectedRow;
 }
 
 #if DEBUG
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 internal class TournamentMiddleGrid : DataGrid<Tournaments.IViewModel>
 {
     public TournamentMiddleGrid()

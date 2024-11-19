@@ -13,16 +13,16 @@ internal class BusinessLogic : IBusinessLogic
 
     public BusinessLogic(IConfiguration config)
     {
-        _errors = new List<Models.ErrorDetail>();
+        _errors = [];
         _validator = new Validator();
         _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
     }
 
     internal BusinessLogic(IValidator<IEnumerable<Models.SquadScore>> mockValidator, IDataLayer mockDataLayer)
     {
-        _errors = new List<Models.ErrorDetail>();
+        _errors = [];
         _validator = mockValidator;
-        _dataLayer = new Lazy<IDataLayer>(()=> mockDataLayer);
+        _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
     public async Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<Models.SquadScore> squadScores, CancellationToken cancellationToken)

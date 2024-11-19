@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NortheastMegabuck.Tests.Bowlers.Retrieve;
+﻿namespace NortheastMegabuck.Tests.Bowlers.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
@@ -31,7 +25,7 @@ internal sealed class DataLayer
 
         await _dataLayer.ExecuteAsync(bowlerId, cancellationToken).ConfigureAwait(false);
 
-        _repository.Verify(repository=> repository.RetrieveAsync(bowlerId, cancellationToken), Times.Once);
+        _repository.Verify(repository => repository.RetrieveAsync(bowlerId, cancellationToken), Times.Once);
     }
 
     [Test]

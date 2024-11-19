@@ -2,14 +2,10 @@
 using QuestPDF.Fluent;
 
 namespace NortheastMegabuck.Tournaments.Seeding;
-internal class TournamentSeedingReport : ResultReportBase<IViewModel>
+internal class TournamentSeedingReport(string division, IList<IViewModel> results) : ResultReportBase<IViewModel>("Finals Seeding", null, division, results)
 {
-    public TournamentSeedingReport(string division, IList<IViewModel> results)
-        : base("Finals Seeding", null, division, results)
-    { }
-
     protected override void ComposeColumnDefinitionDescriptor(TableColumnsDefinitionDescriptor columns)
-    { 
+    {
         columns.ConstantColumn(40);
         columns.RelativeColumn(10);
         columns.RelativeColumn();
@@ -18,7 +14,7 @@ internal class TournamentSeedingReport : ResultReportBase<IViewModel>
     }
 
     protected override void ComposeHeaderDescriptor(TableCellDescriptor header)
-    { 
+    {
         header.Cell().Element(HeaderStyle).Text("Seed");
         header.Cell().Element(HeaderStyle).Text("Name");
         header.Cell().Element(HeaderStyle).AlignCenter().Text("Total");
@@ -48,7 +44,7 @@ internal class TournamentSeedingReport : ResultReportBase<IViewModel>
     }
 
     private static void MapRow(TableDescriptor table, IViewModel result, byte[] cashLogo)
-    { 
+    {
         table.Cell().Element(CellStyle).AlignMiddle().Text($"#{result.Seed}");
         table.Cell().Element(CellStyle).AlignMiddle().Text(result.BowlerName);
         table.Cell().Element(CellStyle).AlignMiddle().AlignCenter().Text(result.Score.ToString(CultureInfo.CurrentCulture));

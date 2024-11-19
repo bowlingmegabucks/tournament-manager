@@ -35,7 +35,7 @@ internal sealed class Presenter
         _view.SetupGet(view => view.MaxPerPair).Returns(4);
 
         await _presenter.LoadAsync(default).ConfigureAwait(false);
- 
+
         _laneAvailability.Verify(laneAvailability => laneAvailability.Generate(1, 10, 4), Times.Once);
     }
 
@@ -156,7 +156,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignmments_CalledCorrectly()
+    public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignments_CalledCorrectly()
     {
         var assignment1 = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
@@ -183,10 +183,10 @@ internal sealed class Presenter
     }
 
     [Test]
-    public async Task UpdateAsync_UpdateAdapterExecute_CalledCorrectly([Values("","21A")]string position)
+    public async Task UpdateAsync_UpdateAdapterExecute_CalledCorrectly([Values("", "21A")] string position)
     {
         var squadId = SquadId.New();
-        
+
         var bowlerId = BowlerId.New();
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         registration.SetupGet(r => r.BowlerId).Returns(bowlerId);
@@ -335,7 +335,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public async Task AddToRegistrationAsync_ViewGetBowlerReturnsId_AddRegistrationAdapterSuccessful_Successflow()
+    public async Task AddToRegistrationAsync_ViewGetBowlerReturnsId_AddRegistrationAdapterSuccessful_SuccessFlow()
     {
         var bowlerId = BowlerId.New();
         _view.Setup(view => view.SelectBowler(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(bowlerId);
@@ -544,7 +544,7 @@ internal sealed class Presenter
     }
 
     [Test]
-    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignmments_CalledCorrectly()
+    public async Task NewRegistrationAsync_ViewNewRegistrationReturnsTrue_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignments_CalledCorrectly()
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
@@ -573,14 +573,14 @@ internal sealed class Presenter
     }
 
     [Test]
-    public void GenerateRecaps_GenerateCrossFactoryExecute_CalledCorrectly([Values]bool staggeredSkipSelected)
+    public void GenerateRecaps_GenerateCrossFactoryExecute_CalledCorrectly([Values] bool staggeredSkipSelected)
     {
         var mockCrossGenerator = new Mock<NortheastMegabuck.LaneAssignments.IGenerate>();
         _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
 
         _view.SetupGet(view => view.StaggeredSkipSelected).Returns(staggeredSkipSelected);
 
-        _presenter.GenerateRecaps(Enumerable.Empty<NortheastMegabuck.LaneAssignments.IViewModel>());
+        _presenter.GenerateRecaps([]);
 
         _generateCrossFactory.Verify(factory => factory.Execute(staggeredSkipSelected), Times.Once);
     }
@@ -676,7 +676,7 @@ internal sealed class Presenter
     {
         var mockCrossGenerator = new Mock<NortheastMegabuck.LaneAssignments.IGenerate>();
         mockCrossGenerator.Setup(generator => generator.DetermineSkip(It.IsAny<int>())).Returns(10);
-        mockCrossGenerator.Setup(generator => generator.Execute(It.IsAny<short>(), It.IsAny<string>(), It.IsAny<short>(), It.IsAny<IList<short>>(), It.IsAny<short>())).Returns(new List<string> { "a", "b", "c", "d" });
+        mockCrossGenerator.Setup(generator => generator.Execute(It.IsAny<short>(), It.IsAny<string>(), It.IsAny<short>(), It.IsAny<IList<short>>(), It.IsAny<short>())).Returns(["a", "b", "c", "d"]);
         _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
 
         var recap1 = new NortheastMegabuck.LaneAssignments.ViewModel

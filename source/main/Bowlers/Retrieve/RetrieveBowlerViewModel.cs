@@ -1,57 +1,37 @@
 ﻿using NortheastMegabuck.Models;
 
 namespace NortheastMegabuck.Bowlers.Retrieve;
-internal class ViewModel : IViewModel
+internal class ViewModel(Bowler bowler) : IViewModel
 {
-    public BowlerId Id { get; set; }
+    public BowlerId Id { get; set; } = bowler.Id;
 
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = bowler.Name.First;
 
-    public string MiddleInitial { get; set; }
+    public string MiddleInitial { get; set; } = bowler.Name.MiddleInitial;
 
-    public string LastName { get; set; }
+    public string LastName { get; set; } = bowler.Name.Last;
 
-    public string Suffix { get; set; }
+    public string Suffix { get; set; } = bowler.Name.Suffix;
 
-    public string Street { get; set; }
+    public string Street { get; set; } = bowler.StreetAddress;
 
-    public string City { get; set; }
+    public string City { get; set; } = bowler.CityAddress;
 
-    public string State { get; set; }
+    public string State { get; set; } = bowler.StateAddress;
 
-    public string ZipCode { get; set; }
+    public string ZipCode { get; set; } = bowler.ZipCode;
 
-    public string Email { get; set; }
+    public string Email { get; set; } = bowler.EmailAddress;
 
-    public DateOnly? DateOfBirth { get; set; }
+    public DateOnly? DateOfBirth { get; set; } = bowler.DateOfBirth;
 
-    public string PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; } = bowler.PhoneNumber;
 
-    public string SSN { get; set; }
+    public string SSN { get; set; } = bowler.SocialSecurityNumber;
 
-    public Gender? Gender { get; set; }
+    public Gender? Gender { get; set; } = bowler.Gender;
 
-    public string USBCId { get; set; }
-
-    public ViewModel(Models.Bowler bowler)
-    {
-        Id = bowler.Id;
-
-        FirstName = bowler.Name.First;
-        MiddleInitial = bowler.Name.MiddleInitial;
-        LastName = bowler.Name.Last;
-        Suffix = bowler.Name.Suffix;
-        Street = bowler.StreetAddress;
-        City = bowler.CityAddress;
-        State = bowler.StateAddress;
-        ZipCode = bowler.ZipCode;
-        Email = bowler.EmailAddress;
-        DateOfBirth = bowler.DateOfBirth;
-        PhoneNumber = bowler.PhoneNumber;
-        SSN = bowler.SocialSecurityNumber;
-        Gender = bowler.Gender;
-        USBCId = bowler.USBCId;
-    }
+    public string USBCId { get; set; } = bowler.USBCId;
 }
 
 internal interface IViewModel

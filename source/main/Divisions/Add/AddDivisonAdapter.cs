@@ -5,7 +5,7 @@ internal class Adapter : IAdapter
     private readonly Lazy<IBusinessLogic> _businessLogic;
     private IBusinessLogic BusinessLogic => _businessLogic.Value;
 
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
+    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     internal Adapter(IConfiguration config)
     {

@@ -17,7 +17,7 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public async Task ExecuteAsync_RepositoryUpdate_CalledCorrectly([Values]bool superSweeper)
+    public async Task ExecuteAsync_RepositoryUpdate_CalledCorrectly([Values] bool superSweeper)
     {
         var registrationId = RegistrationId.New();
         CancellationToken cancellationToken = default;

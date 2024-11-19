@@ -38,9 +38,9 @@ internal sealed class BowlerSquadScore
 
         var squadScores = new[] { squadScore1, squadScore2, squadScore3 };
 
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(squadScores.GroupBy(squadScore=> squadScore.Bowler).Single());
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(squadScores.GroupBy(squadScore => squadScore.Bowler).Single());
 
-        Assert.That(bowlerSquadScore.Bowler, Is.EqualTo(bowler));    
+        Assert.That(bowlerSquadScore.Bowler, Is.EqualTo(bowler));
     }
 
     /// <summary>
@@ -215,12 +215,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_OtherHasMoreGames_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,201)
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,202)
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 202)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
         };
@@ -231,7 +231,7 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_OtherHasLessGames_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,201)
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
         };
@@ -247,12 +247,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_OtherHasHigherScore_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,201,202)
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 202)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,203)
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 203)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
@@ -263,12 +263,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_OtherHasLowerScore_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,201,202)
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 202)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,200)
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 200)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
@@ -279,12 +279,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_OtherHasHigherGame_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,200,200)
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,199)
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 199)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
@@ -295,12 +295,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_OtherHasLowerGame_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,199,201)
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 199, 201)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,200,200)
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
@@ -311,12 +311,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_SameHighGame_Other2ndHighIsHigher_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,200,200,300)
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200, 300)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,199,201,300)
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 199, 201, 300)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
@@ -327,12 +327,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_SameHighGame_Other2ndHighIsLower_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200,200,200,300)
+        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200, 300)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200,201,199,300)
+        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 199, 300)
         {
             Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
         };

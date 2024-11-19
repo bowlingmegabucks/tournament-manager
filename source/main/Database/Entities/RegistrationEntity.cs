@@ -47,9 +47,9 @@ internal class Registration
                     .HasForeignKey(registration => registration.DivisionId)
                     .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(registration=> registration.Squads)
-                    .WithOne(squadRegistration=> squadRegistration.Registration)
-                    .HasForeignKey(squadRegistration=> squadRegistration.RegistrationId)
+            builder.HasMany(registration => registration.Squads)
+                    .WithOne(squadRegistration => squadRegistration.Registration)
+                    .HasForeignKey(squadRegistration => squadRegistration.RegistrationId)
                     .OnDelete(DeleteBehavior.Cascade);
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
+﻿using MockQueryable;
+
+namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer

@@ -269,7 +269,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError([Values]NortheastMegabuck.Models.Gender gender)
+    public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError([Values] NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -578,7 +578,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError([Values]NortheastMegabuck.Models.Gender gender)
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError([Values] NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -860,7 +860,7 @@ internal sealed class Validator
             Average = null,
             Division = division,
             Squads = squads,
-            Sweepers = Enumerable.Empty<NortheastMegabuck.Models.Sweeper>(),
+            Sweepers = [],
             TournamentStartDate = new DateOnly(DateTime.Now.Year, 11, 24)
         };
 

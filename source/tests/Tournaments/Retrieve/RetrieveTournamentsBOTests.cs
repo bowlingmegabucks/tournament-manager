@@ -22,7 +22,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
-        _dataLayer.Verify(dataLayer=> dataLayer.ExecuteAsync(cancellationToken), Times.Once);
+        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(cancellationToken), Times.Once);
     }
 
     [Test]
@@ -62,7 +62,7 @@ internal sealed class BusinessLogic
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
-        
+
         Assert.Multiple(() =>
         {
             Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));

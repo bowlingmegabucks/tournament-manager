@@ -22,7 +22,7 @@ internal sealed class ViewModel
     {
         var model = new NortheastMegabuck.Models.Bowler
         {
-            Name = new NortheastMegabuck.Models.PersonName { First = "first"}
+            Name = new NortheastMegabuck.Models.PersonName { First = "first" }
         };
 
         var viewModel = new NortheastMegabuck.Bowlers.Retrieve.ViewModel(model);
@@ -35,7 +35,7 @@ internal sealed class ViewModel
     {
         var model = new NortheastMegabuck.Models.Bowler
         {
-            Name = new NortheastMegabuck.Models.PersonName { MiddleInitial = "middle"}
+            Name = new NortheastMegabuck.Models.PersonName { MiddleInitial = "middle" }
         };
 
         var viewModel = new NortheastMegabuck.Bowlers.Retrieve.ViewModel(model);
@@ -48,7 +48,7 @@ internal sealed class ViewModel
     {
         var model = new NortheastMegabuck.Models.Bowler
         {
-            Name = new NortheastMegabuck.Models.PersonName { Last = "last"}
+            Name = new NortheastMegabuck.Models.PersonName { Last = "last" }
         };
 
         var viewModel = new NortheastMegabuck.Bowlers.Retrieve.ViewModel(model);
@@ -61,7 +61,7 @@ internal sealed class ViewModel
     {
         var model = new NortheastMegabuck.Models.Bowler
         {
-            Name = new NortheastMegabuck.Models.PersonName { Suffix = "suffix"}
+            Name = new NortheastMegabuck.Models.PersonName { Suffix = "suffix" }
         };
 
         var viewModel = new NortheastMegabuck.Bowlers.Retrieve.ViewModel(model);

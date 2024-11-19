@@ -1,6 +1,4 @@
-﻿using NortheastMegabuck.Sweepers;
-
-namespace NortheastMegabuck.Tests.Sweepers.Add;
+﻿namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
 internal sealed class EntityMapper

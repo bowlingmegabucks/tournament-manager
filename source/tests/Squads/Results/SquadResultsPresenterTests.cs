@@ -27,7 +27,7 @@ internal sealed class Presenter
         CancellationToken cancellationToken = default;
 
         await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
-        
+
         _adapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 

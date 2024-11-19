@@ -18,7 +18,7 @@ internal class Adapter : IAdapter
     /// <param name="mockBusinessLogic"></param>
     internal Adapter(IBusinessLogic mockBusinessLogic)
     {
-        _businessLogic= mockBusinessLogic;
+        _businessLogic = mockBusinessLogic;
     }
 
     public async Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId id, CancellationToken cancellationToken)
@@ -27,7 +27,7 @@ internal class Adapter : IAdapter
 
         var seeds = new List<IViewModel>();
 
-        foreach ( var divisionResult in results)
+        foreach (var divisionResult in results)
         {
             var seed = 1;
 

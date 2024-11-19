@@ -24,7 +24,7 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_ValidatorValidate_CalledCorrectly()
     {
         _validator.Validate_IsValid();
-        
+
         var division = new NortheastMegabuck.Models.Division();
         CancellationToken cancellationToken = default;
 
@@ -68,7 +68,7 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_ValidatorValidateTrue_DataLayerExecuteThrowsException_ExceptionFlow()
     {
         _validator.Validate_IsValid();
-        
+
         var ex = new Exception("exception");
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Division>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
