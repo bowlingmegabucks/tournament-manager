@@ -25,9 +25,9 @@ internal sealed class BusinesLogic
     public async Task ExecuteAsync_GetTournamentBOExecute_CalledCorrectly()
     {
         _validator.Validate_IsValid();
-        
+
         var squad = new NortheastMegabuck.Models.Squad
-        { 
+        {
             TournamentId = TournamentId.New()
         };
         CancellationToken cancellationToken = default;

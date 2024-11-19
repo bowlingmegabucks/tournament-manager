@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using NortheastMegabuck.Tests.Extensions;
 
 namespace NortheastMegabuck.Tests.Bowlers.Update;
@@ -39,7 +34,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(bowlerId, name, cancellationToken).ConfigureAwait(false);
 
-        _nameValidator.Verify(validator=> validator.ValidateAsync(name, cancellationToken), Times.Once);
+        _nameValidator.Verify(validator => validator.ValidateAsync(name, cancellationToken), Times.Once);
     }
 
     [Test]

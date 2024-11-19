@@ -162,7 +162,7 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
 
         var imageConverter = new ImageConverter();
 
-        var images = document.GenerateImages(new ImageGenerationSettings { ImageFormat = ImageFormat.Png, RasterDpi = 90}).Select(x => imageConverter.ConvertFrom(x) as System.Drawing.Image).ToList();
+        var images = document.GenerateImages(new ImageGenerationSettings { ImageFormat = ImageFormat.Png, RasterDpi = 90 }).Select(x => imageConverter.ConvertFrom(x) as System.Drawing.Image).ToList();
 
         var counter = 0;
 

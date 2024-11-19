@@ -41,7 +41,7 @@ internal class Tournament
         SuperSweeperCashRatio = entity.SuperSweperCashRatio;
         BowlingCenter = entity.BowlingCenter;
         Completed = entity.Completed;
-        
+
         Squads = entity.Squads?.Select(squad => new Squad(squad)).ToList() ?? Enumerable.Empty<Squad>();
         Sweepers = entity.Sweepers?.Select(sweeper => new Sweeper(sweeper)).ToList() ?? Enumerable.Empty<Sweeper>();
     }
@@ -56,12 +56,12 @@ internal class Tournament
         Games = viewModel.Games;
         FinalsRatio = viewModel.FinalsRatio;
         CashRatio = viewModel.CashRatio;
-        SuperSweeperCashRatio= viewModel.SuperSweeperCashRatio;
+        SuperSweeperCashRatio = viewModel.SuperSweeperCashRatio;
         BowlingCenter = viewModel.BowlingCenter;
         Completed = viewModel.Completed;
 
-        Squads = Enumerable.Empty<Squad>();
-        Sweepers = Enumerable.Empty<Sweeper>();
+        Squads = [];
+        Sweepers = [];
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ internal class Tournament
     /// </summary>
     internal Tournament()
     {
-        Squads = Enumerable.Empty<Squad>();
-        Sweepers = Enumerable.Empty<Sweeper>();
+        Squads = [];
+        Sweepers = [];
     }
 }

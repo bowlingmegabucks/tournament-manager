@@ -90,7 +90,7 @@ internal sealed class LaneAvailability
     }
 
     [Test]
-    public void StartingLaneOne_FourLanes_OneOrMoreThanFivePerPair_ThrowsArgumentOutOfRangeException([Values(1,6,7,8,9,10)]int maxPerPair)
+    public void StartingLaneOne_FourLanes_OneOrMoreThanFivePerPair_ThrowsArgumentOutOfRangeException([Values(1, 6, 7, 8, 9, 10)] int maxPerPair)
     {
         var startingLane = 1;
         var numberOfLanes = 4;

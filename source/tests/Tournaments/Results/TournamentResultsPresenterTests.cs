@@ -22,7 +22,7 @@ internal sealed class Presenter
     public async Task AtLargeAsync_AdapterAtLarge_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
-        _view.SetupGet(view=> view.Id).Returns(tournamentId);
+        _view.SetupGet(view => view.Id).Returns(tournamentId);
 
         CancellationToken cancellationToken = default;
 
@@ -55,7 +55,7 @@ internal sealed class Presenter
 
         var result2 = new Mock<NortheastMegabuck.Tournaments.Results.IAtLargeViewModel>();
         result2.SetupGet(result => result.DivisionName).Returns("Division 1");
-        result2.SetupGet(result=> result.Score).Returns(101);
+        result2.SetupGet(result => result.Score).Returns(101);
 
         var result3 = new Mock<NortheastMegabuck.Tournaments.Results.IAtLargeViewModel>();
         result3.SetupGet(result => result.DivisionName).Returns("Division 2");

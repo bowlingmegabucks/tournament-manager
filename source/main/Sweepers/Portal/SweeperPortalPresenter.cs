@@ -66,6 +66,6 @@ internal class Presenter
         {
             _view.DisplayMessage("Sweeper successfully completed");
             _view.Close();
-        }  
+        }
     }
 }

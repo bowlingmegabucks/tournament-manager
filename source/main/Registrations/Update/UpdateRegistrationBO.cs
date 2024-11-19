@@ -21,6 +21,8 @@ internal sealed class BusinessLogic : IBusinessLogic
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockDataLayer"></param>
+    /// <param name="mockRetrieveBusinessLogic"></param>
+    /// <param name="mockTournamentBusinessLogic"></param>
     internal BusinessLogic(IDataLayer mockDataLayer, Retrieve.IBusinessLogic mockRetrieveBusinessLogic, Tournaments.Retrieve.IBusinessLogic mockTournamentBusinessLogic)
     {
         _dataLayer = mockDataLayer;
@@ -40,7 +42,7 @@ internal sealed class BusinessLogic : IBusinessLogic
         }
 
         if (registration!.Sweepers.Any(sweeper => sweeper.Complete))
-        { 
+        {
             Error = new Models.ErrorDetail("Cannot add super sweeper to registration with completed sweepers.");
 
             return;
@@ -56,12 +58,12 @@ internal sealed class BusinessLogic : IBusinessLogic
         }
 
         if (!tournament!.Sweepers.Any())
-        { 
+        {
             Error = new Models.ErrorDetail("Cannot add super sweeper to tournament without sweepers.");
 
             return;
         }
-        
+
         if (tournament!.Sweepers.Count() != tournament.Sweepers.Count())
         {
             Error = new Models.ErrorDetail("Bowler is not registered for all sweepers.");

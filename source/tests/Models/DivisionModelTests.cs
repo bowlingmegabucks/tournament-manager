@@ -56,7 +56,7 @@ internal sealed class Division
     }
 
     [Test]
-    public void Constructor_ViewModel_MinumumAgeMapped([Values(null, 5)]short? age)
+    public void Constructor_ViewModel_MinumumAgeMapped([Values(null, 5)] short? age)
     {
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MinimumAge).Returns(age);

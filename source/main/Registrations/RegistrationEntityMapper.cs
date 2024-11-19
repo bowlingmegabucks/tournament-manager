@@ -26,7 +26,7 @@ internal class EntityMapper : IEntityMapper
             Bowler = _bowlerMapper.Execute(registration.Bowler),
             DivisionId = registration.Division.Id,
             Average = registration.Average,
-            Squads = registration.Squads.Select(squad=> squad.Id).Union(registration.Sweepers.Select(sweeper=> sweeper.Id)).Select(
+            Squads = registration.Squads.Select(squad => squad.Id).Union(registration.Sweepers.Select(sweeper => sweeper.Id)).Select(
                 id => new Database.Entities.SquadRegistration
                 {
                     RegistrationId = registration.Id,

@@ -1,6 +1,5 @@
 ﻿
 using System.Diagnostics;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
 namespace NortheastMegabuck.Models;
 
@@ -21,13 +20,13 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
         => GameScores.SelectMany(score => score).Sum();
 
     public int ScratchScore
-        => GameScores.SelectMany(gameScore=> gameScore).Sum();
+        => GameScores.SelectMany(gameScore => gameScore).Sum();
 
     public int Score
-        =>  ScratchScore + (Handicap * GameScores.SelectMany(gameScore=> gameScore).Count());
+        => ScratchScore + (Handicap * GameScores.SelectMany(gameScore => gameScore).Count());
 
     public int HighGame
-        =>  HighGameScratch + Handicap;
+        => HighGameScratch + Handicap;
 
     public int HighGameScratch
         => GameScores.SelectMany(gameScore => gameScore).Max();
@@ -72,7 +71,7 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
     /// </summary>
     internal BowlerSquadScore(params int[] games) : this(BowlerId.New(), games)
     {
-        
+
     }
 
     public override bool Equals(object? obj)
@@ -124,8 +123,8 @@ internal class BowlerSquadScore : IEquatable<BowlerSquadScore>, IComparable<Bowl
             return other.HighGame.CompareTo(HighGame);
         }
 
-        var scores = GameScores.SelectMany(score=> score).OrderByDescending(score => score).ToList();
-        var otherScores = other.GameScores.SelectMany(score=> score).OrderByDescending(score => score).ToList();
+        var scores = GameScores.SelectMany(score => score).OrderByDescending(score => score).ToList();
+        var otherScores = other.GameScores.SelectMany(score => score).OrderByDescending(score => score).ToList();
 
         for (var i = 1; i < GameScores.Count; i++)
         {

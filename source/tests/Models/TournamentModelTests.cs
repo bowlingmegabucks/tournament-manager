@@ -107,7 +107,7 @@ internal sealed class Tournament
     }
 
     [Test]
-    public void Constructor_TournamentEntity_CompletedMapped([Values]bool completed)
+    public void Constructor_TournamentEntity_CompletedMapped([Values] bool completed)
     {
         var entity = new NortheastMegabuck.Database.Entities.Tournament { Completed = completed };
 
@@ -125,13 +125,16 @@ internal sealed class Tournament
 
         Assert.That(model.Squads, Is.Empty);
     }
-    
+
     [Test]
     public void Constructor_TournamentEntity_SquadsNotNull_SquadsCollectionMapped()
     {
-        var squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.TournamentSquad { Id = SquadId.New(), Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+        var squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.TournamentSquad
+        {
+            Id = SquadId.New(),
+            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
         }, 3).ToList();
-        
+
         var entity = new NortheastMegabuck.Database.Entities.Tournament { Squads = squads };
 
         var model = new NortheastMegabuck.Models.Tournament(entity);
@@ -157,7 +160,7 @@ internal sealed class Tournament
             Id = SquadId.New(),
             Tournament = new NortheastMegabuck.Database.Entities.Tournament(),
             CashRatio = 5,
-            Divisions = Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperDivision>().ToList() 
+            Divisions = Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperDivision>().ToList()
         }, 3).ToList();
 
         var entity = new NortheastMegabuck.Database.Entities.Tournament { Sweepers = sweepers };

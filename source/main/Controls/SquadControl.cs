@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace NortheastMegabuck.Controls;
-public partial class SquadControl : UserControl, Squads.IViewModel
+internal partial class SquadControl : UserControl, Squads.IViewModel
 {
     public SquadControl()
     {
@@ -11,10 +11,13 @@ public partial class SquadControl : UserControl, Squads.IViewModel
     private void Controls_Validated(object sender, EventArgs e)
         => squadErrorProvider.SetError((Control)sender, string.Empty);
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public SquadId Id { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public TournamentId TournamentId { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal? EntryFee
     {
         get => entryFeeValue.Value == 0 ? null : entryFeeValue.Value;
@@ -30,6 +33,7 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal? CashRatio
     {
         get => cashRatioValue.Value == 0 ? null : cashRatioValue.Value;
@@ -45,6 +49,7 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal? FinalsRatio
     {
         get => finalsRatioValue.Value == 0 ? null : finalsRatioValue.Value;
@@ -60,6 +65,7 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public DateTime Date
     {
         get => datePicker.Value;
@@ -75,6 +81,7 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short MaxPerPair
     {
         get => (short)maxPerPairValue.Value;
@@ -90,18 +97,21 @@ public partial class SquadControl : UserControl, Squads.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short StartingLane
     {
         get => (short)startingLaneValue.Value;
         set => startingLaneValue.Value = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short NumberOfLanes
     {
         get => (short)numberOfLanesValue.Value;
         set => numberOfLanesValue.Value = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool Complete { get; set; }
 
     private void SquadControl_Validating(object sender, CancelEventArgs e)

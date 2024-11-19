@@ -1,6 +1,11 @@
 ﻿
+using System.Runtime.Versioning;
+
 namespace NortheastMegabuck.Sweepers.Portal;
-public partial class Form : System.Windows.Forms.Form, IView
+
+[SupportedOSPlatform("windows")]
+internal partial class Form
+    : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
     private readonly SquadId _id;

@@ -40,7 +40,7 @@ internal class Presenter
     internal async Task AddSweeperAsync(CancellationToken cancellationToken)
     {
         var sweeperId = _view.AddSweeper(_view.TournamentId);
-        
+
         if (sweeperId != null)
         {
             await _view.RefreshSweepersAsync(cancellationToken).ConfigureAwait(true);

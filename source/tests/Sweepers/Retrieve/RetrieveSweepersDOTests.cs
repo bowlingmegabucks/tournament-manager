@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
+﻿using MockQueryable;
+
+namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer

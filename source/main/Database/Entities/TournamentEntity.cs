@@ -19,18 +19,18 @@ internal class Tournament
     public DateOnly End { get; set; }
 
     [Required]
-    [Precision(5,2)]
+    [Precision(5, 2)]
     public decimal EntryFee { get; set; }
-    
+
     [Required]
     public short Games { get; set; }
 
     [Required]
-    [Precision(3,1)]
+    [Precision(3, 1)]
     public decimal FinalsRatio { get; set; }
 
     [Required]
-    [Precision(3,1)]
+    [Precision(3, 1)]
     public decimal CashRatio { get; set; }
 
     [Required]
@@ -40,7 +40,7 @@ internal class Tournament
     public bool Completed { get; set; }
 
     [Required]
-    [Precision(3,1)]
+    [Precision(3, 1)]
     public decimal SuperSweperCashRatio { get; set; }
 
     public ICollection<Division> Divisions { get; set; } = null!;

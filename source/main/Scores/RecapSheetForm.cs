@@ -1,9 +1,10 @@
-﻿
-using System.ComponentModel;
-using System.Globalization;
+﻿using System.Globalization;
+using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Scores;
-public partial class RecapSheetForm : System.Windows.Forms.Form
+
+[SupportedOSPlatform("windows")]
+internal partial class RecapSheetForm : System.Windows.Forms.Form
 {
     private readonly Dictionary<short, Controls.RecapSheetGameRowControl> _games;
     private readonly DateTime _squadDate;
@@ -14,12 +15,12 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
         InitializeComponent();
 
         _squadDate = squadDate;
-        _games = new Dictionary<short, Controls.RecapSheetGameRowControl>();
-        _recaps = new List<IRecapSheetViewModel>();
+        _games = [];
+        _recaps = [];
         _pen = new Pen(Color.Black, 2);
     }
 
-    private IList<IRecapSheetViewModel> _recaps;
+    private List<IRecapSheetViewModel> _recaps;
 
     internal void Preview(IEnumerable<IRecapSheetViewModel> recaps, short games)
     {
@@ -47,7 +48,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
             _games.Add(i, new Controls.RecapSheetGameRowControl());
         }
 
-        gamesFlowPanelLayout.Controls.AddRange(_games.Values.ToArray());
+        gamesFlowPanelLayout.Controls.AddRange([.. _games.Values]);
         gamesFlowPanelLayout.Controls.Add(new Controls.RecapSheetGameTotalControl());
 
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
@@ -93,7 +94,7 @@ public partial class RecapSheetForm : System.Windows.Forms.Form
     private void CancelButton_Click(object sender, EventArgs e)
         => Dispose();
 
-    private readonly List<Image> _recapSheets = new();
+    private readonly List<Image> _recapSheets = [];
     private int _counter;
 
     private void PrintButton_Click(object sender, EventArgs e)

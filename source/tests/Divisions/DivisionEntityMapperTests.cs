@@ -23,7 +23,7 @@ internal sealed class EntityMapper
 
         Assert.That(entity.Id, Is.EqualTo(id));
     }
-    
+
     [Test]
     public void Number_Mapped()
     {

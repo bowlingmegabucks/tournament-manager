@@ -14,7 +14,7 @@ internal class BusinessLogic : IBusinessLogic
 
     public BusinessLogic(IConfiguration config)
     {
-        _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(()=>  new Retrieve.BusinessLogic(config));
+        _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => new Retrieve.BusinessLogic(config));
         _retrieveTournament = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
         _retrieveScores = new Scores.Retrieve.BusinessLogic(config);
     }
@@ -23,6 +23,7 @@ internal class BusinessLogic : IBusinessLogic
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockRetrieveSweeper"></param>
+    /// <param name="mockRetrieveTournament"></param>
     /// <param name="mockRetrieveScores"></param>
     internal BusinessLogic(Retrieve.IBusinessLogic mockRetrieveSweeper, Tournaments.Retrieve.IBusinessLogic mockRetrieveTournament, Scores.Retrieve.IBusinessLogic mockRetrieveScores)
     {
@@ -42,7 +43,7 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var scores = await _retrieveScores.ExecuteAsync(new[] { squadId }, cancellationToken).ConfigureAwait(false);
+        var scores = await _retrieveScores.ExecuteAsync([squadId], cancellationToken).ConfigureAwait(false);
 
         return Execute(scores, sweeper!.CashRatio);
     }
@@ -67,7 +68,7 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var scores = (await _retrieveScores.ExecuteAsync(tournament!.Sweepers.Select(sweeper=> sweeper.Id), cancellationToken).ConfigureAwait(false)).Where(score=> superSweeperBowlers.Contains(score.Bowler.Id));
+        var scores = (await _retrieveScores.ExecuteAsync(tournament!.Sweepers.Select(sweeper => sweeper.Id), cancellationToken).ConfigureAwait(false)).Where(score => superSweeperBowlers.Contains(score.Bowler.Id));
 
         return Execute(scores, tournament!.SuperSweeperCashRatio);
     }

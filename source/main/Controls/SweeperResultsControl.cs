@@ -1,6 +1,10 @@
 ﻿
+using System.Runtime.Versioning;
+
 namespace NortheastMegabuck.Controls;
-public partial class SweeperResultsControl : UserControl
+
+[SupportedOSPlatform("windows")]
+internal partial class SweeperResultsControl : UserControl
 {
     internal SweeperResultsControl(Sweepers.Results.IViewModel model)
     {

@@ -6,7 +6,7 @@ namespace NortheastMegabuck.Controls.Grids;
 ///
 /// </summary>
 /// <typeparam name="TModel"></typeparam>
-public abstract partial class DataGrid<TModel> : UserControl where TModel : class
+internal abstract partial class DataGrid<TModel> : UserControl where TModel : class
 {
     /// <summary>
     ///
@@ -20,7 +20,7 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     {
         InitializeComponent();
 
-        _models = new List<TModel>();
+        _models = [];
 
         AlternateRowColors = true;
         AllowRowSelection = true;
@@ -35,7 +35,7 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     /// <summary>
     ///
     /// </summary>
-    protected IEnumerable<TModel> Models 
+    protected IEnumerable<TModel> Models
         => _models;
 
     /// <summary>
@@ -54,6 +54,7 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     /// <summary>
     ///
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public ContextMenuStrip? SelectedRowContextMenu
     {
         get => GridView.RowTemplate.ContextMenuStrip;
@@ -92,9 +93,11 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     }
 
     private bool _alternateRowColors;
+
     /// <summary>
     ///
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool AlternateRowColors
     {
         get => _alternateRowColors;
@@ -109,6 +112,7 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
     /// <summary>
     ///
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool AllowRowSelection { get; set; }
 
     private void GridView_RightMouseDown(object sender, MouseEventArgs e)
@@ -153,7 +157,7 @@ public abstract partial class DataGrid<TModel> : UserControl where TModel : clas
 /// <summary>
 ///
 /// </summary>
-public class GridRowDoubleClickEventArgs : System.EventArgs
+internal class GridRowDoubleClickEventArgs : System.EventArgs
 {
 
     /// <summary>

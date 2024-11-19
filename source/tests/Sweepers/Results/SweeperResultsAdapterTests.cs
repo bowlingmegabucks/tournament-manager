@@ -47,24 +47,24 @@ internal sealed class Adapter
     {
         var bowlerSquadScore1 = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler {Name = new NortheastMegabuck.Models.PersonName { First = "200", Last = "201" } }
+            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "200", Last = "201" } }
         };
 
         var bowlerSquadScore2 = new NortheastMegabuck.Models.BowlerSquadScore(250, 251)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler {Name = new NortheastMegabuck.Models.PersonName { First = "250", Last = "251" } }
+            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "250", Last = "251" } }
         };
 
         var bowlerSquadScore3 = new NortheastMegabuck.Models.BowlerSquadScore(190, 191)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler {Name = new NortheastMegabuck.Models.PersonName { First = "190", Last = "191" } }
+            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "190", Last = "191" } }
         };
 
         var sweeperCut = new NortheastMegabuck.Models.SweeperResult
         {
             CasherCount = 2,
             CutScore = 401,
-            Scores = new[] { bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3 }
+            Scores = [bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3]
         };
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeperCut);
@@ -121,7 +121,7 @@ internal sealed class Adapter
     {
         var bowlerSquadScore1 = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler {Name = new NortheastMegabuck.Models.PersonName { First = "200", Last = "201" } }
+            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "200", Last = "201" } }
         };
 
         var bowlerSquadScore2 = new NortheastMegabuck.Models.BowlerSquadScore(250, 251)
@@ -138,7 +138,7 @@ internal sealed class Adapter
         {
             CasherCount = 2,
             CutScore = 401,
-            Scores = new[] { bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3 }
+            Scores = [bowlerSquadScore2, bowlerSquadScore1, bowlerSquadScore3]
         };
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeperCut);

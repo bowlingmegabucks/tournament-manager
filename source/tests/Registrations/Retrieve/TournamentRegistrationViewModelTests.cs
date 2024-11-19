@@ -14,7 +14,7 @@ internal sealed class TournamentRegistrationViewModel
             Id = RegistrationId.New(),
             Bowler = new NortheastMegabuck.Models.Bowler
             {
-                Name = new NortheastMegabuck.Models.PersonName { First = "first" , MiddleInitial = "m", Last = "last"},
+                Name = new NortheastMegabuck.Models.PersonName { First = "first", MiddleInitial = "m", Last = "last" },
                 Id = BowlerId.New()
             },
             Division = new NortheastMegabuck.Models.Division
@@ -22,17 +22,17 @@ internal sealed class TournamentRegistrationViewModel
                 Number = 5,
                 Name = "divisionName"
             },
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Models.Squad{ Id = SquadId.New()},
                 new NortheastMegabuck.Models.Squad{ Id = SquadId.New()}
-            },
-            Sweepers = new[]
-            {
+            ],
+            Sweepers =
+            [
                 new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()},
                 new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()},
                 new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()}
-            },
+            ],
             SuperSweeper = true
         };
     }

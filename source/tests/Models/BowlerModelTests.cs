@@ -1,6 +1,4 @@
-﻿using FluentValidation.Results;
-
-namespace NortheastMegabuck.Tests.Models;
+﻿namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal sealed class Bowler

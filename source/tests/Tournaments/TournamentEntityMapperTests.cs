@@ -36,7 +36,7 @@ internal sealed class EntityMapperTests
     [Test]
     public void Execute_StartMapped()
     {
-        var startDate = new DateOnly(2000,1,1);
+        var startDate = new DateOnly(2000, 1, 1);
 
         var model = new NortheastMegabuck.Models.Tournament { Start = startDate };
 

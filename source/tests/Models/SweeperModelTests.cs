@@ -501,7 +501,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_CompleteMapped([Values]bool complete)
+    public void Contructor_Entity_CompleteMapped([Values] bool complete)
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {

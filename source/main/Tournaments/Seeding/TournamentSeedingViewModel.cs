@@ -1,31 +1,20 @@
 ﻿
 namespace NortheastMegabuck.Tournaments.Seeding;
-internal class ViewModel : IViewModel
+internal class ViewModel(int seed, bool qualified, bool atLargeCasher, Models.BowlerSquadScore bowlerScore) : IViewModel
 {
-    public string DivisionName { get; }
+    public string DivisionName { get; } = bowlerScore.Division.Name;
 
-    public int Seed { get; }
+    public int Seed { get; } = seed;
 
-    public string BowlerName { get; }
+    public string BowlerName { get; } = bowlerScore.Bowler.ToString();
 
-    public int Score { get; }
+    public int Score { get; } = bowlerScore.Score;
 
-    public int HighGame { get; }
+    public int HighGame { get; } = bowlerScore.HighGame;
 
-    public bool Qualified { get; }
+    public bool Qualified { get; } = qualified;
 
-    public bool AtLargeCasher { get; }
-
-    public ViewModel(int seed, bool qualified, bool atLargeCasher, Models.BowlerSquadScore bowlerScore)
-    {
-        DivisionName = bowlerScore.Division.Name;
-        Seed = seed;
-        BowlerName = bowlerScore.Bowler.ToString();
-        Score = bowlerScore.Score;
-        HighGame = bowlerScore.HighGame;
-        Qualified = qualified;
-        AtLargeCasher = atLargeCasher;
-    }
+    public bool AtLargeCasher { get; } = atLargeCasher;
 }
 
 internal interface IViewModel

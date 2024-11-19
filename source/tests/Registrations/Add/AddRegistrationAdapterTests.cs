@@ -17,7 +17,7 @@ internal sealed class Adapter
     }
 
     [Test]
-    public async Task ExecuteAsync_AddBowlerViewModel_BusinessLogicExecute_CalledCorrectly([Values]bool superSweeper)
+    public async Task ExecuteAsync_AddBowlerViewModel_BusinessLogicExecute_CalledCorrectly([Values] bool superSweeper)
     {
         var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
@@ -31,9 +31,9 @@ internal sealed class Adapter
 
         _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<NortheastMegabuck.Models.Registration>(registration => registration.Bowler.Name.Last == "lastName" &&
                                                                                                                                 registration.Division.Id == divisionId &&
-                                                                                                                                registration.Sweepers.Select(sweeper=> sweeper.Id) == sweepers &&
+                                                                                                                                registration.Sweepers.Select(sweeper => sweeper.Id) == sweepers &&
                                                                                                                                 registration.SuperSweeper == superSweeper &&
-                                                                                                                                registration.Squads.Select(squad=> squad.Id) == squads &&
+                                                                                                                                registration.Squads.Select(squad => squad.Id) == squads &&
                                                                                                                                 registration.Average == average), cancellationToken), Times.Once);
     }
 
@@ -49,7 +49,7 @@ internal sealed class Adapter
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
-        await _adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers,superSweeper, average, default).ConfigureAwait(false);
+        await _adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers, superSweeper, average, default).ConfigureAwait(false);
 
         Assert.That(_adapter.Errors, Is.EqualTo(errors));
     }
@@ -111,7 +111,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_BowlerIdSquadId_BusinessLogicExecuteHasNoError_ReturnsLaneAssignment()
     {
-        var registration = new NortheastMegabuck.Models.Registration { Average = 200};
+        var registration = new NortheastMegabuck.Models.Registration { Average = 200 };
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration);
 
         var bowlerId = BowlerId.New();

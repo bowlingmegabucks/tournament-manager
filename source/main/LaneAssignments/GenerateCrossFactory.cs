@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NortheastMegabuck.LaneAssignments;
+﻿namespace NortheastMegabuck.LaneAssignments;
 internal class GenerateCrossFactory : IGenerateCrossFactory
 {
     public IGenerate Execute(bool staggeredSkip)

@@ -6,7 +6,7 @@ namespace NortheastMegabuck.Controls.Grids;
 ///
 /// </summary>
 [Designer(typeof(System.Windows.Forms.Design.ControlDesigner))]
-public partial class DataGridView : System.Windows.Forms.DataGridView
+internal partial class DataGridView : System.Windows.Forms.DataGridView
 {
     /// <summary>
     ///

@@ -83,7 +83,7 @@ internal sealed class BusinessLogic
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
-        
+
         var registration = new NortheastMegabuck.Models.Registration();
         CancellationToken cancellationToken = default;
 
@@ -122,7 +122,7 @@ internal sealed class BusinessLogic
         var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
         _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
-        var tournament = new NortheastMegabuck.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today), Sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper(), 4)};
+        var tournament = new NortheastMegabuck.Models.Tournament { Start = DateOnly.FromDateTime(DateTime.Today), Sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper(), 4) };
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         _validator.Validate_IsValid();
@@ -300,7 +300,7 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_BowlerIdSquadId_ReturnsDataLayerExecute()
     {
         var registration = new NortheastMegabuck.Models.Registration();
-        _dataLayer.Setup(dataLayer=> dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration);
 
         var actual = await _businessLogic.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 

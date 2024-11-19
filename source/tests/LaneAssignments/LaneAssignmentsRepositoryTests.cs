@@ -20,35 +20,35 @@ internal sealed class LaneAssignmentsRepositoryTests
         var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
-            Registrations = new[]
-            {
+            Registrations =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "1A" },
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "1B" }
-            }.ToList()
+            ]
         };
 
         var squad2 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
-            Registrations = new[]
-            {
+            Registrations =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3A" },
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3B" },
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3C" }
-            }.ToList()
+            ]
         };
 
         var squad3 = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
-            Registrations = new[]
-            {
+            Registrations =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5A"},
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5B" },
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5C" },
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5D" },
                 new NortheastMegabuck.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5E" }
-            }.ToList()
+            ]
         };
 
         var squads = new[] { squad1, squad2, squad3 };

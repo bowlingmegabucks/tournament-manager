@@ -1,14 +1,12 @@
-﻿
-using System.Drawing.Printing;
-using QuestPDF.Fluent;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+﻿using System.ComponentModel;
 
 namespace NortheastMegabuck.Sweepers.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     internal string ToSpreadsheet { get; private set; }
 
-    private IEnumerable<IViewModel> _results = new List<IViewModel>();
+    private IEnumerable<IViewModel> _results = [];
     private readonly DateTime? _sweeperDate;
 
     public Form(IConfiguration config, SquadId squadId, DateTime sweeperDate) : this()

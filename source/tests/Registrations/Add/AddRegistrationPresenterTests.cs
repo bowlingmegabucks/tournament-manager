@@ -50,7 +50,7 @@ internal sealed class Presenter
             _divisionsAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Never);
             _squadsAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Never);
             _sweepersAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Never);
-            _bowlersAdapter.Verify(adapter=> adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
+            _bowlersAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Disable(), Times.Never);
@@ -58,7 +58,7 @@ internal sealed class Presenter
             _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>()), Times.Never);
             _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<NortheastMegabuck.Squads.IViewModel>>()), Times.Never);
             _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>()), Times.Never);
-            _view.Verify(view=> view.BindBowler(It.IsAny<NortheastMegabuck.Bowlers.Retrieve.IViewModel>()), Times.Never);
+            _view.Verify(view => view.BindBowler(It.IsAny<NortheastMegabuck.Bowlers.Retrieve.IViewModel>()), Times.Never);
         });
     }
 
@@ -142,7 +142,7 @@ internal sealed class Presenter
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
         var bowlerError = new NortheastMegabuck.Models.ErrorDetail("bowler");
-        _bowlersAdapter.SetupGet(adapter=> adapter.Error).Returns(bowlerError);
+        _bowlersAdapter.SetupGet(adapter => adapter.Error).Returns(bowlerError);
 
         var tournamentId = TournamentId.New();
 
@@ -239,7 +239,7 @@ internal sealed class Presenter
         squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squad2A = new Mock<NortheastMegabuck.Squads.IViewModel>();
-        squad2A.SetupGet(squad=> squad.Complete).Returns(true);
+        squad2A.SetupGet(squad => squad.Complete).Returns(true);
         squad2A.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squad3 = new Mock<NortheastMegabuck.Squads.IViewModel>();
@@ -286,7 +286,7 @@ internal sealed class Presenter
         var tournamentId = TournamentId.New();
 
         _presenter.LoadAsync(tournamentId, default);
-        
+
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<NortheastMegabuck.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].Date == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);

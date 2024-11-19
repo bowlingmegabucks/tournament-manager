@@ -180,18 +180,18 @@ internal sealed class ViewModel
     }
 
     [Test]
-    public void Constructor_Registration_BowlerIdMapped([Values(null,200)]int? average)
+    public void Constructor_Registration_BowlerIdMapped([Values(null, 200)] int? average)
     {
         var handicapCalculator = new Mock<IHandicapCalculator>();
         var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = new NortheastMegabuck.Models.Bowler
-            { 
+            {
                 Id = BowlerId.New(),
                 Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
             },
             Division = new NortheastMegabuck.Models.Division
-            { 
+            {
                 Name = "division",
                 Number = 5
             },
@@ -299,8 +299,8 @@ internal sealed class ViewModel
         Assert.That(viewModel.LaneAssignment, Is.Empty);
     }
 
-    [TestCase(null,0)]
-    [TestCase(200,200)]
+    [TestCase(null, 0)]
+    [TestCase(200, 200)]
     public void Constructor_Registration_AverageMapped(int? average, int expected)
     {
         var handicapCalculator = new Mock<IHandicapCalculator>();

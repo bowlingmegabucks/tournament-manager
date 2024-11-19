@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Divisions.Add;
 internal class BusinessLogic : IBusinessLogic
 {
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
+    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly IValidator<Models.Division> _validator;
 
@@ -43,7 +43,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex) };
+            Errors = [new Models.ErrorDetail(ex)];
             return null;
         }
     }

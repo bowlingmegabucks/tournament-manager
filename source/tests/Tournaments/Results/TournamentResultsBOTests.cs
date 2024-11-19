@@ -31,7 +31,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveTournament.Verify(retrieveTournament=> retrieveTournament.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
+        _retrieveTournament.Verify(retrieveTournament => retrieveTournament.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -93,16 +93,16 @@ internal sealed class BusinessLogic
         {
             Division = division1
         };
-        var squadResult2 = new NortheastMegabuck.Models.SquadResult 
-        { 
-            Division = division2 
+        var squadResult2 = new NortheastMegabuck.Models.SquadResult
+        {
+            Division = division2
         };
 
         var squadResults = new[] { squadResult1, squadResult2 }.GroupBy(squadResult => squadResult.Division);
         _retrieveSquadResults.Setup(retrieveSquadResult => retrieveSquadResult.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadResults);
 
         var tournament = new NortheastMegabuck.Models.Tournament
-        { 
+        {
             FinalsRatio = 5m
         };
 
@@ -128,7 +128,7 @@ internal sealed class BusinessLogic
         var squadResult1 = new NortheastMegabuck.Models.SquadResult
         {
             Division = division1,
-            AdvancingScores = Enumerable.Repeat(new NortheastMegabuck.Models.BowlerSquadScore(200),5)
+            AdvancingScores = Enumerable.Repeat(new NortheastMegabuck.Models.BowlerSquadScore(200), 5)
         };
         var squadResult2 = new NortheastMegabuck.Models.SquadResult
         {

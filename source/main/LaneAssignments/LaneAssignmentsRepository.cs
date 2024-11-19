@@ -24,7 +24,7 @@ internal class Repository : IRepository
             ? _dataContext.Squads
                 .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler)
                 .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Division)
-                .Include(squad=> squad.Registrations).ThenInclude(squadRegistration=> squadRegistration.Squad)
+                .Include(squad => squad.Registrations).ThenInclude(squadRegistration => squadRegistration.Squad)
                 .AsNoTracking()
                 .Where(squad => squad.Id == squadId)
                 .SelectMany(squad => squad.Registrations)

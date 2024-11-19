@@ -40,7 +40,7 @@ internal class Presenter
     internal async Task AddSquadAsync(CancellationToken cancellationToken)
     {
         var squadId = _view.AddSquad(_view.TournamentId);
-        
+
         if (squadId != null)
         {
             await _view.RefreshSquadsAsync(cancellationToken).ConfigureAwait(true);

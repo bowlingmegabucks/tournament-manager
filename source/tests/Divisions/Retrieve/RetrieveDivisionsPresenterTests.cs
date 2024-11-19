@@ -61,7 +61,7 @@ internal sealed class Presenter
     {
         var id = TournamentId.New();
         _view.SetupGet(view => view.TournamentId).Returns(id);
-        
+
         await _presenter.AddDivisionAsync(default).ConfigureAwait(false);
 
         _view.Verify(view => view.AddDivision(id), Times.Once);

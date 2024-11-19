@@ -1,6 +1,5 @@
 ﻿
 using System.Text;
-using NortheastMegabuck.Tournaments.Seeding;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
@@ -9,10 +8,10 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
 {
     private readonly Dictionary<TabPage, string> _toSpreadsheet;
 
-    private readonly Dictionary<string, IEnumerable<IAtLargeViewModel>> _results = new();
+    private readonly Dictionary<string, IEnumerable<IAtLargeViewModel>> _results = [];
 
     internal string ToSpreadsheet()
-        => _toSpreadsheet[divisionsTabControl.SelectedTab];
+        => _toSpreadsheet[divisionsTabControl.SelectedTab!];
 
     public AtLarge(IConfiguration config, TournamentId tournamentId)
     {
@@ -20,7 +19,7 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
 
         Id = tournamentId;
 
-        _toSpreadsheet = new Dictionary<TabPage, string>();
+        _toSpreadsheet = [];
 
         _ = new Presenter(config, this).AtLargeAsync(default);
     }

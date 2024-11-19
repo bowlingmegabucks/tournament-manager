@@ -67,7 +67,8 @@ internal sealed class PersonName
     [Test]
     public void ToString_Suffix_ReturnsFirstLastCommaSuffix()
     {
-        var name = new NortheastMegabuck.Models.PersonName       {
+        var name = new NortheastMegabuck.Models.PersonName
+        {
             First = "first",
             MiddleInitial = "m",
             Last = "last",

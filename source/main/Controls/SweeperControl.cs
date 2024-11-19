@@ -1,17 +1,20 @@
 ﻿using System.ComponentModel;
 
 namespace NortheastMegabuck.Controls;
-public partial class SweeperControl : UserControl, Sweepers.IViewModel
+internal partial class SweeperControl : UserControl, Sweepers.IViewModel
 {
     public SweeperControl()
     {
         InitializeComponent();
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public SquadId Id { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public TournamentId TournamentId { get; set; }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal EntryFee
     {
         get => entryFeeValue.Value;
@@ -27,6 +30,7 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short Games
     {
         get => (short)gamesValue.Value;
@@ -42,6 +46,7 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public decimal CashRatio
     {
         get => cashRatioValue.Value;
@@ -57,6 +62,7 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public DateTime Date
     {
         get => squadDatePicker.Value;
@@ -72,6 +78,7 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short MaxPerPair
     {
         get => (short)maxPerPairValue.Value;
@@ -87,24 +94,27 @@ public partial class SweeperControl : UserControl, Sweepers.IViewModel
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short StartingLane
     {
         get => (short)startingLaneValue.Value;
         set => startingLaneValue.Value = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public short NumberOfLanes
     {
         get => (short)numberOfLanesValue.Value;
         set => numberOfLanesValue.Value = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool Complete { get; set; }
 
     public IDictionary<DivisionId, int?> Divisions
         => sweeperDivisions.Divisions;
 
-    public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions) 
+    public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
         => sweeperDivisions.BindDivisions(divisions);
 
     private void SweeperControl_Validated(object sender, EventArgs e)

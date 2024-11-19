@@ -28,7 +28,7 @@ internal class Repository : IRepository
     }
 
     public IQueryable<Database.Entities.SweeperSquad> Retrieve(TournamentId tournamentId)
-        => _dataContext.Sweepers.Include(sweeper=> sweeper.Divisions).AsNoTracking().Where(squad => squad.TournamentId == tournamentId);
+        => _dataContext.Sweepers.Include(sweeper => sweeper.Divisions).AsNoTracking().Where(squad => squad.TournamentId == tournamentId);
 
     public async Task<Database.Entities.SweeperSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken)
         => await _dataContext.Sweepers.AsNoTracking().FirstAsync(sweeper => sweeper.Id == id, cancellationToken).ConfigureAwait(false);

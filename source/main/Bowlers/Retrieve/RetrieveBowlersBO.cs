@@ -32,7 +32,7 @@ internal class BusinessLogic : IBusinessLogic
 
             return null;
         }
-    }        
+    }
 }
 
 internal interface IBusinessLogic

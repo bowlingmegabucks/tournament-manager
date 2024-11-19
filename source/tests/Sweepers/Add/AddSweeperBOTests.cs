@@ -25,9 +25,9 @@ internal sealed class BusinesLogic
     public async Task ExecuteAsync_GetTournamentBOExecute_CalledCorrectly()
     {
         _validator.Validate_IsValid();
-        
+
         var sweeper = new NortheastMegabuck.Models.Sweeper
-        { 
+        {
             TournamentId = TournamentId.New()
         };
         CancellationToken cancellationToken = default;

@@ -19,7 +19,7 @@ internal sealed class Adapter
     public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel
-        { 
+        {
             TournamentName = "name"
         };
         CancellationToken cancellationToken = default;

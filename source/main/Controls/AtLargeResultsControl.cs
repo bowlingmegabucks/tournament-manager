@@ -1,6 +1,10 @@
 ﻿
+using System.Runtime.Versioning;
+
 namespace NortheastMegabuck.Controls;
-public partial class AtLargeResultsControl : UserControl
+
+[SupportedOSPlatform("windows")]
+internal partial class AtLargeResultsControl : UserControl
 {
     internal AtLargeResultsControl(Tournaments.Results.IAtLargeViewModel model)
     {

@@ -7,6 +7,6 @@ internal interface IView
     void DisplayError(string message);
 
     void DisplayMessage(string message);
-    
+
     Models.BowlerSearchCriteria SearchCriteria { get; }
 }

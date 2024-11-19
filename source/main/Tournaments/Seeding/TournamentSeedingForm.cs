@@ -8,10 +8,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly Dictionary<TabPage, string> _toSpreadsheet;
 
-    private readonly Dictionary<string, IEnumerable<IViewModel>> _results = new();
+    private readonly Dictionary<string, IEnumerable<IViewModel>> _results = [];
 
     internal string ToSpreadsheet()
-        => _toSpreadsheet[divisionsTabControl.SelectedTab];
+        => _toSpreadsheet[divisionsTabControl.SelectedTab!];
 
     public Form(IConfiguration config, TournamentId id)
     {
@@ -19,7 +19,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         Id = id;
 
-        _toSpreadsheet = new Dictionary<TabPage, string>();
+        _toSpreadsheet = [];
 
         _ = new Presenter(config, this).ExecuteAsync(default);
     }

@@ -1,38 +1,25 @@
 ﻿
 namespace NortheastMegabuck.Tournaments.Results;
 
-internal class AtLargeViewModel : IAtLargeViewModel
+internal class AtLargeViewModel(short place, Models.BowlerSquadScore result, bool previousCasher) : IAtLargeViewModel
 {
-    public short Place { get; }
+    public short Place { get; } = place;
 
-    public string BowlerName { get; }
+    public string BowlerName { get; } = result.Bowler.ToString();
 
-    public string DivisionName { get; }
+    public string DivisionName { get; } = result.Division.Name;
 
-    public string SquadDate { get; }
+    public string SquadDate { get; } = result.SquadDate.ToString("MM/dd hh:mm tt");
 
-    public bool PreviousCasher { get; }
+    public bool PreviousCasher { get; } = previousCasher;
 
-    public int Score { get; }
+    public int Score { get; } = result.Score;
 
-    public int ScratchScore { get; }
+    public int ScratchScore { get; } = result.ScratchScore;
 
-    public int HighGame { get; }
+    public int HighGame { get; } = result.HighGame;
 
-    public int HighGameScratch { get; }
-
-    public AtLargeViewModel(short place, Models.BowlerSquadScore result, bool previousCasher)
-    {
-        Place = place;
-        BowlerName = result.Bowler.ToString();
-        DivisionName = result.Division.Name;
-        SquadDate = result.SquadDate.ToString("MM/dd hh:mm tt");
-        PreviousCasher = previousCasher;
-        Score = result.Score;
-        ScratchScore= result.ScratchScore;
-        HighGame = result.HighGame;
-        HighGameScratch = result.HighGameScratch;
-    }
+    public int HighGameScratch { get; } = result.HighGameScratch;
 }
 
 internal interface IAtLargeViewModel
