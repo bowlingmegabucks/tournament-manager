@@ -36,16 +36,19 @@ internal sealed class DataLayer
         var bowlers = new List<NortheastMegabuck.Database.Entities.Bowler>
         {
             new() {
+                Id = BowlerId.New(),
                 FirstName = "John",
                 LastName = "Doe"
             },
 
             new() {
+                Id = BowlerId.New(),
                 FirstName = "Jane",
                 LastName = "Doe"
             },
 
             new() {
+                Id = BowlerId.New(),
                 FirstName = "John",
                 LastName = "Smith"
             }
