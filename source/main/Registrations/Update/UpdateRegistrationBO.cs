@@ -6,7 +6,7 @@ namespace NortheastMegabuck.Registrations.Update;
 
 internal sealed class BusinessLogic : IBusinessLogic
 {
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = new List<Models.ErrorDetail>();
+    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly IDataLayer _dataLayer;
 

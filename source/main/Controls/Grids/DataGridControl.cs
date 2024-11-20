@@ -69,7 +69,7 @@ internal abstract partial class DataGrid<TModel> : UserControl where TModel : cl
     {
         UseWaitCursor = true;
 
-        _models = new List<TModel>(models.ToList());
+        _models = [.. models.ToList()];
 
         Bind();
 
