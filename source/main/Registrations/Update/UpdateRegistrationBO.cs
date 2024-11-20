@@ -37,6 +37,11 @@ internal sealed class BusinessLogic : IBusinessLogic
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockDataLayer"></param>
+    /// <param name="mockRetrieveBusinessLogic"></param>
+    /// <param name="mockTournamentBusinessLogic"></param>
+    /// <param name="mockGetDivisionBO"></param>
+    /// <param name="mockGetTournamentBO"></param>
+    /// <param name="mockValidator"></param>
     internal BusinessLogic(IDataLayer mockDataLayer, Retrieve.IBusinessLogic mockRetrieveBusinessLogic, Tournaments.Retrieve.IBusinessLogic mockTournamentBusinessLogic, Divisions.Retrieve.IBusinessLogic mockGetDivisionBO, Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, IValidator<UpdateRegistrationModel> mockValidator)
     {
         _dataLayer = mockDataLayer;
@@ -54,14 +59,14 @@ internal sealed class BusinessLogic : IBusinessLogic
 
         if (_retrieveBusinessLogic.Error is not null)
         {
-            Errors = new[] { _retrieveBusinessLogic.Error };
+            Errors = [_retrieveBusinessLogic.Error];
 
             return;
         }
 
         if (registration!.Sweepers.Any(sweeper => sweeper.Complete))
-        { 
-            Errors = new[] { new Models.ErrorDetail("Cannot add super sweeper to registration with completed sweepers.") };
+        {
+            Errors = [new Models.ErrorDetail("Cannot add super sweeper to registration with completed sweepers.")];
 
             return;
         }
@@ -70,28 +75,28 @@ internal sealed class BusinessLogic : IBusinessLogic
 
         if (_retrieveTournamentBusinessLogic.Error is not null)
         {
-            Errors = new[] { _retrieveTournamentBusinessLogic.Error };
+            Errors = [_retrieveTournamentBusinessLogic.Error];
 
             return;
         }
 
         if (!tournament!.Sweepers.Any())
-        { 
-            Errors = new[] { new Models.ErrorDetail("Cannot add super sweeper to tournament without sweepers.") };
+        {
+            Errors = [new Models.ErrorDetail("Cannot add super sweeper to tournament without sweepers.")];
 
             return;
         }
 
         if (tournament!.Sweepers.Count() != tournament.Sweepers.Count())
         {
-            Errors = new[] { new Models.ErrorDetail("Bowler is not registered for all sweepers.") };
+            Errors = [new Models.ErrorDetail("Bowler is not registered for all sweepers.")];
 
             return;
         }
 
         if (registration.SuperSweeper)
         {
-            Errors = new[] { new Models.ErrorDetail("Bowler is already registered for the super sweeper.") };
+            Errors = [new Models.ErrorDetail("Bowler is already registered for the super sweeper.")];
 
             return;
         }
@@ -105,7 +110,7 @@ internal sealed class BusinessLogic : IBusinessLogic
 
         if (GetDivisionBO.Error is not null)
         {
-            Errors = new[] { GetDivisionBO.Error };
+            Errors = [GetDivisionBO.Error];
 
             return;
         }
@@ -114,7 +119,7 @@ internal sealed class BusinessLogic : IBusinessLogic
 
         if (GetTournamentBO.Error is not null)
         {
-            Errors = new[] { GetTournamentBO.Error };
+            Errors = [GetTournamentBO.Error];
 
             return;
         }
@@ -144,7 +149,7 @@ internal sealed class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex.Message) };
+            Errors = [new Models.ErrorDetail(ex.Message)];
         }
     }
 }
