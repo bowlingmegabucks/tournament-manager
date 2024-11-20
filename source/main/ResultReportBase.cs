@@ -80,7 +80,7 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
                 }
             });
 
-            row.ConstantItem(250).Height(125).Image(_logo);
+            row.ConstantItem(300).Height(125).Image(_logo);
         });
     }
 
