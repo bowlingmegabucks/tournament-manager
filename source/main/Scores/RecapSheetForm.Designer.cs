@@ -134,7 +134,7 @@ partial class RecapSheetForm
         divisionLabel.Name = "divisionLabel";
         divisionLabel.Size = new Size(334, 40);
         divisionLabel.TabIndex = 6;
-        divisionLabel.Text = "Divsion";
+        divisionLabel.Text = "Division";
         divisionLabel.TextAlign = ContentAlignment.MiddleCenter;
         // 
         // opposingSignatureLabel

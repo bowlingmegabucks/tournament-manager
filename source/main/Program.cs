@@ -7,7 +7,7 @@ using Azure.Security.KeyVault.Secrets;
 using System.Configuration;
 using QuestPDF.Infrastructure;
 
-namespace NortheastMegabuck.UI;
+namespace NortheastMegabuck;
 
 internal static class Program
 {
@@ -15,7 +15,7 @@ internal static class Program
     ///  The main entry point for the application.
     /// </summary>
     [STAThread]
-    static void Main()
+    public static void Main()
     {
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
@@ -27,9 +27,9 @@ internal static class Program
         configBuilder.AddUserSecrets<Tournaments.Retrieve.Form>();
 #else
         configBuilder.AddJsonFile("appsettings.json");
-        
+
         var builtConfiguration = configBuilder.Build();
-        
+
         var kvUrl = builtConfiguration["KeyVaultConfig:KVUrl"]!;
         var tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
         var clientId = builtConfiguration["KeyVaultConfig:ClientId"];
@@ -47,7 +47,9 @@ internal static class Program
 
         QuestPDF.Settings.License = LicenseType.Community;
 
+#if WINDOWS
         using var form = new Tournaments.Retrieve.Form(config);
         Application.Run(form);
+#endif
     }
 }

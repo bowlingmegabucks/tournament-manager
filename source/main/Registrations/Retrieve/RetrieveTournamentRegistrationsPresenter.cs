@@ -119,7 +119,7 @@ internal class TournamentRegistrationsPresenter
         await UpdateAdapter.AddSuperSweeperAsync(id, cancellationToken).ConfigureAwait(false);
 
         if (UpdateAdapter.Errors.Any())
-        { 
+        {
             _view.DisplayError(UpdateAdapter.Errors.First().Message);
 
             return;

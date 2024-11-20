@@ -12,7 +12,7 @@ internal sealed class Validator
         => _validator = new NortheastMegabuck.Registrations.Update.Validator();
 
     [Test]
-    public void AverageNull_MinimumAverageAndMaximumAverageForDivsionNull_NoError()
+    public void AverageNull_MinimumAverageAndMaximumAverageForDivisionNull_NoError()
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -96,7 +96,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void AverageNotNull_MinimumAverageAndMaximumAverageForDivsionNull_NoError()
+    public void AverageNotNull_MinimumAverageAndMaximumAverageForDivisionNull_NoError()
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -290,7 +290,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError([Values]NortheastMegabuck.Models.Gender gender)
+    public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError([Values] NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -343,7 +343,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNotNull_DivisionMaxiumAgeNotNullOrValid_AgeTooYoung_HasError([Values(null, 99)] short? maximumAge)
+    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNotNull_DivisionMaximumAgeNotNullOrValid_AgeTooYoung_HasError([Values(null, 99)] short? maximumAge)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -369,7 +369,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNullOrValid_DivisionMaxiumAgeNotNull_AgeTooOld_HasError([Values(null, 40)] short? minimumAge)
+    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNullOrValid_DivisionMaximumAgeNotNull_AgeTooOld_HasError([Values(null, 40)] short? minimumAge)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -395,7 +395,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNotNull_DivisionMaxiumAgeNotNull_AgeValid_NoError()
+    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNotNull_DivisionMaximumAgeNotNull_AgeValid_NoError()
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -619,7 +619,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError([Values]NortheastMegabuck.Models.Gender gender)
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError([Values] NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -674,7 +674,7 @@ internal sealed class Validator
 
     [TestCase(NortheastMegabuck.Models.Gender.Male)]
     [TestCase(null)]
-    public void BowlerGender_GenderNullOrDoesNotMatch_DivisionGenderNotNullAndDoesNotMatch_AgeReqiurementNotMet_ErrorOnAgeNotGender(NortheastMegabuck.Models.Gender? gender)
+    public void BowlerGender_GenderNullOrDoesNotMatch_DivisionGenderNotNullAndDoesNotMatch_AgeRequirementNotMet_ErrorOnAgeNotGender(NortheastMegabuck.Models.Gender? gender)
 
     {
         var division = new NortheastMegabuck.Models.Division
@@ -787,7 +787,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersDontMatch_HasError()
+    public void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersDoNotMatch_HasError()
     {
         var division = new NortheastMegabuck.Models.Division
         {

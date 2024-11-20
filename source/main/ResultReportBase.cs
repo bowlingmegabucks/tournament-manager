@@ -5,6 +5,8 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck;
+
+#if WINDOWS
 internal abstract class ResultReportBase<TViewModel> : IDocument
 {
     private readonly ICollection<TViewModel> _results;
@@ -130,7 +132,7 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
         };
 
         if (saveFileDialog.ShowDialog() == DialogResult.OK)
-        { 
+        {
             //save file
             using var fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
             document.GeneratePdf(fileStream);
@@ -179,3 +181,4 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
         printDocument.Print();
     }
 }
+#endif
