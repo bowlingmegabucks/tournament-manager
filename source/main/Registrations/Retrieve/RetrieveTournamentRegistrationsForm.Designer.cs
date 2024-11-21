@@ -33,6 +33,7 @@ partial class RetrieveTournamentRegistrationsForm
         tournamentRegistrationsGrid = new Controls.Grids.TournamentRegistrationGrid();
         registrationGridContextMenu = new ContextMenuStrip(components);
         updateBowlerNameMenuItem = new ToolStripMenuItem();
+        addSuperSweeperMenuItem = new ToolStripMenuItem();
         toolStripSeparator1 = new ToolStripSeparator();
         deleteMenuItem = new ToolStripMenuItem();
         divisionEntriesGroupBox = new GroupBox();
@@ -41,7 +42,7 @@ partial class RetrieveTournamentRegistrationsForm
         squadEntriesLabel = new Label();
         sweeperEntriesGroupBox = new GroupBox();
         sweeperEntriesLabel = new Label();
-        addSuperSweeperMenuItem = new ToolStripMenuItem();
+        changeDivisionMenuItem = new ToolStripMenuItem();
         registrationGridContextMenu.SuspendLayout();
         divisionEntriesGroupBox.SuspendLayout();
         squadEntriesGroupBox.SuspendLayout();
@@ -50,19 +51,16 @@ partial class RetrieveTournamentRegistrationsForm
         // 
         // tournamentRegistrationsGrid
         // 
-        tournamentRegistrationsGrid.AllowRowSelection = true;
-        tournamentRegistrationsGrid.AlternateRowColors = true;
         tournamentRegistrationsGrid.Location = new Point(12, 12);
         tournamentRegistrationsGrid.Name = "tournamentRegistrationsGrid";
-        tournamentRegistrationsGrid.SelectedRowContextMenu = registrationGridContextMenu;
         tournamentRegistrationsGrid.Size = new Size(751, 550);
         tournamentRegistrationsGrid.TabIndex = 0;
         // 
         // registrationGridContextMenu
         // 
-        registrationGridContextMenu.Items.AddRange(new ToolStripItem[] { updateBowlerNameMenuItem, addSuperSweeperMenuItem, toolStripSeparator1, deleteMenuItem });
+        registrationGridContextMenu.Items.AddRange(new ToolStripItem[] { updateBowlerNameMenuItem, addSuperSweeperMenuItem, changeDivisionMenuItem, toolStripSeparator1, deleteMenuItem });
         registrationGridContextMenu.Name = "registrationGridContextMenu";
-        registrationGridContextMenu.Size = new Size(181, 98);
+        registrationGridContextMenu.Size = new Size(181, 120);
         // 
         // updateBowlerNameMenuItem
         // 
@@ -70,6 +68,13 @@ partial class RetrieveTournamentRegistrationsForm
         updateBowlerNameMenuItem.Size = new Size(180, 22);
         updateBowlerNameMenuItem.Text = "Update Name";
         updateBowlerNameMenuItem.Click += UpdateBowlerNameMenuItem_Click;
+        // 
+        // addSuperSweeperMenuItem
+        // 
+        addSuperSweeperMenuItem.Name = "addSuperSweeperMenuItem";
+        addSuperSweeperMenuItem.Size = new Size(180, 22);
+        addSuperSweeperMenuItem.Text = "Add Super Sweeper";
+        addSuperSweeperMenuItem.Click += AddSuperSweeperMenuItem_Click;
         // 
         // toolStripSeparator1
         // 
@@ -86,7 +91,7 @@ partial class RetrieveTournamentRegistrationsForm
         // divisionEntriesGroupBox
         // 
         divisionEntriesGroupBox.Controls.Add(divisionEntriesLabel);
-        divisionEntriesGroupBox.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        divisionEntriesGroupBox.Font = new Font("Segoe UI", 11F);
         divisionEntriesGroupBox.Location = new Point(769, 12);
         divisionEntriesGroupBox.Name = "divisionEntriesGroupBox";
         divisionEntriesGroupBox.Size = new Size(278, 131);
@@ -107,7 +112,7 @@ partial class RetrieveTournamentRegistrationsForm
         // squadEntriesGroupBox
         // 
         squadEntriesGroupBox.Controls.Add(squadEntriesLabel);
-        squadEntriesGroupBox.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        squadEntriesGroupBox.Font = new Font("Segoe UI", 11F);
         squadEntriesGroupBox.Location = new Point(772, 149);
         squadEntriesGroupBox.Name = "squadEntriesGroupBox";
         squadEntriesGroupBox.Size = new Size(278, 276);
@@ -128,7 +133,7 @@ partial class RetrieveTournamentRegistrationsForm
         // sweeperEntriesGroupBox
         // 
         sweeperEntriesGroupBox.Controls.Add(sweeperEntriesLabel);
-        sweeperEntriesGroupBox.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        sweeperEntriesGroupBox.Font = new Font("Segoe UI", 11F);
         sweeperEntriesGroupBox.Location = new Point(775, 431);
         sweeperEntriesGroupBox.Name = "sweeperEntriesGroupBox";
         sweeperEntriesGroupBox.Size = new Size(278, 131);
@@ -146,12 +151,12 @@ partial class RetrieveTournamentRegistrationsForm
         sweeperEntriesLabel.TabIndex = 0;
         sweeperEntriesLabel.Text = "01/01/00 11AM: 55 Entries\r\n01/01/00 11AM: 55 Entries\r\nSuper Sweeper: 55 Entries";
         // 
-        // addSuperSweeperMenuItem
+        // changeDivisionMenuItem
         // 
-        addSuperSweeperMenuItem.Name = "addSuperSweeperMenuItem";
-        addSuperSweeperMenuItem.Size = new Size(180, 22);
-        addSuperSweeperMenuItem.Text = "Add Super Sweeper";
-        addSuperSweeperMenuItem.Click += AddSuperSweeperMenuItem_Click;
+        changeDivisionMenuItem.Name = "changeDivisionMenuItem";
+        changeDivisionMenuItem.Size = new Size(180, 22);
+        changeDivisionMenuItem.Text = "Change Division";
+        changeDivisionMenuItem.Click += ChangeDivisionMenuItem_Click;
         // 
         // RetrieveTournamentRegistrationsForm
         // 
@@ -191,4 +196,5 @@ partial class RetrieveTournamentRegistrationsForm
     private ToolStripMenuItem updateBowlerNameMenuItem;
     private ToolStripSeparator toolStripSeparator1;
     private ToolStripMenuItem addSuperSweeperMenuItem;
+    private ToolStripMenuItem changeDivisionMenuItem;
 }

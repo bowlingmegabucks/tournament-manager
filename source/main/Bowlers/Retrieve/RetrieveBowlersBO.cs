@@ -33,6 +33,20 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
     }
+
+    public async Task<Models.Bowler?> ExecuteAsync(RegistrationId registrationId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await _dataLayer.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Error = new Models.ErrorDetail(ex);
+
+            return null;
+        }
+    }
 }
 
 internal interface IBusinessLogic
@@ -40,4 +54,6 @@ internal interface IBusinessLogic
     Models.ErrorDetail? Error { get; }
 
     Task<Models.Bowler?> ExecuteAsync(BowlerId id, CancellationToken cancellationToken);
+
+    Task<Models.Bowler?> ExecuteAsync(RegistrationId registrationId, CancellationToken cancellationToken);
 }
