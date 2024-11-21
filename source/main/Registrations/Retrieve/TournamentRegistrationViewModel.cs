@@ -12,6 +12,8 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
 
     public string BowlerName { get; set; }
 
+    public DivisionId DivisionId { get; }
+
     public string DivisionName { get; }
 
     public IEnumerable<SquadId> SquadsEntered { get; }
@@ -26,6 +28,8 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
 
     public bool SuperSweeperEntered { get; set; }
 
+    public int? Average { get; set; }
+
     public TournamentRegistrationViewModel(Models.Registration registration)
     {
         Id = registration.Id;
@@ -33,10 +37,12 @@ internal class TournamentRegistrationViewModel : ITournamentRegistrationViewMode
         LastName = registration.Bowler.Name.Last;
         BowlerName = registration.Bowler.ToString();
         BowlerId = registration.Bowler.Id;
+        DivisionId = registration.Division.Id;
         DivisionName = registration.Division.Name;
         SquadsEntered = registration.Squads.Select(squad => squad.Id).ToList();
         SweepersEntered = registration.Sweepers.Select(sweeper => sweeper.Id).ToList();
         SuperSweeperEntered = registration.SuperSweeper;
+        Average = registration.Average;
     }
 
     /// <summary>
@@ -58,11 +64,14 @@ internal interface ITournamentRegistrationViewModel
     string FirstName { get; }
 
     string LastName { get; }
+
     RegistrationId Id { get; }
 
     BowlerId BowlerId { get; }
 
     string BowlerName { get; set; }
+
+    DivisionId DivisionId { get; }
 
     string DivisionName { get; }
 
@@ -75,4 +84,6 @@ internal interface ITournamentRegistrationViewModel
     short SweepersEnteredCount { get; }
 
     bool SuperSweeperEntered { get; set; }
+
+    int? Average { get; set; }
 }
