@@ -10,6 +10,8 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     {
         InitializeComponent();
 
+        tournamentRegistrationsGrid.SelectedRowContextMenu = registrationGridContextMenu;
+
         _config = config;
         TournamentId = tournamentId;
 
