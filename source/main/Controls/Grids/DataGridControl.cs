@@ -54,7 +54,7 @@ internal abstract partial class DataGrid<TModel> : UserControl where TModel : cl
     /// <summary>
     ///
     /// </summary>
-    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public ContextMenuStrip? SelectedRowContextMenu
     {
         get => GridView.RowTemplate.ContextMenuStrip;
