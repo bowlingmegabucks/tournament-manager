@@ -169,6 +169,35 @@ internal sealed class BusinessLogic : IBusinessLogic
             Errors = [new Models.ErrorDetail(ex.Message)];
         }
     }
+
+    public async Task ExecuteAsync(RegistrationId id, int? average, CancellationToken cancellationToken)
+    {
+        if (average.HasValue)
+        {
+            if (average.Value <= 0)
+            {
+                Errors = [new Models.ErrorDetail("Average must be greater than 0.")];
+
+                return;
+            }
+
+            if (average.Value > 300)
+            {
+                Errors = [new Models.ErrorDetail("Average must be less than or equal to 300.")];
+
+                return;
+            }
+        }
+
+        try
+        {
+            await _dataLayer.ExecuteAsync(id, average, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Errors = [new Models.ErrorDetail(ex.Message)];
+        }
+    }
 }
 
 internal interface IBusinessLogic
@@ -178,4 +207,6 @@ internal interface IBusinessLogic
     Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken);
 
     Task ExecuteAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken);
+
+    Task ExecuteAsync(RegistrationId id, int? average, CancellationToken cancellationToken);
 }

@@ -112,6 +112,10 @@ internal class Repository : IRepository
 
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
+
+    async Task IRepository.UpdateAsync(RegistrationId id, int? average, CancellationToken cancellationToken)
+        => await _dataContext.Registrations.Where(registration => registration.Id == id)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(registration => registration.Average, average), cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IRepository
@@ -131,4 +135,6 @@ internal interface IRepository
     Task UpdateAsync(RegistrationId id, bool superSweeper, CancellationToken cancellationToken);
 
     Task UpdateAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string? usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken);
+
+    Task UpdateAsync(RegistrationId id, int? average, CancellationToken cancellationToken);
 }
