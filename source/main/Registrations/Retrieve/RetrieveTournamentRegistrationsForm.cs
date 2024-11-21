@@ -106,8 +106,15 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
         await new TournamentRegistrationsPresenter(this, _config).AddSuperSweeperAsync(registration.Id, default).ConfigureAwait(true);
     }
 
-    private void ChangeDivisionMenuItem_Click(object sender, EventArgs e)
+    private async void ChangeDivisionMenuItem_Click(object sender, EventArgs e)
     {
+        using var form = new Update.UpdateRegistrationDivisionForm(_config, TournamentId, tournamentRegistrationsGrid.SelectedRegistration.Id);
 
+        var result = form.ShowDialog(this);
+
+        if (result == DialogResult.OK)
+        {
+            await new TournamentRegistrationsPresenter(this, _config).ExecuteAsync(default).ConfigureAwait(true);
+        }
     }
 }

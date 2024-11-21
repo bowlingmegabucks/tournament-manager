@@ -23,6 +23,7 @@ internal class UpdateRegistrationDivisionPresenter
     /// <param name="mockView"></param>
     /// <param name="mockDivisionAdapter"></param>
     /// <param name="mockBowlerAdapter"></param>
+    /// <param name="mockRetrieveRegistrationAdapter"></param>
     internal UpdateRegistrationDivisionPresenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter,
         Bowlers.Retrieve.IAdapter mockBowlerAdapter, Retrieve.IAdapter mockRetrieveRegistrationAdapter)
     {
@@ -34,7 +35,7 @@ internal class UpdateRegistrationDivisionPresenter
 
     public async Task LoadAsync(TournamentId tournamentId, RegistrationId registrationId, CancellationToken cancellationToken)
     {
-        var divisions = await _retrieveDivisionsAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
+        var divisions = await _retrieveDivisionsAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveDivisionsAdapter.Error is not null)
         {
@@ -44,7 +45,7 @@ internal class UpdateRegistrationDivisionPresenter
             return;
         }
 
-        var bowler = await _retrieveBowlerAdapter.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
+        var bowler = await _retrieveBowlerAdapter.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveBowlerAdapter.Error is not null)
         {
@@ -54,7 +55,7 @@ internal class UpdateRegistrationDivisionPresenter
             return;
         }
 
-        var registration = await _retrieveRegistrationAdapter.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
+        var registration = await _retrieveRegistrationAdapter.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveRegistrationAdapter.Error is not null)
         {

@@ -24,7 +24,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <Optimize>True</Optimize>
+	  <Optimize>False</Optimize>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -119,10 +119,6 @@
 
 	<ItemGroup>
 	  <EditorConfigFiles Remove="Y:\northeast-megabuck-tournament\source\main\Database\Migrations\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Y:\northeast-megabuck-tournament\source\main\Database\.editorconfig" />
 	</ItemGroup>
 
 </Project>

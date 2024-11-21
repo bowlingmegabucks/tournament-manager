@@ -116,7 +116,7 @@ internal partial class UpdateRegistrationDivisionForm
     public Models.Gender? Gender
     {
         get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
-        set => genderDropdown.SelectedValue = value!;
+        set => genderDropdown.SelectedItem = value!;
     }
 
     private void Control_Validated(object sender, EventArgs e)
