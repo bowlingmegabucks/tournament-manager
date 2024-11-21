@@ -10,7 +10,6 @@ partial class RecapSheetForm
     private void InitializeComponent()
     {
         components = new System.ComponentModel.Container();
-        var resources = new System.ComponentModel.ComponentResourceManager(typeof(RecapSheetForm));
         buttonsPanel = new Panel();
         recapsTrackBar = new TrackBar();
         cancelButton = new Button();
@@ -89,7 +88,7 @@ partial class RecapSheetForm
         // 
         // headerPictureBox
         // 
-        headerPictureBox.Image = (Image)resources.GetObject("headerPictureBox.Image");
+        headerPictureBox.Image = Properties.Resources.NMT_Header_Color;
         headerPictureBox.Location = new Point(0, 0);
         headerPictureBox.Name = "headerPictureBox";
         headerPictureBox.Size = new Size(352, 106);
@@ -99,7 +98,7 @@ partial class RecapSheetForm
         // 
         // dateLabel
         // 
-        dateLabel.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        dateLabel.Font = new Font("Calibri", 12F);
         dateLabel.Location = new Point(12, 109);
         dateLabel.Name = "dateLabel";
         dateLabel.Size = new Size(100, 23);
@@ -109,7 +108,7 @@ partial class RecapSheetForm
         // 
         // timeLabel
         // 
-        timeLabel.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        timeLabel.Font = new Font("Calibri", 12F);
         timeLabel.Location = new Point(246, 109);
         timeLabel.Name = "timeLabel";
         timeLabel.Size = new Size(100, 23);
@@ -119,7 +118,7 @@ partial class RecapSheetForm
         // 
         // nameLabel
         // 
-        nameLabel.Font = new Font("Calibri", 15F, FontStyle.Bold, GraphicsUnit.Point);
+        nameLabel.Font = new Font("Calibri", 15F, FontStyle.Bold);
         nameLabel.Location = new Point(12, 132);
         nameLabel.Name = "nameLabel";
         nameLabel.Size = new Size(334, 40);
@@ -129,17 +128,17 @@ partial class RecapSheetForm
         // 
         // divisionLabel
         // 
-        divisionLabel.Font = new Font("Calibri", 13F, FontStyle.Regular, GraphicsUnit.Point);
+        divisionLabel.Font = new Font("Calibri", 13F);
         divisionLabel.Location = new Point(12, 172);
         divisionLabel.Name = "divisionLabel";
         divisionLabel.Size = new Size(334, 40);
         divisionLabel.TabIndex = 6;
-        divisionLabel.Text = "Divsion";
+        divisionLabel.Text = "Division";
         divisionLabel.TextAlign = ContentAlignment.MiddleCenter;
         // 
         // opposingSignatureLabel
         // 
-        opposingSignatureLabel.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        opposingSignatureLabel.Font = new Font("Calibri", 11.25F);
         opposingSignatureLabel.Location = new Point(3, 445);
         opposingSignatureLabel.Name = "opposingSignatureLabel";
         opposingSignatureLabel.Size = new Size(193, 23);
@@ -149,7 +148,7 @@ partial class RecapSheetForm
         // 
         // bowlerSignatureLabel
         // 
-        bowlerSignatureLabel.Font = new Font("Calibri", 13F, FontStyle.Regular, GraphicsUnit.Point);
+        bowlerSignatureLabel.Font = new Font("Calibri", 13F);
         bowlerSignatureLabel.Location = new Point(3, 373);
         bowlerSignatureLabel.Name = "bowlerSignatureLabel";
         bowlerSignatureLabel.Size = new Size(225, 23);
@@ -169,7 +168,7 @@ partial class RecapSheetForm
         // 
         // sponsorPictureBox1
         // 
-        sponsorPictureBox1.Image = (Image)resources.GetObject("sponsorPictureBox1.Image");
+        sponsorPictureBox1.Image = Properties.Resources.savage;
         sponsorPictureBox1.Location = new Point(12, 215);
         sponsorPictureBox1.Name = "sponsorPictureBox1";
         sponsorPictureBox1.Size = new Size(109, 50);
@@ -179,7 +178,7 @@ partial class RecapSheetForm
         // 
         // sponsorPictureBox2
         // 
-        sponsorPictureBox2.Image = (Image)resources.GetObject("sponsorPictureBox2.Image");
+        sponsorPictureBox2.Image = Properties.Resources.ace;
         sponsorPictureBox2.Location = new Point(237, 215);
         sponsorPictureBox2.Name = "sponsorPictureBox2";
         sponsorPictureBox2.Size = new Size(109, 50);
@@ -189,7 +188,7 @@ partial class RecapSheetForm
         // 
         // sponsorPictureBox3
         // 
-        sponsorPictureBox3.Image = (Image)resources.GetObject("sponsorPictureBox3.Image");
+        sponsorPictureBox3.Image = Properties.Resources.tech_vision;
         sponsorPictureBox3.Location = new Point(202, 392);
         sponsorPictureBox3.Name = "sponsorPictureBox3";
         sponsorPictureBox3.Size = new Size(144, 73);
@@ -204,7 +203,7 @@ partial class RecapSheetForm
         // 
         // pictureBox1
         // 
-        pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+        pictureBox1.Image = Properties.Resources.federicos;
         pictureBox1.Location = new Point(12, 271);
         pictureBox1.Name = "pictureBox1";
         pictureBox1.Size = new Size(109, 50);
@@ -214,7 +213,7 @@ partial class RecapSheetForm
         // 
         // pictureBox2
         // 
-        pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+        pictureBox2.Image = Properties.Resources.next;
         pictureBox2.Location = new Point(237, 271);
         pictureBox2.Name = "pictureBox2";
         pictureBox2.Size = new Size(109, 50);

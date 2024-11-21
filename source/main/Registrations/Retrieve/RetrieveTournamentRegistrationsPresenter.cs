@@ -118,9 +118,9 @@ internal class TournamentRegistrationsPresenter
 
         await UpdateAdapter.AddSuperSweeperAsync(id, cancellationToken).ConfigureAwait(false);
 
-        if (UpdateAdapter.Error is not null)
+        if (UpdateAdapter.Errors.Any())
         {
-            _view.DisplayError(UpdateAdapter.Error.Message);
+            _view.DisplayError(UpdateAdapter.Errors.First().Message);
 
             return;
         }
