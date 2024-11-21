@@ -61,12 +61,13 @@ internal class TournamentRegistrationsPresenter
             return;
         }
 
-        var squadsDictionary = squads.ToDictionary(squad => squad.Id, squad => squad.Date.ToString("MM/dd/yy htt", CultureInfo.CurrentCulture));
+        const string dateFormat = "MM/dd/yy hh:mmtt";
+        var squadsDictionary = squads.ToDictionary(squad => squad.Id, squad => squad.Date.ToString(dateFormat, CultureInfo.CurrentCulture));
         var squadEntries = squadsDictionary.ToDictionary(squad => squad.Value, squad => registrations.Count(registration => registration.SquadsEntered.Contains(squad.Key)));
         _view.SetSquadEntries(squadEntries);
         _view.BindSquadDates(squadsDictionary);
 
-        var sweepersDictionary = sweepers.ToDictionary(sweeper => sweeper.Id, sweeper => sweeper.Date.ToString("MM/dd/yy htt", CultureInfo.CurrentCulture));
+        var sweepersDictionary = sweepers.ToDictionary(sweeper => sweeper.Id, sweeper => sweeper.Date.ToString(dateFormat, CultureInfo.CurrentCulture));
         var sweeperEntries = sweepersDictionary.ToDictionary(sweeper => sweeper.Value, sweeper => registrations.Count(registration => registration.SweepersEntered.Contains(sweeper.Key)));
         sweeperEntries.Add("Super Sweeper", registrations.Count(registration => registration.SuperSweeperEntered));
         _view.SetSweeperEntries(sweeperEntries);

@@ -175,7 +175,7 @@ internal sealed class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public async Task ExecuteAsync_AdapterCallsHaveNoErors_ViewSetSquadEntries_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewSetSquadEntries_CalledCorrectly()
     {
         var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Id).Returns(SquadId.New());
@@ -209,13 +209,13 @@ internal sealed class TournamentRegistrationsPresenter
         {
             _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries.Count == 2)), Times.Once);
 
-            _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 9AM"] == 3)), Times.Once);
-            _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 11AM"] == 1)), Times.Once);
+            _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 09:00AM"] == 3)), Times.Once);
+            _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 11:00AM"] == 1)), Times.Once);
         });
     }
 
     [Test]
-    public async Task ExecuteAsync_AdapterCallsHaveNoErors_ViewSetSweeperdEntries_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewSetSweepersEntries_CalledCorrectly()
     {
         var sweeper1 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper1.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
@@ -252,8 +252,8 @@ internal sealed class TournamentRegistrationsPresenter
         {
             _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries.Count == 3)), Times.Once);
 
-            _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 9AM"] == 3)), Times.Once);
-            _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 11AM"] == 1)), Times.Once);
+            _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 09:00AM"] == 3)), Times.Once);
+            _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 11:00AM"] == 1)), Times.Once);
             _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["Super Sweeper"] == 2)), Times.Once);
         });
     }
