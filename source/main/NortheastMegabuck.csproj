@@ -117,8 +117,4 @@
 	  </None>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <EditorConfigFiles Remove="Y:\northeast-megabuck-tournament\source\main\Database\Migrations\.editorconfig" />
-	</ItemGroup>
-
 </Project>
