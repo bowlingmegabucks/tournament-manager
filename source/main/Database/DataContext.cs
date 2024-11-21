@@ -1,7 +1,10 @@
 ﻿using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+#if DEBUG
 using Microsoft.Extensions.Logging;
+#endif
 
 namespace NortheastMegabuck.Database;
 

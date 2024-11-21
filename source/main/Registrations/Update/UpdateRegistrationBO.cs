@@ -19,6 +19,9 @@ internal sealed class BusinessLogic : IBusinessLogic
     private readonly Lazy<Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
     private Tournaments.Retrieve.IBusinessLogic GetTournamentBO => _getTournamentBO.Value;
 
+    private readonly Lazy<Scores.IRepository> _scoresRepository;
+    private Scores.IRepository ScoresRepository => _scoresRepository.Value;
+
     private readonly Lazy<IValidator<UpdateRegistrationModel>> _validator;
     private IValidator<UpdateRegistrationModel> Validator => _validator.Value;
 
@@ -31,6 +34,7 @@ internal sealed class BusinessLogic : IBusinessLogic
         _getDivisionBO = new Lazy<Divisions.Retrieve.IBusinessLogic>(() => new Divisions.Retrieve.BusinessLogic(config));
         _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
         _validator = new Lazy<IValidator<UpdateRegistrationModel>>(() => new Validator());
+        _scoresRepository = new Lazy<Scores.IRepository>(() => new Scores.Repository(config));
     }
 
     /// <summary>
@@ -42,7 +46,11 @@ internal sealed class BusinessLogic : IBusinessLogic
     /// <param name="mockGetDivisionBO"></param>
     /// <param name="mockGetTournamentBO"></param>
     /// <param name="mockValidator"></param>
-    internal BusinessLogic(IDataLayer mockDataLayer, Retrieve.IBusinessLogic mockRetrieveBusinessLogic, Tournaments.Retrieve.IBusinessLogic mockTournamentBusinessLogic, Divisions.Retrieve.IBusinessLogic mockGetDivisionBO, Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, IValidator<UpdateRegistrationModel> mockValidator)
+    /// <param name="mockScoresRepository"></param>
+    internal BusinessLogic(IDataLayer mockDataLayer, Retrieve.IBusinessLogic mockRetrieveBusinessLogic,
+        Tournaments.Retrieve.IBusinessLogic mockTournamentBusinessLogic, Divisions.Retrieve.IBusinessLogic mockGetDivisionBO,
+        Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, IValidator<UpdateRegistrationModel> mockValidator,
+        Scores.IRepository mockScoresRepository)
     {
         _dataLayer = mockDataLayer;
         _retrieveBusinessLogic = mockRetrieveBusinessLogic;
@@ -51,6 +59,7 @@ internal sealed class BusinessLogic : IBusinessLogic
         _getDivisionBO = new Lazy<Divisions.Retrieve.IBusinessLogic>(() => mockGetDivisionBO);
         _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => mockGetTournamentBO);
         _validator = new Lazy<IValidator<UpdateRegistrationModel>>(() => mockValidator);
+        _scoresRepository = new Lazy<Scores.IRepository>(() => mockScoresRepository);
     }
 
     public async Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
@@ -121,6 +130,14 @@ internal sealed class BusinessLogic : IBusinessLogic
         {
             Errors = [GetTournamentBO.Error];
 
+            return;
+        }
+
+        var hasBowlerAlreadyBowledTournament = await ScoresRepository.DoesBowlerHaveAnyScoresForTournamentAsync(id, tournament!.Id, cancellationToken).ConfigureAwait(false);
+
+        if (hasBowlerAlreadyBowledTournament)
+        {
+            Errors = [new Models.ErrorDetail("Cannot update bowler information after scores have been recorded.")];
             return;
         }
 

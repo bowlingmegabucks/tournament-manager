@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Update;
+﻿using NortheastMegabuck.Models;
+
+namespace NortheastMegabuck.Registrations.Update;
 
 internal sealed class Adapter : IAdapter
 {
@@ -23,6 +25,9 @@ internal sealed class Adapter : IAdapter
 
     async Task IAdapter.AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
         => await _businessLogic.AddSuperSweeperAsync(id, cancellationToken).ConfigureAwait(false);
+
+    async Task IAdapter.ExecuteAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken)
+        => await _businessLogic.ExecuteAsync(id, divisionId, gender, average, usbcId, dateOfBirth, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IAdapter
@@ -30,4 +35,6 @@ internal interface IAdapter
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
     Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken);
+
+    Task ExecuteAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken);
 }
