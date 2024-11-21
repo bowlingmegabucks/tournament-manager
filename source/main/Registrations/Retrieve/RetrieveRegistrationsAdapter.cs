@@ -12,7 +12,7 @@ internal class Adapter : IAdapter
     }
 
     /// <summary>
-    /// Unit Test Contructor
+    /// Unit Test Constructor
     /// </summary>
     /// <param name="mockBusinessLogic"></param>
     internal Adapter(IBusinessLogic mockBusinessLogic)
