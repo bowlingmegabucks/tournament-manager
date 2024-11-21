@@ -168,6 +168,7 @@ partial class RecapSheetForm
         // 
         // sponsorPictureBox1
         // 
+        sponsorPictureBox1.Image = Properties.Resources.savage;
         sponsorPictureBox1.Location = new Point(12, 215);
         sponsorPictureBox1.Name = "sponsorPictureBox1";
         sponsorPictureBox1.Size = new Size(109, 50);
@@ -177,6 +178,7 @@ partial class RecapSheetForm
         // 
         // sponsorPictureBox2
         // 
+        sponsorPictureBox2.Image = Properties.Resources.ace;
         sponsorPictureBox2.Location = new Point(237, 215);
         sponsorPictureBox2.Name = "sponsorPictureBox2";
         sponsorPictureBox2.Size = new Size(109, 50);
@@ -186,6 +188,7 @@ partial class RecapSheetForm
         // 
         // sponsorPictureBox3
         // 
+        sponsorPictureBox3.Image = Properties.Resources.tech_vision;
         sponsorPictureBox3.Location = new Point(202, 392);
         sponsorPictureBox3.Name = "sponsorPictureBox3";
         sponsorPictureBox3.Size = new Size(144, 73);
@@ -200,6 +203,7 @@ partial class RecapSheetForm
         // 
         // pictureBox1
         // 
+        pictureBox1.Image = Properties.Resources.federicos;
         pictureBox1.Location = new Point(12, 271);
         pictureBox1.Name = "pictureBox1";
         pictureBox1.Size = new Size(109, 50);
@@ -209,6 +213,7 @@ partial class RecapSheetForm
         // 
         // pictureBox2
         // 
+        pictureBox2.Image = Properties.Resources.next;
         pictureBox2.Location = new Point(237, 271);
         pictureBox2.Name = "pictureBox2";
         pictureBox2.Size = new Size(109, 50);
