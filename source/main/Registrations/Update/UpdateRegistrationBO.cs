@@ -124,14 +124,6 @@ internal sealed class BusinessLogic : IBusinessLogic
             return;
         }
 
-        var currentRegistration = await _retrieveBusinessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
-
-        if (_retrieveBusinessLogic.Error is not null)
-        {
-            Errors = [_retrieveBusinessLogic.Error];
-            return;
-        }
-
         var tournament = await GetTournamentBO.ExecuteAsync(division!.Id, cancellationToken).ConfigureAwait(false);
 
         if (GetTournamentBO.Error is not null)
@@ -141,15 +133,12 @@ internal sealed class BusinessLogic : IBusinessLogic
             return;
         }
 
-        if (currentRegistration!.Id != id)
-        {
-            var hasBowlerAlreadyBowledTournament = await ScoresRepository.DoesBowlerHaveAnyScoresForTournamentAsync(id, tournament!.Id, cancellationToken).ConfigureAwait(false);
+        var hasBowlerAlreadyBowledTournament = await ScoresRepository.DoesBowlerHaveAnyScoresForTournamentAsync(id, tournament!.Id, cancellationToken).ConfigureAwait(false);
 
-            if (hasBowlerAlreadyBowledTournament)
-            {
-                Errors = [new Models.ErrorDetail("Cannot change bowler division after scores have been recorded.")];
-                return;
-            }
+        if (hasBowlerAlreadyBowledTournament)
+        {
+            Errors = [new Models.ErrorDetail("Cannot change bowler division after scores have been recorded.")];
+            return;
         }
 
         var model = new UpdateRegistrationModel

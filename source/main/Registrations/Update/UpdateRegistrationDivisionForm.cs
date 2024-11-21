@@ -6,8 +6,20 @@ namespace NortheastMegabuck.Registrations.Update;
 internal partial class UpdateRegistrationDivisionForm
     : Form, IView
 {
+    private readonly IConfiguration _config;
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public RegistrationId RegistrationId { get; private set; }
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public TournamentId TournamentId { get; private set; }
+
     public UpdateRegistrationDivisionForm(IConfiguration config, TournamentId tournamentId, RegistrationId registrationId)
     {
+        _config = config;
+        RegistrationId = registrationId;
+        TournamentId = tournamentId;
+
         InitializeComponent();
 
         var genders = Enum.GetNames<Models.Gender>().ToDictionary(e => (int)Enum.Parse<Models.Gender>(e), e => e);
@@ -52,7 +64,7 @@ internal partial class UpdateRegistrationDivisionForm
 
         Gender = bowler.Gender;
         DateOfBirth = bowler.DateOfBirth;
-        USBCId = bowler.USBCId;
+        UsbcId = bowler.USBCId;
     }
 
     public void BindRegistration(ITournamentRegistrationViewModel tournamentRegistrationViewModel)
@@ -87,7 +99,7 @@ internal partial class UpdateRegistrationDivisionForm
         => DialogResult = DialogResult.None;
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public string USBCId
+    public string UsbcId
     {
         get => usbcIdText.Text;
         set => usbcIdText.Text = value;
@@ -119,9 +131,15 @@ internal partial class UpdateRegistrationDivisionForm
         set => genderDropdown.SelectedItem = value!;
     }
 
+    public DivisionId DivisionId
+        => (DivisionId)divisionsDropdown.SelectedValue!;
+
     private void Control_Validated(object sender, EventArgs e)
         => registrationErrorProvider.SetError((Control)sender, string.Empty);
 
     private void UpdateRegistrationDivisionForm_Validating(object sender, CancelEventArgs e)
         => e.Cancel = !ValidateChildren();
+
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new UpdateRegistrationDivisionPresenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
 }

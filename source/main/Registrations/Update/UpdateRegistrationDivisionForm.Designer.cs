@@ -189,6 +189,7 @@ partial class UpdateRegistrationDivisionForm
         saveButton.TabIndex = 116;
         saveButton.Text = "Save";
         saveButton.UseVisualStyleBackColor = true;
+        saveButton.Click += SaveButton_Click;
         // 
         // registrationErrorProvider
         // 
