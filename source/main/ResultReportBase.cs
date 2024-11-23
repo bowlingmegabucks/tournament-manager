@@ -1,5 +1,6 @@
 ﻿using System.Drawing.Printing;
 using System.Globalization;
+using NortheastMegabuck.Properties;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -125,7 +126,7 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
 #else
         using var saveFileDialog = new SaveFileDialog
         {
-            Filter = "PDF Files (*.pdf)|*.pdf",
+            Filter = Resources.PDF_File_Type,
             FilterIndex = 1,
             RestoreDirectory = true,
             FileName = $"{title}.pdf",

@@ -133,4 +133,12 @@
   <data name="NMT" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NMT.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DummySsn" xml:space="preserve">
+    <value>000000000</value>
+    <comment>Text value to show once real ssn has been encrypted</comment>
+  </data>
+  <data name="PDF File Type" xml:space="preserve">
+    <value>PDF Files (*.pdf)|*.pdf</value>
+    <comment>PDF file type for file dialog</comment>
+  </data>
 </root>

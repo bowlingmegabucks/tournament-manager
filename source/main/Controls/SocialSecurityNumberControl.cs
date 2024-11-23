@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using NortheastMegabuck.Properties;
 
 namespace NortheastMegabuck.Controls;
 internal partial class SocialSecurityNumberControl : UserControl
@@ -57,7 +58,7 @@ internal partial class SocialSecurityNumberControl : UserControl
             {
                 verifyLink.Enabled = true;
                 ssnText.PasswordChar = '*';
-                ssnText.Text = @"000000000";
+                ssnText.Text = Resources.DummySsn;
             }
         }
     }
