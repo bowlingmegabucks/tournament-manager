@@ -1,6 +1,4 @@
-﻿
-
-namespace NortheastMegabuck.Registrations.Update;
+﻿namespace NortheastMegabuck.Registrations.Update;
 
 internal class UpdateRegistrationAveragePresenter
 {
