@@ -23,7 +23,7 @@ internal abstract class ResultReportBase<TViewModel> : IDocument
         _division = division;
         _results = results;
 
-        _logo = ConvertImage(Properties.Resources.NMT_Header);
+        _logo = ConvertImage(Resources.NMT_Header);
     }
 
     private readonly ImageConverter _imageConverter = new();
