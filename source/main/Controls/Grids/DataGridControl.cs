@@ -31,7 +31,7 @@ internal abstract partial class DataGrid<TModel> : UserControl where TModel : cl
         GridView.MouseDown += GridView_RightMouseDown!;
     }
 
-    private List<TModel> _models;
+    private BindingList<TModel> _models;
     /// <summary>
     ///
     /// </summary>
@@ -77,7 +77,13 @@ internal abstract partial class DataGrid<TModel> : UserControl where TModel : cl
     }
 
     private void Bind()
-        => GridView.DataSource = new BindingList<TModel>(_models);
+        => GridView.DataSource = _models;
+
+    protected void Filter(IEnumerable<TModel> filteredModel)
+        => GridView.DataSource = new BindingList<TModel>(filteredModel.ToList());
+
+    protected void ClearFilter()
+        => Bind();
 
     /// <summary>
     ///
