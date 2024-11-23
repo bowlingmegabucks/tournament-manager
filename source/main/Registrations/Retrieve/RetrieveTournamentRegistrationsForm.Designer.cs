@@ -43,6 +43,7 @@ partial class RetrieveTournamentRegistrationsForm
         squadEntriesLabel = new Label();
         sweeperEntriesGroupBox = new GroupBox();
         sweeperEntriesLabel = new Label();
+        changeAverageMenuItem = new ToolStripMenuItem();
         registrationGridContextMenu.SuspendLayout();
         divisionEntriesGroupBox.SuspendLayout();
         squadEntriesGroupBox.SuspendLayout();
@@ -58,40 +59,40 @@ partial class RetrieveTournamentRegistrationsForm
         // 
         // registrationGridContextMenu
         // 
-        registrationGridContextMenu.Items.AddRange(new ToolStripItem[] { updateBowlerNameMenuItem, addSuperSweeperMenuItem, changeDivisionMenuItem, toolStripSeparator1, deleteMenuItem });
+        registrationGridContextMenu.Items.AddRange(new ToolStripItem[] { updateBowlerNameMenuItem, addSuperSweeperMenuItem, changeAverageMenuItem, changeDivisionMenuItem, toolStripSeparator1, deleteMenuItem });
         registrationGridContextMenu.Name = "registrationGridContextMenu";
-        registrationGridContextMenu.Size = new Size(177, 98);
+        registrationGridContextMenu.Size = new Size(181, 142);
         // 
         // updateBowlerNameMenuItem
         // 
         updateBowlerNameMenuItem.Name = "updateBowlerNameMenuItem";
-        updateBowlerNameMenuItem.Size = new Size(176, 22);
+        updateBowlerNameMenuItem.Size = new Size(180, 22);
         updateBowlerNameMenuItem.Text = "Update Name";
         updateBowlerNameMenuItem.Click += UpdateBowlerNameMenuItem_Click;
         // 
         // addSuperSweeperMenuItem
         // 
         addSuperSweeperMenuItem.Name = "addSuperSweeperMenuItem";
-        addSuperSweeperMenuItem.Size = new Size(176, 22);
+        addSuperSweeperMenuItem.Size = new Size(180, 22);
         addSuperSweeperMenuItem.Text = "Add Super Sweeper";
         addSuperSweeperMenuItem.Click += AddSuperSweeperMenuItem_Click;
         // 
         // changeDivisionMenuItem
         // 
         changeDivisionMenuItem.Name = "changeDivisionMenuItem";
-        changeDivisionMenuItem.Size = new Size(176, 22);
+        changeDivisionMenuItem.Size = new Size(180, 22);
         changeDivisionMenuItem.Text = "Change Division";
         changeDivisionMenuItem.Click += ChangeDivisionMenuItem_Click;
         // 
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(173, 6);
+        toolStripSeparator1.Size = new Size(177, 6);
         // 
         // deleteMenuItem
         // 
         deleteMenuItem.Name = "deleteMenuItem";
-        deleteMenuItem.Size = new Size(176, 22);
+        deleteMenuItem.Size = new Size(180, 22);
         deleteMenuItem.Text = "Delete";
         deleteMenuItem.Click += DeleteMenuItem_Click;
         // 
@@ -158,6 +159,13 @@ partial class RetrieveTournamentRegistrationsForm
         sweeperEntriesLabel.TabIndex = 0;
         sweeperEntriesLabel.Text = "01/01/00 11AM: 55 Entries\r\n01/01/00 11AM: 55 Entries\r\nSuper Sweeper: 55 Entries";
         // 
+        // changeAverageMenuItem
+        // 
+        changeAverageMenuItem.Name = "changeAverageMenuItem";
+        changeAverageMenuItem.Size = new Size(180, 22);
+        changeAverageMenuItem.Text = "Change Average";
+        changeAverageMenuItem.Click += ChangeAverageMenuItem_Click;
+        // 
         // RetrieveTournamentRegistrationsForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -197,4 +205,5 @@ partial class RetrieveTournamentRegistrationsForm
     private ToolStripSeparator toolStripSeparator1;
     private ToolStripMenuItem addSuperSweeperMenuItem;
     private ToolStripMenuItem changeDivisionMenuItem;
+    private ToolStripMenuItem changeAverageMenuItem;
 }

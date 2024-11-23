@@ -2,19 +2,17 @@
 
 namespace NortheastMegabuck.Registrations.Update;
 
-internal class UpdateRegistrationDivisionPresenter
+internal class UpdateRegistrationAveragePresenter
 {
-    private readonly IView _view;
+    private readonly IAverageView _view;
 
-    private readonly Divisions.Retrieve.IAdapter _retrieveDivisionsAdapter;
     private readonly Bowlers.Retrieve.IAdapter _retrieveBowlerAdapter;
     private readonly Retrieve.IAdapter _retrieveRegistrationAdapter;
     private readonly IAdapter _updateRegistrationAdapter;
 
-    public UpdateRegistrationDivisionPresenter(IConfiguration config, IView view)
+    public UpdateRegistrationAveragePresenter(IConfiguration config, IAverageView view)
     {
         _view = view;
-        _retrieveDivisionsAdapter = new Divisions.Retrieve.Adapter(config);
         _retrieveBowlerAdapter = new Bowlers.Retrieve.Adapter(config);
         _retrieveRegistrationAdapter = new Retrieve.Adapter(config);
         _updateRegistrationAdapter = new Adapter(config);
@@ -24,33 +22,21 @@ internal class UpdateRegistrationDivisionPresenter
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockView"></param>
-    /// <param name="mockDivisionAdapter"></param>
     /// <param name="mockBowlerAdapter"></param>
     /// <param name="mockRetrieveRegistrationAdapter"></param>
     /// <param name="mockUpdateRegistrationAdapter"></param>
-    internal UpdateRegistrationDivisionPresenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter,
+    internal UpdateRegistrationAveragePresenter(IAverageView mockView,
         Bowlers.Retrieve.IAdapter mockBowlerAdapter, Retrieve.IAdapter mockRetrieveRegistrationAdapter,
         IAdapter mockUpdateRegistrationAdapter)
     {
         _view = mockView;
-        _retrieveDivisionsAdapter = mockDivisionAdapter;
         _retrieveBowlerAdapter = mockBowlerAdapter;
         _retrieveRegistrationAdapter = mockRetrieveRegistrationAdapter;
         _updateRegistrationAdapter = mockUpdateRegistrationAdapter;
     }
 
-    public async Task LoadAsync(TournamentId tournamentId, RegistrationId registrationId, CancellationToken cancellationToken)
+    public async Task LoadAsync(RegistrationId registrationId, CancellationToken cancellationToken)
     {
-        var divisions = await _retrieveDivisionsAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
-
-        if (_retrieveDivisionsAdapter.Error is not null)
-        {
-            _view.DisplayError(_retrieveDivisionsAdapter.Error.Message);
-            _view.Disable();
-
-            return;
-        }
-
         var bowler = await _retrieveBowlerAdapter.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveBowlerAdapter.Error is not null)
@@ -71,14 +57,13 @@ internal class UpdateRegistrationDivisionPresenter
             return;
         }
 
-        _view.BindDivisions(divisions);
         _view.BindBowler(bowler!);
         _view.BindRegistration(registration!);
     }
 
     internal async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        await _updateRegistrationAdapter.ExecuteAsync(_view.RegistrationId, _view.DivisionId, _view.Gender, _view.Average, _view.UsbcId, _view.DateOfBirth, cancellationToken).ConfigureAwait(true);
+        await _updateRegistrationAdapter.ExecuteAsync(_view.RegistrationId, _view.Average, cancellationToken).ConfigureAwait(true);
 
         if (_updateRegistrationAdapter.Errors.Any())
         {

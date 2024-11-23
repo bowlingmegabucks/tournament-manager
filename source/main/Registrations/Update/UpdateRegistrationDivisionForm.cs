@@ -98,6 +98,9 @@ internal partial class UpdateRegistrationDivisionForm
     public void KeepOpen()
         => DialogResult = DialogResult.None;
 
+    public void OkToClose()
+        => DialogResult = DialogResult.OK;
+
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string UsbcId
     {

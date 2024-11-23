@@ -89,6 +89,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Registrations\Update\UpdateRegistrationAverageForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="Sweepers\Portal\SweeperPortal.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
