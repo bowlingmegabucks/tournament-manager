@@ -30,7 +30,7 @@ internal class AtLargeReport(string division, IList<IAtLargeViewModel> results) 
 
         foreach (var result in results)
         {
-            table.Cell().Element(CellStyle).AlignMiddle().Text(result.Place.ToString());
+            table.Cell().Element(CellStyle).AlignMiddle().Text(result.Place.ToString(CultureInfo.InvariantCulture));
             table.Cell().Element(CellStyle).AlignMiddle().Text(result.SquadDate);
             table.Cell().Element(CellStyle).AlignMiddle().Text(result.BowlerName);
             table.Cell().Element(CellStyle).AlignMiddle().AlignCenter().Text(result.Score.ToString(CultureInfo.CurrentCulture));

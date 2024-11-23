@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+
 namespace NortheastMegabuck.Tournaments.Results;
 
 internal class AtLargeViewModel(short place, Models.BowlerSquadScore result, bool previousCasher) : IAtLargeViewModel
@@ -9,7 +11,7 @@ internal class AtLargeViewModel(short place, Models.BowlerSquadScore result, boo
 
     public string DivisionName { get; } = result.Division.Name;
 
-    public string SquadDate { get; } = result.SquadDate.ToString("MM/dd hh:mm tt");
+    public string SquadDate { get; } = result.SquadDate.ToString("MM/dd hh:mm tt", CultureInfo.InvariantCulture);
 
     public bool PreviousCasher { get; } = previousCasher;
 
