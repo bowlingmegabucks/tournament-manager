@@ -122,11 +122,6 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     {
         using var form = new Update.UpdateRegistrationAverageForm(_config, tournamentRegistrationsGrid.SelectedRegistration.Id);
 
-        var result = form.ShowDialog(this);
-
-        if (result == DialogResult.OK)
-        {
-            await new TournamentRegistrationsPresenter(this, _config).ExecuteAsync(default).ConfigureAwait(true);
-        }
+        form.ShowDialog(this);
     }
 }
