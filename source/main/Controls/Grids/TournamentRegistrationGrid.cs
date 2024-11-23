@@ -34,8 +34,33 @@ internal partial class TournamentRegistrationGrid
         }
     }
 
-    public Registrations.Retrieve.ITournamentRegistrationViewModel SelectedRegistration
+    public ITournamentRegistrationViewModel SelectedRegistration
         => SelectedRow!;
+
+    public void Filter(string nameFilter)
+    {
+        if (string.IsNullOrWhiteSpace(nameFilter))
+        {
+            ClearFilter();
+
+            return;
+        }
+
+        var filterText = nameFilter.Trim();
+
+        var nameParts = filterText.Split(' ');
+        var firstNamePart = nameParts.Length > 0 ? nameParts[0] : string.Empty;
+        var lastNamePart = nameParts.Length > 1 ? nameParts[1] : string.Empty;
+
+        var filtered = Models.Where(model =>
+            nameParts.Length == 1
+                ? model.FirstName.Contains(firstNamePart, StringComparison.OrdinalIgnoreCase) ||
+                       model.LastName.Contains(firstNamePart, StringComparison.OrdinalIgnoreCase)
+                : model.FirstName.Contains(firstNamePart, StringComparison.OrdinalIgnoreCase) &&
+                       model.LastName.Contains(lastNamePart, StringComparison.OrdinalIgnoreCase));
+
+        Filter(filtered);
+    }
 
     private void GridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
     {

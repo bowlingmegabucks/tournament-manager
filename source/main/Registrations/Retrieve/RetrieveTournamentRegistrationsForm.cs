@@ -126,4 +126,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         form.ShowDialog(this);
     }
+
+    private void FilterText_TextChanged(object sender, EventArgs e)
+        => tournamentRegistrationsGrid.Filter(filterText.Text);
 }
