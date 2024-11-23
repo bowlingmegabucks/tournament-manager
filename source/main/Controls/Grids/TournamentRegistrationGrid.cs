@@ -30,7 +30,7 @@ internal partial class TournamentRegistrationGrid
     {
         foreach (var squadDate in squadDates)
         {
-            _squadDates.Add(squadDate.Key, squadDate.Value);
+            _squadDates.TryAdd(squadDate.Key, squadDate.Value);
         }
     }
 

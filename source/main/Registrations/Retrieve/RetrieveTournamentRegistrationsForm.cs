@@ -117,4 +117,11 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
             await new TournamentRegistrationsPresenter(this, _config).ExecuteAsync(default).ConfigureAwait(true);
         }
     }
+
+    private async void ChangeAverageMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Update.UpdateRegistrationAverageForm(_config, tournamentRegistrationsGrid.SelectedRegistration.Id);
+
+        form.ShowDialog(this);
+    }
 }
