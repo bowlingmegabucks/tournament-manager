@@ -1,4 +1,5 @@
 ﻿
+using System.Globalization;
 using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Controls;
@@ -12,10 +13,10 @@ internal partial class SquadResultsControl : UserControl
 
         ToSpreadsheetRow = $"{model.Place}\t{model.BowlerName}\t{model.Score}\t{model.HighGame}\t{model.Advancer}\t{model.Casher}";
 
-        placeLabel.Text = model.Place.ToString();
+        placeLabel.Text = model.Place.ToString(CultureInfo.InvariantCulture);
         bowlerNameLabel.Text = model.BowlerName;
-        scoreLabel.Text = model.Score.ToString();
-        highGameLabel.Text = model.HighGame.ToString();
+        scoreLabel.Text = model.Score.ToString(CultureInfo.InvariantCulture);
+        highGameLabel.Text = model.HighGame.ToString(CultureInfo.InvariantCulture);
         advancerPictureBox.Visible = model.Advancer;
         cashingPictureBox.Visible = model.Casher;
 

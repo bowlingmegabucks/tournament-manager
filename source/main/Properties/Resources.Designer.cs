@@ -63,16 +63,6 @@ namespace NortheastMegabuck.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ace {
-            get {
-                object obj = ResourceManager.GetObject("ace", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap DollarSign {
             get {
                 object obj = ResourceManager.GetObject("DollarSign", resourceCulture);
@@ -81,22 +71,11 @@ namespace NortheastMegabuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to 000000000.
         /// </summary>
-        internal static System.Drawing.Bitmap federicos {
+        internal static string DummySsn {
             get {
-                object obj = ResourceManager.GetObject("federicos", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap next {
-            get {
-                object obj = ResourceManager.GetObject("next", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("DummySsn", resourceCulture);
             }
         }
         
@@ -131,22 +110,11 @@ namespace NortheastMegabuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to PDF Files (*.pdf)|*.pdf.
         /// </summary>
-        internal static System.Drawing.Bitmap savage {
+        internal static string PDF_File_Type {
             get {
-                object obj = ResourceManager.GetObject("savage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tech_vision {
-            get {
-                object obj = ResourceManager.GetObject("tech vision", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("PDF File Type", resourceCulture);
             }
         }
         

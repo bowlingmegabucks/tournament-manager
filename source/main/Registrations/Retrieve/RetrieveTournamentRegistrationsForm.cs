@@ -110,7 +110,9 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     {
         using var form = new Update.UpdateRegistrationDivisionForm(_config, TournamentId, tournamentRegistrationsGrid.SelectedRegistration.Id);
 
+#pragma warning disable S6966
         var result = form.ShowDialog(this);
+#pragma warning restore S6966
 
         if (result == DialogResult.OK)
         {
@@ -118,7 +120,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
         }
     }
 
-    private async void ChangeAverageMenuItem_Click(object sender, EventArgs e)
+    private void ChangeAverageMenuItem_Click(object sender, EventArgs e)
     {
         using var form = new Update.UpdateRegistrationAverageForm(_config, tournamentRegistrationsGrid.SelectedRegistration.Id);
 
