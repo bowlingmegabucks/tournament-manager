@@ -28,325 +28,290 @@ partial class SweeperControl
     /// </summary>
     private void InitializeComponent()
     {
-            this.components = new System.ComponentModel.Container();
-            this.divisionsGroupBox = new System.Windows.Forms.GroupBox();
-            this.PanelDivisions = new System.Windows.Forms.Panel();
-            this.sweeperDivisions = new NortheastMegabuck.Controls.SweeperDivisionsControl();
-            this.squadDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.dateLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.sweeperErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.entryFeeValue = new NortheastMegabuck.Controls.NumericControl();
-            this.entryFeeLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.gamesValue = new NortheastMegabuck.Controls.NumericControl();
-            this.gamesLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.cashRatioValue = new NortheastMegabuck.Controls.NumericControl();
-            this.cashRatioLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.maxPerPairValue = new NortheastMegabuck.Controls.NumericControl();
-            this.maxPerPairLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.numberOfLanesValue = new NortheastMegabuck.Controls.NumericControl();
-            this.numberOfLanesLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.startingLaneValue = new NortheastMegabuck.Controls.NumericControl();
-            this.startingLaneLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.divisionsGroupBox.SuspendLayout();
-            this.PanelDivisions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sweeperErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maxPerPairValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numberOfLanesValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.startingLaneValue)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // divisionsGroupBox
-            // 
-            this.divisionsGroupBox.AutoSize = true;
-            this.divisionsGroupBox.Controls.Add(this.PanelDivisions);
-            this.divisionsGroupBox.Location = new System.Drawing.Point(3, 199);
-            this.divisionsGroupBox.Name = "divisionsGroupBox";
-            this.divisionsGroupBox.Size = new System.Drawing.Size(540, 314);
-            this.divisionsGroupBox.TabIndex = 7;
-            this.divisionsGroupBox.TabStop = false;
-            this.divisionsGroupBox.Text = "Division Bonus Pins";
-            // 
-            // PanelDivisions
-            // 
-            this.PanelDivisions.AutoScroll = true;
-            this.PanelDivisions.AutoSize = true;
-            this.PanelDivisions.Controls.Add(this.sweeperDivisions);
-            this.PanelDivisions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelDivisions.Location = new System.Drawing.Point(3, 19);
-            this.PanelDivisions.Name = "PanelDivisions";
-            this.PanelDivisions.Size = new System.Drawing.Size(534, 292);
-            this.PanelDivisions.TabIndex = 0;
-            // 
-            // sweeperDivisions
-            // 
-            this.sweeperDivisions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sweeperDivisions.Location = new System.Drawing.Point(0, 0);
-            this.sweeperDivisions.Name = "sweeperDivisions";
-            this.sweeperDivisions.Size = new System.Drawing.Size(534, 292);
-            this.sweeperDivisions.TabIndex = 1;
-            // 
-            // squadDatePicker
-            // 
-            this.squadDatePicker.CustomFormat = "MM/dd/yyyy    hh:mm tt";
-            this.squadDatePicker.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.squadDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.squadDatePicker.Location = new System.Drawing.Point(3, 28);
-            this.squadDatePicker.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.squadDatePicker.MaxDate = new System.DateTime(2200, 12, 31, 0, 0, 0, 0);
-            this.squadDatePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.squadDatePicker.Name = "squadDatePicker";
-            this.squadDatePicker.Size = new System.Drawing.Size(217, 27);
-            this.squadDatePicker.TabIndex = 0;
-            this.squadDatePicker.Validating += new System.ComponentModel.CancelEventHandler(this.SquadDatePicker_Validating);
-            this.squadDatePicker.Validated += new System.EventHandler(this.SweeperControl_Validated);
-            // 
-            // dateLabel
-            // 
-            this.dateLabel.AutoSize = true;
-            this.dateLabel.Bold = false;
-            this.dateLabel.Location = new System.Drawing.Point(3, 3);
-            this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Required = true;
-            this.dateLabel.Size = new System.Drawing.Size(60, 19);
-            this.dateLabel.TabIndex = 115;
-            this.dateLabel.TabStop = false;
-            this.dateLabel.Text = "Date:";
-            // 
-            // sweeperErrorProvider
-            // 
-            this.sweeperErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.sweeperErrorProvider.ContainerControl = this;
-            // 
-            // entryFeeValue
-            // 
-            this.entryFeeValue.DecimalPlaces = 2;
-            this.entryFeeValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.entryFeeValue.Location = new System.Drawing.Point(350, 31);
-            this.entryFeeValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.entryFeeValue.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            131072});
-            this.entryFeeValue.Name = "entryFeeValue";
-            this.entryFeeValue.Size = new System.Drawing.Size(131, 27);
-            this.entryFeeValue.TabIndex = 1;
-            this.entryFeeValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.entryFeeValue.Validating += new System.ComponentModel.CancelEventHandler(this.EntryFeeValue_Validating);
-            this.entryFeeValue.Validated += new System.EventHandler(this.SweeperControl_Validated);
-            // 
-            // entryFeeLabel
-            // 
-            this.entryFeeLabel.AutoSize = true;
-            this.entryFeeLabel.Bold = false;
-            this.entryFeeLabel.Location = new System.Drawing.Point(350, 5);
-            this.entryFeeLabel.Name = "entryFeeLabel";
-            this.entryFeeLabel.Required = true;
-            this.entryFeeLabel.Size = new System.Drawing.Size(105, 19);
-            this.entryFeeLabel.TabIndex = 117;
-            this.entryFeeLabel.TabStop = false;
-            this.entryFeeLabel.Text = "Entry Fee:";
-            // 
-            // gamesValue
-            // 
-            this.gamesValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.gamesValue.Location = new System.Drawing.Point(3, 94);
-            this.gamesValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.gamesValue.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.gamesValue.Name = "gamesValue";
-            this.gamesValue.Size = new System.Drawing.Size(131, 27);
-            this.gamesValue.TabIndex = 2;
-            this.gamesValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.gamesValue.Validating += new System.ComponentModel.CancelEventHandler(this.GamesValue_Validating);
-            this.gamesValue.Validated += new System.EventHandler(this.SweeperControl_Validated);
-            // 
-            // gamesLabel
-            // 
-            this.gamesLabel.AutoSize = true;
-            this.gamesLabel.Bold = false;
-            this.gamesLabel.Location = new System.Drawing.Point(3, 68);
-            this.gamesLabel.Name = "gamesLabel";
-            this.gamesLabel.Required = true;
-            this.gamesLabel.Size = new System.Drawing.Size(69, 19);
-            this.gamesLabel.TabIndex = 119;
-            this.gamesLabel.TabStop = false;
-            this.gamesLabel.Text = "Games:";
-            // 
-            // cashRatioValue
-            // 
-            this.cashRatioValue.DecimalPlaces = 1;
-            this.cashRatioValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cashRatioValue.Location = new System.Drawing.Point(189, 94);
-            this.cashRatioValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.cashRatioValue.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            65536});
-            this.cashRatioValue.Name = "cashRatioValue";
-            this.cashRatioValue.Size = new System.Drawing.Size(131, 27);
-            this.cashRatioValue.TabIndex = 3;
-            this.cashRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.cashRatioValue.Validating += new System.ComponentModel.CancelEventHandler(this.CashRatioValue_Validating);
-            this.cashRatioValue.Validated += new System.EventHandler(this.SweeperControl_Validated);
-            // 
-            // cashRatioLabel
-            // 
-            this.cashRatioLabel.AutoSize = true;
-            this.cashRatioLabel.Bold = false;
-            this.cashRatioLabel.Location = new System.Drawing.Point(189, 68);
-            this.cashRatioLabel.Name = "cashRatioLabel";
-            this.cashRatioLabel.Required = true;
-            this.cashRatioLabel.Size = new System.Drawing.Size(114, 19);
-            this.cashRatioLabel.TabIndex = 121;
-            this.cashRatioLabel.TabStop = false;
-            this.cashRatioLabel.Text = "Cash Ratio:";
-            // 
-            // maxPerPairValue
-            // 
-            this.maxPerPairValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.maxPerPairValue.Location = new System.Drawing.Point(350, 159);
-            this.maxPerPairValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.maxPerPairValue.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.maxPerPairValue.Name = "maxPerPairValue";
-            this.maxPerPairValue.Size = new System.Drawing.Size(131, 27);
-            this.maxPerPairValue.TabIndex = 6;
-            this.maxPerPairValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.maxPerPairValue.Validating += new System.ComponentModel.CancelEventHandler(this.MaxPerPairValue_Validating);
-            this.maxPerPairValue.Validated += new System.EventHandler(this.SweeperControl_Validated);
-            // 
-            // maxPerPairLabel
-            // 
-            this.maxPerPairLabel.AutoSize = true;
-            this.maxPerPairLabel.Bold = false;
-            this.maxPerPairLabel.Location = new System.Drawing.Point(350, 133);
-            this.maxPerPairLabel.Name = "maxPerPairLabel";
-            this.maxPerPairLabel.Required = true;
-            this.maxPerPairLabel.Size = new System.Drawing.Size(132, 19);
-            this.maxPerPairLabel.TabIndex = 123;
-            this.maxPerPairLabel.TabStop = false;
-            this.maxPerPairLabel.Text = "Max Per Pair:";
-            // 
-            // numberOfLanesValue
-            // 
-            this.numberOfLanesValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.numberOfLanesValue.Location = new System.Drawing.Point(189, 159);
-            this.numberOfLanesValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.numberOfLanesValue.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.numberOfLanesValue.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numberOfLanesValue.Name = "numberOfLanesValue";
-            this.numberOfLanesValue.Size = new System.Drawing.Size(131, 27);
-            this.numberOfLanesValue.TabIndex = 5;
-            this.numberOfLanesValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numberOfLanesValue.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // numberOfLanesLabel
-            // 
-            this.numberOfLanesLabel.AutoSize = true;
-            this.numberOfLanesLabel.Bold = false;
-            this.numberOfLanesLabel.Location = new System.Drawing.Point(167, 133);
-            this.numberOfLanesLabel.Name = "numberOfLanesLabel";
-            this.numberOfLanesLabel.Required = true;
-            this.numberOfLanesLabel.Size = new System.Drawing.Size(159, 19);
-            this.numberOfLanesLabel.TabIndex = 1003;
-            this.numberOfLanesLabel.TabStop = false;
-            this.numberOfLanesLabel.Text = "Number of Lanes:";
-            // 
-            // startingLaneValue
-            // 
-            this.startingLaneValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.startingLaneValue.Location = new System.Drawing.Point(3, 159);
-            this.startingLaneValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.startingLaneValue.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.startingLaneValue.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.startingLaneValue.Name = "startingLaneValue";
-            this.startingLaneValue.Size = new System.Drawing.Size(131, 27);
-            this.startingLaneValue.TabIndex = 4;
-            this.startingLaneValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.startingLaneValue.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // startingLaneLabel
-            // 
-            this.startingLaneLabel.AutoSize = true;
-            this.startingLaneLabel.Bold = false;
-            this.startingLaneLabel.Location = new System.Drawing.Point(3, 133);
-            this.startingLaneLabel.Name = "startingLaneLabel";
-            this.startingLaneLabel.Required = true;
-            this.startingLaneLabel.Size = new System.Drawing.Size(141, 19);
-            this.startingLaneLabel.TabIndex = 1002;
-            this.startingLaneLabel.TabStop = false;
-            this.startingLaneLabel.Text = "Starting Lane:";
-            // 
-            // SweeperControl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.Controls.Add(this.numberOfLanesValue);
-            this.Controls.Add(this.numberOfLanesLabel);
-            this.Controls.Add(this.startingLaneValue);
-            this.Controls.Add(this.startingLaneLabel);
-            this.Controls.Add(this.maxPerPairValue);
-            this.Controls.Add(this.maxPerPairLabel);
-            this.Controls.Add(this.cashRatioValue);
-            this.Controls.Add(this.cashRatioLabel);
-            this.Controls.Add(this.gamesValue);
-            this.Controls.Add(this.gamesLabel);
-            this.Controls.Add(this.entryFeeValue);
-            this.Controls.Add(this.entryFeeLabel);
-            this.Controls.Add(this.squadDatePicker);
-            this.Controls.Add(this.dateLabel);
-            this.Controls.Add(this.divisionsGroupBox);
-            this.Name = "SweeperControl";
-            this.Size = new System.Drawing.Size(558, 528);
-            this.divisionsGroupBox.ResumeLayout(false);
-            this.divisionsGroupBox.PerformLayout();
-            this.PanelDivisions.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.sweeperErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maxPerPairValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numberOfLanesValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.startingLaneValue)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        components = new System.ComponentModel.Container();
+        divisionsGroupBox = new GroupBox();
+        PanelDivisions = new Panel();
+        sweeperDivisions = new SweeperDivisionsControl();
+        squadDatePicker = new DateTimePicker();
+        dateLabel = new LabelControl();
+        sweeperErrorProvider = new ErrorProvider(components);
+        entryFeeValue = new NumericControl();
+        entryFeeLabel = new LabelControl();
+        gamesValue = new NumericControl();
+        gamesLabel = new LabelControl();
+        cashRatioValue = new NumericControl();
+        cashRatioLabel = new LabelControl();
+        maxPerPairValue = new NumericControl();
+        maxPerPairLabel = new LabelControl();
+        numberOfLanesValue = new NumericControl();
+        numberOfLanesLabel = new LabelControl();
+        startingLaneValue = new NumericControl();
+        startingLaneLabel = new LabelControl();
+        cashTo1Label = new LabelControl();
+        divisionsGroupBox.SuspendLayout();
+        PanelDivisions.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)sweeperErrorProvider).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)entryFeeValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)gamesValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)cashRatioValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)maxPerPairValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numberOfLanesValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)startingLaneValue).BeginInit();
+        SuspendLayout();
+        // 
+        // divisionsGroupBox
+        // 
+        divisionsGroupBox.AutoSize = true;
+        divisionsGroupBox.Controls.Add(PanelDivisions);
+        divisionsGroupBox.Location = new Point(3, 199);
+        divisionsGroupBox.Name = "divisionsGroupBox";
+        divisionsGroupBox.Size = new Size(540, 314);
+        divisionsGroupBox.TabIndex = 7;
+        divisionsGroupBox.TabStop = false;
+        divisionsGroupBox.Text = "Division Bonus Pins";
+        // 
+        // PanelDivisions
+        // 
+        PanelDivisions.AutoScroll = true;
+        PanelDivisions.AutoSize = true;
+        PanelDivisions.Controls.Add(sweeperDivisions);
+        PanelDivisions.Dock = DockStyle.Fill;
+        PanelDivisions.Location = new Point(3, 19);
+        PanelDivisions.Name = "PanelDivisions";
+        PanelDivisions.Size = new Size(534, 292);
+        PanelDivisions.TabIndex = 0;
+        // 
+        // sweeperDivisions
+        // 
+        sweeperDivisions.Dock = DockStyle.Fill;
+        sweeperDivisions.Location = new Point(0, 0);
+        sweeperDivisions.Name = "sweeperDivisions";
+        sweeperDivisions.Size = new Size(534, 292);
+        sweeperDivisions.TabIndex = 1;
+        // 
+        // squadDatePicker
+        // 
+        squadDatePicker.CustomFormat = "MM/dd/yyyy    hh:mm tt";
+        squadDatePicker.Font = new Font("Segoe UI", 11F);
+        squadDatePicker.Format = DateTimePickerFormat.Custom;
+        squadDatePicker.Location = new Point(3, 28);
+        squadDatePicker.Margin = new Padding(3, 3, 3, 10);
+        squadDatePicker.MaxDate = new DateTime(2200, 12, 31, 0, 0, 0, 0);
+        squadDatePicker.MinDate = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+        squadDatePicker.Name = "squadDatePicker";
+        squadDatePicker.Size = new Size(217, 27);
+        squadDatePicker.TabIndex = 0;
+        squadDatePicker.Validating += SquadDatePicker_Validating;
+        squadDatePicker.Validated += SweeperControl_Validated;
+        // 
+        // dateLabel
+        // 
+        dateLabel.AutoSize = true;
+        dateLabel.Location = new Point(3, 3);
+        dateLabel.Name = "dateLabel";
+        dateLabel.Required = true;
+        dateLabel.Size = new Size(60, 19);
+        dateLabel.TabIndex = 115;
+        dateLabel.TabStop = false;
+        dateLabel.Text = "Date:";
+        // 
+        // sweeperErrorProvider
+        // 
+        sweeperErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+        sweeperErrorProvider.ContainerControl = this;
+        // 
+        // entryFeeValue
+        // 
+        entryFeeValue.DecimalPlaces = 2;
+        entryFeeValue.Font = new Font("Segoe UI", 11F);
+        entryFeeValue.Location = new Point(350, 31);
+        entryFeeValue.Margin = new Padding(3, 4, 3, 10);
+        entryFeeValue.Maximum = new decimal(new int[] { 99999, 0, 0, 131072 });
+        entryFeeValue.Name = "entryFeeValue";
+        entryFeeValue.Size = new Size(131, 27);
+        entryFeeValue.TabIndex = 1;
+        entryFeeValue.TextAlign = HorizontalAlignment.Right;
+        entryFeeValue.Validating += EntryFeeValue_Validating;
+        entryFeeValue.Validated += SweeperControl_Validated;
+        // 
+        // entryFeeLabel
+        // 
+        entryFeeLabel.AutoSize = true;
+        entryFeeLabel.Location = new Point(350, 5);
+        entryFeeLabel.Name = "entryFeeLabel";
+        entryFeeLabel.Required = true;
+        entryFeeLabel.Size = new Size(105, 19);
+        entryFeeLabel.TabIndex = 117;
+        entryFeeLabel.TabStop = false;
+        entryFeeLabel.Text = "Entry Fee:";
+        // 
+        // gamesValue
+        // 
+        gamesValue.Font = new Font("Segoe UI", 11F);
+        gamesValue.Location = new Point(3, 94);
+        gamesValue.Margin = new Padding(3, 4, 3, 10);
+        gamesValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+        gamesValue.Name = "gamesValue";
+        gamesValue.Size = new Size(131, 27);
+        gamesValue.TabIndex = 2;
+        gamesValue.TextAlign = HorizontalAlignment.Right;
+        gamesValue.Validating += GamesValue_Validating;
+        gamesValue.Validated += SweeperControl_Validated;
+        // 
+        // gamesLabel
+        // 
+        gamesLabel.AutoSize = true;
+        gamesLabel.Location = new Point(3, 68);
+        gamesLabel.Name = "gamesLabel";
+        gamesLabel.Required = true;
+        gamesLabel.Size = new Size(69, 19);
+        gamesLabel.TabIndex = 119;
+        gamesLabel.TabStop = false;
+        gamesLabel.Text = "Games:";
+        // 
+        // cashRatioValue
+        // 
+        cashRatioValue.DecimalPlaces = 1;
+        cashRatioValue.Font = new Font("Segoe UI", 11F);
+        cashRatioValue.Location = new Point(189, 94);
+        cashRatioValue.Margin = new Padding(3, 4, 3, 10);
+        cashRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
+        cashRatioValue.Name = "cashRatioValue";
+        cashRatioValue.Size = new Size(131, 27);
+        cashRatioValue.TabIndex = 3;
+        cashRatioValue.TextAlign = HorizontalAlignment.Right;
+        cashRatioValue.Validating += CashRatioValue_Validating;
+        cashRatioValue.Validated += SweeperControl_Validated;
+        // 
+        // cashRatioLabel
+        // 
+        cashRatioLabel.AutoSize = true;
+        cashRatioLabel.Location = new Point(189, 68);
+        cashRatioLabel.Name = "cashRatioLabel";
+        cashRatioLabel.Required = true;
+        cashRatioLabel.Size = new Size(114, 19);
+        cashRatioLabel.TabIndex = 121;
+        cashRatioLabel.TabStop = false;
+        cashRatioLabel.Text = "Cash Ratio:";
+        // 
+        // maxPerPairValue
+        // 
+        maxPerPairValue.Font = new Font("Segoe UI", 11F);
+        maxPerPairValue.Location = new Point(350, 159);
+        maxPerPairValue.Margin = new Padding(3, 4, 3, 10);
+        maxPerPairValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+        maxPerPairValue.Name = "maxPerPairValue";
+        maxPerPairValue.Size = new Size(131, 27);
+        maxPerPairValue.TabIndex = 6;
+        maxPerPairValue.TextAlign = HorizontalAlignment.Right;
+        maxPerPairValue.Validating += MaxPerPairValue_Validating;
+        maxPerPairValue.Validated += SweeperControl_Validated;
+        // 
+        // maxPerPairLabel
+        // 
+        maxPerPairLabel.AutoSize = true;
+        maxPerPairLabel.Location = new Point(350, 133);
+        maxPerPairLabel.Name = "maxPerPairLabel";
+        maxPerPairLabel.Required = true;
+        maxPerPairLabel.Size = new Size(132, 19);
+        maxPerPairLabel.TabIndex = 123;
+        maxPerPairLabel.TabStop = false;
+        maxPerPairLabel.Text = "Max Per Pair:";
+        // 
+        // numberOfLanesValue
+        // 
+        numberOfLanesValue.Font = new Font("Segoe UI", 11F);
+        numberOfLanesValue.Location = new Point(189, 159);
+        numberOfLanesValue.Margin = new Padding(3, 4, 3, 10);
+        numberOfLanesValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+        numberOfLanesValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+        numberOfLanesValue.Name = "numberOfLanesValue";
+        numberOfLanesValue.Size = new Size(131, 27);
+        numberOfLanesValue.TabIndex = 5;
+        numberOfLanesValue.TextAlign = HorizontalAlignment.Right;
+        numberOfLanesValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
+        // 
+        // numberOfLanesLabel
+        // 
+        numberOfLanesLabel.AutoSize = true;
+        numberOfLanesLabel.Location = new Point(167, 133);
+        numberOfLanesLabel.Name = "numberOfLanesLabel";
+        numberOfLanesLabel.Required = true;
+        numberOfLanesLabel.Size = new Size(159, 19);
+        numberOfLanesLabel.TabIndex = 1003;
+        numberOfLanesLabel.TabStop = false;
+        numberOfLanesLabel.Text = "Number of Lanes:";
+        // 
+        // startingLaneValue
+        // 
+        startingLaneValue.Font = new Font("Segoe UI", 11F);
+        startingLaneValue.Location = new Point(3, 159);
+        startingLaneValue.Margin = new Padding(3, 4, 3, 10);
+        startingLaneValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+        startingLaneValue.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+        startingLaneValue.Name = "startingLaneValue";
+        startingLaneValue.Size = new Size(131, 27);
+        startingLaneValue.TabIndex = 4;
+        startingLaneValue.TextAlign = HorizontalAlignment.Right;
+        startingLaneValue.Value = new decimal(new int[] { 1, 0, 0, 0 });
+        // 
+        // startingLaneLabel
+        // 
+        startingLaneLabel.AutoSize = true;
+        startingLaneLabel.Location = new Point(3, 133);
+        startingLaneLabel.Name = "startingLaneLabel";
+        startingLaneLabel.Required = true;
+        startingLaneLabel.Size = new Size(141, 19);
+        startingLaneLabel.TabIndex = 1002;
+        startingLaneLabel.TabStop = false;
+        startingLaneLabel.Text = "Starting Lane:";
+        // 
+        // cashTo1Label
+        // 
+        cashTo1Label.AutoSize = true;
+        cashTo1Label.Location = new Point(326, 96);
+        cashTo1Label.Name = "cashTo1Label";
+        cashTo1Label.Required = false;
+        cashTo1Label.Size = new Size(45, 19);
+        cashTo1Label.TabIndex = 1005;
+        cashTo1Label.TabStop = false;
+        cashTo1Label.Text = ": 1";
+        // 
+        // SweeperControl
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        AutoSize = true;
+        Controls.Add(cashTo1Label);
+        Controls.Add(numberOfLanesValue);
+        Controls.Add(numberOfLanesLabel);
+        Controls.Add(startingLaneValue);
+        Controls.Add(startingLaneLabel);
+        Controls.Add(maxPerPairValue);
+        Controls.Add(maxPerPairLabel);
+        Controls.Add(cashRatioValue);
+        Controls.Add(cashRatioLabel);
+        Controls.Add(gamesValue);
+        Controls.Add(gamesLabel);
+        Controls.Add(entryFeeValue);
+        Controls.Add(entryFeeLabel);
+        Controls.Add(squadDatePicker);
+        Controls.Add(dateLabel);
+        Controls.Add(divisionsGroupBox);
+        Name = "SweeperControl";
+        Size = new Size(558, 528);
+        divisionsGroupBox.ResumeLayout(false);
+        divisionsGroupBox.PerformLayout();
+        PanelDivisions.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)sweeperErrorProvider).EndInit();
+        ((System.ComponentModel.ISupportInitialize)entryFeeValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)gamesValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)cashRatioValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)maxPerPairValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numberOfLanesValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)startingLaneValue).EndInit();
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
@@ -369,4 +334,5 @@ partial class SweeperControl
     private Controls.LabelControl numberOfLanesLabel;
     private Controls.NumericControl startingLaneValue;
     private Controls.LabelControl startingLaneLabel;
+    private LabelControl cashTo1Label;
 }

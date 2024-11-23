@@ -44,6 +44,8 @@ partial class SquadControl
         numberOfLanesLabel = new LabelControl();
         entryFeeValue = new NumericControl();
         entryFeeLabel = new LabelControl();
+        finalsTo1Label = new LabelControl();
+        cashTo1Label = new LabelControl();
         ((System.ComponentModel.ISupportInitialize)cashRatioValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)finalsRatioValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)squadErrorProvider).BeginInit();
@@ -56,8 +58,8 @@ partial class SquadControl
         // cashRatioValue
         // 
         cashRatioValue.DecimalPlaces = 1;
-        cashRatioValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-        cashRatioValue.Location = new Point(189, 94);
+        cashRatioValue.Font = new Font("Segoe UI", 11F);
+        cashRatioValue.Location = new Point(191, 94);
         cashRatioValue.Margin = new Padding(3, 4, 3, 10);
         cashRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
         cashRatioValue.Name = "cashRatioValue";
@@ -70,8 +72,7 @@ partial class SquadControl
         // cashRatioLabel
         // 
         cashRatioLabel.AutoSize = true;
-        cashRatioLabel.Bold = false;
-        cashRatioLabel.Location = new Point(189, 68);
+        cashRatioLabel.Location = new Point(191, 68);
         cashRatioLabel.Name = "cashRatioLabel";
         cashRatioLabel.Required = false;
         cashRatioLabel.Size = new Size(117, 19);
@@ -82,7 +83,7 @@ partial class SquadControl
         // finalsRatioValue
         // 
         finalsRatioValue.DecimalPlaces = 1;
-        finalsRatioValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        finalsRatioValue.Font = new Font("Segoe UI", 11F);
         finalsRatioValue.Location = new Point(3, 94);
         finalsRatioValue.Margin = new Padding(3, 4, 3, 10);
         finalsRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
@@ -96,7 +97,6 @@ partial class SquadControl
         // finalsRatioLabel
         // 
         finalsRatioLabel.AutoSize = true;
-        finalsRatioLabel.Bold = false;
         finalsRatioLabel.Location = new Point(3, 68);
         finalsRatioLabel.Name = "finalsRatioLabel";
         finalsRatioLabel.Required = false;
@@ -113,7 +113,7 @@ partial class SquadControl
         // datePicker
         // 
         datePicker.CustomFormat = "MM/dd/yyyy    hh:mm tt";
-        datePicker.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        datePicker.Font = new Font("Segoe UI", 11F);
         datePicker.Format = DateTimePickerFormat.Custom;
         datePicker.Location = new Point(3, 28);
         datePicker.Margin = new Padding(3, 3, 3, 10);
@@ -128,7 +128,6 @@ partial class SquadControl
         // dateLabel
         // 
         dateLabel.AutoSize = true;
-        dateLabel.Bold = false;
         dateLabel.Location = new Point(3, 3);
         dateLabel.Name = "dateLabel";
         dateLabel.Required = true;
@@ -139,7 +138,7 @@ partial class SquadControl
         // 
         // maxPerPairValue
         // 
-        maxPerPairValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        maxPerPairValue.Font = new Font("Segoe UI", 11F);
         maxPerPairValue.Location = new Point(355, 160);
         maxPerPairValue.Margin = new Padding(3, 4, 3, 10);
         maxPerPairValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
@@ -153,7 +152,6 @@ partial class SquadControl
         // maxPerPairLabel
         // 
         maxPerPairLabel.AutoSize = true;
-        maxPerPairLabel.Bold = false;
         maxPerPairLabel.Location = new Point(355, 134);
         maxPerPairLabel.Name = "maxPerPairLabel";
         maxPerPairLabel.Required = true;
@@ -164,7 +162,7 @@ partial class SquadControl
         // 
         // startingLaneValue
         // 
-        startingLaneValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        startingLaneValue.Font = new Font("Segoe UI", 11F);
         startingLaneValue.Location = new Point(3, 160);
         startingLaneValue.Margin = new Padding(3, 4, 3, 10);
         startingLaneValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
@@ -178,7 +176,6 @@ partial class SquadControl
         // startingLaneLabel
         // 
         startingLaneLabel.AutoSize = true;
-        startingLaneLabel.Bold = false;
         startingLaneLabel.Location = new Point(3, 134);
         startingLaneLabel.Name = "startingLaneLabel";
         startingLaneLabel.Required = true;
@@ -189,7 +186,7 @@ partial class SquadControl
         // 
         // numberOfLanesValue
         // 
-        numberOfLanesValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        numberOfLanesValue.Font = new Font("Segoe UI", 11F);
         numberOfLanesValue.Location = new Point(189, 160);
         numberOfLanesValue.Margin = new Padding(3, 4, 3, 10);
         numberOfLanesValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
@@ -203,7 +200,6 @@ partial class SquadControl
         // numberOfLanesLabel
         // 
         numberOfLanesLabel.AutoSize = true;
-        numberOfLanesLabel.Bold = false;
         numberOfLanesLabel.Location = new Point(167, 134);
         numberOfLanesLabel.Name = "numberOfLanesLabel";
         numberOfLanesLabel.Required = true;
@@ -215,7 +211,7 @@ partial class SquadControl
         // entryFeeValue
         // 
         entryFeeValue.DecimalPlaces = 2;
-        entryFeeValue.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+        entryFeeValue.Font = new Font("Segoe UI", 11F);
         entryFeeValue.Location = new Point(355, 31);
         entryFeeValue.Margin = new Padding(3, 4, 3, 10);
         entryFeeValue.Maximum = new decimal(new int[] { 99999, 0, 0, 131072 });
@@ -227,7 +223,6 @@ partial class SquadControl
         // entryFeeLabel
         // 
         entryFeeLabel.AutoSize = true;
-        entryFeeLabel.Bold = false;
         entryFeeLabel.Location = new Point(355, 5);
         entryFeeLabel.Name = "entryFeeLabel";
         entryFeeLabel.Required = false;
@@ -236,10 +231,34 @@ partial class SquadControl
         entryFeeLabel.TabStop = false;
         entryFeeLabel.Text = "Entry Fee:";
         // 
+        // finalsTo1Label
+        // 
+        finalsTo1Label.AutoSize = true;
+        finalsTo1Label.Location = new Point(140, 97);
+        finalsTo1Label.Name = "finalsTo1Label";
+        finalsTo1Label.Required = false;
+        finalsTo1Label.Size = new Size(45, 19);
+        finalsTo1Label.TabIndex = 122;
+        finalsTo1Label.TabStop = false;
+        finalsTo1Label.Text = ": 1";
+        // 
+        // cashTo1Label
+        // 
+        cashTo1Label.AutoSize = true;
+        cashTo1Label.Location = new Point(328, 97);
+        cashTo1Label.Name = "cashTo1Label";
+        cashTo1Label.Required = false;
+        cashTo1Label.Size = new Size(46, 19);
+        cashTo1Label.TabIndex = 123;
+        cashTo1Label.TabStop = false;
+        cashTo1Label.Text = ": 1";
+        // 
         // SquadControl
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(cashTo1Label);
+        Controls.Add(finalsTo1Label);
         Controls.Add(entryFeeValue);
         Controls.Add(entryFeeLabel);
         Controls.Add(numberOfLanesValue);
@@ -285,4 +304,6 @@ partial class SquadControl
     private Controls.LabelControl startingLaneLabel;
     private NumericControl entryFeeValue;
     private LabelControl entryFeeLabel;
+    private LabelControl cashTo1Label;
+    private LabelControl finalsTo1Label;
 }
