@@ -4,7 +4,7 @@ using NortheastMegabuck.Scores;
 
 namespace NortheastMegabuck.Controls.Grids;
 
-public partial class ScoresGrid
+internal partial class ScoresGrid
 #if DEBUG
     : ScoresMiddleGrid
 #else
@@ -44,11 +44,11 @@ public partial class ScoresGrid
     public void SetSquadId(SquadId squadId)
         => _squadId = squadId;
 
-    public void FillScores([NotNull]IEnumerable<IGridViewModel> bowlerScores)
+    public void FillScores([NotNull] IEnumerable<IGridViewModel> bowlerScores)
     {
         foreach (var bowlerScore in bowlerScores)
         {
-            var dataRow = GridView.Rows.OfType<DataGridViewRow>().Single(row => row.Cells["bowlerIdColumn"].Value.ToString() == bowlerScore.BowlerId.Value.ToString());
+            var dataRow = GridView.Rows.OfType<DataGridViewRow>().Single(row => row.Cells["bowlerIdColumn"]!.Value!.ToString() == bowlerScore.BowlerId.Value.ToString());
 
             foreach (var score in bowlerScore.Scores)
             {
@@ -66,7 +66,7 @@ public partial class ScoresGrid
 #pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
         foreach (var bowlerScore in bowlerScores)
         {
-            var bowlerId = bowlerScore.Cells["bowlerIdColumn"].Value.ToString();
+            var bowlerId = bowlerScore.Cells["bowlerIdColumn"]!.Value!.ToString();
 
             for (short i = 1; i <= _games; i++)
             {
@@ -79,7 +79,7 @@ public partial class ScoresGrid
                         GameNumber = i,
                         Score = score
                     });
-                }  
+                }
             }
         }
 #pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
@@ -93,7 +93,7 @@ public partial class ScoresGrid
 
         foreach (var scoreByBowler in scoresByBowler)
         {
-            var dataRow = GridView.Rows.OfType<DataGridViewRow>().Single(row => row.Cells["bowlerIdColumn"].Value.ToString() == scoreByBowler.Key.ToString());
+            var dataRow = GridView.Rows.OfType<DataGridViewRow>().Single(row => row.Cells["bowlerIdColumn"]!.Value!.ToString() == scoreByBowler.Key.ToString());
 
             foreach (var score in scoreByBowler)
             {
@@ -104,7 +104,7 @@ public partial class ScoresGrid
 }
 
 #if DEBUG
-public class ScoresMiddleGrid : DataGrid<IGridViewModel>
+internal class ScoresMiddleGrid : DataGrid<IGridViewModel>
 {
     public ScoresMiddleGrid()
     {

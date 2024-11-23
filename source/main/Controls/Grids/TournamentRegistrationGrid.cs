@@ -3,7 +3,7 @@ using System.Text;
 using NortheastMegabuck.Registrations.Retrieve;
 
 namespace NortheastMegabuck.Controls.Grids;
-public partial class TournamentRegistrationGrid
+internal partial class TournamentRegistrationGrid
 #if DEBUG
     : TournamentRegistrationMiddleGrid
 #else
@@ -16,7 +16,7 @@ public partial class TournamentRegistrationGrid
     {
         InitializeComponent();
 
-        _squadDates = new Dictionary<SquadId, string>();
+        _squadDates = [];
     }
 
     public void Remove(RegistrationId id)
@@ -30,12 +30,37 @@ public partial class TournamentRegistrationGrid
     {
         foreach (var squadDate in squadDates)
         {
-            _squadDates.Add(squadDate.Key, squadDate.Value);
+            _squadDates.TryAdd(squadDate.Key, squadDate.Value);
         }
     }
 
-    public Registrations.Retrieve.ITournamentRegistrationViewModel SelectedRegistration
+    public ITournamentRegistrationViewModel SelectedRegistration
         => SelectedRow!;
+
+    public void Filter(string nameFilter)
+    {
+        if (string.IsNullOrWhiteSpace(nameFilter))
+        {
+            ClearFilter();
+
+            return;
+        }
+
+        var filterText = nameFilter.Trim();
+
+        var nameParts = filterText.Split(' ');
+        var firstNamePart = nameParts.Length > 0 ? nameParts[0] : string.Empty;
+        var lastNamePart = nameParts.Length > 1 ? nameParts[1] : string.Empty;
+
+        var filtered = Models.Where(model =>
+            nameParts.Length == 1
+                ? model.FirstName.Contains(firstNamePart, StringComparison.OrdinalIgnoreCase) ||
+                       model.LastName.Contains(firstNamePart, StringComparison.OrdinalIgnoreCase)
+                : model.FirstName.Contains(firstNamePart, StringComparison.OrdinalIgnoreCase) &&
+                       model.LastName.Contains(lastNamePart, StringComparison.OrdinalIgnoreCase));
+
+        Filter(filtered);
+    }
 
     private void GridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
     {
@@ -47,7 +72,7 @@ public partial class TournamentRegistrationGrid
         if (row.Cells[nameof(squadsEnteredColumn)].ColumnIndex == column.ColumnIndex)
         {
             var squads = new StringBuilder();
-            
+
             foreach (var squad in registration!.SquadsEntered)
             {
                 squads.AppendLine(_squadDates[squad]);
@@ -74,7 +99,7 @@ public partial class TournamentRegistrationGrid
 }
 
 #if DEBUG
-public class TournamentRegistrationMiddleGrid : DataGrid<Registrations.Retrieve.ITournamentRegistrationViewModel>
+internal class TournamentRegistrationMiddleGrid : DataGrid<Registrations.Retrieve.ITournamentRegistrationViewModel>
 {
     public TournamentRegistrationMiddleGrid()
     {

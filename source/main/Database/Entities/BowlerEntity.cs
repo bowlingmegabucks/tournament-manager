@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace NortheastMegabuck.Database.Entities;
-internal class Bowler
+internal class Bowler : IEquatable<Bowler>
 {
     [Key]
     public BowlerId Id { get; set; }
@@ -48,6 +48,15 @@ internal class Bowler
 
     public ICollection<SquadScore> SquadScores { get; set; } = null!;
 
+    public bool Equals(Bowler? other)
+        => other is not null && (ReferenceEquals(this, other) || Id.Equals(other.Id));
+
+    public override bool Equals(object? obj)
+        => Equals(obj as Bowler);
+
+    public override int GetHashCode()
+        => Id.GetHashCode();
+
     internal class Configuration : IEntityTypeConfiguration<Bowler>
     {
         public void Configure(EntityTypeBuilder<Bowler> builder)
@@ -59,7 +68,7 @@ internal class Bowler
             builder.Property(bowler => bowler.DateOfBirth).HasConversion<DateOnlyConverter, DateOnlyComparer>();
 
             builder.Property(bowler => bowler.MiddleInitial).IsFixedLength();
-            
+
             builder.Property(bowler => bowler.StateAddress).IsFixedLength();
             builder.Property(bowler => bowler.ZipCode).IsFixedLength();
 

@@ -10,6 +10,8 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     {
         InitializeComponent();
 
+        tournamentRegistrationsGrid.SelectedRowContextMenu = registrationGridContextMenu;
+
         _config = config;
         TournamentId = tournamentId;
 
@@ -103,4 +105,28 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         await new TournamentRegistrationsPresenter(this, _config).AddSuperSweeperAsync(registration.Id, default).ConfigureAwait(true);
     }
+
+    private async void ChangeDivisionMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Update.UpdateRegistrationDivisionForm(_config, TournamentId, tournamentRegistrationsGrid.SelectedRegistration.Id);
+
+#pragma warning disable S6966
+        var result = form.ShowDialog(this);
+#pragma warning restore S6966
+
+        if (result == DialogResult.OK)
+        {
+            await new TournamentRegistrationsPresenter(this, _config).ExecuteAsync(default).ConfigureAwait(true);
+        }
+    }
+
+    private void ChangeAverageMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Update.UpdateRegistrationAverageForm(_config, tournamentRegistrationsGrid.SelectedRegistration.Id);
+
+        form.ShowDialog(this);
+    }
+
+    private void FilterText_TextChanged(object sender, EventArgs e)
+        => tournamentRegistrationsGrid.Filter(filterText.Text);
 }

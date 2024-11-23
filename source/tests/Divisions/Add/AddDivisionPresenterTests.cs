@@ -24,7 +24,7 @@ internal sealed class Presenter
     {
         var division = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         _view.SetupGet(view => view.Division).Returns(division.Object);
-        
+
         var tournamentId = TournamentId.New();
         division.SetupGet(d => d.TournamentId).Returns(tournamentId);
 

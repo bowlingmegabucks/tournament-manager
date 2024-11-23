@@ -31,7 +31,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = new Models.ErrorDetail(ex);
 
-            return Enumerable.Empty<Models.SquadScore>();
+            return [];
         }
     }
 }

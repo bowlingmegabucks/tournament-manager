@@ -35,6 +35,7 @@ internal class BusinessLogic : IBusinessLogic
     /// <param name="mockGetDivisionBO"></param>
     /// <param name="mockGetTournamentBO"></param>
     /// <param name="mockSearchBowlerBO"></param>
+    /// <param name="mockUpdateBowlerBO"></param>
     /// <param name="mockValidator"></param>
     /// <param name="mockDataLayer"></param>
     internal BusinessLogic(Divisions.Retrieve.IBusinessLogic mockGetDivisionBO, Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, Bowlers.Search.IBusinessLogic mockSearchBowlerBO, Bowlers.Update.IBusinessLogic mockUpdateBowlerBO, FluentValidation.IValidator<Models.Registration> mockValidator, IDataLayer mockDataLayer)
@@ -43,11 +44,11 @@ internal class BusinessLogic : IBusinessLogic
         _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => mockGetTournamentBO);
         _searchBowlerBO = new Lazy<Bowlers.Search.IBusinessLogic>(() => mockSearchBowlerBO);
         _updateBowlerBO = new Lazy<Bowlers.Update.IBusinessLogic>(() => mockUpdateBowlerBO);
-        _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(()=> mockValidator);
+        _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(() => mockValidator);
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
+    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     public async Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
     {
@@ -55,7 +56,7 @@ internal class BusinessLogic : IBusinessLogic
 
         if (_getDivisionBO.Error != null)
         {
-            Errors = new[] { _getDivisionBO.Error };
+            Errors = [_getDivisionBO.Error];
 
             return null;
         }
@@ -66,7 +67,7 @@ internal class BusinessLogic : IBusinessLogic
 
         if (GetTournamentBO.Error is not null)
         {
-            Errors = new[] { GetTournamentBO.Error };
+            Errors = [GetTournamentBO.Error];
 
             return null;
         }
@@ -95,14 +96,14 @@ internal class BusinessLogic : IBusinessLogic
 
             if (SearchBowlerBO.Error is not null)
             {
-                Errors = new[] { SearchBowlerBO.Error };
+                Errors = [SearchBowlerBO.Error];
 
                 return null;
             }
 
             if (registeredInTournament)
             {
-                Errors = new[] { new Models.ErrorDetail("Bowler already registered for this tournament") };
+                Errors = [new Models.ErrorDetail("Bowler already registered for this tournament")];
 
                 return null;
             }
@@ -123,7 +124,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex) };
+            Errors = [new Models.ErrorDetail(ex)];
 
             return null;
         }
@@ -140,7 +141,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Errors = new[] { new Models.ErrorDetail(ex) };
+            Errors = [new Models.ErrorDetail(ex)];
 
             return null;
         }

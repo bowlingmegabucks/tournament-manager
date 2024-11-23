@@ -106,7 +106,7 @@ internal sealed class ViewModel
     }
 
     [Test]
-    public void Constructor__AdvancerMapped([Values]bool advancer)
+    public void Constructor__AdvancerMapped([Values] bool advancer)
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200);
 
@@ -116,7 +116,7 @@ internal sealed class ViewModel
     }
 
     [Test]
-    public void Constructor_PlaceLessThanOrEqualToAdvancer_CasherMappedFalse([Values]bool casher)
+    public void Constructor_PlaceLessThanOrEqualToAdvancer_CasherMappedFalse([Values] bool casher)
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200);
 

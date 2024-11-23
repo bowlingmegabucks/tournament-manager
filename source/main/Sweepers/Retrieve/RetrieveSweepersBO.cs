@@ -4,7 +4,7 @@ namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;
-    
+
     public BusinessLogic(IConfiguration config)
     {
         _dataLayer = new DataLayer(config);
@@ -31,7 +31,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = new Models.ErrorDetail(ex);
 
-            return Enumerable.Empty<Models.Sweeper>();
+            return [];
         }
     }
 
@@ -59,7 +59,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = new Models.ErrorDetail(ex);
 
-            return Enumerable.Empty<BowlerId>();
+            return [];
         }
     }
 }

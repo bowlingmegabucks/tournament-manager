@@ -27,7 +27,7 @@ internal sealed class Presenter
         CancellationToken cancellationToken = default;
 
         await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
-        
+
         _adapter.Verify(adapter => adapter.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
@@ -43,7 +43,7 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Never);
         });
     }
 
@@ -65,7 +65,8 @@ internal sealed class Presenter
         var division2Score = new NortheastMegabuck.Squads.Results.ViewModel
         {
             DivisionName = "division2",
-            BowlerName = "score"
+            BowlerName = "score",
+            Handicap = 1
         };
 
         var scores = new[] { division1Score2, division2Score, division1Score1 }.GroupBy(score => score.DivisionName);
@@ -75,10 +76,10 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Exactly(2));
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Exactly(2));
 
-            _view.Verify(view => view.BindResults("division1", It.Is<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division1") == 2)), Times.Once);
-            _view.Verify(view => view.BindResults("division2", It.Is<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division2") == 1)), Times.Once);
+            _view.Verify(view => view.BindResults("division1", false, It.Is<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division1") == 2)), Times.Once);
+            _view.Verify(view => view.BindResults("division2", true, It.Is<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division2") == 1)), Times.Once);
         });
     }
 }

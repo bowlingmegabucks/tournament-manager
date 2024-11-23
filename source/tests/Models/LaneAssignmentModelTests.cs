@@ -21,7 +21,7 @@ internal sealed class LaneAssignment
                     Id = BowlerId.New()
                 },
                 Division = new NortheastMegabuck.Database.Entities.Division
-                { 
+                {
                     Id = DivisionId.New()
                 },
                 Average = 200
@@ -118,7 +118,7 @@ internal sealed class LaneAssignment
         {
             SquadId = SquadId.New(),
             Squad = new NortheastMegabuck.Database.Entities.SweeperSquad
-            { 
+            {
                 Divisions = Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperDivision>().ToList()
             },
             RegistrationId = RegistrationId.New(),
@@ -141,8 +141,8 @@ internal sealed class LaneAssignment
         handicapCalculator.Verify(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>()), Times.Never);
     }
 
-    [TestCase(null,0)]
-    [TestCase(20,20)]
+    [TestCase(null, 0)]
+    [TestCase(20, 20)]
     public void Constructor_SqaudIsSweeperSquad_HandicapMappedToSweeperDivisionHandicap(int? bonusPinsPerGame, int handicap)
     {
         var divisionId = DivisionId.New();
@@ -151,13 +151,13 @@ internal sealed class LaneAssignment
         {
             SquadId = SquadId.New(),
             Squad = new NortheastMegabuck.Database.Entities.SweeperSquad
-            { 
-                Divisions = new[]
-                { 
+            {
+                Divisions =
+                [
                     new NortheastMegabuck.Database.Entities.SweeperDivision {DivisionId = DivisionId.New(), BonusPinsPerGame = 5 },
                     new NortheastMegabuck.Database.Entities.SweeperDivision { DivisionId = divisionId, BonusPinsPerGame = bonusPinsPerGame},
                     new NortheastMegabuck.Database.Entities.SweeperDivision { DivisionId = DivisionId.New(), BonusPinsPerGame = 15}
-                }
+                ]
             },
             RegistrationId = RegistrationId.New(),
             Registration = new NortheastMegabuck.Database.Entities.Registration
@@ -211,7 +211,7 @@ internal sealed class LaneAssignment
     }
 
     [Test]
-    public void Constructor_SqaudIsSweeperSquad_SuperSweeperMapped([Values]bool superSweeper)
+    public void Constructor_SqaudIsSweeperSquad_SuperSweeperMapped([Values] bool superSweeper)
     {
         var divisionId = DivisionId.New();
 
@@ -220,11 +220,11 @@ internal sealed class LaneAssignment
             SquadId = SquadId.New(),
             Squad = new NortheastMegabuck.Database.Entities.SweeperSquad
             {
-                Divisions = new[]
-                {
+                Divisions =
+                [
                     new NortheastMegabuck.Database.Entities.SweeperDivision {DivisionId = DivisionId.New(), BonusPinsPerGame = 5 },
                     new NortheastMegabuck.Database.Entities.SweeperDivision { DivisionId = DivisionId.New(), BonusPinsPerGame = 15}
-                }
+                ]
             },
             RegistrationId = RegistrationId.New(),
             Registration = new NortheastMegabuck.Database.Entities.Registration

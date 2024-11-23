@@ -20,6 +20,7 @@ internal class Presenter
     /// </summary>
     /// <param name="mockView"></param>
     /// <param name="mockRetrieveSquadAdapter"></param>
+    /// <param name="mockCompleteSquadAdapter"></param>
     internal Presenter(IView mockView, Retrieve.IAdapter mockRetrieveSquadAdapter, Complete.IAdapter mockCompleteSquadAdapter)
     {
         _view = mockView;

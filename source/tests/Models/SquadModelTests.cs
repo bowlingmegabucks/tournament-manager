@@ -34,7 +34,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_EntryFeeMapped([Values(null, 100)] decimal? entryFee)
     {
-        var entity =new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
         {
             EntryFee = entryFee,
             Tournament = new NortheastMegabuck.Database.Entities.Tournament()

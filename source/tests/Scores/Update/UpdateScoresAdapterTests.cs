@@ -1,7 +1,4 @@
-﻿
-using NortheastMegabuck.Scores;
-
-namespace NortheastMegabuck.Tests.Scores.Update;
+﻿namespace NortheastMegabuck.Tests.Scores.Update;
 
 [TestFixture]
 internal sealed class Adapter
@@ -56,8 +53,8 @@ internal sealed class Adapter
         {
             _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count() == 3), cancellationToken), Times.Once);
 
-            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore=> squadScore.SquadId == squadId)), cancellationToken), Times.Once);
-            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore=> squadScore.Bowler.Id == score1.BowlerId) == 2), cancellationToken), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.SquadId == squadId)), cancellationToken), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.Bowler.Id == score1.BowlerId) == 2), cancellationToken), Times.Once);
             _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<NortheastMegabuck.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.Bowler.Id == score3.BowlerId) == 1), cancellationToken), Times.Once);
         });
     }
@@ -68,7 +65,7 @@ internal sealed class Adapter
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), 2);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
-        await _adapter.ExecuteAsync(Enumerable.Empty<IViewModel>(), default).ConfigureAwait(false);
+        await _adapter.ExecuteAsync([], default).ConfigureAwait(false);
 
         Assert.That(_adapter.Errors, Is.EqualTo(errors));
     }
@@ -93,7 +90,7 @@ internal sealed class Adapter
         var invalidScores = new[] { invalidScore1, invalidScore2 };
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<IEnumerable<NortheastMegabuck.Models.SquadScore>>(), It.IsAny<CancellationToken>())).ReturnsAsync(invalidScores);
 
-        var result = (await _adapter.ExecuteAsync(Enumerable.Empty<IViewModel>(), default).ConfigureAwait(false)).ToList();
+        var result = (await _adapter.ExecuteAsync([], default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

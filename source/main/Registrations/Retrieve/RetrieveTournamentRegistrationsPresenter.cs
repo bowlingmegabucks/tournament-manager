@@ -31,18 +31,19 @@ internal class TournamentRegistrationsPresenter
     /// Unit Test Constructor
     /// </summary>
     /// <param name="mockView"></param>
-    /// <param name="mockRgistrationsAdapter"></param>
+    /// <param name="mockRegistrationsAdapter"></param>
     /// <param name="mockSquadsAdapter"></param>
     /// <param name="mockSweepersAdapter"></param>
     /// <param name="mockDeleteAdapter"></param>
-    internal TournamentRegistrationsPresenter(ITournamentRegistrationsView mockView, IAdapter mockRgistrationsAdapter, Squads.Retrieve.IAdapter mockSquadsAdapter, Sweepers.Retrieve.IAdapter mockSweepersAdapter, Delete.IAdapter mockDeleteAdapter, Update.IAdapter mockUpdateAdapter)
+    /// <param name="mockUpdateAdapter"></param>
+    internal TournamentRegistrationsPresenter(ITournamentRegistrationsView mockView, IAdapter mockRegistrationsAdapter, Squads.Retrieve.IAdapter mockSquadsAdapter, Sweepers.Retrieve.IAdapter mockSweepersAdapter, Delete.IAdapter mockDeleteAdapter, Update.IAdapter mockUpdateAdapter)
     {
         _view = mockView;
-        _registrationsAdapter = mockRgistrationsAdapter;
+        _registrationsAdapter = mockRegistrationsAdapter;
         _squadsAdapter = mockSquadsAdapter;
         _sweepersAdapter = mockSweepersAdapter;
-        _deleteAdapter = new Lazy<Delete.IAdapter>(()=> mockDeleteAdapter);
-        _updateAdapter = new Lazy<Update.IAdapter>(()=> mockUpdateAdapter);
+        _deleteAdapter = new Lazy<Delete.IAdapter>(() => mockDeleteAdapter);
+        _updateAdapter = new Lazy<Update.IAdapter>(() => mockUpdateAdapter);
     }
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -60,12 +61,13 @@ internal class TournamentRegistrationsPresenter
             return;
         }
 
-        var squadsDictionary = squads.ToDictionary(squad => squad.Id, squad => squad.Date.ToString("MM/dd/yy htt", CultureInfo.CurrentCulture));
+        const string dateFormat = "MM/dd/yy hh:mmtt";
+        var squadsDictionary = squads.ToDictionary(squad => squad.Id, squad => squad.Date.ToString(dateFormat, CultureInfo.CurrentCulture));
         var squadEntries = squadsDictionary.ToDictionary(squad => squad.Value, squad => registrations.Count(registration => registration.SquadsEntered.Contains(squad.Key)));
         _view.SetSquadEntries(squadEntries);
         _view.BindSquadDates(squadsDictionary);
 
-        var sweepersDictionary = sweepers.ToDictionary(sweeper => sweeper.Id, sweeper => sweeper.Date.ToString("MM/dd/yy htt", CultureInfo.CurrentCulture));
+        var sweepersDictionary = sweepers.ToDictionary(sweeper => sweeper.Id, sweeper => sweeper.Date.ToString(dateFormat, CultureInfo.CurrentCulture));
         var sweeperEntries = sweepersDictionary.ToDictionary(sweeper => sweeper.Value, sweeper => registrations.Count(registration => registration.SweepersEntered.Contains(sweeper.Key)));
         sweeperEntries.Add("Super Sweeper", registrations.Count(registration => registration.SuperSweeperEntered));
         _view.SetSweeperEntries(sweeperEntries);
@@ -73,7 +75,7 @@ internal class TournamentRegistrationsPresenter
 
         _view.BindRegistrations(registrations.OrderBy(registration => registration.LastName).ThenBy(registration => registration.FirstName));
 
-        var divisionEntries = registrations.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Sum(r=> r.SquadsEnteredCount));
+        var divisionEntries = registrations.GroupBy(registration => registration.DivisionName).ToDictionary(g => g.Key, g => g.Sum(r => r.SquadsEnteredCount));
         _view.SetDivisionEntries(divisionEntries);
     }
 
@@ -117,9 +119,9 @@ internal class TournamentRegistrationsPresenter
 
         await UpdateAdapter.AddSuperSweeperAsync(id, cancellationToken).ConfigureAwait(false);
 
-        if (UpdateAdapter.Error is not null)
-        { 
-            _view.DisplayError(UpdateAdapter.Error.Message);
+        if (UpdateAdapter.Errors.Any())
+        {
+            _view.DisplayError(UpdateAdapter.Errors.First().Message);
 
             return;
         }

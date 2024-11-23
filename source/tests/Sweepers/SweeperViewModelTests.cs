@@ -5,7 +5,7 @@ namespace NortheastMegabuck.Tests.Sweepers;
 internal sealed class SweeperViewModelTests
 {
     private NortheastMegabuck.Models.Sweeper _model;
-    private NortheastMegabuck.Sweepers.IViewModel _viewModel;
+    private NortheastMegabuck.Sweepers.ViewModel _viewModel;
 
     [OneTimeSetUp]
     public void SetUp()

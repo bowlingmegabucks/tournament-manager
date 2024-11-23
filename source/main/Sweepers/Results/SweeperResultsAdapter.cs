@@ -27,11 +27,11 @@ internal class Adapter : IAdapter
     public async Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
         => Execute(await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false));
 
-    private static IEnumerable<IViewModel> Execute(Models.SweeperResult? result)
+    private static List<ViewModel> Execute(Models.SweeperResult? result)
     {
         if (result == null)
         {
-            return Enumerable.Empty<IViewModel>();
+            return [];
         }
 
         var scores = result.Scores.ToList();

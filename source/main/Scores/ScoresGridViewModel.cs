@@ -40,8 +40,8 @@ internal class GridViewModel : IGridViewModel
     }
 }
 
-public interface IGridViewModel
-{ 
+internal interface IGridViewModel
+{
     BowlerId BowlerId { get; set; }
 
     string LaneAssignment { get; set; }

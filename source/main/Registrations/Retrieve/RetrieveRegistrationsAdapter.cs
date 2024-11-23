@@ -2,7 +2,8 @@
 namespace NortheastMegabuck.Registrations.Retrieve;
 internal class Adapter : IAdapter
 {
-    public Models.ErrorDetail? Error { get; private set; }
+    public Models.ErrorDetail? Error
+        => _businessLogic.Error;
 
     private readonly IBusinessLogic _businessLogic;
 
@@ -12,7 +13,7 @@ internal class Adapter : IAdapter
     }
 
     /// <summary>
-    /// Unit Test Contructor
+    /// Unit Test Constructor
     /// </summary>
     /// <param name="mockBusinessLogic"></param>
     internal Adapter(IBusinessLogic mockBusinessLogic)
@@ -24,9 +25,14 @@ internal class Adapter : IAdapter
     {
         var registrations = await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        Error = _businessLogic.Error;
+        return registrations.Select(registration => new TournamentRegistrationViewModel(registration));
+    }
 
-        return registrations.Select(registration=> new TournamentRegistrationViewModel(registration));
+    async Task<ITournamentRegistrationViewModel?> IAdapter.ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
+    {
+        var registration = await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
+
+        return registration is not null ? new TournamentRegistrationViewModel(registration) : null;
     }
 }
 
@@ -35,4 +41,6 @@ internal interface IAdapter
     Models.ErrorDetail? Error { get; }
 
     Task<IEnumerable<ITournamentRegistrationViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
+
+    Task<ITournamentRegistrationViewModel?> ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
 }

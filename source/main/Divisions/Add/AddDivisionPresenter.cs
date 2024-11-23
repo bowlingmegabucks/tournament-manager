@@ -29,14 +29,14 @@ internal class Presenter
         _retrieveDivisionsAdapter = new Lazy<Retrieve.IAdapter>(() => mockRetrieveDivisionsAdapter);
         _addDivisionAdapter = new Lazy<IAdapter>(() => mockAddDivisionAdapter);
     }
-    
+
     public async Task GetNextDivisionNumberAsync(CancellationToken cancellationToken)
     {
         var divisions = await RetrieveDivisionsAdapter.ExecuteAsync(_view.Division.TournamentId, cancellationToken).ConfigureAwait(true);
 
         if (RetrieveDivisionsAdapter.Error != null)
         {
-            _view.DisplayErrors(new[] { RetrieveDivisionsAdapter.Error.Message});
+            _view.DisplayErrors([RetrieveDivisionsAdapter.Error.Message]);
         }
         else
         {

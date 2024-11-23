@@ -1,7 +1,7 @@
 ﻿namespace NortheastMegabuck.Tournaments.Add;
 internal class Adapter : IAdapter
 {
-    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = Enumerable.Empty<Models.ErrorDetail>();
+    public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly IBusinessLogic _businessLogic;
 

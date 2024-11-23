@@ -2,7 +2,7 @@
 internal class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;
-    
+
     public BusinessLogic(IConfiguration config)
     {
         _dataLayer = new DataLayer(config);
@@ -16,7 +16,7 @@ internal class BusinessLogic : IBusinessLogic
     {
         _dataLayer = mockDataLayer;
     }
-    
+
     public Models.ErrorDetail? Error { get; private set; }
 
     public async Task<IEnumerable<Models.Bowler>> ExecuteAsync(Models.BowlerSearchCriteria searchCriteria, CancellationToken cancellationToken)
@@ -29,7 +29,7 @@ internal class BusinessLogic : IBusinessLogic
         {
             Error = new Models.ErrorDetail(ex);
 
-            return Enumerable.Empty<Models.Bowler>();
+            return [];
         }
     }
 }

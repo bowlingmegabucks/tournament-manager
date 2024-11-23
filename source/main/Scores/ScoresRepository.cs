@@ -22,7 +22,7 @@ internal class Repository : IRepository
     async Task IRepository.UpdateAsync(ICollection<Database.Entities.SquadScore> scores, CancellationToken cancellationToken)
     {
         var squadId = scores.First().SquadId;
-        var existingSquadScores = _dataContext.SquadScores.Where(score => score.SquadId == squadId).ToList();
+        var existingSquadScores = await _dataContext.SquadScores.Where(score => score.SquadId == squadId).ToListAsync(cancellationToken).ConfigureAwait(false);
 
         foreach (var newSquadScore in scores)
         {
@@ -59,6 +59,29 @@ internal class Repository : IRepository
                 .ThenInclude(registration => registration.Division).ThenInclude(division => division.Sweepers)
             .Include(squadScore => squadScore.Squad)
         .Where(squadScore => squadIds.Contains(squadScore.SquadId));
+
+    public async Task<bool> DoesBowlerHaveAnyScoresForTournamentAsync(RegistrationId registrationId, TournamentId tournamentId, CancellationToken cancellationToken)
+    {
+        var tournamentSquadIds = _dataContext.Squads.AsNoTracking()
+            .Where(squad => squad.TournamentId == tournamentId)
+            .Select(squad => squad.Id);
+
+        var tournamentSweeperIds = _dataContext.Sweepers.AsNoTracking()
+            .Where(sweeper => sweeper.TournamentId == tournamentId)
+            .Select(sweeper => sweeper.Id);
+
+        var squadIds = tournamentSquadIds.Union(tournamentSweeperIds);
+
+        var bowlerId = await _dataContext.Registrations.AsNoTracking()
+            .Where(registration => registration.Id == registrationId)
+            .Select(registration => registration.BowlerId)
+            .SingleAsync(cancellationToken).ConfigureAwait(false);
+
+        var scores = _dataContext.SquadScores.AsNoTracking()
+            .Where(score => score.BowlerId == bowlerId && squadIds.Contains(score.SquadId));
+
+        return await scores.AnyAsync(cancellationToken).ConfigureAwait(false);
+    }
 }
 
 internal interface IRepository
@@ -66,4 +89,6 @@ internal interface IRepository
     Task UpdateAsync(ICollection<Database.Entities.SquadScore> scores, CancellationToken cancellationToken);
 
     IQueryable<Database.Entities.SquadScore> Retrieve(params SquadId[] squadIds);
+
+    Task<bool> DoesBowlerHaveAnyScoresForTournamentAsync(RegistrationId registrationId, TournamentId tournamentId, CancellationToken cancellationToken);
 }

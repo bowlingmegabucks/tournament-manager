@@ -1,7 +1,10 @@
 ﻿using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+#if DEBUG
 using Microsoft.Extensions.Logging;
+#endif
 
 namespace NortheastMegabuck.Database;
 
@@ -63,7 +66,6 @@ internal class DataContext : DbContext, IDataContext
 
         modelBuilder.ApplyConfiguration(new Entities.SquadScore.Configuration());
     }
-        
 
     public DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
 

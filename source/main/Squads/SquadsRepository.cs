@@ -53,7 +53,7 @@ internal class Repository : IRepository
             {
                 for (short game = 1; game <= games; game++)
                 {
-                    await _dataContext.SquadScores.AddAsync(new Database.Entities.SquadScore { BowlerId = noShow, SquadId = id, Score = -1, Game = game }, cancellationToken).ConfigureAwait(false);
+                    await _dataContext.SquadScores.AddAsync(new Database.Entities.SquadScore { BowlerId = noShow, SquadId = id, Score = 0, Game = game }, cancellationToken).ConfigureAwait(false);
                 }
             }
         }

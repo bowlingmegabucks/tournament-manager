@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
+using NortheastMegabuck.Properties;
 
 namespace NortheastMegabuck.Controls;
-public partial class SocialSecurityNumberControl : UserControl
+internal partial class SocialSecurityNumberControl : UserControl
 {
     /// <summary>
     ///
@@ -27,6 +20,7 @@ public partial class SocialSecurityNumberControl : UserControl
     /// <summary>
     ///
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool ReadOnly
     {
         get => ssnText.ReadOnly;
@@ -47,6 +41,7 @@ public partial class SocialSecurityNumberControl : UserControl
     /// <summary>
     ///
     /// </summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string Value
     {
         get => _value;
@@ -63,7 +58,7 @@ public partial class SocialSecurityNumberControl : UserControl
             {
                 verifyLink.Enabled = true;
                 ssnText.PasswordChar = '*';
-                ssnText.Text = @"000000000";
+                ssnText.Text = Resources.DummySsn;
             }
         }
     }

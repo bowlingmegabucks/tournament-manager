@@ -92,13 +92,13 @@ internal sealed class Repository
         var tournament1 = new NortheastMegabuck.Database.Entities.Tournament
         {
             Id = TournamentId.New(),
-            Divisions = new List<NortheastMegabuck.Database.Entities.Division> { division1, division2 }
+            Divisions = [division1, division2]
         };
 
         var tournament2 = new NortheastMegabuck.Database.Entities.Tournament
         {
             Id = TournamentId.New(),
-            Divisions = new List<NortheastMegabuck.Database.Entities.Division> { division3, division4 }
+            Divisions = [division3, division4]
         };
 
         var tournaments = new List<NortheastMegabuck.Database.Entities.Tournament> { tournament1, tournament2 };

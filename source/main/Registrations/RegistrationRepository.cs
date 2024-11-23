@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NortheastMegabuck.Models;
 
 namespace NortheastMegabuck.Registrations;
 
@@ -29,11 +30,11 @@ internal class Repository : IRepository
 
     async Task<Database.Entities.Registration> IRepository.AddSquadAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
-        var tournamentId = (await _dataContext.Tournaments.Include(tournament=> tournament.Squads).Include(tournament=> tournament.Sweepers).FirstAsync(tournament => tournament.Squads.Select(squad => squad.Id).Contains(squadId) || tournament.Sweepers.Select(sweeper => sweeper.Id).Contains(squadId), cancellationToken).ConfigureAwait(false)).Id;
+        var tournamentId = (await _dataContext.Tournaments.Include(tournament => tournament.Squads).Include(tournament => tournament.Sweepers).FirstAsync(tournament => tournament.Squads.Select(squad => squad.Id).Contains(squadId) || tournament.Sweepers.Select(sweeper => sweeper.Id).Contains(squadId), cancellationToken).ConfigureAwait(false)).Id;
         var registration = await _dataContext.Registrations.Include(registration => registration.Division)
-                                                     .Include(registration=> registration.Squads)
-                                                     .Include(registration=> registration.Bowler)
-                                                     .Include(registration=> registration.Division)
+                                                     .Include(registration => registration.Squads)
+                                                     .Include(registration => registration.Bowler)
+                                                     .Include(registration => registration.Division)
                                                      .FirstAsync(registration => registration.BowlerId == bowlerId && registration.Division.TournamentId == tournamentId, cancellationToken).ConfigureAwait(false);
 
         registration.Squads.Add(new Database.Entities.SquadRegistration { RegistrationId = registration.Id, SquadId = squadId });
@@ -45,7 +46,7 @@ internal class Repository : IRepository
 
     IQueryable<Database.Entities.Registration> IRepository.Retrieve(TournamentId tournamentId)
         => _dataContext.Registrations.Include(registration => registration.Division)
-            .Include(registration => registration.Squads).ThenInclude(squadRegistration=> squadRegistration.Squad)
+            .Include(registration => registration.Squads).ThenInclude(squadRegistration => squadRegistration.Squad)
             .Include(registration => registration.Bowler)
             .AsNoTracking()
             .Where(registration => registration.Division.TournamentId == tournamentId);
@@ -60,12 +61,12 @@ internal class Repository : IRepository
 
     async Task IRepository.DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
-        if (_dataContext.SquadScores.Any(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId))
+        if (await _dataContext.SquadScores.AnyAsync(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId, cancellationToken).ConfigureAwait(false))
         {
             throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
         }
 
-        var registration = await _dataContext.Registrations.Include(registration=> registration.Squads).FirstAsync(registration=> registration.BowlerId == bowlerId && registration.Squads.Count(squad=> squad.SquadId == squadId) == 1, cancellationToken).ConfigureAwait(false);
+        var registration = await _dataContext.Registrations.Include(registration => registration.Squads).FirstAsync(registration => registration.BowlerId == bowlerId && registration.Squads.Count(squad => squad.SquadId == squadId) == 1, cancellationToken).ConfigureAwait(false);
         var squad = registration.Squads.Single(squad => squad.SquadId == squadId);
 
         registration.Squads.Remove(squad);
@@ -75,7 +76,7 @@ internal class Repository : IRepository
 
     async Task IRepository.DeleteAsync(RegistrationId id, CancellationToken cancellationToken)
     {
-        var registration = await _dataContext.Registrations.Include(registration=> registration.Squads).FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
+        var registration = await _dataContext.Registrations.Include(registration => registration.Squads).FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 
         if (await _dataContext.SquadScores.AnyAsync(squadScore => squadScore.BowlerId == registration.BowlerId && registration.Squads.Select(squad => squad.SquadId).Contains(squadScore.SquadId), cancellationToken).ConfigureAwait(false))
         {
@@ -97,6 +98,24 @@ internal class Repository : IRepository
 
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
+
+    async Task IRepository.UpdateAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string? usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken)
+    {
+        var registration = await _dataContext.Registrations.FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
+        var bowler = await _dataContext.Bowlers.FirstAsync(bowler => bowler.Id == registration.BowlerId, cancellationToken).ConfigureAwait(false);
+
+        registration.Average = average;
+        registration.DivisionId = divisionId;
+        bowler.DateOfBirth = dateOfBirth;
+        bowler.Gender = gender;
+        bowler.USBCId = usbcId ?? string.Empty;
+
+        await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    async Task IRepository.UpdateAsync(RegistrationId id, int? average, CancellationToken cancellationToken)
+        => await _dataContext.Registrations.Where(registration => registration.Id == id)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(registration => registration.Average, average), cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IRepository
@@ -114,4 +133,8 @@ internal interface IRepository
     Task DeleteAsync(RegistrationId id, CancellationToken cancellationToken);
 
     Task UpdateAsync(RegistrationId id, bool superSweeper, CancellationToken cancellationToken);
+
+    Task UpdateAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string? usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken);
+
+    Task UpdateAsync(RegistrationId id, int? average, CancellationToken cancellationToken);
 }

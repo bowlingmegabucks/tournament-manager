@@ -23,7 +23,7 @@ internal sealed class Presenter
     public async Task GetTournamentDetailsAsync_RetrieveTournamentAdapterExecute_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
-        
+
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad.SetupGet(s => s.TournamentId).Returns(tournamentId);
 
@@ -50,7 +50,7 @@ internal sealed class Presenter
 
         await _presenter.GetTournamentDetailsAsync(default).ConfigureAwait(false);
 
-        Assert.Multiple(()=>
+        Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayError(error.Message), Times.Once);
 
@@ -74,7 +74,7 @@ internal sealed class Presenter
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         await _presenter.GetTournamentDetailsAsync(default).ConfigureAwait(false);
-        
+
         Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
@@ -103,7 +103,7 @@ internal sealed class Presenter
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
-        Assert.Multiple(()=>
+        Assert.Multiple(() =>
         {
             _addSquadAdapter.Verify(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Squads.IViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
 
@@ -141,9 +141,9 @@ internal sealed class Presenter
         var squad = new Mock<NortheastMegabuck.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
-        var errors = new[] 
-        { 
-            new NortheastMegabuck.Models.ErrorDetail("error1"), 
+        var errors = new[]
+        {
+            new NortheastMegabuck.Models.ErrorDetail("error1"),
             new NortheastMegabuck.Models.ErrorDetail("error2"),
             new NortheastMegabuck.Models.ErrorDetail("error3")
         };
@@ -152,7 +152,7 @@ internal sealed class Presenter
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
-        Assert.Multiple(()=>
+        Assert.Multiple(() =>
         {
             _view.Verify(view => view.DisplayError($"error1{Environment.NewLine}error2{Environment.NewLine}error3"), Times.Once);
             _view.Verify(view => view.KeepOpen(), Times.Once);

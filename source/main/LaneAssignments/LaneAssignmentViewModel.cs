@@ -1,8 +1,6 @@
 ﻿using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
-using NortheastMegabuck.LaneAssignments;
-using NortheastMegabuck.Models;
 using NortheastMegabuck.Squads;
 
 namespace NortheastMegabuck.LaneAssignments;
@@ -104,7 +102,7 @@ internal class ViewModel : IViewModel
             .Append('\t').Append(_superSweeper.HasValue ? IsSuperSweeper(_superSweeper.Value) : DivisionNumber)
             .Append('\t').Append(Handicap).ToString();
 
-    private static string IsSuperSweeper(bool superSweeper) 
+    private static string IsSuperSweeper(bool superSweeper)
         => superSweeper ? "Y" : "N";
 
     public int CompareTo(IViewModel? other)
@@ -126,7 +124,7 @@ internal class ViewModel : IViewModel
     }
 }
 
-public interface IViewModel : IComparable<IViewModel>
+internal interface IViewModel : IComparable<IViewModel>
 {
     BowlerId BowlerId { get; }
 

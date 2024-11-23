@@ -1,7 +1,4 @@
-﻿
-using System.Threading;
-
-namespace NortheastMegabuck.Registrations.Add;
+﻿namespace NortheastMegabuck.Registrations.Add;
 internal class Presenter
 {
     private readonly IView _view;
@@ -67,7 +64,7 @@ internal class Presenter
         var sweepers = await _retrieveSweepersAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
 
         Bowlers.Retrieve.IViewModel? bowler = null;
-        
+
         if (bowlerId != BowlerId.Empty)
         {
             bowler = await RetrieveBowlerAdapter.ExecuteAsync(bowlerId.Value, cancellationToken).ConfigureAwait(true);
@@ -97,13 +94,13 @@ internal class Presenter
         {
             _view.BindDivisions(divisions.OrderBy(division => division.Number));
 
-            _view.BindSquads(squads.Where(squad=> !squad.Complete).OrderBy(squad => squad.Date));
-            _view.BindSweepers(sweepers.Where(squad=> !squad.Complete).OrderBy(sweeper => sweeper.Date));
+            _view.BindSquads(squads.Where(squad => !squad.Complete).OrderBy(squad => squad.Date));
+            _view.BindSweepers(sweepers.Where(squad => !squad.Complete).OrderBy(sweeper => sweeper.Date));
 
             if (bowler is not null)
             {
                 _view.BindBowler(bowler);
-            }   
+            }
         }
     }
 
@@ -153,8 +150,8 @@ internal class Presenter
         {
             _view.BindDivisions(divisions.OrderBy(division => division.Number));
 
-            _view.BindSquads(squads.Where(squad=> !squad.Complete).OrderBy(squad => squad.Date), squadId);
-            _view.BindSweepers(sweepers.Where(sweeper=> !sweeper.Complete).OrderBy(sweeper => sweeper.Date), squadId);
+            _view.BindSquads(squads.Where(squad => !squad.Complete).OrderBy(squad => squad.Date), squadId);
+            _view.BindSweepers(sweepers.Where(sweeper => !sweeper.Complete).OrderBy(sweeper => sweeper.Date), squadId);
 
             if (bowler is not null)
             {

@@ -117,17 +117,17 @@ internal sealed class TournamentRegistrationsPresenter
         var registrations = new List<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>
         {
             new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel
-            { 
+            {
                 FirstName = "Joe",
                 LastName = "Bowler"
             },
             new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel
-            { 
+            {
                 FirstName = "John",
                 LastName = "Apples"
             },
             new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel
-            { 
+            {
                 FirstName = "Jane",
                 LastName = "Bowler"
             }
@@ -150,7 +150,7 @@ internal sealed class TournamentRegistrationsPresenter
     {
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
-        registration1.SetupGet(registration=> registration.SquadsEnteredCount).Returns(1);
+        registration1.SetupGet(registration => registration.SquadsEnteredCount).Returns(1);
 
         var registration2 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration2.SetupGet(registration => registration.DivisionName).Returns("division2");
@@ -175,7 +175,7 @@ internal sealed class TournamentRegistrationsPresenter
     }
 
     [Test]
-    public async Task ExecuteAsync_AdapterCallsHaveNoErors_ViewSetSquadEntries_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewSetSquadEntries_CalledCorrectly()
     {
         var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Id).Returns(SquadId.New());
@@ -190,15 +190,15 @@ internal sealed class TournamentRegistrationsPresenter
 
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
-        registration1.SetupGet(registration => registration.SquadsEntered).Returns(new[] { squad1.Object.Id});
+        registration1.SetupGet(registration => registration.SquadsEntered).Returns([squad1.Object.Id]);
 
         var registration2 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration2.SetupGet(registration => registration.DivisionName).Returns("division2");
-        registration2.SetupGet(registration => registration.SquadsEntered).Returns(new[] { squad1.Object.Id});
+        registration2.SetupGet(registration => registration.SquadsEntered).Returns([squad1.Object.Id]);
 
         var registration3 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration3.SetupGet(registration => registration.DivisionName).Returns("division1");
-        registration3.SetupGet(registration => registration.SquadsEntered).Returns(new[] { squad1.Object.Id, squad2.Object.Id});
+        registration3.SetupGet(registration => registration.SquadsEntered).Returns([squad1.Object.Id, squad2.Object.Id]);
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
         _registrationsAdapter.Setup(registrationAdapter => registrationAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrations);
@@ -209,13 +209,13 @@ internal sealed class TournamentRegistrationsPresenter
         {
             _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries.Count == 2)), Times.Once);
 
-            _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 9AM"] == 3)), Times.Once);
-            _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 11AM"] == 1)), Times.Once);
+            _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 09:00AM"] == 3)), Times.Once);
+            _view.Verify(view => view.SetSquadEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 11:00AM"] == 1)), Times.Once);
         });
     }
 
     [Test]
-    public async Task ExecuteAsync_AdapterCallsHaveNoErors_ViewSetSweeperdEntries_CalledCorrectly()
+    public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewSetSweepersEntries_CalledCorrectly()
     {
         var sweeper1 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         sweeper1.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
@@ -230,17 +230,17 @@ internal sealed class TournamentRegistrationsPresenter
 
         var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
-        registration1.SetupGet(registration => registration.SweepersEntered).Returns(new[] { sweeper1.Object.Id });
+        registration1.SetupGet(registration => registration.SweepersEntered).Returns([sweeper1.Object.Id]);
         registration1.SetupGet(registration => registration.SuperSweeperEntered).Returns(true);
 
         var registration2 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration2.SetupGet(registration => registration.DivisionName).Returns("division2");
-        registration2.SetupGet(registration => registration.SweepersEntered).Returns(new[] { sweeper1.Object.Id });
+        registration2.SetupGet(registration => registration.SweepersEntered).Returns([sweeper1.Object.Id]);
         registration2.SetupGet(registration => registration.SuperSweeperEntered).Returns(false);
 
         var registration3 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration3.SetupGet(registration => registration.DivisionName).Returns("division1");
-        registration3.SetupGet(registration => registration.SweepersEntered).Returns(new[] { sweeper1.Object.Id, sweeper2.Object.Id });
+        registration3.SetupGet(registration => registration.SweepersEntered).Returns([sweeper1.Object.Id, sweeper2.Object.Id]);
         registration3.SetupGet(registration => registration.SuperSweeperEntered).Returns(true);
 
         var registrations = new[] { registration1.Object, registration2.Object, registration3.Object };
@@ -252,8 +252,8 @@ internal sealed class TournamentRegistrationsPresenter
         {
             _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries.Count == 3)), Times.Once);
 
-            _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 9AM"] == 3)), Times.Once);
-            _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 11AM"] == 1)), Times.Once);
+            _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 09:00AM"] == 3)), Times.Once);
+            _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["01/01/00 11:00AM"] == 1)), Times.Once);
             _view.Verify(view => view.SetSweeperEntries(It.Is<IDictionary<string, int>>(entries => entries["Super Sweeper"] == 2)), Times.Once);
         });
     }
@@ -321,7 +321,7 @@ internal sealed class TournamentRegistrationsPresenter
 
         await _presenter.DeleteAsync(registrationId, default).ConfigureAwait(false);
 
-        _view.Verify(view=> view.RemoveRegistration(registrationId), Times.Once);
+        _view.Verify(view => view.RemoveRegistration(registrationId), Times.Once);
     }
 
     [Test]

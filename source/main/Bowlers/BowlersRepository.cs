@@ -72,14 +72,30 @@ internal class Repository : IRepository
             bowlers = bowlers.Where(bowler => bowler.Id == searchCriteria.BowlerId.Value);
         }
 
-        return searchCriteria.WithoutRegistrationOnSquads.Any()
-            ? bowlers.Where(bowler => !bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId).Intersect(searchCriteria.WithoutRegistrationOnSquads).Any())
-            : bowlers;
+        if (searchCriteria.WithoutRegistrationOnSquads.Any())
+        {
+            var excludeIds = new List<BowlerId>();
+
+            foreach (var bowler in bowlers)
+            {
+                var squadIds = bowler.Registrations.SelectMany(registration => registration.Squads).Select(squad => squad.SquadId);
+                var alreadyOnSquad = squadIds.Intersect(searchCriteria.WithoutRegistrationOnSquads).Any();
+
+                if (alreadyOnSquad)
+                {
+                    excludeIds.Add(bowler.Id);
+                }
+            }
+
+            bowlers = bowlers.Where(bowler => !excludeIds.Contains(bowler.Id));
+        }
+
+        return bowlers;
     }
 
     async Task IRepository.UpdateAsync(BowlerId id, string firstName, string middleInitial, string lastName, string suffix, CancellationToken cancellationToken)
     {
-        var bowler = _dataContext.Bowlers.Single(b => b.Id == id);
+        var bowler = await _dataContext.Bowlers.SingleAsync(b => b.Id == id, cancellationToken).ConfigureAwait(false);
 
         bowler.FirstName = firstName;
         bowler.MiddleInitial = middleInitial;
@@ -107,12 +123,20 @@ internal class Repository : IRepository
         current.SocialSecurityNumber = bowler.SocialSecurityNumber;
         current.Gender = bowler.Gender;
         current.USBCId = bowler.USBCId;
-        
+
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
     async Task<Database.Entities.Bowler> IRepository.RetrieveAsync(BowlerId id, CancellationToken cancellationToken)
         => await _dataContext.Bowlers.AsNoTracking().FirstAsync(bowler => bowler.Id == id, cancellationToken).ConfigureAwait(false);
+
+    async Task<Database.Entities.Bowler> IRepository.RetrieveAsync(RegistrationId registrationId, CancellationToken cancellationToken)
+    {
+        var bowlerId = await _dataContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId)
+            .Select(registration => registration.BowlerId).SingleAsync(cancellationToken).ConfigureAwait(false);
+
+        return await _dataContext.Bowlers.AsNoTracking().FirstAsync(bowler => bowler.Id == bowlerId, cancellationToken).ConfigureAwait(false);
+    }
 }
 
 internal interface IRepository
@@ -124,4 +148,6 @@ internal interface IRepository
     Task UpdateAsync(Database.Entities.Bowler bowler, CancellationToken cancellationToken);
 
     Task<Database.Entities.Bowler> RetrieveAsync(BowlerId id, CancellationToken cancellationToken);
+
+    Task<Database.Entities.Bowler> RetrieveAsync(RegistrationId registrationId, CancellationToken cancellationToken);
 }

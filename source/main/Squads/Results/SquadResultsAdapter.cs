@@ -59,7 +59,7 @@ internal class Adapter : IAdapter
             }
         }
 
-        return results.GroupBy(result=> result.DivisionName);
+        return results.GroupBy(result => result.DivisionName);
     }
 }
 

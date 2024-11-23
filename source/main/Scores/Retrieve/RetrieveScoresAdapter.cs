@@ -22,7 +22,7 @@ internal class Adapter : IAdapter
     }
 
     public async Task<IEnumerable<IViewModel>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
-        => (await _businessLogic.ExecuteAsync(new[] { squadId }, cancellationToken).ConfigureAwait(false)).Select(squadScore => new ViewModel(squadScore));
+        => (await _businessLogic.ExecuteAsync([squadId], cancellationToken).ConfigureAwait(false)).Select(squadScore => new ViewModel(squadScore));
 }
 
 internal interface IAdapter

@@ -1,13 +1,17 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Controls;
-public partial class PersonNameControl : UserControl, Bowlers.Update.INameViewModel
+
+[SupportedOSPlatform("windows")]
+internal partial class PersonNameControl : UserControl, Bowlers.Update.INameViewModel
 {
     public PersonNameControl()
     {
         InitializeComponent();
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public string First
     {
         get => firstNameText.Text;
@@ -25,12 +29,14 @@ public partial class PersonNameControl : UserControl, Bowlers.Update.INameViewMo
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public string MiddleInitial
     {
         get => middleInitialText.Text;
         set => middleInitialText.Text = value;
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public string Last
     {
         get => lastNameText.Text;
@@ -48,9 +54,23 @@ public partial class PersonNameControl : UserControl, Bowlers.Update.INameViewMo
         }
     }
 
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public string Suffix
     {
         get => suffixText.Text;
         set => suffixText.Text = value;
+    }
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+    public bool ReadOnly
+    {
+        get => firstNameText.ReadOnly;
+        set
+        {
+            firstNameText.ReadOnly = value;
+            middleInitialText.ReadOnly = value;
+            lastNameText.ReadOnly = value;
+            suffixText.ReadOnly = value;
+        }
     }
 }

@@ -47,6 +47,8 @@ partial class Form
         refreshAssignmentsLinkLabel = new LinkLabel();
         divisionBreakdownHeader = new Label();
         entriesPerDivisionLabel = new Label();
+        removeFromLaneAssignmentToolStripMenuItem = new ToolStripMenuItem();
+        toolStripSeparator1 = new ToolStripSeparator();
         laneAssignmentGroupBox.SuspendLayout();
         unassignedRegistrationsGroupBox.SuspendLayout();
         laneSkipGroupBox.SuspendLayout();
@@ -173,14 +175,14 @@ partial class Form
         // 
         // laneAssignmentContextMenuStrip
         // 
-        laneAssignmentContextMenuStrip.Items.AddRange(new ToolStripItem[] { deleteLaneAssignmentMenuItem });
+        laneAssignmentContextMenuStrip.Items.AddRange(new ToolStripItem[] { removeFromLaneAssignmentToolStripMenuItem, toolStripSeparator1, deleteLaneAssignmentMenuItem });
         laneAssignmentContextMenuStrip.Name = "laneAssignmentContextMenuStrip";
-        laneAssignmentContextMenuStrip.Size = new Size(183, 26);
+        laneAssignmentContextMenuStrip.Size = new Size(241, 76);
         // 
         // deleteLaneAssignmentMenuItem
         // 
         deleteLaneAssignmentMenuItem.Name = "deleteLaneAssignmentMenuItem";
-        deleteLaneAssignmentMenuItem.Size = new Size(182, 22);
+        deleteLaneAssignmentMenuItem.Size = new Size(240, 22);
         deleteLaneAssignmentMenuItem.Text = "Remove from Squad";
         deleteLaneAssignmentMenuItem.Click += DeleteLaneAssignmentMenuItem_Click;
         // 
@@ -213,6 +215,18 @@ partial class Form
         entriesPerDivisionLabel.Size = new Size(239, 629);
         entriesPerDivisionLabel.TabIndex = 12;
         entriesPerDivisionLabel.Text = "label1";
+        // 
+        // removeFromLaneAssignmentToolStripMenuItem
+        // 
+        removeFromLaneAssignmentToolStripMenuItem.Name = "removeFromLaneAssignmentToolStripMenuItem";
+        removeFromLaneAssignmentToolStripMenuItem.Size = new Size(240, 22);
+        removeFromLaneAssignmentToolStripMenuItem.Text = "Remove from Lane Assignment";
+        removeFromLaneAssignmentToolStripMenuItem.Click += RemoveFromLaneAssignmentToolStripMenuItem_Click;
+        // 
+        // toolStripSeparator1
+        // 
+        toolStripSeparator1.Name = "toolStripSeparator1";
+        toolStripSeparator1.Size = new Size(237, 6);
         // 
         // Form
         // 
@@ -261,4 +275,6 @@ partial class Form
     private LinkLabel refreshAssignmentsLinkLabel;
     private Label divisionBreakdownHeader;
     private Label entriesPerDivisionLabel;
+    private ToolStripMenuItem removeFromLaneAssignmentToolStripMenuItem;
+    private ToolStripSeparator toolStripSeparator1;
 }

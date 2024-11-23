@@ -18,7 +18,7 @@ internal sealed class Repository
     }
 
     [Test]
-    public void Search_AllSearchCriteriaNullOrWhitespace_ReturnsAllBowlers([Values(null,""," ")]string value)
+    public void Search_AllSearchCriteriaNullOrWhitespace_ReturnsAllBowlers([Values(null, "", " ")] string value)
     {
         var bowler1 = new NortheastMegabuck.Database.Entities.Bowler
         {
@@ -47,7 +47,7 @@ internal sealed class Repository
         var bowlers = new[] { bowler1, bowler2, bowler3 };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
-        
+
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria()
         {
             LastName = value,
@@ -144,7 +144,7 @@ internal sealed class Repository
         };
 
         var bowlers = new[] { bowler1, bowler2, bowler3 };
-        
+
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria()
@@ -183,7 +183,7 @@ internal sealed class Repository
             LastName = "Doe",
             EmailAddress = "janedoe@gmail.com"
         };
-        
+
         var bowler3 = new NortheastMegabuck.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
@@ -195,7 +195,7 @@ internal sealed class Repository
         var bowlers = new[] { bowler1, bowler2, bowler3 };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
-        
+
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria()
         {
             LastName = value,
@@ -267,28 +267,28 @@ internal sealed class Repository
 
         var registration1 = new NortheastMegabuck.Database.Entities.Registration
         {
-            Squads = new[] { new NortheastMegabuck.Database.Entities.SquadRegistration { SquadId = squad1 } }
+            Squads = [new NortheastMegabuck.Database.Entities.SquadRegistration { SquadId = squad1 }]
         };
 
         var registration2 = new NortheastMegabuck.Database.Entities.Registration
         {
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration { SquadId = squad2},
                 new NortheastMegabuck.Database.Entities.SquadRegistration { SquadId = squad3}
-            }
+            ]
         };
 
         var bowler = new NortheastMegabuck.Database.Entities.Bowler
         {
-            Registrations = new[] { registration1, registration2 }
+            Registrations = [registration1, registration2]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria
         {
-            WithoutRegistrationOnSquads = new[] { squad4, squad5 }
+            WithoutRegistrationOnSquads = [squad4, squad5]
         };
 
         var results = _repository.Search(searchCriteria).ToList();
@@ -307,28 +307,28 @@ internal sealed class Repository
 
         var registration1 = new NortheastMegabuck.Database.Entities.Registration
         {
-            Squads = new[] { new NortheastMegabuck.Database.Entities.SquadRegistration { SquadId = squad1 } }
+            Squads = [new NortheastMegabuck.Database.Entities.SquadRegistration { SquadId = squad1 }]
         };
 
         var registration2 = new NortheastMegabuck.Database.Entities.Registration
         {
-            Squads = new[]
-            {
+            Squads =
+            [
                 new NortheastMegabuck.Database.Entities.SquadRegistration { SquadId = squad2},
                 new NortheastMegabuck.Database.Entities.SquadRegistration { SquadId = squad3}
-            }
+            ]
         };
 
         var bowler = new NortheastMegabuck.Database.Entities.Bowler
         {
-            Registrations = new[] { registration1, registration2 }
+            Registrations = [registration1, registration2]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria
         {
-            WithoutRegistrationOnSquads = new[] { squad4, squad5,squad3 }
+            WithoutRegistrationOnSquads = [squad4, squad5, squad3]
         };
 
         var results = _repository.Search(searchCriteria).ToList();
@@ -367,7 +367,7 @@ internal sealed class Repository
 
         var bowler = new NortheastMegabuck.Database.Entities.Bowler
         {
-            Registrations = new[] { registration1, registration2, registration3 }
+            Registrations = [registration1, registration2, registration3]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
@@ -413,7 +413,7 @@ internal sealed class Repository
 
         var bowler = new NortheastMegabuck.Database.Entities.Bowler
         {
-            Registrations = new[] { registration1, registration2, registration3 }
+            Registrations = [registration1, registration2, registration3]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
@@ -459,7 +459,7 @@ internal sealed class Repository
 
         var bowler = new NortheastMegabuck.Database.Entities.Bowler
         {
-            Registrations = new[] { registration1, registration2, registration3 }
+            Registrations = [registration1, registration2, registration3]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
@@ -505,7 +505,7 @@ internal sealed class Repository
 
         var bowler = new NortheastMegabuck.Database.Entities.Bowler
         {
-            Registrations = new[] { registration1, registration2, registration3 }
+            Registrations = [registration1, registration2, registration3]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());

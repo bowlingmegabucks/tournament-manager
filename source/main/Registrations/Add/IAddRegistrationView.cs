@@ -1,17 +1,17 @@
 ﻿
 namespace NortheastMegabuck.Registrations.Add;
 internal interface IView
-{    
+{
     void DisplayError(string message);
-    
+
     void Disable();
-    
+
     void BindDivisions(IEnumerable<Divisions.IViewModel> divisions);
-    
+
     void BindSquads(IEnumerable<Squads.IViewModel> squads);
 
     void BindSquads(IEnumerable<Squads.IViewModel> squads, SquadId squadId);
-    
+
     void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers);
 
     void BindSweepers(IEnumerable<Sweepers.IViewModel> sweepers, SquadId squadId);

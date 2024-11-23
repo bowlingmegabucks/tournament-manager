@@ -1,6 +1,6 @@
 ﻿
 namespace NortheastMegabuck.Controls.Grids;
-public partial class SearchBowlersGrid
+internal partial class SearchBowlersGrid
 #if DEBUG
     : SearchBowlersMiddleGrid
 #else
@@ -17,8 +17,7 @@ public partial class SearchBowlersGrid
 }
 
 #if DEBUG
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-public class SearchBowlersMiddleGrid : DataGrid<Bowlers.Search.IViewModel>
+internal class SearchBowlersMiddleGrid : DataGrid<Bowlers.Search.IViewModel>
 {
     public SearchBowlersMiddleGrid()
     {

@@ -7,7 +7,7 @@ internal abstract class Generate
     private NortheastMegabuck.LaneAssignments.IGenerate _generator;
 
     [SetUp]
-    public void SetUp() 
+    public void SetUp()
         => _generator = InstanciateInterface();
 
     protected abstract NortheastMegabuck.LaneAssignments.IGenerate InstanciateInterface();

@@ -8,7 +8,7 @@ internal class TournamentResults
     public int Entries
         => SquadResults.Sum(squadResult => squadResult.Entries);
 
-    public IEnumerable<SquadResult> SquadResults { get; init; } = Enumerable.Empty<SquadResult>();
+    public IEnumerable<SquadResult> SquadResults { get; init; } = [];
 
     public AtLargeResults AtLarge { get; init; } = null!;
 

@@ -1,7 +1,4 @@
-﻿
-using System.Windows.Forms;
-
-namespace NortheastMegabuck.Tests.Squads.Results;
+﻿namespace NortheastMegabuck.Tests.Squads.Results;
 
 [TestFixture]
 internal sealed class BusinessLogic
@@ -33,7 +30,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveTournament.Verify(retrieveTournament=> retrieveTournament.ExecuteAsync(squadId, cancellationToken), Times.Once);
+        _retrieveTournament.Verify(retrieveTournament => retrieveTournament.ExecuteAsync(squadId, cancellationToken), Times.Once);
     }
 
     [Test]
@@ -77,7 +74,7 @@ internal sealed class BusinessLogic
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
-            Squads = new[] { pastSquad, currentSquad, futureSquad }
+            Squads = [pastSquad, currentSquad, futureSquad]
         };
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
@@ -116,7 +113,7 @@ internal sealed class BusinessLogic
 
         var tournament = new NortheastMegabuck.Models.Tournament
         {
-            Squads = new[] { currentSquad, futureSquad, pastSquad }
+            Squads = [currentSquad, futureSquad, pastSquad]
         };
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 

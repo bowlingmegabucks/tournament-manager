@@ -33,7 +33,7 @@ internal sealed class BusinessLogic
         var ex = new Exception("exception");
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        var result = await _businessLogic.ExecuteAsync(new[] { SquadId.New(), SquadId.New() }, default).ConfigureAwait(false);
+        var result = await _businessLogic.ExecuteAsync([SquadId.New(), SquadId.New()], default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -48,7 +48,7 @@ internal sealed class BusinessLogic
         var scores = new Mock<IEnumerable<NortheastMegabuck.Models.SquadScore>>();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(scores.Object);
 
-        var actual = await _businessLogic.ExecuteAsync(new[] { SquadId.New(), SquadId.New() }, default).ConfigureAwait(false);
+        var actual = await _businessLogic.ExecuteAsync([SquadId.New(), SquadId.New()], default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(scores.Object));
     }

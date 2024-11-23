@@ -25,7 +25,7 @@ internal class DataLayer : IDataLayer
     async Task<DivisionId> IDataLayer.ExecuteAsync(Models.Division division, CancellationToken cancellationToken)
     {
         var entity = _mapper.Execute(division);
-        
+
         return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
 }

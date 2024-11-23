@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NortheastMegabuck.Scores;
+﻿using NortheastMegabuck.Scores;
 
 namespace NortheastMegabuck.Tests.Scores.Update;
 

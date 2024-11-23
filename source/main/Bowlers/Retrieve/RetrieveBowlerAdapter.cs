@@ -27,6 +27,13 @@ internal class Adapter : IAdapter
 
         return bowler is not null ? new ViewModel(bowler) : null;
     }
+
+    public async Task<IViewModel?> ExecuteAsync(RegistrationId registrationId, CancellationToken cancellationToken)
+    {
+        var bowler = await _businessLogic.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
+
+        return bowler is not null ? new ViewModel(bowler) : null;
+    }
 }
 
 internal interface IAdapter
@@ -34,4 +41,6 @@ internal interface IAdapter
     Models.ErrorDetail? Error { get; }
 
     Task<IViewModel?> ExecuteAsync(BowlerId bowlerId, CancellationToken cancellationToken);
+
+    Task<IViewModel?> ExecuteAsync(RegistrationId registrationId, CancellationToken cancellationToken);
 }

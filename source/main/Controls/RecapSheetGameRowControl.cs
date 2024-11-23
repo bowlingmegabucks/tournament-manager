@@ -1,8 +1,11 @@
 ﻿
 using System.Globalization;
+using System.Runtime.Versioning;
 
 namespace NortheastMegabuck.Controls;
-public partial class RecapSheetGameRowControl : UserControl
+
+[SupportedOSPlatform("windows")]
+internal partial class RecapSheetGameRowControl : UserControl
 {
     public RecapSheetGameRowControl()
     {

@@ -39,6 +39,6 @@ internal class Presenter
         else
         {
             _view.BindResults(bowlers.OrderBy(bowler => bowler.LastName).ThenBy(bowler => bowler.FirstName));
-        } 
+        }
     }
 }

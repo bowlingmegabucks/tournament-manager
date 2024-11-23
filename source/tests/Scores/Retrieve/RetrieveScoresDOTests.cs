@@ -1,4 +1,6 @@
 ﻿
+using MockQueryable;
+
 namespace NortheastMegabuck.Tests.Scores.Retrieve;
 
 [TestFixture]
@@ -42,10 +44,10 @@ internal sealed class DataLayer
             Bowler = new NortheastMegabuck.Database.Entities.Bowler
             {
                 Id = BowlerId.New(),
-                Registrations = new[]
-                {
+                Registrations =
+                [
                     new NortheastMegabuck.Database.Entities.Registration {Division = new NortheastMegabuck.Database.Entities.Division() }
-                }
+                ]
             }
         };
 
@@ -59,17 +61,17 @@ internal sealed class DataLayer
             Bowler = new NortheastMegabuck.Database.Entities.Bowler
             {
                 Id = BowlerId.New(),
-                Registrations = new[]
-                {
+                Registrations =
+                [
                     new NortheastMegabuck.Database.Entities.Registration {Division = new NortheastMegabuck.Database.Entities.Division() }
-                }
+                ]
             }
         };
 
         var entities = new[] { entity1, entity2 };
         _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId[]>())).Returns(entities.BuildMock());
 
-        var actual = (await _dataLayer.ExecuteAsync(new[] { SquadId.New(), SquadId.New() }, default).ConfigureAwait(false)).ToList();
+        var actual = (await _dataLayer.ExecuteAsync([SquadId.New(), SquadId.New()], default).ConfigureAwait(false)).ToList();
 
         Assert.Multiple(() =>
         {

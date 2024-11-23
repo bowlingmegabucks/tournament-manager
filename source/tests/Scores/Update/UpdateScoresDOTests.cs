@@ -23,8 +23,8 @@ internal sealed class DataLayer
     {
         var scores = new List<NortheastMegabuck.Models.SquadScore>
         {
-            new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } },
-            new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
+            new() {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } },
+            new() {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
         };
 
         await _dataLayer.ExecuteAsync(scores, default).ConfigureAwait(false);
@@ -46,8 +46,8 @@ internal sealed class DataLayer
 
         var scores = new List<NortheastMegabuck.Models.SquadScore>
         {
-            new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } },
-            new NortheastMegabuck.Models.SquadScore {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
+            new() {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } },
+            new() {Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() } }
         };
 
         CancellationToken cancellationToken = default;
@@ -57,7 +57,7 @@ internal sealed class DataLayer
         {
             _repository.Verify(repository => repository.UpdateAsync(It.IsAny<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>(), cancellationToken), Times.Once);
 
-            _repository.Verify(repository => repository.UpdateAsync(It.Is<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score=> score.BowlerId == scores[0].Bowler.Id)), cancellationToken), Times.Once);
+            _repository.Verify(repository => repository.UpdateAsync(It.Is<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score => score.BowlerId == scores[0].Bowler.Id)), cancellationToken), Times.Once);
             _repository.Verify(repository => repository.UpdateAsync(It.Is<ICollection<NortheastMegabuck.Database.Entities.SquadScore>>(squadScores => squadScores.Any(score => score.BowlerId == scores[1].Bowler.Id)), cancellationToken), Times.Once);
         });
     }

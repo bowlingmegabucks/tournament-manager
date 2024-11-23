@@ -22,7 +22,7 @@ internal sealed class DateOnlyConverterTests
     {
         var dateOnlyConverter = new NortheastMegabuck.Database.DateOnlyConverter();
 
-        var dateTime = new DateTime(2000, 1, 2,3,4,5, DateTimeKind.Unspecified);
+        var dateTime = new DateTime(2000, 1, 2, 3, 4, 5, DateTimeKind.Unspecified);
 
         var fromConverter = dateOnlyConverter.ConvertFromProviderExpression.Compile();
 

@@ -70,7 +70,7 @@ internal class Division : IEquatable<Division>
     public bool Equals(Division? other)
         => other != null && Id == other.Id;
 
-    public override bool Equals(object? obj) 
+    public override bool Equals(object? obj)
         => Equals(obj as Division);
 
     public override int GetHashCode()

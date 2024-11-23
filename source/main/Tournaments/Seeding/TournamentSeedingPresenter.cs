@@ -19,7 +19,7 @@ internal class Presenter
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var scoresByDivision = (await _adapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true)).GroupBy(score=> score.DivisionName);
+        var scoresByDivision = (await _adapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true)).GroupBy(score => score.DivisionName);
 
         if (_adapter.Error != null)
         {
@@ -30,7 +30,7 @@ internal class Presenter
 
         foreach (var divisionScores in scoresByDivision)
         {
-            _view.BindResults(divisionScores.Key, divisionScores.ToList());
+            _view.BindResults(divisionScores.Key, [.. divisionScores]);
         }
     }
 }

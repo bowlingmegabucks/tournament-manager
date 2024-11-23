@@ -1,10 +1,10 @@
 ﻿
 namespace NortheastMegabuck.Models;
-internal class ErrorDetail
+internal class ErrorDetail(string message, int returnCode)
 {
-    public string Message { get; internal set; }
+    public string Message { get; internal set; } = message;
 
-    public int ReturnCode { get; internal set; }
+    public int ReturnCode { get; internal set; } = returnCode;
 
     public ErrorDetail(Exception ex) : this(ex.Message)
     {
@@ -14,11 +14,5 @@ internal class ErrorDetail
     public ErrorDetail(string message) : this(message, -1)
     {
 
-    }
-
-    public ErrorDetail(string message, int returnCode)
-    {
-        Message = message;
-        ReturnCode = returnCode;
     }
 }

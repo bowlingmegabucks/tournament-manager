@@ -6,5 +6,5 @@ internal interface IView
 
     void DisplayError(string message);
 
-    void BindResults(string divisionName, ICollection<IViewModel> scores);
+    void BindResults(string divisionName, bool isHandicap, ICollection<IViewModel> scores);
 }

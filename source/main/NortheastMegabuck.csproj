@@ -2,20 +2,20 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net9.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<RootNamespace>NortheastMegabuck</RootNamespace>
 		<UserSecretsId>745ea9ba-042a-436d-bfa8-5a5a19950236</UserSecretsId>
 		<VersionPrefix>0.8.0</VersionPrefix>
+		<VersionSuffix>rc.1</VersionSuffix>
 		<ApplicationIcon>Resources\NMT.ico</ApplicationIcon>
 		<PackageIcon>NMT.ico</PackageIcon>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<DefineConstants>STRONGLY_TYPED_ID_EMBED_ATTRIBUTES</DefineConstants>
 		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 		<NeutralLanguage>en-US</NeutralLanguage>
-		<WarningsAsErrors>true</WarningsAsErrors>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,7 +23,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <Optimize>True</Optimize>
+	  <Optimize>False</Optimize>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -38,29 +38,32 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="FluentValidation" Version="11.8.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.13" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
-		<PackageReference Include="ReportViewerCore.WinForms" Version="15.1.18" />
+		<PackageReference Include="FluentValidation" Version="11.11.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
+		<PackageReference Include="QuestPDF" Version="2024.10.3" />
 		<PackageReference Include="StronglyTypedId" Version="1.0.0-beta06" PrivateAssets="all" ExcludeAssets="compile;runtime" />
-		<PackageReference Update="SonarAnalyzer.CSharp" Version="9.12.0.78982" />
+		<PackageReference Include="System.Formats.Asn1" Version="9.0.0" />
+		<PackageReference Include="System.IO.Packaging" Version="9.0.0" />
+		<PackageReference Include="System.Security.Cryptography.Pkcs" Version="9.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="Azure.Identity" Version="1.10.2" />
-		<PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
-		<PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.5.0" />
+		<PackageReference Include="Azure.Identity" Version="1.13.1" />
+		<PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.3.2" />
+		<PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.7.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,6 +87,9 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Registrations\Update\UpdateRegistrationAverageForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="Sweepers\Portal\SweeperPortal.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
@@ -106,16 +112,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Database\Migrations\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Update="Resources\NMT.ico">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Update="Sweepers\Results\SweeperResults.rdlc">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 

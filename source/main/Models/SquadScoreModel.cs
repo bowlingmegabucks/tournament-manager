@@ -26,11 +26,12 @@ internal class SquadScore
         Score = viewModel.Score;
         Division = new Division();
     }
-    
+
     /// <summary>
     /// Sweeper Score
     /// </summary>
     /// <param name="score"></param>
+    /// <param name="handicapCalculator"></param>
     public SquadScore(Database.Entities.SquadScore score, Squads.IHandicapCalculator handicapCalculator)
     {
         SquadId = score.SquadId;
@@ -39,14 +40,14 @@ internal class SquadScore
         GameNumber = score.Game;
         Score = score.Score;
         Division = new Division(score.Bowler.Registrations.Single().Division);
-        
+
         Handicap = score.Squad is Database.Entities.SweeperSquad sweeper
             ? sweeper.Divisions.SingleOrDefault(division => division.DivisionId == Division.Id)?.BonusPinsPerGame.GetValueOrDefault(0) ?? 0
             : handicapCalculator.Calculate(score.Bowler.Registrations.Single());
     }
 
     /// <summary>
-    /// Unit Test Constuctor
+    /// Unit Test Constructor
     /// </summary>
     internal SquadScore()
     {

@@ -101,7 +101,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void FinalsRatio_GreaterThanOrEqualTo1_NoError([Values(1,2)]short games)
+    public void FinalsRatio_GreaterThanOrEqualTo1_NoError([Values(1, 2)] short games)
     {
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {

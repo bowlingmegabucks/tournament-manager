@@ -1,20 +1,26 @@
 ﻿
 using System.Text;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck.Squads.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly Dictionary<TabPage, string> _toSpreadsheet;
     internal string ToSpreadsheet()
-        => _toSpreadsheet[divisionsTabControl.SelectedTab];
+        => _toSpreadsheet[divisionsTabControl.SelectedTab!];
 
-    public Form(IConfiguration config, SquadId squadId)
+    private readonly DateTime _bowlDate;
+    private readonly Dictionary<KeyValuePair<string, bool>, IEnumerable<IViewModel>> _results = [];
+
+    public Form(IConfiguration config, SquadId squadId, DateTime bowlDate)
     {
         InitializeComponent();
 
         SquadId = squadId;
+        _bowlDate = bowlDate;
 
-        _toSpreadsheet = new Dictionary<TabPage, string>();
+        _toSpreadsheet = [];
 
         _ = new Presenter(config, this).ExecuteAsync(default);
     }
@@ -24,8 +30,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void DisplayError(string message)
         => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-    public void BindResults(string divisionName, ICollection<IViewModel> scores)
+    public void BindResults(string divisionName, bool isHandicap, ICollection<IViewModel> scores)
     {
+        _results.Add(new KeyValuePair<string, bool>(divisionName, isHandicap), scores);
+
         var tabPage = new TabPage($"{divisionName}TabPage")
         {
             Text = divisionName
@@ -35,7 +43,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         {
             Name = $"{divisionName}FlowLayoutPanel",
             Dock = DockStyle.Fill,
-            AutoScroll= true
+            AutoScroll = true
         };
 
         var toSpreadsheet = new StringBuilder();
@@ -88,4 +96,25 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void CopyToClipboardLabel_Click(object sender, EventArgs e)
         => Clipboard.SetText(ToSpreadsheet());
+
+    private void FileSaveAsPDFMenuItem_Click(object sender, EventArgs e)
+    {
+        var report = GenerateReport();
+
+        ResultReportBase<IViewModel>.GeneratePDF(report, "Squad Results");
+    }
+
+    private void FilePrintMenuItem_Click(object sender, EventArgs e)
+    {
+        var report = GenerateReport();
+
+        ResultReportBase<IViewModel>.Print(report);
+    }
+
+    private MergedDocument GenerateReport()
+    {
+        var reports = _results.Select(result => new SquadResultReport(_bowlDate, result.Key.Key, result.Key.Value, result.Value.ToList())).ToList();
+
+        return Document.Merge(reports).UseOriginalPageNumbers();
+    }
 }

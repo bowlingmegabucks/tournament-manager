@@ -2,7 +2,7 @@
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
-    
+
     public Adapter(IConfiguration config)
     {
         _businessLogic = new BusinessLogic(config);
@@ -16,7 +16,7 @@ internal class Adapter : IAdapter
     {
         _businessLogic = mockBusinessLogic;
     }
-    
+
     public Models.ErrorDetail? Error
         => _businessLogic.Error;
 
@@ -36,7 +36,7 @@ internal class Adapter : IAdapter
 }
 
 internal interface IAdapter
-{ 
+{
     Models.ErrorDetail? Error { get; }
 
     Task<IEnumerable<IViewModel>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);

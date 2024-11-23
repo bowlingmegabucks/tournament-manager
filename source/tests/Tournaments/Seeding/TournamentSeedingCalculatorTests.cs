@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NortheastMegabuck.Tests.Tournaments.Seeding;
+﻿namespace NortheastMegabuck.Tests.Tournaments.Seeding;
 
 [TestFixture]
 internal sealed class Calculator
@@ -34,27 +28,27 @@ internal sealed class Calculator
 
         var squadResult1 = new NortheastMegabuck.Models.SquadResult
         {
-            AdvancingScores = new[] { advancingScore1 },
+            AdvancingScores = [advancingScore1],
             Division = division,
-            NonQualifyingScores = new[] { nonQualifyingScore1, nonQualifyingScore2, atLargeScore1 },
+            NonQualifyingScores = [nonQualifyingScore1, nonQualifyingScore2, atLargeScore1],
             Squad = squad1
         };
 
         var squadResult2 = new NortheastMegabuck.Models.SquadResult
         {
-            AdvancingScores = new[] { advancingScore2 },
+            AdvancingScores = [advancingScore2],
             Division = division,
-            NonQualifyingScores = new[] { nonQualifyingScore3, nonQualifyingScore4 },
+            NonQualifyingScores = [nonQualifyingScore3, nonQualifyingScore4],
             Squad = squad2
         };
 
         var tournamentResult = new NortheastMegabuck.Models.TournamentResults()
         {
             Division = division,
-            SquadResults = new[] { squadResult1, squadResult2},
-            AtLarge= new NortheastMegabuck.Models.AtLargeResults
-            { 
-                AdvancingScores= new[] { atLargeScore1 },
+            SquadResults = [squadResult1, squadResult2],
+            AtLarge = new NortheastMegabuck.Models.AtLargeResults
+            {
+                AdvancingScores = [atLargeScore1],
                 DivisionId = division.Id
             }
         };
@@ -100,29 +94,29 @@ internal sealed class Calculator
 
         var squadResult1 = new NortheastMegabuck.Models.SquadResult
         {
-            AdvancingScores = new[] { advancingScore1 },
+            AdvancingScores = [advancingScore1],
             Division = division,
-            NonQualifyingScores = new[] { nonQualifyingScore1, nonQualifyingScore2, atLargeScore1 },
+            NonQualifyingScores = [nonQualifyingScore1, nonQualifyingScore2, atLargeScore1],
             Squad = squad1
         };
 
         var squadResult2 = new NortheastMegabuck.Models.SquadResult
         {
-            AdvancingScores = new[] { advancingScore2 },
+            AdvancingScores = [advancingScore2],
             Division = division,
-            NonQualifyingScores = new[] { nonQualifyingScore3, nonQualifyingScore4 },
+            NonQualifyingScores = [nonQualifyingScore3, nonQualifyingScore4],
             Squad = squad2
         };
 
         var tournamentResult = new NortheastMegabuck.Models.TournamentResults()
         {
             Division = division,
-            SquadResults = new[] { squadResult1, squadResult2 },
+            SquadResults = [squadResult1, squadResult2],
             AtLarge = new NortheastMegabuck.Models.AtLargeResults
             {
-                AdvancingScores = new[] { atLargeScore1 },
+                AdvancingScores = [atLargeScore1],
                 DivisionId = division.Id,
-                AdvancersWhoPreviouslyCashed = new[] { BowlerId.New(), BowlerId.New(), BowlerId.New()}
+                AdvancersWhoPreviouslyCashed = [BowlerId.New(), BowlerId.New(), BowlerId.New()]
             }
         };
 

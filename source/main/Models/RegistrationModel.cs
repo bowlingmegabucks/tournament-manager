@@ -29,8 +29,8 @@ internal class Registration
         Bowler = bowler;
         Division = new Division { Id = divisionId };
 
-        Squads = squads.Select(squadId=> new Squad { Id = squadId});
-        Sweepers = sweepers.Select(sweeperId=> new Sweeper { Id = sweeperId });
+        Squads = squads.Select(squadId => new Squad { Id = squadId });
+        Sweepers = sweepers.Select(sweeperId => new Sweeper { Id = sweeperId });
 
         Average = average;
         SuperSweeper = superSweeper;
@@ -42,7 +42,7 @@ internal class Registration
         Bowler = new Bowler(registration.Bowler);
         Division = new Division(registration.Division);
         Average = registration.Average;
-        Squads = registration.Squads.Select(squadRegistration=> squadRegistration.Squad).OfType<Database.Entities.TournamentSquad>().Select(squad => new Squad(squad)).ToList();
+        Squads = registration.Squads.Select(squadRegistration => squadRegistration.Squad).OfType<Database.Entities.TournamentSquad>().Select(squad => new Squad(squad)).ToList();
         Sweepers = registration.Squads.Select(squadRegistration => squadRegistration.Squad).OfType<Database.Entities.SweeperSquad>().Select(sweeper => new Sweeper(sweeper)).ToList();
         SuperSweeper = registration.SuperSweeper;
     }
@@ -55,7 +55,7 @@ internal class Registration
         Bowler = new Bowler();
         Division = new Division();
 
-        Squads = Enumerable.Empty<Squad>();
-        Sweepers = Enumerable.Empty<Sweeper>();
+        Squads = [];
+        Sweepers = [];
     }
 }

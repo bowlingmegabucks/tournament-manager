@@ -1,7 +1,8 @@
-﻿
+﻿using System.Globalization;
 using System.Text;
 
 namespace NortheastMegabuck.Models;
+
 internal class PersonName
 {
     public string First { get; set; } = string.Empty;
@@ -31,7 +32,7 @@ internal class PersonName
 
         if (!string.IsNullOrEmpty(suffix))
         {
-            name.Append($", {suffix}");
+            name.Append(CultureInfo.InvariantCulture, $", {suffix}");
         }
 
         return name.ToString();

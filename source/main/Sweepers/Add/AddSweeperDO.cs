@@ -9,7 +9,7 @@ internal class DataLayer : IDataLayer
         _mapper = new EntityMapper();
         _repository = new Repository(config);
     }
-    
+
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
@@ -20,11 +20,11 @@ internal class DataLayer : IDataLayer
         _mapper = mockMapper;
         _repository = mockRepository;
     }
-    
+
     public async Task<SquadId> ExecuteAsync(Models.Sweeper sweeper, CancellationToken cancellationToken)
     {
         var entity = _mapper.Execute(sweeper);
-        
+
         return await _repository.AddAsync(entity, cancellationToken).ConfigureAwait(false);
     }
 }
