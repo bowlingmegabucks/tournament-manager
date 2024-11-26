@@ -28,336 +28,345 @@ partial class TournamentControl
     /// </summary>
     private void InitializeComponent()
     {
-            this.components = new System.ComponentModel.Container();
-            this.nameLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.tournamentErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.nameText = new System.Windows.Forms.TextBox();
-            this.startDateLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.startDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.endDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.endDateLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.entryFeeLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.entryFeeValue = new NortheastMegabuck.Controls.NumericControl();
-            this.gamesLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.gamesValue = new NortheastMegabuck.Controls.NumericControl();
-            this.finalsRatioLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.finalsRatioValue = new NortheastMegabuck.Controls.NumericControl();
-            this.cashRatioValue = new NortheastMegabuck.Controls.NumericControl();
-            this.cashRatioLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.bowlingCenterValue = new System.Windows.Forms.TextBox();
-            this.bowlingCenterLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.CheckboxComplete = new System.Windows.Forms.CheckBox();
-            this.superSweeperCashRatioValue = new NortheastMegabuck.Controls.NumericControl();
-            this.labelSuperSweeperCashRatio = new NortheastMegabuck.Controls.LabelControl();
-            ((System.ComponentModel.ISupportInitialize)(this.tournamentErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.superSweeperCashRatioValue)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // nameLabel
-            // 
-            this.nameLabel.AutoSize = true;
-            this.nameLabel.Bold = false;
-            this.nameLabel.Location = new System.Drawing.Point(3, 3);
-            this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Required = true;
-            this.nameLabel.Size = new System.Drawing.Size(60, 19);
-            this.nameLabel.TabIndex = 101;
-            this.nameLabel.TabStop = false;
-            this.nameLabel.Text = "Name:";
-            // 
-            // tournamentErrorProvider
-            // 
-            this.tournamentErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.tournamentErrorProvider.ContainerControl = this;
-            // 
-            // nameText
-            // 
-            this.nameText.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.nameText.Location = new System.Drawing.Point(3, 28);
-            this.nameText.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.nameText.Name = "nameText";
-            this.nameText.PlaceholderText = "Tournament Name";
-            this.nameText.Size = new System.Drawing.Size(317, 27);
-            this.nameText.TabIndex = 0;
-            this.nameText.Validating += new System.ComponentModel.CancelEventHandler(this.TournamentText_Validating);
-            this.nameText.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // startDateLabel
-            // 
-            this.startDateLabel.AutoSize = true;
-            this.startDateLabel.Bold = false;
-            this.startDateLabel.Location = new System.Drawing.Point(3, 68);
-            this.startDateLabel.Name = "startDateLabel";
-            this.startDateLabel.Required = true;
-            this.startDateLabel.Size = new System.Drawing.Size(114, 19);
-            this.startDateLabel.TabIndex = 102;
-            this.startDateLabel.TabStop = false;
-            this.startDateLabel.Text = "Start Date:";
-            // 
-            // startDatePicker
-            // 
-            this.startDatePicker.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.startDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.startDatePicker.Location = new System.Drawing.Point(3, 93);
-            this.startDatePicker.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.startDatePicker.MaxDate = new System.DateTime(2200, 12, 31, 0, 0, 0, 0);
-            this.startDatePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.startDatePicker.Name = "startDatePicker";
-            this.startDatePicker.Size = new System.Drawing.Size(131, 27);
-            this.startDatePicker.TabIndex = 1;
-            this.startDatePicker.Validating += new System.ComponentModel.CancelEventHandler(this.TournamentDates_Validating);
-            this.startDatePicker.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // endDatePicker
-            // 
-            this.endDatePicker.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.endDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.endDatePicker.Location = new System.Drawing.Point(189, 93);
-            this.endDatePicker.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.endDatePicker.MaxDate = new System.DateTime(2200, 12, 31, 0, 0, 0, 0);
-            this.endDatePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
-            this.endDatePicker.Name = "endDatePicker";
-            this.endDatePicker.Size = new System.Drawing.Size(131, 27);
-            this.endDatePicker.TabIndex = 2;
-            this.endDatePicker.Validating += new System.ComponentModel.CancelEventHandler(this.TournamentDates_Validating);
-            this.endDatePicker.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // endDateLabel
-            // 
-            this.endDateLabel.AutoSize = true;
-            this.endDateLabel.Bold = false;
-            this.endDateLabel.Location = new System.Drawing.Point(189, 68);
-            this.endDateLabel.Name = "endDateLabel";
-            this.endDateLabel.Required = true;
-            this.endDateLabel.Size = new System.Drawing.Size(96, 19);
-            this.endDateLabel.TabIndex = 103;
-            this.endDateLabel.TabStop = false;
-            this.endDateLabel.Text = "End Date:";
-            // 
-            // entryFeeLabel
-            // 
-            this.entryFeeLabel.AutoSize = true;
-            this.entryFeeLabel.Bold = false;
-            this.entryFeeLabel.Location = new System.Drawing.Point(3, 133);
-            this.entryFeeLabel.Name = "entryFeeLabel";
-            this.entryFeeLabel.Required = true;
-            this.entryFeeLabel.Size = new System.Drawing.Size(105, 19);
-            this.entryFeeLabel.TabIndex = 104;
-            this.entryFeeLabel.TabStop = false;
-            this.entryFeeLabel.Text = "Entry Fee:";
-            // 
-            // entryFeeValue
-            // 
-            this.entryFeeValue.DecimalPlaces = 2;
-            this.entryFeeValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.entryFeeValue.Location = new System.Drawing.Point(3, 159);
-            this.entryFeeValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.entryFeeValue.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            131072});
-            this.entryFeeValue.Name = "entryFeeValue";
-            this.entryFeeValue.Size = new System.Drawing.Size(131, 27);
-            this.entryFeeValue.TabIndex = 3;
-            this.entryFeeValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.entryFeeValue.Validating += new System.ComponentModel.CancelEventHandler(this.EntryFeeValue_Validating);
-            this.entryFeeValue.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // gamesLabel
-            // 
-            this.gamesLabel.AutoSize = true;
-            this.gamesLabel.Bold = false;
-            this.gamesLabel.Location = new System.Drawing.Point(189, 133);
-            this.gamesLabel.Name = "gamesLabel";
-            this.gamesLabel.Required = true;
-            this.gamesLabel.Size = new System.Drawing.Size(69, 19);
-            this.gamesLabel.TabIndex = 105;
-            this.gamesLabel.TabStop = false;
-            this.gamesLabel.Text = "Games:";
-            // 
-            // gamesValue
-            // 
-            this.gamesValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.gamesValue.Location = new System.Drawing.Point(189, 159);
-            this.gamesValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.gamesValue.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-            this.gamesValue.Name = "gamesValue";
-            this.gamesValue.Size = new System.Drawing.Size(131, 27);
-            this.gamesValue.TabIndex = 4;
-            this.gamesValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.gamesValue.Validating += new System.ComponentModel.CancelEventHandler(this.GamesValue_Validating);
-            this.gamesValue.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // finalsRatioLabel
-            // 
-            this.finalsRatioLabel.AutoSize = true;
-            this.finalsRatioLabel.Bold = false;
-            this.finalsRatioLabel.Location = new System.Drawing.Point(3, 199);
-            this.finalsRatioLabel.Name = "finalsRatioLabel";
-            this.finalsRatioLabel.Required = false;
-            this.finalsRatioLabel.Size = new System.Drawing.Size(126, 19);
-            this.finalsRatioLabel.TabIndex = 106;
-            this.finalsRatioLabel.TabStop = false;
-            this.finalsRatioLabel.Text = "Finals Ratio:";
-            // 
-            // finalsRatioValue
-            // 
-            this.finalsRatioValue.DecimalPlaces = 1;
-            this.finalsRatioValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.finalsRatioValue.Location = new System.Drawing.Point(6, 225);
-            this.finalsRatioValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.finalsRatioValue.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            65536});
-            this.finalsRatioValue.Name = "finalsRatioValue";
-            this.finalsRatioValue.Size = new System.Drawing.Size(123, 27);
-            this.finalsRatioValue.TabIndex = 5;
-            this.finalsRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.finalsRatioValue.Validating += new System.ComponentModel.CancelEventHandler(this.FinalsRatioValue_Validating);
-            this.finalsRatioValue.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // cashRatioValue
-            // 
-            this.cashRatioValue.DecimalPlaces = 1;
-            this.cashRatioValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cashRatioValue.Location = new System.Drawing.Point(206, 225);
-            this.cashRatioValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.cashRatioValue.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            65536});
-            this.cashRatioValue.Name = "cashRatioValue";
-            this.cashRatioValue.Size = new System.Drawing.Size(114, 27);
-            this.cashRatioValue.TabIndex = 6;
-            this.cashRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.cashRatioValue.Validating += new System.ComponentModel.CancelEventHandler(this.CashRatioValue_Validating);
-            this.cashRatioValue.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // cashRatioLabel
-            // 
-            this.cashRatioLabel.AutoSize = true;
-            this.cashRatioLabel.Bold = false;
-            this.cashRatioLabel.Location = new System.Drawing.Point(206, 199);
-            this.cashRatioLabel.Name = "cashRatioLabel";
-            this.cashRatioLabel.Required = true;
-            this.cashRatioLabel.Size = new System.Drawing.Size(114, 19);
-            this.cashRatioLabel.TabIndex = 107;
-            this.cashRatioLabel.TabStop = false;
-            this.cashRatioLabel.Text = "Cash Ratio:";
-            // 
-            // bowlingCenterValue
-            // 
-            this.bowlingCenterValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bowlingCenterValue.Location = new System.Drawing.Point(6, 356);
-            this.bowlingCenterValue.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
-            this.bowlingCenterValue.Name = "bowlingCenterValue";
-            this.bowlingCenterValue.PlaceholderText = "AMF Lanes";
-            this.bowlingCenterValue.Size = new System.Drawing.Size(317, 27);
-            this.bowlingCenterValue.TabIndex = 8;
-            this.bowlingCenterValue.Validating += new System.ComponentModel.CancelEventHandler(this.BowlingCenterText_Validating);
-            this.bowlingCenterValue.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // bowlingCenterLabel
-            // 
-            this.bowlingCenterLabel.AutoSize = true;
-            this.bowlingCenterLabel.Bold = false;
-            this.bowlingCenterLabel.Location = new System.Drawing.Point(3, 331);
-            this.bowlingCenterLabel.Name = "bowlingCenterLabel";
-            this.bowlingCenterLabel.Required = true;
-            this.bowlingCenterLabel.Size = new System.Drawing.Size(150, 19);
-            this.bowlingCenterLabel.TabIndex = 108;
-            this.bowlingCenterLabel.TabStop = false;
-            this.bowlingCenterLabel.Text = "Bowling Center:";
-            // 
-            // CheckboxComplete
-            // 
-            this.CheckboxComplete.AutoSize = true;
-            this.CheckboxComplete.Location = new System.Drawing.Point(242, 398);
-            this.CheckboxComplete.Name = "CheckboxComplete";
-            this.CheckboxComplete.Size = new System.Drawing.Size(78, 19);
-            this.CheckboxComplete.TabIndex = 109;
-            this.CheckboxComplete.TabStop = false;
-            this.CheckboxComplete.Text = "Complete";
-            this.CheckboxComplete.UseVisualStyleBackColor = true;
-            this.CheckboxComplete.Visible = false;
-            // 
-            // superSweeperCashRatioValue
-            // 
-            this.superSweeperCashRatioValue.DecimalPlaces = 1;
-            this.superSweeperCashRatioValue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.superSweeperCashRatioValue.Location = new System.Drawing.Point(6, 291);
-            this.superSweeperCashRatioValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 10);
-            this.superSweeperCashRatioValue.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            65536});
-            this.superSweeperCashRatioValue.Name = "superSweeperCashRatioValue";
-            this.superSweeperCashRatioValue.Size = new System.Drawing.Size(80, 27);
-            this.superSweeperCashRatioValue.TabIndex = 7;
-            this.superSweeperCashRatioValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.superSweeperCashRatioValue.Validating += new System.ComponentModel.CancelEventHandler(this.SuperSweeperCashRatioValue_Validating);
-            this.superSweeperCashRatioValue.Validated += new System.EventHandler(this.Controls_Validated);
-            // 
-            // labelSuperSweeperCashRatio
-            // 
-            this.labelSuperSweeperCashRatio.AutoSize = true;
-            this.labelSuperSweeperCashRatio.Bold = false;
-            this.labelSuperSweeperCashRatio.Location = new System.Drawing.Point(3, 265);
-            this.labelSuperSweeperCashRatio.Name = "labelSuperSweeperCashRatio";
-            this.labelSuperSweeperCashRatio.Required = true;
-            this.labelSuperSweeperCashRatio.Size = new System.Drawing.Size(240, 19);
-            this.labelSuperSweeperCashRatio.TabIndex = 111;
-            this.labelSuperSweeperCashRatio.TabStop = false;
-            this.labelSuperSweeperCashRatio.Text = "Super Sweeper Cash Ratio:";
-            // 
-            // TournamentControl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.superSweeperCashRatioValue);
-            this.Controls.Add(this.labelSuperSweeperCashRatio);
-            this.Controls.Add(this.CheckboxComplete);
-            this.Controls.Add(this.bowlingCenterValue);
-            this.Controls.Add(this.bowlingCenterLabel);
-            this.Controls.Add(this.cashRatioValue);
-            this.Controls.Add(this.cashRatioLabel);
-            this.Controls.Add(this.finalsRatioValue);
-            this.Controls.Add(this.finalsRatioLabel);
-            this.Controls.Add(this.gamesValue);
-            this.Controls.Add(this.gamesLabel);
-            this.Controls.Add(this.entryFeeValue);
-            this.Controls.Add(this.entryFeeLabel);
-            this.Controls.Add(this.endDatePicker);
-            this.Controls.Add(this.endDateLabel);
-            this.Controls.Add(this.startDatePicker);
-            this.Controls.Add(this.startDateLabel);
-            this.Controls.Add(this.nameText);
-            this.Controls.Add(this.nameLabel);
-            this.Name = "TournamentControl";
-            this.Size = new System.Drawing.Size(346, 395);
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.TournamentControl_Validating);
-            ((System.ComponentModel.ISupportInitialize)(this.tournamentErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.entryFeeValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gamesValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.finalsRatioValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cashRatioValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.superSweeperCashRatioValue)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+        components = new System.ComponentModel.Container();
+        nameLabel = new LabelControl();
+        tournamentErrorProvider = new ErrorProvider(components);
+        nameText = new TextBox();
+        startDateLabel = new LabelControl();
+        startDatePicker = new DateTimePicker();
+        endDatePicker = new DateTimePicker();
+        endDateLabel = new LabelControl();
+        entryFeeLabel = new LabelControl();
+        entryFeeValue = new NumericControl();
+        gamesLabel = new LabelControl();
+        gamesValue = new NumericControl();
+        finalsRatioLabel = new LabelControl();
+        finalsRatioValue = new NumericControl();
+        cashRatioValue = new NumericControl();
+        cashRatioLabel = new LabelControl();
+        bowlingCenterValue = new TextBox();
+        bowlingCenterLabel = new LabelControl();
+        CheckboxComplete = new CheckBox();
+        superSweeperCashRatioValue = new NumericControl();
+        labelSuperSweeperCashRatio = new LabelControl();
+        finalsTo1Label = new LabelControl();
+        cashTo1Label = new LabelControl();
+        superSweeperTo1Label = new LabelControl();
+        ((System.ComponentModel.ISupportInitialize)tournamentErrorProvider).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)entryFeeValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)gamesValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)finalsRatioValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)cashRatioValue).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)superSweeperCashRatioValue).BeginInit();
+        SuspendLayout();
+        // 
+        // nameLabel
+        // 
+        nameLabel.AutoSize = true;
+        nameLabel.Location = new Point(3, 3);
+        nameLabel.Name = "nameLabel";
+        nameLabel.Required = true;
+        nameLabel.Size = new Size(60, 19);
+        nameLabel.TabIndex = 101;
+        nameLabel.TabStop = false;
+        nameLabel.Text = "Name:";
+        // 
+        // tournamentErrorProvider
+        // 
+        tournamentErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+        tournamentErrorProvider.ContainerControl = this;
+        // 
+        // nameText
+        // 
+        nameText.Font = new Font("Segoe UI", 11F);
+        nameText.Location = new Point(3, 28);
+        nameText.Margin = new Padding(3, 3, 3, 10);
+        nameText.Name = "nameText";
+        nameText.PlaceholderText = "Tournament Name";
+        nameText.Size = new Size(317, 27);
+        nameText.TabIndex = 0;
+        nameText.Validating += TournamentText_Validating;
+        nameText.Validated += Controls_Validated;
+        // 
+        // startDateLabel
+        // 
+        startDateLabel.AutoSize = true;
+        startDateLabel.Location = new Point(3, 68);
+        startDateLabel.Name = "startDateLabel";
+        startDateLabel.Required = true;
+        startDateLabel.Size = new Size(114, 19);
+        startDateLabel.TabIndex = 102;
+        startDateLabel.TabStop = false;
+        startDateLabel.Text = "Start Date:";
+        // 
+        // startDatePicker
+        // 
+        startDatePicker.Font = new Font("Segoe UI", 11F);
+        startDatePicker.Format = DateTimePickerFormat.Short;
+        startDatePicker.Location = new Point(3, 93);
+        startDatePicker.Margin = new Padding(3, 3, 3, 10);
+        startDatePicker.MaxDate = new DateTime(2200, 12, 31, 0, 0, 0, 0);
+        startDatePicker.MinDate = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+        startDatePicker.Name = "startDatePicker";
+        startDatePicker.Size = new Size(131, 27);
+        startDatePicker.TabIndex = 1;
+        startDatePicker.Validating += TournamentDates_Validating;
+        startDatePicker.Validated += Controls_Validated;
+        // 
+        // endDatePicker
+        // 
+        endDatePicker.Font = new Font("Segoe UI", 11F);
+        endDatePicker.Format = DateTimePickerFormat.Short;
+        endDatePicker.Location = new Point(179, 93);
+        endDatePicker.Margin = new Padding(3, 3, 3, 10);
+        endDatePicker.MaxDate = new DateTime(2200, 12, 31, 0, 0, 0, 0);
+        endDatePicker.MinDate = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+        endDatePicker.Name = "endDatePicker";
+        endDatePicker.Size = new Size(131, 27);
+        endDatePicker.TabIndex = 2;
+        endDatePicker.Validating += TournamentDates_Validating;
+        endDatePicker.Validated += Controls_Validated;
+        // 
+        // endDateLabel
+        // 
+        endDateLabel.AutoSize = true;
+        endDateLabel.Location = new Point(179, 68);
+        endDateLabel.Name = "endDateLabel";
+        endDateLabel.Required = true;
+        endDateLabel.Size = new Size(96, 19);
+        endDateLabel.TabIndex = 103;
+        endDateLabel.TabStop = false;
+        endDateLabel.Text = "End Date:";
+        // 
+        // entryFeeLabel
+        // 
+        entryFeeLabel.AutoSize = true;
+        entryFeeLabel.Location = new Point(3, 133);
+        entryFeeLabel.Name = "entryFeeLabel";
+        entryFeeLabel.Required = true;
+        entryFeeLabel.Size = new Size(105, 19);
+        entryFeeLabel.TabIndex = 104;
+        entryFeeLabel.TabStop = false;
+        entryFeeLabel.Text = "Entry Fee:";
+        // 
+        // entryFeeValue
+        // 
+        entryFeeValue.DecimalPlaces = 2;
+        entryFeeValue.Font = new Font("Segoe UI", 11F);
+        entryFeeValue.Location = new Point(3, 159);
+        entryFeeValue.Margin = new Padding(3, 4, 3, 10);
+        entryFeeValue.Maximum = new decimal(new int[] { 99999, 0, 0, 131072 });
+        entryFeeValue.Name = "entryFeeValue";
+        entryFeeValue.Size = new Size(131, 27);
+        entryFeeValue.TabIndex = 3;
+        entryFeeValue.TextAlign = HorizontalAlignment.Right;
+        entryFeeValue.Validating += EntryFeeValue_Validating;
+        entryFeeValue.Validated += Controls_Validated;
+        // 
+        // gamesLabel
+        // 
+        gamesLabel.AutoSize = true;
+        gamesLabel.Location = new Point(179, 133);
+        gamesLabel.Name = "gamesLabel";
+        gamesLabel.Required = true;
+        gamesLabel.Size = new Size(69, 19);
+        gamesLabel.TabIndex = 105;
+        gamesLabel.TabStop = false;
+        gamesLabel.Text = "Games:";
+        // 
+        // gamesValue
+        // 
+        gamesValue.Font = new Font("Segoe UI", 11F);
+        gamesValue.Location = new Point(179, 159);
+        gamesValue.Margin = new Padding(3, 4, 3, 10);
+        gamesValue.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+        gamesValue.Name = "gamesValue";
+        gamesValue.Size = new Size(131, 27);
+        gamesValue.TabIndex = 4;
+        gamesValue.TextAlign = HorizontalAlignment.Right;
+        gamesValue.Validating += GamesValue_Validating;
+        gamesValue.Validated += Controls_Validated;
+        // 
+        // finalsRatioLabel
+        // 
+        finalsRatioLabel.AutoSize = true;
+        finalsRatioLabel.Location = new Point(3, 199);
+        finalsRatioLabel.Name = "finalsRatioLabel";
+        finalsRatioLabel.Required = false;
+        finalsRatioLabel.Size = new Size(126, 19);
+        finalsRatioLabel.TabIndex = 106;
+        finalsRatioLabel.TabStop = false;
+        finalsRatioLabel.Text = "Finals Ratio:";
+        // 
+        // finalsRatioValue
+        // 
+        finalsRatioValue.DecimalPlaces = 1;
+        finalsRatioValue.Font = new Font("Segoe UI", 11F);
+        finalsRatioValue.Location = new Point(6, 225);
+        finalsRatioValue.Margin = new Padding(3, 4, 3, 10);
+        finalsRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
+        finalsRatioValue.Name = "finalsRatioValue";
+        finalsRatioValue.Size = new Size(123, 27);
+        finalsRatioValue.TabIndex = 5;
+        finalsRatioValue.TextAlign = HorizontalAlignment.Right;
+        finalsRatioValue.Validating += FinalsRatioValue_Validating;
+        finalsRatioValue.Validated += Controls_Validated;
+        // 
+        // cashRatioValue
+        // 
+        cashRatioValue.DecimalPlaces = 1;
+        cashRatioValue.Font = new Font("Segoe UI", 11F);
+        cashRatioValue.Location = new Point(179, 225);
+        cashRatioValue.Margin = new Padding(3, 4, 3, 10);
+        cashRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
+        cashRatioValue.Name = "cashRatioValue";
+        cashRatioValue.Size = new Size(114, 27);
+        cashRatioValue.TabIndex = 6;
+        cashRatioValue.TextAlign = HorizontalAlignment.Right;
+        cashRatioValue.Validating += CashRatioValue_Validating;
+        cashRatioValue.Validated += Controls_Validated;
+        // 
+        // cashRatioLabel
+        // 
+        cashRatioLabel.AutoSize = true;
+        cashRatioLabel.Location = new Point(179, 199);
+        cashRatioLabel.Name = "cashRatioLabel";
+        cashRatioLabel.Required = true;
+        cashRatioLabel.Size = new Size(114, 19);
+        cashRatioLabel.TabIndex = 107;
+        cashRatioLabel.TabStop = false;
+        cashRatioLabel.Text = "Cash Ratio:";
+        // 
+        // bowlingCenterValue
+        // 
+        bowlingCenterValue.Font = new Font("Segoe UI", 11F);
+        bowlingCenterValue.Location = new Point(6, 356);
+        bowlingCenterValue.Margin = new Padding(3, 3, 3, 10);
+        bowlingCenterValue.Name = "bowlingCenterValue";
+        bowlingCenterValue.PlaceholderText = "AMF Lanes";
+        bowlingCenterValue.Size = new Size(317, 27);
+        bowlingCenterValue.TabIndex = 8;
+        bowlingCenterValue.Validating += BowlingCenterText_Validating;
+        bowlingCenterValue.Validated += Controls_Validated;
+        // 
+        // bowlingCenterLabel
+        // 
+        bowlingCenterLabel.AutoSize = true;
+        bowlingCenterLabel.Location = new Point(3, 331);
+        bowlingCenterLabel.Name = "bowlingCenterLabel";
+        bowlingCenterLabel.Required = true;
+        bowlingCenterLabel.Size = new Size(150, 19);
+        bowlingCenterLabel.TabIndex = 108;
+        bowlingCenterLabel.TabStop = false;
+        bowlingCenterLabel.Text = "Bowling Center:";
+        // 
+        // CheckboxComplete
+        // 
+        CheckboxComplete.AutoSize = true;
+        CheckboxComplete.Location = new Point(242, 398);
+        CheckboxComplete.Name = "CheckboxComplete";
+        CheckboxComplete.Size = new Size(78, 19);
+        CheckboxComplete.TabIndex = 109;
+        CheckboxComplete.TabStop = false;
+        CheckboxComplete.Text = "Complete";
+        CheckboxComplete.UseVisualStyleBackColor = true;
+        CheckboxComplete.Visible = false;
+        // 
+        // superSweeperCashRatioValue
+        // 
+        superSweeperCashRatioValue.DecimalPlaces = 1;
+        superSweeperCashRatioValue.Font = new Font("Segoe UI", 11F);
+        superSweeperCashRatioValue.Location = new Point(6, 291);
+        superSweeperCashRatioValue.Margin = new Padding(3, 4, 3, 10);
+        superSweeperCashRatioValue.Maximum = new decimal(new int[] { 999, 0, 0, 65536 });
+        superSweeperCashRatioValue.Name = "superSweeperCashRatioValue";
+        superSweeperCashRatioValue.Size = new Size(80, 27);
+        superSweeperCashRatioValue.TabIndex = 7;
+        superSweeperCashRatioValue.TextAlign = HorizontalAlignment.Right;
+        superSweeperCashRatioValue.Validating += SuperSweeperCashRatioValue_Validating;
+        superSweeperCashRatioValue.Validated += Controls_Validated;
+        // 
+        // labelSuperSweeperCashRatio
+        // 
+        labelSuperSweeperCashRatio.AutoSize = true;
+        labelSuperSweeperCashRatio.Location = new Point(3, 265);
+        labelSuperSweeperCashRatio.Name = "labelSuperSweeperCashRatio";
+        labelSuperSweeperCashRatio.Required = true;
+        labelSuperSweeperCashRatio.Size = new Size(240, 19);
+        labelSuperSweeperCashRatio.TabIndex = 111;
+        labelSuperSweeperCashRatio.TabStop = false;
+        labelSuperSweeperCashRatio.Text = "Super Sweeper Cash Ratio:";
+        // 
+        // finalsTo1Label
+        // 
+        finalsTo1Label.AutoSize = true;
+        finalsTo1Label.Location = new Point(135, 227);
+        finalsTo1Label.Name = "finalsTo1Label";
+        finalsTo1Label.Required = false;
+        finalsTo1Label.Size = new Size(38, 19);
+        finalsTo1Label.TabIndex = 123;
+        finalsTo1Label.TabStop = false;
+        finalsTo1Label.Text = ": 1";
+        // 
+        // cashTo1Label
+        // 
+        cashTo1Label.AutoSize = true;
+        cashTo1Label.Location = new Point(299, 227);
+        cashTo1Label.Name = "cashTo1Label";
+        cashTo1Label.Required = false;
+        cashTo1Label.Size = new Size(38, 19);
+        cashTo1Label.TabIndex = 124;
+        cashTo1Label.TabStop = false;
+        cashTo1Label.Text = ": 1";
+        // 
+        // superSweeperTo1Label
+        // 
+        superSweeperTo1Label.AutoSize = true;
+        superSweeperTo1Label.Location = new Point(92, 293);
+        superSweeperTo1Label.Name = "superSweeperTo1Label";
+        superSweeperTo1Label.Required = false;
+        superSweeperTo1Label.Size = new Size(44, 19);
+        superSweeperTo1Label.TabIndex = 125;
+        superSweeperTo1Label.TabStop = false;
+        superSweeperTo1Label.Text = ": 1";
+        // 
+        // TournamentControl
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(superSweeperTo1Label);
+        Controls.Add(cashTo1Label);
+        Controls.Add(finalsTo1Label);
+        Controls.Add(superSweeperCashRatioValue);
+        Controls.Add(labelSuperSweeperCashRatio);
+        Controls.Add(CheckboxComplete);
+        Controls.Add(bowlingCenterValue);
+        Controls.Add(bowlingCenterLabel);
+        Controls.Add(cashRatioValue);
+        Controls.Add(cashRatioLabel);
+        Controls.Add(finalsRatioValue);
+        Controls.Add(finalsRatioLabel);
+        Controls.Add(gamesValue);
+        Controls.Add(gamesLabel);
+        Controls.Add(entryFeeValue);
+        Controls.Add(entryFeeLabel);
+        Controls.Add(endDatePicker);
+        Controls.Add(endDateLabel);
+        Controls.Add(startDatePicker);
+        Controls.Add(startDateLabel);
+        Controls.Add(nameText);
+        Controls.Add(nameLabel);
+        Name = "TournamentControl";
+        Size = new Size(346, 395);
+        Validating += TournamentControl_Validating;
+        ((System.ComponentModel.ISupportInitialize)tournamentErrorProvider).EndInit();
+        ((System.ComponentModel.ISupportInitialize)entryFeeValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)gamesValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)finalsRatioValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)cashRatioValue).EndInit();
+        ((System.ComponentModel.ISupportInitialize)superSweeperCashRatioValue).EndInit();
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
@@ -382,4 +391,7 @@ partial class TournamentControl
     private TextBox nameText;
     private NumericControl superSweeperCashRatioValue;
     private LabelControl labelSuperSweeperCashRatio;
+    private LabelControl superSweeperTo1Label;
+    private LabelControl cashTo1Label;
+    private LabelControl finalsTo1Label;
 }

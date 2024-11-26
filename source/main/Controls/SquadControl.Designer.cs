@@ -248,7 +248,7 @@ partial class SquadControl
         cashTo1Label.Location = new Point(328, 97);
         cashTo1Label.Name = "cashTo1Label";
         cashTo1Label.Required = false;
-        cashTo1Label.Size = new Size(46, 19);
+        cashTo1Label.Size = new Size(43, 19);
         cashTo1Label.TabIndex = 123;
         cashTo1Label.TabStop = false;
         cashTo1Label.Text = ": 1";
