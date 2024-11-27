@@ -43,9 +43,9 @@ partial class UpdateRegistrationAverageForm
         // 
         personName.Location = new Point(12, 12);
         personName.Name = "personName";
+        personName.ReadOnly = true;
         personName.Size = new Size(566, 63);
         personName.TabIndex = 0;
-        personName.ReadOnly = true;
         // 
         // averageValue
         // 
