@@ -61,7 +61,8 @@ internal partial class PersonNameControl : UserControl, Bowlers.Update.INameView
         set => suffixText.Text = value;
     }
 
-    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+    [Browsable(true)]
     public bool ReadOnly
     {
         get => firstNameText.ReadOnly;
