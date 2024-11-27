@@ -53,6 +53,7 @@ partial class UpdateRegistrationDivisionForm
         personName.Name = "personName";
         personName.Size = new Size(566, 63);
         personName.TabIndex = 0;
+        personName.ReadOnly = true;
         // 
         // usbcIdLabel
         // 
