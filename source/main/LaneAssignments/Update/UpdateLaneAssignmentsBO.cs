@@ -26,22 +26,30 @@ internal class BusinessLogic : IBusinessLogic
 
     async Task IBusinessLogic.ExecuteAsync(SquadId squadId, BowlerId bowlerId, string originalPosition, string updatedPosition, CancellationToken cancellationToken)
     {
-        var existingLaneAssignment = await _retrieveLaneAssignment.ExecuteAsync(squadId, bowlerId, cancellationToken).ConfigureAwait(false);
+        var bowlerExistingAssignment = await _retrieveLaneAssignment.ExecuteAsync(squadId, bowlerId, cancellationToken).ConfigureAwait(false);
 
-        if (existingLaneAssignment is null)
+        if (bowlerExistingAssignment is null)
         {
             Error = new Models.ErrorDetail($"Bowler is not registered for squad");
             return;
         }
 
-        if (existingLaneAssignment.Position == updatedPosition)
+        if (bowlerExistingAssignment.Position == updatedPosition)
         {
             return;
         }
 
-        if (existingLaneAssignment.Position != originalPosition)
+        if (bowlerExistingAssignment.Position != originalPosition)
         {
             Error = new Models.ErrorDetail($"Bowler has already been moved from {originalPosition}.  Please refresh and verify correct lane assignment");
+            return;
+        }
+
+        var existingLaneAssignments = await _retrieveLaneAssignment.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
+
+        if (!string.IsNullOrWhiteSpace(updatedPosition) && existingLaneAssignments.Any(laneAssignment => laneAssignment.Position == updatedPosition))
+        {
+            Error = new Models.ErrorDetail($"Lane {updatedPosition} is already assigned.  Please refresh for updated lane assignments");
             return;
         }
 
