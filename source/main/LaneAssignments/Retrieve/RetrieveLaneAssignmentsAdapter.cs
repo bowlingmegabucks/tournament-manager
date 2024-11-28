@@ -21,7 +21,10 @@ internal class Adapter : IAdapter
     }
 
     async Task<IEnumerable<IViewModel>> IAdapter.ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
-        => (await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false)).Select(laneAssignment => new ViewModel(laneAssignment));
+        => (await _businessLogic.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false))
+            .OrderBy(laneAssignment => laneAssignment.Bowler.Name.Last)
+            .ThenBy(laneAssignment => laneAssignment.Bowler.Name.First)
+            .Select(laneAssignment => new ViewModel(laneAssignment));
 }
 
 internal interface IAdapter
