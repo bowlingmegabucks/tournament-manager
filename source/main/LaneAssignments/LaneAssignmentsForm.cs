@@ -122,7 +122,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
             var oldLane = laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(lane => lane.LaneAssignment == registration.LaneAssignment);
             oldLane.ClearRegistration();
             oldLane.ContextMenuStrip = null;
+
             LaneAssignmentRegistered_Leave(oldLane, new EventArgs());
+            AddOpenLaneEventsToOpenLane(oldLane);
         }
 
         RemoveOpenLaneEventsFromAssignedLane(openLane);
