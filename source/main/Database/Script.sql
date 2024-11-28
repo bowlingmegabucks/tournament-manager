@@ -70,7 +70,7 @@ CREATE INDEX `IX_Squads_TournamentId` ON `Squads` (`TournamentId`);
 CREATE INDEX `IX_SweeperDivision_DivisionId` ON `SweeperDivision` (`DivisionId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220527183020_TournamentEntities', '6.0.10');
+VALUES ('20220527183020_TournamentEntities', '8.0.11');
 
 COMMIT;
 
@@ -95,7 +95,7 @@ CREATE TABLE `Bowlers` (
 ) CHARACTER SET=utf8mb4;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220615233907_BowlerEntity', '6.0.10');
+VALUES ('20220615233907_BowlerEntity', '8.0.11');
 
 COMMIT;
 
@@ -106,7 +106,7 @@ ALTER TABLE `Squads` ADD `NumberOfLanes` smallint NOT NULL DEFAULT 0;
 ALTER TABLE `Squads` ADD `StartingLane` smallint NOT NULL DEFAULT 0;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220622145345_StartingAndNumberOfLanes', '6.0.10');
+VALUES ('20220622145345_StartingAndNumberOfLanes', '8.0.11');
 
 COMMIT;
 
@@ -137,7 +137,7 @@ CREATE INDEX `IX_Registrations_DivisionId` ON `Registrations` (`DivisionId`);
 CREATE INDEX `IX_SquadRegistration_SquadId` ON `SquadRegistration` (`SquadId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220816235947_AddRegistration', '6.0.10');
+VALUES ('20220816235947_AddRegistration', '8.0.11');
 
 COMMIT;
 
@@ -146,7 +146,7 @@ START TRANSACTION;
 ALTER TABLE `SquadRegistration` ADD `LaneAssignment` varchar(3) CHARACTER SET utf8mb4 NOT NULL DEFAULT '';
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20220831173955_SquadLaneAssignment', '6.0.10');
+VALUES ('20220831173955_SquadLaneAssignment', '8.0.11');
 
 COMMIT;
 
@@ -165,7 +165,7 @@ CREATE TABLE `SquadScores` (
 CREATE INDEX `IX_SquadScores_SquadId` ON `SquadScores` (`SquadId`);
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20221017125314_SquadScores', '6.0.10');
+VALUES ('20221017125314_SquadScores', '8.0.11');
 
 COMMIT;
 
@@ -174,22 +174,18 @@ START TRANSACTION;
 ALTER TABLE `Tournaments` ADD `SuperSweperCashRatio` decimal(3,1) NOT NULL DEFAULT 0.0;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20221020195709_SuperSweeperCashRatio', '6.0.10');
+VALUES ('20221020195709_SuperSweeperCashRatio', '8.0.11');
 
 COMMIT;
-
---v0.7.0
 
 START TRANSACTION;
 
 ALTER TABLE `Bowlers` ADD `SocialSecurityNumber` longtext CHARACTER SET utf8mb4 NOT NULL;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20230316131029_BowlerSSN', '7.0.4');
+VALUES ('20230316131029_BowlerSSN', '8.0.11');
 
 COMMIT;
-
---v0.8.0
 
 START TRANSACTION;
 
@@ -198,6 +194,18 @@ ALTER TABLE `Squads` RENAME COLUMN `EntryFee` TO `SweeperEntryFee`;
 ALTER TABLE `Squads` ADD `SquadEntryFee` decimal(5,2) NULL;
 
 INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
-VALUES ('20230802154109_TournamentSquadEntryFee', '7.0.9');
+VALUES ('20230802154109_TournamentSquadEntryFee', '8.0.11');
 
 COMMIT;
+
+START TRANSACTION;
+
+ALTER TABLE `Registrations` DROP KEY `AK_Registrations_BowlerId_DivisionId`;
+
+CREATE UNIQUE INDEX `IX_Registrations_BowlerId_DivisionId` ON `Registrations` (`BowlerId`, `DivisionId`);
+
+INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+VALUES ('20241128140948_RegistrationAltKeyToIndex', '8.0.11');
+
+COMMIT;
+

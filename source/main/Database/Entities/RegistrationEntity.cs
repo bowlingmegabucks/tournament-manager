@@ -35,7 +35,7 @@ internal class Registration
             builder.Property(registration => registration.BowlerId).HasConversion<BowlerId.EfCoreValueConverter>();
             builder.Property(registration => registration.DivisionId).HasConversion<DivisionId.EfCoreValueConverter>();
 
-            builder.HasAlternateKey(registration => new { registration.BowlerId, registration.DivisionId });
+            builder.HasIndex(registration => new { registration.BowlerId, registration.DivisionId }).IsUnique();
 
             builder.HasOne(registration => registration.Bowler)
                    .WithMany(bowler => bowler.Registrations)
