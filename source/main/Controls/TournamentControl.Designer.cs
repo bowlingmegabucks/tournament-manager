@@ -314,7 +314,7 @@ partial class TournamentControl
         cashTo1Label.Location = new Point(299, 227);
         cashTo1Label.Name = "cashTo1Label";
         cashTo1Label.Required = false;
-        cashTo1Label.Size = new Size(38, 19);
+        cashTo1Label.Size = new Size(117, 19);
         cashTo1Label.TabIndex = 124;
         cashTo1Label.TabStop = false;
         cashTo1Label.Text = ": 1";
@@ -325,7 +325,7 @@ partial class TournamentControl
         superSweeperTo1Label.Location = new Point(92, 293);
         superSweeperTo1Label.Name = "superSweeperTo1Label";
         superSweeperTo1Label.Required = false;
-        superSweeperTo1Label.Size = new Size(44, 19);
+        superSweeperTo1Label.Size = new Size(117, 19);
         superSweeperTo1Label.TabIndex = 125;
         superSweeperTo1Label.TabStop = false;
         superSweeperTo1Label.Text = ": 1";
