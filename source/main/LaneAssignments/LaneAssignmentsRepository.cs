@@ -39,10 +39,19 @@ internal class Repository : IRepository
 
     async Task<Database.Entities.SquadRegistration> IRepository.RetrieveAsync(SquadId squadId, BowlerId bowlerId, CancellationToken cancellationToken)
     {
-        var registrations = _dataContext.Registrations
-            .Include(registration => registration.Squads)
-            .ThenInclude(squad => squad.Squad)
-            .Include(registration => registration.Division)
+        var isSquad = await _dataContext.Squads.AnyAsync(squad => squad.Id == squadId, cancellationToken).ConfigureAwait(false);
+
+        var registrations = isSquad
+            ? _dataContext.Registrations
+                .Include(registration => registration.Squads)
+                    .ThenInclude(squad => squad.Squad)
+                .Include(registration => registration.Division)
+                .Where(registration => registration.Squads.Select(squad => squad.SquadId).Contains(squadId))
+            : _dataContext.Registrations
+                .Include(registration => registration.Squads)
+                    .ThenInclude(squad => squad.Squad)
+                        .ThenInclude(sweeper => (sweeper as Database.Entities.SweeperSquad)!.Divisions)
+                .Include(registration => registration.Division)
             .Where(registration => registration.Squads.Select(squad => squad.SquadId).Contains(squadId));
 
         return (await registrations
