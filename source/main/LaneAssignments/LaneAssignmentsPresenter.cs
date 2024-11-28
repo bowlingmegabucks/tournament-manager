@@ -94,6 +94,7 @@ internal class Presenter
         if (UpdateAdapter.Error != null)
         {
             _view.DisplayError(UpdateAdapter.Error.Message);
+            _view.ClearHighlights();
 
             return;
         }

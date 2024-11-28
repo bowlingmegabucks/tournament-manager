@@ -34,6 +34,11 @@ internal class BusinessLogic : IBusinessLogic
             return;
         }
 
+        if (existingLaneAssignment.Position == updatedPosition)
+        {
+            return;
+        }
+
         if (existingLaneAssignment.Position != originalPosition)
         {
             Error = new Models.ErrorDetail($"Bowler has already been moved from {originalPosition}.  Please refresh and verify correct lane assignment");
