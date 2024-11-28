@@ -2,495 +2,500 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NortheastMegabuck.Database;
 
 #nullable disable
 
-namespace NortheastMegabuck.Database.Migrations;
-
-[DbContext(typeof(DataContext))]
-partial class DataContextModelSnapshot : ModelSnapshot
+namespace NortheastMegabuck.Database.Migrations
 {
-    protected override void BuildModel(ModelBuilder modelBuilder)
+    [DbContext(typeof(DataContext))]
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
+        protected override void BuildModel(ModelBuilder modelBuilder)
+        {
 #pragma warning disable 612, 618
-        modelBuilder
-            .HasAnnotation("ProductVersion", "7.0.9")
-            .HasAnnotation("Relational:MaxIdentifierLength", 64);
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Bowler", b =>
-            {
-                b.Property<Guid>("Id")
-                    .HasColumnType("char(36)");
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-                b.Property<string>("CityAddress")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Bowler", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.Property<DateTime?>("DateOfBirth")
-                    .HasColumnType("datetime(6)");
+                    b.Property<string>("CityAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<string>("EmailAddress")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime(6)");
 
-                b.Property<string>("FirstName")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<int?>("Gender")
-                    .HasColumnType("int");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<string>("LastName")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
 
-                b.Property<string>("MiddleInitial")
-                    .IsRequired()
-                    .HasMaxLength(1)
-                    .HasColumnType("char(1)")
-                    .IsFixedLength();
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<string>("PhoneNumber")
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .HasColumnType("char(10)")
-                    .IsFixedLength();
+                    b.Property<string>("MiddleInitial")
+                        .IsRequired()
+                        .HasMaxLength(1)
+                        .HasColumnType("char(1)")
+                        .IsFixedLength();
 
-                b.Property<string>("SocialSecurityNumber")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("char(10)")
+                        .IsFixedLength();
 
-                b.Property<string>("StateAddress")
-                    .IsRequired()
-                    .HasMaxLength(2)
-                    .HasColumnType("char(2)")
-                    .IsFixedLength();
+                    b.Property<string>("SocialSecurityNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<string>("StreetAddress")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("StateAddress")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("char(2)")
+                        .IsFixedLength();
 
-                b.Property<string>("Suffix")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<string>("USBCId")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<string>("Suffix")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<string>("ZipCode")
-                    .IsRequired()
-                    .HasMaxLength(9)
-                    .HasColumnType("char(9)")
-                    .IsFixedLength();
+                    b.Property<string>("USBCId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.HasKey("Id");
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("char(9)")
+                        .IsFixedLength();
 
-                b.ToTable("Bowlers");
-            });
+                    b.HasKey("Id");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Division", b =>
-            {
-                b.Property<Guid>("Id")
-                    .HasColumnType("char(36)");
+                    b.ToTable("Bowlers");
+                });
 
-                b.Property<int?>("Gender")
-                    .HasColumnType("int");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Division", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.Property<int?>("HandicapBase")
-                    .HasColumnType("int");
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
 
-                b.Property<decimal?>("HandicapPercentage")
-                    .HasPrecision(3, 2)
-                    .HasColumnType("decimal(3,2)");
+                    b.Property<int?>("HandicapBase")
+                        .HasColumnType("int");
 
-                b.Property<short?>("MaximumAge")
-                    .HasColumnType("smallint");
+                    b.Property<decimal?>("HandicapPercentage")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
 
-                b.Property<int?>("MaximumAverage")
-                    .HasColumnType("int");
+                    b.Property<short?>("MaximumAge")
+                        .HasColumnType("smallint");
 
-                b.Property<int?>("MaximumHandicapPerGame")
-                    .HasColumnType("int");
+                    b.Property<int?>("MaximumAverage")
+                        .HasColumnType("int");
 
-                b.Property<short?>("MinimumAge")
-                    .HasColumnType("smallint");
+                    b.Property<int?>("MaximumHandicapPerGame")
+                        .HasColumnType("int");
 
-                b.Property<int?>("MinimumAverage")
-                    .HasColumnType("int");
+                    b.Property<short?>("MinimumAge")
+                        .HasColumnType("smallint");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<int?>("MinimumAverage")
+                        .HasColumnType("int");
 
-                b.Property<short>("Number")
-                    .HasColumnType("smallint");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<Guid>("TournamentId")
-                    .HasColumnType("char(36)");
+                    b.Property<short>("Number")
+                        .HasColumnType("smallint");
 
-                b.HasKey("Id");
+                    b.Property<Guid>("TournamentId")
+                        .HasColumnType("char(36)");
 
-                b.HasIndex("TournamentId");
+                    b.HasKey("Id");
 
-                b.ToTable("Divisions");
-            });
+                    b.HasIndex("TournamentId");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Registration", b =>
-            {
-                b.Property<Guid>("Id")
-                    .HasColumnType("char(36)");
+                    b.ToTable("Divisions");
+                });
 
-                b.Property<int?>("Average")
-                    .HasColumnType("int");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Registration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.Property<Guid>("BowlerId")
-                    .HasColumnType("char(36)");
+                    b.Property<int?>("Average")
+                        .HasColumnType("int");
 
-                b.Property<Guid>("DivisionId")
-                    .HasColumnType("char(36)");
+                    b.Property<Guid>("BowlerId")
+                        .HasColumnType("char(36)");
 
-                b.Property<bool>("SuperSweeper")
-                    .HasColumnType("tinyint(1)");
+                    b.Property<Guid>("DivisionId")
+                        .HasColumnType("char(36)");
 
-                b.HasKey("Id");
+                    b.Property<bool>("SuperSweeper")
+                        .HasColumnType("tinyint(1)");
 
-                b.HasAlternateKey("BowlerId", "DivisionId");
+                    b.HasKey("Id");
 
-                b.HasIndex("DivisionId");
+                    b.HasIndex("DivisionId");
 
-                b.ToTable("Registrations");
-            });
+                    b.HasIndex("BowlerId", "DivisionId")
+                        .IsUnique();
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Squad", b =>
-            {
-                b.Property<Guid>("Id")
-                    .HasColumnType("char(36)");
+                    b.ToTable("Registrations");
+                });
 
-                b.Property<decimal?>("CashRatio")
-                    .HasPrecision(3, 1)
-                    .HasColumnType("decimal(3,1)");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Squad", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.Property<bool>("Complete")
-                    .HasColumnType("tinyint(1)");
+                    b.Property<decimal?>("CashRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
-                b.Property<DateTime>("Date")
-                    .HasColumnType("datetime(6)");
+                    b.Property<bool>("Complete")
+                        .HasColumnType("tinyint(1)");
 
-                b.Property<short>("MaxPerPair")
-                    .HasColumnType("smallint");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
 
-                b.Property<short>("NumberOfLanes")
-                    .HasColumnType("smallint");
+                    b.Property<short>("MaxPerPair")
+                        .HasColumnType("smallint");
 
-                b.Property<int>("SquadType")
-                    .HasColumnType("int");
+                    b.Property<short>("NumberOfLanes")
+                        .HasColumnType("smallint");
 
-                b.Property<short>("StartingLane")
-                    .HasColumnType("smallint");
+                    b.Property<int>("SquadType")
+                        .HasColumnType("int");
 
-                b.Property<Guid>("TournamentId")
-                    .HasColumnType("char(36)");
+                    b.Property<short>("StartingLane")
+                        .HasColumnType("smallint");
 
-                b.HasKey("Id");
+                    b.Property<Guid>("TournamentId")
+                        .HasColumnType("char(36)");
 
-                b.ToTable("Squads", (string)null);
+                    b.HasKey("Id");
 
-                b.HasDiscriminator<int>("SquadType");
+                    b.ToTable("Squads", (string)null);
 
-                b.UseTphMappingStrategy();
-            });
+                    b.HasDiscriminator<int>("SquadType");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadRegistration", b =>
-            {
-                b.Property<Guid>("RegistrationId")
-                    .HasColumnType("char(36)");
+                    b.UseTphMappingStrategy();
+                });
 
-                b.Property<Guid>("SquadId")
-                    .HasColumnType("char(36)");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadRegistration", b =>
+                {
+                    b.Property<Guid>("RegistrationId")
+                        .HasColumnType("char(36)");
 
-                b.Property<string>("LaneAssignment")
-                    .IsRequired()
-                    .HasMaxLength(3)
-                    .HasColumnType("varchar(3)");
+                    b.Property<Guid>("SquadId")
+                        .HasColumnType("char(36)");
 
-                b.HasKey("RegistrationId", "SquadId");
+                    b.Property<string>("LaneAssignment")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
 
-                b.HasIndex("SquadId");
+                    b.HasKey("RegistrationId", "SquadId");
 
-                b.ToTable("SquadRegistration");
-            });
+                    b.HasIndex("SquadId");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadScore", b =>
-            {
-                b.Property<Guid>("BowlerId")
-                    .HasColumnType("char(36)");
+                    b.ToTable("SquadRegistration");
+                });
 
-                b.Property<Guid>("SquadId")
-                    .HasColumnType("char(36)");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadScore", b =>
+                {
+                    b.Property<Guid>("BowlerId")
+                        .HasColumnType("char(36)");
 
-                b.Property<short>("Game")
-                    .HasColumnType("smallint");
+                    b.Property<Guid>("SquadId")
+                        .HasColumnType("char(36)");
 
-                b.Property<int>("Score")
-                    .HasColumnType("int");
+                    b.Property<short>("Game")
+                        .HasColumnType("smallint");
 
-                b.HasKey("BowlerId", "SquadId", "Game");
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
 
-                b.HasIndex("SquadId");
+                    b.HasKey("BowlerId", "SquadId", "Game");
 
-                b.ToTable("SquadScores");
-            });
+                    b.HasIndex("SquadId");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperDivision", b =>
-            {
-                b.Property<Guid>("SweeperId")
-                    .HasColumnType("char(36)");
+                    b.ToTable("SquadScores");
+                });
 
-                b.Property<Guid>("DivisionId")
-                    .HasColumnType("char(36)");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperDivision", b =>
+                {
+                    b.Property<Guid>("SweeperId")
+                        .HasColumnType("char(36)");
 
-                b.Property<int?>("BonusPinsPerGame")
-                    .HasColumnType("int");
+                    b.Property<Guid>("DivisionId")
+                        .HasColumnType("char(36)");
 
-                b.HasKey("SweeperId", "DivisionId");
+                    b.Property<int?>("BonusPinsPerGame")
+                        .HasColumnType("int");
 
-                b.HasIndex("DivisionId");
+                    b.HasKey("SweeperId", "DivisionId");
 
-                b.ToTable("SweeperDivision");
-            });
+                    b.HasIndex("DivisionId");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Tournament", b =>
-            {
-                b.Property<Guid>("Id")
-                    .HasColumnType("char(36)");
+                    b.ToTable("SweeperDivision");
+                });
 
-                b.Property<string>("BowlingCenter")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Tournament", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
-                b.Property<decimal>("CashRatio")
-                    .HasPrecision(3, 1)
-                    .HasColumnType("decimal(3,1)");
+                    b.Property<string>("BowlingCenter")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<bool>("Completed")
-                    .HasColumnType("tinyint(1)");
+                    b.Property<decimal>("CashRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
-                b.Property<DateTime>("End")
-                    .HasColumnType("datetime(6)");
+                    b.Property<bool>("Completed")
+                        .HasColumnType("tinyint(1)");
 
-                b.Property<decimal>("EntryFee")
-                    .HasPrecision(5, 2)
-                    .HasColumnType("decimal(5,2)");
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime(6)");
 
-                b.Property<decimal>("FinalsRatio")
-                    .HasPrecision(3, 1)
-                    .HasColumnType("decimal(3,1)");
+                    b.Property<decimal>("EntryFee")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
-                b.Property<short>("Games")
-                    .HasColumnType("smallint");
+                    b.Property<decimal>("FinalsRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("longtext");
+                    b.Property<short>("Games")
+                        .HasColumnType("smallint");
 
-                b.Property<DateTime>("Start")
-                    .HasColumnType("datetime(6)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                b.Property<decimal>("SuperSweperCashRatio")
-                    .HasPrecision(3, 1)
-                    .HasColumnType("decimal(3,1)");
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime(6)");
 
-                b.HasKey("Id");
+                    b.Property<decimal>("SuperSweperCashRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
-                b.ToTable("Tournaments");
-            });
+                    b.HasKey("Id");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperSquad", b =>
-            {
-                b.HasBaseType("NortheastMegabuck.Database.Entities.Squad");
+                    b.ToTable("Tournaments");
+                });
 
-                b.Property<decimal>("EntryFee")
-                    .HasPrecision(5, 2)
-                    .HasColumnType("decimal(5,2)")
-                    .HasColumnName("SweeperEntryFee");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperSquad", b =>
+                {
+                    b.HasBaseType("NortheastMegabuck.Database.Entities.Squad");
 
-                b.Property<short>("Games")
-                    .HasColumnType("smallint");
+                    b.Property<decimal>("EntryFee")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)")
+                        .HasColumnName("SweeperEntryFee");
 
-                b.HasIndex("TournamentId");
+                    b.Property<short>("Games")
+                        .HasColumnType("smallint");
 
-                b.HasDiscriminator().HasValue(1);
-            });
+                    b.HasIndex("TournamentId");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.TournamentSquad", b =>
-            {
-                b.HasBaseType("NortheastMegabuck.Database.Entities.Squad");
+                    b.HasDiscriminator().HasValue(1);
+                });
 
-                b.Property<decimal?>("EntryFee")
-                    .HasPrecision(5, 2)
-                    .HasColumnType("decimal(5,2)")
-                    .HasColumnName("SquadEntryFee");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.TournamentSquad", b =>
+                {
+                    b.HasBaseType("NortheastMegabuck.Database.Entities.Squad");
 
-                b.Property<decimal?>("FinalsRatio")
-                    .HasPrecision(3, 1)
-                    .HasColumnType("decimal(3,1)");
+                    b.Property<decimal?>("EntryFee")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)")
+                        .HasColumnName("SquadEntryFee");
 
-                b.HasIndex("TournamentId");
+                    b.Property<decimal?>("FinalsRatio")
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
-                b.HasDiscriminator().HasValue(0);
-            });
+                    b.HasIndex("TournamentId");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Division", b =>
-            {
-                b.HasOne("NortheastMegabuck.Database.Entities.Tournament", "Tournament")
-                    .WithMany("Divisions")
-                    .HasForeignKey("TournamentId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasDiscriminator().HasValue(0);
+                });
 
-                b.Navigation("Tournament");
-            });
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Division", b =>
+                {
+                    b.HasOne("NortheastMegabuck.Database.Entities.Tournament", "Tournament")
+                        .WithMany("Divisions")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Registration", b =>
-            {
-                b.HasOne("NortheastMegabuck.Database.Entities.Bowler", "Bowler")
-                    .WithMany("Registrations")
-                    .HasForeignKey("BowlerId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+                    b.Navigation("Tournament");
+                });
 
-                b.HasOne("NortheastMegabuck.Database.Entities.Division", "Division")
-                    .WithMany("Registrations")
-                    .HasForeignKey("DivisionId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Registration", b =>
+                {
+                    b.HasOne("NortheastMegabuck.Database.Entities.Bowler", "Bowler")
+                        .WithMany("Registrations")
+                        .HasForeignKey("BowlerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.Navigation("Bowler");
+                    b.HasOne("NortheastMegabuck.Database.Entities.Division", "Division")
+                        .WithMany("Registrations")
+                        .HasForeignKey("DivisionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.Navigation("Division");
-            });
+                    b.Navigation("Bowler");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadRegistration", b =>
-            {
-                b.HasOne("NortheastMegabuck.Database.Entities.Registration", "Registration")
-                    .WithMany("Squads")
-                    .HasForeignKey("RegistrationId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+                    b.Navigation("Division");
+                });
 
-                b.HasOne("NortheastMegabuck.Database.Entities.Squad", "Squad")
-                    .WithMany("Registrations")
-                    .HasForeignKey("SquadId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadRegistration", b =>
+                {
+                    b.HasOne("NortheastMegabuck.Database.Entities.Registration", "Registration")
+                        .WithMany("Squads")
+                        .HasForeignKey("RegistrationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.Navigation("Registration");
+                    b.HasOne("NortheastMegabuck.Database.Entities.Squad", "Squad")
+                        .WithMany("Registrations")
+                        .HasForeignKey("SquadId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.Navigation("Squad");
-            });
+                    b.Navigation("Registration");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadScore", b =>
-            {
-                b.HasOne("NortheastMegabuck.Database.Entities.Bowler", "Bowler")
-                    .WithMany("SquadScores")
-                    .HasForeignKey("BowlerId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+                    b.Navigation("Squad");
+                });
 
-                b.HasOne("NortheastMegabuck.Database.Entities.Squad", "Squad")
-                    .WithMany("Scores")
-                    .HasForeignKey("SquadId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadScore", b =>
+                {
+                    b.HasOne("NortheastMegabuck.Database.Entities.Bowler", "Bowler")
+                        .WithMany("SquadScores")
+                        .HasForeignKey("BowlerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.Navigation("Bowler");
+                    b.HasOne("NortheastMegabuck.Database.Entities.Squad", "Squad")
+                        .WithMany("Scores")
+                        .HasForeignKey("SquadId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.Navigation("Squad");
-            });
+                    b.Navigation("Bowler");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperDivision", b =>
-            {
-                b.HasOne("NortheastMegabuck.Database.Entities.Division", "Division")
-                    .WithMany("Sweepers")
-                    .HasForeignKey("DivisionId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.Navigation("Squad");
+                });
 
-                b.HasOne("NortheastMegabuck.Database.Entities.SweeperSquad", "Sweeper")
-                    .WithMany("Divisions")
-                    .HasForeignKey("SweeperId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperDivision", b =>
+                {
+                    b.HasOne("NortheastMegabuck.Database.Entities.Division", "Division")
+                        .WithMany("Sweepers")
+                        .HasForeignKey("DivisionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("Division");
+                    b.HasOne("NortheastMegabuck.Database.Entities.SweeperSquad", "Sweeper")
+                        .WithMany("Divisions")
+                        .HasForeignKey("SweeperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("Sweeper");
-            });
+                    b.Navigation("Division");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperSquad", b =>
-            {
-                b.HasOne("NortheastMegabuck.Database.Entities.Tournament", "Tournament")
-                    .WithMany("Sweepers")
-                    .HasForeignKey("TournamentId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.Navigation("Sweeper");
+                });
 
-                b.Navigation("Tournament");
-            });
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperSquad", b =>
+                {
+                    b.HasOne("NortheastMegabuck.Database.Entities.Tournament", "Tournament")
+                        .WithMany("Sweepers")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.TournamentSquad", b =>
-            {
-                b.HasOne("NortheastMegabuck.Database.Entities.Tournament", "Tournament")
-                    .WithMany("Squads")
-                    .HasForeignKey("TournamentId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.Navigation("Tournament");
+                });
 
-                b.Navigation("Tournament");
-            });
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.TournamentSquad", b =>
+                {
+                    b.HasOne("NortheastMegabuck.Database.Entities.Tournament", "Tournament")
+                        .WithMany("Squads")
+                        .HasForeignKey("TournamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Bowler", b =>
-            {
-                b.Navigation("Registrations");
+                    b.Navigation("Tournament");
+                });
 
-                b.Navigation("SquadScores");
-            });
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Bowler", b =>
+                {
+                    b.Navigation("Registrations");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Division", b =>
-            {
-                b.Navigation("Registrations");
+                    b.Navigation("SquadScores");
+                });
 
-                b.Navigation("Sweepers");
-            });
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Division", b =>
+                {
+                    b.Navigation("Registrations");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Registration", b =>
-            {
-                b.Navigation("Squads");
-            });
+                    b.Navigation("Sweepers");
+                });
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Squad", b =>
-            {
-                b.Navigation("Registrations");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Registration", b =>
+                {
+                    b.Navigation("Squads");
+                });
 
-                b.Navigation("Scores");
-            });
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Squad", b =>
+                {
+                    b.Navigation("Registrations");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.Tournament", b =>
-            {
-                b.Navigation("Divisions");
+                    b.Navigation("Scores");
+                });
 
-                b.Navigation("Squads");
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.Tournament", b =>
+                {
+                    b.Navigation("Divisions");
 
-                b.Navigation("Sweepers");
-            });
+                    b.Navigation("Squads");
 
-        modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperSquad", b =>
-            {
-                b.Navigation("Divisions");
-            });
+                    b.Navigation("Sweepers");
+                });
+
+            modelBuilder.Entity("NortheastMegabuck.Database.Entities.SweeperSquad", b =>
+                {
+                    b.Navigation("Divisions");
+                });
 #pragma warning restore 612, 618
+        }
     }
 }
