@@ -32,6 +32,19 @@ internal class BusinessLogic : IBusinessLogic
             return [];
         }
     }
+
+    async Task<Models.LaneAssignment?> IBusinessLogic.ExecuteAsync(SquadId squadId, BowlerId bowlerId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await _dataLayer.ExecuteAsync(squadId, bowlerId, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Error = new Models.ErrorDetail(ex);
+            return null;
+        }
+    }
 }
 
 internal interface IBusinessLogic
@@ -39,4 +52,6 @@ internal interface IBusinessLogic
     Models.ErrorDetail? Error { get; }
 
     Task<IEnumerable<Models.LaneAssignment>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
+
+    Task<Models.LaneAssignment?> ExecuteAsync(SquadId squadId, BowlerId bowlerId, CancellationToken cancellationToken);
 }

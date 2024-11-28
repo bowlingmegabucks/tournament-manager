@@ -87,9 +87,9 @@ internal class Presenter
         _view.BindEntriesPerDivision(entriesPerDivision);
     }
 
-    public async Task UpdateAsync(SquadId squadId, IViewModel registration, string position, CancellationToken cancellationToken)
+    public async Task UpdateAsync(SquadId squadId, IViewModel registration, string updatedPosition, CancellationToken cancellationToken)
     {
-        await UpdateAdapter.ExecuteAsync(squadId, registration.BowlerId, position, cancellationToken).ConfigureAwait(true);
+        await UpdateAdapter.ExecuteAsync(squadId, registration.BowlerId, registration.LaneAssignment, updatedPosition, cancellationToken).ConfigureAwait(true);
 
         if (UpdateAdapter.Error != null)
         {
@@ -98,13 +98,13 @@ internal class Presenter
             return;
         }
 
-        if (string.IsNullOrEmpty(position))
+        if (string.IsNullOrEmpty(updatedPosition))
         {
             _view.RemoveLaneAssignment(registration);
         }
         else
         {
-            _view.AssignToLane(registration, position);
+            _view.AssignToLane(registration, updatedPosition);
         }
     }
 

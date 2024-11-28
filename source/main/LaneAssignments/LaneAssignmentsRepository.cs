@@ -37,6 +37,13 @@ internal class Repository : IRepository
                 .SelectMany(sweeper => sweeper.Registrations);
     }
 
+    async Task<Database.Entities.SquadRegistration> IRepository.RetrieveAsync(SquadId squadId, BowlerId bowlerId, CancellationToken cancellationToken)
+    {
+        var squadRegistrations = _dataContext.Registrations.Include(registration => registration.Squads).ThenInclude(squadRegistration => squadRegistration.Registration).ThenInclude(registration => registration.Bowler).AsNoTrackingWithIdentityResolution().Where(registration => registration.Squads.Select(squad => squad.SquadId).Contains(squadId));
+
+        return (await squadRegistrations.SingleAsync(registration => registration.BowlerId == bowlerId, cancellationToken).ConfigureAwait(false)).Squads.Single(squad => squad.SquadId == squadId);
+    }
+
     async Task IRepository.UpdateAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken)
     {
         var registration = await _dataContext.Registrations.Where(registration => registration.BowlerId == bowlerId)
@@ -52,6 +59,8 @@ internal class Repository : IRepository
 internal interface IRepository
 {
     IQueryable<Database.Entities.SquadRegistration> Retrieve(SquadId squadId);
+
+    Task<Database.Entities.SquadRegistration> RetrieveAsync(SquadId squadId, BowlerId bowlerId, CancellationToken cancellationToken);
 
     Task UpdateAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken);
 }

@@ -276,6 +276,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentRegistered_Leave(object sender, EventArgs e)
         => (sender as Control)!.BackColor = SystemColors.Control;
+
     private void RemoveOpenLaneEventsFromAssignedLane(LaneAssignmentControl assignedLane)
     {
         assignedLane.DragEnter -= LaneAssignmentOpen_DragEnter!;

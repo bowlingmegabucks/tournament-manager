@@ -21,13 +21,13 @@ internal class Adapter : IAdapter
         _businessLogic = mockBusinessLogic;
     }
 
-    async Task IAdapter.ExecuteAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken)
-        => await _businessLogic.ExecuteAsync(squadId, bowlerId, position, cancellationToken).ConfigureAwait(false);
+    async Task IAdapter.ExecuteAsync(SquadId squadId, BowlerId bowlerId, string originalPosition, string updatedPosition, CancellationToken cancellationToken)
+        => await _businessLogic.ExecuteAsync(squadId, bowlerId, originalPosition, updatedPosition, cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
 
-    Task ExecuteAsync(SquadId squadId, BowlerId bowlerId, string position, CancellationToken cancellationToken);
+    Task ExecuteAsync(SquadId squadId, BowlerId bowlerId, string originalPosition, string updatedPosition, CancellationToken cancellationToken);
 }
