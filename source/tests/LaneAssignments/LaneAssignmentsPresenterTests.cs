@@ -188,14 +188,16 @@ internal sealed class Presenter
         var squadId = SquadId.New();
 
         var bowlerId = BowlerId.New();
+        var originalPosition = "1A";
         var registration = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
         registration.SetupGet(r => r.BowlerId).Returns(bowlerId);
+        registration.SetupGet(r => r.LaneAssignment).Returns(originalPosition);
 
         CancellationToken cancellationToken = default;
 
         await _presenter.UpdateAsync(squadId, registration.Object, position, cancellationToken).ConfigureAwait(false);
 
-        _updateAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, bowlerId, position, cancellationToken), Times.Once);
+        _updateAdapter.Verify(adapter => adapter.ExecuteAsync(squadId, bowlerId, originalPosition, position, cancellationToken), Times.Once);
     }
 
     [Test]

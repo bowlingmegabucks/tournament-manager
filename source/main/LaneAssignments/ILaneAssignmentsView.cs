@@ -48,4 +48,5 @@ internal interface IView
     void DeleteRegistration(BowlerId bowlerId);
 
     bool Confirm(string message);
+    void ClearHighlights();
 }

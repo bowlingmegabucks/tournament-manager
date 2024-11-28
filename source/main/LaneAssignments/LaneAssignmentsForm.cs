@@ -247,6 +247,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
         }
     }
 
+    public void ClearHighlights()
+    {
+        foreach (var lane in laneAssignmentFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>())
+        {
+            LaneAssignmentOpen_DragLeave(lane, new EventArgs());
+        }
+    }
+
     private void LaneAssignmentOpen_DragEnter(object sender, DragEventArgs e)
     {
         if (e.GetDataPresent<LaneAssignmentControl>())
@@ -276,6 +284,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentRegistered_Leave(object sender, EventArgs e)
         => (sender as Control)!.BackColor = SystemColors.Control;
+
     private void RemoveOpenLaneEventsFromAssignedLane(LaneAssignmentControl assignedLane)
     {
         assignedLane.DragEnter -= LaneAssignmentOpen_DragEnter!;
