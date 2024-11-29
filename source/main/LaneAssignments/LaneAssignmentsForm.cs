@@ -353,7 +353,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _ = new Presenter(_config, this).DeleteAsync(assignment!.BowlerId, default).ConfigureAwait(true);
     }
 
-    private void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private async void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         refreshAssignmentsLinkLabel.Enabled = false;
 
@@ -377,7 +377,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
             control!.Dispose();
         }
 
-        _ = new Presenter(_config, this).LoadAsync(default).ConfigureAwait(true);
+        await new Presenter(_config, this).LoadAsync(default).ConfigureAwait(true);
 
         laneAssignmentFlowLayoutPanel.Visible = true;
         unassignedRegistrationsFlowLayoutPanel.Visible = true;
@@ -414,6 +414,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
         var assignment = contextMenu?.SourceControl as LaneAssignmentControl;
 
         _ = new Presenter(_config, this).UpdateAsync(SquadId, assignment!, string.Empty, default).ConfigureAwait(true);
+
+        
     }
 }
 
