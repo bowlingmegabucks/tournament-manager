@@ -47,7 +47,7 @@ partial class SweeperControl
         numberOfLanesLabel = new LabelControl();
         startingLaneValue = new NumericControl();
         startingLaneLabel = new LabelControl();
-        cashTo1Label = new LabelControl();
+        label1 = new Label();
         divisionsGroupBox.SuspendLayout();
         PanelDivisions.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)sweeperErrorProvider).BeginInit();
@@ -266,23 +266,22 @@ partial class SweeperControl
         startingLaneLabel.TabStop = false;
         startingLaneLabel.Text = "Starting Lane:";
         // 
-        // cashTo1Label
+        // label1
         // 
-        cashTo1Label.AutoSize = true;
-        cashTo1Label.Location = new Point(326, 96);
-        cashTo1Label.Name = "cashTo1Label";
-        cashTo1Label.Required = false;
-        cashTo1Label.Size = new Size(45, 19);
-        cashTo1Label.TabIndex = 1005;
-        cashTo1Label.TabStop = false;
-        cashTo1Label.Text = ": 1";
+        label1.AutoSize = true;
+        label1.Font = new Font("Segoe UI", 12F);
+        label1.Location = new Point(326, 95);
+        label1.Name = "label1";
+        label1.Size = new Size(26, 21);
+        label1.TabIndex = 1004;
+        label1.Text = ": 1";
         // 
         // SweeperControl
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         AutoSize = true;
-        Controls.Add(cashTo1Label);
+        Controls.Add(label1);
         Controls.Add(numberOfLanesValue);
         Controls.Add(numberOfLanesLabel);
         Controls.Add(startingLaneValue);
@@ -334,5 +333,5 @@ partial class SweeperControl
     private Controls.LabelControl numberOfLanesLabel;
     private Controls.NumericControl startingLaneValue;
     private Controls.LabelControl startingLaneLabel;
-    private LabelControl cashTo1Label;
+    private Label label1;
 }

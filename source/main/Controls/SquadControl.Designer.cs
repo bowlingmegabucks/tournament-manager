@@ -44,8 +44,8 @@ partial class SquadControl
         numberOfLanesLabel = new LabelControl();
         entryFeeValue = new NumericControl();
         entryFeeLabel = new LabelControl();
-        finalsTo1Label = new LabelControl();
-        cashTo1Label = new LabelControl();
+        label1 = new Label();
+        label2 = new Label();
         ((System.ComponentModel.ISupportInitialize)cashRatioValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)finalsRatioValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)squadErrorProvider).BeginInit();
@@ -231,34 +231,32 @@ partial class SquadControl
         entryFeeLabel.TabStop = false;
         entryFeeLabel.Text = "Entry Fee:";
         // 
-        // finalsTo1Label
+        // label1
         // 
-        finalsTo1Label.AutoSize = true;
-        finalsTo1Label.Location = new Point(140, 97);
-        finalsTo1Label.Name = "finalsTo1Label";
-        finalsTo1Label.Required = false;
-        finalsTo1Label.Size = new Size(45, 19);
-        finalsTo1Label.TabIndex = 122;
-        finalsTo1Label.TabStop = false;
-        finalsTo1Label.Text = ": 1";
+        label1.AutoSize = true;
+        label1.Font = new Font("Segoe UI", 12F);
+        label1.Location = new Point(140, 95);
+        label1.Name = "label1";
+        label1.Size = new Size(26, 21);
+        label1.TabIndex = 122;
+        label1.Text = ": 1";
         // 
-        // cashTo1Label
+        // label2
         // 
-        cashTo1Label.AutoSize = true;
-        cashTo1Label.Location = new Point(328, 97);
-        cashTo1Label.Name = "cashTo1Label";
-        cashTo1Label.Required = false;
-        cashTo1Label.Size = new Size(117, 19);
-        cashTo1Label.TabIndex = 123;
-        cashTo1Label.TabStop = false;
-        cashTo1Label.Text = ": 1";
+        label2.AutoSize = true;
+        label2.Font = new Font("Segoe UI", 12F);
+        label2.Location = new Point(328, 95);
+        label2.Name = "label2";
+        label2.Size = new Size(26, 21);
+        label2.TabIndex = 123;
+        label2.Text = ": 1";
         // 
         // SquadControl
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        Controls.Add(cashTo1Label);
-        Controls.Add(finalsTo1Label);
+        Controls.Add(label2);
+        Controls.Add(label1);
         Controls.Add(entryFeeValue);
         Controls.Add(entryFeeLabel);
         Controls.Add(numberOfLanesValue);
@@ -304,6 +302,6 @@ partial class SquadControl
     private Controls.LabelControl startingLaneLabel;
     private NumericControl entryFeeValue;
     private LabelControl entryFeeLabel;
-    private LabelControl cashTo1Label;
-    private LabelControl finalsTo1Label;
+    private Label label2;
+    private Label label1;
 }
