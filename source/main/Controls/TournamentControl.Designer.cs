@@ -49,9 +49,9 @@ partial class TournamentControl
         CheckboxComplete = new CheckBox();
         superSweeperCashRatioValue = new NumericControl();
         labelSuperSweeperCashRatio = new LabelControl();
-        finalsTo1Label = new LabelControl();
-        cashTo1Label = new LabelControl();
-        superSweeperTo1Label = new LabelControl();
+        label1 = new Label();
+        label2 = new Label();
+        label3 = new Label();
         ((System.ComponentModel.ISupportInitialize)tournamentErrorProvider).BeginInit();
         ((System.ComponentModel.ISupportInitialize)entryFeeValue).BeginInit();
         ((System.ComponentModel.ISupportInitialize)gamesValue).BeginInit();
@@ -192,8 +192,8 @@ partial class TournamentControl
         finalsRatioLabel.AutoSize = true;
         finalsRatioLabel.Location = new Point(3, 199);
         finalsRatioLabel.Name = "finalsRatioLabel";
-        finalsRatioLabel.Required = false;
-        finalsRatioLabel.Size = new Size(126, 19);
+        finalsRatioLabel.Required = true;
+        finalsRatioLabel.Size = new Size(132, 19);
         finalsRatioLabel.TabIndex = 106;
         finalsRatioLabel.TabStop = false;
         finalsRatioLabel.Text = "Finals Ratio:";
@@ -297,46 +297,43 @@ partial class TournamentControl
         labelSuperSweeperCashRatio.TabStop = false;
         labelSuperSweeperCashRatio.Text = "Super Sweeper Cash Ratio:";
         // 
-        // finalsTo1Label
+        // label1
         // 
-        finalsTo1Label.AutoSize = true;
-        finalsTo1Label.Location = new Point(135, 227);
-        finalsTo1Label.Name = "finalsTo1Label";
-        finalsTo1Label.Required = false;
-        finalsTo1Label.Size = new Size(38, 19);
-        finalsTo1Label.TabIndex = 123;
-        finalsTo1Label.TabStop = false;
-        finalsTo1Label.Text = ": 1";
+        label1.AutoSize = true;
+        label1.Font = new Font("Segoe UI", 12F);
+        label1.Location = new Point(92, 292);
+        label1.Name = "label1";
+        label1.Size = new Size(26, 21);
+        label1.TabIndex = 112;
+        label1.Text = ": 1";
         // 
-        // cashTo1Label
+        // label2
         // 
-        cashTo1Label.AutoSize = true;
-        cashTo1Label.Location = new Point(299, 227);
-        cashTo1Label.Name = "cashTo1Label";
-        cashTo1Label.Required = false;
-        cashTo1Label.Size = new Size(117, 19);
-        cashTo1Label.TabIndex = 124;
-        cashTo1Label.TabStop = false;
-        cashTo1Label.Text = ": 1";
+        label2.AutoSize = true;
+        label2.Font = new Font("Segoe UI", 12F);
+        label2.Location = new Point(135, 226);
+        label2.Name = "label2";
+        label2.Size = new Size(26, 21);
+        label2.TabIndex = 113;
+        label2.Text = ": 1";
         // 
-        // superSweeperTo1Label
+        // label3
         // 
-        superSweeperTo1Label.AutoSize = true;
-        superSweeperTo1Label.Location = new Point(92, 293);
-        superSweeperTo1Label.Name = "superSweeperTo1Label";
-        superSweeperTo1Label.Required = false;
-        superSweeperTo1Label.Size = new Size(117, 19);
-        superSweeperTo1Label.TabIndex = 125;
-        superSweeperTo1Label.TabStop = false;
-        superSweeperTo1Label.Text = ": 1";
+        label3.AutoSize = true;
+        label3.Font = new Font("Segoe UI", 12F);
+        label3.Location = new Point(299, 226);
+        label3.Name = "label3";
+        label3.Size = new Size(26, 21);
+        label3.TabIndex = 114;
+        label3.Text = ": 1";
         // 
         // TournamentControl
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        Controls.Add(superSweeperTo1Label);
-        Controls.Add(cashTo1Label);
-        Controls.Add(finalsTo1Label);
+        Controls.Add(label3);
+        Controls.Add(label2);
+        Controls.Add(label1);
         Controls.Add(superSweeperCashRatioValue);
         Controls.Add(labelSuperSweeperCashRatio);
         Controls.Add(CheckboxComplete);
@@ -391,7 +388,7 @@ partial class TournamentControl
     private TextBox nameText;
     private NumericControl superSweeperCashRatioValue;
     private LabelControl labelSuperSweeperCashRatio;
-    private LabelControl superSweeperTo1Label;
-    private LabelControl cashTo1Label;
-    private LabelControl finalsTo1Label;
+    private Label label3;
+    private Label label2;
+    private Label label1;
 }
