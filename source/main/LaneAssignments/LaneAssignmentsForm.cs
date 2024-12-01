@@ -414,8 +414,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
         var assignment = contextMenu?.SourceControl as LaneAssignmentControl;
 
         _ = new Presenter(_config, this).UpdateAsync(SquadId, assignment!, string.Empty, default).ConfigureAwait(true);
-
-        
     }
 }
 
