@@ -67,6 +67,6 @@ internal partial class UpdateForm
     public void KeepOpen()
         => DialogResult = DialogResult.None;
 
-    private void SaveButton_Click(object sender, EventArgs e)
-    { }
+    private async void SaveButton_Click(object sender, EventArgs e)
+        => await new Presenter(_config, this).ExecuteAsync(new CancellationToken()).ConfigureAwait(true);
 }
