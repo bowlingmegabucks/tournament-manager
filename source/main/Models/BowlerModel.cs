@@ -69,7 +69,7 @@ internal class Bowler
         SocialSecurityNumber = bowler.SocialSecurityNumber;
     }
 
-    public Bowler(Bowlers.Add.IViewModel viewModel)
+    public Bowler(Bowlers.IViewModel viewModel)
     {
         Id = viewModel.Id;
 

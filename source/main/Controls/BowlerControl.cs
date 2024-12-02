@@ -4,7 +4,8 @@ using System.Runtime.Versioning;
 namespace NortheastMegabuck.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
+internal partial class BowlerControl
+    : UserControl, Bowlers.IViewModel
 {
     private static readonly IDictionary<string, string> _states = new Dictionary<string, string>
     {

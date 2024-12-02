@@ -14,7 +14,7 @@ internal partial class PersonNameControl : UserControl, Bowlers.Update.INameView
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public string First
     {
-        get => firstNameText.Text;
+        get => firstNameText.Text.Trim();
         set => firstNameText.Text = value;
     }
 
@@ -32,14 +32,14 @@ internal partial class PersonNameControl : UserControl, Bowlers.Update.INameView
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public string MiddleInitial
     {
-        get => middleInitialText.Text;
+        get => middleInitialText.Text.Trim();
         set => middleInitialText.Text = value;
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public string Last
     {
-        get => lastNameText.Text;
+        get => lastNameText.Text.Trim();
         set => lastNameText.Text = value;
     }
 
@@ -57,7 +57,7 @@ internal partial class PersonNameControl : UserControl, Bowlers.Update.INameView
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     public string Suffix
     {
-        get => suffixText.Text;
+        get => suffixText.Text.Trim();
         set => suffixText.Text = value;
     }
 
