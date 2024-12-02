@@ -4,7 +4,8 @@ using System.Runtime.Versioning;
 namespace NortheastMegabuck.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
+internal partial class BowlerControl
+    : UserControl, Bowlers.IViewModel
 {
     private static readonly IDictionary<string, string> _states = new Dictionary<string, string>
     {
@@ -73,11 +74,14 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
         dateOfBirthPicker.Value = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
         dateOfBirthPicker.Checked = false;
 
-        var genders = Enum.GetNames<Models.Gender>().ToDictionary(e => (int)Enum.Parse<Models.Gender>(e), e => e);
+        var genders = Enum.GetValues<Models.Gender>()
+            .Cast<Models.Gender>()
+            .ToDictionary(e => (int)e, e => e.ToString());
 
         genderDropdown.DataSource = genders.ToList();
         genderDropdown.DisplayMember = "Value";
         genderDropdown.ValueMember = "Key";
+
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -191,7 +195,7 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     public Models.Gender? Gender
     {
         get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
-        set => genderDropdown.SelectedValue = value!;
+        set => genderDropdown.SelectedValue = value.HasValue ? (int)value.Value : -1;
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -199,6 +203,18 @@ internal partial class BowlerControl : UserControl, Bowlers.Add.IViewModel
     {
         get => socialSecurityNumberControl.Value;
         set => socialSecurityNumberControl.Value = value;
+    }
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+    [Browsable(true)]
+    public bool LockDivisionFields
+    {
+        get => !genderDropdown.Enabled;
+        set
+        {
+            genderDropdown.Enabled = !value;
+            dateOfBirthPicker.Enabled = !value;
+        }
     }
 
     private void Control_Validated(object sender, EventArgs e)

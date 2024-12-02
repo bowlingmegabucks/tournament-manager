@@ -23,7 +23,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <Optimize>True</Optimize>
+	  <Optimize>False</Optimize>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -67,6 +67,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Bowlers\Update\UpdateBowlerForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="Controls\RecapSheetGameTotalControl.cs">
 	    <SubType>UserControl</SubType>
 	  </Compile>
