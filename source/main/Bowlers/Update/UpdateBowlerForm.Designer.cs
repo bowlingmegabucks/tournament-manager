@@ -43,6 +43,7 @@ partial class UpdateForm
         bowlerControl.Name = "bowlerControl";
         bowlerControl.Size = new Size(597, 376);
         bowlerControl.TabIndex = 0;
+        bowlerControl.LockDivisionFields = true;
         // 
         // registrationErrorProvider
         // 
@@ -69,7 +70,7 @@ partial class UpdateForm
         saveButton.UseVisualStyleBackColor = true;
         saveButton.Click += SaveButton_Click;
         // 
-        // Form
+        // UpdateForm
         // 
         AcceptButton = saveButton;
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -82,7 +83,7 @@ partial class UpdateForm
         Controls.Add(bowlerControl);
         FormBorderStyle = FormBorderStyle.FixedSingle;
         MaximizeBox = false;
-        Name = "Form";
+        Name = "UpdateForm";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Update Bowler";
         ((System.ComponentModel.ISupportInitialize)registrationErrorProvider).EndInit();
