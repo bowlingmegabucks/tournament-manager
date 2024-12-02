@@ -1,6 +1,6 @@
 ﻿namespace NortheastMegabuck.Bowlers.Update;
 
-internal partial class Form
+internal partial class UpdateForm
     : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
@@ -10,7 +10,7 @@ internal partial class Form
     /// </summary>
     /// <param name="config"></param>
     /// <param name="bowlerId"></param>
-    public Form(IConfiguration config, BowlerId bowlerId)
+    public UpdateForm(IConfiguration config, BowlerId bowlerId)
     {
         InitializeComponent();
 

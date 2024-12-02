@@ -1,6 +1,6 @@
 ﻿namespace NortheastMegabuck.Bowlers.Update;
 
-partial class Form
+partial class UpdateForm
 {
     /// <summary>
     /// Required designer variable.

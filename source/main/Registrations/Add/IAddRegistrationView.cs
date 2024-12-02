@@ -22,7 +22,7 @@ internal interface IView
 
     void Close();
 
-    Bowlers.Add.IViewModel Bowler { get; }
+    Bowlers.IViewModel Bowler { get; }
 
     DivisionId DivisionId { get; }
 
