@@ -114,7 +114,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         if (string.IsNullOrEmpty(registration!.LaneAssignment))
         {
             var unassignedLane = unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control => control.BowlerId == registration.BowlerId);
-            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedLane);
+            unassignedLane.Dispose();
             unassignedRegistrationsFlowLayoutPanel.Refresh();
         }
         else
@@ -353,7 +353,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _ = new Presenter(_config, this).DeleteAsync(assignment!.BowlerId, default).ConfigureAwait(true);
     }
 
-    private void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private async void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         refreshAssignmentsLinkLabel.Enabled = false;
 
@@ -366,7 +366,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
         foreach (var laneAssignment in laneAssignments)
         {
             var control = laneAssignment as Control;
-            laneAssignmentFlowLayoutPanel.Controls.Remove(control);
             control!.Dispose();
         }
 
@@ -375,11 +374,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
         foreach (var unassignedRegistration in unassignedRegistrations)
         {
             var control = unassignedRegistration as Control;
-            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(control);
             control!.Dispose();
         }
 
-        _ = new Presenter(_config, this).LoadAsync(default).ConfigureAwait(true);
+        await new Presenter(_config, this).LoadAsync(default).ConfigureAwait(true);
 
         laneAssignmentFlowLayoutPanel.Visible = true;
         unassignedRegistrationsFlowLayoutPanel.Visible = true;
