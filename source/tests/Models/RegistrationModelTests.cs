@@ -7,7 +7,7 @@ internal sealed class Registration
     [Test]
     public void Constructor_BowlerSetToValue([Values] bool superSweeper)
     {
-        var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var bowler = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
 
         var divisionId = NortheastMegabuck.DivisionId.New();

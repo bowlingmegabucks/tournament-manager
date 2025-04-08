@@ -46,6 +46,7 @@ partial class RetrieveTournamentRegistrationsForm
         sweeperEntriesLabel = new Label();
         filterLabel = new Controls.LabelControl();
         filterText = new TextBox();
+        updateBowlerInfoMenuItem = new ToolStripMenuItem();
         registrationGridContextMenu.SuspendLayout();
         divisionEntriesGroupBox.SuspendLayout();
         squadEntriesGroupBox.SuspendLayout();
@@ -61,47 +62,47 @@ partial class RetrieveTournamentRegistrationsForm
         // 
         // registrationGridContextMenu
         // 
-        registrationGridContextMenu.Items.AddRange(new ToolStripItem[] { updateBowlerNameMenuItem, addSuperSweeperMenuItem, changeAverageMenuItem, changeDivisionMenuItem, toolStripSeparator1, deleteMenuItem });
+        registrationGridContextMenu.Items.AddRange(new ToolStripItem[] { updateBowlerInfoMenuItem, updateBowlerNameMenuItem, addSuperSweeperMenuItem, changeAverageMenuItem, changeDivisionMenuItem, toolStripSeparator1, deleteMenuItem });
         registrationGridContextMenu.Name = "registrationGridContextMenu";
-        registrationGridContextMenu.Size = new Size(177, 120);
+        registrationGridContextMenu.Size = new Size(181, 164);
         // 
         // updateBowlerNameMenuItem
         // 
         updateBowlerNameMenuItem.Name = "updateBowlerNameMenuItem";
-        updateBowlerNameMenuItem.Size = new Size(176, 22);
+        updateBowlerNameMenuItem.Size = new Size(180, 22);
         updateBowlerNameMenuItem.Text = "Update Name";
         updateBowlerNameMenuItem.Click += UpdateBowlerNameMenuItem_Click;
         // 
         // addSuperSweeperMenuItem
         // 
         addSuperSweeperMenuItem.Name = "addSuperSweeperMenuItem";
-        addSuperSweeperMenuItem.Size = new Size(176, 22);
+        addSuperSweeperMenuItem.Size = new Size(180, 22);
         addSuperSweeperMenuItem.Text = "Add Super Sweeper";
         addSuperSweeperMenuItem.Click += AddSuperSweeperMenuItem_Click;
         // 
         // changeAverageMenuItem
         // 
         changeAverageMenuItem.Name = "changeAverageMenuItem";
-        changeAverageMenuItem.Size = new Size(176, 22);
+        changeAverageMenuItem.Size = new Size(180, 22);
         changeAverageMenuItem.Text = "Change Average";
         changeAverageMenuItem.Click += ChangeAverageMenuItem_Click;
         // 
         // changeDivisionMenuItem
         // 
         changeDivisionMenuItem.Name = "changeDivisionMenuItem";
-        changeDivisionMenuItem.Size = new Size(176, 22);
+        changeDivisionMenuItem.Size = new Size(180, 22);
         changeDivisionMenuItem.Text = "Change Division";
         changeDivisionMenuItem.Click += ChangeDivisionMenuItem_Click;
         // 
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(173, 6);
+        toolStripSeparator1.Size = new Size(177, 6);
         // 
         // deleteMenuItem
         // 
         deleteMenuItem.Name = "deleteMenuItem";
-        deleteMenuItem.Size = new Size(176, 22);
+        deleteMenuItem.Size = new Size(180, 22);
         deleteMenuItem.Text = "Delete";
         deleteMenuItem.Click += DeleteMenuItem_Click;
         // 
@@ -175,7 +176,7 @@ partial class RetrieveTournamentRegistrationsForm
         filterLabel.Margin = new Padding(15, 3, 15, 3);
         filterLabel.Name = "filterLabel";
         filterLabel.Required = false;
-        filterLabel.Size = new Size(72, 19);
+        filterLabel.Size = new Size(117, 19);
         filterLabel.TabIndex = 31;
         filterLabel.TabStop = false;
         filterLabel.Text = "Filter:";
@@ -191,6 +192,13 @@ partial class RetrieveTournamentRegistrationsForm
         filterText.Size = new Size(270, 26);
         filterText.TabIndex = 30;
         filterText.TextChanged += FilterText_TextChanged;
+        // 
+        // updateBowlerInfoMenuItem
+        // 
+        updateBowlerInfoMenuItem.Name = "updateBowlerInfoMenuItem";
+        updateBowlerInfoMenuItem.Size = new Size(180, 22);
+        updateBowlerInfoMenuItem.Text = "Update Bowler Info";
+        updateBowlerInfoMenuItem.Click += UpdateBowlerInfoMenuItem_Click;
         // 
         // RetrieveTournamentRegistrationsForm
         // 
@@ -237,4 +245,5 @@ partial class RetrieveTournamentRegistrationsForm
     private ToolStripMenuItem changeAverageMenuItem;
     private Controls.LabelControl filterLabel;
     private TextBox filterText;
+    private ToolStripMenuItem updateBowlerInfoMenuItem;
 }

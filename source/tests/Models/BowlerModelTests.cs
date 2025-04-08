@@ -214,7 +214,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_IdMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(BowlerId.New());
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -225,7 +225,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_FirstNameMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.FirstName).Returns("John");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -236,7 +236,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_MiddleInitialMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.MiddleInitial).Returns("J");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -247,7 +247,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_LastNameMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.LastName).Returns("Doe");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -258,7 +258,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_SuffixMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.Suffix).Returns("III");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -269,7 +269,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_StreetAddressMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.StreetAddress).Returns("123 Main St");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -280,7 +280,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_CityAddressMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.CityAddress).Returns("New York");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -291,7 +291,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_StateAddressMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.StateAddress).Returns("NY");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -302,7 +302,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_ZipCodeMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.ZipCode).Returns("12345");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -313,7 +313,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_PhoneNumberMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.PhoneNumber).Returns("1234567890");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -324,7 +324,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_EmailAddressMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.EmailAddress).Returns("test@gmail.com");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -335,7 +335,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_DateOfBirthMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.DateOfBirth).Returns(new DateOnly(2000, 1, 1));
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -346,7 +346,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_DateOfBirthNull_Mapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.DateOfBirth).Returns((DateOnly?)null);
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -357,7 +357,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_USBCIdMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.USBCId).Returns("123-4567");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -368,7 +368,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_SocialSecurityNumberMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.SocialSecurityNumber).Returns("ssn");
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
@@ -379,7 +379,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_GenderMapped([Values] NortheastMegabuck.Models.Gender? gender)
     {
-        var viewModel = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.Gender).Returns(gender);
 
         var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);

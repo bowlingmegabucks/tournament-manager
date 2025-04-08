@@ -19,7 +19,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_AddBowlerViewModel_BusinessLogicExecute_CalledCorrectly([Values] bool superSweeper)
     {
-        var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var bowler = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
         var divisionId = DivisionId.New();
         var squads = Enumerable.Empty<SquadId>();
@@ -43,7 +43,7 @@ internal sealed class Adapter
         var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("error"), 5);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
-        var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var bowler = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         var divisionId = DivisionId.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
@@ -60,7 +60,7 @@ internal sealed class Adapter
         var id = RegistrationId.New();
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
-        var bowler = new Mock<NortheastMegabuck.Bowlers.Add.IViewModel>();
+        var bowler = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         var divisionId = DivisionId.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();

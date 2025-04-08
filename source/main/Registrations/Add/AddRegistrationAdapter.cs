@@ -22,7 +22,7 @@ internal class Adapter : IAdapter
         _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
     }
 
-    public async Task<RegistrationId?> ExecuteAsync(Bowlers.Add.IViewModel bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average, CancellationToken cancellationToken)
+    public async Task<RegistrationId?> ExecuteAsync(Bowlers.IViewModel bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average, CancellationToken cancellationToken)
         => await ExecuteAsync(new Models.Registration(new Models.Bowler(bowler), divisionId, squads, sweepers, superSweeper, average), cancellationToken).ConfigureAwait(false);
 
     private async Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
@@ -40,7 +40,7 @@ internal interface IAdapter
 {
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
-    Task<RegistrationId?> ExecuteAsync(Bowlers.Add.IViewModel bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average, CancellationToken cancellationToken);
+    Task<RegistrationId?> ExecuteAsync(Bowlers.IViewModel bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average, CancellationToken cancellationToken);
 
     Task<LaneAssignments.IViewModel?> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 }

@@ -1,10 +1,7 @@
 ﻿
 namespace NortheastMegabuck.Bowlers.Update;
-internal interface IBowlerNameView
-    : NortheastMegabuck.IView
+internal interface IView
 {
-    BowlerId Id { get; }
-
     void DisplayError(string message);
 
     void DisplayErrors(IEnumerable<string> messages);
@@ -15,7 +12,10 @@ internal interface IBowlerNameView
 
     void OkToClose();
 
-    INameViewModel BowlerName { get; }
+    IViewModel Bowler { get; }
 
-    string FullName { get; }
+    bool IsValid();
+
+    void KeepOpen();
+    void DisplayMessage(string v);
 }

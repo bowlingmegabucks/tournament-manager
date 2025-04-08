@@ -1,6 +1,7 @@
 ﻿
 namespace NortheastMegabuck.Bowlers.Update;
-internal partial class NameForm : Form, IBowlerNameView
+internal partial class NameForm
+    : Form, IBowlerNameView
 {
     private readonly IConfiguration _config;
     public NameForm(IConfiguration config, BowlerId id)

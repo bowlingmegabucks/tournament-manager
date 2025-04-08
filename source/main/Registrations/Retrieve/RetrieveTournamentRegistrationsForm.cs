@@ -129,4 +129,11 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     private void FilterText_TextChanged(object sender, EventArgs e)
         => tournamentRegistrationsGrid.Filter(filterText.Text);
+
+    private void UpdateBowlerInfoMenuItem_Click(object sender, EventArgs e)
+    {
+        using var form = new Bowlers.Update.UpdateForm(_config, tournamentRegistrationsGrid.SelectedRegistration.BowlerId);
+
+        form.ShowDialog(this);
+    }
 }

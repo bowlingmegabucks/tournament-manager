@@ -2,7 +2,8 @@
 using System.Data;
 
 namespace NortheastMegabuck.Registrations.Add;
-internal partial class Form : System.Windows.Forms.Form, IView
+internal partial class Form
+    : System.Windows.Forms.Form, IView
 {
     private readonly IConfiguration _config;
 
@@ -46,7 +47,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public DivisionId DivisionId
         => (DivisionId)divisionsDropdown.SelectedValue!;
 
-    public Bowlers.Add.IViewModel Bowler
+    public Bowlers.IViewModel Bowler
         => bowlerControl;
 
     public int? Average
