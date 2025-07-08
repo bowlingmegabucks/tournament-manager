@@ -33,14 +33,14 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_TournamentResultsHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _tournamentResults.SetupGet(tournamentResults => tournamentResults.Error).Returns(error);
+        _tournamentResults.SetupGet(tournamentResults => tournamentResults.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Empty);
-            Assert.That(_businessLogic.Error, Is.EqualTo(error));
+            Assert.That(_businessLogic.ErrorDetail, Is.EqualTo(error));
         });
     }
 

@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Models;
+﻿using NortheastMegabuck.Divisions;
+
+namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal sealed class Division
@@ -11,7 +13,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(id);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Id, Is.EqualTo(id));
     }
@@ -24,7 +26,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.Number).Returns(number);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Number, Is.EqualTo(number));
     }
@@ -37,7 +39,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.DivisionName).Returns(name);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Name, Is.EqualTo(name));
     }
@@ -50,18 +52,18 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.TournamentId).Returns(tournamentId);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.TournamentId, Is.EqualTo(tournamentId));
     }
 
     [Test]
-    public void Constructor_ViewModel_MinumumAgeMapped([Values(null, 5)] short? age)
+    public void Constructor_ViewModel_MinimumAgeMapped([Values(null, 5)] short? age)
     {
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MinimumAge).Returns(age);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.MinimumAge, Is.EqualTo(age));
     }
@@ -72,7 +74,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MaximumAge).Returns(age);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.MaximumAge, Is.EqualTo(age));
     }
@@ -83,7 +85,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MinimumAverage).Returns(average);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.MinimumAverage, Is.EqualTo(average));
     }
@@ -94,7 +96,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MaximumAverage).Returns(average);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.MaximumAverage, Is.EqualTo(average));
     }
@@ -105,7 +107,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.HandicapPercentage).Returns(handicapPercentage);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.HandicapPercentage, Is.EqualTo(handicapPercentage / 100m));
     }
@@ -116,7 +118,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.HandicapBase).Returns(handicapBase);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.HandicapBase, Is.EqualTo(handicapBase));
     }
@@ -127,7 +129,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MaximumHandicapPerGame).Returns(maximumHandicapPerGame);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.MaximumHandicapPerGame, Is.EqualTo(maximumHandicapPerGame));
     }
@@ -138,7 +140,7 @@ internal sealed class Division
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.Gender).Returns(gender);
 
-        var model = new NortheastMegabuck.Models.Division(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Gender, Is.EqualTo(gender));
     }
@@ -204,7 +206,7 @@ internal sealed class Division
     }
 
     [Test]
-    public void Constructor_Entities_MinumumAgeMapped([Values(null, 5)] short? age)
+    public void Constructor_Entities_MinimumAgeMapped([Values(null, 5)] short? age)
     {
         var entity = new NortheastMegabuck.Database.Entities.Division
         {

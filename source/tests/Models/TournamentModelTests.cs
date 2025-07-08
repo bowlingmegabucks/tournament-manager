@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Models;
+﻿using NortheastMegabuck.Tournaments;
+
+namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal sealed class Tournament
@@ -176,7 +178,7 @@ internal sealed class Tournament
         var id = TournamentId.New();
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { Id = id };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.Id, Is.EqualTo(id));
     }
@@ -186,7 +188,7 @@ internal sealed class Tournament
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { TournamentName = "name" };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.Name, Is.EqualTo("name"));
     }
@@ -195,9 +197,9 @@ internal sealed class Tournament
     public void Constructor_TournamentViewModel_StartMapped()
     {
         var start = new DateOnly(2000, 1, 2);
-        var entity = new NortheastMegabuck.Tournaments.ViewModel { Start = start };
+        var viewModel = new NortheastMegabuck.Tournaments.ViewModel { Start = start };
 
-        var model = new NortheastMegabuck.Models.Tournament(entity);
+        var model = viewModel.ToModel();
 
         Assert.That(model.Start, Is.EqualTo(start));
     }
@@ -208,7 +210,7 @@ internal sealed class Tournament
         var end = new DateOnly(2000, 1, 2);
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { End = end };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.End, Is.EqualTo(end));
     }
@@ -218,7 +220,7 @@ internal sealed class Tournament
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { EntryFee = 123.45m };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.EntryFee, Is.EqualTo(123.45m));
     }
@@ -228,7 +230,7 @@ internal sealed class Tournament
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { Games = 5 };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.Games, Is.EqualTo(5));
     }
@@ -238,7 +240,7 @@ internal sealed class Tournament
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { FinalsRatio = 12.3m };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.FinalsRatio, Is.EqualTo(12.3m));
     }
@@ -248,7 +250,7 @@ internal sealed class Tournament
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { CashRatio = 45.6m };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.CashRatio, Is.EqualTo(45.6m));
     }
@@ -258,7 +260,7 @@ internal sealed class Tournament
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { SuperSweeperCashRatio = 45.6m };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.SuperSweeperCashRatio, Is.EqualTo(45.6m));
     }
@@ -268,7 +270,7 @@ internal sealed class Tournament
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { BowlingCenter = "bowlingCenter" };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.BowlingCenter, Is.EqualTo("bowlingCenter"));
     }
@@ -278,7 +280,7 @@ internal sealed class Tournament
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel { Completed = completed };
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.Completed, Is.EqualTo(completed));
     }
@@ -288,7 +290,7 @@ internal sealed class Tournament
     {
         var viewModel = new NortheastMegabuck.Tournaments.ViewModel();
 
-        var model = new NortheastMegabuck.Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         Assert.That(model.Squads, Is.Empty);
     }

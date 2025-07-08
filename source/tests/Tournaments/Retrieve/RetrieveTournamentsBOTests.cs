@@ -41,7 +41,7 @@ internal sealed class BusinessLogic
     {
         await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error, Is.Null);
+        Assert.That(_businessLogic.ErrorDetail, Is.Null);
     }
 
     [Test]
@@ -65,8 +65,8 @@ internal sealed class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
-            Assert.That(_businessLogic.Error.ReturnCode, Is.EqualTo(-1));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
+            Assert.That(_businessLogic.ErrorDetail.ReturnCode, Is.EqualTo(-1));
         });
     }
 
@@ -99,7 +99,7 @@ internal sealed class BusinessLogic
         var id = TournamentId.New();
         await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error, Is.Null);
+        Assert.That(_businessLogic.ErrorDetail, Is.Null);
     }
 
     [Test]
@@ -125,8 +125,8 @@ internal sealed class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
-            Assert.That(_businessLogic.Error.ReturnCode, Is.EqualTo(-1));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
+            Assert.That(_businessLogic.ErrorDetail.ReturnCode, Is.EqualTo(-1));
         });
     }
 
@@ -159,7 +159,7 @@ internal sealed class BusinessLogic
         var id = DivisionId.New();
         await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error, Is.Null);
+        Assert.That(_businessLogic.ErrorDetail, Is.Null);
     }
 
     [Test]
@@ -185,8 +185,8 @@ internal sealed class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
-            Assert.That(_businessLogic.Error.ReturnCode, Is.EqualTo(-1));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
+            Assert.That(_businessLogic.ErrorDetail.ReturnCode, Is.EqualTo(-1));
         });
     }
 
@@ -219,7 +219,7 @@ internal sealed class BusinessLogic
         var id = SquadId.New();
         await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error, Is.Null);
+        Assert.That(_businessLogic.ErrorDetail, Is.Null);
     }
 
     [Test]
@@ -245,8 +245,8 @@ internal sealed class BusinessLogic
 
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
-            Assert.That(_businessLogic.Error.ReturnCode, Is.EqualTo(-1));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
+            Assert.That(_businessLogic.ErrorDetail.ReturnCode, Is.EqualTo(-1));
         });
     }
 }

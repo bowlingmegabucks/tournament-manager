@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Models;
+﻿using NortheastMegabuck.Squads;
+
+namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal sealed class Squad
@@ -149,7 +151,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(SquadId.New());
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Id, Is.EqualTo(viewModel.Object.Id));
     }
@@ -160,7 +162,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.TournamentId).Returns(TournamentId.New());
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.TournamentId, Is.EqualTo(viewModel.Object.TournamentId));
     }
@@ -171,7 +173,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.EntryFee).Returns(entryFee);
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.EntryFee, Is.EqualTo(entryFee));
     }
@@ -182,7 +184,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.CashRatio).Returns(cashRatio);
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.CashRatio, Is.EqualTo(cashRatio));
     }
@@ -193,7 +195,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.FinalsRatio).Returns(finalsRatio);
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.FinalsRatio, Is.EqualTo(finalsRatio));
     }
@@ -204,7 +206,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.Date).Returns(DateTime.Now);
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Date, Is.EqualTo(viewModel.Object.Date));
     }
@@ -215,7 +217,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.MaxPerPair).Returns(5);
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.MaxPerPair, Is.EqualTo(5));
     }
@@ -226,7 +228,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.StartingLane).Returns(1);
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.StartingLane, Is.EqualTo(1));
     }
@@ -237,7 +239,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.NumberOfLanes).Returns(32);
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.NumberOfLanes, Is.EqualTo(32));
     }
@@ -248,7 +250,7 @@ internal sealed class Squad
         var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
         viewModel.SetupGet(v => v.Complete).Returns(complete);
 
-        var model = new NortheastMegabuck.Models.Squad(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Complete, Is.EqualTo(complete));
     }

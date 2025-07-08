@@ -30,7 +30,7 @@ internal sealed class Adapter
     public async Task ExecuteAsync_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
         var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
 

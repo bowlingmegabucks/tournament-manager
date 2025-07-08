@@ -38,14 +38,14 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_RetrieveTournamentHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.Error).Returns(error);
+        _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Empty);
-            Assert.That(_businessLogic.Error, Is.EqualTo(error));
+            Assert.That(_businessLogic.ErrorDetail, Is.EqualTo(error));
 
             _retrieveSquadResults.Verify(retrieveSquadResults => retrieveSquadResults.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Never);
             _calculator.Verify(calculator => calculator.Execute(It.IsAny<DivisionId>(), It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>()), Times.Never);
@@ -70,14 +70,14 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_RetrieveTournamentNoError_RetrieveSquadResultsHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _retrieveSquadResults.SetupGet(retrieveSquadResults => retrieveSquadResults.Error).Returns(error);
+        _retrieveSquadResults.SetupGet(retrieveSquadResults => retrieveSquadResults.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Empty);
-            Assert.That(_businessLogic.Error, Is.EqualTo(error));
+            Assert.That(_businessLogic.ErrorDetail, Is.EqualTo(error));
 
             _calculator.Verify(calculator => calculator.Execute(It.IsAny<DivisionId>(), It.IsAny<ICollection<NortheastMegabuck.Models.SquadResult>>(), It.IsAny<decimal>()), Times.Never);
         });

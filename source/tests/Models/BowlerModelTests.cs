@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Tests.Models;
+﻿using NortheastMegabuck.Bowlers;
+
+namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
 internal sealed class Bowler
@@ -217,7 +219,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(BowlerId.New());
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Id, Is.EqualTo(viewModel.Object.Id));
     }
@@ -228,7 +230,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.FirstName).Returns("John");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Name.First, Is.EqualTo(viewModel.Object.FirstName));
     }
@@ -239,7 +241,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.MiddleInitial).Returns("J");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Name.MiddleInitial, Is.EqualTo(viewModel.Object.MiddleInitial));
     }
@@ -250,7 +252,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.LastName).Returns("Doe");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Name.Last, Is.EqualTo(viewModel.Object.LastName));
     }
@@ -261,7 +263,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.Suffix).Returns("III");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Name.Suffix, Is.EqualTo(viewModel.Object.Suffix));
     }
@@ -272,7 +274,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.StreetAddress).Returns("123 Main St");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.StreetAddress, Is.EqualTo(viewModel.Object.StreetAddress));
     }
@@ -283,7 +285,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.CityAddress).Returns("New York");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.CityAddress, Is.EqualTo(viewModel.Object.CityAddress));
     }
@@ -294,7 +296,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.StateAddress).Returns("NY");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.StateAddress, Is.EqualTo(viewModel.Object.StateAddress));
     }
@@ -305,7 +307,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.ZipCode).Returns("12345");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.ZipCode, Is.EqualTo(viewModel.Object.ZipCode));
     }
@@ -316,7 +318,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.PhoneNumber).Returns("1234567890");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.PhoneNumber, Is.EqualTo(viewModel.Object.PhoneNumber));
     }
@@ -327,7 +329,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.EmailAddress).Returns("test@gmail.com");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.EmailAddress, Is.EqualTo(viewModel.Object.EmailAddress));
     }
@@ -338,7 +340,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.DateOfBirth).Returns(new DateOnly(2000, 1, 1));
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.DateOfBirth, Is.EqualTo(viewModel.Object.DateOfBirth));
     }
@@ -349,7 +351,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.DateOfBirth).Returns((DateOnly?)null);
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.DateOfBirth, Is.Null);
     }
@@ -360,7 +362,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.USBCId).Returns("123-4567");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.USBCId, Is.EqualTo(viewModel.Object.USBCId));
     }
@@ -371,7 +373,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.SocialSecurityNumber).Returns("ssn");
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.SocialSecurityNumber, Is.EqualTo(viewModel.Object.SocialSecurityNumber));
     }
@@ -382,7 +384,7 @@ internal sealed class Bowler
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
         viewModel.SetupGet(v => v.Gender).Returns(gender);
 
-        var model = new NortheastMegabuck.Models.Bowler(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Gender, Is.EqualTo(viewModel.Object.Gender));
     }

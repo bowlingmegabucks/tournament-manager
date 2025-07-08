@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Sweepers.Add;
 
 [TestFixture]
-internal sealed class BusinesLogic
+internal sealed class BusinessLogic
 {
     private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
     private Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Sweeper>> _validator;
@@ -41,7 +41,7 @@ internal sealed class BusinesLogic
     public async Task ExecuteAsync_GetTournamentBOHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _getTournamentBO.SetupGet(getTournamentBO => getTournamentBO.Error).Returns(error);
+        _getTournamentBO.SetupGet(getTournamentBO => getTournamentBO.ErrorDetail).Returns(error);
 
         var sweeper = new NortheastMegabuck.Models.Sweeper
         {

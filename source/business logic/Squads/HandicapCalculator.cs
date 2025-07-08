@@ -3,13 +3,11 @@
 /// <summary>
 /// 
 /// </summary>
-public sealed class HandicapCalculator 
-    : IHandicapCalculator
+public sealed class HandicapCalculator : IHandicapCalculatorInternal
 {
-    internal static int Calculate(Database.Entities.Registration registration)
+    int IHandicapCalculatorInternal.Calculate(Database.Entities.Registration registration)
         => Calculate(registration.Average, registration.Division.HandicapBase, registration.Division.HandicapPercentage, registration.Division.MaximumHandicapPerGame);
 
-    /// <inheritdoc />
     int IHandicapCalculator.Calculate(Models.Registration registration)
         => Calculate(registration.Average, registration.Division.HandicapBase, registration.Division.HandicapPercentage, registration.Division.MaximumHandicapPerGame);
 
@@ -29,6 +27,12 @@ public sealed class HandicapCalculator
 
         return Math.Min(handicap, maxHandicap.GetValueOrDefault(999));
     }
+}
+
+internal interface IHandicapCalculatorInternal
+    : IHandicapCalculator
+{
+    int Calculate(Database.Entities.Registration registration);
 }
 
 /// <summary>

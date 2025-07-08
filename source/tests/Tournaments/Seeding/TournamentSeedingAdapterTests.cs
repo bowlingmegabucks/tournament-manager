@@ -31,7 +31,7 @@ internal sealed class Adapter
     public async Task ExecuteAsync_BusinessLogicHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 

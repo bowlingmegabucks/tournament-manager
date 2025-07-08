@@ -28,7 +28,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_BusinessLogicErrorDetailNull_AdapterErrorDetailNull()
     {
-        _businessLogic.Setup(businessLogic => businessLogic.Error).Returns((NortheastMegabuck.Models.ErrorDetail)null);
+        _businessLogic.Setup(businessLogic => businessLogic.ErrorDetail).Returns((NortheastMegabuck.Models.ErrorDetail)null);
 
         await _adapter.ExecuteAsync(default).ConfigureAwait(false);
 
@@ -39,7 +39,7 @@ internal sealed class Adapter
     public async Task ExecuteAsync_BusinessLogicErrorDetailNotNull_AdapterErrorDetailEqualToBusinessLogicErrorDetail()
     {
         var errorDetail = new NortheastMegabuck.Models.ErrorDetail("message");
-        _businessLogic.Setup(businessLogic => businessLogic.Error).Returns(errorDetail);
+        _businessLogic.Setup(businessLogic => businessLogic.ErrorDetail).Returns(errorDetail);
 
         await _adapter.ExecuteAsync(default).ConfigureAwait(false);
 

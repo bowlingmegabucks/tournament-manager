@@ -47,11 +47,7 @@ public class LaneAssignment
     /// </summary>
     public int Handicap { get; init; }
 
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="squadRegistration"></param>
-    internal LaneAssignment(Database.Entities.SquadRegistration squadRegistration)
+    internal LaneAssignment(Database.Entities.SquadRegistration squadRegistration, IHandicapCalculatorInternal handicapCalculator)
     {
         RegistrationId = squadRegistration.RegistrationId;
         SquadId = squadRegistration.SquadId;
@@ -63,7 +59,7 @@ public class LaneAssignment
         Average = squadRegistration.Registration.Average;
 
         Handicap = squadRegistration.Squad is Database.Entities.TournamentSquad
-            ? HandicapCalculator.Calculate(squadRegistration.Registration)
+            ? handicapCalculator.Calculate(squadRegistration.Registration)
             : ((squadRegistration.Squad as Database.Entities.SweeperSquad)!.Divisions.SingleOrDefault(division => division.DivisionId == Division.Id)?.BonusPinsPerGame).GetValueOrDefault(0);
 
         SuperSweeper = squadRegistration.Squad is Database.Entities.SweeperSquad

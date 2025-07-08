@@ -43,7 +43,7 @@ public class SquadScore
     /// </summary>
     public int Handicap { get; init; }
 
-    internal SquadScore(Database.Entities.SquadScore score)
+    internal SquadScore(Database.Entities.SquadScore score, IHandicapCalculatorInternal handicapCalculator)
     {
         SquadId = score.SquadId;
         SquadDate = score.Squad.Date;
@@ -54,7 +54,7 @@ public class SquadScore
 
         Handicap = score.Squad is Database.Entities.SweeperSquad sweeper
             ? sweeper.Divisions.SingleOrDefault(division => division.DivisionId == Division.Id)?.BonusPinsPerGame.GetValueOrDefault(0) ?? 0
-            : HandicapCalculator.Calculate(score.Bowler.Registrations.Single());
+            : handicapCalculator.Calculate(score.Bowler.Registrations.Single());
     }
 
     /// <summary>

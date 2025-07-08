@@ -182,7 +182,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_BowlerIdMapped([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = new NortheastMegabuck.Models.Bowler
@@ -206,7 +206,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_BowlerNameMapped([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = new NortheastMegabuck.Models.Bowler
@@ -230,7 +230,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_DivisionNameMapped([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = new NortheastMegabuck.Models.Bowler
@@ -254,7 +254,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_DivisionNumberMapped([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = new NortheastMegabuck.Models.Bowler
@@ -278,7 +278,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_LaneAssignmentEmpty([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = new NortheastMegabuck.Models.Bowler
@@ -303,7 +303,7 @@ internal sealed class ViewModel
     [TestCase(200, 200)]
     public void Constructor_Registration_AverageMapped(int? average, int expected)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = new NortheastMegabuck.Models.Bowler
@@ -327,7 +327,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_HandicapCalculatorCalculate_CalledCorrectly([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         var registration = new NortheastMegabuck.Models.Registration
         {
             Bowler = new NortheastMegabuck.Models.Bowler
@@ -351,7 +351,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_HandicapMapped_ToHandicapCalculatorCalculate([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(10);
         var registration = new NortheastMegabuck.Models.Registration
         {

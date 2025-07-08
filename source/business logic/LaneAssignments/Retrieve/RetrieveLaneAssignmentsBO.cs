@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using NortheastMegabuck.Squads;
 
 namespace NortheastMegabuck.LaneAssignments.Retrieve;
 
@@ -20,7 +21,7 @@ public sealed class BusinessLogic : IBusinessLogic
     /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
-        _dataLayer = new DataLayer(config);
+        _dataLayer = new DataLayer(config, new HandicapCalculator());
     }
 
     /// <summary>

@@ -49,7 +49,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error, Is.Null);
+        Assert.That(_businessLogic.ErrorDetail, Is.Null);
     }
 
     [Test]
@@ -65,7 +65,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(actual, Is.Empty);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("exception"));
         });
     }
 }
