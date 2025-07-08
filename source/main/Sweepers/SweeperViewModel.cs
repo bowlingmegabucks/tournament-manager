@@ -72,3 +72,24 @@ internal interface IViewModel
 
     IDictionary<NortheastMegabuck.DivisionId, int?> Divisions { get; }
 }
+
+internal static class ViewModelExtensions
+{
+    public static Models.Sweeper ToModel(this IViewModel viewModel)
+    {
+        return new Models.Sweeper
+        {
+            Id = viewModel.Id,
+            TournamentId = viewModel.TournamentId,
+            EntryFee = viewModel.EntryFee,
+            Games = viewModel.Games,
+            CashRatio = viewModel.CashRatio,
+            Date = viewModel.Date,
+            MaxPerPair = viewModel.MaxPerPair,
+            StartingLane = viewModel.StartingLane,
+            NumberOfLanes = viewModel.NumberOfLanes,
+            Complete = viewModel.Complete,
+            Divisions = viewModel.Divisions
+        };
+    }
+}

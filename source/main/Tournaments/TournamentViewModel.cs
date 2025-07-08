@@ -72,3 +72,22 @@ internal interface IViewModel
 
     bool Completed { get; set; }
 }
+
+internal static class  ViewModelExtensions
+{
+    public static Models.Tournament ToModel(this IViewModel viewModel)
+        => new()
+        {
+            Id = viewModel.Id,
+            Name = viewModel.TournamentName,
+            Start = viewModel.Start,
+            End = viewModel.End,
+            EntryFee = viewModel.EntryFee,
+            Games = viewModel.Games,
+            FinalsRatio = viewModel.FinalsRatio,
+            CashRatio = viewModel.CashRatio,
+            SuperSweeperCashRatio = viewModel.SuperSweeperCashRatio,
+            BowlingCenter = viewModel.BowlingCenter,
+            Completed = viewModel.Completed,
+        };
+}

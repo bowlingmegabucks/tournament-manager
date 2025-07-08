@@ -3,29 +3,46 @@ using System.Text;
 
 namespace NortheastMegabuck.Models;
 
-internal class PersonName
+/// <summary>
+/// 
+/// </summary>
+public class PersonName
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public string First { get; set; } = string.Empty;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public string MiddleInitial { get; set; } = string.Empty;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public string Last { get; set; } = string.Empty;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public string Suffix { get; set; } = string.Empty;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public PersonName()
     {
 
     }
 
-    public PersonName(Bowlers.Update.INameViewModel viewModel)
-    {
-        First = viewModel.FirstName;
-        MiddleInitial = viewModel.MiddleInitial;
-        Last = viewModel.LastName;
-        Suffix = viewModel.Suffix;
-    }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="firstName"></param>
+    /// <param name="lastName"></param>
+    /// <param name="suffix"></param>
+    /// <returns></returns>
     public static string FullName(string firstName, string lastName, string suffix)
     {
         var name = new StringBuilder($"{firstName} {lastName}");
@@ -38,6 +55,10 @@ internal class PersonName
         return name.ToString();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
         => FullName(First, Last, Suffix);
 }

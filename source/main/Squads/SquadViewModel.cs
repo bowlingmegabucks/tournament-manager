@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Squads;
+﻿using NortheastMegabuck.Models;
+
+namespace NortheastMegabuck.Squads;
 
 internal class ViewModel(Models.Squad squad) : IViewModel
 {
@@ -46,4 +48,24 @@ internal interface IViewModel
     short NumberOfLanes { get; set; }
 
     bool Complete { get; set; }
+}
+
+internal static class ViewModelExtensions
+{
+    public static Models.Squad ToModel(this IViewModel viewModel)
+    {
+        return new Models.Squad
+        {
+            Id = viewModel.Id,
+            TournamentId = viewModel.TournamentId,
+            CashRatio = viewModel.CashRatio,
+            FinalsRatio = viewModel.FinalsRatio,
+            Date = viewModel.Date,
+            MaxPerPair = viewModel.MaxPerPair,
+            StartingLane = viewModel.StartingLane,
+            NumberOfLanes = viewModel.NumberOfLanes,
+            Complete = viewModel.Complete,
+            EntryFee = viewModel.EntryFee
+        };
+    }
 }

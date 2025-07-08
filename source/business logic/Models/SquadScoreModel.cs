@@ -1,38 +1,47 @@
 ﻿
-using NortheastMegabuck.Scores;
-
 namespace NortheastMegabuck.Models;
-internal class SquadScore
+
+/// <summary>
+/// 
+/// </summary>
+public class SquadScore
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public SquadId SquadId { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public DateTime SquadDate { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public Bowler Bowler { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public short GameNumber { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public int Score { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public Division Division { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public int Handicap { get; init; }
 
-    public SquadScore(IViewModel viewModel)
-    {
-        SquadId = viewModel.SquadId;
-        Bowler = new Bowler { Id = viewModel.BowlerId };
-        GameNumber = viewModel.GameNumber;
-        Score = viewModel.Score;
-        Division = new Division();
-    }
-
-    /// <summary>
-    /// Sweeper Score
-    /// </summary>
-    /// <param name="score"></param>
-    /// <param name="handicapCalculator"></param>
-    public SquadScore(Database.Entities.SquadScore score, Squads.IHandicapCalculator handicapCalculator)
+    internal SquadScore(Database.Entities.SquadScore score, Squads.IHandicapCalculator handicapCalculator)
     {
         SquadId = score.SquadId;
         SquadDate = score.Squad.Date;
@@ -56,6 +65,10 @@ internal class SquadScore
     }
 
 #if DEBUG
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
         => $"{Bowler}: Game {GameNumber}: {Score}";
 #endif

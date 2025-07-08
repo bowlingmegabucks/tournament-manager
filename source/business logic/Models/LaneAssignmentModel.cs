@@ -1,25 +1,53 @@
 ﻿using NortheastMegabuck.Squads;
 
 namespace NortheastMegabuck.Models;
-internal class LaneAssignment
+
+/// <summary>
+/// 
+/// </summary>
+public class LaneAssignment
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public RegistrationId RegistrationId { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public SquadId SquadId { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public Bowler Bowler { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public Division Division { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public bool? SuperSweeper { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public string Position { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public int? Average { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public int Handicap { get; init; }
 
-    public LaneAssignment(Database.Entities.SquadRegistration squadRegistration)
+    internal LaneAssignment(Database.Entities.SquadRegistration squadRegistration)
         : this(squadRegistration, new HandicapCalculator()) { }
 
     /// <summary>
