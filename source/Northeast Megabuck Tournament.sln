@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NortheastMegabuck.BusinessLogic", "business logic\NortheastMegabuck.BusinessLogic.csproj", "{BA2BAB66-F25D-4788-A258-2F7B7405F5FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NortheastMegabuck.Api", "api\NortheastMegabuck.Api.csproj", "{1CBE8234-E2CB-43EB-979C-8E133EFDEC3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{BA2BAB66-F25D-4788-A258-2F7B7405F5FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA2BAB66-F25D-4788-A258-2F7B7405F5FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA2BAB66-F25D-4788-A258-2F7B7405F5FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CBE8234-E2CB-43EB-979C-8E133EFDEC3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CBE8234-E2CB-43EB-979C-8E133EFDEC3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CBE8234-E2CB-43EB-979C-8E133EFDEC3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CBE8234-E2CB-43EB-979C-8E133EFDEC3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
