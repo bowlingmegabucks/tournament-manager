@@ -2,7 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NortheastMegabuck.Database;
 
@@ -11,15 +11,16 @@ using NortheastMegabuck.Database;
 namespace NortheastMegabuck.Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221020195709_SuperSweeperCashRatio")]
-    partial class SuperSweeperCashRatio
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
             modelBuilder.Entity("NortheastMegabuck.Database.Entities.Bowler", b =>
                 {
@@ -59,6 +60,10 @@ namespace NortheastMegabuck.Database.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("char(10)")
                         .IsFixedLength();
+
+                    b.Property<string>("SocialSecurityNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("StateAddress")
                         .IsRequired()
@@ -155,9 +160,10 @@ namespace NortheastMegabuck.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("BowlerId", "DivisionId");
-
                     b.HasIndex("DivisionId");
+
+                    b.HasIndex("BowlerId", "DivisionId")
+                        .IsUnique();
 
                     b.ToTable("Registrations");
                 });
@@ -197,6 +203,8 @@ namespace NortheastMegabuck.Database.Migrations
                     b.ToTable("Squads", (string)null);
 
                     b.HasDiscriminator<int>("SquadType");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("NortheastMegabuck.Database.Entities.SquadRegistration", b =>
@@ -310,7 +318,8 @@ namespace NortheastMegabuck.Database.Migrations
 
                     b.Property<decimal>("EntryFee")
                         .HasPrecision(5, 2)
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(5,2)")
+                        .HasColumnName("SweeperEntryFee");
 
                     b.Property<short>("Games")
                         .HasColumnType("smallint");
@@ -323,6 +332,11 @@ namespace NortheastMegabuck.Database.Migrations
             modelBuilder.Entity("NortheastMegabuck.Database.Entities.TournamentSquad", b =>
                 {
                     b.HasBaseType("NortheastMegabuck.Database.Entities.Squad");
+
+                    b.Property<decimal?>("EntryFee")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)")
+                        .HasColumnName("SquadEntryFee");
 
                     b.Property<decimal?>("FinalsRatio")
                         .HasPrecision(3, 1)

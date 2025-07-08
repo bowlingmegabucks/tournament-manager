@@ -1,0 +1,4 @@
+root = false
+
+# Ignore missing XML comment warnings (CS1591)
+dotnet_diagnostic.CS1591.severity = none

@@ -38,19 +38,9 @@
 		<PackageReference Include="FluentValidation" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 		<PackageReference Include="QuestPDF" />
 		<PackageReference Include="System.IO.Packaging" />
 		<PackageReference Include="System.Security.Cryptography.Pkcs" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
