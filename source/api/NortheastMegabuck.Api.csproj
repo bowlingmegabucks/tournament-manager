@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../business logic/NortheastMegabuck.BusinessLogic.csproj" />
+  </ItemGroup>
+
 </Project>
