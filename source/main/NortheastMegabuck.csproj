@@ -65,6 +65,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\business logic\NortheastMegabuck.BusinessLogic.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Bowlers\Update\UpdateBowlerForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
