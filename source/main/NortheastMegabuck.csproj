@@ -35,9 +35,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="FluentValidation" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
-		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
 		<PackageReference Include="QuestPDF" />
 		<PackageReference Include="System.IO.Packaging" />
 		<PackageReference Include="System.Security.Cryptography.Pkcs" />

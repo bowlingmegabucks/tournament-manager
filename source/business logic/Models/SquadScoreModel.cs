@@ -1,4 +1,6 @@
 ﻿
+using NortheastMegabuck.Squads;
+
 namespace NortheastMegabuck.Models;
 
 /// <summary>
@@ -41,7 +43,7 @@ public class SquadScore
     /// </summary>
     public int Handicap { get; init; }
 
-    internal SquadScore(Database.Entities.SquadScore score, Squads.IHandicapCalculator handicapCalculator)
+    internal SquadScore(Database.Entities.SquadScore score)
     {
         SquadId = score.SquadId;
         SquadDate = score.Squad.Date;
@@ -52,7 +54,7 @@ public class SquadScore
 
         Handicap = score.Squad is Database.Entities.SweeperSquad sweeper
             ? sweeper.Divisions.SingleOrDefault(division => division.DivisionId == Division.Id)?.BonusPinsPerGame.GetValueOrDefault(0) ?? 0
-            : handicapCalculator.Calculate(score.Bowler.Registrations.Single());
+            : HandicapCalculator.Calculate(score.Bowler.Registrations.Single());
     }
 
     /// <summary>

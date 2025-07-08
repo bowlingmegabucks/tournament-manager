@@ -1,9 +1,15 @@
 ﻿namespace NortheastMegabuck.Squads;
-internal class HandicapCalculator : IHandicapCalculator
+
+/// <summary>
+/// 
+/// </summary>
+public sealed class HandicapCalculator 
+    : IHandicapCalculator
 {
-    int IHandicapCalculator.Calculate(Database.Entities.Registration registration)
+    internal static int Calculate(Database.Entities.Registration registration)
         => Calculate(registration.Average, registration.Division.HandicapBase, registration.Division.HandicapPercentage, registration.Division.MaximumHandicapPerGame);
 
+    /// <inheritdoc />
     int IHandicapCalculator.Calculate(Models.Registration registration)
         => Calculate(registration.Average, registration.Division.HandicapBase, registration.Division.HandicapPercentage, registration.Division.MaximumHandicapPerGame);
 
@@ -25,9 +31,15 @@ internal class HandicapCalculator : IHandicapCalculator
     }
 }
 
-internal interface IHandicapCalculator
+/// <summary>
+/// 
+/// </summary>
+public interface IHandicapCalculator
 {
-    int Calculate(Database.Entities.Registration registration);
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="registration"></param>
+    /// <returns></returns>
     int Calculate(Models.Registration registration);
 }
