@@ -3,8 +3,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Bowlers.Update;
 
-internal sealed class BusinessLogic : IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public sealed class BusinessLogic : IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly Lazy<IValidator<Models.PersonName>> _nameValidator;
@@ -15,6 +21,10 @@ internal sealed class BusinessLogic : IBusinessLogic
 
     private readonly IDataLayer _dataLayer;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _nameValidator = new Lazy<IValidator<Models.PersonName>>(() => new PersonNameValidator());
@@ -22,6 +32,12 @@ internal sealed class BusinessLogic : IBusinessLogic
         _dataLayer = new DataLayer(config);
     }
 
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockNameValidator"></param>
+    /// <param name="mockBowlerValidator"></param>
+    /// <param name="mockDataLayer"></param>
     internal BusinessLogic(IValidator<Models.PersonName> mockNameValidator, IValidator<Models.Bowler> mockBowlerValidator, IDataLayer mockDataLayer)
     {
         _nameValidator = new Lazy<IValidator<Models.PersonName>>(() => mockNameValidator);
@@ -73,11 +89,30 @@ internal sealed class BusinessLogic : IBusinessLogic
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="name"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task ExecuteAsync(BowlerId id, Models.PersonName name, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="bowler"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task ExecuteAsync(Models.Bowler bowler, CancellationToken cancellationToken);
 }

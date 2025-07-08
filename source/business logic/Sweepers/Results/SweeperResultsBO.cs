@@ -2,9 +2,16 @@
 using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Sweepers.Results;
-internal class BusinessLogic : IBusinessLogic
+
+/// <summary>
+/// 
+/// </summary>
+public class BusinessLogic : IBusinessLogic
 {
-    public Models.ErrorDetail? Error { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Models.ErrorDetail? ErrorDetail { get; private set; }
 
     private readonly Lazy<Retrieve.IBusinessLogic> _retrieveSweeper;
     private Retrieve.IBusinessLogic RetrieveSweeper => _retrieveSweeper.Value;
@@ -14,6 +21,10 @@ internal class BusinessLogic : IBusinessLogic
 
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => new Retrieve.BusinessLogic(config));
@@ -34,13 +45,19 @@ internal class BusinessLogic : IBusinessLogic
         _retrieveScores = mockRetrieveScores;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<Models.SweeperResult?> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
         var sweeper = await RetrieveSweeper.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        if (RetrieveSweeper.Error != null)
+        if (RetrieveSweeper.ErrorDetail != null)
         {
-            Error = RetrieveSweeper.Error;
+            ErrorDetail = RetrieveSweeper.ErrorDetail;
 
             return null;
         }
@@ -50,22 +67,28 @@ internal class BusinessLogic : IBusinessLogic
         return Execute(scores, sweeper!.CashRatio);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournamentId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<Models.SweeperResult?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         var tournament = await RetrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        if (RetrieveTournament.Error != null)
+        if (RetrieveTournament.ErrorDetail != null)
         {
-            Error = RetrieveTournament.Error;
+            ErrorDetail = RetrieveTournament.ErrorDetail;
 
             return null;
         }
 
         var superSweeperBowlers = await RetrieveSweeper.SuperSweeperBowlersAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        if (RetrieveSweeper.Error != null)
+        if (RetrieveSweeper.ErrorDetail != null)
         {
-            Error = RetrieveSweeper.Error;
+            ErrorDetail = RetrieveSweeper.ErrorDetail;
 
             return null;
         }
@@ -77,16 +100,16 @@ internal class BusinessLogic : IBusinessLogic
 
     private Models.SweeperResult? Execute(IEnumerable<Models.SquadScore> scores, decimal cashRatio)
     {
-        if (_retrieveScores.Error != null)
+        if (_retrieveScores.ErrorDetail != null)
         {
-            Error = _retrieveScores.Error;
+            ErrorDetail = _retrieveScores.ErrorDetail;
 
             return null;
         }
 
         if (!scores.Any())
         {
-            Error = new Models.ErrorDetail("No scores entered for sweeper");
+            ErrorDetail = new Models.ErrorDetail("No scores entered for sweeper");
 
             return null;
         }
@@ -104,11 +127,29 @@ internal class BusinessLogic : IBusinessLogic
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
-    Models.ErrorDetail? Error { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    Models.ErrorDetail? ErrorDetail { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<Models.SweeperResult?> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournamentId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<Models.SweeperResult?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

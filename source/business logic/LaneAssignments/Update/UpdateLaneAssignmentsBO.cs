@@ -2,13 +2,24 @@
 using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.LaneAssignments.Update;
-internal class BusinessLogic : IBusinessLogic
+
+/// <summary>
+/// 
+/// </summary>
+public sealed class BusinessLogic : IBusinessLogic
 {
-    public Models.ErrorDetail? Error { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Models.ErrorDetail? ErrorDetail { get; private set; }
 
     private readonly IDataLayer _dataLayer;
     private readonly Retrieve.IBusinessLogic _retrieveLaneAssignment;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _dataLayer = new DataLayer(config);
@@ -32,7 +43,7 @@ internal class BusinessLogic : IBusinessLogic
 
         if (bowlerExistingAssignment is null)
         {
-            Error = new Models.ErrorDetail($"Bowler is not registered for squad");
+            ErrorDetail = new Models.ErrorDetail($"Bowler is not registered for squad");
             return;
         }
 
@@ -43,7 +54,7 @@ internal class BusinessLogic : IBusinessLogic
 
         if (bowlerExistingAssignment.Position != originalPosition)
         {
-            Error = new Models.ErrorDetail($"Bowler has already been moved from {originalPosition}.  Please refresh and verify correct lane assignment");
+            ErrorDetail = new Models.ErrorDetail($"Bowler has already been moved from {originalPosition}.  Please refresh and verify correct lane assignment");
             return;
         }
 
@@ -51,7 +62,7 @@ internal class BusinessLogic : IBusinessLogic
 
         if (!string.IsNullOrWhiteSpace(updatedPosition) && existingLaneAssignments.Any(laneAssignment => laneAssignment.Position == updatedPosition))
         {
-            Error = new Models.ErrorDetail($"Lane {updatedPosition} is already assigned.  Please refresh for updated lane assignments");
+            ErrorDetail = new Models.ErrorDetail($"Lane {updatedPosition} is already assigned.  Please refresh for updated lane assignments");
             return;
         }
 
@@ -61,14 +72,29 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
         }
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
-    Models.ErrorDetail? Error { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    Models.ErrorDetail? ErrorDetail { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadId"></param>
+    /// <param name="bowlerId"></param>
+    /// <param name="originalPosition"></param>
+    /// <param name="updatedPosition"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task ExecuteAsync(SquadId squadId, BowlerId bowlerId, string originalPosition, string updatedPosition, CancellationToken cancellationToken);
 }

@@ -2,9 +2,18 @@
 using System.Text;
 
 namespace NortheastMegabuck;
-internal static class Encryption
+
+/// <summary>
+/// 
+/// </summary>
+public static class Encryption
 {
+    /// <summary>
+    /// 
+    /// </summary>
+#pragma warning disable CA1044 // Properties should not be write only
     public static string Key { private get; set; } = string.Empty;
+#pragma warning restore CA1044 // Properties should not be write only
 
     // This constant is used to determine the keysize of the encryption algorithm in bits.
     // We divide this by 8 within the code below to get the equivalent number of bytes.

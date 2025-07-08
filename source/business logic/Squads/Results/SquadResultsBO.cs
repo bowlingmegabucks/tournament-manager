@@ -2,14 +2,25 @@
 using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Squads.Results;
-internal class BusinessLogic : IBusinessLogic
+
+/// <summary>
+/// 
+/// </summary>
+public class BusinessLogic : IBusinessLogic
 {
-    public Models.ErrorDetail? Error { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Models.ErrorDetail? ErrorDetail { get; private set; }
 
     private readonly Tournaments.Retrieve.IBusinessLogic _retrieveTournament;
     private readonly ICalculator _squadResultCalculator;
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _retrieveTournament = new Tournaments.Retrieve.BusinessLogic(config);
@@ -30,22 +41,28 @@ internal class BusinessLogic : IBusinessLogic
         _retrieveScores = mockRetrieveScores;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<IGrouping<Models.Division, Models.SquadResult>>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)
     {
         var tournament = await _retrieveTournament.ExecuteAsync(squadId, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveTournament.Error != null)
+        if (_retrieveTournament.ErrorDetail != null)
         {
-            Error = _retrieveTournament.Error;
+            ErrorDetail = _retrieveTournament.ErrorDetail;
 
             return [];
         }
 
         var scores = (await _retrieveScores.ExecuteAsync(tournament!.Squads.Where(squad => squad.Date <= tournament.Squads.Single(s => s.Id == squadId).Date).Select(squad => squad.Id), cancellationToken).ConfigureAwait(false)).ToList();
 
-        if (_retrieveScores.Error != null)
+        if (_retrieveScores.ErrorDetail != null)
         {
-            Error = _retrieveScores.Error;
+            ErrorDetail = _retrieveScores.ErrorDetail;
 
             return [];
         }
@@ -53,22 +70,28 @@ internal class BusinessLogic : IBusinessLogic
         return Execute(scores, tournament).Where(result => result.Squad.Id == squadId).GroupBy(result => result.Division).ToList();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournamentId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<IGrouping<Models.Division, Models.SquadResult>>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         var tournament = await _retrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveTournament.Error != null)
+        if (_retrieveTournament.ErrorDetail != null)
         {
-            Error = _retrieveTournament.Error;
+            ErrorDetail = _retrieveTournament.ErrorDetail;
 
             return [];
         }
 
         var scores = (await _retrieveScores.ExecuteAsync(tournament!.Squads.Select(squad => squad.Id), cancellationToken).ConfigureAwait(false)).ToList();
 
-        if (_retrieveScores.Error != null)
+        if (_retrieveScores.ErrorDetail != null)
         {
-            Error = _retrieveScores.Error;
+            ErrorDetail = _retrieveScores.ErrorDetail;
 
             return [];
         }
@@ -106,11 +129,29 @@ internal class BusinessLogic : IBusinessLogic
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
-    Models.ErrorDetail? Error { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    Models.ErrorDetail? ErrorDetail { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<IEnumerable<IGrouping<Models.Division, Models.SquadResult>>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournamentId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<IEnumerable<IGrouping<Models.Division, Models.SquadResult>>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

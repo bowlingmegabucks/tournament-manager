@@ -2,8 +2,14 @@
 
 namespace NortheastMegabuck.Squads.Add;
 
-internal class BusinessLogic : IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public class BusinessLogic : IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly Tournaments.Retrieve.IBusinessLogic _getTournamentBO;
@@ -14,6 +20,10 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _getTournamentBO = new Tournaments.Retrieve.BusinessLogic(config);
@@ -34,13 +44,21 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squad"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<SquadId?> ExecuteAsync(Models.Squad squad, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(squad);
+
         var tournament = await _getTournamentBO.ExecuteAsync(squad.TournamentId, cancellationToken).ConfigureAwait(false);
 
-        if (_getTournamentBO.Error != null)
+        if (_getTournamentBO.ErrorDetail != null)
         {
-            Errors = [_getTournamentBO.Error];
+            Errors = [_getTournamentBO.ErrorDetail];
 
             return null;
         }
@@ -69,9 +87,21 @@ internal class BusinessLogic : IBusinessLogic
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squad"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<SquadId?> ExecuteAsync(Models.Squad squad, CancellationToken cancellationToken);
 }

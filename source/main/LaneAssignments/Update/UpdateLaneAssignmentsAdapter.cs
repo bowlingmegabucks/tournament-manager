@@ -3,7 +3,7 @@ namespace NortheastMegabuck.LaneAssignments.Update;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error
-        => _businessLogic.Error;
+        => _businessLogic.ErrorDetail;
 
     public IBusinessLogic _businessLogic;
 

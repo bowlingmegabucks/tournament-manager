@@ -3,12 +3,22 @@ using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Scores.Retrieve;
 
-internal class BusinessLogic : IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public class BusinessLogic : IBusinessLogic
 {
-    public Models.ErrorDetail? Error { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Models.ErrorDetail? ErrorDetail { get; private set; }
 
     private readonly IDataLayer _dataLayer;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _dataLayer = new DataLayer(config);
@@ -23,6 +33,12 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = mockDataLayer;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadIds"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<SquadId> squadIds, CancellationToken cancellationToken)
     {
         try
@@ -31,16 +47,28 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
 
             return [];
         }
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
-    Models.ErrorDetail? Error { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    Models.ErrorDetail? ErrorDetail { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadIds"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<SquadId> squadIds, CancellationToken cancellationToken);
 }

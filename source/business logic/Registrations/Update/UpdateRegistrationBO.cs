@@ -1,12 +1,17 @@
 ﻿
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
-using NortheastMegabuck.Models;
 
 namespace NortheastMegabuck.Registrations.Update;
 
-internal sealed class BusinessLogic : IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public sealed class BusinessLogic : IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly IDataLayer _dataLayer;
@@ -26,6 +31,10 @@ internal sealed class BusinessLogic : IBusinessLogic
     private readonly Lazy<IValidator<UpdateRegistrationModel>> _validator;
     private IValidator<UpdateRegistrationModel> Validator => _validator.Value;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _dataLayer = new DataLayer(config);
@@ -63,13 +72,19 @@ internal sealed class BusinessLogic : IBusinessLogic
         _scoresRepository = new Lazy<Scores.IRepository>(() => mockScoresRepository);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
     {
         var registration = await _retrieveBusinessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveBusinessLogic.Error is not null)
+        if (_retrieveBusinessLogic.ErrorDetail is not null)
         {
-            Errors = [_retrieveBusinessLogic.Error];
+            Errors = [_retrieveBusinessLogic.ErrorDetail];
 
             return;
         }
@@ -83,9 +98,9 @@ internal sealed class BusinessLogic : IBusinessLogic
 
         var tournament = await _retrieveTournamentBusinessLogic.ExecuteAsync(registration.Id, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveTournamentBusinessLogic.Error is not null)
+        if (_retrieveTournamentBusinessLogic.ErrorDetail is not null)
         {
-            Errors = [_retrieveTournamentBusinessLogic.Error];
+            Errors = [_retrieveTournamentBusinessLogic.ErrorDetail];
 
             return;
         }
@@ -114,22 +129,33 @@ internal sealed class BusinessLogic : IBusinessLogic
         await _dataLayer.ExecuteAsync(id, true, cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task ExecuteAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="divisionId"></param>
+    /// <param name="gender"></param>
+    /// <param name="average"></param>
+    /// <param name="usbcId"></param>
+    /// <param name="dateOfBirth"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task ExecuteAsync(RegistrationId id, DivisionId divisionId, Models.Gender? gender, int? average, string usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken)
     {
         var division = await GetDivisionBO.ExecuteAsync(divisionId, cancellationToken).ConfigureAwait(false);
 
-        if (GetDivisionBO.Error is not null)
+        if (GetDivisionBO.ErrorDetail is not null)
         {
-            Errors = [GetDivisionBO.Error];
+            Errors = [GetDivisionBO.ErrorDetail];
 
             return;
         }
 
         var tournament = await GetTournamentBO.ExecuteAsync(division!.Id, cancellationToken).ConfigureAwait(false);
 
-        if (GetTournamentBO.Error is not null)
+        if (GetTournamentBO.ErrorDetail is not null)
         {
-            Errors = [GetTournamentBO.Error];
+            Errors = [GetTournamentBO.ErrorDetail];
 
             return;
         }
@@ -171,6 +197,13 @@ internal sealed class BusinessLogic : IBusinessLogic
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="average"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task ExecuteAsync(RegistrationId id, int? average, CancellationToken cancellationToken)
     {
         if (average.HasValue)
@@ -201,13 +234,43 @@ internal sealed class BusinessLogic : IBusinessLogic
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken);
 
-    Task ExecuteAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="divisionId"></param>
+    /// <param name="gender"></param>
+    /// <param name="average"></param>
+    /// <param name="usbcId"></param>
+    /// <param name="dateOfBirth"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task ExecuteAsync(RegistrationId id, DivisionId divisionId, Models.Gender? gender, int? average, string usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="average"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task ExecuteAsync(RegistrationId id, int? average, CancellationToken cancellationToken);
 }

@@ -21,7 +21,7 @@ internal class Adapter : IAdapter
 
     public async Task<SquadId?> ExecuteAsync(IViewModel squad, CancellationToken cancellationToken)
     {
-        var model = new Models.Squad(squad);
+        var model = squad.ToModel();
 
         var id = await _businessLogic.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
 

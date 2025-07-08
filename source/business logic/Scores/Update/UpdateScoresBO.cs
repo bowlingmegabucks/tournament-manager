@@ -2,9 +2,17 @@
 using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Scores.Update;
-internal class BusinessLogic : IBusinessLogic
+
+/// <summary>
+/// 
+/// </summary>
+public class BusinessLogic : IBusinessLogic
 {
     private readonly List<Models.ErrorDetail> _errors;
+
+    /// <summary>
+    /// 
+    /// </summary>
     public IEnumerable<Models.ErrorDetail> Errors => _errors;
 
     private readonly IValidator<IEnumerable<Models.SquadScore>> _validator;
@@ -12,6 +20,10 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _errors = [];
@@ -26,6 +38,12 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadScores"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<Models.SquadScore> squadScores, CancellationToken cancellationToken)
     {
         var valid = new List<Models.SquadScore>();
@@ -62,9 +80,21 @@ internal class BusinessLogic : IBusinessLogic
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadScores"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<Models.SquadScore> squadScores, CancellationToken cancellationToken);
 }

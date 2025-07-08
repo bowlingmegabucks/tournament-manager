@@ -58,9 +58,9 @@ public class SquadScore
     }
 
     /// <summary>
-    /// Unit Test Constructor
+    /// 
     /// </summary>
-    internal SquadScore()
+    public SquadScore()
     {
         Bowler = new Bowler();
         Division = new Division();

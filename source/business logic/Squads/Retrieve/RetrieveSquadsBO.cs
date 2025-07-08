@@ -1,10 +1,18 @@
 ﻿using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Squads.Retrieve;
-internal class BusinessLogic : IBusinessLogic
+
+/// <summary>
+/// 
+/// </summary>
+public class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _dataLayer = new DataLayer(config);
@@ -19,8 +27,17 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = mockDataLayer;
     }
 
-    public Models.ErrorDetail? Error { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Models.ErrorDetail? ErrorDetail { get; private set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournamentId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<Models.Squad>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         try
@@ -29,12 +46,18 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
 
             return [];
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<Models.Squad?> ExecuteAsync(SquadId id, CancellationToken cancellationToken)
     {
         try
@@ -43,18 +66,36 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
 
             return null;
         }
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
-    Models.ErrorDetail? Error { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    Models.ErrorDetail? ErrorDetail { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournamentId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<IEnumerable<Models.Squad>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<Models.Squad?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 }

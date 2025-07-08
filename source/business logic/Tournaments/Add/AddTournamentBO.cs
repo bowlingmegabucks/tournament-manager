@@ -2,8 +2,15 @@
 using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Tournaments.Add;
-internal class BusinessLogic : IBusinessLogic
+
+/// <summary>
+/// 
+/// </summary>
+public class BusinessLogic : IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly IValidator<Models.Tournament> _validator;
@@ -11,7 +18,11 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    internal BusinessLogic(IConfiguration config)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
+    public BusinessLogic(IConfiguration config)
     {
         _validator = new Validator();
         _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
@@ -28,6 +39,12 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournament"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<TournamentId?> ExecuteAsync(Models.Tournament tournament, CancellationToken cancellationToken)
     {
         var validation = await _validator.ValidateAsync(tournament, cancellationToken).ConfigureAwait(false);
@@ -50,9 +67,21 @@ internal class BusinessLogic : IBusinessLogic
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournament"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<TournamentId?> ExecuteAsync(Models.Tournament tournament, CancellationToken cancellationToken);
 }

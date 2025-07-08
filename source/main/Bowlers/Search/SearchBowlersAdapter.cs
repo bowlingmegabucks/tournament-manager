@@ -18,7 +18,7 @@ internal class Adapter : IAdapter
     }
 
     public Models.ErrorDetail? Error
-        => _businessLogic.Error;
+        => _businessLogic.ErrorDetail;
 
     public async Task<IEnumerable<IViewModel>> ExecuteAsync(Models.BowlerSearchCriteria searchCriteria, CancellationToken cancellationToken)
     {

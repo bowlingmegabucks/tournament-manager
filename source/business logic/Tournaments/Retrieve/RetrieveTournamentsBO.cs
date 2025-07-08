@@ -1,12 +1,23 @@
 ﻿using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Tournaments.Retrieve;
-internal class BusinessLogic : IBusinessLogic
+
+/// <summary>
+/// 
+/// </summary>
+public sealed class BusinessLogic : IBusinessLogic
 {
-    public Models.ErrorDetail? Error { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Models.ErrorDetail? ErrorDetail { get; private set; }
 
     private readonly IDataLayer _dataLayer;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _dataLayer = new DataLayer(config);
@@ -29,7 +40,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
 
             return [];
         }
@@ -43,7 +54,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
 
             return null;
         }
@@ -57,7 +68,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
 
             return null;
         }
@@ -71,7 +82,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
 
             return null;
         }
@@ -85,24 +96,59 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
 
             return null;
         }
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
-    Models.ErrorDetail? Error { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    Models.ErrorDetail? ErrorDetail { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<IEnumerable<Models.Tournament>> ExecuteAsync(CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<Models.Tournament?> ExecuteAsync(TournamentId id, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<Models.Tournament?> ExecuteAsync(DivisionId id, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<Models.Tournament?> ExecuteAsync(SquadId id, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<Models.Tournament?> ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
 }

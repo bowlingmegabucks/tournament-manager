@@ -3,19 +3,29 @@ using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Tournaments.Results;
 
-internal class BusinessLogic : IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public class BusinessLogic : IBusinessLogic
 {
-    public Models.ErrorDetail? Error { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Models.ErrorDetail? ErrorDetail { get; private set; }
 
     private readonly ICalculator _calculator;
     private readonly Squads.Results.IBusinessLogic _retrieveSquadResults;
-    private readonly Tournaments.Retrieve.IBusinessLogic _retrieveTournament;
+    private readonly Retrieve.IBusinessLogic _retrieveTournament;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _calculator = new Calculator();
         _retrieveSquadResults = new Squads.Results.BusinessLogic(config);
-        _retrieveTournament = new Tournaments.Retrieve.BusinessLogic(config);
+        _retrieveTournament = new Retrieve.BusinessLogic(config);
     }
 
     /// <summary>
@@ -24,29 +34,35 @@ internal class BusinessLogic : IBusinessLogic
     /// <param name="mockCalculator"></param>
     /// <param name="mockRetrieveSquadResults"></param>
     /// <param name="mockRetrieveTournament"></param>
-    internal BusinessLogic(ICalculator mockCalculator, Squads.Results.IBusinessLogic mockRetrieveSquadResults, Tournaments.Retrieve.IBusinessLogic mockRetrieveTournament)
+    internal BusinessLogic(ICalculator mockCalculator, Squads.Results.IBusinessLogic mockRetrieveSquadResults, Retrieve.IBusinessLogic mockRetrieveTournament)
     {
         _calculator = mockCalculator;
         _retrieveSquadResults = mockRetrieveSquadResults;
         _retrieveTournament = mockRetrieveTournament;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournamentId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<Models.TournamentResults>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         var tournament = await _retrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveTournament.Error != null)
+        if (_retrieveTournament.ErrorDetail != null)
         {
-            Error = _retrieveTournament.Error;
+            ErrorDetail = _retrieveTournament.ErrorDetail;
 
             return [];
         }
 
         var squadResults = await _retrieveSquadResults.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveSquadResults.Error != null)
+        if (_retrieveSquadResults.ErrorDetail != null)
         {
-            Error = _retrieveSquadResults.Error;
+            ErrorDetail = _retrieveSquadResults.ErrorDetail;
 
             return [];
         }
@@ -55,9 +71,21 @@ internal class BusinessLogic : IBusinessLogic
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
-    Models.ErrorDetail? Error { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    Models.ErrorDetail? ErrorDetail { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tournamentId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<IEnumerable<Models.TournamentResults>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 }

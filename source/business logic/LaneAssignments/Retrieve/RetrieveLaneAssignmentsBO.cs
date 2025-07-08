@@ -1,12 +1,23 @@
 ﻿using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.LaneAssignments.Retrieve;
-internal class BusinessLogic : IBusinessLogic
+
+/// <summary>
+/// 
+/// </summary>
+public sealed class BusinessLogic : IBusinessLogic
 {
-    public Models.ErrorDetail? Error { get; private set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Models.ErrorDetail? ErrorDetail { get; private set; }
 
     private readonly IDataLayer _dataLayer;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _dataLayer = new DataLayer(config);
@@ -29,7 +40,7 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
 
             return [];
         }
@@ -43,17 +54,36 @@ internal class BusinessLogic : IBusinessLogic
         }
         catch (Exception ex)
         {
-            Error = new Models.ErrorDetail(ex);
+            ErrorDetail = new Models.ErrorDetail(ex);
             return null;
         }
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
-    Models.ErrorDetail? Error { get; }
+    /// <summary>
+    /// 
+    /// </summary>
+    Models.ErrorDetail? ErrorDetail { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<IEnumerable<Models.LaneAssignment>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="squadId"></param>
+    /// <param name="bowlerId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<Models.LaneAssignment?> ExecuteAsync(SquadId squadId, BowlerId bowlerId, CancellationToken cancellationToken);
 }

@@ -2,7 +2,11 @@
 using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Registrations.Add;
-internal class BusinessLogic : IBusinessLogic
+
+/// <summary>
+/// 
+/// </summary>
+public class BusinessLogic : IBusinessLogic
 {
     private readonly Divisions.Retrieve.IBusinessLogic _getDivisionBO;
 
@@ -21,6 +25,10 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="config"></param>
     public BusinessLogic(IConfiguration config)
     {
         _getDivisionBO = new Divisions.Retrieve.BusinessLogic(config);
@@ -50,15 +58,26 @@ internal class BusinessLogic : IBusinessLogic
         _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="registration"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(registration);
+
         var division = await _getDivisionBO.ExecuteAsync(registration.Division.Id, cancellationToken).ConfigureAwait(false);
 
-        if (_getDivisionBO.Error != null)
+        if (_getDivisionBO.ErrorDetail != null)
         {
-            Errors = [_getDivisionBO.Error];
+            Errors = [_getDivisionBO.ErrorDetail];
 
             return null;
         }
@@ -67,9 +86,9 @@ internal class BusinessLogic : IBusinessLogic
 
         var tournament = await GetTournamentBO.ExecuteAsync(division!.Id, cancellationToken).ConfigureAwait(false);
 
-        if (GetTournamentBO.Error is not null)
+        if (GetTournamentBO.ErrorDetail is not null)
         {
-            Errors = [GetTournamentBO.Error];
+            Errors = [GetTournamentBO.ErrorDetail];
 
             return null;
         }
@@ -96,9 +115,9 @@ internal class BusinessLogic : IBusinessLogic
 
             var registeredInTournament = (await SearchBowlerBO.ExecuteAsync(searchCriteria, cancellationToken).ConfigureAwait(false)).Any();
 
-            if (SearchBowlerBO.Error is not null)
+            if (SearchBowlerBO.ErrorDetail is not null)
             {
-                Errors = [SearchBowlerBO.Error];
+                Errors = [SearchBowlerBO.ErrorDetail];
 
                 return null;
             }
@@ -132,6 +151,13 @@ internal class BusinessLogic : IBusinessLogic
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="bowlerId"></param>
+    /// <param name="squadId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<Models.Registration?> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
         try
@@ -150,11 +176,30 @@ internal class BusinessLogic : IBusinessLogic
     }
 }
 
-internal interface IBusinessLogic
+/// <summary>
+/// 
+/// </summary>
+public interface IBusinessLogic
 {
+    /// <summary>
+    /// 
+    /// </summary>
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="registration"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="bowlerId"></param>
+    /// <param name="squadId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     Task<Models.Registration?> ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 }
