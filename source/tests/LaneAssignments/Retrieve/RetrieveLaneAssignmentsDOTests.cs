@@ -6,6 +6,7 @@ namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
 internal sealed class DataLayer
 {
     private Mock<NortheastMegabuck.LaneAssignments.IRepository> _repository;
+    private Mock<NortheastMegabuck.Squads.IHandicapCalculatorInternal> _handicapCalculator;
 
     private NortheastMegabuck.LaneAssignments.Retrieve.IDataLayer _dataLayer;
 
@@ -13,8 +14,9 @@ internal sealed class DataLayer
     public void SetUp()
     {
         _repository = new Mock<NortheastMegabuck.LaneAssignments.IRepository>();
+        _handicapCalculator = new Mock<NortheastMegabuck.Squads.IHandicapCalculatorInternal>();
 
-        _dataLayer = new NortheastMegabuck.LaneAssignments.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new NortheastMegabuck.LaneAssignments.Retrieve.DataLayer(_repository.Object, _handicapCalculator.Object);
     }
 
     [Test]

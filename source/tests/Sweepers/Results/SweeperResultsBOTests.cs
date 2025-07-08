@@ -37,14 +37,14 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _retrieveSweeper.SetupGet(retrieveSweeper => retrieveSweeper.Error).Returns(error);
+        _retrieveSweeper.SetupGet(retrieveSweeper => retrieveSweeper.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
-            Assert.That(_businessLogic.Error, Is.EqualTo(error));
+            Assert.That(_businessLogic.ErrorDetail, Is.EqualTo(error));
 
             _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Never);
         });
@@ -69,14 +69,14 @@ internal sealed class BusinessLogic
         _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
 
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _retrieveScores.SetupGet(retrieveScores => retrieveScores.Error).Returns(error);
+        _retrieveScores.SetupGet(retrieveScores => retrieveScores.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
-            Assert.That(_businessLogic.Error, Is.EqualTo(error));
+            Assert.That(_businessLogic.ErrorDetail, Is.EqualTo(error));
         });
     }
 
@@ -90,7 +90,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("No scores entered for sweeper"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("No scores entered for sweeper"));
         });
     }
 
@@ -304,14 +304,14 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.Error).Returns(error);
+        _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
-            Assert.That(_businessLogic.Error, Is.EqualTo(error));
+            Assert.That(_businessLogic.ErrorDetail, Is.EqualTo(error));
 
             _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Never);
         });
@@ -339,7 +339,7 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _retrieveScores.SetupGet(retrieveScores => retrieveScores.Error).Returns(error);
+        _retrieveScores.SetupGet(retrieveScores => retrieveScores.ErrorDetail).Returns(error);
 
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Tournament());
 
@@ -348,7 +348,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
-            Assert.That(_businessLogic.Error, Is.EqualTo(error));
+            Assert.That(_businessLogic.ErrorDetail, Is.EqualTo(error));
         });
     }
 
@@ -362,7 +362,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Null);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("No scores entered for sweeper"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("No scores entered for sweeper"));
         });
     }
 

@@ -55,7 +55,7 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_Model_GetDivisionBOExecuteHasErrors_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _getDivisionBO.SetupGet(getDivisionBO => getDivisionBO.Error).Returns(error);
+        _getDivisionBO.SetupGet(getDivisionBO => getDivisionBO.ErrorDetail).Returns(error);
 
         var registration = new NortheastMegabuck.Models.Registration();
 
@@ -96,7 +96,7 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_GetTournamentFromDivisionIdHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _getTournamentBO.SetupGet(getDivisionBO => getDivisionBO.Error).Returns(error);
+        _getTournamentBO.SetupGet(getDivisionBO => getDivisionBO.ErrorDetail).Returns(error);
 
         var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
         _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
@@ -141,7 +141,7 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public async Task ExecuteAsync_Model_GetDivisonBOExecuteSuccessful_ValiationAndDataLayerCalledWithReturnedDivision()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_ValidationAndDataLayerCalledWithReturnedDivision()
     {
         var division = new NortheastMegabuck.Models.Division();
         _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
@@ -164,7 +164,7 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_SearchBowlerBOExecute_CalledCorrecctly()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_BowlerIdNotEmpty_SearchBowlerBOExecute_CalledCorrectly()
     {
         var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
         _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
@@ -264,7 +264,7 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_ValidationIsValid_ReeturnsDataLayerExecute()
+    public async Task ExecuteAsync_Model_GetDivisionBOExecuteSuccessful_ValidationIsValid_ReturnsDataLayerExecute()
     {
         var division = new NortheastMegabuck.Models.Division { Id = DivisionId.New() };
         _getDivisionBO.Setup(getDivisionBO => getDivisionBO.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);

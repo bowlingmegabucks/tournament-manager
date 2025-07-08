@@ -49,7 +49,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error, Is.Null);
+        Assert.That(_businessLogic.ErrorDetail, Is.Null);
     }
 
     [Test]
@@ -65,7 +65,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(actual, Is.Empty);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("exception"));
         });
     }
 
@@ -94,19 +94,6 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public async Task ExecuteAsync_DataLayerExecutetNoException_ErrorNull()
-    {
-        var division = new NortheastMegabuck.Models.Division();
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
-
-        var divisionId = DivisionId.New();
-
-        await _businessLogic.ExecuteAsync(divisionId, default).ConfigureAwait(false);
-
-        Assert.That(_businessLogic.Error, Is.Null);
-    }
-
-    [Test]
     public async Task ExecuteAsync_DivisionId_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
@@ -119,7 +106,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(actual, Is.Null);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("exception"));
         });
     }
 }

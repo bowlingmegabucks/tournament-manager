@@ -49,7 +49,7 @@ internal sealed class BusinessLogic
         {
             Assert.That(actual, Is.Empty);
 
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("exception"));
         });
     }
 }

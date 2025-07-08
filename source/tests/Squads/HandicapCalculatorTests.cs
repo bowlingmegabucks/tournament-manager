@@ -3,7 +3,7 @@
 namespace NortheastMegabuck.Tests.Squads;
 internal sealed class HandicapCalculator
 {
-    private IHandicapCalculator _calculator;
+    private IHandicapCalculatorInternal _calculator;
 
     [OneTimeSetUp]
     public void SetUp()

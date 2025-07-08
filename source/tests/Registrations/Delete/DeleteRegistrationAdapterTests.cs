@@ -32,7 +32,7 @@ internal sealed class Adapter
     public async Task ExecuteAsync_BowlerIdSquadId_ErrorSetToBusinessLogicError()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         await _adapter.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 
@@ -54,7 +54,7 @@ internal sealed class Adapter
     public async Task ExecuteAsync_RegistrationId_ErrorSetToBusinessLogicError()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         await _adapter.ExecuteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 

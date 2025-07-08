@@ -37,13 +37,13 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_RetrieveTournamentExecuteHasError_ErrorFlow()
     {
         var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.Error).Returns(error);
+        _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.Error, Is.EqualTo(error));
+            Assert.That(_businessLogic.ErrorDetail, Is.EqualTo(error));
             Assert.That(result, Is.Empty);
 
             _retrieveScores.Verify(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Never);

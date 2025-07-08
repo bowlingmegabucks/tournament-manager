@@ -21,7 +21,7 @@ internal class Adapter : IAdapter
 
     public async Task<SquadId?> ExecuteAsync(IViewModel sweeper, CancellationToken cancellationToken)
     {
-        var model = new Models.Sweeper(sweeper);
+        var model = sweeper.ToModel();
 
         var guid = await _businessLogic.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
 

@@ -1,4 +1,6 @@
 ﻿
+using NortheastMegabuck.Sweepers;
+
 namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
@@ -10,7 +12,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(SquadId.New());
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Id, Is.EqualTo(viewModel.Object.Id));
     }
@@ -21,7 +23,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.TournamentId).Returns(TournamentId.New());
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.TournamentId, Is.EqualTo(viewModel.Object.TournamentId));
     }
@@ -32,7 +34,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.EntryFee).Returns(123.45m);
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.EntryFee, Is.EqualTo(123.45m));
     }
@@ -43,7 +45,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Games).Returns(5);
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Games, Is.EqualTo(5));
     }
@@ -54,7 +56,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.CashRatio).Returns(1.3m);
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.CashRatio, Is.EqualTo(1.3m));
     }
@@ -65,7 +67,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Date).Returns(DateTime.Now);
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Date, Is.EqualTo(viewModel.Object.Date));
     }
@@ -76,7 +78,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.MaxPerPair).Returns(3);
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.MaxPerPair, Is.EqualTo(3));
     }
@@ -87,7 +89,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.StartingLane).Returns(1);
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.StartingLane, Is.EqualTo(1));
     }
@@ -98,7 +100,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.NumberOfLanes).Returns(32);
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.NumberOfLanes, Is.EqualTo(32));
     }
@@ -109,7 +111,7 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Complete).Returns(complete);
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Complete, Is.EqualTo(complete));
     }
@@ -122,13 +124,13 @@ internal sealed class Sweeper
         var viewModel = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
         viewModel.SetupGet(v => v.Divisions).Returns(divisions.Object);
 
-        var model = new NortheastMegabuck.Models.Sweeper(viewModel.Object);
+        var model = viewModel.Object.ToModel();
 
         Assert.That(model.Divisions, Is.EqualTo(divisions.Object));
     }
 
     [Test]
-    public void Contructor_Entity_IdMapped()
+    public void Constructor_Entity_IdMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -169,7 +171,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_TournamentIdMapped()
+    public void Constructor_Entity_TournamentIdMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -210,7 +212,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_EntryFeeMapped()
+    public void Constructor_Entity_EntryFeeMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -251,7 +253,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_GamesMapped()
+    public void Constructor_Entity_GamesMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -292,7 +294,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_CashRatioMapped()
+    public void Constructor_Entity_CashRatioMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -333,7 +335,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_DateMapped()
+    public void Constructor_Entity_DateMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -374,7 +376,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_MaxPerPairMapped()
+    public void Constructor_Entity_MaxPerPairMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -415,7 +417,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_StartingLaneMapped()
+    public void Constructor_Entity_StartingLaneMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -458,7 +460,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_NumberOfLanesMapped()
+    public void Constructor_Entity_NumberOfLanesMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -501,7 +503,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_CompleteMapped([Values] bool complete)
+    public void Constructor_Entity_CompleteMapped([Values] bool complete)
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {
@@ -542,7 +544,7 @@ internal sealed class Sweeper
     }
 
     [Test]
-    public void Contructor_Entity_DivisionsMapped()
+    public void Constructor_Entity_DivisionsMapped()
     {
         var sweeperDivision1 = new NortheastMegabuck.Database.Entities.SweeperDivision
         {

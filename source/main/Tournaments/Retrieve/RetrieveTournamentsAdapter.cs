@@ -5,7 +5,7 @@ internal class Adapter : IAdapter
     private IBusinessLogic BusinessLogic => _businessLogic.Value;
 
     public Models.ErrorDetail? Error
-        => BusinessLogic.Error;
+        => BusinessLogic.ErrorDetail;
 
     internal Adapter(IConfiguration config)
     {

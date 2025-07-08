@@ -312,7 +312,7 @@ internal sealed class Validator
     }
 
     [Test]
-    public void MaximumAverage_LessThanMinumumAverage_HasError()
+    public void MaximumAverage_LessThanMinimumAverage_HasError()
     {
         var division = new NortheastMegabuck.Models.Division
         {

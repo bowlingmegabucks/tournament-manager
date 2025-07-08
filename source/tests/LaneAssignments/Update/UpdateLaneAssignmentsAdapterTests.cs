@@ -35,7 +35,7 @@ internal sealed class Adapter
     public async Task ExecuteAsync_ErrorSetToBusinessLogicError()
     {
         var errorDetail = new NortheastMegabuck.Models.ErrorDetail("error");
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(errorDetail);
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(errorDetail);
 
         var squadId = SquadId.New();
         var bowlerId = BowlerId.New();

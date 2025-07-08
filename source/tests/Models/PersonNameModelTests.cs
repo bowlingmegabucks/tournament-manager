@@ -1,4 +1,6 @@
 ﻿
+using NortheastMegabuck.Bowlers.Update;
+
 namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
@@ -10,7 +12,7 @@ internal sealed class PersonName
         var viewModel = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>();
         viewModel.SetupGet(v => v.FirstName).Returns("firstName");
 
-        var model = new NortheastMegabuck.Models.PersonName(viewModel.Object);
+        var model = viewModel.Object.ToPersonName();
 
         Assert.That(model.First, Is.EqualTo("firstName"));
     }
@@ -21,7 +23,7 @@ internal sealed class PersonName
         var viewModel = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>();
         viewModel.SetupGet(v => v.MiddleInitial).Returns("m");
 
-        var model = new NortheastMegabuck.Models.PersonName(viewModel.Object);
+        var model = viewModel.Object.ToPersonName();
 
         Assert.That(model.MiddleInitial, Is.EqualTo("m"));
     }
@@ -32,7 +34,7 @@ internal sealed class PersonName
         var viewModel = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>();
         viewModel.SetupGet(v => v.LastName).Returns("lastName");
 
-        var model = new NortheastMegabuck.Models.PersonName(viewModel.Object);
+        var model = viewModel.Object.ToPersonName();
 
         Assert.That(model.Last, Is.EqualTo("lastName"));
     }
@@ -43,7 +45,7 @@ internal sealed class PersonName
         var viewModel = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>();
         viewModel.SetupGet(v => v.Suffix).Returns("suffix");
 
-        var model = new NortheastMegabuck.Models.PersonName(viewModel.Object);
+        var model = viewModel.Object.ToPersonName();
 
         Assert.That(model.Suffix, Is.EqualTo("suffix"));
     }

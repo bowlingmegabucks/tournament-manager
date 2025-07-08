@@ -22,7 +22,7 @@ internal class Adapter : IAdapter
 
     public async Task<IEnumerable<IViewModel>> ExecuteAsync(IEnumerable<IViewModel> scores, CancellationToken cancellationToken)
     {
-        var models = scores.Select(squadScore => new Models.SquadScore(squadScore)).ToList();
+        var models = scores.Select(squadScore => squadScore.ToModel()).ToList();
 
         var invalidScores = await _businessLogic.ExecuteAsync(models, cancellationToken).ConfigureAwait(false);
 

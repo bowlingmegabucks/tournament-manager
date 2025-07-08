@@ -29,7 +29,7 @@ internal sealed class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        _laneAssignment = new NortheastMegabuck.Models.LaneAssignment(entity, new Mock<IHandicapCalculator>().Object);
+        _laneAssignment = new NortheastMegabuck.Models.LaneAssignment(entity, new Mock<IHandicapCalculatorInternal>().Object);
     }
 
     [Test]
@@ -76,7 +76,7 @@ internal sealed class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
 
         _ = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
 
@@ -84,7 +84,7 @@ internal sealed class LaneAssignment
     }
 
     [Test]
-    public void Constructor_SqaudIsTournamentSquad_HandicapMappedToCalculatorResult()
+    public void Constructor_SquadIsTournamentSquad_HandicapMappedToCalculatorResult()
     {
         var entity = new NortheastMegabuck.Database.Entities.SquadRegistration
         {
@@ -103,7 +103,7 @@ internal sealed class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
@@ -134,7 +134,7 @@ internal sealed class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
 
         _ = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
 
@@ -143,7 +143,7 @@ internal sealed class LaneAssignment
 
     [TestCase(null, 0)]
     [TestCase(20, 20)]
-    public void Constructor_SqaudIsSweeperSquad_HandicapMappedToSweeperDivisionHandicap(int? bonusPinsPerGame, int handicap)
+    public void Constructor_SquadIsSweeperSquad_HandicapMappedToSweeperDivisionHandicap(int? bonusPinsPerGame, int handicap)
     {
         var divisionId = DivisionId.New();
 
@@ -175,7 +175,7 @@ internal sealed class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
@@ -203,7 +203,7 @@ internal sealed class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);
 
@@ -211,7 +211,7 @@ internal sealed class LaneAssignment
     }
 
     [Test]
-    public void Constructor_SqaudIsSweeperSquad_SuperSweeperMapped([Values] bool superSweeper)
+    public void Constructor_SquadIsSweeperSquad_SuperSweeperMapped([Values] bool superSweeper)
     {
         var divisionId = DivisionId.New();
 
@@ -243,7 +243,7 @@ internal sealed class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        var handicapCalculator = new Mock<IHandicapCalculator>();
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
         handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Database.Entities.Registration>())).Returns(10);
 
         var model = new NortheastMegabuck.Models.LaneAssignment(entity, handicapCalculator.Object);

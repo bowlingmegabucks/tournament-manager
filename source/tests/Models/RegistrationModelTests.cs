@@ -1,4 +1,6 @@
 ﻿
+using NortheastMegabuck.Bowlers;
+
 namespace NortheastMegabuck.Tests.Models;
 
 [TestFixture]
@@ -17,13 +19,13 @@ internal sealed class Registration
 
         var average = 200;
 
-        var registration = new NortheastMegabuck.Models.Registration(new NortheastMegabuck.Models.Bowler(bowler.Object), divisionId, squads, sweepers, superSweeper, average);
+        var registration = new NortheastMegabuck.Models.Registration(bowler.Object.ToModel(), divisionId, squads, sweepers, superSweeper, average);
 
         Assert.That(registration.Bowler.Name.Last, Is.EqualTo("lastName"));
     }
 
     [Test]
-    public void Constructor_BowlerInstanciatedWithId([Values] bool superSweeper)
+    public void Constructor_BowlerInstantiatedWithId([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
         var divisionId = NortheastMegabuck.DivisionId.New();
@@ -39,7 +41,7 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Constructor_DivisionInstanciatedWithId([Values] bool superSweeper)
+    public void Constructor_DivisionInstantiatedWithId([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
         var divisionId = NortheastMegabuck.DivisionId.New();
@@ -117,7 +119,7 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Contructor_Entity_IdMapped([Values] bool superSweeper)
+    public void Constructor_Entity_IdMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
@@ -146,7 +148,7 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Contructor_Entity_BowlerMapped([Values] bool superSweeper)
+    public void Constructor_Entity_BowlerMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
@@ -175,7 +177,7 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Contructor_Entity_DivisionMapped([Values] bool superSweeper)
+    public void Constructor_Entity_DivisionMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
@@ -204,7 +206,7 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Contructor_Entity_AverageMapped([Values] bool superSweeper, [Values(null, 200)] int? average)
+    public void Constructor_Entity_AverageMapped([Values] bool superSweeper, [Values(null, 200)] int? average)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
@@ -233,7 +235,7 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Contructor_Entity_SquadsMapped([Values] bool superSweeper)
+    public void Constructor_Entity_SquadsMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
@@ -268,7 +270,7 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Contructor_Entity_SweepersMapped([Values] bool superSweeper)
+    public void Constructor_Entity_SweepersMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
@@ -303,7 +305,7 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Contructor_Entity_SuperSweepperMapped([Values] bool superSweeper)
+    public void Constructor_Entity_SuperSweeperMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();

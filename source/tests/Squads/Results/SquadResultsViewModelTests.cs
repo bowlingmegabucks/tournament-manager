@@ -43,7 +43,7 @@ internal sealed class ViewModel
     }
 
     [Test]
-    public void Contructor_DivisionNameMapped()
+    public void Constructor_DivisionNameMapped()
     {
         var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200)
         {

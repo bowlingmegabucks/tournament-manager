@@ -3,7 +3,7 @@ namespace NortheastMegabuck.Registrations.Retrieve;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error
-        => _businessLogic.Error;
+        => _businessLogic.ErrorDetail;
 
     private readonly IBusinessLogic _businessLogic;
 

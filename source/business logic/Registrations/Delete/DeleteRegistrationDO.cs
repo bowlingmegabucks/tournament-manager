@@ -1,0 +1,36 @@
+﻿
+using Microsoft.Extensions.Configuration;
+
+namespace NortheastMegabuck.Registrations.Delete;
+
+internal class DataLayer : IDataLayer
+{
+    private readonly IRepository _repository;
+
+    public DataLayer(IConfiguration config)
+    {
+        _repository = new Repository(config);
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockRepository"></param>
+    internal DataLayer(IRepository mockRepository)
+    {
+        _repository = mockRepository;
+    }
+
+    public async Task ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
+        => await _repository.DeleteAsync(bowlerId, squadId, cancellationToken).ConfigureAwait(false);
+
+    public async Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
+        => await _repository.DeleteAsync(id, cancellationToken).ConfigureAwait(false);
+}
+
+internal interface IDataLayer
+{
+    Task ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
+
+    Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
+}

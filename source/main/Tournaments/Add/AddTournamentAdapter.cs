@@ -21,7 +21,7 @@ internal class Adapter : IAdapter
 
     public async Task<TournamentId?> ExecuteAsync(IViewModel viewModel, CancellationToken cancellationToken)
     {
-        var model = new Models.Tournament(viewModel);
+        var model = viewModel.ToModel();
 
         var id = await _businessLogic.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
 

@@ -36,7 +36,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
+        Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
     }
 
     [Test]
@@ -58,6 +58,6 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
+        Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
     }
 }

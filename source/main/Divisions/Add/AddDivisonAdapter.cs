@@ -23,7 +23,7 @@ internal class Adapter : IAdapter
 
     public async Task<DivisionId?> ExecuteAsync(IViewModel viewModel, CancellationToken cancellationToken)
     {
-        var model = new Models.Division(viewModel);
+        var model = viewModel.ToModel();
 
         var id = await BusinessLogic.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
 

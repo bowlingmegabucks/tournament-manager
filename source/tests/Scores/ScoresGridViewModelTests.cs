@@ -85,7 +85,7 @@ internal sealed class GridViewModel
     }
 
     [Test]
-    public void Contructor_LaneAssignmentsIViewModel_ScoresEmpty()
+    public void Constructor_LaneAssignmentsIViewModel_ScoresEmpty()
     {
         var laneAssignmentViewModel = new NortheastMegabuck.LaneAssignments.ViewModel();
 

@@ -22,10 +22,10 @@ internal class Adapter : IAdapter
     }
 
     async Task IAdapter.ExecuteAsync(BowlerId id, INameViewModel viewModel, CancellationToken cancellationToken)
-        => await _businessLogic.ExecuteAsync(id, new Models.PersonName(viewModel), cancellationToken).ConfigureAwait(false);
+        => await _businessLogic.ExecuteAsync(id, viewModel.ToPersonName(), cancellationToken).ConfigureAwait(false);
 
     async Task IAdapter.ExecuteAsync(IViewModel viewModel, CancellationToken cancellationToken)
-        => await _businessLogic.ExecuteAsync(new Models.Bowler(viewModel), cancellationToken).ConfigureAwait(false);
+        => await _businessLogic.ExecuteAsync(viewModel.ToModel(), cancellationToken).ConfigureAwait(false);
 }
 
 internal interface IAdapter
