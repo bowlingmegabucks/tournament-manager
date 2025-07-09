@@ -1,6 +1,8 @@
 using System.Text.Json;
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using NJsonSchema.Generation.TypeMappers;
+using NortheastMegabuck;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,11 +24,21 @@ builder.Services.SwaggerDocument(o =>
             In = NSwag.OpenApiSecurityApiKeyLocation.Header,
             Type = NSwag.OpenApiSecuritySchemeType.ApiKey
         });
+
+        s.SchemaSettings.TypeMappers.Add(new PrimitiveTypeMapper(typeof(RegistrationId), schema =>
+        {
+            schema.Type = NJsonSchema.JsonObjectType.String;
+            schema.Format = "uuid";
+            schema.Example = RegistrationId.New();
+        }));
     };
 
     o.UsePropertyNamingPolicy = true;
     o.EnableJWTBearerAuth = false;
     o.ShortSchemaNames = true;
+
+    o.SerializerSettings = s
+        => s.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
 
 var app = builder.Build();
