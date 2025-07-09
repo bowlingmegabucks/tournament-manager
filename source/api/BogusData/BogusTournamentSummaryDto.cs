@@ -5,7 +5,7 @@ using NortheastMegabuck.Models;
 namespace NortheastMegabuck.Api.BogusData;
 
 internal sealed class BogusGetTournamentsDto
-    : Faker<GetTournamentsDto>
+    : Faker<TournamentSummaryDto>
 {
     public BogusGetTournamentsDto()
     {
