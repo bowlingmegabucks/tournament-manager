@@ -27,6 +27,13 @@ builder.Services.SwaggerDocument(o =>
             Type = NSwag.OpenApiSecuritySchemeType.ApiKey
         });
 
+        s.SchemaSettings.TypeMappers.Add(new PrimitiveTypeMapper(typeof(TournamentId), schema =>
+        {
+            schema.Type = NJsonSchema.JsonObjectType.String;
+            schema.Format = "uuid";
+            schema.Example = TournamentId.New();
+        }));
+
         s.SchemaSettings.TypeMappers.Add(new PrimitiveTypeMapper(typeof(RegistrationId), schema =>
         {
             schema.Type = NJsonSchema.JsonObjectType.String;
