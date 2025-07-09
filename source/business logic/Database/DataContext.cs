@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 #if DEBUG
 using Microsoft.Extensions.Logging;
+using SmartEnum.EFCore;
 #endif
 
 namespace NortheastMegabuck.Database;
@@ -29,6 +30,13 @@ internal class DataContext : DbContext, IDataContext
     }
 #endif
 
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder.ConfigureSmartEnum();
+
+        base.ConfigureConventions(configurationBuilder);
+    }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var serverVersion = new MySqlServerVersion(new Version(10, 3, 35));

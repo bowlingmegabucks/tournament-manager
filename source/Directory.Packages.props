@@ -4,6 +4,9 @@
     <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Ardalis.SmartEnum" Version="8.2.0" />
+    <PackageVersion Include="Ardalis.SmartEnum.EFCore" Version="8.2.0" />
+    <PackageVersion Include="Ardalis.SmartEnum.SystemTextJson" Version="8.1.0" />
     <PackageVersion Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.4.0" />
     <PackageVersion Include="Azure.Identity" Version="1.14.1" />
     <PackageVersion Include="Azure.Security.KeyVault.Secrets" Version="4.8.0" />
@@ -35,6 +38,7 @@
     <PackageVersion Include="ReportGenerator" Version="5.4.8" />
     <PackageVersion Include="ReportViewerCore.WinForms" Version="15.1.17" />
     <PackageVersion Include="Scalar.AspNetCore" Version="2.5.6" />
+    <PackageVersion Include="SmartEnums" Version="3.0.2" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="StronglyTypedId.Templates" Version="1.0.0-beta08" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.7" />

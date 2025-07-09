@@ -10,25 +10,25 @@ internal class Validator : AbstractValidator<UpdateRegistrationModel>
         RuleFor(registration => registration.Average).LessThanOrEqualTo(registration => registration.Division.MaximumAverage!.Value).When(registration => registration.Division.MaximumAverage.HasValue).WithMessage("Maximum average requirement for division not met");
 
         RuleFor(registration => registration.DateOfBirth).Must(dateOfBirth => dateOfBirth.HasValue)
-            .When(registration => (registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue) && !registration.Division.Gender.HasValue)
+            .When(registration => (registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue) && registration.Division.Gender is null)
             .WithMessage("Date of birth required for selected division");
         RuleFor(registration => registration.DateOfBirth).Must((registration, dateOfBirth) => registration.AgeOn(registration.TournamentStartDate) >= registration.Division.MinimumAge!.Value)
             .When(registration => registration.Division.MinimumAge.HasValue)
-            .When(registration => (registration.Division.Gender.HasValue && registration.Division.Gender.Value != registration.Gender) || !registration.Division.Gender.HasValue)
+            .When(registration => (registration.Division.Gender is not null && registration.Division.Gender != registration.Gender) || registration.Division.Gender is null)
             .WithMessage("Bowler too young for selected division");
         RuleFor(registration => registration.DateOfBirth).Must((registration, dateOfBirth) => registration.AgeOn(registration.TournamentStartDate) <= registration.Division.MaximumAge!.Value)
             .When(registration => registration.Division.MaximumAge.HasValue)
-            .When(registration => (registration.Division.Gender.HasValue && registration.Division.Gender.Value != registration.Gender) || !registration.Division.Gender.HasValue)
+            .When(registration => (registration.Division.Gender is not null && registration.Division.Gender != registration.Gender) || registration.Division.Gender is null)
             .WithMessage("Bowler too old for selected division");
 
         RuleFor(registration => registration.USBCId).NotEmpty().When(registration => registration.Division.HandicapPercentage.HasValue).WithMessage("USBC Id is required for Handicap Divisions");
 
-        RuleFor(registration => registration.Gender).Must(gender => gender.HasValue)
-            .When(registration => registration.Division.Gender.HasValue)
+        RuleFor(registration => registration.Gender).Must(gender => gender is not null)
+            .When(registration => registration.Division.Gender is not null)
             .When(registration => !(registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue))
             .WithMessage("Gender is required for selected division");
         RuleFor(registration => registration.Gender).Must((registration, gender) => registration.Division.Gender!.Value == gender)
-            .When(registration => registration.Division.Gender.HasValue)
+            .When(registration => registration.Division.Gender is not null)
             .When(registration => !(registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue))
             .WithMessage("Invalid gender for selected division");
     }

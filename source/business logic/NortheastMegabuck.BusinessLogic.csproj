@@ -22,6 +22,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Ardalis.SmartEnum" />
+		<PackageReference Include="Ardalis.SmartEnum.EFCore" />
 		<PackageReference Include="FluentValidation" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
