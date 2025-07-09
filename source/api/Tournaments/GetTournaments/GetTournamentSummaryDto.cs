@@ -3,7 +3,7 @@ namespace NortheastMegabuck.Api.Tournaments.GetTournaments;
 /// <summary>
 /// Data Transfer Object for retrieving tournament details.
 /// </summary>
-public sealed record GetTournamentsDto
+public sealed record GetTournamentSummaryDto
 {
     /// <summary>
     /// The unique identifier for the tournament.
