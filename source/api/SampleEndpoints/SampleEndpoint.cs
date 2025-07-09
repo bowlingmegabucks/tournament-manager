@@ -34,8 +34,7 @@ public sealed class SampleEndpoint
     }
 
     /// <summary>
-    /// Handles the incoming request and returns a sample response.
-    /// If the request contains the header "X-Force-Error" set to true,
+    /// 
     /// </summary>
     /// <param name="req"></param>
     /// <param name="ct"></param>
