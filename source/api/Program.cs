@@ -34,6 +34,13 @@ builder.Services.SwaggerDocument(o =>
             schema.Example = TournamentId.New();
         }));
 
+        s.SchemaSettings.TypeMappers.Add(new PrimitiveTypeMapper(typeof(SquadId), schema =>
+        {
+            schema.Type = NJsonSchema.JsonObjectType.String;
+            schema.Format = "uuid";
+            schema.Example = SquadId.New();
+        }));
+
         s.SchemaSettings.TypeMappers.Add(new PrimitiveTypeMapper(typeof(RegistrationId), schema =>
         {
             schema.Type = NJsonSchema.JsonObjectType.String;
