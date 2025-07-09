@@ -14,6 +14,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument(o =>
 {
+    o.ReleaseVersion = 1;
     o.DocumentSettings = s =>
     {
         s.DocumentName = "v1";
@@ -51,6 +52,10 @@ app.UseHttpsRedirection();
 
 app.UseFastEndpoints(c =>
 {
+    c.Versioning.Prefix = "v";
+    c.Versioning.DefaultVersion = 1;
+    c.Versioning.PrependToRoute = true;
+
     c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 
     c.Endpoints.ShortNames = true;
