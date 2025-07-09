@@ -10,7 +10,7 @@ public sealed record GetTournamentsResponse
     /// <summary>
     /// Array of tournament summaries.
     /// </summary>
-    public required ReadOnlyCollection<GetTournamentSummaryDto> Tournaments { get; init; }
+    public required ReadOnlyCollection<TournamentSummaryDto> Tournaments { get; init; }
 
     /// <summary>
     /// Total count of tournaments in the response.
