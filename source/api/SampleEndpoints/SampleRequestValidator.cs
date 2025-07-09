@@ -1,9 +1,10 @@
+using FastEndpoints;
 using FluentValidation;
 
 namespace NortheastMegabuck.Api.SampleEndpoints;
 
 internal sealed class SampleRequestValidator
-    : AbstractValidator<SampleRequest>
+    : Validator<SampleRequest>
 {
     public SampleRequestValidator()
     {

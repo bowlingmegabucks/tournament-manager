@@ -5,21 +5,21 @@ namespace NortheastMegabuck.Api.SampleEndpoints;
 /// <summary>
 /// Represents a request for sample data.
 /// </summary>
-public record SampleRequest
+public class SampleRequest
 {
     /// <summary>
     /// The name of the person.
     /// </summary>
-    public required string Name { get; init; }
+    public string Name { get; init; } = string.Empty;
 
     /// <summary>
     /// The age of the person.
     /// </summary>
-    public required int Age { get; init; }
+    public int Age { get; init; }
 
     /// <summary>
     /// A flag to force an error response for testing purposes.
     /// </summary>
-    [FromHeader("X-Force-Error")]
-    public bool ForceError { get; init; } = false;
+    [FromHeader("x-force-error", isRequired: false)]
+    public bool? ForceError { get; init; }
 }

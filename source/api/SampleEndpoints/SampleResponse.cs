@@ -3,22 +3,22 @@ namespace NortheastMegabuck.Api.SampleEndpoints;
 /// <summary>
 /// Represents a response containing sample data.
 /// </summary>
-public record SampleResponse
+public class SampleResponse
 {
     /// <summary>
     /// The unique identifier for the registration.
     /// </summary>
-    public required RegistrationId RegistrationId { get; init; }
+    public RegistrationId RegistrationId { get; set; }
 
     /// <summary>
     /// The name of the person.
     /// </summary>
-    public required string Name { get; init; }
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// The age of the person.
     /// </summary>
-    public required int Age { get; init; }
+    public int Age { get; set; }
 
     /// <summary>
     /// A message containing the person's name and age.
