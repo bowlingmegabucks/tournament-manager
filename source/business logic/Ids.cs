@@ -11,7 +11,7 @@ namespace NortheastMegabuck;
 /// Strongly-typed identifier for a Bowler entity.
 /// </summary>
 [StronglyTypedId]
-public partial struct BowlerId { }
+public readonly partial struct BowlerId { }
 
 /// <summary>
 /// Generates unique <see cref="BowlerId"/> values for EF Core entities.
@@ -35,7 +35,7 @@ public class BowlerIdValueGenerator : ValueGenerator<BowlerId>
 /// Strongly-typed identifier for a Registration entity.
 /// </summary>
 [StronglyTypedId]
-public partial struct RegistrationId { }
+public readonly partial struct RegistrationId { }
 
 /// <summary>
 /// Generates unique <see cref="RegistrationId"/> values for EF Core entities.
@@ -59,7 +59,7 @@ public class RegistrationIdValueGenerator : ValueGenerator<RegistrationId>
 /// Strongly-typed identifier for a Squad entity.
 /// </summary>
 [StronglyTypedId]
-public partial struct SquadId { }
+public readonly partial struct SquadId { }
 
 /// <summary>
 /// Generates unique <see cref="SquadId"/> values for EF Core entities.
@@ -83,7 +83,7 @@ public class SquadIdValueGenerator : ValueGenerator<SquadId>
 /// Strongly-typed identifier for a Tournament entity.
 /// </summary>
 [StronglyTypedId]
-public partial struct TournamentId { }
+public readonly partial struct TournamentId { }
 
 /// <summary>
 /// Generates unique <see cref="TournamentId"/> values for EF Core entities.
@@ -107,7 +107,7 @@ public class TournamentIdValueGenerator : ValueGenerator<TournamentId>
 /// Strongly-typed identifier for a Division entity.
 /// </summary>
 [StronglyTypedId]
-public partial struct DivisionId { }
+public readonly partial struct DivisionId { }
 
 /// <summary>
 /// Generates unique <see cref="DivisionId"/> values for EF Core entities.
