@@ -4,6 +4,8 @@ using FastEndpoints;
 using FastEndpoints.Swagger;
 using NJsonSchema.Generation.TypeMappers;
 using NortheastMegabuck;
+using NortheastMegabuck.Api;
+using NortheastMegabuck.Models;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +49,8 @@ builder.Services.SwaggerDocument(o =>
             schema.Format = "uuid";
             schema.Example = RegistrationId.New();
         }));
+
+        s.SchemaSettings.TypeMappers.Add(new SmartEnumTypeMapper<Gender>());
     };
 
     o.UsePropertyNamingPolicy = true;

@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Ardalis.SmartEnum.SystemTextJson;
 using NortheastMegabuck.Models;
+using FastEndpoints.Swagger;
 
 namespace NortheastMegabuck.Api.Tournaments.GetTournament;
 
@@ -42,6 +43,6 @@ public sealed record DivisionDetailDto
     /// <summary>
     /// The gender requirement for the division (if applicable).
     /// </summary>
-    [JsonConverter(typeof(SmartEnumNameConverter<Gender,int>))]
+    [JsonConverter(typeof(SmartEnumNameConverter<Gender, int>))]
     public Gender? Gender { get; init; }
 }

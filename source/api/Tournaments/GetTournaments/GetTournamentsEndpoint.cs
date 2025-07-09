@@ -3,7 +3,7 @@ using FastEndpoints;
 namespace NortheastMegabuck.Api.Tournaments.GetTournaments;
 
 /// <summary>
-/// 
+/// Endpoint to retrieve a list of tournaments.
 /// </summary>
 public sealed class GetTournamentsEndpoint
     : EndpointWithoutRequest<GetTournamentsResponse>

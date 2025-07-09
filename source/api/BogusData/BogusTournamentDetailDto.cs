@@ -6,9 +6,9 @@ namespace NortheastMegabuck.Api.BogusData;
 internal sealed class BogusTournamentDetailDto
     : Faker<TournamentDetailDto>
 {
-    public BogusTournamentDetailDto()
+    public BogusTournamentDetailDto(TournamentId tournamentId)
     {
-        RuleFor(dto => dto.Id, _ => TournamentId.New());
+        RuleFor(dto => dto.Id, _ => tournamentId);
         RuleFor(dto => dto.Name, f => f.Company.Random.Word() + " Tournament");
         RuleFor(dto => dto.StartDate, f => f.Date.FutureDateOnly());
         RuleFor(dto => dto.EndDate, (f, dto) => f.Date.FutureDateOnly(refDate: dto.StartDate));
