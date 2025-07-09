@@ -1,3 +1,0 @@
-root = false
-
-dotnet_diagnostic.CA1515.severity = none
