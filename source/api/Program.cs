@@ -1,3 +1,4 @@
+using System.Reflection.PortableExecutable;
 using System.Text.Json;
 using FastEndpoints;
 using FastEndpoints.Swagger;
@@ -53,6 +54,11 @@ app.UseFastEndpoints(c =>
     c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 
     c.Endpoints.ShortNames = true;
+    c.Errors.UseProblemDetails(pd =>
+    {
+        pd.IndicateErrorCode = true;
+        pd.IndicateErrorSeverity = true;
+    });
 });
 
 await app.RunAsync();

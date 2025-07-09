@@ -46,6 +46,13 @@ public sealed class SampleEndpoint
     {
         ArgumentNullException.ThrowIfNull(req);
 
+        if (req.ForceError)
+        {
+            AddError("Forced error for testing purposes.", "Error.Code");
+
+            ThrowIfAnyErrors();
+        }
+
         var response = new SampleResponse
         {
             RegistrationId = RegistrationId.New(),
