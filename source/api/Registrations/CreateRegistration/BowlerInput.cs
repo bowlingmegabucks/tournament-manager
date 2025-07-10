@@ -55,7 +55,7 @@ public sealed record BowlerInput
     public DateOnly? DateOfBirth { get; init; }
 
     /// <summary>
-    /// The gender of the bowler.  This is an optional
+    /// The gender of the bowler.  This is an optional field.
     /// </summary>
     /// <example>
     /// "Male", "Female"
