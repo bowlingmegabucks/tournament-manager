@@ -1,5 +1,5 @@
 using Bogus;
-using NortheastMegabuck.Api.Tournaments.GetTournament;
+using NortheastMegabuck.Api.Sweepers;
 
 namespace NortheastMegabuck.Api.BogusData;
 

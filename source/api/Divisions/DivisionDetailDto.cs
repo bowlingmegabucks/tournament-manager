@@ -1,9 +1,8 @@
 using System.Text.Json.Serialization;
 using Ardalis.SmartEnum.SystemTextJson;
 using NortheastMegabuck.Models;
-using FastEndpoints.Swagger;
 
-namespace NortheastMegabuck.Api.Tournaments.GetTournament;
+namespace NortheastMegabuck.Api.Divisions;
 
 /// <summary>
 /// Data Transfer Object for retrieving detailed information about a division in a tournament.

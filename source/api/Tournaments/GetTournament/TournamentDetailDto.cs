@@ -1,4 +1,7 @@
 using System.Collections.ObjectModel;
+using NortheastMegabuck.Api.Divisions;
+using NortheastMegabuck.Api.Squads;
+using NortheastMegabuck.Api.Sweepers;
 
 namespace NortheastMegabuck.Api.Tournaments.GetTournament;
 

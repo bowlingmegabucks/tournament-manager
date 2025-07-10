@@ -6,7 +6,7 @@ namespace NortheastMegabuck.Api.Registrations.GetRegistration;
 public sealed record GetRegistrationResponse
 {
     /// <summary>
-    /// The unique identifier of the registration being retrieved.
+    /// The registration details for the requested registration.
     /// </summary>
-    public required RegistrationId Id { get; init; }
+    public required RegistrationDetailDto Registration { get; init; }
 }

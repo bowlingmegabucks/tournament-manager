@@ -1,4 +1,5 @@
 using FastEndpoints;
+using NortheastMegabuck.Api.BogusData;
 
 namespace NortheastMegabuck.Api.Registrations.GetRegistration;
 
@@ -48,10 +49,7 @@ public sealed class GetRegistrationEndpoint
         // Logic to retrieve the registration goes here
         // For example, you might fetch the registration from a database
 
-        var response = new GetRegistrationResponse
-        {
-            Id = req.Id
-        };
+        var response = new BogusGetRegistrationResponse();
 
         await SendOkAsync(response, ct);
     }
