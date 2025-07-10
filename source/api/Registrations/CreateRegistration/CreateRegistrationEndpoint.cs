@@ -58,6 +58,6 @@ public sealed class CreateRegistrationEndpoint
             RegistrationId = RegistrationId.New()
         };
 
-        await SendCreatedAtAsync<GetRegistrationEndpoint>(new { Id = response.RegistrationId }, response, cancellation: ct);
+        await SendCreatedAtAsync(GetRegistrationEndpoint.EndpointName, new { Id = response.RegistrationId }, response, cancellation: ct);
     }
 }

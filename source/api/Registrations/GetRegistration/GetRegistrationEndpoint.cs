@@ -9,6 +9,8 @@ namespace NortheastMegabuck.Api.Registrations.GetRegistration;
 public sealed class GetRegistrationEndpoint
     : Endpoint<GetRegistrationRequest, GetRegistrationResponse>
 {
+    internal const string EndpointName = "Get Registration";
+
     /// <summary>
     /// 
     /// </summary>
@@ -21,7 +23,7 @@ public sealed class GetRegistrationEndpoint
             .Produces<ProblemDetails>(StatusCodes.Status400BadRequest, HttpContentTypes.ProblemJson)
             .Produces(StatusCodes.Status401Unauthorized)
             .Produces<ProblemDetails>(StatusCodes.Status404NotFound, HttpContentTypes.ProblemJson)
-            .WithName("Get Registration"));
+            .WithName(EndpointName));
 
         Summary(s =>
         {
