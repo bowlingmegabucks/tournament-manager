@@ -1,22 +1,20 @@
 using Bogus;
-using NortheastMegabuck.Api.Registrations.GetRegistration;
+using NortheastMegabuck.Api.Registrations.CreateRegistration;
 using NortheastMegabuck.Models;
 
 namespace NortheastMegabuck.Api.BogusData;
 
-internal sealed class BogusBowlerDetailDto
-    : Faker<BowlerDetailDto>
+internal sealed class BogusBowlerInput
+    : Faker<BowlerInput>
 {
-    public BogusBowlerDetailDto()
+    public BogusBowlerInput()
     {
-        RuleFor(dto => dto.Id, _ => BowlerId.New());
-
         RuleFor(dto => dto.FirstName, f => f.Person.FirstName);
         RuleFor(dto => dto.MiddleInitial, f => f.Person.Random.Char('A', 'Z').OrNull(f)?.ToString());
         RuleFor(dto => dto.LastName, f => f.Person.LastName);
         RuleFor(dto => dto.Suffix, f => f.PickRandom("Jr.", "Sr.", "III").OrNull(f, .95f));
 
-        RuleFor(dto => dto.Address, _ => new BogusAddressDetailDto().Generate());
+        RuleFor(dto => dto.Address, _ => new BogusAddressInput());
 
         RuleFor(dto => dto.Email, f => f.Person.Email);
         RuleFor(dto => dto.PhoneNumber, f => f.Phone.PhoneNumber().OrNull(f, .1f));

@@ -1,4 +1,5 @@
 using FastEndpoints;
+using NortheastMegabuck.Api.BogusData;
 using NortheastMegabuck.Api.Registrations.GetRegistration;
 
 namespace NortheastMegabuck.Api.Registrations.CreateRegistration;
@@ -27,6 +28,9 @@ public sealed class CreateRegistrationEndpoint
         {
             s.Summary = "Creates a new registration.";
             s.Description = "This endpoint allows you to create a new registration for a bowler.";
+
+            s.ExampleRequest = new BogusCreateRegistrationRequest();
+
             s.Response<CreateRegistrationResponse>(StatusCodes.Status201Created, "Successfully created the registration.");
             s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
             s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);
