@@ -21,7 +21,7 @@ internal sealed class BogusBowlerDetailDto
         RuleFor(dto => dto.Email, f => f.Person.Email);
         RuleFor(dto => dto.PhoneNumber, f => f.Phone.PhoneNumber().OrNull(f, .1f));
 
-        RuleFor(dto => dto.UsbcId, f => $"{f.Random.Number(10, 9999)-f.Random.Number(100, 99999)}");
+        RuleFor(dto => dto.UsbcId, f => $"{f.Random.Number(10, 9999)}-{f.Random.Number(100, 99999)}");
         RuleFor(dto => dto.DateOfBirth, f => DateOnly.FromDateTime(f.Person.DateOfBirth).OrNull(f, .1f));
         RuleFor(dto => dto.Gender, f => f.Person.Gender == Bogus.DataSets.Name.Gender.Male ? Gender.Male : Gender.Female);
     }

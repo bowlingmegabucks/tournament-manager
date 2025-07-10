@@ -8,9 +8,9 @@ internal sealed class BogusAddressInput
 {
     public BogusAddressInput()
     {
-        RuleFor(dto => dto.Street, f => f.Address.StreetAddress());
-        RuleFor(dto => dto.City, f => f.Address.City());
-        RuleFor(dto => dto.State, f => f.Address.State());
-        RuleFor(dto => dto.ZipCode, f => f.Address.ZipCode());
+        RuleFor(input => input.Street, f => f.Address.StreetAddress());
+        RuleFor(input => input.City, f => f.Address.City());
+        RuleFor(input => input.State, f => f.Address.State());
+        RuleFor(input => input.ZipCode, f => f.Address.ZipCode());
     }
 }
