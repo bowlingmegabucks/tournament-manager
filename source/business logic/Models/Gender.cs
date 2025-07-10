@@ -22,4 +22,11 @@ public sealed class Gender
         : base(name, value)
     {
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public static IDictionary<int, string> ToDictionary()
+        => List.ToDictionary(gender => gender.Value, gender => gender.Name);
 }

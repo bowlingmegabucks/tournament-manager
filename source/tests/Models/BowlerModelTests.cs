@@ -188,11 +188,24 @@ internal sealed class Bowler
     }
 
     [Test]
-    public void Constructor_Entity_GenderMapped([Values] NortheastMegabuck.Models.Gender? gender)
+    public void Constructor_Entity_GenderMapped_Male()
     {
         var entity = new NortheastMegabuck.Database.Entities.Bowler
         {
-            Gender = gender
+            Gender = NortheastMegabuck.Models.Gender.Male
+        };
+
+        var model = new NortheastMegabuck.Models.Bowler(entity);
+
+        Assert.That(model.Gender, Is.EqualTo(entity.Gender));
+    }
+
+    [Test]
+    public void Constructor_Entity_GenderMapped_Female()
+    {
+        var entity = new NortheastMegabuck.Database.Entities.Bowler
+        {
+            Gender = NortheastMegabuck.Models.Gender.Female
         };
 
         var model = new NortheastMegabuck.Models.Bowler(entity);
@@ -379,10 +392,21 @@ internal sealed class Bowler
     }
 
     [Test]
-    public void Constructor_IAddViewModel_GenderMapped([Values] NortheastMegabuck.Models.Gender? gender)
+    public void Constructor_IAddViewModel_GenderMapped_Male()
     {
         var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
-        viewModel.SetupGet(v => v.Gender).Returns(gender);
+        viewModel.SetupGet(v => v.Gender).Returns(NortheastMegabuck.Models.Gender.Male);
+
+        var model = viewModel.Object.ToModel();
+
+        Assert.That(model.Gender, Is.EqualTo(viewModel.Object.Gender));
+    }
+
+    [Test]
+    public void Constructor_IAddViewModel_GenderMapped_Female()
+    {
+        var viewModel = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
+        viewModel.SetupGet(v => v.Gender).Returns(NortheastMegabuck.Models.Gender.Female);
 
         var model = viewModel.Object.ToModel();
 

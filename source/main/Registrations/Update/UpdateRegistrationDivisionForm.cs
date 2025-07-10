@@ -22,7 +22,7 @@ internal partial class UpdateRegistrationDivisionForm
 
         InitializeComponent();
 
-        var genders = Enum.GetNames<Models.Gender>().ToDictionary(e => (int)Enum.Parse<Models.Gender>(e), e => e);
+        var genders = Models.Gender.ToDictionary();
 
         genderDropdown.DataSource = genders.ToList();
         genderDropdown.DisplayMember = "Value";
@@ -55,16 +55,16 @@ internal partial class UpdateRegistrationDivisionForm
         }
     }
 
-    public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
+    public void BindBowler(Bowlers.Retrieve.IViewModel viewModel)
     {
-        personName.First = bowler.FirstName;
-        personName.MiddleInitial = bowler.MiddleInitial;
-        personName.Last = bowler.LastName;
-        personName.Suffix = bowler.Suffix;
+        personName.First = viewModel.FirstName;
+        personName.MiddleInitial = viewModel.MiddleInitial;
+        personName.Last = viewModel.LastName;
+        personName.Suffix = viewModel.Suffix;
 
-        Gender = bowler.Gender;
-        DateOfBirth = bowler.DateOfBirth;
-        UsbcId = bowler.USBCId;
+        Gender = viewModel.Gender;
+        DateOfBirth = viewModel.DateOfBirth;
+        UsbcId = viewModel.USBCId;
     }
 
     public void BindRegistration(ITournamentRegistrationViewModel tournamentRegistrationViewModel)
@@ -130,7 +130,7 @@ internal partial class UpdateRegistrationDivisionForm
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Models.Gender? Gender
     {
-        get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
+        get => genderDropdown.SelectedIndex == -1 ? null : Models.Gender.FromValue((int)genderDropdown.SelectedValue!);
         set => genderDropdown.SelectedItem = value!;
     }
 

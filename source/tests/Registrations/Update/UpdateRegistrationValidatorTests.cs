@@ -290,7 +290,14 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError([Values] NortheastMegabuck.Models.Gender gender)
+    public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError_Male()
+        => BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError(NortheastMegabuck.Models.Gender.Male);
+
+    [Test]
+    public void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError_Female()
+        => BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError(NortheastMegabuck.Models.Gender.Female);
+
+    private void BowlerDateOfBirth_DateOfBirthNull_DivisionMinimumAndMaximumAgeNotNull_DivisionGenderNotNull_NoError(NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -317,111 +324,14 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeNull_NoError()
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            MinimumAge = null,
-            MaximumAge = null
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20))
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today),
-            Gender = bowler.Gender
-        };
-
-        var results = _validator.TestValidate(registration);
-        results.ShouldNotHaveValidationErrorFor(registration => registration.DateOfBirth);
-    }
+    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeNotValid_GenderIsValid_NoError_Male()
+        => BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeNotValid_GenderIsValid_NoError(NortheastMegabuck.Models.Gender.Male);
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNotNull_DivisionMaximumAgeNotNullOrValid_AgeTooYoung_HasError([Values(null, 99)] short? maximumAge)
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            MinimumAge = 40,
-            MaximumAge = maximumAge
-        };
+    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeNotValid_GenderIsValid_NoError_Female()
+        => BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeNotValid_GenderIsValid_NoError(NortheastMegabuck.Models.Gender.Female);
 
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20))
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today),
-            Gender = bowler.Gender
-        };
-
-        var results = _validator.TestValidate(registration);
-        results.ShouldHaveValidationErrorFor(registration => registration.DateOfBirth).WithErrorMessage("Bowler too young for selected division");
-    }
-
-    [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNullOrValid_DivisionMaximumAgeNotNull_AgeTooOld_HasError([Values(null, 40)] short? minimumAge)
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            MinimumAge = minimumAge,
-            MaximumAge = 65
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-75))
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today),
-            Gender = bowler.Gender
-        };
-
-        var results = _validator.TestValidate(registration);
-        results.ShouldHaveValidationErrorFor(registration => registration.DateOfBirth).WithErrorMessage("Bowler too old for selected division");
-    }
-
-    [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAgeNotNull_DivisionMaximumAgeNotNull_AgeValid_NoError()
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            MinimumAge = 40,
-            MaximumAge = 50
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-45))
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today),
-            Gender = bowler.Gender
-        };
-
-        var results = _validator.TestValidate(registration);
-        results.ShouldNotHaveValidationErrorFor(registration => registration.DateOfBirth);
-    }
-
-    [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeNotValid_GenderIsValid_NoError([Values] NortheastMegabuck.Models.Gender gender)
+    private void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeNotValid_GenderIsValid_NoError(NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -432,8 +342,7 @@ internal sealed class Validator
 
         var bowler = new NortheastMegabuck.Models.Bowler
         {
-            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-55)),
-            Gender = gender
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-55))
         };
 
         var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
@@ -448,178 +357,20 @@ internal sealed class Validator
 
         Assert.Multiple(() =>
         {
-            results.ShouldNotHaveValidationErrorFor(registration => registration.DateOfBirth);
+            results.ShouldHaveValidationErrorFor(registration => registration.DateOfBirth);
             results.ShouldNotHaveValidationErrorFor(registration => registration.Gender);
         });
     }
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeValid_GenderIsNotValid_NoError()
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            MinimumAge = 40,
-            MaximumAge = 50,
-            Gender = NortheastMegabuck.Models.Gender.Female
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-45)),
-            Gender = NortheastMegabuck.Models.Gender.Male
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today),
-            Gender = bowler.Gender
-        };
-
-        var results = _validator.TestValidate(registration);
-
-        Assert.Multiple(() =>
-        {
-            results.ShouldNotHaveValidationErrorFor(registration => registration.DateOfBirth);
-            results.ShouldNotHaveValidationErrorFor(registration => registration.Gender);
-        });
-    }
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError_Male()
+        => BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError(NortheastMegabuck.Models.Gender.Male);
 
     [Test]
-    public void BowlerDateOfBirth_DateOfBirthNotNull_GenderNotNull_DivisionMinimumAndMaximumAgeSet_DivisionGenderSet_AgeAndGenderAreNotValid_HasError()
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            MinimumAge = 40,
-            MaximumAge = 50,
-            Gender = NortheastMegabuck.Models.Gender.Female
-        };
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError_Female()
+        => BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError(NortheastMegabuck.Models.Gender.Female);
 
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-55)),
-            Gender = NortheastMegabuck.Models.Gender.Male
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today),
-            Gender = bowler.Gender
-        };
-
-        var result = _validator.TestValidate(registration);
-        result.ShouldHaveValidationErrorFor(registration => registration.DateOfBirth).WithErrorMessage("Bowler too old for selected division");
-    }
-
-    [Test]
-    public void BowlerUSBCId_HasValue_DivisionHandicapOrScratch_NoError([Values(null, .8)] decimal? handicapPercentage)
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            HandicapPercentage = handicapPercentage
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            USBCId = "123-456"
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            Gender = bowler.Gender,
-            USBCId = bowler.USBCId,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today)
-        };
-
-        var result = _validator.TestValidate(registration);
-        result.ShouldNotHaveValidationErrorFor(registration => registration.USBCId);
-    }
-
-    [Test]
-    public void BowlerUSBCId_HasNoValue_DivisionScratch_NoError()
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            HandicapPercentage = null
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            USBCId = null
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            Gender = bowler.Gender,
-            USBCId = bowler.USBCId,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today)
-        };
-
-        var result = _validator.TestValidate(registration);
-        result.ShouldNotHaveValidationErrorFor(registration => registration.USBCId);
-    }
-
-    [Test]
-    public void BowlerUSBCId_HasNoValue_DivisionHandicap_HasError()
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            HandicapPercentage = .8m
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            USBCId = null
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            Gender = bowler.Gender,
-            USBCId = bowler.USBCId,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today)
-        };
-
-        var result = _validator.TestValidate(registration);
-        result.ShouldHaveValidationErrorFor(registration => registration.USBCId).WithErrorMessage("USBC Id is required for Handicap Divisions");
-    }
-
-    [Test]
-    public void BowlerGender_GenderNull_DivisionGenderNull_NoError()
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            Gender = null
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            Gender = null
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            Gender = bowler.Gender,
-            USBCId = bowler.USBCId,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today)
-        };
-
-        var results = _validator.TestValidate(registration);
-        results.ShouldNotHaveValidationErrorFor(registration => registration.Gender);
-    }
-
-    [Test]
-    public void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError([Values] NortheastMegabuck.Models.Gender gender)
+    private void BowlerGender_GenderNull_DivisionGenderNotNull_MinimumAgeMet_NoError(NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -646,7 +397,14 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNull_DivisionGenderNotNull_MaximumAgeMet_NoError([Values] NortheastMegabuck.Models.Gender gender)
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_MaximumAgeMet_NoError_Male()
+        => BowlerGender_GenderNull_DivisionGenderNotNull_MaximumAgeMet_NoError(NortheastMegabuck.Models.Gender.Male);
+
+    [Test]
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_MaximumAgeMet_NoError_Female()
+        => BowlerGender_GenderNull_DivisionGenderNotNull_MaximumAgeMet_NoError(NortheastMegabuck.Models.Gender.Female);
+
+    private void BowlerGender_GenderNull_DivisionGenderNotNull_MaximumAgeMet_NoError(NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -672,44 +430,15 @@ internal sealed class Validator
         results.ShouldNotHaveValidationErrorFor(registration => registration.Gender);
     }
 
-    [TestCase(NortheastMegabuck.Models.Gender.Male)]
-    [TestCase(null)]
-    public void BowlerGender_GenderNullOrDoesNotMatch_DivisionGenderNotNullAndDoesNotMatch_AgeRequirementNotMet_ErrorOnAgeNotGender(NortheastMegabuck.Models.Gender? gender)
-
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            Gender = NortheastMegabuck.Models.Gender.Female,
-            MinimumAge = 50,
-            MaximumAge = 55
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-45)),
-            Gender = gender
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today),
-            Gender = bowler.Gender,
-            USBCId = bowler.USBCId
-        };
-
-        var results = _validator.TestValidate(registration);
-
-        Assert.Multiple(() =>
-        {
-            results.ShouldNotHaveValidationErrorFor(registration => registration.Gender);
-            results.ShouldHaveValidationErrorFor(registration => registration.DateOfBirth).WithErrorMessage("Bowler too young for selected division");
-        });
-    }
+    [Test]
+    public void BowlerGender_GenderNotNull_DivisionGenderNull_NoError_Male()
+        => BowlerGender_GenderNotNull_DivisionGenderNull_NoError(NortheastMegabuck.Models.Gender.Male);
 
     [Test]
-    public void BowlerGender_GenderNotNull_DivisionGenderNull_NoError([Values] NortheastMegabuck.Models.Gender gender)
+    public void BowlerGender_GenderNotNull_DivisionGenderNull_NoError_Female()
+        => BowlerGender_GenderNotNull_DivisionGenderNull_NoError(NortheastMegabuck.Models.Gender.Female);
+
+    private void BowlerGender_GenderNotNull_DivisionGenderNull_NoError(NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -735,7 +464,14 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNull_DivisionGenderNotNull_HasError([Values] NortheastMegabuck.Models.Gender gender)
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_HasError_Male()
+        => BowlerGender_GenderNull_DivisionGenderNotNull_HasError(NortheastMegabuck.Models.Gender.Male);
+
+    [Test]
+    public void BowlerGender_GenderNull_DivisionGenderNotNull_HasError_Female()
+        => BowlerGender_GenderNull_DivisionGenderNotNull_HasError(NortheastMegabuck.Models.Gender.Female);
+
+    private void BowlerGender_GenderNull_DivisionGenderNotNull_HasError(NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -761,7 +497,14 @@ internal sealed class Validator
     }
 
     [Test]
-    public void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersMatch_NoError([Values] NortheastMegabuck.Models.Gender gender)
+    public void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersMatch_NoError_Male()
+        => BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersMatch_NoError(NortheastMegabuck.Models.Gender.Male);
+
+    [Test]
+    public void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersMatch_NoError_Female()
+        => BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersMatch_NoError(NortheastMegabuck.Models.Gender.Female);
+
+    private void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersMatch_NoError(NortheastMegabuck.Models.Gender gender)
     {
         var division = new NortheastMegabuck.Models.Division
         {
@@ -784,31 +527,5 @@ internal sealed class Validator
 
         var results = _validator.TestValidate(registration);
         results.ShouldNotHaveValidationErrorFor(registration => registration.Gender);
-    }
-
-    [Test]
-    public void BowlerGender_GenderNotNull_DivisionGenderNotNull_GendersDoNotMatch_HasError()
-    {
-        var division = new NortheastMegabuck.Models.Division
-        {
-            Gender = NortheastMegabuck.Models.Gender.Male
-        };
-
-        var bowler = new NortheastMegabuck.Models.Bowler
-        {
-            Gender = NortheastMegabuck.Models.Gender.Female
-        };
-
-        var registration = new NortheastMegabuck.Registrations.Update.UpdateRegistrationModel
-        {
-            DateOfBirth = bowler.DateOfBirth,
-            Division = division,
-            Gender = bowler.Gender,
-            USBCId = bowler.USBCId,
-            TournamentStartDate = DateOnly.FromDateTime(DateTime.Today)
-        };
-
-        var results = _validator.TestValidate(registration);
-        results.ShouldHaveValidationErrorFor(registration => registration.Gender).WithErrorMessage("Invalid gender for selected division");
     }
 }
