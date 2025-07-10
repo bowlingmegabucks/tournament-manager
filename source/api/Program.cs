@@ -5,6 +5,7 @@ using FastEndpoints.Swagger;
 using NJsonSchema.Generation.TypeMappers;
 using NortheastMegabuck;
 using NortheastMegabuck.Api;
+using NortheastMegabuck.Api.Authentication;
 using NortheastMegabuck.Models;
 using Scalar.AspNetCore;
 
@@ -22,9 +23,9 @@ builder.Services.SwaggerDocument(o =>
         s.DocumentName = "v1";
         s.Title = "Northeast Megabuck Tournament API";
         s.Version = "v1";
-        s.AddAuth("Api Key", new()
+        s.AddAuth(ApiKeyAuthentication.SchemeName, new()
         {
-            Name = "x-api-key",
+            Name = ApiKeyAuthentication.HeaderName,
             In = NSwag.OpenApiSecurityApiKeyLocation.Header,
             Type = NSwag.OpenApiSecuritySchemeType.ApiKey
         });
