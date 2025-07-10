@@ -37,7 +37,6 @@ public sealed class GetTournamentEndpoint
             };
 
             s.ResponseExamples[200] = new BogusGetTournamentResponse(TournamentId.New()).Generate();
-            s.ResponseExamples[404] = new();
             s.ResponseExamples[500] = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
