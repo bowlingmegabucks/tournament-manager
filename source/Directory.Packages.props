@@ -41,6 +41,7 @@
     <PackageVersion Include="SmartEnums" Version="3.0.2" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="StronglyTypedId.Templates" Version="1.0.0-beta08" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.3" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.7" />
     <PackageVersion Include="System.Formats.Asn1" Version="9.0.6" />
     <PackageVersion Include="System.IO.Packaging" Version="9.0.7" />

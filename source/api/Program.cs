@@ -1,4 +1,3 @@
-using System.Reflection.PortableExecutable;
 using System.Text.Json;
 using FastEndpoints;
 using FastEndpoints.Swagger;
@@ -8,11 +7,9 @@ using NortheastMegabuck;
 using NortheastMegabuck.Api;
 using NortheastMegabuck.Api.Authentication;
 using NortheastMegabuck.Models;
-using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 builder.Services.AddFastEndpoints()
@@ -70,7 +67,6 @@ builder.Services.SwaggerDocument(o =>
 var app = builder.Build();
 
 app.UseSwaggerGen(options => options.Path = "/openapi/{documentName}.json");
-app.MapScalarApiReference("/spec");
 
 app.UseHttpsRedirection();
 
@@ -90,6 +86,7 @@ app.UseAuthentication()
             pd.IndicateErrorCode = true;
             pd.IndicateErrorSeverity = true;
         });
-    });
+    })
+    .UseSwaggerGen();
 
 await app.RunAsync();
