@@ -2,6 +2,7 @@ using System.Reflection.PortableExecutable;
 using System.Text.Json;
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using Microsoft.AspNetCore.Authentication;
 using NJsonSchema.Generation.TypeMappers;
 using NortheastMegabuck;
 using NortheastMegabuck.Api;
@@ -14,7 +15,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddFastEndpoints();
+builder.Services.AddFastEndpoints()
+    .AddAuthorization()
+    .AddAuthentication(ApiKeyAuthentication.SchemeName)
+    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthentication>(ApiKeyAuthentication.SchemeName, null);
+    
 builder.Services.SwaggerDocument(o =>
 {
     o.ReleaseVersion = 1;
@@ -69,20 +74,22 @@ app.MapScalarApiReference("/spec");
 
 app.UseHttpsRedirection();
 
-app.UseFastEndpoints(c =>
-{
-    c.Versioning.Prefix = "v";
-    c.Versioning.DefaultVersion = 1;
-    c.Versioning.PrependToRoute = true;
-
-    c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-
-    c.Endpoints.ShortNames = true;
-    c.Errors.UseProblemDetails(pd =>
+app.UseAuthentication()
+    .UseAuthorization()
+    .UseFastEndpoints(c =>
     {
-        pd.IndicateErrorCode = true;
-        pd.IndicateErrorSeverity = true;
+        c.Versioning.Prefix = "v";
+        c.Versioning.DefaultVersion = 1;
+        c.Versioning.PrependToRoute = true;
+
+        c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+        c.Endpoints.ShortNames = true;
+        c.Errors.UseProblemDetails(pd =>
+        {
+            pd.IndicateErrorCode = true;
+            pd.IndicateErrorSeverity = true;
+        });
     });
-});
 
 await app.RunAsync();
