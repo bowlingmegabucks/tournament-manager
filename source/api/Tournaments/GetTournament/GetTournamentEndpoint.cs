@@ -30,6 +30,22 @@ public sealed class GetTournamentEndpoint
         {
             s.Summary = "Retrieves a specific tournament by its ID.";
             s.Description = "This endpoint returns the details of a specific tournament identified by its unique ID.";
+
+            s.ExampleRequest = new()
+            { 
+                Id = TournamentId.New()
+            };
+
+            s.ResponseExamples[200] = new BogusGetTournamentResponse(TournamentId.New()).Generate();
+            s.ResponseExamples[404] = new();
+            s.ResponseExamples[500] = new ProblemDetails
+            {
+                Status = StatusCodes.Status500InternalServerError,
+                TraceId = "0HMPNHL0JHL76:00000001",
+                Detail = "An error occurred while processing your request. Please try again later.",
+                Instance = $"/tournaments/{TournamentId.New()}"
+            };
+
             s.Response<GetTournamentResponse>(StatusCodes.Status200OK, "Returns the details of the requested tournament.");
             s.Response<NotFound>(StatusCodes.Status404NotFound, "Returns a 404 Not Found if the tournament does not exist.");
             s.Response<ProblemDetails>(StatusCodes.Status500InternalServerError, "Returns a generic error response in case of an unexpected error.", HttpContentTypes.ProblemJson);
