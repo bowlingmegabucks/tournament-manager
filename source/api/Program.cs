@@ -66,7 +66,7 @@ builder.Services.SwaggerDocument(o =>
 
 var app = builder.Build();
 
-app.UseSwaggerGen(options => options.Path = "/openapi/{documentName}.json");
+app.UseSwaggerGen();
 
 app.UseHttpsRedirection();
 
