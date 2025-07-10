@@ -1,0 +1,58 @@
+using FastEndpoints;
+
+namespace NortheastMegabuck.Api.Registrations.GetRegistration;
+
+/// <summary>
+/// 
+/// </summary>
+public sealed class GetRegistrationEndpoint
+    : Endpoint<GetRegistrationRequest, GetRegistrationResponse>
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public override void Configure()
+    {
+        Get("/registrations/{Id}");
+
+        Description(d => d
+            .Produces<GetRegistrationResponse>(StatusCodes.Status200OK)
+            .Produces<ProblemDetails>(StatusCodes.Status400BadRequest, HttpContentTypes.ProblemJson)
+            .Produces(StatusCodes.Status401Unauthorized)
+            .Produces<ProblemDetails>(StatusCodes.Status404NotFound, HttpContentTypes.ProblemJson)
+            .WithName("Get Registration"));
+
+        Summary(s =>
+        {
+            s.Summary = "Retrieves a registration by its ID.";
+            s.Description = "This endpoint allows you to retrieve a registration using its unique identifier.";
+            s.Response<GetRegistrationResponse>(StatusCodes.Status200OK, "Successfully retrieved the registration.");
+            s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
+            s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);
+            s.Response<ProblemDetails>(StatusCodes.Status404NotFound, "Registration not found.", HttpContentTypes.ProblemJson);
+        });
+    }
+
+    /// <summary>
+    /// Handles the retrieval of a registration by its ID.
+    /// </summary>
+    /// <param name="req"></param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    public override async Task HandleAsync(
+        GetRegistrationRequest req,
+        CancellationToken ct)
+    {
+        ArgumentNullException.ThrowIfNull(req);
+
+        // Logic to retrieve the registration goes here
+        // For example, you might fetch the registration from a database
+
+        var response = new GetRegistrationResponse
+        {
+            Id = req.Id
+        };
+
+        await SendOkAsync(response, ct);
+    }
+}
