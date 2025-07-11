@@ -21,7 +21,7 @@ public sealed class GetTournamentEndpoint
 
         Description(d => d
             .Produces<GetTournamentResponse>(StatusCodes.Status200OK, HttpContentTypes.Json)
-            .Produces<NotFound>(StatusCodes.Status404NotFound)
+            .Produces<ProblemDetails>(StatusCodes.Status404NotFound, HttpContentTypes.ProblemJson)
             .ProducesProblemDetails(StatusCodes.Status500InternalServerError, HttpContentTypes.ProblemJson)
             .WithName("Get Tournament")
         );
@@ -37,11 +37,11 @@ public sealed class GetTournamentEndpoint
             };
 
             s.ResponseExamples[StatusCodes.Status200OK] = new BogusGetTournamentResponse(TournamentId.New()).Generate();
-            s.ResponseExamples[StatusCodes.Status404NotFound] = new();
-            s.ResponseExamples[StatusCodes.Status500InternalServerError] = ResponseExamples.InternalServerError500("/tournaments/{Id}");
+            s.ResponseExamples[StatusCodes.Status404NotFound] = HttpStatusCodeResponses.SampleNotFound404("/tournaments/{Id}");
+            s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500("/tournaments/{Id}");
 
             s.Response<GetTournamentResponse>(StatusCodes.Status200OK, "Returns the details of the requested tournament.");
-            s.Response(StatusCodes.Status404NotFound, "Returns a 404 Not Found if the tournament does not exist.");
+            s.Response<ProblemDetails>(StatusCodes.Status404NotFound, "Returns a 404 Not Found if the tournament does not exist.", HttpContentTypes.ProblemJson);
             s.Response<ProblemDetails>(StatusCodes.Status500InternalServerError, "Returns a generic error response in case of an unexpected error.", HttpContentTypes.ProblemJson);
         });
     }

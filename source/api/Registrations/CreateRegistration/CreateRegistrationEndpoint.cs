@@ -35,8 +35,8 @@ public sealed class CreateRegistrationEndpoint
             {
                 RegistrationId = RegistrationId.New()
             };
-            s.ResponseExamples[StatusCodes.Status400BadRequest] = ResponseExamples.BadRequest400("/registrations");
-            s.ResponseExamples[StatusCodes.Status500InternalServerError] = ResponseExamples.InternalServerError500("/registrations");
+            s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400("/registrations");
+            s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500("/registrations");
 
             s.Response<CreateRegistrationResponse>(StatusCodes.Status201Created, "Successfully created the registration.");
             s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");

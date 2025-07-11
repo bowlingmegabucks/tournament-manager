@@ -3,9 +3,9 @@ using FluentValidation.Results;
 
 namespace NortheastMegabuck.Api;
 
-internal static class ResponseExamples
+internal static class HttpStatusCodeResponses
 {
-    internal static ProblemDetails BadRequest400(string instance)
+    internal static ProblemDetails SampleBadRequest400(string instance)
         => new()
         {
             Status = StatusCodes.Status400BadRequest,
@@ -20,7 +20,7 @@ internal static class ResponseExamples
                 }
         };
 
-    internal static ProblemDetails Unauthorized401(string instance)
+    internal static ProblemDetails SampleUnauthorized401(string instance)
         => new()
         {
             Status = StatusCodes.Status401Unauthorized,
@@ -29,7 +29,25 @@ internal static class ResponseExamples
             Detail = "You do not have permission to access this resource."
         };
 
-    internal static ProblemDetails InternalServerError500(string instance)
+    internal static ProblemDetails NotFound404(string instance, string traceId)
+        => new()
+        {
+            Status = StatusCodes.Status404NotFound,
+            Detail = "The requested resource was not found.",
+            Instance = instance,
+            TraceId = traceId
+        };
+
+    internal static ProblemDetails SampleNotFound404(string instance)
+        => new()
+        {
+            Status = StatusCodes.Status404NotFound,
+            Detail = "The requested resource was not found.",
+            Instance = instance,
+            TraceId = "0HMPNHL0JHL76:00000001"
+        };
+
+    internal static ProblemDetails SampleInternalServerError500(string instance)
         => new()
         {
             Status = StatusCodes.Status500InternalServerError,
