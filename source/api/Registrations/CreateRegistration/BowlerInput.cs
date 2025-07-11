@@ -58,8 +58,7 @@ public sealed record BowlerInput
     /// The gender of the bowler.  This is an optional field.
     /// </summary>
     /// <example>
-    /// "Male", "Female"
+    /// "Male"
     /// </example>
-    [JsonConverter(typeof(SmartEnumNameConverter<Models.Gender, int>))]
-    public Models.Gender? Gender { get; init; }
+    public string? Gender { get; init; }
 }
