@@ -31,6 +31,13 @@ public sealed class CreateRegistrationEndpoint
 
             s.ExampleRequest = new BogusCreateRegistrationRequest();
 
+            s.ResponseExamples[StatusCodes.Status201Created] = new CreateRegistrationResponse
+            {
+                RegistrationId = RegistrationId.New()
+            };
+            s.ResponseExamples[StatusCodes.Status400BadRequest] = ResponseExamples.BadRequest400("/registrations");
+            s.ResponseExamples[StatusCodes.Status500InternalServerError] = ResponseExamples.InternalServerError500("/registrations");
+
             s.Response<CreateRegistrationResponse>(StatusCodes.Status201Created, "Successfully created the registration.");
             s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
             s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);

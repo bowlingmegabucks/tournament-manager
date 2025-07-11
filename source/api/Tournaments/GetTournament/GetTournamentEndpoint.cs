@@ -36,14 +36,8 @@ public sealed class GetTournamentEndpoint
                 Id = TournamentId.New()
             };
 
-            s.ResponseExamples[200] = new BogusGetTournamentResponse(TournamentId.New()).Generate();
-            s.ResponseExamples[500] = new ProblemDetails
-            {
-                Status = StatusCodes.Status500InternalServerError,
-                TraceId = "0HMPNHL0JHL76:00000001",
-                Detail = "An error occurred while processing your request. Please try again later.",
-                Instance = $"/tournaments/{TournamentId.New()}"
-            };
+            s.ResponseExamples[StatusCodes.Status200OK] = new BogusGetTournamentResponse(TournamentId.New()).Generate();
+            s.ResponseExamples[StatusCodes.Status500InternalServerError] = ResponseExamples.InternalServerError500("/tournaments/{Id}");
 
             s.Response<GetTournamentResponse>(StatusCodes.Status200OK, "Returns the details of the requested tournament.");
             s.Response<NotFound>(StatusCodes.Status404NotFound, "Returns a 404 Not Found if the tournament does not exist.");

@@ -33,39 +33,12 @@ public sealed class DeleteRegistrationEndpoint
             };
 
             s.ResponseExamples[StatusCodes.Status204NoContent] = new();
-            s.ResponseExamples[StatusCodes.Status400BadRequest] = new ProblemDetails
-            {
-                Status = StatusCodes.Status400BadRequest,
-                TraceId = "0HMPNHL0JHL76:00000001",
-                Detail = "The request parameters are invalid.",
-                Instance = "/registrations/{Id}"
-            };
-            s.ResponseExamples[StatusCodes.Status401Unauthorized] = new ProblemDetails
-            {
-                Status = StatusCodes.Status401Unauthorized,
-                TraceId = "0HMPNHL0JHL76:00000001",
-                Detail = "You do not have permission to access this resource.",
-                Instance = "/registrations/{Id}"
-            };
-            s.ResponseExamples[StatusCodes.Status404NotFound] = new ProblemDetails
-            {
-                Status = StatusCodes.Status404NotFound,
-                TraceId = "0HMPNHL0JHL76:00000001",
-                Detail = "The registration with the specified ID was not found.",
-                Instance = "/registrations/{Id}"
-            };
-            s.ResponseExamples[StatusCodes.Status500InternalServerError] = new ProblemDetails
-            {
-                Status = StatusCodes.Status500InternalServerError,
-                TraceId = "0HMPNHL0JHL76:00000001",
-                Detail = "An unexpected error occurred while processing your request.",
-                Instance = "/registrations/{Id}"
-            };
+            s.ResponseExamples[StatusCodes.Status401Unauthorized] = ResponseExamples.Unauthorized401("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status500InternalServerError] = ResponseExamples.InternalServerError500("/registrations/{Id}");
 
             s.Response(StatusCodes.Status204NoContent, "Successfully deleted the registration.");
             s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
-            s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);
-            s.Response<ProblemDetails>(StatusCodes.Status404NotFound, "Registration not found.", HttpContentTypes.ProblemJson);
+            s.Response<ProblemDetails>(StatusCodes.Status404NotFound, "Registration not found.");
             s.Response<ProblemDetails>(StatusCodes.Status500InternalServerError, "An unexpected error occurred.", HttpContentTypes.ProblemJson);
         });
     }

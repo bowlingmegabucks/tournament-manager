@@ -29,10 +29,17 @@ public sealed class GetRegistrationEndpoint
         {
             s.Summary = "Retrieves a registration by its ID.";
             s.Description = "This endpoint allows you to retrieve a registration using its unique identifier.";
+
+            s.ResponseExamples[StatusCodes.Status200OK] = new BogusGetRegistrationResponse().Generate();
+            s.ResponseExamples[StatusCodes.Status400BadRequest] = ResponseExamples.BadRequest400("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status401Unauthorized] = ResponseExamples.Unauthorized401("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status500InternalServerError] = ResponseExamples.InternalServerError500("/registrations/{Id}");
+
             s.Response<GetRegistrationResponse>(StatusCodes.Status200OK, "Successfully retrieved the registration.");
             s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
             s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);
-            s.Response<ProblemDetails>(StatusCodes.Status404NotFound, "Registration not found.", HttpContentTypes.ProblemJson);
+            s.Response<ProblemDetails>(StatusCodes.Status404NotFound, "Registration not found.");
+            s.Response<ProblemDetails>(StatusCodes.Status500InternalServerError, "An unexpected error occurred.", HttpContentTypes.ProblemJson);
         });
     }
 
