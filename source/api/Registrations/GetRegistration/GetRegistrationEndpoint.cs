@@ -1,4 +1,5 @@
 using FastEndpoints;
+using Microsoft.AspNetCore.Http.HttpResults;
 using NortheastMegabuck.Api.BogusData;
 
 namespace NortheastMegabuck.Api.Registrations.GetRegistration;
@@ -33,12 +34,13 @@ public sealed class GetRegistrationEndpoint
             s.ResponseExamples[StatusCodes.Status200OK] = new BogusGetRegistrationResponse().Generate();
             s.ResponseExamples[StatusCodes.Status400BadRequest] = ResponseExamples.BadRequest400("/registrations/{Id}");
             s.ResponseExamples[StatusCodes.Status401Unauthorized] = ResponseExamples.Unauthorized401("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status404NotFound] = new();
             s.ResponseExamples[StatusCodes.Status500InternalServerError] = ResponseExamples.InternalServerError500("/registrations/{Id}");
 
             s.Response<GetRegistrationResponse>(StatusCodes.Status200OK, "Successfully retrieved the registration.");
-            s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
             s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);
-            s.Response<ProblemDetails>(StatusCodes.Status404NotFound, "Registration not found.");
+            s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
+            s.Response<NotFound>(StatusCodes.Status404NotFound, "Registration not found.");
             s.Response<ProblemDetails>(StatusCodes.Status500InternalServerError, "An unexpected error occurred.", HttpContentTypes.ProblemJson);
         });
     }

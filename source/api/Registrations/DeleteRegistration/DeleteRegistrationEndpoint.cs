@@ -1,4 +1,5 @@
 using FastEndpoints;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace NortheastMegabuck.Api.Registrations.DeleteRegistration;
 
@@ -34,11 +35,12 @@ public sealed class DeleteRegistrationEndpoint
 
             s.ResponseExamples[StatusCodes.Status204NoContent] = new();
             s.ResponseExamples[StatusCodes.Status401Unauthorized] = ResponseExamples.Unauthorized401("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status404NotFound] = new();
             s.ResponseExamples[StatusCodes.Status500InternalServerError] = ResponseExamples.InternalServerError500("/registrations/{Id}");
 
             s.Response(StatusCodes.Status204NoContent, "Successfully deleted the registration.");
             s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
-            s.Response<ProblemDetails>(StatusCodes.Status404NotFound, "Registration not found.");
+            s.Response<NotFound>(StatusCodes.Status404NotFound, "Registration not found.");
             s.Response<ProblemDetails>(StatusCodes.Status500InternalServerError, "An unexpected error occurred.", HttpContentTypes.ProblemJson);
         });
     }
