@@ -19,8 +19,8 @@ internal sealed class UpdateRegistrationRequestValidator
             .WithErrorCode("Registration.Required");
 
         RuleFor(request => request.Id)
-            .Must((request, id) => request.Id == id)
-            .WithMessage("Registration ID in the request does not match the ID in the route.")
+            .Must((request, id) => request.Id == request.Registration.RegistrationId)
+            .WithMessage("Registration ID in the request does not match the ID in the registration details.")
             .WithErrorCode("Registration.IdMismatch");
     }
 }
