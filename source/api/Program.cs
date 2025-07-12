@@ -67,8 +67,6 @@ builder.Services.SwaggerDocument(o =>
 
 var app = builder.Build();
 
-app.UseSwaggerGen();
-
 app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json"); 
 app.MapScalarApiReference();
 
