@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
+using SmartEnum.EFCore;
 
 #if DEBUG
 using Microsoft.Extensions.Logging;
-using SmartEnum.EFCore;
 #endif
 
 namespace NortheastMegabuck.Database;
