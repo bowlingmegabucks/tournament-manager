@@ -167,8 +167,8 @@ internal partial class DivisionControl : UserControl, Divisions.IViewModel
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Models.Gender? Gender
     {
-        get => (int)genderDropdown.SelectedValue! == -1 ? null : (Models.Gender)genderDropdown.SelectedValue;
-        set => genderDropdown.SelectedValue = value.HasValue ? (int)value.Value : -1;
+        get => (int)genderDropdown.SelectedValue! == -1 ? null : Models.Gender.FromValue((int)genderDropdown.SelectedValue);
+        set => genderDropdown.SelectedValue = value is not null ? value.Value : -1;
     }
 
     private void DivisionControl_Validated(object sender, EventArgs e)

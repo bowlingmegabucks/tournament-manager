@@ -135,14 +135,25 @@ internal sealed class Division
     }
 
     [Test]
-    public void Constructor_ViewModel_GenderMapped([Values] NortheastMegabuck.Models.Gender gender)
+    public void Constructor_ViewModel_GenderMapped_Male()
     {
         var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
-        viewModel.SetupGet(v => v.Gender).Returns(gender);
+        viewModel.SetupGet(v => v.Gender).Returns(NortheastMegabuck.Models.Gender.Male);
 
         var model = viewModel.Object.ToModel();
 
-        Assert.That(model.Gender, Is.EqualTo(gender));
+        Assert.That(model.Gender, Is.EqualTo(NortheastMegabuck.Models.Gender.Male));
+    }
+
+    [Test]
+    public void Constructor_ViewModel_GenderMapped_Female()
+    {
+        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        viewModel.SetupGet(v => v.Gender).Returns(NortheastMegabuck.Models.Gender.Female);
+
+        var model = viewModel.Object.ToModel();
+
+        Assert.That(model.Gender, Is.EqualTo(NortheastMegabuck.Models.Gender.Female));
     }
 
     [Test]
@@ -297,16 +308,29 @@ internal sealed class Division
     }
 
     [Test]
-    public void Constructor_Entities_GenderMapped([Values] NortheastMegabuck.Models.Gender gender)
+    public void Constructor_Entities_GenderMapped_Male()
     {
         var entity = new NortheastMegabuck.Database.Entities.Division
         {
-            Gender = gender
+            Gender = NortheastMegabuck.Models.Gender.Male
         };
 
         var model = new NortheastMegabuck.Models.Division(entity);
 
-        Assert.That(model.Gender, Is.EqualTo(gender));
+        Assert.That(model.Gender, Is.EqualTo(NortheastMegabuck.Models.Gender.Male));
+    }
+
+    [Test]
+    public void Constructor_Entities_GenderMapped_Female()
+    {
+        var entity = new NortheastMegabuck.Database.Entities.Division
+        {
+            Gender = NortheastMegabuck.Models.Gender.Female
+        };
+
+        var model = new NortheastMegabuck.Models.Division(entity);
+
+        Assert.That(model.Gender, Is.EqualTo(NortheastMegabuck.Models.Gender.Female));
     }
 
     [Test]

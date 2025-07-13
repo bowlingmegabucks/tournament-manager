@@ -151,11 +151,24 @@ internal sealed class EntityMapper
     }
 
     [Test]
-    public void Execute_GenderMapped([Values] NortheastMegabuck.Models.Gender gender)
+    public void Execute_GenderMapped_Male()
     {
         var bowler = new NortheastMegabuck.Models.Bowler
         {
-            Gender = gender
+            Gender = NortheastMegabuck.Models.Gender.Male
+        };
+
+        var entity = _mapper.Execute(bowler);
+
+        Assert.That(entity.Gender, Is.EqualTo(bowler.Gender));
+    }
+
+    [Test]
+    public void Execute_GenderMapped_Female()
+    {
+        var bowler = new NortheastMegabuck.Models.Bowler
+        {
+            Gender = NortheastMegabuck.Models.Gender.Female
         };
 
         var entity = _mapper.Execute(bowler);

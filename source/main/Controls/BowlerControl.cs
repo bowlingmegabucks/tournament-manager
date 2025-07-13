@@ -74,9 +74,7 @@ internal partial class BowlerControl
         dateOfBirthPicker.Value = new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
         dateOfBirthPicker.Checked = false;
 
-        var genders = Enum.GetValues<Models.Gender>()
-            .Cast<Models.Gender>()
-            .ToDictionary(e => (int)e, e => e.ToString());
+        var genders = Models.Gender.ToDictionary();
 
         genderDropdown.DataSource = genders.ToList();
         genderDropdown.DisplayMember = "Value";
@@ -194,8 +192,8 @@ internal partial class BowlerControl
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Models.Gender? Gender
     {
-        get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
-        set => genderDropdown.SelectedValue = value.HasValue ? (int)value.Value : -1;
+        get => genderDropdown.SelectedIndex == -1 ? null : Models.Gender.FromValue((int)genderDropdown.SelectedValue!);
+        set => genderDropdown.SelectedValue = value is not null ? value.Value : -1;
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

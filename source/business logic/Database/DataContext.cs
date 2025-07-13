@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
+using SmartEnum.EFCore;
 
 #if DEBUG
 using Microsoft.Extensions.Logging;
@@ -29,6 +30,13 @@ internal class DataContext : DbContext, IDataContext
     }
 #endif
 
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder.ConfigureSmartEnum();
+
+        base.ConfigureConventions(configurationBuilder);
+    }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var serverVersion = new MySqlServerVersion(new Version(10, 3, 35));

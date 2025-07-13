@@ -144,11 +144,24 @@ internal sealed class ViewModel
     }
 
     [Test]
-    public void Constructor_Model_GenderMapped([Values] NortheastMegabuck.Models.Gender gender)
+    public void Constructor_Model_GenderMapped_Male()
     {
         var model = new NortheastMegabuck.Models.Division
         {
-            Gender = gender
+            Gender = NortheastMegabuck.Models.Gender.Male
+        };
+
+        var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);
+
+        Assert.That(viewModel.Gender, Is.EqualTo(model.Gender));
+    }
+
+    [Test]
+    public void Constructor_Model_GenderMapped_Female()
+    {
+        var model = new NortheastMegabuck.Models.Division
+        {
+            Gender = NortheastMegabuck.Models.Gender.Female
         };
 
         var viewModel = new NortheastMegabuck.Divisions.ViewModel(model);

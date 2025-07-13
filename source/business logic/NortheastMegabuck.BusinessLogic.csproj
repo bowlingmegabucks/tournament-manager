@@ -9,7 +9,9 @@
 	  <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 	  <NeutralLanguage>en-US</NeutralLanguage>
 	  <UserSecretsId>745ea9ba-042a-436d-bfa8-5a5a19950236</UserSecretsId>
+	  <NoWarn>$(NoWarn);1573</NoWarn>
   </PropertyGroup>
+
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<Optimize>False</Optimize>
@@ -20,6 +22,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Ardalis.SmartEnum" />
+		<PackageReference Include="Ardalis.SmartEnum.EFCore" />
 		<PackageReference Include="FluentValidation" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
@@ -29,6 +33,7 @@
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
 		<PackageReference Include="QuestPDF" />
 		<PackageReference Include="StronglyTypedId" PrivateAssets="all" ExcludeAssets="compile;runtime" />
+		<PackageReference Include="StronglyTypedId.Templates" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" />
 	</ItemGroup>
 
