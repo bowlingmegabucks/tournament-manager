@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
+﻿
 namespace NortheastMegabuck.Divisions.Add;
 
 internal class DataLayer : IDataLayer
@@ -7,21 +6,10 @@ internal class DataLayer : IDataLayer
     private readonly IEntityMapper _mapper;
     private readonly IRepository _repository;
 
-    internal DataLayer(IConfiguration config)
+    internal DataLayer(IEntityMapper mapper, IRepository repository)
     {
-        _mapper = new EntityMapper();
-        _repository = new Repository(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockMapper"></param>
-    /// <param name="mockRepository"></param>
-    internal DataLayer(IEntityMapper mockMapper, IRepository mockRepository)
-    {
-        _mapper = mockMapper;
-        _repository = mockRepository;
+        _mapper = mapper;
+        _repository = repository;
     }
 
     async Task<DivisionId> IDataLayer.ExecuteAsync(Models.Division division, CancellationToken cancellationToken)

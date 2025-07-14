@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
+﻿
 namespace NortheastMegabuck.Divisions.Retrieve;
 
 /// <summary>
@@ -9,22 +8,9 @@ public class BusinessLogic : IBusinessLogic
 {
     private readonly IDataLayer _dataLayer;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    internal BusinessLogic(IDataLayer dataLayer)
     {
-        _dataLayer = new DataLayer(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(IDataLayer mockDataLayer)
-    {
-        _dataLayer = mockDataLayer;
+        _dataLayer = dataLayer;
     }
 
     /// <summary>

@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Divisions.Add;
 
@@ -18,25 +17,10 @@ public class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    internal BusinessLogic(IValidator<Models.Division> validator, IDataLayer dataLayer)
     {
-        _validator = new Validator();
-        _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockValidator"></param>
-    /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(IValidator<Models.Division> mockValidator, IDataLayer mockDataLayer)
-    {
-        _validator = mockValidator;
-        _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
+        _validator = validator;
+        _dataLayer = new Lazy<IDataLayer>(() => dataLayer);
     }
 
     /// <summary>
