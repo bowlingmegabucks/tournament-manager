@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NortheastMegabuck.Bowlers;
 using NortheastMegabuck.Database;
 
 namespace NortheastMegabuck;
@@ -17,7 +18,8 @@ public static class BusinessLogicExtensions
     /// <returns></returns>
     public static IServiceCollection AddBusinessLogic(this IServiceCollection services, IConfiguration config)
     {
-        services.AddDatabase(config);
+        services.AddDatabase(config)
+            .AddBowlersModule();
 
         return services;
     }

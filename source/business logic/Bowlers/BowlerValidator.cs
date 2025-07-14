@@ -2,7 +2,8 @@
 using NortheastMegabuck.Validators;
 
 namespace NortheastMegabuck.Bowlers;
-internal class Validator : AbstractValidator<Models.Bowler>
+internal class Validator 
+    : AbstractValidator<Models.Bowler>
 {
     public Validator()
     {

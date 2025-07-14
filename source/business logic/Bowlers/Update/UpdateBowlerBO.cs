@@ -21,29 +21,12 @@ public sealed class BusinessLogic : IBusinessLogic
 
     private readonly IDataLayer _dataLayer;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    internal BusinessLogic(IValidator<Models.PersonName> nameValidator, IValidator<Models.Bowler> bowlerValidator, IDataLayer dataLayer)
     {
-        _nameValidator = new Lazy<IValidator<Models.PersonName>>(() => new PersonNameValidator());
-        _bowlerValidator = new Lazy<IValidator<Models.Bowler>>(() => new Validator());
-        _dataLayer = new DataLayer(config);
-    }
+        _nameValidator = new Lazy<IValidator<Models.PersonName>>(() => nameValidator);
+        _bowlerValidator = new Lazy<IValidator<Models.Bowler>>(() => bowlerValidator);
 
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockNameValidator"></param>
-    /// <param name="mockBowlerValidator"></param>
-    /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(IValidator<Models.PersonName> mockNameValidator, IValidator<Models.Bowler> mockBowlerValidator, IDataLayer mockDataLayer)
-    {
-        _nameValidator = new Lazy<IValidator<Models.PersonName>>(() => mockNameValidator);
-        _bowlerValidator = new Lazy<IValidator<Models.Bowler>>(() => mockBowlerValidator);
-
-        _dataLayer = mockDataLayer;
+        _dataLayer = dataLayer;
     }
 
     async Task IBusinessLogic.ExecuteAsync(BowlerId id, Models.PersonName name, CancellationToken cancellationToken)

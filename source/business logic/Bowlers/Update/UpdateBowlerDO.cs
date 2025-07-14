@@ -1,6 +1,4 @@
 ﻿
-using Microsoft.Extensions.Configuration;
-
 namespace NortheastMegabuck.Bowlers.Update;
 
 internal sealed class DataLayer : IDataLayer
@@ -8,21 +6,10 @@ internal sealed class DataLayer : IDataLayer
     private readonly IRepository _repository;
     private readonly IEntityMapper _entityMapper;
 
-    public DataLayer(IConfiguration config)
+    internal DataLayer(IRepository repository, IEntityMapper entityMapper)
     {
-        _repository = new Repository(config);
-        _entityMapper = new EntityMapper();
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockRepository"></param>
-    /// <param name="mockEntityMapper"></param>
-    internal DataLayer(IRepository mockRepository, IEntityMapper mockEntityMapper)
-    {
-        _repository = mockRepository;
-        _entityMapper = mockEntityMapper;
+        _repository = repository;
+        _entityMapper = entityMapper;
     }
 
     async Task IDataLayer.ExecuteAsync(BowlerId id, Models.PersonName name, CancellationToken cancellationToken)

@@ -1,22 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Bowlers;
 internal class Repository : IRepository
 {
     private readonly Database.IDataContext _dataContext;
-    internal Repository(IConfiguration config)
-    {
-        _dataContext = new Database.DataContext(config);
-    }
 
     /// <summary>
-    /// Unit Test Constructor
+    /// 
     /// </summary>
-    /// <param name="mockDataContext"></param>
-    internal Repository(Database.IDataContext mockDataContext)
+    /// <param name="dataContext"></param>
+    internal Repository(Database.IDataContext dataContext)
     {
-        _dataContext = mockDataContext;
+        _dataContext = dataContext;
     }
 
     IQueryable<Database.Entities.Bowler> IRepository.Search(Models.BowlerSearchCriteria searchCriteria)
