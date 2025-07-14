@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using NortheastMegabuck.Squads;
 
 namespace NortheastMegabuck.LaneAssignments.Retrieve;
@@ -8,21 +7,10 @@ internal class DataLayer : IDataLayer
     private readonly IRepository _repository;
     private readonly IHandicapCalculatorInternal _handicapCalculator;
 
-    public DataLayer(IConfiguration config, IHandicapCalculatorInternal handicapCalculator)
+    internal DataLayer(IRepository repository, IHandicapCalculatorInternal handicapCalculator)
     {
-        _repository = new Repository(config);
+        _repository = repository;
         _handicapCalculator = handicapCalculator;
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockRepository"></param>
-    /// <param name="mockHandicapCalculator"></param>
-    internal DataLayer(IRepository mockRepository, IHandicapCalculatorInternal mockHandicapCalculator)
-    {
-        _repository = mockRepository;
-        _handicapCalculator = mockHandicapCalculator;
     }
 
     async Task<IEnumerable<Models.LaneAssignment>> IDataLayer.ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)

@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NortheastMegabuck.Bowlers;
 using NortheastMegabuck.Database;
 using NortheastMegabuck.Divisions;
+using NortheastMegabuck.LaneAssignments;
 
 namespace NortheastMegabuck;
 
@@ -21,7 +22,8 @@ public static class BusinessLogicExtensions
     {
         services.AddDatabase(config)
             .AddBowlersModule()
-            .AddDivisionsModule();
+            .AddDivisionsModule()
+            .AddLaneAssignmentModule();
 
         return services;
     }
