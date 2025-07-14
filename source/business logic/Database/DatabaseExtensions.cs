@@ -11,6 +11,8 @@ internal static class DatabaseExtensions
             options.UseMySql(config.GetConnectionString("tournamanet-manager-db") ?? throw new InvalidOperationException("Cannot get connection string tournament-manager-db"),
             new MySqlServerVersion(new Version(10, 3, 35)), mySqlOptions => mySqlOptions.EnableRetryOnFailure(3)));
 
+        services.AddTransient<IDataContext, DataContext>();
+
         return services;
     }
 }
