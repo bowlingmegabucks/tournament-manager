@@ -7,18 +7,9 @@ internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
 
-    internal DataLayer(IConfiguration config)
+    internal DataLayer(IRepository repository)
     {
-        _repository = new Repository(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockRepository"></param>
-    internal DataLayer(IRepository mockRepository)
-    {
-        _repository = mockRepository;
+        _repository = repository;
     }
 
     async Task<IEnumerable<Models.Tournament>> IDataLayer.ExecuteAsync(CancellationToken cancellationToken)
