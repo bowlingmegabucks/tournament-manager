@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace NortheastMegabuck.Bowlers.Retrieve;
+﻿namespace NortheastMegabuck.Bowlers.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

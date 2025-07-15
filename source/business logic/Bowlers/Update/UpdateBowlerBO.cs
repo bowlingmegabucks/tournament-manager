@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Bowlers.Update;
 

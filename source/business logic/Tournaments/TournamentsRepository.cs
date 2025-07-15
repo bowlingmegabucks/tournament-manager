@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Tournaments;
 internal class Repository : IRepository

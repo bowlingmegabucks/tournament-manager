@@ -1,7 +1,4 @@
-﻿
-using Microsoft.Extensions.Configuration;
-
-namespace NortheastMegabuck.Sweepers.Results;
+﻿namespace NortheastMegabuck.Sweepers.Results;
 
 /// <summary>
 /// 

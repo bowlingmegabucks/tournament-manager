@@ -1,6 +1,4 @@
-﻿using NortheastMegabuck.Database.Entities;
-
-namespace NortheastMegabuck.Models;
+﻿namespace NortheastMegabuck.Models;
 
 /// <summary>
 /// 

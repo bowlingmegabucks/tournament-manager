@@ -1,7 +1,4 @@
-﻿
-using Microsoft.Extensions.Configuration;
-
-namespace NortheastMegabuck.Squads.Results;
+﻿namespace NortheastMegabuck.Squads.Results;
 
 /// <summary>
 /// 

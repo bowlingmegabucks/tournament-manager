@@ -1,7 +1,4 @@
-﻿
-using Microsoft.Extensions.Configuration;
-
-namespace NortheastMegabuck.Tournaments.Seeding;
+﻿namespace NortheastMegabuck.Tournaments.Seeding;
 
 /// <summary>
 /// 

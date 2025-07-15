@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
-using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Bowlers;
 internal class Repository : IRepository
