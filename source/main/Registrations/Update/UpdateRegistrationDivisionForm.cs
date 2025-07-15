@@ -6,7 +6,7 @@ namespace NortheastMegabuck.Registrations.Update;
 internal partial class UpdateRegistrationDivisionForm
     : Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly UpdateRegistrationDivisionPresenter _presenter;
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public RegistrationId RegistrationId { get; private set; }
@@ -14,13 +14,14 @@ internal partial class UpdateRegistrationDivisionForm
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public TournamentId TournamentId { get; private set; }
 
-    public UpdateRegistrationDivisionForm(IConfiguration config, TournamentId tournamentId, RegistrationId registrationId)
+    public UpdateRegistrationDivisionForm(IServiceProvider services, TournamentId tournamentId, RegistrationId registrationId)
     {
-        _config = config;
         RegistrationId = registrationId;
         TournamentId = tournamentId;
 
         InitializeComponent();
+
+        _presenter = new UpdateRegistrationDivisionPresenter(this, services);
 
         var genders = Models.Gender.ToDictionary();
 
@@ -28,7 +29,7 @@ internal partial class UpdateRegistrationDivisionForm
         genderDropdown.DisplayMember = "Value";
         genderDropdown.ValueMember = "Key";
 
-        _ = new UpdateRegistrationDivisionPresenter(config, this).LoadAsync(tournamentId, registrationId, default);
+        _ = _presenter.LoadAsync(tournamentId, registrationId, default);
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -144,5 +145,5 @@ internal partial class UpdateRegistrationDivisionForm
         => e.Cancel = !ValidateChildren();
 
     private async void SaveButton_Click(object sender, EventArgs e)
-        => await new UpdateRegistrationDivisionPresenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(default).ConfigureAwait(true);
 }

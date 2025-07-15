@@ -7,18 +7,9 @@ internal class Adapter : IAdapter
 
     private readonly IBusinessLogic _businessLogic;
 
-    public Adapter(IConfiguration config)
+    internal Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = mockBusinessLogic;
+        _businessLogic = businessLogic;
     }
 
     async Task<IEnumerable<ITournamentRegistrationViewModel>> IAdapter.ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)

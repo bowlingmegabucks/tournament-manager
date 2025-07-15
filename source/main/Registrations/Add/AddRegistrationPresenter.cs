@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Add;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace NortheastMegabuck.Registrations.Add;
 internal class Presenter
 {
     private readonly IView _view;
@@ -14,15 +16,34 @@ internal class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    internal Presenter(IView view, Divisions.Retrieve.IAdapter divisionAdapter, Squads.Retrieve.IAdapter squadAdapter, Sweepers.Retrieve.IAdapter sweeperAdapter, Bowlers.Retrieve.IAdapter bowlerAdapter, IAdapter adapter)
+    public Presenter(IView view, IServiceProvider services)
+    {
+        _view = view;
+        _retrieveDivisionsAdapter = services.GetRequiredService<Divisions.Retrieve.IAdapter>();
+        _retrieveSquadsAdapter = services.GetRequiredService<Squads.Retrieve.IAdapter>();
+        _retrieveSweepersAdapter = services.GetRequiredService<Sweepers.Retrieve.IAdapter>();
+        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(services.GetRequiredService<Bowlers.Retrieve.IAdapter>);
+        _adapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="view"></param>
+    /// <param name="mockDivisionAdapter"></param>
+    /// <param name="mockSquadAdapter"></param>
+    /// <param name="mockSweeperAdapter"></param>
+    /// <param name="mockBowlerAdapter"></param>
+    /// <param name="mockAdapter"></param>
+    internal Presenter(IView view, Divisions.Retrieve.IAdapter mockDivisionAdapter, Squads.Retrieve.IAdapter mockSquadAdapter, Sweepers.Retrieve.IAdapter mockSweeperAdapter, Bowlers.Retrieve.IAdapter mockBowlerAdapter, IAdapter mockAdapter)
     {
         _view = view;
 
-        _retrieveDivisionsAdapter = divisionAdapter;
-        _retrieveSquadsAdapter = squadAdapter;
-        _retrieveSweepersAdapter = sweeperAdapter;
-        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => bowlerAdapter);
-        _adapter = new Lazy<IAdapter>(() => adapter);
+        _retrieveDivisionsAdapter = mockDivisionAdapter;
+        _retrieveSquadsAdapter = mockSquadAdapter;
+        _retrieveSweepersAdapter = mockSweeperAdapter;
+        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => mockBowlerAdapter);
+        _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
     public async Task LoadAsync(TournamentId tournamentId, CancellationToken cancellationToken)

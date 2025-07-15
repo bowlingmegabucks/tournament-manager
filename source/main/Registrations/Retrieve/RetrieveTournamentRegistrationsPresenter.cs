@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace NortheastMegabuck.Registrations.Retrieve;
 internal class TournamentRegistrationsPresenter
@@ -15,16 +16,16 @@ internal class TournamentRegistrationsPresenter
     private readonly Lazy<Update.IAdapter> _updateAdapter;
     private Update.IAdapter UpdateAdapter => _updateAdapter.Value;
 
-    public TournamentRegistrationsPresenter(ITournamentRegistrationsView view, IConfiguration config)
+    public TournamentRegistrationsPresenter(ITournamentRegistrationsView view, IServiceProvider services)
     {
         _view = view;
 
-        _registrationsAdapter = new Adapter(config);
-        _squadsAdapter = new Squads.Retrieve.Adapter(config);
-        _sweepersAdapter = new Sweepers.Retrieve.Adapter(config);
+        _registrationsAdapter = services.GetRequiredService<IAdapter>();
+        _squadsAdapter = services.GetRequiredService<Squads.Retrieve.IAdapter>();
+        _sweepersAdapter = services.GetRequiredService<Sweepers.Retrieve.IAdapter>();
 
-        _deleteAdapter = new Lazy<Delete.IAdapter>(() => new Delete.Adapter(config));
-        _updateAdapter = new Lazy<Update.IAdapter>(() => new Update.Adapter(config));
+        _deleteAdapter = new Lazy<Delete.IAdapter>(services.GetRequiredService<Delete.IAdapter>);
+        _updateAdapter = new Lazy<Update.IAdapter>(services.GetRequiredService<Update.IAdapter>);
     }
 
     /// <summary>

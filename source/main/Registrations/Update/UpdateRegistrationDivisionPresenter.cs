@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Update;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace NortheastMegabuck.Registrations.Update;
 
 internal class UpdateRegistrationDivisionPresenter
 {
@@ -9,15 +11,33 @@ internal class UpdateRegistrationDivisionPresenter
     private readonly Retrieve.IAdapter _retrieveRegistrationAdapter;
     private readonly IAdapter _updateRegistrationAdapter;
 
-    internal UpdateRegistrationDivisionPresenter(IView view, Divisions.Retrieve.IAdapter divisionAdapter,
-        Bowlers.Retrieve.IAdapter bowlerAdapter, Retrieve.IAdapter retrieveRegistrationAdapter,
-        IAdapter updateRegistrationAdapter)
+    public UpdateRegistrationDivisionPresenter(IView view, IServiceProvider services)
     {
         _view = view;
-        _retrieveDivisionsAdapter = divisionAdapter;
-        _retrieveBowlerAdapter = bowlerAdapter;
-        _retrieveRegistrationAdapter = retrieveRegistrationAdapter;
-        _updateRegistrationAdapter = updateRegistrationAdapter;
+
+        _retrieveDivisionsAdapter = services.GetRequiredService<Divisions.Retrieve.IAdapter>();
+        _retrieveBowlerAdapter = services.GetRequiredService<Bowlers.Retrieve.IAdapter>();
+        _retrieveRegistrationAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _updateRegistrationAdapter = services.GetRequiredService<IAdapter>();
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockView"></param>
+    /// <param name="mockDivisionAdapter"></param>
+    /// <param name="mockBowlerAdapter"></param>
+    /// <param name="mockRetrieveRegistrationAdapter"></param>
+    /// <param name="mockUpdateRegistrationAdapter"></param>
+    internal UpdateRegistrationDivisionPresenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter,
+        Bowlers.Retrieve.IAdapter mockBowlerAdapter, Retrieve.IAdapter mockRetrieveRegistrationAdapter,
+        IAdapter mockUpdateRegistrationAdapter)
+    {
+        _view = mockView;
+        _retrieveDivisionsAdapter = mockDivisionAdapter;
+        _retrieveBowlerAdapter = mockBowlerAdapter;
+        _retrieveRegistrationAdapter = mockRetrieveRegistrationAdapter;
+        _updateRegistrationAdapter = mockUpdateRegistrationAdapter;
     }
 
     public async Task LoadAsync(TournamentId tournamentId, RegistrationId registrationId, CancellationToken cancellationToken)

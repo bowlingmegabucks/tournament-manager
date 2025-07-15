@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Update;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace NortheastMegabuck.Registrations.Update;
 
 internal class UpdateRegistrationAveragePresenter
 {
@@ -8,14 +10,31 @@ internal class UpdateRegistrationAveragePresenter
     private readonly Retrieve.IAdapter _retrieveRegistrationAdapter;
     private readonly IAdapter _updateRegistrationAdapter;
 
-    internal UpdateRegistrationAveragePresenter(IAverageView view,
-        Bowlers.Retrieve.IAdapter bowlerAdapter, Retrieve.IAdapter retrieveRegistrationAdapter,
-        IAdapter updateRegistrationAdapter)
+    public UpdateRegistrationAveragePresenter(IAverageView view, IServiceProvider services)
     {
         _view = view;
-        _retrieveBowlerAdapter = bowlerAdapter;
-        _retrieveRegistrationAdapter = retrieveRegistrationAdapter;
-        _updateRegistrationAdapter = updateRegistrationAdapter;
+
+        _retrieveBowlerAdapter = services.GetRequiredService<Bowlers.Retrieve.IAdapter>();
+        _retrieveRegistrationAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _updateRegistrationAdapter = services.GetRequiredService<IAdapter>();
+
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockView"></param>
+    /// <param name="mockBowlerAdapter"></param>
+    /// <param name="mockRetrieveRegistrationAdapter"></param>
+    /// <param name="mockUpdateRegistrationAdapter"></param>
+    internal UpdateRegistrationAveragePresenter(IAverageView mockView,
+        Bowlers.Retrieve.IAdapter mockBowlerAdapter, Retrieve.IAdapter mockRetrieveRegistrationAdapter,
+        IAdapter mockUpdateRegistrationAdapter)
+    {
+        _view = mockView;
+        _retrieveBowlerAdapter = mockBowlerAdapter;
+        _retrieveRegistrationAdapter = mockRetrieveRegistrationAdapter;
+        _updateRegistrationAdapter = mockUpdateRegistrationAdapter;
     }
 
     public async Task LoadAsync(RegistrationId registrationId, CancellationToken cancellationToken)

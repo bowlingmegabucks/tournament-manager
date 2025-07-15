@@ -15,7 +15,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
         tournamentRegistrationsGrid.SelectedRowContextMenu = registrationGridContextMenu;
 
         _services = services;
-        _tournamentRegistrationsPresenter = _services.GetRequiredService<TournamentRegistrationsPresenter>();
+        _tournamentRegistrationsPresenter = new(this, services);
 
         TournamentId = tournamentId;
 
@@ -92,8 +92,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     public string? UpdateBowlerName(BowlerId id)
     {
-        var presenter = _services.GetRequiredService<Bowlers.Update.NamePresenter>();
-        using var form = new Bowlers.Update.NameForm(presenter, id);
+        using var form = new Bowlers.Update.NameForm(_services, id);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.FullName : null;
     }
@@ -113,7 +112,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     private async void ChangeDivisionMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Update.UpdateRegistrationDivisionForm(_config, TournamentId, tournamentRegistrationsGrid.SelectedRegistration.Id);
+        using var form = new Update.UpdateRegistrationDivisionForm(_services, TournamentId, tournamentRegistrationsGrid.SelectedRegistration.Id);
 
 #pragma warning disable S6966
         var result = form.ShowDialog(this);
@@ -127,7 +126,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     private void ChangeAverageMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Update.UpdateRegistrationAverageForm(_config, tournamentRegistrationsGrid.SelectedRegistration.Id);
+        using var form = new Update.UpdateRegistrationAverageForm(_services, tournamentRegistrationsGrid.SelectedRegistration.Id);
 
         form.ShowDialog(this);
     }
@@ -137,8 +136,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     private void UpdateBowlerInfoMenuItem_Click(object sender, EventArgs e)
     {
-        var presenter = _services.GetRequiredService<Bowlers.Update.Presenter>();
-        using var form = new Bowlers.Update.UpdateForm(presenter, tournamentRegistrationsGrid.SelectedRegistration.BowlerId);
+        using var form = new Bowlers.Update.UpdateForm(_services, tournamentRegistrationsGrid.SelectedRegistration.BowlerId);
 
         form.ShowDialog(this);
     }
