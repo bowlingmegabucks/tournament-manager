@@ -9,8 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using NortheastMegabuck.Bowlers;
 using NortheastMegabuck.Divisions;
 using NortheastMegabuck.LaneAssignments;
+using NortheastMegabuck.Registrations;
+using NortheastMegabuck.Scores;
 using NortheastMegabuck.Squads;
 using NortheastMegabuck.Sweepers;
+using NortheastMegabuck.Tournaments;
 using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck;
@@ -60,8 +63,11 @@ internal static class Program
             .AddBowlersModule()
             .AddDivisionModule()
             .AddLaneAssignmentsModule()
+            .AddRegistrationsModule()
+            .AddScoresModule()
             .AddSquadsModule()
-            .AddSweepersModule();
+            .AddSweepersModule()
+            .AddTournamentsModule();
 
 #if WINDOWS
         using var form = services.BuildServiceProvider().GetRequiredService<Tournaments.Retrieve.Form>();

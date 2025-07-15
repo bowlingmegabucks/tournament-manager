@@ -4,19 +4,9 @@ internal class Adapter : IAdapter
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly IBusinessLogic _businessLogic;
-
-    public Adapter(IConfiguration config)
+    internal Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = mockBusinessLogic;
+        _businessLogic = businessLogic;
     }
 
     public async Task<TournamentId?> ExecuteAsync(IViewModel viewModel, CancellationToken cancellationToken)

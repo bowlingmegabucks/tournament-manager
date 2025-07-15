@@ -7,18 +7,9 @@ internal class Adapter : IAdapter
     public Models.ErrorDetail? Error
         => BusinessLogic.ErrorDetail;
 
-    internal Adapter(IConfiguration config)
+    internal Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new Lazy<IBusinessLogic>(() => new BusinessLogic(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
+        _businessLogic = new Lazy<IBusinessLogic>(() => businessLogic);
     }
 
     public async Task<IEnumerable<IViewModel>> ExecuteAsync(CancellationToken cancellationToken)
