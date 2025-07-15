@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace NortheastMegabuck.Squads.Add;
 
@@ -11,12 +12,12 @@ internal class Presenter
     private readonly Lazy<IAdapter> _addSquadAdapter;
     private IAdapter AddSquadAdapter => _addSquadAdapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
 
-        _retrieveTournamentAdapter = new Tournaments.Retrieve.Adapter(config);
-        _addSquadAdapter = new Lazy<IAdapter>(() => new Adapter(config));
+        _retrieveTournamentAdapter = services.GetRequiredService<Tournaments.Retrieve.IAdapter>();
+        _addSquadAdapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
     }
 
     /// <summary>

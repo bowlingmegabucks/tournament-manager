@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NortheastMegabuck.Bowlers;
 using NortheastMegabuck.Divisions;
 using NortheastMegabuck.LaneAssignments;
+using NortheastMegabuck.Squads;
 using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck;
@@ -57,7 +58,8 @@ internal static class Program
         services.AddBusinessLogic(config)
             .AddBowlersModule()
             .AddDivisionModule()
-            .AddLaneAssignmentsModule();
+            .AddLaneAssignmentsModule()
+            .AddSquadsModule();
 
 #if WINDOWS
         using var form = services.BuildServiceProvider().GetRequiredService<Tournaments.Retrieve.Form>();
