@@ -8,7 +8,7 @@ internal class DataLayer : IDataLayer
     private readonly IRepository _repository;
     private readonly IHandicapCalculatorInternal _handicapCalculator;
 
-    internal DataLayer(IRepository repository, IHandicapCalculatorInternal handicapCalculator)
+    public DataLayer(IRepository repository, IHandicapCalculatorInternal handicapCalculator)
     {
         _repository = repository;
         _handicapCalculator = handicapCalculator;

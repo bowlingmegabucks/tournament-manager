@@ -4,7 +4,7 @@ namespace NortheastMegabuck.Registrations.Delete;
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -13,7 +13,7 @@ public class BusinessLogic : IBusinessLogic
 
     private readonly IDataLayer _dataLayer;
 
-    internal BusinessLogic(IDataLayer dataLayer)
+    public BusinessLogic(IDataLayer dataLayer)
     {
         _dataLayer = dataLayer;
     }

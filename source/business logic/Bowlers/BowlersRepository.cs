@@ -9,7 +9,7 @@ internal class Repository : IRepository
     /// 
     /// </summary>
     /// <param name="dataContext"></param>
-    internal Repository(Database.IDataContext dataContext)
+    public Repository(Database.IDataContext dataContext)
     {
         _dataContext = dataContext;
     }

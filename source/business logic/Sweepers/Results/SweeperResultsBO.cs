@@ -3,7 +3,7 @@
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -18,7 +18,7 @@ public class BusinessLogic : IBusinessLogic
 
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
-    internal BusinessLogic(Retrieve.IBusinessLogic retrieveSweeper, Tournaments.Retrieve.IBusinessLogic retrieveTournament, Scores.Retrieve.IBusinessLogic retrieveScores)
+    public BusinessLogic(Retrieve.IBusinessLogic retrieveSweeper, Tournaments.Retrieve.IBusinessLogic retrieveTournament, Scores.Retrieve.IBusinessLogic retrieveScores)
     {
         _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => retrieveSweeper);
         _retrieveTournament = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => retrieveTournament);

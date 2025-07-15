@@ -6,7 +6,7 @@ internal class DataLayer : IDataLayer
     private readonly IEntityMapper _mapper;
     private readonly IRepository _repository;
 
-    internal DataLayer(IEntityMapper mapper, IRepository repository)
+    public DataLayer(IEntityMapper mapper, IRepository repository)
     {
         _mapper = mapper;
         _repository = repository;

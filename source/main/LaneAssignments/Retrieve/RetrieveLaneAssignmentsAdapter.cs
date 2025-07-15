@@ -6,7 +6,7 @@ internal class Adapter : IAdapter
     public Models.ErrorDetail? Error
         => _businessLogic.ErrorDetail;
 
-    internal Adapter(IBusinessLogic businessLogic)
+    public Adapter(IBusinessLogic businessLogic)
     {
         _businessLogic = businessLogic;
     }

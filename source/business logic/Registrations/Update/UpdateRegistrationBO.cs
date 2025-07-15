@@ -6,7 +6,7 @@ namespace NortheastMegabuck.Registrations.Update;
 /// <summary>
 /// 
 /// </summary>
-public sealed class BusinessLogic : IBusinessLogic
+internal sealed class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -30,7 +30,7 @@ public sealed class BusinessLogic : IBusinessLogic
     private readonly Lazy<IValidator<UpdateRegistrationModel>> _validator;
     private IValidator<UpdateRegistrationModel> Validator => _validator.Value;
 
-    internal BusinessLogic(IDataLayer dataLayer, Retrieve.IBusinessLogic retrieveBusinessLogic,
+    public BusinessLogic(IDataLayer dataLayer, Retrieve.IBusinessLogic retrieveBusinessLogic,
         Tournaments.Retrieve.IBusinessLogic tournamentBusinessLogic, Divisions.Retrieve.IBusinessLogic getDivisionBO,
         Tournaments.Retrieve.IBusinessLogic getTournamentBO, IValidator<UpdateRegistrationModel> validator,
         Scores.IRepository scoresRepository)

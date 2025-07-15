@@ -5,7 +5,7 @@ namespace NortheastMegabuck.Divisions.Add;
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -17,7 +17,7 @@ public class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    internal BusinessLogic(IValidator<Models.Division> validator, IDataLayer dataLayer)
+    public BusinessLogic(IValidator<Models.Division> validator, IDataLayer dataLayer)
     {
         _validator = validator;
         _dataLayer = new Lazy<IDataLayer>(() => dataLayer);

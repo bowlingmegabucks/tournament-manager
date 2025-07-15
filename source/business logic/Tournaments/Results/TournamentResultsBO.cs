@@ -3,7 +3,7 @@
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -14,7 +14,7 @@ public class BusinessLogic : IBusinessLogic
     private readonly Squads.Results.IBusinessLogic _retrieveSquadResults;
     private readonly Retrieve.IBusinessLogic _retrieveTournament;
 
-    internal BusinessLogic(ICalculator calculator, Squads.Results.IBusinessLogic retrieveSquadResults, Retrieve.IBusinessLogic retrieveTournament)
+    public BusinessLogic(ICalculator calculator, Squads.Results.IBusinessLogic retrieveSquadResults, Retrieve.IBusinessLogic retrieveTournament)
     {
         _calculator = calculator;
         _retrieveSquadResults = retrieveSquadResults;

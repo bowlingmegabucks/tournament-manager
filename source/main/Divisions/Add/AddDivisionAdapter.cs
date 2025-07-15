@@ -7,7 +7,7 @@ internal class Adapter : IAdapter
 
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
-    internal Adapter(IBusinessLogic businessLogic)
+    public Adapter(IBusinessLogic businessLogic)
     {
         _businessLogic = new Lazy<IBusinessLogic>(() => businessLogic);
     }

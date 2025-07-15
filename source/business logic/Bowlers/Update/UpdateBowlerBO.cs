@@ -5,7 +5,7 @@ namespace NortheastMegabuck.Bowlers.Update;
 /// <summary>
 /// 
 /// </summary>
-public sealed class BusinessLogic : IBusinessLogic
+internal sealed class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -20,7 +20,7 @@ public sealed class BusinessLogic : IBusinessLogic
 
     private readonly IDataLayer _dataLayer;
 
-    internal BusinessLogic(IValidator<Models.PersonName> nameValidator, IValidator<Models.Bowler> bowlerValidator, IDataLayer dataLayer)
+    public BusinessLogic(IValidator<Models.PersonName> nameValidator, IValidator<Models.Bowler> bowlerValidator, IDataLayer dataLayer)
     {
         _nameValidator = new Lazy<IValidator<Models.PersonName>>(() => nameValidator);
         _bowlerValidator = new Lazy<IValidator<Models.Bowler>>(() => bowlerValidator);

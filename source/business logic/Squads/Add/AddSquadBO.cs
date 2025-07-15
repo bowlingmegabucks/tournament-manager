@@ -3,7 +3,7 @@
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -18,7 +18,7 @@ public class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    internal BusinessLogic(Tournaments.Retrieve.IBusinessLogic getTournamentBO, FluentValidation.IValidator<Models.Squad> validator, IDataLayer dataLayer)
+    public BusinessLogic(Tournaments.Retrieve.IBusinessLogic getTournamentBO, FluentValidation.IValidator<Models.Squad> validator, IDataLayer dataLayer)
     {
         _getTournamentBO = getTournamentBO;
         _validator = new Lazy<FluentValidation.IValidator<Models.Squad>>(() => validator);

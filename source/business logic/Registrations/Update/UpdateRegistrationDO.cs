@@ -7,7 +7,7 @@ internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
 
-    internal DataLayer(IRepository repository)
+    public DataLayer(IRepository repository)
     {
         _repository = repository;
     }

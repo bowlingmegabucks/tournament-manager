@@ -5,7 +5,7 @@ namespace NortheastMegabuck.Scores.Update;
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     private readonly List<Models.ErrorDetail> _errors;
 
@@ -19,7 +19,7 @@ public class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    internal BusinessLogic(IValidator<IEnumerable<Models.SquadScore>> validator, IDataLayer dataLayer)
+    public BusinessLogic(IValidator<IEnumerable<Models.SquadScore>> validator, IDataLayer dataLayer)
     {
         _errors = [];
         _validator = validator;

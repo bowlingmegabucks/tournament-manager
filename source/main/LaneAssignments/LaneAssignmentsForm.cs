@@ -201,7 +201,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         InitializeComponent();
         _services = services;
 
-        _presenter = services.GetRequiredService<Presenter>();
+        _presenter = new(this, services);
 
         TournamentId = tournamentId;
         SquadId = squadId;

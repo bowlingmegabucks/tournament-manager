@@ -4,7 +4,7 @@ namespace NortheastMegabuck.Registrations.Add;
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     private readonly Divisions.Retrieve.IBusinessLogic _getDivisionBO;
 
@@ -23,7 +23,7 @@ public class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    internal BusinessLogic(Divisions.Retrieve.IBusinessLogic getDivisionBO, Tournaments.Retrieve.IBusinessLogic getTournamentBO, Bowlers.Search.IBusinessLogic searchBowlerBO, Bowlers.Update.IBusinessLogic updateBowlerBO, FluentValidation.IValidator<Models.Registration> validator, IDataLayer dataLayer)
+    public BusinessLogic(Divisions.Retrieve.IBusinessLogic getDivisionBO, Tournaments.Retrieve.IBusinessLogic getTournamentBO, Bowlers.Search.IBusinessLogic searchBowlerBO, Bowlers.Update.IBusinessLogic updateBowlerBO, FluentValidation.IValidator<Models.Registration> validator, IDataLayer dataLayer)
     {
         _getDivisionBO = getDivisionBO;
         _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => getTournamentBO);

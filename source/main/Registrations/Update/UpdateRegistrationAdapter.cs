@@ -8,7 +8,7 @@ internal sealed class Adapter : IAdapter
 
     public IEnumerable<ErrorDetail> Errors
         => _businessLogic.Errors;
-    internal Adapter(IBusinessLogic businessLogic)
+    public Adapter(IBusinessLogic businessLogic)
     {
         _businessLogic = businessLogic;
     }

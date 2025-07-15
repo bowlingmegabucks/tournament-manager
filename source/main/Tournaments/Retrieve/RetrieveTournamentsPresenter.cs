@@ -40,17 +40,17 @@ internal class Presenter
         }
         else
         {
-            _view.BindTournaments(tournaments.ToList());
+            _view.BindTournaments([.. tournaments]);
         }
     }
 
     public void NewTournament()
     {
-        var tournament = _view.CreateNewTournament();
+        var (id, name, gamesPerSquad) = _view.CreateNewTournament();
 
-        if (tournament.id != null)
+        if (id != null)
         {
-            _view.OpenTournament(tournament.id.Value, tournament.name, tournament.gamesPerSquad);
+            _view.OpenTournament(id.Value, name, gamesPerSquad);
         }
     }
 }

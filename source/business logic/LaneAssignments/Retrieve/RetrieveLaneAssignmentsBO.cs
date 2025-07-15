@@ -4,7 +4,7 @@ namespace NortheastMegabuck.LaneAssignments.Retrieve;
 /// <summary>
 /// 
 /// </summary>
-public sealed class BusinessLogic : IBusinessLogic
+internal sealed class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -13,7 +13,7 @@ public sealed class BusinessLogic : IBusinessLogic
 
     private readonly IDataLayer _dataLayer;
 
-    internal BusinessLogic(IDataLayer dataLayer)
+    public BusinessLogic(IDataLayer dataLayer)
     {
         _dataLayer = dataLayer;
     }
