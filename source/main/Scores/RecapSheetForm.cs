@@ -29,7 +29,7 @@ internal partial class RecapSheetForm : System.Windows.Forms.Form
 
         Show();
 
-        _recaps = recaps.ToList();
+        _recaps = [.. recaps];
 
         recapsTrackBar.Maximum = _recaps.Count - 1;
         recapsTrackBar.LargeChange = _recaps.Count / 10;

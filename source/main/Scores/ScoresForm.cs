@@ -1,17 +1,21 @@
 ﻿namespace NortheastMegabuck.Scores;
 internal partial class Form : System.Windows.Forms.Form, IView, Update.IView
 {
-    private readonly IConfiguration _config;
+    private readonly Presenter _presenter;
+    private readonly IServiceProvider _services;
+
     private readonly short _numberOfGames;
     private readonly bool _complete;
 
     public SquadId SquadId { get; }
 
-    public Form(IConfiguration config, SquadId squadId, short numberOfGames, bool complete)
+    public Form(IServiceProvider services, SquadId squadId, short numberOfGames, bool complete)
     {
         InitializeComponent();
 
-        _config = config;
+        _presenter = new Presenter(this, services);
+        _services = services;
+
         _numberOfGames = numberOfGames;
         SquadId = squadId;
         _complete = complete;
@@ -22,7 +26,7 @@ internal partial class Form : System.Windows.Forms.Form, IView, Update.IView
 
     private void Form_Load(object sender, EventArgs e)
     {
-        _ = new Presenter(_config, this).LoadAsync(default);
+        _ = _presenter.LoadAsync(default);
 
         if (_complete)
         {
@@ -77,7 +81,7 @@ internal partial class Form : System.Windows.Forms.Form, IView, Update.IView
     {
         UseWaitCursor = true;
 
-        await new Update.Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
+        await new Update.Presenter(this, _services).ExecuteAsync(default).ConfigureAwait(true);
 
         UseWaitCursor = false;
     }
