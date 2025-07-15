@@ -6,6 +6,8 @@ using NortheastMegabuck.Divisions;
 using NortheastMegabuck.LaneAssignments;
 using NortheastMegabuck.Registrations;
 using NortheastMegabuck.Scores;
+using NortheastMegabuck.Squads;
+using NortheastMegabuck.Sweepers;
 
 namespace NortheastMegabuck;
 
@@ -27,7 +29,9 @@ public static class BusinessLogicExtensions
             .AddDivisionsModule()
             .AddLaneAssignmentModule()
             .AddRegistrationModule()
-            .AddScoresModule();
+            .AddScoresModule()
+            .AddSquadsModule()
+            .AddSweepersModule();
 
         return services;
     }
