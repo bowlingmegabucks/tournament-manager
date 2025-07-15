@@ -5,7 +5,7 @@ internal class Repository : IRepository
 {
     private readonly Database.IDataContext _dataContext;
 
-    internal Repository(Database.IDataContext dataContext)
+    public Repository(Database.IDataContext dataContext)
     {
         _dataContext = dataContext;
     }

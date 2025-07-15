@@ -7,7 +7,7 @@ internal class Adapter : IAdapter
     public Models.ErrorDetail? Error
         => BusinessLogic.ErrorDetail;
 
-    internal Adapter(IBusinessLogic businessLogic)
+    public Adapter(IBusinessLogic businessLogic)
     {
         _businessLogic = new Lazy<IBusinessLogic>(() => businessLogic);
     }

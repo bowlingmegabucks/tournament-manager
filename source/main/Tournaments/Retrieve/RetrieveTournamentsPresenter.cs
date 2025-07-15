@@ -5,14 +5,13 @@ internal class Presenter
 {
     private readonly IView _view;
 
-    private readonly Lazy<IAdapter> _adapter;
-    private IAdapter Adapter => _adapter.Value;
+    private readonly IAdapter _adapter;
 
     public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
 
-        _adapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
+        _adapter = services.GetRequiredService<IAdapter>();
     }
 
     /// <summary>
@@ -23,16 +22,16 @@ internal class Presenter
     internal Presenter(IView mockView, IAdapter mockAdapter)
     {
         _view = mockView;
-        _adapter = new Lazy<IAdapter>(() => mockAdapter);
+        _adapter = mockAdapter;
     }
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var tournaments = await Adapter.ExecuteAsync(cancellationToken).ConfigureAwait(true);
+        var tournaments = await _adapter.ExecuteAsync(cancellationToken).ConfigureAwait(true);
 
-        if (Adapter.Error != null)
+        if (_adapter.Error != null)
         {
-            _view.DisplayErrorMessage(Adapter.Error.Message);
+            _view.DisplayErrorMessage(_adapter.Error.Message);
             _view.DisableOpenTournament();
         }
         else if (!tournaments.Any())

@@ -8,6 +8,7 @@ using NortheastMegabuck.Registrations;
 using NortheastMegabuck.Scores;
 using NortheastMegabuck.Squads;
 using NortheastMegabuck.Sweepers;
+using NortheastMegabuck.Tournaments;
 
 namespace NortheastMegabuck;
 
@@ -31,7 +32,8 @@ public static class BusinessLogicExtensions
             .AddRegistrationModule()
             .AddScoresModule()
             .AddSquadsModule()
-            .AddSweepersModule();
+            .AddSweepersModule()
+            .AddTournamentsModule();
 
         return services;
     }
