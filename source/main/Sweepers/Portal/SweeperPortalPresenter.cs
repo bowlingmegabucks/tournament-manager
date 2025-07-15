@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Sweepers.Portal;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace NortheastMegabuck.Sweepers.Portal;
 internal class Presenter
 {
     private readonly IView _view;
@@ -7,12 +9,12 @@ internal class Presenter
     private readonly Lazy<Complete.IAdapter> _completeSweeperAdapter;
     private Complete.IAdapter CompleteSweeperAdapter => _completeSweeperAdapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
 
-        _retrieveSquadAdapter = new Retrieve.Adapter(config);
-        _completeSweeperAdapter = new Lazy<Complete.IAdapter>(() => new Complete.Adapter(config));
+        _retrieveSquadAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _completeSweeperAdapter = new Lazy<Complete.IAdapter>(services.GetRequiredService<Complete.IAdapter>);
     }
 
     /// <summary>

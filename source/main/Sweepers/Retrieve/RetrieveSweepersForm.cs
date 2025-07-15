@@ -2,18 +2,20 @@
 
 internal partial class Form : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly Presenter _presenter;
+    private readonly IServiceProvider _services;
 
     public TournamentId TournamentId { get; }
 
-    public Form(IConfiguration config, TournamentId tournamentId)
+    public Form(IServiceProvider services, TournamentId tournamentId)
     {
         InitializeComponent();
 
-        _config = config;
+        _presenter = new(this, services);
+        _services = services;
         TournamentId = tournamentId;
 
-        _ = new Presenter(_config, this).ExecuteAsync(default);
+        _ = _presenter.ExecuteAsync(default);
     }
 
     public void BindSweepers(IEnumerable<IViewModel> squads)
@@ -30,7 +32,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void OpenButton_Click(object sender, EventArgs e)
     {
-        using var form = new Portal.Form(_config, TournamentId, sweepersGrid.SelectedSweeper!.Id, sweepersGrid.SelectedSweeper.Games, sweepersGrid.SelectedSweeper.Date, sweepersGrid.SelectedSweeper.Complete);
+        using var form = new Portal.Form(_services, TournamentId, sweepersGrid.SelectedSweeper!.Id, sweepersGrid.SelectedSweeper.Games, sweepersGrid.SelectedSweeper.Date, sweepersGrid.SelectedSweeper.Complete);
 
         if (!form.IsDisposed)
         {
@@ -46,15 +48,15 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => OpenButton_Click(sender, e);
 
     private async void AddButton_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).AddSweeperAsync(default).ConfigureAwait(true);
+        => await _presenter.AddSweeperAsync(default).ConfigureAwait(true);
 
     public SquadId? AddSweeper(TournamentId tournamentId)
     {
-        using var form = new Add.Form(_config, tournamentId);
+        using var form = new Add.Form(_services, tournamentId);
 
         return form.ShowDialog() == DialogResult.OK ? form.Sweeper.Id : null;
     }
 
     public async Task RefreshSweepersAsync(CancellationToken cancellationToken)
-        => await new Presenter(_config, this).ExecuteAsync(cancellationToken).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(true);
 }
