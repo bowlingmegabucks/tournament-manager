@@ -17,28 +17,11 @@ public class BusinessLogic : IBusinessLogic
     private readonly ICalculator _squadResultCalculator;
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    internal BusinessLogic(Tournaments.Retrieve.IBusinessLogic retrieveTournament, ICalculator calculator, Scores.Retrieve.IBusinessLogic retrieveScores)
     {
-        _retrieveTournament = new Tournaments.Retrieve.BusinessLogic(config);
-        _squadResultCalculator = new Calculator();
-        _retrieveScores = new Scores.Retrieve.BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockRetrieveTournament"></param>
-    /// <param name="mockCalculator"></param>
-    /// <param name="mockRetrieveScores"></param>
-    internal BusinessLogic(Tournaments.Retrieve.IBusinessLogic mockRetrieveTournament, ICalculator mockCalculator, Scores.Retrieve.IBusinessLogic mockRetrieveScores)
-    {
-        _retrieveTournament = mockRetrieveTournament;
-        _squadResultCalculator = mockCalculator;
-        _retrieveScores = mockRetrieveScores;
+        _retrieveTournament = retrieveTournament;
+        _squadResultCalculator = calculator;
+        _retrieveScores = retrieveScores;
     }
 
     /// <summary>

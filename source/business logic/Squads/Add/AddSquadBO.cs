@@ -20,28 +20,11 @@ public class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    internal BusinessLogic(Tournaments.Retrieve.IBusinessLogic getTournamentBO, FluentValidation.IValidator<Models.Squad> validator, IDataLayer dataLayer)
     {
-        _getTournamentBO = new Tournaments.Retrieve.BusinessLogic(config);
-        _validator = new Lazy<FluentValidation.IValidator<Models.Squad>>(() => new Validator());
-        _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockGetTournamentBO"></param>
-    /// <param name="mockValidator"></param>
-    /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, FluentValidation.IValidator<Models.Squad> mockValidator, IDataLayer mockDataLayer)
-    {
-        _getTournamentBO = mockGetTournamentBO;
-        _validator = new Lazy<FluentValidation.IValidator<Models.Squad>>(() => mockValidator);
-        _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
+        _getTournamentBO = getTournamentBO;
+        _validator = new Lazy<FluentValidation.IValidator<Models.Squad>>(() => validator);
+        _dataLayer = new Lazy<IDataLayer>(() => dataLayer);
     }
 
     /// <summary>
