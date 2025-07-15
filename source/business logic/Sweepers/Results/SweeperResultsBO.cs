@@ -21,28 +21,11 @@ public class BusinessLogic : IBusinessLogic
 
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    internal BusinessLogic(Retrieve.IBusinessLogic retrieveSweeper, Tournaments.Retrieve.IBusinessLogic retrieveTournament, Scores.Retrieve.IBusinessLogic retrieveScores)
     {
-        _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => new Retrieve.BusinessLogic(config));
-        _retrieveTournament = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
-        _retrieveScores = new Scores.Retrieve.BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockRetrieveSweeper"></param>
-    /// <param name="mockRetrieveTournament"></param>
-    /// <param name="mockRetrieveScores"></param>
-    internal BusinessLogic(Retrieve.IBusinessLogic mockRetrieveSweeper, Tournaments.Retrieve.IBusinessLogic mockRetrieveTournament, Scores.Retrieve.IBusinessLogic mockRetrieveScores)
-    {
-        _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => mockRetrieveSweeper);
-        _retrieveTournament = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => mockRetrieveTournament);
-        _retrieveScores = mockRetrieveScores;
+        _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => retrieveSweeper);
+        _retrieveTournament = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => retrieveTournament);
+        _retrieveScores = retrieveScores;
     }
 
     /// <summary>
