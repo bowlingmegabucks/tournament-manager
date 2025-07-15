@@ -17,5 +17,5 @@ internal interface IView
     bool IsValid();
 
     void KeepOpen();
-    void DisplayMessage(string v);
+    void DisplayMessage(string message);
 }

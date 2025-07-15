@@ -8,29 +8,14 @@ internal class UpdateRegistrationAveragePresenter
     private readonly Retrieve.IAdapter _retrieveRegistrationAdapter;
     private readonly IAdapter _updateRegistrationAdapter;
 
-    public UpdateRegistrationAveragePresenter(IConfiguration config, IAverageView view)
+    internal UpdateRegistrationAveragePresenter(IAverageView view,
+        Bowlers.Retrieve.IAdapter bowlerAdapter, Retrieve.IAdapter retrieveRegistrationAdapter,
+        IAdapter updateRegistrationAdapter)
     {
         _view = view;
-        _retrieveBowlerAdapter = new Bowlers.Retrieve.Adapter(config);
-        _retrieveRegistrationAdapter = new Retrieve.Adapter(config);
-        _updateRegistrationAdapter = new Adapter(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockBowlerAdapter"></param>
-    /// <param name="mockRetrieveRegistrationAdapter"></param>
-    /// <param name="mockUpdateRegistrationAdapter"></param>
-    internal UpdateRegistrationAveragePresenter(IAverageView mockView,
-        Bowlers.Retrieve.IAdapter mockBowlerAdapter, Retrieve.IAdapter mockRetrieveRegistrationAdapter,
-        IAdapter mockUpdateRegistrationAdapter)
-    {
-        _view = mockView;
-        _retrieveBowlerAdapter = mockBowlerAdapter;
-        _retrieveRegistrationAdapter = mockRetrieveRegistrationAdapter;
-        _updateRegistrationAdapter = mockUpdateRegistrationAdapter;
+        _retrieveBowlerAdapter = bowlerAdapter;
+        _retrieveRegistrationAdapter = retrieveRegistrationAdapter;
+        _updateRegistrationAdapter = updateRegistrationAdapter;
     }
 
     public async Task LoadAsync(RegistrationId registrationId, CancellationToken cancellationToken)

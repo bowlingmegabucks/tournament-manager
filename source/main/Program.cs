@@ -6,6 +6,7 @@ using Azure.Security.KeyVault.Secrets;
 
 using System.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NortheastMegabuck.Bowlers;
 using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck;
@@ -51,10 +52,11 @@ internal static class Program
 
         QuestPDF.Settings.License = LicenseType.Community;
 
-        services.AddBusinessLogic(config);
+        services.AddBusinessLogic(config)
+            .AddBowlersModule();
 
 #if WINDOWS
-        using var form = new Tournaments.Retrieve.Form(config);
+        using var form = services.BuildServiceProvider().GetRequiredService<Tournaments.Retrieve.Form>();
         Application.Run(form);
 #endif
     }

@@ -9,25 +9,11 @@ internal class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    internal Presenter(IView view, Retrieve.IAdapter retrieveBowlerAdapter, IAdapter updateBowlerAdapter)
     {
         _view = view;
-
-        _retrieveBowlerAdapter = new Retrieve.Adapter(config);
-        _adapter = new Lazy<IAdapter>(() => new Adapter(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockRetrieveBowlerAdapter"></param>
-    /// <param name="mockUpdateBowlerAdapter"></param>
-    internal Presenter(IView mockView, Retrieve.IAdapter mockRetrieveBowlerAdapter, IAdapter mockUpdateBowlerAdapter)
-    {
-        _view = mockView;
-        _retrieveBowlerAdapter = mockRetrieveBowlerAdapter;
-        _adapter = new Lazy<IAdapter>(() => mockUpdateBowlerAdapter);
+        _retrieveBowlerAdapter = retrieveBowlerAdapter;
+        _adapter = new Lazy<IAdapter>(() => updateBowlerAdapter);
     }
 
     public async Task LoadAsync(BowlerId id, CancellationToken cancellationToken)

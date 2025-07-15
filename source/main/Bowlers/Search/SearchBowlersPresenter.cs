@@ -7,21 +7,10 @@ internal class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    internal Presenter(IView view, IAdapter adapter)
     {
         _view = view;
-        _adapter = new Lazy<IAdapter>(() => new Adapter(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockAdapter"></param>
-    internal Presenter(IView mockView, IAdapter mockAdapter)
-    {
-        _view = mockView;
-        _adapter = new Lazy<IAdapter>(() => mockAdapter);
+        _adapter = new Lazy<IAdapter>(() => adapter);
     }
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)

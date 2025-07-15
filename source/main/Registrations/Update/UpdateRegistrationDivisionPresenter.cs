@@ -9,32 +9,15 @@ internal class UpdateRegistrationDivisionPresenter
     private readonly Retrieve.IAdapter _retrieveRegistrationAdapter;
     private readonly IAdapter _updateRegistrationAdapter;
 
-    public UpdateRegistrationDivisionPresenter(IConfiguration config, IView view)
+    internal UpdateRegistrationDivisionPresenter(IView view, Divisions.Retrieve.IAdapter divisionAdapter,
+        Bowlers.Retrieve.IAdapter bowlerAdapter, Retrieve.IAdapter retrieveRegistrationAdapter,
+        IAdapter updateRegistrationAdapter)
     {
         _view = view;
-        _retrieveDivisionsAdapter = new Divisions.Retrieve.Adapter(config);
-        _retrieveBowlerAdapter = new Bowlers.Retrieve.Adapter(config);
-        _retrieveRegistrationAdapter = new Retrieve.Adapter(config);
-        _updateRegistrationAdapter = new Adapter(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockDivisionAdapter"></param>
-    /// <param name="mockBowlerAdapter"></param>
-    /// <param name="mockRetrieveRegistrationAdapter"></param>
-    /// <param name="mockUpdateRegistrationAdapter"></param>
-    internal UpdateRegistrationDivisionPresenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter,
-        Bowlers.Retrieve.IAdapter mockBowlerAdapter, Retrieve.IAdapter mockRetrieveRegistrationAdapter,
-        IAdapter mockUpdateRegistrationAdapter)
-    {
-        _view = mockView;
-        _retrieveDivisionsAdapter = mockDivisionAdapter;
-        _retrieveBowlerAdapter = mockBowlerAdapter;
-        _retrieveRegistrationAdapter = mockRetrieveRegistrationAdapter;
-        _updateRegistrationAdapter = mockUpdateRegistrationAdapter;
+        _retrieveDivisionsAdapter = divisionAdapter;
+        _retrieveBowlerAdapter = bowlerAdapter;
+        _retrieveRegistrationAdapter = retrieveRegistrationAdapter;
+        _updateRegistrationAdapter = updateRegistrationAdapter;
     }
 
     public async Task LoadAsync(TournamentId tournamentId, RegistrationId registrationId, CancellationToken cancellationToken)

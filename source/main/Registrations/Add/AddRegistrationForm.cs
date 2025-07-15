@@ -1,39 +1,43 @@
 ﻿using System.ComponentModel;
 using System.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace NortheastMegabuck.Registrations.Add;
 internal partial class Form
     : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly IServiceProvider _services;
+    private readonly Presenter _presenter;
 
     /// <summary>
     /// Add Registration from Tournament Portal
     /// </summary>
-    /// <param name="config"></param>
+    /// <param name="services"></param>
     /// <param name="tournamentId"></param>
-    public Form(IConfiguration config, TournamentId tournamentId)
+    public Form(IServiceProvider services, TournamentId tournamentId)
     {
         InitializeComponent();
 
-        _config = config;
+        _services = services;
+        _presenter = _services.GetRequiredService<Presenter>();
 
-        _ = new Presenter(config, this).LoadAsync(tournamentId, default);
+        _ = _presenter.LoadAsync(tournamentId, default);
     }
 
     /// <summary>
     /// Add Registration from Lane Assignment Screen
     /// </summary>
-    /// <param name="config"></param>
+    /// <param name="services"></param>
     /// <param name="tournamentId"></param>
     /// <param name="squadId"></param>
-    public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId)
+    public Form(IServiceProvider services, TournamentId tournamentId, SquadId squadId)
     {
         InitializeComponent();
 
-        _config = config;
+        _services = services;
+        _presenter = _services.GetRequiredService<Presenter>();
 
-        _ = new Presenter(config, this).LoadAsync(tournamentId, squadId, default);
+        _ = _presenter.LoadAsync(tournamentId, squadId, default);
     }
 
     public void BindDivisions(IEnumerable<Divisions.IViewModel> divisions)
@@ -155,7 +159,8 @@ internal partial class Form
 
     public BowlerId? SelectBowler()
     {
-        using var form = new Bowlers.Search.Dialog(_config, true);
+        var presenter = _services.GetRequiredService<Bowlers.Search.Presenter>();
+        using var form = new Bowlers.Search.Dialog(presenter, true);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }
@@ -167,5 +172,5 @@ internal partial class Form
         => DialogResult = DialogResult.None;
 
     private async void SaveButton_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(default).ConfigureAwait(true);
 }

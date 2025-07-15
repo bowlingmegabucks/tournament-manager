@@ -3,25 +3,24 @@
 namespace NortheastMegabuck.Bowlers.Search;
 internal partial class Dialog : Form, IView
 {
-    private readonly IConfiguration _config;
-
+    private readonly Presenter _presenter;
     private readonly IEnumerable<SquadId> _registrationsWithoutSquads;
     private readonly TournamentId? _registeredInTournament;
     private readonly TournamentId? _notRegisteredInTournament;
 
-    public Dialog(IConfiguration config, bool allowNewBowler) : this(config, allowNewBowler, null, [])
+    public Dialog(Presenter presenter, bool allowNewBowler) : this(presenter, allowNewBowler, null, [])
     { }
 
-    public Dialog(IConfiguration config, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad) : this(config, allowNewBowler, registeredInTournament, registrationWithoutSquad, null)
+    public Dialog(Presenter presenter, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad) : this(presenter, allowNewBowler, registeredInTournament, registrationWithoutSquad, null)
     { }
 
-    private Dialog(IConfiguration config, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad, TournamentId? notRegisteredInTournament)
+    private Dialog(Presenter presenter, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad, TournamentId? notRegisteredInTournament)
     {
         InitializeComponent();
 
-        _config = config;
         SelectedBowlerId = null;
 
+        _presenter = presenter;
         _registrationsWithoutSquads = registrationWithoutSquad;
         _registeredInTournament = registeredInTournament;
         _notRegisteredInTournament = notRegisteredInTournament;
@@ -67,5 +66,5 @@ internal partial class Dialog : Form, IView
         => SelectedBowlerId = null;
 
     private async void SearchButton_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(default).ConfigureAwait(true);
 }

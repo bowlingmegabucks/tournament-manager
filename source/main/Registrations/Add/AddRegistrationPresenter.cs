@@ -14,38 +14,15 @@ internal class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    internal Presenter(IView view, Divisions.Retrieve.IAdapter divisionAdapter, Squads.Retrieve.IAdapter squadAdapter, Sweepers.Retrieve.IAdapter sweeperAdapter, Bowlers.Retrieve.IAdapter bowlerAdapter, IAdapter adapter)
     {
         _view = view;
 
-        _retrieveDivisionsAdapter = new Divisions.Retrieve.Adapter(config);
-
-        _retrieveSquadsAdapter = new Squads.Retrieve.Adapter(config);
-        _retrieveSweepersAdapter = new Sweepers.Retrieve.Adapter(config);
-
-        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => new Bowlers.Retrieve.Adapter(config));
-
-        _adapter = new Lazy<IAdapter>(() => new Adapter(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockDivisionAdapter"></param>
-    /// <param name="mockSquadAdapter"></param>
-    /// <param name="mockSweeperAdapter"></param>
-    /// <param name="mockBowlerAdapter"></param>
-    /// <param name="mockAdapter"></param>
-    internal Presenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter, Squads.Retrieve.IAdapter mockSquadAdapter, Sweepers.Retrieve.IAdapter mockSweeperAdapter, Bowlers.Retrieve.IAdapter mockBowlerAdapter, IAdapter mockAdapter)
-    {
-        _view = mockView;
-
-        _retrieveDivisionsAdapter = mockDivisionAdapter;
-        _retrieveSquadsAdapter = mockSquadAdapter;
-        _retrieveSweepersAdapter = mockSweeperAdapter;
-        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => mockBowlerAdapter);
-        _adapter = new Lazy<IAdapter>(() => mockAdapter);
+        _retrieveDivisionsAdapter = divisionAdapter;
+        _retrieveSquadsAdapter = squadAdapter;
+        _retrieveSweepersAdapter = sweeperAdapter;
+        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => bowlerAdapter);
+        _adapter = new Lazy<IAdapter>(() => adapter);
     }
 
     public async Task LoadAsync(TournamentId tournamentId, CancellationToken cancellationToken)
