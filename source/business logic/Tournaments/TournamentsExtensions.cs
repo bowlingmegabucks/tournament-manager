@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace NortheastMegabuck.Tournaments;
 
-internal static class TournamentsBusinessLogicExtensions
+internal static class TournamentsExtensions
 {
     public static IServiceCollection AddTournamentsModule(this IServiceCollection services)
     {
