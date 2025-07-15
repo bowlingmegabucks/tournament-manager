@@ -1,6 +1,4 @@
 ﻿
-using Microsoft.Extensions.Configuration;
-
 namespace NortheastMegabuck.Registrations.Add;
 
 /// <summary>
@@ -25,37 +23,14 @@ public class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    internal BusinessLogic(Divisions.Retrieve.IBusinessLogic getDivisionBO, Tournaments.Retrieve.IBusinessLogic getTournamentBO, Bowlers.Search.IBusinessLogic searchBowlerBO, Bowlers.Update.IBusinessLogic updateBowlerBO, FluentValidation.IValidator<Models.Registration> validator, IDataLayer dataLayer)
     {
-        _getDivisionBO = new Divisions.Retrieve.BusinessLogic(config);
-        _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
-        _searchBowlerBO = new Lazy<Bowlers.Search.IBusinessLogic>(() => new Bowlers.Search.BusinessLogic(config));
-        _updateBowlerBO = new Lazy<Bowlers.Update.IBusinessLogic>(() => new Bowlers.Update.BusinessLogic(config));
-        _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(() => new Validator());
-        _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockGetDivisionBO"></param>
-    /// <param name="mockGetTournamentBO"></param>
-    /// <param name="mockSearchBowlerBO"></param>
-    /// <param name="mockUpdateBowlerBO"></param>
-    /// <param name="mockValidator"></param>
-    /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(Divisions.Retrieve.IBusinessLogic mockGetDivisionBO, Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, Bowlers.Search.IBusinessLogic mockSearchBowlerBO, Bowlers.Update.IBusinessLogic mockUpdateBowlerBO, FluentValidation.IValidator<Models.Registration> mockValidator, IDataLayer mockDataLayer)
-    {
-        _getDivisionBO = mockGetDivisionBO;
-        _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => mockGetTournamentBO);
-        _searchBowlerBO = new Lazy<Bowlers.Search.IBusinessLogic>(() => mockSearchBowlerBO);
-        _updateBowlerBO = new Lazy<Bowlers.Update.IBusinessLogic>(() => mockUpdateBowlerBO);
-        _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(() => mockValidator);
-        _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
+        _getDivisionBO = getDivisionBO;
+        _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => getTournamentBO);
+        _searchBowlerBO = new Lazy<Bowlers.Search.IBusinessLogic>(() => searchBowlerBO);
+        _updateBowlerBO = new Lazy<Bowlers.Update.IBusinessLogic>(() => updateBowlerBO);
+        _validator = new Lazy<FluentValidation.IValidator<Models.Registration>>(() => validator);
+        _dataLayer = new Lazy<IDataLayer>(() => dataLayer);
     }
 
     /// <summary>

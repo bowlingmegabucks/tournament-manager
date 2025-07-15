@@ -1,6 +1,4 @@
 ﻿
-using Microsoft.Extensions.Configuration;
-
 namespace NortheastMegabuck.Registrations.Retrieve;
 
 /// <summary>
@@ -15,22 +13,9 @@ public sealed class BusinessLogic : IBusinessLogic
 
     private readonly IDataLayer _dataLayer;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    internal BusinessLogic(IDataLayer dataLayer)
     {
-        _dataLayer = new DataLayer(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(IDataLayer mockDataLayer)
-    {
-        _dataLayer = mockDataLayer;
+        _dataLayer = dataLayer;
     }
 
     async Task<Models.Registration?> IBusinessLogic.ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)

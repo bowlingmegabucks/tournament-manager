@@ -4,6 +4,7 @@ using NortheastMegabuck.Bowlers;
 using NortheastMegabuck.Database;
 using NortheastMegabuck.Divisions;
 using NortheastMegabuck.LaneAssignments;
+using NortheastMegabuck.Registrations;
 
 namespace NortheastMegabuck;
 
@@ -23,7 +24,8 @@ public static class BusinessLogicExtensions
         services.AddDatabase(config)
             .AddBowlersModule()
             .AddDivisionsModule()
-            .AddLaneAssignmentModule();
+            .AddLaneAssignmentModule()
+            .AddRegistrationModule();
 
         return services;
     }
