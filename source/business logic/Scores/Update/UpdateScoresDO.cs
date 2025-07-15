@@ -1,27 +1,15 @@
 ﻿
-using Microsoft.Extensions.Configuration;
-
 namespace NortheastMegabuck.Scores.Update;
+
 internal class DataLayer : IDataLayer
 {
     private readonly IEntityMapper _entityMapper;
     private readonly IRepository _repository;
 
-    public DataLayer(IConfiguration config)
+    internal DataLayer(IEntityMapper entityMapper, IRepository repository)
     {
-        _entityMapper = new EntityMapper();
-        _repository = new Repository(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockEntityMapper"></param>
-    /// <param name="mockRepository"></param>
-    internal DataLayer(IEntityMapper mockEntityMapper, IRepository mockRepository)
-    {
-        _entityMapper = mockEntityMapper;
-        _repository = mockRepository;
+        _entityMapper = entityMapper;
+        _repository = repository;
     }
 
     public async Task ExecuteAsync(IEnumerable<Models.SquadScore> scores, CancellationToken cancellationToken)
