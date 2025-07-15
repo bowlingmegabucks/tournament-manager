@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Update;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace NortheastMegabuck.Registrations.Update;
 
 internal class UpdateRegistrationAveragePresenter
 {
@@ -8,12 +10,14 @@ internal class UpdateRegistrationAveragePresenter
     private readonly Retrieve.IAdapter _retrieveRegistrationAdapter;
     private readonly IAdapter _updateRegistrationAdapter;
 
-    public UpdateRegistrationAveragePresenter(IConfiguration config, IAverageView view)
+    public UpdateRegistrationAveragePresenter(IAverageView view, IServiceProvider services)
     {
         _view = view;
-        _retrieveBowlerAdapter = new Bowlers.Retrieve.Adapter(config);
-        _retrieveRegistrationAdapter = new Retrieve.Adapter(config);
-        _updateRegistrationAdapter = new Adapter(config);
+
+        _retrieveBowlerAdapter = services.GetRequiredService<Bowlers.Retrieve.IAdapter>();
+        _retrieveRegistrationAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _updateRegistrationAdapter = services.GetRequiredService<IAdapter>();
+
     }
 
     /// <summary>

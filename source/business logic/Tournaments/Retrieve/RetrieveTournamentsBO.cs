@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-
+﻿
 namespace NortheastMegabuck.Tournaments.Retrieve;
 
 /// <summary>
 /// 
 /// </summary>
-public sealed class BusinessLogic : IBusinessLogic
+internal sealed class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -14,22 +13,9 @@ public sealed class BusinessLogic : IBusinessLogic
 
     private readonly IDataLayer _dataLayer;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    public BusinessLogic(IDataLayer dataLayer)
     {
-        _dataLayer = new DataLayer(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(IDataLayer mockDataLayer)
-    {
-        _dataLayer = mockDataLayer;
+        _dataLayer = dataLayer;
     }
 
     async Task<IEnumerable<Models.Tournament>> IBusinessLogic.ExecuteAsync(CancellationToken cancellationToken)

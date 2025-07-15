@@ -17,6 +17,8 @@ builder.Services.AddFastEndpoints()
     .AddAuthorization()
     .AddAuthentication(ApiKeyAuthentication.SchemeName)
     .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthentication>(ApiKeyAuthentication.SchemeName, null);
+
+builder.Services.AddBusinessLogic(builder.Configuration);
     
 builder.Services.SwaggerDocument(o =>
 {

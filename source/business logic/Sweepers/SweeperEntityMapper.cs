@@ -12,12 +12,12 @@ internal class EntityMapper : IEntityMapper
             Complete = sweeper.Complete,
             EntryFee = sweeper.EntryFee,
             Games = sweeper.Games,
-            Divisions = sweeper.Divisions.Select(division => new Database.Entities.SweeperDivision
+            Divisions = [.. sweeper.Divisions.Select(division => new Database.Entities.SweeperDivision
             {
                 SweeperId = sweeper.Id,
                 DivisionId = division.Key,
                 BonusPinsPerGame = division.Value
-            }).ToList(),
+            })],
             StartingLane = sweeper.StartingLane,
             NumberOfLanes = sweeper.NumberOfLanes
         };

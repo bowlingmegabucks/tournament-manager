@@ -2,20 +2,22 @@
 namespace NortheastMegabuck.Squads.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly Presenter _presenter;
+    private readonly IServiceProvider _services;
     private readonly short _gamesPerSquad;
 
     public TournamentId TournamentId { get; }
 
-    public Form(IConfiguration config, TournamentId tournamentId, short gamesPerSquad)
+    public Form(IServiceProvider services, TournamentId tournamentId, short gamesPerSquad)
     {
         InitializeComponent();
 
-        _config = config;
+        _services = services;
+        _presenter = new(this, services);
         TournamentId = tournamentId;
         _gamesPerSquad = gamesPerSquad;
 
-        _ = new Presenter(_config, this).ExecuteAsync(default);
+        _ = _presenter.ExecuteAsync(default);
     }
 
     public void BindSquads(IEnumerable<IViewModel> squads)
@@ -32,7 +34,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void OpenButton_Click(object sender, EventArgs e)
     {
-        using var form = new Portal.Form(_config, TournamentId, squadsGrid.SelectedSquad!.Id, _gamesPerSquad, squadsGrid.SelectedSquad.Date, squadsGrid.SelectedSquad.Complete);
+        using var form = new Portal.Form(_services, TournamentId, squadsGrid.SelectedSquad!.Id, _gamesPerSquad, squadsGrid.SelectedSquad.Date, squadsGrid.SelectedSquad.Complete);
 
         if (!form.IsDisposed)
         {
@@ -48,15 +50,15 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => OpenButton_Click(sender, e);
 
     private async void AddButton_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).AddSquadAsync(default).ConfigureAwait(true);
+        => await _presenter.AddSquadAsync(default).ConfigureAwait(true);
 
     public SquadId? AddSquad(TournamentId tournamentId)
     {
-        using var form = new Add.Form(_config, tournamentId);
+        using var form = new Add.Form(_services, tournamentId);
 
         return form.ShowDialog() == DialogResult.OK ? form.Squad.Id : null;
     }
 
     public async Task RefreshSquadsAsync(CancellationToken cancellationToken)
-        => await new Presenter(_config, this).ExecuteAsync(cancellationToken).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(cancellationToken).ConfigureAwait(true);
 }

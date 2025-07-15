@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.Extensions.Configuration;
 using NortheastMegabuck.Models;
 
 namespace NortheastMegabuck.Registrations.Update;
@@ -8,18 +7,9 @@ internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;
 
-    public DataLayer(IConfiguration config)
+    public DataLayer(IRepository repository)
     {
-        _repository = new Repository(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockRepository"></param>
-    internal DataLayer(IRepository mockRepository)
-    {
-        _repository = mockRepository;
+        _repository = repository;
     }
 
     public async Task ExecuteAsync(RegistrationId id, bool superSweeper, CancellationToken cancellationToken)

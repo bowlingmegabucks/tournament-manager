@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Update;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace NortheastMegabuck.Registrations.Update;
 
 internal class UpdateRegistrationDivisionPresenter
 {
@@ -9,13 +11,14 @@ internal class UpdateRegistrationDivisionPresenter
     private readonly Retrieve.IAdapter _retrieveRegistrationAdapter;
     private readonly IAdapter _updateRegistrationAdapter;
 
-    public UpdateRegistrationDivisionPresenter(IConfiguration config, IView view)
+    public UpdateRegistrationDivisionPresenter(IView view, IServiceProvider services)
     {
         _view = view;
-        _retrieveDivisionsAdapter = new Divisions.Retrieve.Adapter(config);
-        _retrieveBowlerAdapter = new Bowlers.Retrieve.Adapter(config);
-        _retrieveRegistrationAdapter = new Retrieve.Adapter(config);
-        _updateRegistrationAdapter = new Adapter(config);
+
+        _retrieveDivisionsAdapter = services.GetRequiredService<Divisions.Retrieve.IAdapter>();
+        _retrieveBowlerAdapter = services.GetRequiredService<Bowlers.Retrieve.IAdapter>();
+        _retrieveRegistrationAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _updateRegistrationAdapter = services.GetRequiredService<IAdapter>();
     }
 
     /// <summary>

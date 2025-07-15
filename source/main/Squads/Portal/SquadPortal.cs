@@ -6,7 +6,8 @@ namespace NortheastMegabuck.Squads.Portal;
 [SupportedOSPlatform("windows")]
 internal partial class Form : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly IServiceProvider _services;
+    private readonly Presenter _presenter;
     private readonly SquadId _id;
     private readonly TournamentId _tournamentId;
     private readonly short _numberOfGames;
@@ -16,17 +17,19 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public void SetComplete(bool complete)
         => _complete = complete;
 
-    public Form(IConfiguration config, TournamentId tournamentId, SquadId id, short numberOfGames, DateTime squadDate, bool complete)
+    public Form(IServiceProvider services, TournamentId tournamentId, SquadId id, short numberOfGames, DateTime squadDate, bool complete)
     {
         InitializeComponent();
 
-        _config = config;
+        _services = services;
+        _presenter = new Presenter(this, services);
+
         _id = id;
         _tournamentId = tournamentId;
         _numberOfGames = numberOfGames;
         _squadDate = squadDate;
 
-        _ = new Presenter(config, this).LoadAsync(default);
+        _ = _presenter.LoadAsync(default);
         _complete = complete;
     }
 
@@ -53,21 +56,21 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new LaneAssignments.Form(_config, _tournamentId, _id, _startingLane, _numberOfLanes, _maxPerPair, _numberOfGames, _squadDate, _complete);
+        using var form = new LaneAssignments.Form(_services, _tournamentId, _id, _startingLane, _numberOfLanes, _maxPerPair, _numberOfGames, _squadDate, _complete);
 
         form.ShowDialog(this);
     }
 
     private void ScoresMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Scores.Form(_config, _id, _numberOfGames, _complete);
+        using var form = new Scores.Form(_services, _id, _numberOfGames, _complete);
 
         form.ShowDialog(this);
     }
 
     private void ResultsMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Results.Form(_config, _id, _squadDate);
+        using var form = new Results.Form(_services, _id, _squadDate);
 
         form.ShowDialog(this);
     }
@@ -79,5 +82,5 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
     private async void CompleteMenuItem_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).CompleteAsync(default).ConfigureAwait(false);
+        => await _presenter.CompleteAsync(default).ConfigureAwait(false);
 }

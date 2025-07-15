@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Tournaments.Add;
 
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -18,25 +17,10 @@ public class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    public BusinessLogic(IValidator<Models.Tournament> validator, IDataLayer dataLayer)
     {
-        _validator = new Validator();
-        _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockValidator"></param>
-    /// <param name="mockDataLayer"></param>
-    internal BusinessLogic(IValidator<Models.Tournament> mockValidator, IDataLayer mockDataLayer)
-    {
-        _validator = mockValidator;
-        _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
+        _validator = validator;
+        _dataLayer = new Lazy<IDataLayer>(() => dataLayer);
     }
 
     /// <summary>

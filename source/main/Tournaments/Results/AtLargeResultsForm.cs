@@ -13,7 +13,7 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab!];
 
-    public AtLarge(IConfiguration config, TournamentId tournamentId)
+    public AtLarge(IServiceProvider services, TournamentId tournamentId)
     {
         InitializeComponent();
 
@@ -21,7 +21,7 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
 
         _toSpreadsheet = [];
 
-        _ = new Presenter(config, this).AtLargeAsync(default);
+        _ = new Presenter(this, services).AtLargeAsync(default);
     }
 
     public TournamentId Id { get; }

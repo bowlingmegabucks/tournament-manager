@@ -1,6 +1,4 @@
-﻿using NortheastMegabuck.Models;
-
-namespace NortheastMegabuck.Squads;
+﻿namespace NortheastMegabuck.Squads;
 
 internal class ViewModel(Models.Squad squad) : IViewModel
 {

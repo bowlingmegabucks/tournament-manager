@@ -1,12 +1,9 @@
-﻿
-using Microsoft.Extensions.Configuration;
-
-namespace NortheastMegabuck.Tournaments.Results;
+﻿namespace NortheastMegabuck.Tournaments.Results;
 
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -17,28 +14,11 @@ public class BusinessLogic : IBusinessLogic
     private readonly Squads.Results.IBusinessLogic _retrieveSquadResults;
     private readonly Retrieve.IBusinessLogic _retrieveTournament;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    public BusinessLogic(ICalculator calculator, Squads.Results.IBusinessLogic retrieveSquadResults, Retrieve.IBusinessLogic retrieveTournament)
     {
-        _calculator = new Calculator();
-        _retrieveSquadResults = new Squads.Results.BusinessLogic(config);
-        _retrieveTournament = new Retrieve.BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockCalculator"></param>
-    /// <param name="mockRetrieveSquadResults"></param>
-    /// <param name="mockRetrieveTournament"></param>
-    internal BusinessLogic(ICalculator mockCalculator, Squads.Results.IBusinessLogic mockRetrieveSquadResults, Retrieve.IBusinessLogic mockRetrieveTournament)
-    {
-        _calculator = mockCalculator;
-        _retrieveSquadResults = mockRetrieveSquadResults;
-        _retrieveTournament = mockRetrieveTournament;
+        _calculator = calculator;
+        _retrieveSquadResults = retrieveSquadResults;
+        _retrieveTournament = retrieveTournament;
     }
 
     /// <summary>

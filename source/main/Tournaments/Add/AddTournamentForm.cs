@@ -1,16 +1,16 @@
 ﻿namespace NortheastMegabuck.Tournaments.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly Presenter _presenter;
 
-    public Form(IConfiguration config)
+    public Form(IServiceProvider services)
     {
         InitializeComponent();
 
         newTournament.Start = new DateOnly(DateTime.Now.Year, 1, 1);
         newTournament.End = new DateOnly(DateTime.Now.Year, 12, 31);
 
-        _config = config;
+        _presenter = new(this, services);
     }
 
     public bool IsValid()
@@ -32,5 +32,5 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => MessageBox.Show(message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
     private async void SaveButton_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(default).ConfigureAwait(true);
 }

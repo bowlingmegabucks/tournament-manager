@@ -1,13 +1,12 @@
 ﻿
 using FluentValidation;
-using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Registrations.Update;
 
 /// <summary>
 /// 
 /// </summary>
-public sealed class BusinessLogic : IBusinessLogic
+internal sealed class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -31,45 +30,19 @@ public sealed class BusinessLogic : IBusinessLogic
     private readonly Lazy<IValidator<UpdateRegistrationModel>> _validator;
     private IValidator<UpdateRegistrationModel> Validator => _validator.Value;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    public BusinessLogic(IDataLayer dataLayer, Retrieve.IBusinessLogic retrieveBusinessLogic,
+        Tournaments.Retrieve.IBusinessLogic tournamentBusinessLogic, Divisions.Retrieve.IBusinessLogic getDivisionBO,
+        Tournaments.Retrieve.IBusinessLogic getTournamentBO, IValidator<UpdateRegistrationModel> validator,
+        Scores.IRepository scoresRepository)
     {
-        _dataLayer = new DataLayer(config);
-        _retrieveBusinessLogic = new Retrieve.BusinessLogic(config);
-        _retrieveTournamentBusinessLogic = new Tournaments.Retrieve.BusinessLogic(config);
+        _dataLayer = dataLayer;
+        _retrieveBusinessLogic = retrieveBusinessLogic;
+        _retrieveTournamentBusinessLogic = tournamentBusinessLogic;
 
-        _getDivisionBO = new Lazy<Divisions.Retrieve.IBusinessLogic>(() => new Divisions.Retrieve.BusinessLogic(config));
-        _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => new Tournaments.Retrieve.BusinessLogic(config));
-        _validator = new Lazy<IValidator<UpdateRegistrationModel>>(() => new Validator());
-        _scoresRepository = new Lazy<Scores.IRepository>(() => new Scores.Repository(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockDataLayer"></param>
-    /// <param name="mockRetrieveBusinessLogic"></param>
-    /// <param name="mockTournamentBusinessLogic"></param>
-    /// <param name="mockGetDivisionBO"></param>
-    /// <param name="mockGetTournamentBO"></param>
-    /// <param name="mockValidator"></param>
-    /// <param name="mockScoresRepository"></param>
-    internal BusinessLogic(IDataLayer mockDataLayer, Retrieve.IBusinessLogic mockRetrieveBusinessLogic,
-        Tournaments.Retrieve.IBusinessLogic mockTournamentBusinessLogic, Divisions.Retrieve.IBusinessLogic mockGetDivisionBO,
-        Tournaments.Retrieve.IBusinessLogic mockGetTournamentBO, IValidator<UpdateRegistrationModel> mockValidator,
-        Scores.IRepository mockScoresRepository)
-    {
-        _dataLayer = mockDataLayer;
-        _retrieveBusinessLogic = mockRetrieveBusinessLogic;
-        _retrieveTournamentBusinessLogic = mockTournamentBusinessLogic;
-
-        _getDivisionBO = new Lazy<Divisions.Retrieve.IBusinessLogic>(() => mockGetDivisionBO);
-        _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => mockGetTournamentBO);
-        _validator = new Lazy<IValidator<UpdateRegistrationModel>>(() => mockValidator);
-        _scoresRepository = new Lazy<Scores.IRepository>(() => mockScoresRepository);
+        _getDivisionBO = new Lazy<Divisions.Retrieve.IBusinessLogic>(() => getDivisionBO);
+        _getTournamentBO = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => getTournamentBO);
+        _validator = new Lazy<IValidator<UpdateRegistrationModel>>(() => validator);
+        _scoresRepository = new Lazy<Scores.IRepository>(() => scoresRepository);
     }
 
     /// <summary>

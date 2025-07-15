@@ -1,23 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿
+using Microsoft.EntityFrameworkCore;
 
 namespace NortheastMegabuck.Scores;
 
 internal class Repository : IRepository
 {
     private readonly Database.IDataContext _dataContext;
-    internal Repository(IConfiguration config)
-    {
-        _dataContext = new Database.DataContext(config);
-    }
 
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockDataContext"></param>
-    internal Repository(Database.IDataContext mockDataContext)
+    public Repository(Database.IDataContext dataContext)
     {
-        _dataContext = mockDataContext;
+        _dataContext = dataContext;
     }
 
     async Task IRepository.UpdateAsync(ICollection<Database.Entities.SquadScore> scores, CancellationToken cancellationToken)

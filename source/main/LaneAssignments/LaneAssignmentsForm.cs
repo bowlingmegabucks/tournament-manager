@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Runtime.Versioning;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using NortheastMegabuck.Controls;
 
 namespace NortheastMegabuck.LaneAssignments;
@@ -11,7 +12,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
 {
     private Scores.RecapSheetForm? _recapSheetForm;
 
-    private readonly IConfiguration _config;
+    private readonly Presenter _presenter;
+    private readonly IServiceProvider _services;
 
     public TournamentId TournamentId { get; }
     public SquadId SquadId { get; }
@@ -148,14 +150,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public BowlerId? SelectBowler(TournamentId tournamentId, SquadId squadId)
     {
-        using var form = new Bowlers.Search.Dialog(_config, false, tournamentId, [squadId]);
+        using var form = new Bowlers.Search.Dialog(_services, false, tournamentId, [squadId]);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }
 
     public bool NewRegistration(TournamentId tournamentId, SquadId squadId)
     {
-        using var form = new Registrations.Add.Form(_config, tournamentId, squadId);
+        using var form = new Registrations.Add.Form(_services, tournamentId, squadId);
 
         return form.ShowDialog(this) == DialogResult.OK;
     }
@@ -194,10 +196,12 @@ internal partial class Form : System.Windows.Forms.Form, IView
     public bool Confirm(string message)
         => MessageBox.Show(message, "Confirm?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;
 
-    public Form(IConfiguration config, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair, short gamesPerSquad, DateTime squadDate, bool complete)
+    public Form(IServiceProvider services, TournamentId tournamentId, SquadId squadId, int startingLane, int numberOfLanes, int maxPerPair, short gamesPerSquad, DateTime squadDate, bool complete)
     {
         InitializeComponent();
-        _config = config;
+        _services = services;
+
+        _presenter = new(this, services);
 
         TournamentId = tournamentId;
         SquadId = squadId;
@@ -208,7 +212,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _squadDate = squadDate;
         _complete = complete;
 
-        _ = new Presenter(_config, this).LoadAsync(default);
+        _ = _presenter.LoadAsync(default);
 
         if (complete)
         {
@@ -278,7 +282,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         var openLane = sender as LaneAssignmentControl;
 
-        _ = new Presenter(_config, this).UpdateAsync(SquadId, registration!, openLane!.LaneAssignment, default).ConfigureAwait(true);
+        _ = _presenter.UpdateAsync(SquadId, registration!, openLane!.LaneAssignment, default).ConfigureAwait(true);
     }
 
     private void LaneAssignmentRegistered_Enter(object sender, EventArgs e)
@@ -304,10 +308,10 @@ internal partial class Form : System.Windows.Forms.Form, IView
     }
 
     private void NewRegistrationButton_Click(object sender, EventArgs e)
-        => _ = new Presenter(_config, this).NewRegistrationAsync(default).ConfigureAwait(true);
+        => _ = _presenter.NewRegistrationAsync(default).ConfigureAwait(true);
 
     private void AddToRegistrationButton_Click(object sender, EventArgs e)
-        => _ = new Presenter(_config, this).AddToRegistrationAsync(default).ConfigureAwait(true);
+        => _ = _presenter.AddToRegistrationAsync(default).ConfigureAwait(true);
 
     private void CopyAssignmentsToClipboardLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
@@ -331,7 +335,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     {
         var assignments = laneAssignmentFlowLayoutPanel.Controls.OfType<IViewModel>().Where(assignment => assignment.BowlerId != BowlerId.Empty).ToList();
 
-        new Presenter(_config, this).GenerateRecaps(assignments);
+        _presenter.GenerateRecaps(assignments);
     }
 
     public bool StaggeredSkipSelected
@@ -350,7 +354,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         var contextMenu = menuItem?.Owner as ContextMenuStrip;
         var assignment = contextMenu?.SourceControl as LaneAssignmentControl;
 
-        _ = new Presenter(_config, this).DeleteAsync(assignment!.BowlerId, default).ConfigureAwait(true);
+        _ = _presenter.DeleteAsync(assignment!.BowlerId, default).ConfigureAwait(true);
     }
 
     private async void RefreshAssignmentsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -377,7 +381,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
             control!.Dispose();
         }
 
-        await new Presenter(_config, this).LoadAsync(default).ConfigureAwait(true);
+        await _presenter.LoadAsync(default).ConfigureAwait(true);
 
         laneAssignmentFlowLayoutPanel.Visible = true;
         unassignedRegistrationsFlowLayoutPanel.Visible = true;
@@ -413,7 +417,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         var contextMenu = menuItem?.Owner as ContextMenuStrip;
         var assignment = contextMenu?.SourceControl as LaneAssignmentControl;
 
-        _ = new Presenter(_config, this).UpdateAsync(SquadId, assignment!, string.Empty, default).ConfigureAwait(true);
+        _ = _presenter.UpdateAsync(SquadId, assignment!, string.Empty, default).ConfigureAwait(true);
     }
 }
 

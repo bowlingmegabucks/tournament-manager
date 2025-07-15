@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using NortheastMegabuck.Squads;
 
 namespace NortheastMegabuck.Scores.Retrieve;
@@ -9,21 +8,10 @@ internal class DataLayer : IDataLayer
     private readonly IRepository _repository;
     private readonly IHandicapCalculatorInternal _handicapCalculator;
 
-    public DataLayer(IConfiguration config)
+    public DataLayer(IRepository repository, IHandicapCalculatorInternal handicapCalculator)
     {
-        _repository = new Repository(config);
-        _handicapCalculator = new HandicapCalculator();
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockRepository"></param>
-    /// <param name="mockHandicapCalculator"></param>
-    internal DataLayer(IRepository mockRepository, IHandicapCalculatorInternal mockHandicapCalculator)
-    {
-        _repository = mockRepository;
-        _handicapCalculator = mockHandicapCalculator;
+        _repository = repository;
+        _handicapCalculator = handicapCalculator;
     }
 
     public async Task<IEnumerable<Models.SquadScore>> ExecuteAsync(IEnumerable<SquadId> squadIds, CancellationToken cancellationToken)

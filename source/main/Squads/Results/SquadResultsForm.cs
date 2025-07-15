@@ -1,11 +1,12 @@
-﻿
-using System.Text;
+﻿using System.Text;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
 namespace NortheastMegabuck.Squads.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
+    private readonly Presenter _presenter;
+
     private readonly Dictionary<TabPage, string> _toSpreadsheet;
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab!];
@@ -13,7 +14,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private readonly DateTime _bowlDate;
     private readonly Dictionary<KeyValuePair<string, bool>, IEnumerable<IViewModel>> _results = [];
 
-    public Form(IConfiguration config, SquadId squadId, DateTime bowlDate)
+    public Form(IServiceProvider services, SquadId squadId, DateTime bowlDate)
     {
         InitializeComponent();
 
@@ -22,7 +23,9 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         _toSpreadsheet = [];
 
-        _ = new Presenter(config, this).ExecuteAsync(default);
+        _presenter = new Presenter(this, services);
+
+        _ = _presenter.ExecuteAsync(default);
     }
 
     public SquadId SquadId { get; }
@@ -113,7 +116,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private MergedDocument GenerateReport()
     {
-        var reports = _results.Select(result => new SquadResultReport(_bowlDate, result.Key.Key, result.Key.Value, result.Value.ToList())).ToList();
+        var reports = _results.Select(result => new SquadResultReport(_bowlDate, result.Key.Key, result.Key.Value, [.. result.Value])).ToList();
 
         return Document.Merge(reports).UseOriginalPageNumbers();
     }

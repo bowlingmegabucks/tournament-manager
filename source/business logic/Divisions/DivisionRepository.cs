@@ -1,23 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Divisions;
 
 internal class Repository : IRepository
 {
     private readonly Database.IDataContext _dataContext;
-    internal Repository(IConfiguration config)
-    {
-        _dataContext = new Database.DataContext(config);
-    }
 
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockDataContext"></param>
-    internal Repository(Database.IDataContext mockDataContext)
+    public Repository(Database.IDataContext dataContext)
     {
-        _dataContext = mockDataContext;
+        _dataContext = dataContext;
     }
 
     async Task<DivisionId> IRepository.AddAsync(Database.Entities.Division division, CancellationToken cancellationToken)

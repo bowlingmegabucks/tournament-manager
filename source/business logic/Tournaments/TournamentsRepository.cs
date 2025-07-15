@@ -1,22 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Tournaments;
 internal class Repository : IRepository
 {
     private readonly Database.IDataContext _dataContext;
-    internal Repository(IConfiguration config)
-    {
-        _dataContext = new Database.DataContext(config);
-    }
 
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockDataContext"></param>
-    internal Repository(Database.IDataContext mockDataContext)
+    public Repository(Database.IDataContext dataContext)
     {
-        _dataContext = mockDataContext;
+        _dataContext = dataContext;
     }
 
     IQueryable<Database.Entities.Tournament> IRepository.RetrieveAll()

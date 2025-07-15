@@ -1,12 +1,10 @@
 ﻿
-using Microsoft.Extensions.Configuration;
-
 namespace NortheastMegabuck.LaneAssignments.Update;
 
 /// <summary>
 /// 
 /// </summary>
-public sealed class BusinessLogic : IBusinessLogic
+internal sealed class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -16,25 +14,10 @@ public sealed class BusinessLogic : IBusinessLogic
     private readonly IDataLayer _dataLayer;
     private readonly Retrieve.IBusinessLogic _retrieveLaneAssignment;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    public BusinessLogic(IDataLayer dataLayer, Retrieve.IBusinessLogic retrieveLaneAssignment)
     {
-        _dataLayer = new DataLayer(config);
-        _retrieveLaneAssignment = new Retrieve.BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockDataLayer"></param>
-    /// <param name="mockRetrieveLaneAssignment"></param>
-    internal BusinessLogic(IDataLayer mockDataLayer, Retrieve.IBusinessLogic mockRetrieveLaneAssignment)
-    {
-        _dataLayer = mockDataLayer;
-        _retrieveLaneAssignment = mockRetrieveLaneAssignment;
+        _dataLayer = dataLayer;
+        _retrieveLaneAssignment = retrieveLaneAssignment;
     }
 
     async Task IBusinessLogic.ExecuteAsync(SquadId squadId, BowlerId bowlerId, string originalPosition, string updatedPosition, CancellationToken cancellationToken)

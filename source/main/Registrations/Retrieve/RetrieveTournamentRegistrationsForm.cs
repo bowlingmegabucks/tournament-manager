@@ -4,18 +4,21 @@ using System.Text;
 namespace NortheastMegabuck.Registrations.Retrieve;
 internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRegistrationsView
 {
-    private readonly IConfiguration _config;
+    private readonly IServiceProvider _services;
+    private readonly TournamentRegistrationsPresenter _tournamentRegistrationsPresenter;
 
-    public RetrieveTournamentRegistrationsForm(IConfiguration config, TournamentId tournamentId)
+    public RetrieveTournamentRegistrationsForm(IServiceProvider services, TournamentId tournamentId)
     {
         InitializeComponent();
 
         tournamentRegistrationsGrid.SelectedRowContextMenu = registrationGridContextMenu;
 
-        _config = config;
+        _services = services;
+        _tournamentRegistrationsPresenter = new(this, services);
+
         TournamentId = tournamentId;
 
-        _ = new TournamentRegistrationsPresenter(this, config).ExecuteAsync(default);
+        _ = _tournamentRegistrationsPresenter.ExecuteAsync(default);
     }
 
     public TournamentId TournamentId { get; }
@@ -76,19 +79,19 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     {
         var registration = tournamentRegistrationsGrid.SelectedRegistration;
 
-        await new TournamentRegistrationsPresenter(this, _config).DeleteAsync(registration.Id, default).ConfigureAwait(true);
+        await _tournamentRegistrationsPresenter.DeleteAsync(registration.Id, default).ConfigureAwait(true);
     }
 
     private void UpdateBowlerNameMenuItem_Click(object sender, EventArgs e)
     {
         var registration = tournamentRegistrationsGrid.SelectedRegistration;
 
-        new TournamentRegistrationsPresenter(this, _config).UpdateBowlerName(registration.BowlerId);
+        _tournamentRegistrationsPresenter.UpdateBowlerName(registration.BowlerId);
     }
 
     public string? UpdateBowlerName(BowlerId id)
     {
-        using var form = new Bowlers.Update.NameForm(_config, id);
+        using var form = new Bowlers.Update.NameForm(_services, id);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.FullName : null;
     }
@@ -103,12 +106,12 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
     {
         var registration = tournamentRegistrationsGrid.SelectedRegistration;
 
-        await new TournamentRegistrationsPresenter(this, _config).AddSuperSweeperAsync(registration.Id, default).ConfigureAwait(true);
+        await _tournamentRegistrationsPresenter.AddSuperSweeperAsync(registration.Id, default).ConfigureAwait(true);
     }
 
     private async void ChangeDivisionMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Update.UpdateRegistrationDivisionForm(_config, TournamentId, tournamentRegistrationsGrid.SelectedRegistration.Id);
+        using var form = new Update.UpdateRegistrationDivisionForm(_services, TournamentId, tournamentRegistrationsGrid.SelectedRegistration.Id);
 
 #pragma warning disable S6966
         var result = form.ShowDialog(this);
@@ -116,13 +119,13 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
         if (result == DialogResult.OK)
         {
-            await new TournamentRegistrationsPresenter(this, _config).ExecuteAsync(default).ConfigureAwait(true);
+            await _tournamentRegistrationsPresenter.ExecuteAsync(default).ConfigureAwait(true);
         }
     }
 
     private void ChangeAverageMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Update.UpdateRegistrationAverageForm(_config, tournamentRegistrationsGrid.SelectedRegistration.Id);
+        using var form = new Update.UpdateRegistrationAverageForm(_services, tournamentRegistrationsGrid.SelectedRegistration.Id);
 
         form.ShowDialog(this);
     }
@@ -132,7 +135,7 @@ internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRe
 
     private void UpdateBowlerInfoMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Bowlers.Update.UpdateForm(_config, tournamentRegistrationsGrid.SelectedRegistration.BowlerId);
+        using var form = new Bowlers.Update.UpdateForm(_services, tournamentRegistrationsGrid.SelectedRegistration.BowlerId);
 
         form.ShowDialog(this);
     }

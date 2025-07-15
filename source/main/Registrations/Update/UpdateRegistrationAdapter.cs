@@ -6,21 +6,11 @@ internal sealed class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
 
-    public IEnumerable<Models.ErrorDetail> Errors
+    public IEnumerable<ErrorDetail> Errors
         => _businessLogic.Errors;
-
-    public Adapter(IConfiguration config)
+    public Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = mockBusinessLogic;
+        _businessLogic = businessLogic;
     }
 
     async Task IAdapter.AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
@@ -35,7 +25,7 @@ internal sealed class Adapter : IAdapter
 
 internal interface IAdapter
 {
-    IEnumerable<Models.ErrorDetail> Errors { get; }
+    IEnumerable<ErrorDetail> Errors { get; }
 
     Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken);
 

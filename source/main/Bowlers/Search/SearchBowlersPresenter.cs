@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Extensions.DependencyInjection;
+
 namespace NortheastMegabuck.Bowlers.Search;
 internal class Presenter
 {
@@ -7,10 +9,10 @@ internal class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    internal Presenter(IView view, IServiceProvider services)
     {
         _view = view;
-        _adapter = new Lazy<IAdapter>(() => new Adapter(config));
+        _adapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
     }
 
     /// <summary>

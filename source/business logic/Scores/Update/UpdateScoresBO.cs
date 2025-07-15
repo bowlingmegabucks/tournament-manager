@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Configuration;
 
 namespace NortheastMegabuck.Scores.Update;
 
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     private readonly List<Models.ErrorDetail> _errors;
 
@@ -20,22 +19,11 @@ public class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    public BusinessLogic(IValidator<IEnumerable<Models.SquadScore>> validator, IDataLayer dataLayer)
     {
         _errors = [];
-        _validator = new Validator();
-        _dataLayer = new Lazy<IDataLayer>(() => new DataLayer(config));
-    }
-
-    internal BusinessLogic(IValidator<IEnumerable<Models.SquadScore>> mockValidator, IDataLayer mockDataLayer)
-    {
-        _errors = [];
-        _validator = mockValidator;
-        _dataLayer = new Lazy<IDataLayer>(() => mockDataLayer);
+        _validator = validator;
+        _dataLayer = new Lazy<IDataLayer>(() => dataLayer);
     }
 
     /// <summary>

@@ -1,12 +1,9 @@
-﻿
-using Microsoft.Extensions.Configuration;
-
-namespace NortheastMegabuck.Tournaments.Seeding;
+﻿namespace NortheastMegabuck.Tournaments.Seeding;
 
 /// <summary>
 /// 
 /// </summary>
-public class BusinessLogic : IBusinessLogic
+internal class BusinessLogic : IBusinessLogic
 {
     /// <summary>
     /// 
@@ -17,25 +14,10 @@ public class BusinessLogic : IBusinessLogic
     private readonly Results.IBusinessLogic _tournamentResults;
     private readonly ICalculator _calculator;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="config"></param>
-    public BusinessLogic(IConfiguration config)
+    public BusinessLogic(Results.IBusinessLogic tournamentResults, ICalculator calculator)
     {
-        _tournamentResults = new Results.BusinessLogic(config);
-        _calculator = new Calculator();
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockTournamentResults"></param>
-    /// <param name="mockCalculator"></param>
-    internal BusinessLogic(Results.IBusinessLogic mockTournamentResults, ICalculator mockCalculator)
-    {
-        _tournamentResults = mockTournamentResults;
-        _calculator = mockCalculator;
+        _tournamentResults = tournamentResults;
+        _calculator = calculator;
     }
 
     /// <summary>

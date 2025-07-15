@@ -1,14 +1,17 @@
-﻿namespace NortheastMegabuck.Sweepers.Retrieve;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace NortheastMegabuck.Sweepers.Retrieve;
 internal class Presenter
 {
     private readonly IView _view;
 
     private readonly IAdapter _getSweepersAdapter;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
-        _getSweepersAdapter = new Adapter(config);
+
+        _getSweepersAdapter = services.GetRequiredService<IAdapter>();
     }
 
     /// <summary>

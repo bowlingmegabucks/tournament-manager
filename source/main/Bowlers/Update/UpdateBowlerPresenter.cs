@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Extensions.DependencyInjection;
+
 namespace NortheastMegabuck.Bowlers.Update;
 internal class Presenter
 {
@@ -9,12 +11,12 @@ internal class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
 
-        _retrieveBowlerAdapter = new Retrieve.Adapter(config);
-        _adapter = new Lazy<IAdapter>(() => new Adapter(config));
+        _retrieveBowlerAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _adapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
     }
 
     /// <summary>
