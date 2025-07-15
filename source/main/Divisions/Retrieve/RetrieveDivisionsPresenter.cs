@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Divisions.Retrieve;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace NortheastMegabuck.Divisions.Retrieve;
 
 internal class Presenter
 {
@@ -6,10 +8,10 @@ internal class Presenter
 
     private readonly IAdapter _adapter;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
-        _adapter = new Adapter(config);
+        _adapter = services.GetRequiredService<IAdapter>();
     }
 
     /// <summary>
