@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Extensions.DependencyInjection;
+
 namespace NortheastMegabuck.Bowlers.Update;
 internal class Presenter
 {
@@ -9,11 +11,25 @@ internal class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    internal Presenter(IView view, Retrieve.IAdapter retrieveBowlerAdapter, IAdapter updateBowlerAdapter)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
-        _retrieveBowlerAdapter = retrieveBowlerAdapter;
-        _adapter = new Lazy<IAdapter>(() => updateBowlerAdapter);
+
+        _retrieveBowlerAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _adapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockView"></param>
+    /// <param name="mockRetrieveBowlerAdapter"></param>
+    /// <param name="mockUpdateBowlerAdapter"></param>
+    internal Presenter(IView mockView, Retrieve.IAdapter mockRetrieveBowlerAdapter, IAdapter mockUpdateBowlerAdapter)
+    {
+        _view = mockView;
+        _retrieveBowlerAdapter = mockRetrieveBowlerAdapter;
+        _adapter = new Lazy<IAdapter>(() => mockUpdateBowlerAdapter);
     }
 
     public async Task LoadAsync(BowlerId id, CancellationToken cancellationToken)

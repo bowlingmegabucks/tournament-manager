@@ -4,14 +4,14 @@ internal partial class NameForm
     : Form, IBowlerNameView
 {
     private readonly NamePresenter _presenter;
-    public NameForm(NamePresenter presenter, BowlerId id)
+    public NameForm(IServiceProvider services, BowlerId id)
     {
         InitializeComponent();
 
         Id = id;
-        _presenter = presenter;
+        _presenter = new(this, services);
 
-        _ = presenter.LoadAsync(default);
+        _ = _presenter.LoadAsync(default);
     }
 
     public BowlerId Id { get; }

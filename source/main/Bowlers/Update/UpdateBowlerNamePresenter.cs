@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Extensions.DependencyInjection;
+
 namespace NortheastMegabuck.Bowlers.Update;
 internal class NamePresenter
 {
@@ -9,11 +11,25 @@ internal class NamePresenter
     private readonly Lazy<IAdapter> _updateBowlerNameAdapter;
     private IAdapter UpdateBowlerNameAdapter => _updateBowlerNameAdapter.Value;
 
-    internal NamePresenter(IBowlerNameView view, Retrieve.IAdapter retrieveBowlerAdapter, IAdapter updateBowlerNameAdapter)
+    public NamePresenter(IBowlerNameView view, IServiceProvider services)
     {
         _view = view;
-        _retrieveBowlerAdapter = retrieveBowlerAdapter;
-        _updateBowlerNameAdapter = new Lazy<IAdapter>(() => updateBowlerNameAdapter);
+
+        _retrieveBowlerAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _updateBowlerNameAdapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockView"></param>
+    /// <param name="mockRetrieveBowlerAdapter"></param>
+    /// <param name="mockUpdateBowlerNameAdapter"></param>
+    internal NamePresenter(IBowlerNameView mockView, Retrieve.IAdapter mockRetrieveBowlerAdapter, IAdapter mockUpdateBowlerNameAdapter)
+    {
+        _view = mockView;
+        _retrieveBowlerAdapter = mockRetrieveBowlerAdapter;
+        _updateBowlerNameAdapter = new Lazy<IAdapter>(() => mockUpdateBowlerNameAdapter);
     }
 
     public async Task LoadAsync(CancellationToken cancellationToken)

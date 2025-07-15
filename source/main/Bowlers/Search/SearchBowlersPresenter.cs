@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Extensions.DependencyInjection;
+
 namespace NortheastMegabuck.Bowlers.Search;
 internal class Presenter
 {
@@ -7,10 +9,21 @@ internal class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    internal Presenter(IView view, IAdapter adapter)
+    internal Presenter(IView view, IServiceProvider services)
     {
         _view = view;
-        _adapter = new Lazy<IAdapter>(() => adapter);
+        _adapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
+    }
+
+    /// <summary>
+    /// Unit Test Constructor
+    /// </summary>
+    /// <param name="mockView"></param>
+    /// <param name="mockAdapter"></param>
+    internal Presenter(IView mockView, IAdapter mockAdapter)
+    {
+        _view = mockView;
+        _adapter = new Lazy<IAdapter>(() => mockAdapter);
     }
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)

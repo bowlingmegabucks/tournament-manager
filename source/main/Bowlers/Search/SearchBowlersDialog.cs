@@ -8,19 +8,20 @@ internal partial class Dialog : Form, IView
     private readonly TournamentId? _registeredInTournament;
     private readonly TournamentId? _notRegisteredInTournament;
 
-    public Dialog(Presenter presenter, bool allowNewBowler) : this(presenter, allowNewBowler, null, [])
+    public Dialog(IServiceProvider services, bool allowNewBowler) : this(services, allowNewBowler, null, [])
     { }
 
-    public Dialog(Presenter presenter, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad) : this(presenter, allowNewBowler, registeredInTournament, registrationWithoutSquad, null)
+    public Dialog(IServiceProvider services, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad) : this(services, allowNewBowler, registeredInTournament, registrationWithoutSquad, null)
     { }
 
-    private Dialog(Presenter presenter, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad, TournamentId? notRegisteredInTournament)
+    private Dialog(IServiceProvider services, bool allowNewBowler, TournamentId? registeredInTournament, IEnumerable<SquadId> registrationWithoutSquad, TournamentId? notRegisteredInTournament)
     {
         InitializeComponent();
 
         SelectedBowlerId = null;
 
-        _presenter = presenter;
+        _presenter = new Presenter(this, services);
+
         _registrationsWithoutSquads = registrationWithoutSquad;
         _registeredInTournament = registeredInTournament;
         _notRegisteredInTournament = notRegisteredInTournament;

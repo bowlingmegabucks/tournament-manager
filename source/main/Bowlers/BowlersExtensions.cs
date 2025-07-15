@@ -12,18 +12,12 @@ internal static class BowlersExtensions
     {
         services.AddTransient<Retrieve.IAdapter, Retrieve.Adapter>();
 
-        services.AddTransient<Search.IView, Search.Dialog>();
         services.AddTransient<Search.IAdapter, Search.Adapter>();
         services.AddTransient<Search.Dialog>();
-        services.AddTransient<Search.Presenter>();
 
-        services.AddTransient<Update.IBowlerNameView, Update.NameForm>();
-        services.AddTransient<Update.IView, Update.UpdateForm>();
         services.AddTransient<Update.IAdapter, Update.Adapter>();
         services.AddTransient<Update.NameForm>();
         services.AddTransient<Update.UpdateForm>();
-        services.AddTransient<Update.NamePresenter>();
-        services.AddTransient<Update.Presenter>();
 
         return services;
     }

@@ -8,14 +8,14 @@ internal partial class UpdateForm
     /// <summary>
     /// Add Registration from Tournament Portal
     /// </summary>
-    /// <param name="presenter"></param>
+    /// <param name="services"></param>
     /// <param name="bowlerId"></param>
-    public UpdateForm(Presenter presenter, BowlerId bowlerId)
+    public UpdateForm(IServiceProvider services, BowlerId bowlerId)
     {
         InitializeComponent();
 
-        _presenter = presenter;
-        _ = presenter.LoadAsync(bowlerId, new CancellationToken());
+        _presenter = new(this, services);
+        _ = _presenter.LoadAsync(bowlerId, new CancellationToken());
     }
 
     public IViewModel Bowler
