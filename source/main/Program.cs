@@ -31,7 +31,8 @@ internal static class Program
         ApplicationConfiguration.Initialize();
 
         var configBuilder = new ConfigurationBuilder()
-                            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory);
+                            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                            .AddEnvironmentVariables();
 #if DEBUG
         configBuilder.AddUserSecrets<Tournaments.Retrieve.Form>();
 #else
@@ -39,10 +40,10 @@ internal static class Program
 
         var builtConfiguration = configBuilder.Build();
 
-        var kvUrl = builtConfiguration["KeyVaultConfig:KVUrl"]!;
+        var kvUrl = builtConfiguration["KEYVAULT_URL"]!;
         var tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
         var clientId = builtConfiguration["KeyVaultConfig:ClientId"];
-        var clientSecret = builtConfiguration["KeyVaultConfig:ClientSecret"];
+        var clientSecret = builtConfiguration["KEYVAULT_CLIENT_SECRET"];
 
         var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
 
