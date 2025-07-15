@@ -150,15 +150,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public BowlerId? SelectBowler(TournamentId tournamentId, SquadId squadId)
     {
-        var presenter = _services.GetRequiredService<Bowlers.Search.Presenter>();
-        using var form = new Bowlers.Search.Dialog(presenter, false, tournamentId, [squadId]);
+        using var form = new Bowlers.Search.Dialog(_services, false, tournamentId, [squadId]);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }
 
     public bool NewRegistration(TournamentId tournamentId, SquadId squadId)
     {
-        using var form = new Registrations.Add.Form(_config, tournamentId, squadId);
+        using var form = new Registrations.Add.Form(_services, tournamentId, squadId);
 
         return form.ShowDialog(this) == DialogResult.OK;
     }

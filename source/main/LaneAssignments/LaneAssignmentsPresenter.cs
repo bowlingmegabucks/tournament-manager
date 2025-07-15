@@ -1,4 +1,5 @@
-﻿using NortheastMegabuck.Scores;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NortheastMegabuck.Scores;
 
 namespace NortheastMegabuck.LaneAssignments;
 internal class Presenter
@@ -20,17 +21,17 @@ internal class Presenter
     private readonly Lazy<Registrations.Delete.IAdapter> _deleteAdapter;
     private Registrations.Delete.IAdapter DeleteAdapter => _deleteAdapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
-        _laneAvailability = new LaneAvailability();
+        _laneAvailability = services.GetRequiredService<ILaneAvailability>();
 
-        _retrieveAdapter = new Lazy<Retrieve.IAdapter>(() => new Retrieve.Adapter(config));
-        _updateAdapter = new Lazy<Update.IAdapter>(() => new Update.Adapter(config));
-        _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(() => new Registrations.Add.Adapter(config));
-        _deleteAdapter = new Lazy<Registrations.Delete.IAdapter>(() => new Registrations.Delete.Adapter(config));
+        _retrieveAdapter = new Lazy<Retrieve.IAdapter>(services.GetRequiredService<Retrieve.IAdapter>);
+        _updateAdapter = new Lazy<Update.IAdapter>(services.GetRequiredService<Update.IAdapter>);
+        _addRegistrationAdapter = new Lazy<Registrations.Add.IAdapter>(services.GetRequiredService<Registrations.Add.IAdapter>);
+        _deleteAdapter = new Lazy<Registrations.Delete.IAdapter>(services.GetRequiredService<Registrations.Delete.IAdapter>);
 
-        _generateCrossFactory = new GenerateCrossFactory();
+        _generateCrossFactory = services.GetRequiredService<IGenerateCrossFactory>();
     }
 
     /// <summary>

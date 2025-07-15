@@ -159,8 +159,7 @@ internal partial class Form
 
     public BowlerId? SelectBowler()
     {
-        var presenter = _services.GetRequiredService<Bowlers.Search.Presenter>();
-        using var form = new Bowlers.Search.Dialog(presenter, true);
+        using var form = new Bowlers.Search.Dialog(_services, true);
 
         return form.ShowDialog(this) == DialogResult.OK ? form.SelectedBowlerId : null;
     }
