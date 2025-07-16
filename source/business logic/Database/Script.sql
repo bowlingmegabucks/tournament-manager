@@ -119,7 +119,6 @@ CREATE TABLE `Registrations` (
     `Average` int NULL,
     `SuperSweeper` tinyint(1) NOT NULL,
     CONSTRAINT `PK_Registrations` PRIMARY KEY (`Id`),
-    CONSTRAINT `AK_Registrations_BowlerId_DivisionId` UNIQUE (`BowlerId`, `DivisionId`),
     CONSTRAINT `FK_Registrations_Bowlers_BowlerId` FOREIGN KEY (`BowlerId`) REFERENCES `Bowlers` (`Id`),
     CONSTRAINT `FK_Registrations_Divisions_DivisionId` FOREIGN KEY (`DivisionId`) REFERENCES `Divisions` (`Id`)
 ) CHARACTER SET=utf8mb4;
@@ -199,8 +198,6 @@ VALUES ('20230802154109_TournamentSquadEntryFee', '8.0.11');
 COMMIT;
 
 START TRANSACTION;
-
-ALTER TABLE `Registrations` DROP KEY `AK_Registrations_BowlerId_DivisionId`;
 
 CREATE UNIQUE INDEX `IX_Registrations_BowlerId_DivisionId` ON `Registrations` (`BowlerId`, `DivisionId`);
 

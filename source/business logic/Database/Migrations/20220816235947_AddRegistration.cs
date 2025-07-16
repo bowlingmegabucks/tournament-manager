@@ -22,7 +22,6 @@ public partial class AddRegistration : Migration
             constraints: table =>
             {
                 table.PrimaryKey("PK_Registrations", x => x.Id);
-                table.UniqueConstraint("AK_Registrations_BowlerId_DivisionId", x => new { x.BowlerId, x.DivisionId });
                 table.ForeignKey(
                     name: "FK_Registrations_Bowlers_BowlerId",
                     column: x => x.BowlerId,
