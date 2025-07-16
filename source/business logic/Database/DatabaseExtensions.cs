@@ -26,7 +26,7 @@ public static class DatabaseExtensions
     /// </summary>
     public static async Task ApplyMigrationsAsync(this IServiceScope scope)
     {
-        ArgumentNullException.ThrowIfNull(scope, nameof(scope));
+        ArgumentNullException.ThrowIfNull(scope);
         
         await using var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<DataContext>>();
