@@ -20,7 +20,7 @@ internal sealed class BusinessLogic : IBusinessLogic
 
     private readonly IDataLayer _dataLayer;
 
-    public BusinessLogic(IValidator<Models.PersonName> nameValidator, IValidator<Models.Bowler> bowlerValidator, IDataLayer dataLayer)
+    public BusinessLogic(IValidator<Models.PersonName> nameValidator, IUpdateBowlerValidator bowlerValidator, IDataLayer dataLayer)
     {
         _nameValidator = new Lazy<IValidator<Models.PersonName>>(() => nameValidator);
         _bowlerValidator = new Lazy<IValidator<Models.Bowler>>(() => bowlerValidator);

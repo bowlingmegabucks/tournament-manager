@@ -4,7 +4,7 @@ internal class EntityMapper : IEntityMapper
 {
     private readonly Bowlers.IEntityMapper _bowlerMapper;
 
-    internal EntityMapper()
+    public EntityMapper()
     {
         _bowlerMapper = new Bowlers.EntityMapper();
     }

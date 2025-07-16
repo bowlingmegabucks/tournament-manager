@@ -6,6 +6,7 @@ using NJsonSchema.Generation.TypeMappers;
 using NortheastMegabuck;
 using NortheastMegabuck.Api;
 using NortheastMegabuck.Api.Authentication;
+using NortheastMegabuck.Database;
 using NortheastMegabuck.Models;
 using Scalar.AspNetCore;
 
@@ -69,8 +70,14 @@ builder.Services.SwaggerDocument(o =>
 
 var app = builder.Build();
 
-app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json"); 
+app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
 app.MapScalarApiReference();
+
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    await scope.ApplyMigrationsAsync();
+}
 
 app.UseHttpsRedirection();
 
