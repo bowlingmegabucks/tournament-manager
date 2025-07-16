@@ -9,7 +9,7 @@ internal static class DatabaseExtensions
     {
         services.AddDbContext<DataContext>(options =>
             options.UseMySql(config.GetConnectionString("tournament-manager-db") ?? throw new InvalidOperationException("Cannot get connection string tournament-manager-db"),
-            new MySqlServerVersion(new Version(10, 3, 35)), mySqlOptions => mySqlOptions.EnableRetryOnFailure(3)));
+            new MySqlServerVersion(new Version(11, 4, 7)), mySqlOptions => mySqlOptions.EnableRetryOnFailure(3)));
 
         services.AddTransient<IDataContext, DataContext>();
 
