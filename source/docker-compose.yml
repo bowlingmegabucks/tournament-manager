@@ -1,5 +1,3 @@
-version: '3.8'
-
 name: bowling_megabucks
 services:
   database:
@@ -16,6 +14,18 @@ services:
     volumes:
       - bowling_megabucks_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      
+  telemetry:
+    container_name: bowling_megabucks_telemetry
+    image: datalust/seq:2024.3
+    environment:
+        ACCEPT_EULA: "Y"
+    volumes:
+        - bowling_megabucks_telemetry:/data
+    ports:
+        - 18080:80
+        - 15341:5341
 
 volumes:
   bowling_megabucks_data:
+  bowling_megabucks_telemetry:
