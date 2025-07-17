@@ -76,7 +76,8 @@ builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
     .WithTracing(tracing => tracing
         .AddHttpClientInstrumentation()
-        .AddAspNetCoreInstrumentation())
+        .AddAspNetCoreInstrumentation()
+        .AddEntityFrameworkCoreInstrumentation())
     .WithMetrics(metrics => metrics
         .AddHttpClientInstrumentation()
         .AddAspNetCoreInstrumentation()
