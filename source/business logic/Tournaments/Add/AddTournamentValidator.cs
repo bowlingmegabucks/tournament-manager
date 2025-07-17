@@ -4,7 +4,7 @@ namespace NortheastMegabuck.Tournaments.Add;
 
 internal class Validator : AbstractValidator<Models.Tournament>
 {
-    internal Validator()
+    public Validator()
     {
         RuleFor(tournament => tournament.Name).NotEmpty().WithMessage("Name is required");
 

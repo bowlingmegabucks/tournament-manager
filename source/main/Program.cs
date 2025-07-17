@@ -35,6 +35,7 @@ internal static class Program
                             .AddEnvironmentVariables();
 #if DEBUG
         configBuilder.AddUserSecrets<Tournaments.Retrieve.Form>();
+        configBuilder.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true);
 #else
         configBuilder.AddJsonFile("appsettings.json");
 

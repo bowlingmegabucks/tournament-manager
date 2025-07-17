@@ -4,7 +4,7 @@ namespace NortheastMegabuck.Squads.Add;
 
 internal class Validator : AbstractValidator<Models.Squad>
 {
-    internal Validator()
+    public Validator()
     {
         RuleFor(squad => squad.TournamentId).Must(id => id != TournamentId.Empty).WithMessage("Tournament Id is required");
         RuleFor(squad => squad.Tournament).NotNull().WithMessage("Tournament is required");

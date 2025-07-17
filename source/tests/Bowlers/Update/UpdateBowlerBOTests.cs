@@ -7,7 +7,7 @@ namespace NortheastMegabuck.Tests.Bowlers.Update;
 internal sealed class BusinessLogic
 {
     private Mock<IValidator<NortheastMegabuck.Models.PersonName>> _nameValidator;
-    private Mock<IValidator<NortheastMegabuck.Models.Bowler>> _bowlerValidator;
+    private Mock<NortheastMegabuck.Bowlers.Update.IUpdateBowlerValidator> _bowlerValidator;
 
     private Mock<NortheastMegabuck.Bowlers.Update.IDataLayer> _dataLayer;
 
@@ -17,7 +17,7 @@ internal sealed class BusinessLogic
     public void SetUp()
     {
         _nameValidator = new Mock<IValidator<NortheastMegabuck.Models.PersonName>>();
-        _bowlerValidator = new Mock<IValidator<NortheastMegabuck.Models.Bowler>>();
+        _bowlerValidator = new Mock<NortheastMegabuck.Bowlers.Update.IUpdateBowlerValidator>();
         _dataLayer = new Mock<NortheastMegabuck.Bowlers.Update.IDataLayer>();
 
         _businessLogic = new NortheastMegabuck.Bowlers.Update.BusinessLogic(_nameValidator.Object, _bowlerValidator.Object, _dataLayer.Object);

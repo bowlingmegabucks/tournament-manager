@@ -6,7 +6,12 @@ using NJsonSchema.Generation.TypeMappers;
 using NortheastMegabuck;
 using NortheastMegabuck.Api;
 using NortheastMegabuck.Api.Authentication;
+using NortheastMegabuck.Database;
 using NortheastMegabuck.Models;
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,10 +72,34 @@ builder.Services.SwaggerDocument(o =>
         => s.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
 
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
+    .WithTracing(tracing => tracing
+        .AddHttpClientInstrumentation()
+        .AddAspNetCoreInstrumentation()
+        .AddEntityFrameworkCoreInstrumentation())
+    .WithMetrics(metrics => metrics
+        .AddHttpClientInstrumentation()
+        .AddAspNetCoreInstrumentation()
+        .AddRuntimeInstrumentation())
+    .UseOtlpExporter();
+
+builder.Logging.AddOpenTelemetry(options =>
+{
+    options.IncludeScopes = true;
+    options.IncludeFormattedMessage = true;
+});
+
 var app = builder.Build();
 
-app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json"); 
+app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
 app.MapScalarApiReference();
+
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    await scope.ApplyMigrationsAsync();
+}
 
 app.UseHttpsRedirection();
 

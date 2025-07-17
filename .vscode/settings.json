@@ -1,3 +1,19 @@
 {
-    "dotnet-test-explorer.testProjectPath": "source/tests/*.Tests.csproj"
+    "dotnet-test-explorer.testProjectPath": "source/tests/*.Tests.csproj",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 13306,
+            "driver": "MariaDB",
+            "name": "Bowling Megabucks (Local)",
+            "group": "Bowling Megabucks",
+            "database": "bowling_megabucks",
+            "username": "local_user"
+        }
+    ]
 }
