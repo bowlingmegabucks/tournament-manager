@@ -1,4 +1,4 @@
-name: Deploy API
+name: Deploy Infrastructure
 
 on: 
   workflow_dispatch:
