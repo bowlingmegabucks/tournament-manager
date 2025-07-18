@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Authentication;
@@ -81,14 +82,22 @@ builder.Services.AddOpenTelemetry()
     .WithMetrics(metrics => metrics
         .AddHttpClientInstrumentation()
         .AddAspNetCoreInstrumentation()
-        .AddRuntimeInstrumentation())
-    .UseOtlpExporter();
+        .AddRuntimeInstrumentation());
 
-builder.Logging.AddOpenTelemetry(options =>
+if (builder.Environment.IsDevelopment())
 {
-    options.IncludeScopes = true;
-    options.IncludeFormattedMessage = true;
-});
+    builder.Services.AddOpenTelemetry().UseOtlpExporter();
+}
+else
+{
+    builder.Services.AddOpenTelemetry().UseAzureMonitor();
+}
+
+    builder.Logging.AddOpenTelemetry(options =>
+    {
+        options.IncludeScopes = true;
+        options.IncludeFormattedMessage = true;
+    });
 
 var app = builder.Build();
 

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.SmartEnum.SystemTextJson" />
+    <PackageReference Include="Azure.Monitor.OpenTelemetry.AspNetCore" />
     <PackageReference Include="Bogus" />
     <PackageReference Include="FastEndpoints" />
     <PackageReference Include="FastEndpoints.Swagger" />
