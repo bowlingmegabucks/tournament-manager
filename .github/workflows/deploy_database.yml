@@ -15,9 +15,6 @@ jobs:
   migrate:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
-    defaults:
-      run:
-        working-directory: source/business logic
 
     steps:
       - name: Checkout code
