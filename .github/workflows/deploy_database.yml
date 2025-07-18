@@ -48,12 +48,13 @@ jobs:
         run: |
           dotnet build "source/business logic/NortheastMegabuck.BusinessLogic.csproj" --configuration Release
 
+
       - name: Build EF Migrations Bundle
         run: |
           dotnet tool install --global dotnet-ef
-          dotnet ef migrations bundle --output efbundle.exe --project "source/business logic/NortheastMegabuck.BusinessLogic.csproj"
+          dotnet ef migrations bundle --output efbundle --project "source/business logic/NortheastMegabuck.BusinessLogic.csproj"
 
       - name: Run EF Migrations Bundle
         run: |
-          chmod +x efbundle.exe
-          ./efbundle.exe --connection "$DB_CONNECTION_STRING"
+          chmod +x efbundle
+          ./efbundle --connection "$DB_CONNECTION_STRING"
