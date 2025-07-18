@@ -13,7 +13,7 @@ public static class DatabaseExtensions
     internal static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config)
     {
         services.AddDbContext<DataContext>(options =>
-            options.UseMySql(config.GetConnectionString("Default") ?? throw new InvalidOperationException("Cannot get connection string tournament-manager-db"),
+            options.UseMySql(config.GetConnectionString("Default") ?? throw new InvalidOperationException("Cannot get connection string Default"),
             new MySqlServerVersion(new Version(11, 4, 7)), mySqlOptions => mySqlOptions.EnableRetryOnFailure(3)));
 
         services.AddTransient<IDataContext, DataContext>();
