@@ -14,6 +14,11 @@ variable "app_service_plan_sku_name" {
   type        = string
 }
 
+variable "key_vault_purge_protection_enabled" {
+  description = "Whether purge protection is enabled for the Key Vault"
+  type        = bool
+}
+
 variable "log_analytics_workspace_sku" {
   description = "The SKU for the Log Analytics Workspace"
   type        = string

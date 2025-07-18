@@ -83,7 +83,7 @@ resource "azurerm_key_vault" "app_key_vault" {
   sku_name  = "standard"
   tenant_id = data.azurerm_client_config.current.tenant_id
 
-  purge_protection_enabled   = true
+  purge_protection_enabled   = var.key_vault_purge_protection_enabled
   soft_delete_retention_days = 90
 }
 
