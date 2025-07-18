@@ -89,13 +89,13 @@ resource "azurerm_key_vault" "app_key_vault" {
 
 resource "azurerm_key_vault_secret" "secret_encryption_key" {
   name         = "EncryptionKey"
-  value        = data.azurerm_key_vault_secret.encryption_key
+  value        = data.azurerm_key_vault_secret.encryption_key.value
   key_vault_id = azurerm_key_vault.app_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "secret_api_key" {
   name         = "Authentication--ApiKey"
-  value        = data.azurerm_key_vault_secret.api_key
+  value        = data.azurerm_key_vault_secret.api_key.value
   key_vault_id = azurerm_key_vault.app_key_vault.id
 }
 
