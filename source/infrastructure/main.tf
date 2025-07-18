@@ -105,12 +105,6 @@ resource "azurerm_key_vault_secret" "secret_db_connection_string" {
   key_vault_id = azurerm_key_vault.app_key_vault.id
 }
 
-resource "azurerm_role_assignment" "web_app_kv_secrets_user" {
-  scope                = azurerm_key_vault.app_key_vault.id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = azurerm_linux_web_app.api.identity[0].principal_id
-}
-
 resource "azurerm_linux_web_app" "api" {
   name                = "api-megabucks-${var.environment}"
   location            = azurerm_resource_group.resource_group.location
@@ -140,4 +134,10 @@ resource "azurerm_linux_web_app" "api" {
   identity {
     type = "SystemAssigned"
   }
+}
+
+resource "azurerm_role_assignment" "web_app_kv_secrets_user" {
+  scope                = azurerm_key_vault.app_key_vault.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = azurerm_linux_web_app.api.identity[0].principal_id
 }
