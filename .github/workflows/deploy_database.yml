@@ -1,0 +1,62 @@
+name: Deploy Database
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'The environment to deploy to (e.g., dev, staging, prod)'
+        required: true
+        type: choice
+        options:
+          - stage
+          - prod
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    defaults:
+      run:
+        working-directory: source/business logic
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_TERRAFORM_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+
+      - name: Azure CLI - Get DB Connection String from Key Vault
+        id: get-conn
+        run: |
+          DB_CONNECTION_STRING=$(az keyvault secret show \
+            --vault-name "kv-megabucks-${{ github.event.inputs.environment }}" \
+            --name "bowlingm-nec-tournament-db-connection-string" \
+            --query value -o tsv)
+          echo "::add-mask::$DB_CONNECTION_STRING"
+          echo "DB_CONNECTION_STRING=$DB_CONNECTION_STRING" >> $GITHUB_ENV
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+
+      - name: Build Business Logic Project
+        run: |
+          dotnet build "source/business logic/NortheastMegabuck.BusinessLogic.csproj" --configuration Release
+
+      - name: Build EF Migrations Bundle
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet ef migrations bundle --output efbundle.exe --project "source/business logic/NortheastMegabuck.BusinessLogic.csproj"
+
+      - name: Run EF Migrations Bundle
+        run: |
+          chmod +x efbundle.exe
+          ./efbundle.exe --connection "$DB_CONNECTION_STRING"

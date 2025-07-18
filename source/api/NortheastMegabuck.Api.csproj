@@ -25,17 +25,6 @@
     <PackageReference Include="Scalar.AspNetCore" />
   </ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="../business logic/NortheastMegabuck.BusinessLogic.csproj" />
   </ItemGroup>
