@@ -50,4 +50,4 @@ jobs:
         run: terraform plan -out=${{ github.event.inputs.environment }}-tfplan -var-file="${{ github.event.inputs.environment }}.tfvars"
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve ${{ github.event.inputs.environment}}-tfplan
+        run: terraform apply -auto-approve ${{ github.event.inputs.environment }}-tfplan
