@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Authentication;
@@ -6,7 +7,12 @@ using NJsonSchema.Generation.TypeMappers;
 using NortheastMegabuck;
 using NortheastMegabuck.Api;
 using NortheastMegabuck.Api.Authentication;
+using NortheastMegabuck.Database;
 using NortheastMegabuck.Models;
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,10 +73,42 @@ builder.Services.SwaggerDocument(o =>
         => s.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
 
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
+    .WithTracing(tracing => tracing
+        .AddHttpClientInstrumentation()
+        .AddAspNetCoreInstrumentation()
+        .AddEntityFrameworkCoreInstrumentation())
+    .WithMetrics(metrics => metrics
+        .AddHttpClientInstrumentation()
+        .AddAspNetCoreInstrumentation()
+        .AddRuntimeInstrumentation());
+
+builder.Logging.AddOpenTelemetry(options =>
+{
+    options.IncludeScopes = true;
+    options.IncludeFormattedMessage = true;
+});
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddOpenTelemetry().UseOtlpExporter();
+}
+else
+{
+    builder.Services.AddOpenTelemetry().UseAzureMonitor();
+}
+
 var app = builder.Build();
 
-app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json"); 
+app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
 app.MapScalarApiReference();
+
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    await scope.ApplyMigrationsAsync();
+}
 
 app.UseHttpsRedirection();
 

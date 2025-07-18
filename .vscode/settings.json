@@ -1,3 +1,47 @@
 {
-    "dotnet-test-explorer.testProjectPath": "source/tests/*.Tests.csproj"
+    "dotnet-test-explorer.testProjectPath": "source/tests/*.Tests.csproj",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 13306,
+            "driver": "MariaDB",
+            "name": "local",
+            "group": "Bowling Megabucks",
+            "database": "bowling_megabucks",
+            "username": "local_user"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "bowlingmegabucks.com",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "stage",
+            "group": "Bowling Megabucks",
+            "database": "bowlingm_nec_tournament_dev",
+            "username": "bowlingm_nec_dev"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "bowlingmegabucks.com",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "prod",
+            "group": "Bowling Megabucks",
+            "database": "bowlingm_nec_tournament",
+            "username": "bowlingm_nec"
+        }
+    ]
 }

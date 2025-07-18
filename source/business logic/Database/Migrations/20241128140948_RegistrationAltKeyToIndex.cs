@@ -11,10 +11,6 @@ namespace NortheastMegabuck.Database.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropUniqueConstraint(
-                name: "AK_Registrations_BowlerId_DivisionId",
-                table: "Registrations");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Registrations_BowlerId_DivisionId",
                 table: "Registrations",
@@ -28,11 +24,6 @@ namespace NortheastMegabuck.Database.Migrations
             migrationBuilder.DropIndex(
                 name: "IX_Registrations_BowlerId_DivisionId",
                 table: "Registrations");
-
-            migrationBuilder.AddUniqueConstraint(
-                name: "AK_Registrations_BowlerId_DivisionId",
-                table: "Registrations",
-                columns: new[] { "BowlerId", "DivisionId" });
         }
     }
 }

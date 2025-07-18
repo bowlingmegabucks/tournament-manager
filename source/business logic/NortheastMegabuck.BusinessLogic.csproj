@@ -26,7 +26,15 @@
 		<PackageReference Include="Ardalis.SmartEnum.EFCore" />
 		<PackageReference Include="FluentValidation" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
@@ -36,14 +44,6 @@
 		<PackageReference Include="StronglyTypedId" PrivateAssets="all" ExcludeAssets="compile;runtime" />
 		<PackageReference Include="StronglyTypedId.Templates" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
 	</ItemGroup>
 
 	<ItemGroup>
