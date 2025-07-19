@@ -60,7 +60,7 @@ resource "azurerm_service_plan" "app_service_plan" {
 
 resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
   name                = "log-trn-mgr-${var.environment}"
-  location            = azurerm_resource_group.resource_group.location
+  location            = azurerm_service_plan.app_service_plan.location
   resource_group_name = azurerm_resource_group.resource_group.name
 
   sku               = var.log_analytics_workspace_sku
