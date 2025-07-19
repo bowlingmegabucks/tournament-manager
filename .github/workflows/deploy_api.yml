@@ -50,8 +50,8 @@ jobs:
 
           - name: Deploy to Azure App Service
             run: |
-              az webapp deploy --resource-group "rg-megabucks-${{ github.event.inputs.environment }}" \
-                --name "api-megabucks-${{ github.event.inputs.environment }}" \
+              az webapp deploy --resource-group "rg-trn-mgr-${{ github.event.inputs.environment }}" \
+                --name "api-trn-mgr-${{ github.event.inputs.environment }}" \
                 --src-path ./api-deployment.zip \
                 --type zip \
                 --restart true
