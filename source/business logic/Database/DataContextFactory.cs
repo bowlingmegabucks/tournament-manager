@@ -7,7 +7,7 @@ namespace BowlingMegabucks.TournamentManager.Database;
 /// <summary>
 /// 
 /// </summary>
-public sealed class DataContextFactory
+public class DataContextFactory
     : IDesignTimeDbContextFactory<DataContext>
 {
     internal static MySqlServerVersion Version
@@ -22,7 +22,7 @@ public sealed class DataContextFactory
     /// <param name="args"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    DataContext IDesignTimeDbContextFactory<DataContext>.CreateDbContext(string[] args)
+    public DataContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
         var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")
