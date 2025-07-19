@@ -22,7 +22,7 @@ provider "azurerm" {
     }
   }
 
-  use_oidc = true
+  use_oidc        = true
   subscription_id = var.subscription_id
 }
 
@@ -90,6 +90,8 @@ resource "azurerm_key_vault" "app_key_vault" {
 
   purge_protection_enabled   = var.key_vault_purge_protection_enabled
   soft_delete_retention_days = 90
+
+  enable_rbac_authorization = true
 }
 
 resource "azurerm_role_assignment" "terraform_kv_secrets_user" {
