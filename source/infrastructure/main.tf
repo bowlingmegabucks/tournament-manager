@@ -142,6 +142,8 @@ resource "azurerm_linux_web_app" "api" {
 
     WEBSITE_RUN_FROM_PACKAGE       = "1"
     WEBSITE_ENABLE_SERVICE_STORAGE = "false"
+
+    KEYVAULT_URL = azurerm_key_vault.app_key_vault.vault_uri
   }
 
   identity {

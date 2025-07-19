@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FastEndpoints;
 using FastEndpoints.Swagger;
@@ -25,7 +26,7 @@ builder.Services.AddFastEndpoints()
     .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthentication>(ApiKeyAuthentication.SchemeName, null);
 
 builder.Services.AddBusinessLogic(builder.Configuration);
-    
+
 builder.Services.SwaggerDocument(o =>
 {
     o.ReleaseVersion = 1;
@@ -73,6 +74,13 @@ builder.Services.SwaggerDocument(o =>
         => s.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
 
+var keyVaultUrl = builder.Configuration.GetValue<string>("KeyVaultUrl");
+
+if (!string.IsNullOrEmpty(keyVaultUrl))
+{
+    builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
+}
+
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
     .WithTracing(tracing => tracing
@@ -107,28 +115,28 @@ app.MapScalarApiReference();
 if (app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
-    
+
     using var scope = app.Services.CreateScope();
     await scope.ApplyMigrationsAsync();
 }
 
-app.UseAuthentication()
-    .UseAuthorization()
-    .UseFastEndpoints(c =>
-    {
-        c.Versioning.Prefix = "v";
-        c.Versioning.DefaultVersion = 1;
-        c.Versioning.PrependToRoute = true;
-
-        c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-
-        c.Endpoints.ShortNames = true;
-        c.Errors.UseProblemDetails(pd =>
+    app.UseAuthentication()
+        .UseAuthorization()
+        .UseFastEndpoints(c =>
         {
-            pd.IndicateErrorCode = true;
-            pd.IndicateErrorSeverity = true;
-        });
-    })
-    .UseSwaggerGen();
+            c.Versioning.Prefix = "v";
+            c.Versioning.DefaultVersion = 1;
+            c.Versioning.PrependToRoute = true;
+
+            c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+            c.Endpoints.ShortNames = true;
+            c.Errors.UseProblemDetails(pd =>
+            {
+                pd.IndicateErrorCode = true;
+                pd.IndicateErrorSeverity = true;
+            });
+        })
+        .UseSwaggerGen();
 
 await app.RunAsync();
