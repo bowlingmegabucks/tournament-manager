@@ -53,12 +53,6 @@ resource "azurerm_resource_group" "resource_group" {
   location = var.location
 }
 
-resource "azurerm_role_assignment" "terraform_kv_secrets_user" {
-  scope                = azurerm_resource_group.resource_group.id
-  role_definition_name = "Key Vault Secrets Officer"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
-
 resource "azurerm_service_plan" "app_service_plan" {
   name                = "asp-trn-mgr-${var.environment}"
   location            = var.app_service_plan_location
@@ -98,6 +92,12 @@ resource "azurerm_key_vault" "app_key_vault" {
   soft_delete_retention_days = 90
 
   enable_rbac_authorization = true
+}
+
+resource "azurerm_role_assignment" "terraform_kv_secrets_user" {
+  scope                = azurerm_key_vault.app_key_vault.id
+  role_definition_name = "Key Vault Secrets Officer"
+  principal_id         = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_key_vault_secret" "secret_encryption_key" {
