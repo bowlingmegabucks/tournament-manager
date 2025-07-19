@@ -8,14 +8,25 @@ using Microsoft.Extensions.Logging;
 
 namespace BowlingMegabucks.TournamentManager.Database;
 
-internal class DataContext 
+/// <summary>
+/// 
+/// </summary>
+public sealed class DataContext
     : DbContext, IDataContext
 {
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="options"></param>
     public DataContext(DbContextOptions<DataContext> options)
         : base(options)
     { }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="configurationBuilder"></param>
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.ConfigureSmartEnum();
@@ -26,8 +37,14 @@ internal class DataContext
 #if DEBUG
     private static readonly ILoggerFactory _consoleLogger = LoggerFactory.Create(builder => builder.AddConsole());
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="optionsBuilder"></param>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        ArgumentNullException.ThrowIfNull(optionsBuilder);
+
         optionsBuilder.UseLoggerFactory(_consoleLogger);
         optionsBuilder.EnableSensitiveDataLogging(true);
     }
@@ -39,8 +56,14 @@ internal class DataContext
     async Task IDataContext.SaveChangesAsync(CancellationToken cancellationToken)
         => await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="modelBuilder"></param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        ArgumentNullException.ThrowIfNull(modelBuilder);
+
         modelBuilder.ApplyConfiguration(new Entities.Tournament.Configuration());
         modelBuilder.ApplyConfiguration(new Entities.Division.Configuration());
         modelBuilder.ApplyConfiguration(new Entities.Squad.Configuration());
@@ -55,19 +78,19 @@ internal class DataContext
         modelBuilder.ApplyConfiguration(new Entities.SquadScore.Configuration());
     }
 
-    public DbSet<Entities.Tournament> Tournaments { get; set; } = null!;
+    DbSet<Entities.Tournament> IDataContext.Tournaments { get; } = null!;
 
-    public DbSet<Entities.Division> Divisions { get; set; } = null!;
+    DbSet<Entities.Division> IDataContext.Divisions { get; } = null!;
 
-    public DbSet<Entities.TournamentSquad> Squads { get; set; } = null!;
+    DbSet<Entities.TournamentSquad> IDataContext.Squads { get; } = null!;
 
-    public DbSet<Entities.SweeperSquad> Sweepers { get; set; } = null!;
+    DbSet<Entities.SweeperSquad> IDataContext.Sweepers { get; } = null!;
 
-    public DbSet<Entities.Bowler> Bowlers { get; set; } = null!;
+    DbSet<Entities.Bowler> IDataContext.Bowlers { get; } = null!;
 
-    public DbSet<Entities.Registration> Registrations { get; set; } = null!;
+    DbSet<Entities.Registration> IDataContext.Registrations { get; } = null!;
 
-    public DbSet<Entities.SquadScore> SquadScores { get; set; } = null!;
+    DbSet<Entities.SquadScore> IDataContext.SquadScores { get; } = null!;
 }
 
 internal interface IDataContext

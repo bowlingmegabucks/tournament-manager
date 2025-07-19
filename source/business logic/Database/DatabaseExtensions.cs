@@ -14,7 +14,7 @@ public static class DatabaseExtensions
     {
         services.AddDbContext<DataContext>(options =>
             options.UseMySql(config.GetConnectionString("Default") ?? throw new InvalidOperationException("Cannot get connection string Default"),
-            new MySqlServerVersion(new Version(11, 4, 7)), mySqlOptions => mySqlOptions.EnableRetryOnFailure(3)));
+            DataContextFactory.Version, DataContextFactory.MySqlOptions));
 
         services.AddTransient<IDataContext, DataContext>();
 
