@@ -81,7 +81,7 @@ resource "azurerm_application_insights" "application_insights" {
 }
 
 resource "azurerm_key_vault" "app_key_vault" {
-  name                = "kv-trn-mgr-${var.environment}"
+  name                = "kv-megabks-trn-mgr-${var.environment}"
   location            = azurerm_service_plan.app_service_plan.location
   resource_group_name = azurerm_resource_group.resource_group.name
 
