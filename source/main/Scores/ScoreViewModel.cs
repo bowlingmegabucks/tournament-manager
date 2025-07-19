@@ -1,5 +1,7 @@
 ﻿
-namespace NortheastMegabuck.Scores;
+using BowlingMegabucks.TournamentManager.Models;
+
+namespace BowlingMegabucks.TournamentManager.Scores;
 
 internal class ViewModel : IViewModel
 {
@@ -37,4 +39,19 @@ internal interface IViewModel
     short GameNumber { get; set; }
 
     int Score { get; set; }
+}
+
+internal static class ViewModelExtensions
+{
+    public static Models.SquadScore ToModel(this IViewModel viewModel)
+    {
+        return new()
+        {
+            SquadId = viewModel.SquadId,
+            Bowler = new Bowler { Id = viewModel.BowlerId },
+            GameNumber = viewModel.GameNumber,
+            Score = viewModel.Score,
+            Division = new Division()
+        };
+    }
 }

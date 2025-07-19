@@ -5,9 +5,18 @@ using Azure.Security.KeyVault.Secrets;
 #endif
 
 using System.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using BowlingMegabucks.TournamentManager.Bowlers;
+using BowlingMegabucks.TournamentManager.Divisions;
+using BowlingMegabucks.TournamentManager.LaneAssignments;
+using BowlingMegabucks.TournamentManager.Registrations;
+using BowlingMegabucks.TournamentManager.Scores;
+using BowlingMegabucks.TournamentManager.Squads;
+using BowlingMegabucks.TournamentManager.Sweepers;
+using BowlingMegabucks.TournamentManager.Tournaments;
 using QuestPDF.Infrastructure;
 
-namespace NortheastMegabuck;
+namespace BowlingMegabucks.TournamentManager;
 
 internal static class Program
 {
@@ -22,18 +31,20 @@ internal static class Program
         ApplicationConfiguration.Initialize();
 
         var configBuilder = new ConfigurationBuilder()
-                            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory);
+                            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                            .AddEnvironmentVariables();
 #if DEBUG
         configBuilder.AddUserSecrets<Tournaments.Retrieve.Form>();
+        configBuilder.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true);
 #else
         configBuilder.AddJsonFile("appsettings.json");
 
         var builtConfiguration = configBuilder.Build();
 
-        var kvUrl = builtConfiguration["KeyVaultConfig:KVUrl"]!;
+        var kvUrl = builtConfiguration["KEYVAULT_URL"]!;
         var tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
         var clientId = builtConfiguration["KeyVaultConfig:ClientId"];
-        var clientSecret = builtConfiguration["KeyVaultConfig:ClientSecret"];
+        var clientSecret = builtConfiguration["KEYVAULT_CLIENT_SECRET"];
 
         var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
 
@@ -43,12 +54,25 @@ internal static class Program
 
         var config = configBuilder.Build();
 
+        var services = new ServiceCollection();
+        services.AddSingleton<IConfiguration>(config);
+
         Encryption.Key = config["EncryptionKey"] ?? throw new ConfigurationErrorsException("Cannot get encryption key");
 
         QuestPDF.Settings.License = LicenseType.Community;
 
+        services.AddBusinessLogic(config)
+            .AddBowlersModule()
+            .AddDivisionModule()
+            .AddLaneAssignmentsModule()
+            .AddRegistrationsModule()
+            .AddScoresModule()
+            .AddSquadsModule()
+            .AddSweepersModule()
+            .AddTournamentsModule();
+
 #if WINDOWS
-        using var form = new Tournaments.Retrieve.Form(config);
+        using var form = services.BuildServiceProvider().GetRequiredService<Tournaments.Retrieve.Form>();
         Application.Run(form);
 #endif
     }

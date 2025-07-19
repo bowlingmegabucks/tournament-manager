@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Scores.Update;
+﻿namespace BowlingMegabucks.TournamentManager.Scores.Update;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
@@ -6,23 +6,14 @@ internal class Adapter : IAdapter
     public IEnumerable<Models.ErrorDetail> Errors
         => _businessLogic.Errors;
 
-    public Adapter(IConfiguration config)
+    public Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = mockBusinessLogic;
+        _businessLogic = businessLogic;
     }
 
     public async Task<IEnumerable<IViewModel>> ExecuteAsync(IEnumerable<IViewModel> scores, CancellationToken cancellationToken)
     {
-        var models = scores.Select(squadScore => new Models.SquadScore(squadScore)).ToList();
+        var models = scores.Select(squadScore => squadScore.ToModel()).ToList();
 
         var invalidScores = await _businessLogic.ExecuteAsync(models, cancellationToken).ConfigureAwait(false);
 

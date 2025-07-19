@@ -1,1 +1,1 @@
-# Northeast Megabucks Tournament
+# Bowling Megabucks Tournament Manager

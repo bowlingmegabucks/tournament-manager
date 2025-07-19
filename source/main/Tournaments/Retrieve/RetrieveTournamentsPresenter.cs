@@ -1,16 +1,17 @@
-﻿namespace NortheastMegabuck.Tournaments.Retrieve;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace BowlingMegabucks.TournamentManager.Tournaments.Retrieve;
 internal class Presenter
 {
     private readonly IView _view;
 
-    private readonly Lazy<IAdapter> _adapter;
-    private IAdapter Adapter => _adapter.Value;
+    private readonly IAdapter _adapter;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
 
-        _adapter = new Lazy<IAdapter>(() => new Adapter(config));
+        _adapter = services.GetRequiredService<IAdapter>();
     }
 
     /// <summary>
@@ -21,16 +22,16 @@ internal class Presenter
     internal Presenter(IView mockView, IAdapter mockAdapter)
     {
         _view = mockView;
-        _adapter = new Lazy<IAdapter>(() => mockAdapter);
+        _adapter = mockAdapter;
     }
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var tournaments = await Adapter.ExecuteAsync(cancellationToken).ConfigureAwait(true);
+        var tournaments = await _adapter.ExecuteAsync(cancellationToken).ConfigureAwait(true);
 
-        if (Adapter.Error != null)
+        if (_adapter.Error != null)
         {
-            _view.DisplayErrorMessage(Adapter.Error.Message);
+            _view.DisplayErrorMessage(_adapter.Error.Message);
             _view.DisableOpenTournament();
         }
         else if (!tournaments.Any())
@@ -39,17 +40,17 @@ internal class Presenter
         }
         else
         {
-            _view.BindTournaments(tournaments.ToList());
+            _view.BindTournaments([.. tournaments]);
         }
     }
 
     public void NewTournament()
     {
-        var tournament = _view.CreateNewTournament();
+        var (id, name, gamesPerSquad) = _view.CreateNewTournament();
 
-        if (tournament.id != null)
+        if (id != null)
         {
-            _view.OpenTournament(tournament.id.Value, tournament.name, tournament.gamesPerSquad);
+            _view.OpenTournament(id.Value, name, gamesPerSquad);
         }
     }
 }

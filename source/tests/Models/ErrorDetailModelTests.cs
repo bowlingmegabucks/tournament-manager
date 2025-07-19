@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Tests.Models;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Models;
 
 [TestFixture]
 internal sealed class ErrorDetailModelTests
@@ -8,7 +8,7 @@ internal sealed class ErrorDetailModelTests
     {
         var ex = new Exception("message");
 
-        var errorDetail = new NortheastMegabuck.Models.ErrorDetail(ex);
+        var errorDetail = new BowlingMegabucks.TournamentManager.Models.ErrorDetail(ex);
 
         Assert.Multiple(() =>
         {
@@ -22,7 +22,7 @@ internal sealed class ErrorDetailModelTests
     {
         var message = "message";
 
-        var errorDetail = new NortheastMegabuck.Models.ErrorDetail(message);
+        var errorDetail = new BowlingMegabucks.TournamentManager.Models.ErrorDetail(message);
 
         Assert.Multiple(() =>
         {
@@ -37,7 +37,7 @@ internal sealed class ErrorDetailModelTests
         var message = "message";
         var returnCode = 5;
 
-        var errorDetail = new NortheastMegabuck.Models.ErrorDetail(message, returnCode);
+        var errorDetail = new BowlingMegabucks.TournamentManager.Models.ErrorDetail(message, returnCode);
 
         Assert.Multiple(() =>
         {

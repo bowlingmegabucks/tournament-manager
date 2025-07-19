@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Registrations.Delete;
+namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Delete;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.Registrations.Delete.IDataLayer> _dataLayer;
+    private Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Registrations.Delete.BusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Registrations.Delete.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NortheastMegabuck.Registrations.Delete.IDataLayer>();
+        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.Registrations.Delete.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Registrations.Delete.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -36,7 +36,7 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
+        Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
     }
 
     [Test]
@@ -58,6 +58,6 @@ internal sealed class BusinessLogic
 
         await _businessLogic.ExecuteAsync(RegistrationId.New(), default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error.Message, Is.EqualTo(ex.Message));
+        Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
     }
 }

@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Scores.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.Scores.Retrieve;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.Scores.Retrieve.IDataLayer> _dataLayer;
+    private Mock<BowlingMegabucks.TournamentManager.Scores.Retrieve.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Scores.Retrieve.BusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Scores.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NortheastMegabuck.Scores.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Scores.Retrieve.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.Scores.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Scores.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -38,14 +38,14 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Empty);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("exception"));
         });
     }
 
     [Test]
     public async Task ExecuteAsync_SquadIds_ReturnsDataLayerExecute()
     {
-        var scores = new Mock<IEnumerable<NortheastMegabuck.Models.SquadScore>>();
+        var scores = new Mock<IEnumerable<BowlingMegabucks.TournamentManager.Models.SquadScore>>();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(scores.Object);
 
         var actual = await _businessLogic.ExecuteAsync([SquadId.New(), SquadId.New()], default).ConfigureAwait(false);

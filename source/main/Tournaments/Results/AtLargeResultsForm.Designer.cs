@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Tournaments.Results;
+﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Results;
 
 partial class AtLarge
 {

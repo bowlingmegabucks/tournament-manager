@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Text;
 
-namespace NortheastMegabuck.Controls.Grids;
+namespace BowlingMegabucks.TournamentManager.Controls.Grids;
 internal partial class DivisionsGrid
 #if DEBUG
     : DivisionsMiddleGrid
@@ -26,7 +26,7 @@ internal partial class DivisionsGrid
             case nameof(genderColumn):
                 if (division!.Gender != null)
                 {
-                    e.Value = division.Gender == NortheastMegabuck.Models.Gender.Male ? "Men" : "Women";
+                    e.Value = division.Gender == BowlingMegabucks.TournamentManager.Models.Gender.Male ? "Men" : "Women";
                     e.FormattingApplied = true;
                 }
 

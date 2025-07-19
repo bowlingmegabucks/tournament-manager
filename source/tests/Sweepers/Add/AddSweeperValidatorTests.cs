@@ -1,21 +1,21 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
 
-namespace NortheastMegabuck.Tests.Sweepers.Add;
+namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Add;
 
 [TestFixture]
 internal sealed class Validator
 {
-    private IValidator<NortheastMegabuck.Models.Sweeper> _validator;
+    private IValidator<BowlingMegabucks.TournamentManager.Models.Sweeper> _validator;
 
     [SetUp]
     public void SetUp()
-        => _validator = new NortheastMegabuck.Sweepers.Add.Validator();
+        => _validator = new BowlingMegabucks.TournamentManager.Sweepers.Add.Validator();
 
     [Test]
     public void TournamentId_Empty_HasError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.Empty
         };
@@ -27,7 +27,7 @@ internal sealed class Validator
     [Test]
     public void Tournament_Null_HasError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Tournament = null
         };
@@ -39,9 +39,9 @@ internal sealed class Validator
     [Test]
     public void Tournament_NotNull_NoError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
-            Tournament = new NortheastMegabuck.Models.Tournament
+            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
             {
                 Id = TournamentId.New()
             }
@@ -57,10 +57,10 @@ internal sealed class Validator
         var id1 = TournamentId.New();
         var id2 = TournamentId.New();
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = id1,
-            Tournament = new NortheastMegabuck.Models.Tournament
+            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
             {
                 Id = id2
             }
@@ -75,10 +75,10 @@ internal sealed class Validator
     {
         var id = TournamentId.New();
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = id,
-            Tournament = new NortheastMegabuck.Models.Tournament
+            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
             {
                 Id = id
             }
@@ -91,7 +91,7 @@ internal sealed class Validator
     [Test]
     public void Games_LessThan1_HasError([Values(-1, 0)] short games)
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Games = games
         };
@@ -103,7 +103,7 @@ internal sealed class Validator
     [Test]
     public void FinalsRatio_GreaterThanOrEqualTo1_NoError([Values(1, 2)] short games)
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Games = games
         };
@@ -115,7 +115,7 @@ internal sealed class Validator
     [Test]
     public void CashRatio_LessThanOrEqualTo1_HasError([Values(-1, 0, .5, 1)] decimal cashRatio)
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             CashRatio = cashRatio
         };
@@ -127,7 +127,7 @@ internal sealed class Validator
     [Test]
     public void CashRatio_GreaterThan1_NoError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             CashRatio = 1.1m
         };
@@ -139,10 +139,10 @@ internal sealed class Validator
     [Test]
     public void Date_BeforeTournamentStart_HasError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new NortheastMegabuck.Models.Tournament
+            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2)
             }
@@ -155,10 +155,10 @@ internal sealed class Validator
     [Test]
     public void Date_OnTournamentStart_NoError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 2, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new NortheastMegabuck.Models.Tournament
+            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2),
                 End = new DateOnly(2018, 1, 3)
@@ -172,10 +172,10 @@ internal sealed class Validator
     [Test]
     public void Date_AfterTournamentStart_NoError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 3, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new NortheastMegabuck.Models.Tournament
+            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2),
                 End = new DateOnly(2018, 1, 4)
@@ -189,10 +189,10 @@ internal sealed class Validator
     [Test]
     public void Date_BeforeTournamentEnd_NoError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new NortheastMegabuck.Models.Tournament
+            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
             }
@@ -205,10 +205,10 @@ internal sealed class Validator
     [Test]
     public void Date_OnTournamentEnd_NoError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 2, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new NortheastMegabuck.Models.Tournament
+            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
             }
@@ -221,10 +221,10 @@ internal sealed class Validator
     [Test]
     public void Date_AfterTournamentEnd_HasError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 3, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new NortheastMegabuck.Models.Tournament
+            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
             }
@@ -237,7 +237,7 @@ internal sealed class Validator
     [Test]
     public void MaxPerPair_LessThanOrEqualToZero_HasError([Values(-1, 0)] short maxPerPair)
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             MaxPerPair = maxPerPair
         };
@@ -249,7 +249,7 @@ internal sealed class Validator
     [Test]
     public void MaxPerPair_GreaterThanZero_NoError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             MaxPerPair = 1
         };
@@ -261,7 +261,7 @@ internal sealed class Validator
     [Test]
     public void StartingLane_LessThanOrEqualToZero_HasError([Values(-1, 0)] short startingLane)
     {
-        var squad = new NortheastMegabuck.Models.Sweeper
+        var squad = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             StartingLane = startingLane
         };
@@ -273,7 +273,7 @@ internal sealed class Validator
     [Test]
     public void StartingLane_Even_HasError()
     {
-        var squad = new NortheastMegabuck.Models.Sweeper
+        var squad = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             StartingLane = 2
         };
@@ -285,7 +285,7 @@ internal sealed class Validator
     [Test]
     public void StartingLane_GreaterThanZeroAndOdd_NoError()
     {
-        var squad = new NortheastMegabuck.Models.Sweeper
+        var squad = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             StartingLane = 1
         };
@@ -297,7 +297,7 @@ internal sealed class Validator
     [Test]
     public void NumberOfLanes_LessThanOrEqualToZero_HasError([Values(-1, 0)] short numberOfLanes)
     {
-        var squad = new NortheastMegabuck.Models.Sweeper
+        var squad = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             NumberOfLanes = numberOfLanes
         };
@@ -309,7 +309,7 @@ internal sealed class Validator
     [Test]
     public void NumberOfLanes_Odd_HasError()
     {
-        var squad = new NortheastMegabuck.Models.Sweeper
+        var squad = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             NumberOfLanes = 11
         };
@@ -321,7 +321,7 @@ internal sealed class Validator
     [Test]
     public void NumberOfLanes_GreaterThanZeroAndEven_NoError()
     {
-        var squad = new NortheastMegabuck.Models.Sweeper
+        var squad = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             NumberOfLanes = 10
         };
@@ -333,7 +333,7 @@ internal sealed class Validator
     [Test]
     public void Complete_False_NoError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Complete = false
         };
@@ -345,7 +345,7 @@ internal sealed class Validator
     [Test]
     public void Complete_True_HasError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             Complete = true
         };
@@ -357,7 +357,7 @@ internal sealed class Validator
     [Test]
     public void EntryFee_LessThanOrEqualToZero_HasError([Values(-1, 0)] decimal entryFee)
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             EntryFee = entryFee
         };
@@ -369,7 +369,7 @@ internal sealed class Validator
     [Test]
     public void EntryFee_GreaterThanZero_NoError()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             EntryFee = .1m
         };

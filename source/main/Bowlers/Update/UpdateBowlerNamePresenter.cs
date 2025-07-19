@@ -1,5 +1,7 @@
 ﻿
-namespace NortheastMegabuck.Bowlers.Update;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 internal class NamePresenter
 {
     private readonly IBowlerNameView _view;
@@ -9,12 +11,12 @@ internal class NamePresenter
     private readonly Lazy<IAdapter> _updateBowlerNameAdapter;
     private IAdapter UpdateBowlerNameAdapter => _updateBowlerNameAdapter.Value;
 
-    public NamePresenter(IConfiguration config, IBowlerNameView view)
+    public NamePresenter(IBowlerNameView view, IServiceProvider services)
     {
         _view = view;
 
-        _retrieveBowlerAdapter = new Retrieve.Adapter(config);
-        _updateBowlerNameAdapter = new Lazy<IAdapter>(() => new Adapter(config));
+        _retrieveBowlerAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _updateBowlerNameAdapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
     }
 
     /// <summary>

@@ -1,24 +1,25 @@
 ﻿using System.ComponentModel;
-using NortheastMegabuck.Registrations.Retrieve;
+using BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 
-namespace NortheastMegabuck.Registrations.Update;
+namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
 internal partial class UpdateRegistrationAverageForm
     : Form, IAverageView
 {
-    private readonly IConfiguration _config;
+    private readonly UpdateRegistrationAveragePresenter _presenter;
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public RegistrationId RegistrationId { get; private set; }
 
-    public UpdateRegistrationAverageForm(IConfiguration config, RegistrationId registrationId)
+    public UpdateRegistrationAverageForm(IServiceProvider services, RegistrationId registrationId)
     {
-        _config = config;
         RegistrationId = registrationId;
 
         InitializeComponent();
 
-        _ = new UpdateRegistrationAveragePresenter(config, this).LoadAsync(registrationId, default);
+        _presenter = new UpdateRegistrationAveragePresenter(this, services); 
+
+        _ = _presenter.LoadAsync(registrationId, default);
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -69,5 +70,5 @@ internal partial class UpdateRegistrationAverageForm
         => e.Cancel = !ValidateChildren();
 
     private async void SaveButton_Click(object sender, EventArgs e)
-        => await new UpdateRegistrationAveragePresenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(default).ConfigureAwait(true);
 }

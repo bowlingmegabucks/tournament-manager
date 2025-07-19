@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Registrations.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Retrieve;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.Registrations.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Registrations.Retrieve.IAdapter _adapter;
+    private BowlingMegabucks.TournamentManager.Registrations.Retrieve.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.Registrations.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.Registrations.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -30,8 +30,8 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_TournamentId_ErrorSetToBusinessLogicError([Range(0, 1)] int errorCount)
     {
-        var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+        var error = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var tournamentId = TournamentId.New();
 
@@ -45,8 +45,8 @@ internal sealed class Adapter
     {
         var registrations = new[]
         {
-            new NortheastMegabuck.Models.Registration{ Id = RegistrationId.New()},
-            new NortheastMegabuck.Models.Registration{ Id = RegistrationId.New()}
+            new BowlingMegabucks.TournamentManager.Models.Registration{ Id = RegistrationId.New()},
+            new BowlingMegabucks.TournamentManager.Models.Registration{ Id = RegistrationId.New()}
         };
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrations);

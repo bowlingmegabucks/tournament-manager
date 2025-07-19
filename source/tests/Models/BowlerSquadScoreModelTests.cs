@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Tests.Models;
+namespace BowlingMegabucks.TournamentManager.Tests.Models;
 
 [TestFixture]
 internal sealed class BowlerSquadScore
@@ -7,12 +7,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void Constructor_IGroupingBowlerModelSquadScoreModel_BowlerMapped()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             Id = BowlerId.New()
         };
 
-        var squadScore1 = new NortheastMegabuck.Models.SquadScore
+        var squadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Bowler = bowler,
             SquadId = SquadId.New(),
@@ -20,7 +20,7 @@ internal sealed class BowlerSquadScore
             Score = 200
         };
 
-        var squadScore2 = new NortheastMegabuck.Models.SquadScore
+        var squadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Bowler = bowler,
             SquadId = SquadId.New(),
@@ -28,7 +28,7 @@ internal sealed class BowlerSquadScore
             Score = 201
         };
 
-        var squadScore3 = new NortheastMegabuck.Models.SquadScore
+        var squadScore3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Bowler = bowler,
             SquadId = SquadId.New(),
@@ -38,7 +38,7 @@ internal sealed class BowlerSquadScore
 
         var squadScores = new[] { squadScore1, squadScore2, squadScore3 };
 
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(squadScores.GroupBy(squadScore => squadScore.Bowler).Single());
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(squadScores.GroupBy(squadScore => squadScore.Bowler).Single());
 
         Assert.That(bowlerSquadScore.Bowler, Is.EqualTo(bowler));
     }
@@ -49,12 +49,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void Constructor_IGroupingBowlerModelSquadScoreModel_SquadIdMappedToFirstSquadId()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             Id = BowlerId.New()
         };
 
-        var squadScore1 = new NortheastMegabuck.Models.SquadScore
+        var squadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Bowler = bowler,
             SquadId = SquadId.New(),
@@ -62,7 +62,7 @@ internal sealed class BowlerSquadScore
             Score = 200
         };
 
-        var squadScore2 = new NortheastMegabuck.Models.SquadScore
+        var squadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Bowler = bowler,
             SquadId = SquadId.New(),
@@ -70,7 +70,7 @@ internal sealed class BowlerSquadScore
             Score = 201
         };
 
-        var squadScore3 = new NortheastMegabuck.Models.SquadScore
+        var squadScore3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Bowler = bowler,
             SquadId = SquadId.New(),
@@ -80,7 +80,7 @@ internal sealed class BowlerSquadScore
 
         var squadScores = new[] { squadScore1, squadScore2, squadScore3 };
 
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(squadScores.GroupBy(squadScore => squadScore.Bowler).Single());
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(squadScores.GroupBy(squadScore => squadScore.Bowler).Single());
 
         Assert.That(bowlerSquadScore.SquadId, Is.EqualTo(squadScore1.SquadId));
     }
@@ -88,12 +88,12 @@ internal sealed class BowlerSquadScore
     [Test]
     public void Constructor_IGroupingBowlerModelSquadScoreModel_GameScoresMapped()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             Id = BowlerId.New()
         };
 
-        var squadScore1 = new NortheastMegabuck.Models.SquadScore
+        var squadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Bowler = bowler,
             SquadId = SquadId.New(),
@@ -101,7 +101,7 @@ internal sealed class BowlerSquadScore
             Score = 200
         };
 
-        var squadScore2 = new NortheastMegabuck.Models.SquadScore
+        var squadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Bowler = bowler,
             SquadId = SquadId.New(),
@@ -109,7 +109,7 @@ internal sealed class BowlerSquadScore
             Score = 201
         };
 
-        var squadScore3 = new NortheastMegabuck.Models.SquadScore
+        var squadScore3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Bowler = bowler,
             SquadId = SquadId.New(),
@@ -119,7 +119,7 @@ internal sealed class BowlerSquadScore
 
         var squadScores = new[] { squadScore1, squadScore2, squadScore3 };
 
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(squadScores.GroupBy(squadScore => squadScore.Bowler).Single());
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(squadScores.GroupBy(squadScore => squadScore.Bowler).Single());
 
         Assert.Multiple(() =>
         {
@@ -137,7 +137,7 @@ internal sealed class BowlerSquadScore
     [Test]
     public void Equals_ObjNull_ReturnsFalse()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore();
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
 
 #pragma warning disable CA1508 // Avoid dead conditional code
         Assert.That(bowlerSquadScore.Equals(null), Is.False);
@@ -147,18 +147,18 @@ internal sealed class BowlerSquadScore
     [Test]
     public void Equals_ObjNotBowlerSquadScore_ReturnsFalse()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore();
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
 
-        Assert.That(bowlerSquadScore.Equals(new NortheastMegabuck.Models.LaneAssignment()), Is.False);
+        Assert.That(bowlerSquadScore.Equals(new BowlingMegabucks.TournamentManager.Models.LaneAssignment()), Is.False);
     }
 
     [Test]
     public void Equals_ObjBowlerSquadScore_DifferentBowlers_ReturnsFalse()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore();
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
         bowlerSquadScore.Bowler.Id = BowlerId.New();
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore();
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
         bowlerSquadScore.Bowler.Id = BowlerId.New();
 
         Assert.That(bowlerSquadScore.Equals(other), Is.False);
@@ -167,11 +167,11 @@ internal sealed class BowlerSquadScore
     [Test]
     public void Equals_ObjBowlerSquadScore_SameBowler_DifferentSquad_ReturnsFalse()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore();
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
         bowlerSquadScore.Bowler.Id = BowlerId.New();
         bowlerSquadScore.SquadId = SquadId.New();
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore();
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
         other.Bowler.Id = bowlerSquadScore.Bowler.Id;
         other.SquadId = SquadId.New();
 
@@ -181,11 +181,11 @@ internal sealed class BowlerSquadScore
     [Test]
     public void Equals_ObjBowlerSquadScore_SameBowler_SameSquad_ReturnsTrue()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore();
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
         bowlerSquadScore.Bowler.Id = BowlerId.New();
         bowlerSquadScore.SquadId = SquadId.New();
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore();
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
         other.Bowler.Id = bowlerSquadScore.Bowler.Id;
         other.SquadId = bowlerSquadScore.SquadId;
 
@@ -197,7 +197,7 @@ internal sealed class BowlerSquadScore
     {
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore();
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
         bowlerSquadScore.Bowler.Id = bowlerId;
         bowlerSquadScore.SquadId = squadId;
 
@@ -207,7 +207,7 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_OtherNull_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore();
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore();
 
         Assert.That(bowlerSquadScore.CompareTo(null), Is.EqualTo(1));
     }
@@ -215,14 +215,14 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_OtherHasMoreGames_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 202)
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201, 202)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() },
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));
@@ -231,14 +231,14 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_OtherHasLessGames_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() },
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200)
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(-1));
@@ -247,14 +247,14 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_OtherHasHigherScore_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 202)
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201, 202)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() },
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 203)
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201, 203)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));
@@ -263,14 +263,14 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_OtherHasLowerScore_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 202)
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201, 202)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 200)
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201, 200)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(-1));
@@ -279,14 +279,14 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_OtherHasHigherGame_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200)
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 200, 200)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 199)
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201, 199)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));
@@ -295,14 +295,14 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_OtherHasLowerGame_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 199, 201)
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 199, 201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200)
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 200, 200)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(-1));
@@ -311,14 +311,14 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_SameHighGame_Other2ndHighIsHigher_Returns1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200, 300)
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 200, 200, 300)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 199, 201, 300)
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 199, 201, 300)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));
@@ -327,14 +327,14 @@ internal sealed class BowlerSquadScore
     [Test]
     public void CompareTo_SameTotalGames_SameTotalScore_SameHighGame_Other2ndHighIsLower_ReturnsNegative1()
     {
-        var bowlerSquadScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200, 300)
+        var bowlerSquadScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 200, 200, 300)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
-        var other = new NortheastMegabuck.Models.BowlerSquadScore(200, 201, 199, 300)
+        var other = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201, 199, 300)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
         Assert.That(bowlerSquadScore.CompareTo(other), Is.EqualTo(1));

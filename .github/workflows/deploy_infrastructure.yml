@@ -1,0 +1,54 @@
+name: Deploy Infrastructure
+
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'The environment to deploy to (e.g., dev, staging, prod)'
+        required: true
+        type: choice
+        options:
+          - stage
+          - prod
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    defaults:
+      run:
+        working-directory: source/infrastructure
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout Infrastructure Code
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            source/infrastructure
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_TERRAFORM_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=rg-infrastructure" \
+            -backend-config="storage_account_name=megabucksinfrastructure" \
+            -backend-config="container_name=tfstate" \
+            -backend-config="key=stage.tfstate"
+
+      - name: Terraform Plan
+        run: terraform plan -out=${{ github.event.inputs.environment }}-tfplan -var-file="${{ github.event.inputs.environment }}.tfvars" -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve ${{ github.event.inputs.environment }}-tfplan

@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using QuestPDF.Fluent;
 
-namespace NortheastMegabuck.Sweepers.Results;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Results;
 internal class SweeperResultReport : ResultReportBase<IViewModel>
 {
     internal SweeperResultReport(string title, DateTime? bowlDate, ICollection<IViewModel> results)

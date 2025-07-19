@@ -1,26 +1,28 @@
 ﻿using MockQueryable;
 
-namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<NortheastMegabuck.LaneAssignments.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.IHandicapCalculatorInternal> _handicapCalculator;
 
-    private NortheastMegabuck.LaneAssignments.Retrieve.IDataLayer _dataLayer;
+    private BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NortheastMegabuck.LaneAssignments.IRepository>();
+        _repository = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IRepository>();
+        _handicapCalculator = new Mock<BowlingMegabucks.TournamentManager.Squads.IHandicapCalculatorInternal>();
 
-        _dataLayer = new NortheastMegabuck.LaneAssignments.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.DataLayer(_repository.Object, _handicapCalculator.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_RepositoryRetrieve_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.SquadRegistration>().BuildMock());
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration>().BuildMock());
         var squadId = SquadId.New();
 
         await _dataLayer.ExecuteAsync(squadId, default).ConfigureAwait(false);
@@ -31,18 +33,18 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_ReturnsRepositoryRetrieve()
     {
-        var laneAssignments = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration
+        var laneAssignments = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration
         {
             SquadId = SquadId.New(),
-            Squad = new NortheastMegabuck.Database.Entities.TournamentSquad(),
+            Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad(),
             RegistrationId = RegistrationId.New(),
-            Registration = new NortheastMegabuck.Database.Entities.Registration
+            Registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
             {
-                Bowler = new NortheastMegabuck.Database.Entities.Bowler
+                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
                 {
                     Id = BowlerId.New()
                 },
-                Division = new NortheastMegabuck.Database.Entities.Division(),
+                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"

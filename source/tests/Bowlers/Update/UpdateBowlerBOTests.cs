@@ -1,26 +1,26 @@
 ﻿using FluentValidation;
-using NortheastMegabuck.Tests.Extensions;
+using BowlingMegabucks.TournamentManager.Tests.Extensions;
 
-namespace NortheastMegabuck.Tests.Bowlers.Update;
+namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Update;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<IValidator<NortheastMegabuck.Models.PersonName>> _nameValidator;
-    private Mock<IValidator<NortheastMegabuck.Models.Bowler>> _bowlerValidator;
+    private Mock<IValidator<BowlingMegabucks.TournamentManager.Models.PersonName>> _nameValidator;
+    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Update.IUpdateBowlerValidator> _bowlerValidator;
 
-    private Mock<NortheastMegabuck.Bowlers.Update.IDataLayer> _dataLayer;
+    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Update.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Bowlers.Update.IBusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Bowlers.Update.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _nameValidator = new Mock<IValidator<NortheastMegabuck.Models.PersonName>>();
-        _bowlerValidator = new Mock<IValidator<NortheastMegabuck.Models.Bowler>>();
-        _dataLayer = new Mock<NortheastMegabuck.Bowlers.Update.IDataLayer>();
+        _nameValidator = new Mock<IValidator<BowlingMegabucks.TournamentManager.Models.PersonName>>();
+        _bowlerValidator = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Update.IUpdateBowlerValidator>();
+        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Update.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.Bowlers.Update.BusinessLogic(_nameValidator.Object, _bowlerValidator.Object, _dataLayer.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Bowlers.Update.BusinessLogic(_nameValidator.Object, _bowlerValidator.Object, _dataLayer.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal sealed class BusinessLogic
         _nameValidator.Validate_IsValid();
 
         var bowlerId = BowlerId.New();
-        var name = new NortheastMegabuck.Models.PersonName();
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName();
         CancellationToken cancellationToken = default;
 
         await _businessLogic.ExecuteAsync(bowlerId, name, cancellationToken).ConfigureAwait(false);
@@ -43,7 +43,7 @@ internal sealed class BusinessLogic
         _nameValidator.Validate_IsNotValid("errorMessage");
 
         var bowlerId = BowlerId.New();
-        var name = new NortheastMegabuck.Models.PersonName();
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName();
 
         await _businessLogic.ExecuteAsync(bowlerId, name, default).ConfigureAwait(false);
 
@@ -51,7 +51,7 @@ internal sealed class BusinessLogic
         {
             _businessLogic.Errors.Assert_HasErrorMessage("errorMessage");
 
-            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Models.PersonName>(), It.IsAny<CancellationToken>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<BowlingMegabucks.TournamentManager.Models.PersonName>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -61,7 +61,7 @@ internal sealed class BusinessLogic
         _nameValidator.Validate_IsValid();
 
         var bowlerId = BowlerId.New();
-        var name = new NortheastMegabuck.Models.PersonName();
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName();
         CancellationToken cancellationToken = default;
 
         await _businessLogic.ExecuteAsync(bowlerId, name, cancellationToken).ConfigureAwait(false);
@@ -75,10 +75,10 @@ internal sealed class BusinessLogic
         _nameValidator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Models.PersonName>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<BowlingMegabucks.TournamentManager.Models.PersonName>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var bowlerId = BowlerId.New();
-        var name = new NortheastMegabuck.Models.PersonName();
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName();
 
         await _businessLogic.ExecuteAsync(bowlerId, name, default).ConfigureAwait(false);
 

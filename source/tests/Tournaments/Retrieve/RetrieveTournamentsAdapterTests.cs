@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Tournaments.Retrieve.Adapter _adapter;
+    private BowlingMegabucks.TournamentManager.Tournaments.Retrieve.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.Tournaments.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.Tournaments.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -28,7 +28,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_BusinessLogicErrorDetailNull_AdapterErrorDetailNull()
     {
-        _businessLogic.Setup(businessLogic => businessLogic.Error).Returns((NortheastMegabuck.Models.ErrorDetail)null);
+        _businessLogic.Setup(businessLogic => businessLogic.ErrorDetail).Returns((BowlingMegabucks.TournamentManager.Models.ErrorDetail)null);
 
         await _adapter.ExecuteAsync(default).ConfigureAwait(false);
 
@@ -38,8 +38,8 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_BusinessLogicErrorDetailNotNull_AdapterErrorDetailEqualToBusinessLogicErrorDetail()
     {
-        var errorDetail = new NortheastMegabuck.Models.ErrorDetail("message");
-        _businessLogic.Setup(businessLogic => businessLogic.Error).Returns(errorDetail);
+        var errorDetail = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("message");
+        _businessLogic.Setup(businessLogic => businessLogic.ErrorDetail).Returns(errorDetail);
 
         await _adapter.ExecuteAsync(default).ConfigureAwait(false);
 
@@ -49,9 +49,9 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ReturnsBusinessLogicResponse()
     {
-        var tournament1 = new NortheastMegabuck.Models.Tournament { EntryFee = 1 };
-        var tournament2 = new NortheastMegabuck.Models.Tournament { EntryFee = 2 };
-        var tournament3 = new NortheastMegabuck.Models.Tournament { EntryFee = 3 };
+        var tournament1 = new BowlingMegabucks.TournamentManager.Models.Tournament { EntryFee = 1 };
+        var tournament2 = new BowlingMegabucks.TournamentManager.Models.Tournament { EntryFee = 2 };
+        var tournament3 = new BowlingMegabucks.TournamentManager.Models.Tournament { EntryFee = 3 };
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
@@ -61,7 +61,7 @@ internal sealed class Adapter
 
         Assert.Multiple(() =>
         {
-            Assert.That(actual, Is.TypeOf<List<NortheastMegabuck.Tournaments.ViewModel>>());
+            Assert.That(actual, Is.TypeOf<List<BowlingMegabucks.TournamentManager.Tournaments.ViewModel>>());
             Assert.That(actual.Count(), Is.EqualTo(3));
 
             Assert.That(actual.Any(tournament => tournament.EntryFee == 1), Is.True, "tournament1 Missing");
@@ -92,7 +92,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_TournamentId_BusinessLogicExecuteReturnsTournament_TournamentReturned()
     {
-        var tournament = new NortheastMegabuck.Models.Tournament { Id = TournamentId.New() };
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament { Id = TournamentId.New() };
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
@@ -122,7 +122,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_SquadId_BusinessLogicExecuteReturnsSquad_SquadReturned()
     {
-        var tournament = new NortheastMegabuck.Models.Tournament { Id = TournamentId.New() };
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament { Id = TournamentId.New() };
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var result = await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);

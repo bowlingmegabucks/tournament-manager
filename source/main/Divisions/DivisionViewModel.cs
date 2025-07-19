@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Divisions;
+namespace BowlingMegabucks.TournamentManager.Divisions;
 internal class ViewModel : IViewModel
 {
     public DivisionId Id { get; set; }
@@ -76,4 +76,26 @@ internal interface IViewModel
     int? MaximumHandicapPerGame { get; set; }
 
     Models.Gender? Gender { get; set; }
+}
+
+internal static class ViewModelExtensions
+{
+    public static Models.Division ToModel(this IViewModel viewModel)
+    {
+        return new Models.Division
+        {
+            Id = viewModel.Id,
+            Number = viewModel.Number,
+            Name = viewModel.DivisionName,
+            TournamentId = viewModel.TournamentId,
+            MinimumAge = viewModel.MinimumAge,
+            MaximumAge = viewModel.MaximumAge,
+            MinimumAverage = viewModel.MinimumAverage,
+            MaximumAverage = viewModel.MaximumAverage,
+            HandicapPercentage = viewModel.HandicapPercentage / 100m,
+            HandicapBase = viewModel.HandicapBase,
+            MaximumHandicapPerGame = viewModel.MaximumHandicapPerGame,
+            Gender = viewModel.Gender
+        };
+    } 
 }

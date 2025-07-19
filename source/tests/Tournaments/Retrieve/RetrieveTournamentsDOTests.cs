@@ -1,27 +1,27 @@
 ﻿using MockQueryable;
-using NortheastMegabuck.Tests.Extensions;
+using BowlingMegabucks.TournamentManager.Tests.Extensions;
 
-namespace NortheastMegabuck.Tests.Tournaments.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<NortheastMegabuck.Tournaments.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.Tournaments.IRepository> _repository;
 
-    private NortheastMegabuck.Tournaments.Retrieve.IDataLayer _dataLayer;
+    private BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NortheastMegabuck.Tournaments.IRepository>();
+        _repository = new Mock<BowlingMegabucks.TournamentManager.Tournaments.IRepository>();
 
-        _dataLayer = new NortheastMegabuck.Tournaments.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new BowlingMegabucks.TournamentManager.Tournaments.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_RepositoryRetrieveAll_Called()
     {
-        _repository.Setup(repository => repository.RetrieveAll()).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Tournament>().SetUpDbContext());
+        _repository.Setup(repository => repository.RetrieveAll()).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.Tournament>().SetUpDbContext());
         await _dataLayer.ExecuteAsync(default).ConfigureAwait(false);
 
         _repository.Verify(repository => repository.RetrieveAll(), Times.Once);
@@ -34,9 +34,9 @@ internal sealed class DataLayer
         var id2 = TournamentId.New();
         var id3 = TournamentId.New();
 
-        var tournament1 = new NortheastMegabuck.Database.Entities.Tournament { Id = id1 };
-        var tournament2 = new NortheastMegabuck.Database.Entities.Tournament { Id = id2 };
-        var tournament3 = new NortheastMegabuck.Database.Entities.Tournament { Id = id3 };
+        var tournament1 = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = id1 };
+        var tournament2 = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = id2 };
+        var tournament3 = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = id3 };
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
@@ -57,7 +57,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_Id_RepositoryExecuteId_CalledCorrectly()
     {
-        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var id = TournamentId.New();
@@ -71,7 +71,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_Id_ReturnsTournament()
     {
-        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var actual = await _dataLayer.ExecuteAsync(tournament.Id, default).ConfigureAwait(false);
@@ -82,7 +82,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_DivisionId_RepositoryExecuteDivisionId_CalledCorrectly()
     {
-        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var id = DivisionId.New();
@@ -96,7 +96,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_DivisionId_ReturnsTournament()
     {
-        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var actual = await _dataLayer.ExecuteAsync(DivisionId.New(), default).ConfigureAwait(false);
@@ -107,7 +107,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_SquadId_RepositoryExecuteSquadId_CalledCorrectly()
     {
-        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var id = SquadId.New();
@@ -121,7 +121,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_SquadId_ReturnsTournament()
     {
-        var tournament = new NortheastMegabuck.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var actual = await _dataLayer.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);

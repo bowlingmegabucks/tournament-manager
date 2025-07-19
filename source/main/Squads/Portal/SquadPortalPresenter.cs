@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Squads.Portal;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace BowlingMegabucks.TournamentManager.Squads.Portal;
 internal class Presenter
 {
     private readonly IView _view;
@@ -7,12 +9,12 @@ internal class Presenter
     private readonly Lazy<Complete.IAdapter> _completeSquadAdapter;
     private Complete.IAdapter CompleteSquadAdapter => _completeSquadAdapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
 
-        _retrieveSquadAdapter = new Retrieve.Adapter(config);
-        _completeSquadAdapter = new Lazy<Complete.IAdapter>(() => new Complete.Adapter(config));
+        _retrieveSquadAdapter = services.GetRequiredService<Retrieve.IAdapter>();
+        _completeSquadAdapter = new Lazy<Complete.IAdapter>(services.GetRequiredService<Complete.IAdapter>);
     }
 
     /// <summary>

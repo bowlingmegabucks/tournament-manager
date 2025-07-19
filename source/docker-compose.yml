@@ -1,0 +1,31 @@
+name: bowling_megabucks
+services:
+  database:
+    container_name: bowling_megabucks_database
+    image: mariadb:11.4.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_123!
+      MYSQL_DATABASE: bowling_megabucks
+      MYSQL_USER: local_user
+      MYSQL_PASSWORD: local_password_123!
+    ports:
+      - "13306:3306"
+    volumes:
+      - bowling_megabucks_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      
+  telemetry:
+    container_name: bowling_megabucks_telemetry
+    image: datalust/seq:2024.3
+    environment:
+        ACCEPT_EULA: "Y"
+    volumes:
+        - bowling_megabucks_telemetry:/data
+    ports:
+        - 18080:80
+        - 15341:5341
+
+volumes:
+  bowling_megabucks_data:
+  bowling_megabucks_telemetry:

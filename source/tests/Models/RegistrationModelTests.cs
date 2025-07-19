@@ -1,5 +1,7 @@
 ﻿
-namespace NortheastMegabuck.Tests.Models;
+using BowlingMegabucks.TournamentManager.Bowlers;
+
+namespace BowlingMegabucks.TournamentManager.Tests.Models;
 
 [TestFixture]
 internal sealed class Registration
@@ -7,49 +9,49 @@ internal sealed class Registration
     [Test]
     public void Constructor_BowlerSetToValue([Values] bool superSweeper)
     {
-        var bowler = new Mock<NortheastMegabuck.Bowlers.IViewModel>();
+        var bowler = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
 
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = BowlingMegabucks.TournamentManager.DivisionId.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
-        var registration = new NortheastMegabuck.Models.Registration(new NortheastMegabuck.Models.Bowler(bowler.Object), divisionId, squads, sweepers, superSweeper, average);
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration(bowler.Object.ToModel(), divisionId, squads, sweepers, superSweeper, average);
 
         Assert.That(registration.Bowler.Name.Last, Is.EqualTo("lastName"));
     }
 
     [Test]
-    public void Constructor_BowlerInstanciatedWithId([Values] bool superSweeper)
+    public void Constructor_BowlerInstantiatedWithId([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = BowlingMegabucks.TournamentManager.DivisionId.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
-        var registration = new NortheastMegabuck.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
 
         Assert.That(registration.Bowler.Id, Is.EqualTo(bowlerId));
     }
 
     [Test]
-    public void Constructor_DivisionInstanciatedWithId([Values] bool superSweeper)
+    public void Constructor_DivisionInstantiatedWithId([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = BowlingMegabucks.TournamentManager.DivisionId.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
-        var registration = new NortheastMegabuck.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
 
         Assert.That(registration.Division.Id, Is.EqualTo(divisionId));
     }
@@ -58,14 +60,14 @@ internal sealed class Registration
     public void Constructor_SquadsMapped([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = BowlingMegabucks.TournamentManager.DivisionId.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
-        var registration = new NortheastMegabuck.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
 
         Assert.That(registration.Squads.Select(squad => squad.Id), Is.EqualTo(squads));
     }
@@ -74,14 +76,14 @@ internal sealed class Registration
     public void Constructor_SweepersMapped([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = BowlingMegabucks.TournamentManager.DivisionId.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
-        var registration = new NortheastMegabuck.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
 
         Assert.That(registration.Sweepers.Select(sweeper => sweeper.Id), Is.EqualTo(sweepers));
     }
@@ -90,12 +92,12 @@ internal sealed class Registration
     public void Constructor_AverageMapped([Values(null, 200)] int? average, [Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = BowlingMegabucks.TournamentManager.DivisionId.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
-        var registration = new NortheastMegabuck.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
 
         Assert.That(registration.Average, Is.EqualTo(average));
     }
@@ -104,159 +106,159 @@ internal sealed class Registration
     public void Constructor_SuperSweeperMapped([Values] bool superSweeper)
     {
         var bowlerId = BowlerId.New();
-        var divisionId = NortheastMegabuck.DivisionId.New();
+        var divisionId = BowlingMegabucks.TournamentManager.DivisionId.New();
 
         var squads = new List<SquadId> { SquadId.New(), SquadId.New() };
         var sweepers = new List<SquadId> { SquadId.New(), SquadId.New() };
 
         var average = 200;
 
-        var registration = new NortheastMegabuck.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration(bowlerId, divisionId, squads, sweepers, superSweeper, average);
 
         Assert.That(registration.SuperSweeper, Is.EqualTo(superSweeper));
     }
 
     [Test]
-    public void Contructor_Entity_IdMapped([Values] bool superSweeper)
+    public void Constructor_Entity_IdMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
         var sweeperId1 = SquadId.New();
         var sweeperId2 = SquadId.New();
 
-        var entity = new NortheastMegabuck.Database.Entities.Registration
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
             Average = 200,
             Squads =
             [
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId1} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
             SuperSweeper = superSweeper
         };
 
-        var model = new NortheastMegabuck.Models.Registration(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Registration(entity);
 
         Assert.That(model.Id, Is.EqualTo(entity.Id));
     }
 
     [Test]
-    public void Contructor_Entity_BowlerMapped([Values] bool superSweeper)
+    public void Constructor_Entity_BowlerMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
         var sweeperId1 = SquadId.New();
         var sweeperId2 = SquadId.New();
 
-        var entity = new NortheastMegabuck.Database.Entities.Registration
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
             Average = 200,
             Squads =
             [
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId1} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
             SuperSweeper = superSweeper
         };
 
-        var model = new NortheastMegabuck.Models.Registration(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Registration(entity);
 
         Assert.That(model.Bowler.Id, Is.EqualTo(entity.Bowler.Id));
     }
 
     [Test]
-    public void Contructor_Entity_DivisionMapped([Values] bool superSweeper)
+    public void Constructor_Entity_DivisionMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
         var sweeperId1 = SquadId.New();
         var sweeperId2 = SquadId.New();
 
-        var entity = new NortheastMegabuck.Database.Entities.Registration
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
             Average = 200,
             Squads =
             [
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId1} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
             SuperSweeper = superSweeper
         };
 
-        var model = new NortheastMegabuck.Models.Registration(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Registration(entity);
 
         Assert.That(model.Division.Id, Is.EqualTo(entity.Division.Id));
     }
 
     [Test]
-    public void Contructor_Entity_AverageMapped([Values] bool superSweeper, [Values(null, 200)] int? average)
+    public void Constructor_Entity_AverageMapped([Values] bool superSweeper, [Values(null, 200)] int? average)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
         var sweeperId1 = SquadId.New();
         var sweeperId2 = SquadId.New();
 
-        var entity = new NortheastMegabuck.Database.Entities.Registration
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
             Average = average,
             Squads =
             [
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId1} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
             SuperSweeper = superSweeper
         };
 
-        var model = new NortheastMegabuck.Models.Registration(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Registration(entity);
 
         Assert.That(model.Average, Is.EqualTo(entity.Average));
     }
 
     [Test]
-    public void Contructor_Entity_SquadsMapped([Values] bool superSweeper)
+    public void Constructor_Entity_SquadsMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
         var sweeperId1 = SquadId.New();
         var sweeperId2 = SquadId.New();
 
-        var entity = new NortheastMegabuck.Database.Entities.Registration
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
             Average = 200,
             Squads =
             [
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId1} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
             SuperSweeper = superSweeper
         };
 
-        var model = new NortheastMegabuck.Models.Registration(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Registration(entity);
 
         Assert.Multiple(() =>
         {
@@ -268,30 +270,30 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Contructor_Entity_SweepersMapped([Values] bool superSweeper)
+    public void Constructor_Entity_SweepersMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
         var sweeperId1 = SquadId.New();
         var sweeperId2 = SquadId.New();
 
-        var entity = new NortheastMegabuck.Database.Entities.Registration
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
             Average = 200,
             Squads =
             [
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId1} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
             SuperSweeper = superSweeper
         };
 
-        var model = new NortheastMegabuck.Models.Registration(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Registration(entity);
 
         Assert.Multiple(() =>
         {
@@ -303,30 +305,30 @@ internal sealed class Registration
     }
 
     [Test]
-    public void Contructor_Entity_SuperSweepperMapped([Values] bool superSweeper)
+    public void Constructor_Entity_SuperSweeperMapped([Values] bool superSweeper)
     {
         var squadId1 = SquadId.New();
         var squadId2 = SquadId.New();
         var sweeperId1 = SquadId.New();
         var sweeperId2 = SquadId.New();
 
-        var entity = new NortheastMegabuck.Database.Entities.Registration
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
             Average = 200,
             Squads =
             [
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId1} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.TournamentSquad { Id = squadId2} },
-                new NortheastMegabuck.Database.Entities.SquadRegistration { Squad = new NortheastMegabuck.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId1} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
+                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
             SuperSweeper = superSweeper
         };
 
-        var model = new NortheastMegabuck.Models.Registration(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Registration(entity);
 
         Assert.That(model.SuperSweeper, Is.EqualTo(entity.SuperSweeper));
     }

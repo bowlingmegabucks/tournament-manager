@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Bowlers.Update;
+﻿namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 
 partial class NameForm
 {

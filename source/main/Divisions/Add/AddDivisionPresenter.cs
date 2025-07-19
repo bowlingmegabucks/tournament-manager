@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Divisions.Add;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace BowlingMegabucks.TournamentManager.Divisions.Add;
 internal class Presenter
 {
     private readonly Lazy<Retrieve.IAdapter> _retrieveDivisionsAdapter;
@@ -9,12 +11,12 @@ internal class Presenter
 
     private readonly IView _view;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
 
-        _retrieveDivisionsAdapter = new Lazy<Retrieve.IAdapter>(() => new Retrieve.Adapter(config));
-        _addDivisionAdapter = new Lazy<IAdapter>(() => new Adapter(config));
+        _retrieveDivisionsAdapter = new Lazy<Retrieve.IAdapter>(services.GetRequiredService<Retrieve.IAdapter>);
+        _addDivisionAdapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
     }
 
     /// <summary>

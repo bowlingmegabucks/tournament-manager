@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Divisions.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Divisions.Retrieve;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.Divisions.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Divisions.Retrieve.Adapter _adapter;
+    private BowlingMegabucks.TournamentManager.Divisions.Retrieve.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.Divisions.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.Divisions.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.Divisions.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -29,8 +29,8 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
-        var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+        var error = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var tournamentId = TournamentId.New();
 
@@ -42,8 +42,8 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ReturnsDivisionsFromBusinessLogic()
     {
-        var division1 = new NortheastMegabuck.Models.Division { Name = "Division 1" };
-        var division2 = new NortheastMegabuck.Models.Division { Name = "Division 2" };
+        var division1 = new BowlingMegabucks.TournamentManager.Models.Division { Name = "Division 1" };
+        var division2 = new BowlingMegabucks.TournamentManager.Models.Division { Name = "Division 2" };
         var divisions = new[] { division1, division2 };
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);

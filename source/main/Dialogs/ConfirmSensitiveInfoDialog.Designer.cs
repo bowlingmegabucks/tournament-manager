@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Dialogs;
+﻿namespace BowlingMegabucks.TournamentManager.Dialogs;
 
 partial class ConfirmSensitiveInfoDialog
 {

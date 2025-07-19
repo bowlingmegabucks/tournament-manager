@@ -1,21 +1,21 @@
 ﻿
-namespace NortheastMegabuck.Tests.Squads.Results;
+namespace BowlingMegabucks.TournamentManager.Tests.Squads.Results;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<NortheastMegabuck.Squads.Results.IView> _view;
-    private Mock<NortheastMegabuck.Squads.Results.IAdapter> _adapter;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.Results.IView> _view;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.Results.IAdapter> _adapter;
 
-    private NortheastMegabuck.Squads.Results.Presenter _presenter;
+    private BowlingMegabucks.TournamentManager.Squads.Results.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NortheastMegabuck.Squads.Results.IView>();
-        _adapter = new Mock<NortheastMegabuck.Squads.Results.IAdapter>();
+        _view = new Mock<BowlingMegabucks.TournamentManager.Squads.Results.IView>();
+        _adapter = new Mock<BowlingMegabucks.TournamentManager.Squads.Results.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Squads.Results.Presenter(_view.Object, _adapter.Object);
+        _presenter = new BowlingMegabucks.TournamentManager.Squads.Results.Presenter(_view.Object, _adapter.Object);
     }
 
     [Test]
@@ -34,7 +34,7 @@ internal sealed class Presenter
     [Test]
     public async Task ExecuteAsync_AdapterHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
@@ -43,26 +43,26 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<ICollection<BowlingMegabucks.TournamentManager.Squads.Results.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public async Task ExecuteAsync_AdapterHasNoError_ViewBindResults_CalledCorrectly()
     {
-        var division1Score1 = new NortheastMegabuck.Squads.Results.ViewModel
+        var division1Score1 = new BowlingMegabucks.TournamentManager.Squads.Results.ViewModel
         {
             DivisionName = "division1",
             BowlerName = "score1"
         };
 
-        var division1Score2 = new NortheastMegabuck.Squads.Results.ViewModel
+        var division1Score2 = new BowlingMegabucks.TournamentManager.Squads.Results.ViewModel
         {
             DivisionName = "division1",
             BowlerName = "score2"
         };
 
-        var division2Score = new NortheastMegabuck.Squads.Results.ViewModel
+        var division2Score = new BowlingMegabucks.TournamentManager.Squads.Results.ViewModel
         {
             DivisionName = "division2",
             BowlerName = "score",
@@ -76,10 +76,10 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>()), Times.Exactly(2));
+            _view.Verify(view => view.BindResults(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<ICollection<BowlingMegabucks.TournamentManager.Squads.Results.IViewModel>>()), Times.Exactly(2));
 
-            _view.Verify(view => view.BindResults("division1", false, It.Is<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division1") == 2)), Times.Once);
-            _view.Verify(view => view.BindResults("division2", true, It.Is<ICollection<NortheastMegabuck.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division2") == 1)), Times.Once);
+            _view.Verify(view => view.BindResults("division1", false, It.Is<ICollection<BowlingMegabucks.TournamentManager.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division1") == 2)), Times.Once);
+            _view.Verify(view => view.BindResults("division2", true, It.Is<ICollection<BowlingMegabucks.TournamentManager.Squads.Results.IViewModel>>(score => score.Count(s => s.DivisionName == "division2") == 1)), Times.Once);
         });
     }
 }

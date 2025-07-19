@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Divisions.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Divisions.Retrieve;
 internal sealed class Presenter
 {
-    private Mock<NortheastMegabuck.Divisions.Retrieve.IView> _view;
-    private Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter> _adapter;
+    private Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IView> _view;
+    private Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IAdapter> _adapter;
 
-    private NortheastMegabuck.Divisions.Retrieve.Presenter _presenter;
+    private BowlingMegabucks.TournamentManager.Divisions.Retrieve.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NortheastMegabuck.Divisions.Retrieve.IView>();
-        _adapter = new Mock<NortheastMegabuck.Divisions.Retrieve.IAdapter>();
+        _view = new Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IView>();
+        _adapter = new Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Divisions.Retrieve.Presenter(_view.Object, _adapter.Object);
+        _presenter = new BowlingMegabucks.TournamentManager.Divisions.Retrieve.Presenter(_view.Object, _adapter.Object);
     }
 
     [Test]
@@ -31,7 +31,7 @@ internal sealed class Presenter
     [Test]
     public async Task ExecuteAsync_AdapterErrorNotNull_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
@@ -41,14 +41,14 @@ internal sealed class Presenter
             _view.Verify(view => view.DisplayError(error.Message), Times.Once);
             _view.Verify(view => view.Disable(), Times.Once());
 
-            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<NortheastMegabuck.Divisions.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.Divisions.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public async Task ExecuteAsync_AdapterErrorNull_ViewBindDivisions_CalledCorrectly()
     {
-        var divisions = new List<NortheastMegabuck.Divisions.IViewModel>();
+        var divisions = new List<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
@@ -70,7 +70,7 @@ internal sealed class Presenter
     [Test]
     public async Task AddDivisionAsync_ViewAddDivisionReturnsId_ViewRefreshDivisions_Called()
     {
-        var id = NortheastMegabuck.DivisionId.New();
+        var id = BowlingMegabucks.TournamentManager.DivisionId.New();
         _view.Setup(view => view.AddDivision(It.IsAny<TournamentId>())).Returns(id);
 
         CancellationToken cancellationToken = default;

@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Registrations.Update;
+﻿namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
 partial class UpdateRegistrationDivisionForm
 {

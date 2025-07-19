@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿namespace BowlingMegabucks.TournamentManager.Controls;
 
 partial class BowlerControl
 {
@@ -150,7 +150,7 @@ partial class BowlerControl
         emailText.Margin = new Padding(15, 3, 15, 9);
         emailText.MaxLength = 50;
         emailText.Name = "emailText";
-        emailText.PlaceholderText = "sample@NortheastMegabuck.com";
+        emailText.PlaceholderText = "sample@BowlingMegabucks.TournamentManager.com";
         emailText.Size = new Size(539, 26);
         emailText.TabIndex = 5;
         emailText.Validating += EmailText_Validating;

@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Bowlers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Retrieve;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.Bowlers.Retrieve.IDataLayer> _dataLayer;
+    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Bowlers.Retrieve.BusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Bowlers.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NortheastMegabuck.Bowlers.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.Bowlers.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Bowlers.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -30,7 +30,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_BowlerId_DataLayerExecuteSuccessful_ReturnsBowler()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler();
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
         var actual = await _businessLogic.ExecuteAsync(BowlerId.New(), default).ConfigureAwait(false);
@@ -50,7 +50,7 @@ internal sealed class BusinessLogic
         {
             Assert.That(actual, Is.Null);
 
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("ex"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("ex"));
         });
     }
 }

@@ -1,6 +1,6 @@
-﻿using NortheastMegabuck.Squads;
+﻿using BowlingMegabucks.TournamentManager.Squads;
 
-namespace NortheastMegabuck.Tests.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments;
 
 [TestFixture]
 internal sealed class ViewModel
@@ -8,16 +8,16 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_LaneAssignment_BowlerIdMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New()
             },
-            Division = new NortheastMegabuck.Models.Division()
+            Division = new BowlingMegabucks.TournamentManager.Models.Division()
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.BowlerId, Is.EqualTo(squadRegistration.Bowler.Id));
     }
@@ -25,17 +25,17 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_LaneAssignment_BowlerNameMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName", Last = "lastName" }
             },
-            Division = new NortheastMegabuck.Models.Division()
+            Division = new BowlingMegabucks.TournamentManager.Models.Division()
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo(squadRegistration.Bowler.ToString()));
     }
@@ -43,20 +43,20 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_LaneAssignment_DivisionNameMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName", Last = "lastName" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "name"
             }
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.DivisionName, Is.EqualTo(squadRegistration.Division.Name));
     }
@@ -64,21 +64,21 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_LaneAssignment_DivisionNumberMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName", Last = "lastName" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "name",
                 Number = 5
             }
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.DivisionNumber, Is.EqualTo(squadRegistration.Division.Number));
     }
@@ -86,14 +86,14 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_LaneAssignment_LaneAssignmentMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName", Last = "lastName" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "name",
                 Number = 5
@@ -101,7 +101,7 @@ internal sealed class ViewModel
             Position = "21A"
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.LaneAssignment, Is.EqualTo(squadRegistration.Position));
     }
@@ -109,14 +109,14 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_LaneAssignment_AverageNull_AverageMappedAsZero()
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName", Last = "lastName" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "name",
                 Number = 5
@@ -125,7 +125,7 @@ internal sealed class ViewModel
             Average = null
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.Average, Is.EqualTo(0));
     }
@@ -133,14 +133,14 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_LaneAssignment_AverageNotNull_AverageMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName", Last = "lastName" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "name",
                 Number = 5
@@ -149,7 +149,7 @@ internal sealed class ViewModel
             Average = 200
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.Average, Is.EqualTo(200));
     }
@@ -157,14 +157,14 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_LaneAssignment_HandicapMapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName", Last = "lastName" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "name",
                 Number = 5
@@ -174,7 +174,7 @@ internal sealed class ViewModel
             Handicap = 50
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         Assert.That(viewModel.Handicap, Is.EqualTo(50));
     }
@@ -182,15 +182,15 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_BowlerIdMapped([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
-        var registration = new NortheastMegabuck.Models.Registration
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", Last = "last" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "division",
                 Number = 5
@@ -198,7 +198,7 @@ internal sealed class ViewModel
             Average = average
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
 
         Assert.That(viewModel.BowlerId, Is.EqualTo(registration.Bowler.Id));
     }
@@ -206,15 +206,15 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_BowlerNameMapped([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
-        var registration = new NortheastMegabuck.Models.Registration
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", Last = "last" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "division",
                 Number = 5
@@ -222,7 +222,7 @@ internal sealed class ViewModel
             Average = average
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo(registration.Bowler.ToString()));
     }
@@ -230,15 +230,15 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_DivisionNameMapped([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
-        var registration = new NortheastMegabuck.Models.Registration
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", Last = "last" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "division",
                 Number = 5
@@ -246,7 +246,7 @@ internal sealed class ViewModel
             Average = average
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
 
         Assert.That(viewModel.DivisionName, Is.EqualTo(registration.Division.Name));
     }
@@ -254,15 +254,15 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_DivisionNumberMapped([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
-        var registration = new NortheastMegabuck.Models.Registration
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", Last = "last" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "division",
                 Number = 5
@@ -270,7 +270,7 @@ internal sealed class ViewModel
             Average = average
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
 
         Assert.That(viewModel.DivisionNumber, Is.EqualTo(registration.Division.Number));
     }
@@ -278,15 +278,15 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_LaneAssignmentEmpty([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
-        var registration = new NortheastMegabuck.Models.Registration
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", Last = "last" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "division",
                 Number = 5
@@ -294,7 +294,7 @@ internal sealed class ViewModel
             Average = average
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
 
         Assert.That(viewModel.LaneAssignment, Is.Empty);
     }
@@ -303,15 +303,15 @@ internal sealed class ViewModel
     [TestCase(200, 200)]
     public void Constructor_Registration_AverageMapped(int? average, int expected)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
-        var registration = new NortheastMegabuck.Models.Registration
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", Last = "last" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "division",
                 Number = 5
@@ -319,7 +319,7 @@ internal sealed class ViewModel
             Average = average
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
 
         Assert.That(viewModel.Average, Is.EqualTo(expected));
     }
@@ -327,15 +327,15 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_HandicapCalculatorCalculate_CalledCorrectly([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
-        var registration = new NortheastMegabuck.Models.Registration
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", Last = "last" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "division",
                 Number = 5
@@ -343,7 +343,7 @@ internal sealed class ViewModel
             Average = average
         };
 
-        _ = new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
+        _ = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
 
         handicapCalculator.Verify(calculator => calculator.Calculate(registration), Times.Once);
     }
@@ -351,16 +351,16 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_Registration_HandicapMapped_ToHandicapCalculatorCalculate([Values(null, 200)] int? average)
     {
-        var handicapCalculator = new Mock<IHandicapCalculator>();
-        handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<NortheastMegabuck.Models.Registration>())).Returns(10);
-        var registration = new NortheastMegabuck.Models.Registration
+        var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
+        handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<BowlingMegabucks.TournamentManager.Models.Registration>())).Returns(10);
+        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", Last = "last" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "division",
                 Number = 5
@@ -368,7 +368,7 @@ internal sealed class ViewModel
             Average = average
         };
 
-        var actual = new NortheastMegabuck.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
+        var actual = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(registration, handicapCalculator.Object);
 
         Assert.That(actual.Handicap, Is.EqualTo(10));
     }
@@ -376,14 +376,14 @@ internal sealed class ViewModel
     [Test]
     public void ToString_SuperSweeperNull_Mapped()
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName", Last = "lastName" }
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "name",
                 Number = 5
@@ -393,7 +393,7 @@ internal sealed class ViewModel
             Handicap = 50
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         var expected = $"{viewModel.LaneAssignment}\t{viewModel.BowlerId}\t{viewModel.BowlerName}\t{viewModel.DivisionNumber}\t{viewModel.Handicap}";
         var actual = viewModel.ToString();
@@ -405,14 +405,14 @@ internal sealed class ViewModel
     [TestCase(false, "N")]
     public void ToString_SuperSweeperHasValue_Mapped(bool superSweeper, string value)
     {
-        var squadRegistration = new NortheastMegabuck.Models.LaneAssignment
+        var squadRegistration = new BowlingMegabucks.TournamentManager.Models.LaneAssignment
         {
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
                 Id = BowlerId.New(),
-                Name = new NortheastMegabuck.Models.PersonName { First = "firstName", Last = "lastName" },
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName", Last = "lastName" },
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Name = "name",
                 Number = 5
@@ -423,7 +423,7 @@ internal sealed class ViewModel
             SuperSweeper = superSweeper
         };
 
-        var viewModel = new NortheastMegabuck.LaneAssignments.ViewModel(squadRegistration);
+        var viewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel(squadRegistration);
 
         var expected = $"{viewModel.LaneAssignment}\t{viewModel.BowlerId}\t{viewModel.BowlerName}\t{value}\t{viewModel.Handicap}";
         var actual = viewModel.ToString();
@@ -434,7 +434,7 @@ internal sealed class ViewModel
     [Test]
     public void CompareTo_IViewModel_Null_ThrowsArgumentNullException()
     {
-        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
+        var laneAssignment = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1A");
 
         Assert.Multiple(() =>
         {
@@ -446,8 +446,8 @@ internal sealed class ViewModel
     [Test]
     public void CompareTo_IViewModel_HigherLane_ReturnsNegative()
     {
-        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
-        var other = new NortheastMegabuck.LaneAssignments.ViewModel("3A");
+        var laneAssignment = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1A");
+        var other = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("3A");
 
         var actual = laneAssignment.CompareTo(other);
 
@@ -457,8 +457,8 @@ internal sealed class ViewModel
     [Test]
     public void CompareTo_IViewModel_LowerLane_ReturnsPositive()
     {
-        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("3A");
-        var other = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
+        var laneAssignment = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("3A");
+        var other = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1A");
 
         var actual = laneAssignment.CompareTo(other);
 
@@ -468,8 +468,8 @@ internal sealed class ViewModel
     [Test]
     public void CompareTo_IViewModel_SameLaneHigherLetter_ReturnsNegativeOne()
     {
-        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
-        var other = new NortheastMegabuck.LaneAssignments.ViewModel("1B");
+        var laneAssignment = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1A");
+        var other = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1B");
 
         var expected = -1;
         var actual = laneAssignment.CompareTo(other);
@@ -480,8 +480,8 @@ internal sealed class ViewModel
     [Test]
     public void CompareTo_IViewModel_SameLaneLowerLetter_ReturnsOne()
     {
-        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1B");
-        var other = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
+        var laneAssignment = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1B");
+        var other = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1A");
 
         var expected = 1;
         var actual = laneAssignment.CompareTo(other);
@@ -492,8 +492,8 @@ internal sealed class ViewModel
     [Test]
     public void CompareTo_IViewModel_SameLaneSameLetter_ReturnsZero()
     {
-        var laneAssignment = new NortheastMegabuck.LaneAssignments.ViewModel("1B");
-        var other = new NortheastMegabuck.LaneAssignments.ViewModel("1B");
+        var laneAssignment = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1B");
+        var other = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1B");
 
         var expected = 0;
         var actual = laneAssignment.CompareTo(other);

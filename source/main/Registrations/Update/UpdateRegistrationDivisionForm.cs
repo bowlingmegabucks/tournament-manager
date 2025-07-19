@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
-using NortheastMegabuck.Registrations.Retrieve;
+using BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 
-namespace NortheastMegabuck.Registrations.Update;
+namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
 internal partial class UpdateRegistrationDivisionForm
     : Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly UpdateRegistrationDivisionPresenter _presenter;
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public RegistrationId RegistrationId { get; private set; }
@@ -14,21 +14,22 @@ internal partial class UpdateRegistrationDivisionForm
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public TournamentId TournamentId { get; private set; }
 
-    public UpdateRegistrationDivisionForm(IConfiguration config, TournamentId tournamentId, RegistrationId registrationId)
+    public UpdateRegistrationDivisionForm(IServiceProvider services, TournamentId tournamentId, RegistrationId registrationId)
     {
-        _config = config;
         RegistrationId = registrationId;
         TournamentId = tournamentId;
 
         InitializeComponent();
 
-        var genders = Enum.GetNames<Models.Gender>().ToDictionary(e => (int)Enum.Parse<Models.Gender>(e), e => e);
+        _presenter = new UpdateRegistrationDivisionPresenter(this, services);
+
+        var genders = Models.Gender.ToDictionary();
 
         genderDropdown.DataSource = genders.ToList();
         genderDropdown.DisplayMember = "Value";
         genderDropdown.ValueMember = "Key";
 
-        _ = new UpdateRegistrationDivisionPresenter(config, this).LoadAsync(tournamentId, registrationId, default);
+        _ = _presenter.LoadAsync(tournamentId, registrationId, default);
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -55,16 +56,16 @@ internal partial class UpdateRegistrationDivisionForm
         }
     }
 
-    public void BindBowler(Bowlers.Retrieve.IViewModel bowler)
+    public void BindBowler(Bowlers.Retrieve.IViewModel viewModel)
     {
-        personName.First = bowler.FirstName;
-        personName.MiddleInitial = bowler.MiddleInitial;
-        personName.Last = bowler.LastName;
-        personName.Suffix = bowler.Suffix;
+        personName.First = viewModel.FirstName;
+        personName.MiddleInitial = viewModel.MiddleInitial;
+        personName.Last = viewModel.LastName;
+        personName.Suffix = viewModel.Suffix;
 
-        Gender = bowler.Gender;
-        DateOfBirth = bowler.DateOfBirth;
-        UsbcId = bowler.USBCId;
+        Gender = viewModel.Gender;
+        DateOfBirth = viewModel.DateOfBirth;
+        UsbcId = viewModel.USBCId;
     }
 
     public void BindRegistration(ITournamentRegistrationViewModel tournamentRegistrationViewModel)
@@ -130,8 +131,8 @@ internal partial class UpdateRegistrationDivisionForm
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Models.Gender? Gender
     {
-        get => genderDropdown.SelectedIndex == -1 ? null : (Models.Gender)genderDropdown.SelectedValue!;
-        set => genderDropdown.SelectedItem = value!;
+        get => genderDropdown.SelectedIndex == -1 ? null : Models.Gender.FromValue((int)genderDropdown.SelectedValue!);
+        set => genderDropdown.SelectedValue = value!.Value;
     }
 
     public DivisionId DivisionId
@@ -144,5 +145,5 @@ internal partial class UpdateRegistrationDivisionForm
         => e.Cancel = !ValidateChildren();
 
     private async void SaveButton_Click(object sender, EventArgs e)
-        => await new UpdateRegistrationDivisionPresenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(default).ConfigureAwait(true);
 }

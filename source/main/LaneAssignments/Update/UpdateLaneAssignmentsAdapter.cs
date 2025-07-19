@@ -1,24 +1,14 @@
 ﻿
-namespace NortheastMegabuck.LaneAssignments.Update;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments.Update;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error
-        => _businessLogic.Error;
+        => _businessLogic.ErrorDetail;
 
     public IBusinessLogic _businessLogic;
-
-    public Adapter(IConfiguration config)
+    public Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = mockBusinessLogic;
+        _businessLogic = businessLogic;
     }
 
     async Task IAdapter.ExecuteAsync(SquadId squadId, BowlerId bowlerId, string originalPosition, string updatedPosition, CancellationToken cancellationToken)

@@ -1,0 +1,37 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/source/api/"
+    schedule:
+      interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"
+  - package-ecosystem: "nuget"
+    directory: "/source/business logic/"
+    schedule:
+      interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"
+  - package-ecosystem: "nuget"
+    directory: "/source/main/"
+    schedule:
+      interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"
+  - package-ecosystem: "nuget"
+    directory: "/source/tests/"
+    schedule:
+      interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"
+  - package-ecosystem: "terraform"
+    directory: "/source/infrastructure/"
+    schedule:
+      interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"

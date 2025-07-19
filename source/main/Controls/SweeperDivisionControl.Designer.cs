@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿namespace BowlingMegabucks.TournamentManager.Controls;
 
 partial class SweeperDivisionControl
 {
@@ -30,9 +30,9 @@ partial class SweeperDivisionControl
     {
             this.components = new System.ComponentModel.Container();
             this.nameText = new System.Windows.Forms.TextBox();
-            this.nameLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.bonusPinsPerGameLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.bonusPinsPerGameValue = new NortheastMegabuck.Controls.NumericControl();
+            this.nameLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
+            this.bonusPinsPerGameLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
+            this.bonusPinsPerGameValue = new BowlingMegabucks.TournamentManager.Controls.NumericControl();
             this.sweeperDivisionErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bonusPinsPerGameValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sweeperDivisionErrorProvider)).BeginInit();

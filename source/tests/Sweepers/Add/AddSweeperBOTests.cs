@@ -1,24 +1,24 @@
-﻿using NortheastMegabuck.Tests.Extensions;
+﻿using BowlingMegabucks.TournamentManager.Tests.Extensions;
 
-namespace NortheastMegabuck.Tests.Sweepers.Add;
+namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Add;
 
 [TestFixture]
-internal sealed class BusinesLogic
+internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
-    private Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Sweeper>> _validator;
-    private Mock<NortheastMegabuck.Sweepers.Add.IDataLayer> _dataLayer;
+    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IBusinessLogic> _getTournamentBO;
+    private Mock<FluentValidation.IValidator<BowlingMegabucks.TournamentManager.Models.Sweeper>> _validator;
+    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Add.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Sweepers.Add.BusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Sweepers.Add.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _getTournamentBO = new Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic>();
-        _validator = new Mock<FluentValidation.IValidator<NortheastMegabuck.Models.Sweeper>>();
-        _dataLayer = new Mock<NortheastMegabuck.Sweepers.Add.IDataLayer>();
+        _getTournamentBO = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IBusinessLogic>();
+        _validator = new Mock<FluentValidation.IValidator<BowlingMegabucks.TournamentManager.Models.Sweeper>>();
+        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Add.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.Sweepers.Add.BusinessLogic(_getTournamentBO.Object, _validator.Object, _dataLayer.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Sweepers.Add.BusinessLogic(_getTournamentBO.Object, _validator.Object, _dataLayer.Object);
     }
 
     [Test]
@@ -26,7 +26,7 @@ internal sealed class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -40,10 +40,10 @@ internal sealed class BusinesLogic
     [Test]
     public async Task ExecuteAsync_GetTournamentBOHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _getTournamentBO.SetupGet(getTournamentBO => getTournamentBO.Error).Returns(error);
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        _getTournamentBO.SetupGet(getTournamentBO => getTournamentBO.ErrorDetail).Returns(error);
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -55,8 +55,8 @@ internal sealed class BusinesLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(actual, Is.Null);
 
-            _validator.Verify(validator => validator.ValidateAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>()), Times.Never);
-            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>()), Times.Never);
+            _validator.Verify(validator => validator.ValidateAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Sweeper>(), It.IsAny<CancellationToken>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Sweeper>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -65,10 +65,10 @@ internal sealed class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NortheastMegabuck.Models.Tournament();
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -83,10 +83,10 @@ internal sealed class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NortheastMegabuck.Models.Tournament();
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -98,7 +98,7 @@ internal sealed class BusinesLogic
         Assert.Multiple(() =>
         {
             _validator.Verify(validator => validator.ValidateAsync(sweeper, cancellationToken), Times.Once);
-            _validator.Verify(validator => validator.ValidateAsync(It.Is<NortheastMegabuck.Models.Sweeper>(s => s.Tournament == tournament), cancellationToken), Times.Once);
+            _validator.Verify(validator => validator.ValidateAsync(It.Is<BowlingMegabucks.TournamentManager.Models.Sweeper>(s => s.Tournament == tournament), cancellationToken), Times.Once);
         });
     }
 
@@ -107,10 +107,10 @@ internal sealed class BusinesLogic
     {
         _validator.Validate_IsNotValid("invalid");
 
-        var tournament = new NortheastMegabuck.Models.Tournament();
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -122,7 +122,7 @@ internal sealed class BusinesLogic
             _businessLogic.Errors.Assert_HasErrorMessage("invalid");
             Assert.That(actual, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Sweeper>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -131,10 +131,10 @@ internal sealed class BusinesLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new NortheastMegabuck.Models.Tournament();
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -151,12 +151,12 @@ internal sealed class BusinesLogic
         _validator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Sweeper>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        var tournament = new NortheastMegabuck.Models.Tournament();
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -176,12 +176,12 @@ internal sealed class BusinesLogic
         _validator.Validate_IsValid();
 
         var id = SquadId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<NortheastMegabuck.Models.Sweeper>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Sweeper>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
-        var tournament = new NortheastMegabuck.Models.Tournament();
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
         _getTournamentBO.Setup(getTournamentBO => getTournamentBO.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };

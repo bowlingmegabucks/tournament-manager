@@ -1,21 +1,21 @@
 ﻿
-namespace NortheastMegabuck.Tests.Tournaments.Seeding;
+namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Seeding;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.Tournaments.Results.IBusinessLogic> _tournamentResults;
-    private Mock<NortheastMegabuck.Tournaments.Seeding.ICalculator> _calculator;
+    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Results.IBusinessLogic> _tournamentResults;
+    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Seeding.ICalculator> _calculator;
 
-    private NortheastMegabuck.Tournaments.Seeding.BusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Tournaments.Seeding.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _tournamentResults = new Mock<NortheastMegabuck.Tournaments.Results.IBusinessLogic>();
-        _calculator = new Mock<NortheastMegabuck.Tournaments.Seeding.ICalculator>();
+        _tournamentResults = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Results.IBusinessLogic>();
+        _calculator = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Seeding.ICalculator>();
 
-        _businessLogic = new NortheastMegabuck.Tournaments.Seeding.BusinessLogic(_tournamentResults.Object, _calculator.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Tournaments.Seeding.BusinessLogic(_tournamentResults.Object, _calculator.Object);
     }
 
     [Test]
@@ -32,36 +32,36 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentResultsHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _tournamentResults.SetupGet(tournamentResults => tournamentResults.Error).Returns(error);
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        _tournamentResults.SetupGet(tournamentResults => tournamentResults.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.Empty);
-            Assert.That(_businessLogic.Error, Is.EqualTo(error));
+            Assert.That(_businessLogic.ErrorDetail, Is.EqualTo(error));
         });
     }
 
     [Test]
     public async Task ExecuteAsync_TournamentResultsHasNoError_CorrectSeedingReturned()
     {
-        var division1Result = new NortheastMegabuck.Models.TournamentResults
+        var division1Result = new BowlingMegabucks.TournamentManager.Models.TournamentResults
         {
-            Division = new NortheastMegabuck.Models.Division()
+            Division = new BowlingMegabucks.TournamentManager.Models.Division()
         };
 
-        var division2Result = new NortheastMegabuck.Models.TournamentResults
+        var division2Result = new BowlingMegabucks.TournamentManager.Models.TournamentResults
         {
-            Division = new NortheastMegabuck.Models.Division()
+            Division = new BowlingMegabucks.TournamentManager.Models.Division()
         };
 
         var results = new[] { division1Result, division2Result };
         _tournamentResults.Setup(tournamentResult => tournamentResult.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(results);
 
-        static NortheastMegabuck.Models.TournamentFinalsSeeding seedingReturn(NortheastMegabuck.Models.TournamentResults result) => new() { Division = result.Division };
-        _calculator.Setup(calculator => calculator.Execute(It.IsAny<NortheastMegabuck.Models.TournamentResults>())).Returns(seedingReturn);
+        static BowlingMegabucks.TournamentManager.Models.TournamentFinalsSeeding seedingReturn(BowlingMegabucks.TournamentManager.Models.TournamentResults result) => new() { Division = result.Division };
+        _calculator.Setup(calculator => calculator.Execute(It.IsAny<BowlingMegabucks.TournamentManager.Models.TournamentResults>())).Returns(seedingReturn);
 
         var actual = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 

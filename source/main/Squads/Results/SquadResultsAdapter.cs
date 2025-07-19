@@ -1,24 +1,15 @@
 ﻿
-namespace NortheastMegabuck.Squads.Results;
+namespace BowlingMegabucks.TournamentManager.Squads.Results;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
 
     public Models.ErrorDetail? Error
-        => _businessLogic.Error;
+        => _businessLogic.ErrorDetail;
 
-    public Adapter(IConfiguration config)
+    public Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = mockBusinessLogic;
+        _businessLogic = businessLogic;
     }
 
     public async Task<IEnumerable<IGrouping<string, IViewModel>>> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)

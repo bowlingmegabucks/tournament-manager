@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿namespace BowlingMegabucks.TournamentManager.Controls;
 
 partial class DivisionControl
 {
@@ -30,28 +30,28 @@ partial class DivisionControl
     {
             this.components = new System.ComponentModel.Container();
             this.nameText = new System.Windows.Forms.TextBox();
-            this.nameLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.nameLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
             this.divisionErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.numberLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.numberLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
             this.numberText = new System.Windows.Forms.TextBox();
-            this.minimumAgeValue = new NortheastMegabuck.Controls.NumericControl();
-            this.minimumAgeLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.maximumAgeValue = new NortheastMegabuck.Controls.NumericControl();
-            this.maximumAgeLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.minimumAgeValue = new BowlingMegabucks.TournamentManager.Controls.NumericControl();
+            this.minimumAgeLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
+            this.maximumAgeValue = new BowlingMegabucks.TournamentManager.Controls.NumericControl();
+            this.maximumAgeLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
             this.ageGroupBox = new System.Windows.Forms.GroupBox();
             this.averageGroupBox = new System.Windows.Forms.GroupBox();
-            this.minimumAverageLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.maximumAverageValue = new NortheastMegabuck.Controls.NumericControl();
-            this.minimumAverageValue = new NortheastMegabuck.Controls.NumericControl();
-            this.maximumAverageLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.minimumAverageLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
+            this.maximumAverageValue = new BowlingMegabucks.TournamentManager.Controls.NumericControl();
+            this.minimumAverageValue = new BowlingMegabucks.TournamentManager.Controls.NumericControl();
+            this.maximumAverageLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
             this.handicapGroupBox = new System.Windows.Forms.GroupBox();
-            this.maximumHandicapPerGameLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.maximumHandicapPerGameValue = new NortheastMegabuck.Controls.NumericControl();
-            this.handicapBaseLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.handicapBaseValue = new NortheastMegabuck.Controls.NumericControl();
-            this.handicapPercentageLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.handicapPercentageValue = new NortheastMegabuck.Controls.NumericControl();
-            this.genderLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.maximumHandicapPerGameLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
+            this.maximumHandicapPerGameValue = new BowlingMegabucks.TournamentManager.Controls.NumericControl();
+            this.handicapBaseLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
+            this.handicapBaseValue = new BowlingMegabucks.TournamentManager.Controls.NumericControl();
+            this.handicapPercentageLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
+            this.handicapPercentageValue = new BowlingMegabucks.TournamentManager.Controls.NumericControl();
+            this.genderLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
             this.genderDropdown = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.divisionErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimumAgeValue)).BeginInit();

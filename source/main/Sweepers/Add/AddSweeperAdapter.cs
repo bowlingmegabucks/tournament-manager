@@ -1,27 +1,18 @@
-﻿namespace NortheastMegabuck.Sweepers.Add;
+﻿namespace BowlingMegabucks.TournamentManager.Sweepers.Add;
 internal class Adapter : IAdapter
 {
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
     private readonly IBusinessLogic _businessLogic;
 
-    public Adapter(IConfiguration config)
+    public Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = mockBusinessLogic;
+        _businessLogic = businessLogic;
     }
 
     public async Task<SquadId?> ExecuteAsync(IViewModel sweeper, CancellationToken cancellationToken)
     {
-        var model = new Models.Sweeper(sweeper);
+        var model = sweeper.ToModel();
 
         var guid = await _businessLogic.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
 

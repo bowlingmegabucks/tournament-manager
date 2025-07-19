@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Divisions.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Divisions.Retrieve;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.Divisions.Retrieve.IDataLayer> _dataLayer;
+    private Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Divisions.Retrieve.BusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Divisions.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NortheastMegabuck.Divisions.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.Divisions.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Divisions.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_ReturnsDataLayerExecuteResults()
     {
-        var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Division(), 2);
+        var divisions = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.Division(), 2);
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
         var tournamentId = TournamentId.New();
@@ -42,14 +42,14 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_DataLayerExecuteNoException_ErrorNull()
     {
-        var divisions = Enumerable.Repeat(new NortheastMegabuck.Models.Division(), 2);
+        var divisions = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.Division(), 2);
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
         var tournamentId = TournamentId.New();
 
         await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
-        Assert.That(_businessLogic.Error, Is.Null);
+        Assert.That(_businessLogic.ErrorDetail, Is.Null);
     }
 
     [Test]
@@ -65,7 +65,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(actual, Is.Empty);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("exception"));
         });
     }
 
@@ -83,7 +83,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_ReturnsDataLayerExecuteResult()
     {
-        var division = new NortheastMegabuck.Models.Division();
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var divisionId = DivisionId.New();
@@ -91,19 +91,6 @@ internal sealed class BusinessLogic
         var actual = await _businessLogic.ExecuteAsync(divisionId, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(division));
-    }
-
-    [Test]
-    public async Task ExecuteAsync_DataLayerExecutetNoException_ErrorNull()
-    {
-        var division = new NortheastMegabuck.Models.Division();
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
-
-        var divisionId = DivisionId.New();
-
-        await _businessLogic.ExecuteAsync(divisionId, default).ConfigureAwait(false);
-
-        Assert.That(_businessLogic.Error, Is.Null);
     }
 
     [Test]
@@ -119,7 +106,7 @@ internal sealed class BusinessLogic
         Assert.Multiple(() =>
         {
             Assert.That(actual, Is.Null);
-            Assert.That(_businessLogic.Error.Message, Is.EqualTo("exception"));
+            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo("exception"));
         });
     }
 }

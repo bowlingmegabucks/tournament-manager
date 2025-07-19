@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.LaneAssignments;
+﻿namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 
 partial class Form
 {

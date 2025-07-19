@@ -3,7 +3,7 @@ using System.Text;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
-namespace NortheastMegabuck.Tournaments.Seeding;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Seeding;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly Dictionary<TabPage, string> _toSpreadsheet;
@@ -13,7 +13,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     internal string ToSpreadsheet()
         => _toSpreadsheet[divisionsTabControl.SelectedTab!];
 
-    public Form(IConfiguration config, TournamentId id)
+    public Form(IServiceProvider services, TournamentId id)
     {
         InitializeComponent();
 
@@ -21,7 +21,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
         _toSpreadsheet = [];
 
-        _ = new Presenter(config, this).ExecuteAsync(default);
+        _ = new Presenter(this, services).ExecuteAsync(default);
     }
 
     public TournamentId Id { get; }

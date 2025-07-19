@@ -1,17 +1,17 @@
 ﻿
-namespace NortheastMegabuck.Bowlers.Update;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 internal partial class NameForm
     : Form, IBowlerNameView
 {
-    private readonly IConfiguration _config;
-    public NameForm(IConfiguration config, BowlerId id)
+    private readonly NamePresenter _presenter;
+    public NameForm(IServiceProvider services, BowlerId id)
     {
         InitializeComponent();
 
         Id = id;
-        _config = config;
+        _presenter = new(this, services);
 
-        _ = new NamePresenter(config, this).LoadAsync(default);
+        _ = _presenter.LoadAsync(default);
     }
 
     public BowlerId Id { get; }
@@ -55,5 +55,5 @@ internal partial class NameForm
         => MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
     private async void SaveButton_Click(object sender, EventArgs e)
-        => await new NamePresenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(default).ConfigureAwait(true);
 }

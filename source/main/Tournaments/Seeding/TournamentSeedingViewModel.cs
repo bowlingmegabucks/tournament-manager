@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Tournaments.Seeding;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Seeding;
 internal class ViewModel(int seed, bool qualified, bool atLargeCasher, Models.BowlerSquadScore bowlerScore) : IViewModel
 {
     public string DivisionName { get; } = bowlerScore.Division.Name;

@@ -1,21 +1,21 @@
-﻿namespace NortheastMegabuck.Sweepers.Add;
+﻿namespace BowlingMegabucks.TournamentManager.Sweepers.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly Presenter _presenter;
 
     public TournamentId TournamentId { get; }
 
-    public Form(IConfiguration config, TournamentId tournamentId)
+    public Form(IServiceProvider services, TournamentId tournamentId)
     {
         InitializeComponent();
 
-        _config = config;
+        _presenter = new(this, services);
         TournamentId = tournamentId;
 
         newSweeper.Date = DateTime.Today;
         newSweeper.TournamentId = tournamentId;
 
-        _ = new Presenter(_config, this).GetDivisionsAsync(default);
+        _ = _presenter.GetDivisionsAsync(default);
     }
 
     public IViewModel Sweeper
@@ -40,5 +40,5 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => ValidateChildren();
 
     private async void SaveButton_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).ExecuteAsync(default).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(default).ConfigureAwait(true);
 }

@@ -1,13 +1,15 @@
 ﻿
 using System.Runtime.Versioning;
 
-namespace NortheastMegabuck.Sweepers.Portal;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Portal;
 
 [SupportedOSPlatform("windows")]
 internal partial class Form
     : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly Presenter _presenter;
+    private readonly IServiceProvider _services;
+
     private readonly SquadId _id;
     private readonly TournamentId _tournamentId;
     private readonly short _numberOfGames;
@@ -17,11 +19,13 @@ internal partial class Form
     public void SetComplete(bool complete)
         => _complete = complete;
 
-    public Form(IConfiguration config, TournamentId tournamentId, SquadId id, short numberOfGames, DateTime squadDate, bool complete)
+    public Form(IServiceProvider services, TournamentId tournamentId, SquadId id, short numberOfGames, DateTime squadDate, bool complete)
     {
         InitializeComponent();
 
-        _config = config;
+        _presenter = new(this, services);
+        _services = services;
+
         _id = id;
         _tournamentId = tournamentId;
         _numberOfGames = numberOfGames;
@@ -31,7 +35,7 @@ internal partial class Form
 
         completeMenuItem.Visible = !complete;
 
-        _ = new Presenter(config, this).LoadAsync(default);
+        _ = _presenter.LoadAsync(default);
     }
 
     public void SetPortalTitle(string title)
@@ -60,27 +64,27 @@ internal partial class Form
 
     private void LaneAssignmentsMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new LaneAssignments.Form(_config, _tournamentId, _id, _startingLane, _numberOfLanes, _maxPerPair, _numberOfGames, _squadDate, _complete);
+        using var form = new LaneAssignments.Form(_services, _tournamentId, _id, _startingLane, _numberOfLanes, _maxPerPair, _numberOfGames, _squadDate, _complete);
 
         form.ShowDialog(this);
     }
 
     private void ScoresMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Scores.Form(_config, _id, _numberOfGames, _complete);
+        using var form = new Scores.Form(_services, _id, _numberOfGames, _complete);
 
         form.ShowDialog(this);
     }
 
     private void ResultsMenuItem_Click(object sender, EventArgs e)
     {
-        using var form = new Results.Form(_config, _id, _squadDate);
+        using var form = new Results.Form(_services, _id, _squadDate);
 
         form.ShowDialog(this);
     }
 
     private async void CompleteMenuItem_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).CompleteAsync(default).ConfigureAwait(true);
+        => await _presenter.CompleteAsync(default).ConfigureAwait(true);
 
     public bool Confirm(string message)
         => MessageBox.Show(message, "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes;

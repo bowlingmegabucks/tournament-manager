@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Add;
+﻿using BowlingMegabucks.TournamentManager.Bowlers;
+
+namespace BowlingMegabucks.TournamentManager.Registrations.Add;
 
 internal class Adapter : IAdapter
 {
@@ -8,22 +10,13 @@ internal class Adapter : IAdapter
     public IEnumerable<Models.ErrorDetail> Errors
         => BusinessLogic.Errors;
 
-    internal Adapter(IConfiguration config)
+    public Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new Lazy<IBusinessLogic>(() => new BusinessLogic(config));
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = new Lazy<IBusinessLogic>(() => mockBusinessLogic);
+        _businessLogic = new Lazy<IBusinessLogic>(() => businessLogic);
     }
 
     public async Task<RegistrationId?> ExecuteAsync(Bowlers.IViewModel bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average, CancellationToken cancellationToken)
-        => await ExecuteAsync(new Models.Registration(new Models.Bowler(bowler), divisionId, squads, sweepers, superSweeper, average), cancellationToken).ConfigureAwait(false);
+        => await ExecuteAsync(new Models.Registration(bowler.ToModel(), divisionId, squads, sweepers, superSweeper, average), cancellationToken).ConfigureAwait(false);
 
     private async Task<RegistrationId?> ExecuteAsync(Models.Registration registration, CancellationToken cancellationToken)
         => await BusinessLogic.ExecuteAsync(registration, cancellationToken).ConfigureAwait(false);

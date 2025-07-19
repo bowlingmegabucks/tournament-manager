@@ -1,20 +1,20 @@
-﻿namespace NortheastMegabuck.Tests.LaneAssignments.Update;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments.Update;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.LaneAssignments.Update.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Update.IBusinessLogic> _businessLogic;
 
 #pragma warning disable CA1859 // Use concrete types when possible for improved performance
-    private NortheastMegabuck.LaneAssignments.Update.IAdapter _adapter;
+    private BowlingMegabucks.TournamentManager.LaneAssignments.Update.IAdapter _adapter;
 #pragma warning restore CA1859 // Use concrete types when possible for improved performance
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.LaneAssignments.Update.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Update.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.LaneAssignments.Update.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.LaneAssignments.Update.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -34,8 +34,8 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ErrorSetToBusinessLogicError()
     {
-        var errorDetail = new NortheastMegabuck.Models.ErrorDetail("error");
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(errorDetail);
+        var errorDetail = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(errorDetail);
 
         var squadId = SquadId.New();
         var bowlerId = BowlerId.New();

@@ -1,20 +1,15 @@
 ﻿
-namespace NortheastMegabuck.Sweepers.Complete;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Complete;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error
-        => _businessLogic.Error;
+        => _businessLogic.ErrorDetail;
 
     private readonly IBusinessLogic _businessLogic;
 
-    public Adapter(IConfiguration config)
+    public Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new BusinessLogic(config);
-    }
-
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = mockBusinessLogic;
+        _businessLogic = businessLogic;
     }
 
     public async Task ExecuteAsync(SquadId id, CancellationToken cancellationToken)

@@ -1,5 +1,7 @@
 ﻿
-namespace NortheastMegabuck.Bowlers;
+using BowlingMegabucks.TournamentManager.Models;
+
+namespace BowlingMegabucks.TournamentManager.Bowlers;
 
 internal interface IViewModel
 {
@@ -32,4 +34,34 @@ internal interface IViewModel
     Models.Gender? Gender { get; }
 
     string SocialSecurityNumber { get; }
+}
+
+internal static class ViewModelExtensions
+{
+    public static Bowler ToModel(this IViewModel viewModel)
+    {
+        return new Bowler
+        {
+            Id = viewModel.Id,
+
+            Name = new PersonName
+            {
+                First = viewModel.FirstName,
+                MiddleInitial = viewModel.MiddleInitial,
+                Last = viewModel.LastName,
+                Suffix = viewModel.Suffix,
+            },
+
+            StreetAddress = viewModel.StreetAddress,
+            CityAddress = viewModel.CityAddress,
+            StateAddress = viewModel.StateAddress,
+            ZipCode = viewModel.ZipCode,
+            EmailAddress = viewModel.EmailAddress,
+            PhoneNumber = viewModel.PhoneNumber,
+            USBCId = viewModel.USBCId,
+            DateOfBirth = viewModel.DateOfBirth,
+            Gender = viewModel.Gender,
+            SocialSecurityNumber = viewModel.SocialSecurityNumber
+        };
+    }
 }

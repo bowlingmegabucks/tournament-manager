@@ -1,22 +1,21 @@
-﻿namespace NortheastMegabuck.Bowlers.Update;
+﻿namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 
 internal partial class UpdateForm
     : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;
+    private readonly Presenter _presenter;
 
     /// <summary>
     /// Add Registration from Tournament Portal
     /// </summary>
-    /// <param name="config"></param>
+    /// <param name="services"></param>
     /// <param name="bowlerId"></param>
-    public UpdateForm(IConfiguration config, BowlerId bowlerId)
+    public UpdateForm(IServiceProvider services, BowlerId bowlerId)
     {
         InitializeComponent();
 
-        _config = config;
-
-        _ = new Presenter(_config, this).LoadAsync(bowlerId, new CancellationToken());
+        _presenter = new(this, services);
+        _ = _presenter.LoadAsync(bowlerId, new CancellationToken());
     }
 
     public IViewModel Bowler
@@ -25,23 +24,23 @@ internal partial class UpdateForm
     public void OkToClose()
         => DialogResult = DialogResult.OK;
 
-    public void Bind(Retrieve.IViewModel bowler)
+    public void Bind(Retrieve.IViewModel viewModel)
     {
-        bowlerControl.Id = bowler.Id;
-        bowlerControl.FirstName = bowler.FirstName;
-        bowlerControl.MiddleInitial = bowler.MiddleInitial;
-        bowlerControl.LastName = bowler.LastName;
-        bowlerControl.Suffix = bowler.Suffix;
-        bowlerControl.StreetAddress = bowler.Street;
-        bowlerControl.CityAddress = bowler.City;
-        bowlerControl.StateAddress = bowler.State;
-        bowlerControl.ZipCode = bowler.ZipCode;
-        bowlerControl.EmailAddress = bowler.Email;
-        bowlerControl.DateOfBirth = bowler.DateOfBirth;
-        bowlerControl.PhoneNumber = bowler.PhoneNumber;
-        bowlerControl.USBCId = bowler.USBCId;
-        bowlerControl.Gender = bowler.Gender;
-        bowlerControl.SocialSecurityNumber = bowler.SSN;
+        bowlerControl.Id = viewModel.Id;
+        bowlerControl.FirstName = viewModel.FirstName;
+        bowlerControl.MiddleInitial = viewModel.MiddleInitial;
+        bowlerControl.LastName = viewModel.LastName;
+        bowlerControl.Suffix = viewModel.Suffix;
+        bowlerControl.StreetAddress = viewModel.Street;
+        bowlerControl.CityAddress = viewModel.City;
+        bowlerControl.StateAddress = viewModel.State;
+        bowlerControl.ZipCode = viewModel.ZipCode;
+        bowlerControl.EmailAddress = viewModel.Email;
+        bowlerControl.DateOfBirth = viewModel.DateOfBirth;
+        bowlerControl.PhoneNumber = viewModel.PhoneNumber;
+        bowlerControl.USBCId = viewModel.USBCId;
+        bowlerControl.Gender = viewModel.Gender;
+        bowlerControl.SocialSecurityNumber = viewModel.SSN;
     }
 
     public void Disable()
@@ -68,5 +67,5 @@ internal partial class UpdateForm
         => DialogResult = DialogResult.None;
 
     private async void SaveButton_Click(object sender, EventArgs e)
-        => await new Presenter(_config, this).ExecuteAsync(new CancellationToken()).ConfigureAwait(true);
+        => await _presenter.ExecuteAsync(new CancellationToken()).ConfigureAwait(true);
 }

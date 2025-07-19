@@ -1,7 +1,7 @@
 ﻿
 using System.Globalization;
 
-namespace NortheastMegabuck.Tournaments.Results;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Results;
 
 internal class AtLargeViewModel(short place, Models.BowlerSquadScore result, bool previousCasher) : IAtLargeViewModel
 {

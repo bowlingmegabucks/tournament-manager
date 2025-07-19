@@ -1,26 +1,26 @@
 ﻿using MockQueryable;
 
-namespace NortheastMegabuck.Tests.Squads.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.Squads.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<NortheastMegabuck.Squads.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.IRepository> _repository;
 
-    private NortheastMegabuck.Squads.Retrieve.DataLayer _dataLayer;
+    private BowlingMegabucks.TournamentManager.Squads.Retrieve.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NortheastMegabuck.Squads.IRepository>();
+        _repository = new Mock<BowlingMegabucks.TournamentManager.Squads.IRepository>();
 
-        _dataLayer = new NortheastMegabuck.Squads.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new BowlingMegabucks.TournamentManager.Squads.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_TournamentId_RepositoryRetrieve_Called()
     {
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.TournamentSquad>().BuildMock());
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad>().BuildMock());
 
         var id = TournamentId.New();
 
@@ -32,17 +32,17 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_TournamentId_ReturnsRepositoryRetrieveResponse()
     {
-        var squad1 = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var squad1 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             MaxPerPair = 1
         };
 
-        var squad2 = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var squad2 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             MaxPerPair = 2
         };
 
-        var squad3 = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var squad3 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             MaxPerPair = 3
         };
@@ -66,7 +66,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_SquadId_RepositoryRetrieve_CalledCorrectly()
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             MaxPerPair = 1
         };
@@ -84,7 +84,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_SquadId_ReturnsModel()
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             MaxPerPair = 1
         };

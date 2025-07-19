@@ -1,26 +1,26 @@
 ﻿using MockQueryable;
 
-namespace NortheastMegabuck.Tests.Divisions.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.Divisions.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<NortheastMegabuck.Divisions.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.Divisions.IRepository> _repository;
 
-    private NortheastMegabuck.Divisions.Retrieve.DataLayer _dataLayer;
+    private BowlingMegabucks.TournamentManager.Divisions.Retrieve.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NortheastMegabuck.Divisions.IRepository>();
+        _repository = new Mock<BowlingMegabucks.TournamentManager.Divisions.IRepository>();
 
-        _dataLayer = new NortheastMegabuck.Divisions.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new BowlingMegabucks.TournamentManager.Divisions.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_RepositoryRetrieve_Called()
     {
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Division>().BuildMock());
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.Division>().BuildMock());
         var id = TournamentId.New();
 
         await _dataLayer.ExecuteAsync(id, default).ConfigureAwait(false);
@@ -31,17 +31,17 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_ReturnsRepositoryRetrieveResponse()
     {
-        var division1 = new NortheastMegabuck.Database.Entities.Division
+        var division1 = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             Name = "Division 1"
         };
 
-        var division2 = new NortheastMegabuck.Database.Entities.Division
+        var division2 = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             Name = "Division 2"
         };
 
-        var division3 = new NortheastMegabuck.Database.Entities.Division
+        var division3 = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             Name = "Division 3"
         };
@@ -65,7 +65,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_RepositoryRetrieve_CalledCorrectly()
     {
-        var division = new NortheastMegabuck.Database.Entities.Division();
+        var division = new BowlingMegabucks.TournamentManager.Database.Entities.Division();
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var id = DivisionId.New();
@@ -79,7 +79,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_DivisionId_ReturnsRepositoryRetrieveResponse()
     {
-        var division = new NortheastMegabuck.Database.Entities.Division { Name = "name" };
+        var division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Name = "name" };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var id = DivisionId.New();

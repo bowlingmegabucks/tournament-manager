@@ -1,25 +1,16 @@
 ﻿
-namespace NortheastMegabuck.Bowlers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;
 
-    public Adapter(IConfiguration config)
+    public Adapter(IBusinessLogic businessLogic)
     {
-        _businessLogic = new BusinessLogic(config);
-    }
-
-    /// <summary>
-    /// Unit Test Constructor
-    /// </summary>
-    /// <param name="mockBusinessLogic"></param>
-    internal Adapter(IBusinessLogic mockBusinessLogic)
-    {
-        _businessLogic = mockBusinessLogic;
+        _businessLogic = businessLogic;
     }
 
     public Models.ErrorDetail? Error
-        => _businessLogic.Error;
+        => _businessLogic.ErrorDetail;
 
     public async Task<IViewModel?> ExecuteAsync(BowlerId bowlerId, CancellationToken cancellationToken)
     {

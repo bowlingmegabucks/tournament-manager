@@ -1,20 +1,20 @@
-﻿namespace NortheastMegabuck.Tests.Tournaments.Add;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Add;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<NortheastMegabuck.Tournaments.Add.IView> _view;
-    private Mock<NortheastMegabuck.Tournaments.Add.IAdapter> _adapter;
+    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Add.IView> _view;
+    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Add.IAdapter> _adapter;
 
-    private NortheastMegabuck.Tournaments.Add.Presenter _presenter;
+    private BowlingMegabucks.TournamentManager.Tournaments.Add.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NortheastMegabuck.Tournaments.Add.IView>();
-        _adapter = new Mock<NortheastMegabuck.Tournaments.Add.IAdapter>();
+        _view = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Add.IView>();
+        _adapter = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Add.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Tournaments.Add.Presenter(_view.Object, _adapter.Object);
+        _presenter = new BowlingMegabucks.TournamentManager.Tournaments.Add.Presenter(_view.Object, _adapter.Object);
     }
 
     [Test]
@@ -36,7 +36,7 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _adapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
+            _adapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Tournaments.IViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.DisplayErrors(It.IsAny<IEnumerable<string>>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
@@ -49,10 +49,10 @@ internal sealed class Presenter
     [Test]
     public async Task ExecuteAsync_ViewIsValidTrue_AdapterExecute_CalledCorrectly()
     {
-        var viewModel = new NortheastMegabuck.Tournaments.ViewModel();
+        var viewModel = new BowlingMegabucks.TournamentManager.Tournaments.ViewModel();
         _view.SetupGet(view => view.Tournament).Returns(viewModel);
 
-        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(TournamentId.Empty);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Tournaments.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(TournamentId.Empty);
 
         _view.Setup(view => view.IsValid()).Returns(true);
         CancellationToken cancellationToken = default;
@@ -67,7 +67,7 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
-        var errors = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("message"), 3);
+        var errors = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.ErrorDetail("message"), 3);
         _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
@@ -90,9 +90,9 @@ internal sealed class Presenter
         _view.Setup(view => view.IsValid()).Returns(true);
 
         var id = TournamentId.New();
-        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<NortheastMegabuck.Tournaments.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
+        _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Tournaments.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
-        var viewModel = new NortheastMegabuck.Tournaments.ViewModel
+        var viewModel = new BowlingMegabucks.TournamentManager.Tournaments.ViewModel
         {
             TournamentName = "name"
         };

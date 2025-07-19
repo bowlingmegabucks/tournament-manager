@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NortheastMegabuck.Dialogs;
+namespace BowlingMegabucks.TournamentManager.Dialogs;
 internal partial class ConfirmSensitiveInfoDialog : Form
 {
     /// <summary>

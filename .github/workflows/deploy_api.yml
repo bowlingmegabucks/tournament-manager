@@ -1,0 +1,57 @@
+name: Deploy API
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'The environment to deploy to (e.g., stage, prod)'
+        required: true
+        type: choice
+        options:
+          - stage
+          - prod
+
+jobs:
+    deploy:
+        name: Build and Deploy API
+        runs-on: ubuntu-latest
+        environment: ${{ github.event.inputs.environment }}
+
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Setup .NET
+            uses: actions/setup-dotnet@v4
+            with:
+              dotnet-version: '9.0.x'
+
+          - name: Publish API Project
+            run: |
+              dotnet publish "source/api/BowlingMegabucks.TournamentManager.Api.csproj" --configuration Release --output ./publish -r linux-x64 --self-contained false
+
+          - name: Zip Published Files
+            run: |
+              cd publish
+              zip -r ../api-deployment.zip .
+              cd ..
+
+          - name: Azure Login
+            uses: azure/login@v2
+            with:
+                client-id: ${{ secrets.AZURE_TERRAFORM_CLIENT_ID }}
+                tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+                subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+          - name: Deploy to Azure App Service
+            run: |
+              az webapp deploy --resource-group "rg-trn-mgr-${{ github.event.inputs.environment }}" \
+                --name "api-trn-mgr-${{ github.event.inputs.environment }}" \
+                --src-path ./api-deployment.zip \
+                --type zip \
+                --restart true

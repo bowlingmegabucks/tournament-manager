@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Bowlers.Update;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 internal interface IView
 {
     void DisplayError(string message);
@@ -17,5 +17,5 @@ internal interface IView
     bool IsValid();
 
     void KeepOpen();
-    void DisplayMessage(string v);
+    void DisplayMessage(string message);
 }

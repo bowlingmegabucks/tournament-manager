@@ -1,4 +1,6 @@
-﻿namespace NortheastMegabuck.Registrations.Add;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace BowlingMegabucks.TournamentManager.Registrations.Add;
 internal class Presenter
 {
     private readonly IView _view;
@@ -14,32 +16,28 @@ internal class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
-
-        _retrieveDivisionsAdapter = new Divisions.Retrieve.Adapter(config);
-
-        _retrieveSquadsAdapter = new Squads.Retrieve.Adapter(config);
-        _retrieveSweepersAdapter = new Sweepers.Retrieve.Adapter(config);
-
-        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(() => new Bowlers.Retrieve.Adapter(config));
-
-        _adapter = new Lazy<IAdapter>(() => new Adapter(config));
+        _retrieveDivisionsAdapter = services.GetRequiredService<Divisions.Retrieve.IAdapter>();
+        _retrieveSquadsAdapter = services.GetRequiredService<Squads.Retrieve.IAdapter>();
+        _retrieveSweepersAdapter = services.GetRequiredService<Sweepers.Retrieve.IAdapter>();
+        _retrieveBowlerAdapter = new Lazy<Bowlers.Retrieve.IAdapter>(services.GetRequiredService<Bowlers.Retrieve.IAdapter>);
+        _adapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);
     }
 
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
-    /// <param name="mockView"></param>
+    /// <param name="view"></param>
     /// <param name="mockDivisionAdapter"></param>
     /// <param name="mockSquadAdapter"></param>
     /// <param name="mockSweeperAdapter"></param>
     /// <param name="mockBowlerAdapter"></param>
     /// <param name="mockAdapter"></param>
-    internal Presenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter, Squads.Retrieve.IAdapter mockSquadAdapter, Sweepers.Retrieve.IAdapter mockSweeperAdapter, Bowlers.Retrieve.IAdapter mockBowlerAdapter, IAdapter mockAdapter)
+    internal Presenter(IView view, Divisions.Retrieve.IAdapter mockDivisionAdapter, Squads.Retrieve.IAdapter mockSquadAdapter, Sweepers.Retrieve.IAdapter mockSweeperAdapter, Bowlers.Retrieve.IAdapter mockBowlerAdapter, IAdapter mockAdapter)
     {
-        _view = mockView;
+        _view = view;
 
         _retrieveDivisionsAdapter = mockDivisionAdapter;
         _retrieveSquadsAdapter = mockSquadAdapter;

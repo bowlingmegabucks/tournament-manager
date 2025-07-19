@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Sweepers.Results;
+namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Results;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.Sweepers.Results.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Results.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Sweepers.Results.Adapter _adapter;
+    private BowlingMegabucks.TournamentManager.Sweepers.Results.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.Sweepers.Results.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Results.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.Sweepers.Results.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.Sweepers.Results.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -30,8 +30,8 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_SquadId_BusinessLogicExecuteHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var result = await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
@@ -45,22 +45,22 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_SquadId_BusinessLogicExecuteSuccess_PlacingsMappedCorrectly()
     {
-        var bowlerSquadScore1 = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
+        var bowlerSquadScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "200", Last = "201" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "200", Last = "201" } }
         };
 
-        var bowlerSquadScore2 = new NortheastMegabuck.Models.BowlerSquadScore(250, 251)
+        var bowlerSquadScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(250, 251)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "250", Last = "251" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "250", Last = "251" } }
         };
 
-        var bowlerSquadScore3 = new NortheastMegabuck.Models.BowlerSquadScore(190, 191)
+        var bowlerSquadScore3 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(190, 191)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "190", Last = "191" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "190", Last = "191" } }
         };
 
-        var sweeperCut = new NortheastMegabuck.Models.SweeperResult
+        var sweeperCut = new BowlingMegabucks.TournamentManager.Models.SweeperResult
         {
             CasherCount = 2,
             CutScore = 401,
@@ -104,8 +104,8 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_TournamentId_BusinessLogicExecuteHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
-        _businessLogic.SetupGet(businessLogic => businessLogic.Error).Returns(error);
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
@@ -119,22 +119,22 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_TournamentId_BusinessLogicExecuteSuccess_PlacingsMappedCorrectly()
     {
-        var bowlerSquadScore1 = new NortheastMegabuck.Models.BowlerSquadScore(200, 201)
+        var bowlerSquadScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "200", Last = "201" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "200", Last = "201" } }
         };
 
-        var bowlerSquadScore2 = new NortheastMegabuck.Models.BowlerSquadScore(250, 251)
+        var bowlerSquadScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(250, 251)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "250", Last = "251" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "250", Last = "251" } }
         };
 
-        var bowlerSquadScore3 = new NortheastMegabuck.Models.BowlerSquadScore(190, 191)
+        var bowlerSquadScore3 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(190, 191)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "190", Last = "191" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "190", Last = "191" } }
         };
 
-        var sweeperCut = new NortheastMegabuck.Models.SweeperResult
+        var sweeperCut = new BowlingMegabucks.TournamentManager.Models.SweeperResult
         {
             CasherCount = 2,
             CutScore = 401,

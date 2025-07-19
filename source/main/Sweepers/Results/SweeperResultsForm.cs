@@ -1,33 +1,39 @@
 ﻿using System.ComponentModel;
 
-namespace NortheastMegabuck.Sweepers.Results;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     internal string ToSpreadsheet { get; private set; }
 
+    private readonly Presenter _presenter;
+
     private IEnumerable<IViewModel> _results = [];
     private readonly DateTime? _sweeperDate;
 
-    public Form(IConfiguration config, SquadId squadId, DateTime sweeperDate) : this()
+    public Form(IServiceProvider services, SquadId squadId, DateTime sweeperDate) 
+        : this(services)
     {
         _sweeperDate = sweeperDate;
-        _ = new Presenter(config, this).ExecuteAsync(squadId, default);
+        _ = _presenter.ExecuteAsync(squadId, default);
     }
 
-    public Form(IConfiguration config, TournamentId tournamentId) : this()
+    public Form(IServiceProvider services, TournamentId tournamentId) 
+        : this(services)
     {
         _sweeperDate = null;
 
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
         Text = "Super Sweeper Results";
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
-        _ = new Presenter(config, this).ExecuteAsync(tournamentId, default);
+        _ = _presenter.ExecuteAsync(tournamentId, default);
     }
 
-    private Form()
+    private Form(IServiceProvider services)
     {
         InitializeComponent();
+
+        _presenter = new(this, services);
 
         ToSpreadsheet = string.Empty;
     }
@@ -82,6 +88,6 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private ResultReportBase<IViewModel> GenerateReport()
     {
         var title = _sweeperDate.HasValue ? "Sweeper Results" : "Super Sweeper Results";
-        return new SweeperResultReport(title, _sweeperDate, _results.ToList());
+        return new SweeperResultReport(title, _sweeperDate, [.. _results]);
     }
 }

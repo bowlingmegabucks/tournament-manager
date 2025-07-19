@@ -1,14 +1,17 @@
-﻿namespace NortheastMegabuck.Squads.Retrieve;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace BowlingMegabucks.TournamentManager.Squads.Retrieve;
 internal class Presenter
 {
     private readonly IView _view;
 
     private readonly IAdapter _getSquadsAdapter;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
-        _getSquadsAdapter = new Adapter(config);
+
+        _getSquadsAdapter = services.GetRequiredService<IAdapter>();
     }
 
     /// <summary>

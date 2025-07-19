@@ -1,5 +1,7 @@
 ﻿
-namespace NortheastMegabuck.Scores;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace BowlingMegabucks.TournamentManager.Scores;
 internal class Presenter
 {
     private readonly IView _view;
@@ -7,12 +9,12 @@ internal class Presenter
     private readonly LaneAssignments.Retrieve.IAdapter _retrieveLaneAssignmentsAdapter;
     private readonly Retrieve.IAdapter _retrieveSquadScoresAdapter;
 
-    public Presenter(IConfiguration config, IView view)
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
 
-        _retrieveLaneAssignmentsAdapter = new LaneAssignments.Retrieve.Adapter(config);
-        _retrieveSquadScoresAdapter = new Retrieve.Adapter(config);
+        _retrieveLaneAssignmentsAdapter = services.GetRequiredService<LaneAssignments.Retrieve.IAdapter>();
+        _retrieveSquadScoresAdapter = services.GetRequiredService<Retrieve.IAdapter>();
     }
 
     /// <summary>

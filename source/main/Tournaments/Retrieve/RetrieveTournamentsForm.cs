@@ -1,16 +1,18 @@
-﻿namespace NortheastMegabuck.Tournaments.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
-    private readonly IConfiguration _config;
-    public Form(IConfiguration config)
+    private readonly IServiceProvider _services;
+    private readonly Presenter _presenter;
+
+    public Form(IServiceProvider services)
     {
         InitializeComponent();
 
-        _config = config;
+        _services = services;
 
-        var presenter = new Presenter(config, this);
+        _presenter = new(this, services);
 
-        _ = presenter.ExecuteAsync(default);
+        _ = _presenter.ExecuteAsync(default);
     }
 
     public void BindTournaments(ICollection<IViewModel> viewModels)
@@ -24,14 +26,14 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     public (TournamentId? id, string name, short gamesPerSquad) CreateNewTournament()
     {
-        using var form = new Add.Form(_config);
+        using var form = new Add.Form(_services);
 
         return form.ShowDialog() == DialogResult.OK ? (form.Tournament.Id, form.Tournament.TournamentName, form.Tournament.Games) : (null, string.Empty, 0);
     }
 
     public void OpenTournament(TournamentId id, string tournamentName, short gamesPerSquad)
     {
-        using var portal = new Portal.Form(_config, id, tournamentName, gamesPerSquad);
+        using var portal = new Portal.Form(_services, id, tournamentName, gamesPerSquad);
 
         Hide();
 
@@ -44,7 +46,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         => OpenButton_Click(sender, e);
 
     private void NewButton_Click(object sender, EventArgs e)
-        => new Presenter(_config, this).NewTournament();
+        => _presenter.NewTournament();
 
     private void OpenButton_Click(object sender, EventArgs e)
         => OpenTournament(tournamentsGrid.SelectedTournament!.Id, tournamentsGrid.SelectedTournament!.TournamentName, tournamentsGrid.SelectedTournament!.Games);

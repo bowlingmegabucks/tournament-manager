@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 internal abstract class GenerateCross : IGenerate
 {
     IEnumerable<string> IGenerate.Execute(short startingLane, string letter, short games, IList<short> lanesUsed, short defaultSkip)
