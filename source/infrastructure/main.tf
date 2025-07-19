@@ -44,12 +44,12 @@ data "azurerm_key_vault_secret" "api_key" {
 }
 
 resource "azurerm_resource_group" "resource_group" {
-  name     = "rg-megabucks-${var.environment}"
+  name     = "rg-trn-mgr-${var.environment}"
   location = var.location
 }
 
 resource "azurerm_service_plan" "app_service_plan" {
-  name                = "asp-megabucks-${var.environment}"
+  name                = "asp-trn-mgr-${var.environment}"
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
 
@@ -58,7 +58,7 @@ resource "azurerm_service_plan" "app_service_plan" {
 }
 
 resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
-  name                = "log-megabucks-${var.environment}"
+  name                = "log-trn-mgr-${var.environment}"
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
 
@@ -67,7 +67,7 @@ resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
 }
 
 resource "azurerm_application_insights" "application_insights" {
-  name                = "ai-megabucks-${var.environment}"
+  name                = "ai-trn-mgr-${var.environment}"
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
 
@@ -76,7 +76,7 @@ resource "azurerm_application_insights" "application_insights" {
 }
 
 resource "azurerm_key_vault" "app_key_vault" {
-  name                = "kv-megabucks-app-${var.environment}"
+  name                = "kv-trn-mgr-${var.environment}"
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
 
@@ -106,7 +106,7 @@ resource "azurerm_key_vault_secret" "secret_db_connection_string" {
 }
 
 resource "azurerm_linux_web_app" "api" {
-  name                = "api-megabucks-${var.environment}"
+  name                = "api-trn-mgr-${var.environment}"
   location            = azurerm_resource_group.resource_group.location
   resource_group_name = azurerm_resource_group.resource_group.name
   service_plan_id     = azurerm_service_plan.app_service_plan.id
@@ -125,7 +125,7 @@ resource "azurerm_linux_web_app" "api" {
   app_settings = {
     ASPNETCORE_ENVIRONMENT                = var.asp_net_core_environment
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.application_insights.connection_string
-    APPINSIGHTS_CLOUD_ROLE_NAME           = "api-megabucks-${var.environment}"
+    APPINSIGHTS_CLOUD_ROLE_NAME           = "api-trn-mgr-${var.environment}"
 
     WEBSITE_RUN_FROM_PACKAGE       = "1"
     WEBSITE_ENABLE_SERVICE_STORAGE = "false"
