@@ -51,7 +51,7 @@ resource "azurerm_resource_group" "resource_group" {
 
 resource "azurerm_service_plan" "app_service_plan" {
   name                = "asp-trn-mgr-${var.environment}"
-  location            = azurerm_resource_group.resource_group.location
+  location            = var.app_service_plan_location
   resource_group_name = azurerm_resource_group.resource_group.name
 
   os_type  = "Linux"
@@ -69,7 +69,7 @@ resource "azurerm_log_analytics_workspace" "log_analytics_workspace" {
 
 resource "azurerm_application_insights" "application_insights" {
   name                = "ai-trn-mgr-${var.environment}"
-  location            = azurerm_resource_group.resource_group.location
+  location            = azurerm_service_plan.app_service_plan.location
   resource_group_name = azurerm_resource_group.resource_group.name
 
   application_type = "web"
@@ -78,7 +78,7 @@ resource "azurerm_application_insights" "application_insights" {
 
 resource "azurerm_key_vault" "app_key_vault" {
   name                = "kv-trn-mgr-${var.environment}"
-  location            = azurerm_resource_group.resource_group.location
+  location            = azurerm_service_plan.app_service_plan.location
   resource_group_name = azurerm_resource_group.resource_group.name
 
   sku_name  = "standard"
@@ -108,7 +108,7 @@ resource "azurerm_key_vault_secret" "secret_db_connection_string" {
 
 resource "azurerm_linux_web_app" "api" {
   name                = "api-trn-mgr-${var.environment}"
-  location            = azurerm_resource_group.resource_group.location
+  location            = azurerm_service_plan.app_service_plan.location
   resource_group_name = azurerm_resource_group.resource_group.name
   service_plan_id     = azurerm_service_plan.app_service_plan.id
 

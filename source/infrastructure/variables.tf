@@ -14,6 +14,11 @@ variable "location" {
   default     = "East US"
 }
 
+variable "app_service_plan_location" {
+  description = "The location for the App Service Plan"
+  type        = string
+}
+
 variable "app_service_plan_sku_name" {
   description = "The SKU for the App Service Plan"
   type        = string
