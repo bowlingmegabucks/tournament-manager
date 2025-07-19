@@ -74,7 +74,7 @@ builder.Services.SwaggerDocument(o =>
         => s.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
 
-var keyVaultUrl = builder.Configuration.GetValue<string>("KeyVaultUrl");
+var keyVaultUrl = builder.Configuration.GetValue<string>("KEYVAULT_URL");
 
 Console.WriteLine($"Key Vault URL: {keyVaultUrl}");
 
