@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Divisions.Add;
+namespace BowlingMegabucks.TournamentManager.Divisions.Add;
 internal class Presenter
 {
     private readonly Lazy<Retrieve.IAdapter> _retrieveDivisionsAdapter;

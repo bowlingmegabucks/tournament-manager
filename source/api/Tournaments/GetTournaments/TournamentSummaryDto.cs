@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Tournaments.GetTournaments;
+namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
 
 /// <summary>
 /// Data Transfer Object for retrieving tournament details.

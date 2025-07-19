@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Squads.Add;
+namespace BowlingMegabucks.TournamentManager.Squads.Add;
 
 internal class Presenter
 {

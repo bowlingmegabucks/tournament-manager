@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Squads.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Squads.Retrieve;
 
 internal interface IView
 {

@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Scores.Update;
+﻿namespace BowlingMegabucks.TournamentManager.Scores.Update;
 internal interface IView
 {
     IEnumerable<IViewModel> Scores { get; }

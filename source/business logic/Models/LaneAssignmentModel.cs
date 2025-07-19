@@ -1,6 +1,6 @@
-﻿using NortheastMegabuck.Squads;
+﻿using BowlingMegabucks.TournamentManager.Squads;
 
-namespace NortheastMegabuck.Models;
+namespace BowlingMegabucks.TournamentManager.Models;
 
 /// <summary>
 /// 

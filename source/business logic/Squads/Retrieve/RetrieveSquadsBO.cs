@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Squads.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Squads.Retrieve;
 
 /// <summary>
 /// 

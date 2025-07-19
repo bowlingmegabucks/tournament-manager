@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Scores;
+namespace BowlingMegabucks.TournamentManager.Scores;
 internal class RecapSheetViewModel : IRecapSheetViewModel
 {
     public string BowlerName { get; set; }

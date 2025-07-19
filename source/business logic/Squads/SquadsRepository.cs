@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 
-namespace NortheastMegabuck.Squads;
+namespace BowlingMegabucks.TournamentManager.Squads;
 
 internal class Repository : IRepository
 {

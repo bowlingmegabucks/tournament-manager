@@ -1,37 +1,37 @@
 ﻿
-namespace NortheastMegabuck.Tests.Registrations.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Retrieve;
 
 [TestFixture]
 internal sealed class TournamentRegistrationViewModel
 {
-    private NortheastMegabuck.Models.Registration _registration;
+    private BowlingMegabucks.TournamentManager.Models.Registration _registration;
 
     [OneTimeSetUp]
     public void SetUp()
     {
-        _registration = new NortheastMegabuck.Models.Registration
+        _registration = new BowlingMegabucks.TournamentManager.Models.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
-                Name = new NortheastMegabuck.Models.PersonName { First = "first", MiddleInitial = "m", Last = "last" },
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", MiddleInitial = "m", Last = "last" },
                 Id = BowlerId.New()
             },
-            Division = new NortheastMegabuck.Models.Division
+            Division = new BowlingMegabucks.TournamentManager.Models.Division
             {
                 Number = 5,
                 Name = "divisionName"
             },
             Squads =
             [
-                new NortheastMegabuck.Models.Squad{ Id = SquadId.New()},
-                new NortheastMegabuck.Models.Squad{ Id = SquadId.New()}
+                new BowlingMegabucks.TournamentManager.Models.Squad{ Id = SquadId.New()},
+                new BowlingMegabucks.TournamentManager.Models.Squad{ Id = SquadId.New()}
             ],
             Sweepers =
             [
-                new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()},
-                new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()},
-                new NortheastMegabuck.Models.Sweeper { Id = SquadId.New()}
+                new BowlingMegabucks.TournamentManager.Models.Sweeper { Id = SquadId.New()},
+                new BowlingMegabucks.TournamentManager.Models.Sweeper { Id = SquadId.New()},
+                new BowlingMegabucks.TournamentManager.Models.Sweeper { Id = SquadId.New()}
             ],
             SuperSweeper = true
         };
@@ -40,7 +40,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_IdMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.Id, Is.EqualTo(_registration.Id));
     }
@@ -48,7 +48,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_FirstNameMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.FirstName, Is.EqualTo(_registration.Bowler.Name.First));
     }
@@ -56,7 +56,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_LastNameMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.LastName, Is.EqualTo(_registration.Bowler.Name.Last));
     }
@@ -64,7 +64,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_BowlerNameMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo(_registration.Bowler.ToString()));
     }
@@ -72,7 +72,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_BowlerIdMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.BowlerId, Is.EqualTo(_registration.Bowler.Id));
     }
@@ -80,7 +80,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_DivisionNameMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.DivisionName, Is.EqualTo(_registration.Division.Name));
     }
@@ -88,7 +88,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SquadsEnteredMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.Multiple(() =>
         {
@@ -100,7 +100,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SquadsEnteredCountMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.SquadsEnteredCount, Is.EqualTo(_registration.Squads.Count()));
     }
@@ -108,7 +108,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SweepersEnteredMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.Multiple(() =>
         {
@@ -121,7 +121,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SweepersEnteredCountMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.SweepersEnteredCount, Is.EqualTo(_registration.Sweepers.Count()));
     }
@@ -129,7 +129,7 @@ internal sealed class TournamentRegistrationViewModel
     [Test]
     public void Constructor_SuperSweeperEnteredMapped()
     {
-        var viewModel = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
+        var viewModel = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel(_registration);
 
         Assert.That(viewModel.SuperSweeperEntered, Is.EqualTo(_registration.SuperSweeper));
     }

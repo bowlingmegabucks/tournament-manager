@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Controls.Grids;
+﻿namespace BowlingMegabucks.TournamentManager.Controls.Grids;
 
 internal partial class TournamentsGrid
 #if DEBUG   

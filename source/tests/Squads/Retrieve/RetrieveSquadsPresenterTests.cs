@@ -1,21 +1,21 @@
 ﻿
-namespace NortheastMegabuck.Tests.Squads.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.Squads.Retrieve;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<NortheastMegabuck.Squads.Retrieve.IView> _view;
-    private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _getSquadsAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.Retrieve.IView> _view;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.Retrieve.IAdapter> _getSquadsAdapter;
 
-    private NortheastMegabuck.Squads.Retrieve.Presenter _presenter;
+    private BowlingMegabucks.TournamentManager.Squads.Retrieve.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NortheastMegabuck.Squads.Retrieve.IView>();
-        _getSquadsAdapter = new Mock<NortheastMegabuck.Squads.Retrieve.IAdapter>();
+        _view = new Mock<BowlingMegabucks.TournamentManager.Squads.Retrieve.IView>();
+        _getSquadsAdapter = new Mock<BowlingMegabucks.TournamentManager.Squads.Retrieve.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Squads.Retrieve.Presenter(_view.Object, _getSquadsAdapter.Object);
+        _presenter = new BowlingMegabucks.TournamentManager.Squads.Retrieve.Presenter(_view.Object, _getSquadsAdapter.Object);
     }
 
     [Test]
@@ -34,7 +34,7 @@ internal sealed class Presenter
     [Test]
     public async Task ExecuteAsync_GetSquadsAdapterHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
 
         _getSquadsAdapter.SetupGet(getSquadsAdapter => getSquadsAdapter.Error).Returns(error);
 
@@ -45,22 +45,22 @@ internal sealed class Presenter
             _view.Verify(view => view.Disable(), Times.Once);
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<NortheastMegabuck.Squads.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.Squads.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public async Task ExecuteAsync_GetSquadsAdapterReturnsSquads_ViewBindSquads_CalledCorrectly()
     {
-        var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var squad1 = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Date).Returns(DateTime.Now);
         squad1.SetupGet(squad => squad.MaxPerPair).Returns(1);
 
-        var squad2 = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var squad2 = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         squad2.SetupGet(squad => squad.Date).Returns(DateTime.Now.AddDays(1));
         squad2.SetupGet(squad => squad.MaxPerPair).Returns(2);
 
-        var squad3 = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var squad3 = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         squad3.SetupGet(squad => squad.Date).Returns(DateTime.Now.AddHours(-1));
         squad3.SetupGet(squad => squad.MaxPerPair).Returns(3);
 
@@ -71,9 +71,9 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(collection => collection.ToList()[0].MaxPerPair == 3)), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(collection => collection.ToList()[1].MaxPerPair == 1)), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<NortheastMegabuck.Squads.IViewModel>>(collection => collection.ToList()[2].MaxPerPair == 2)), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Squads.IViewModel>>(collection => collection.ToList()[0].MaxPerPair == 3)), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Squads.IViewModel>>(collection => collection.ToList()[1].MaxPerPair == 1)), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Squads.IViewModel>>(collection => collection.ToList()[2].MaxPerPair == 2)), Times.Once);
         });
     }
 

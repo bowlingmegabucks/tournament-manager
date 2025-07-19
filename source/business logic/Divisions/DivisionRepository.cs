@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NortheastMegabuck.Divisions;
+namespace BowlingMegabucks.TournamentManager.Divisions;
 
 internal class Repository : IRepository
 {

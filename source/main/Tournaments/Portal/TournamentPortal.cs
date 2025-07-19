@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Tournaments.Portal;
+﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Portal;
 internal partial class Form : System.Windows.Forms.Form
 {
     private readonly IServiceProvider _services;

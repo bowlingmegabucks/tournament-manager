@@ -1,7 +1,7 @@
 using FastEndpoints;
 using FluentValidation;
 
-namespace NortheastMegabuck.Api.Registrations.UpdateRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.UpdateRegistration;
 
 internal sealed class UpdateRegistrationRequestValidator
     : Validator<UpdateRegistrationRequest>

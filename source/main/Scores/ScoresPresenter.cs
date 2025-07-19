@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Scores;
+namespace BowlingMegabucks.TournamentManager.Scores;
 internal class Presenter
 {
     private readonly IView _view;

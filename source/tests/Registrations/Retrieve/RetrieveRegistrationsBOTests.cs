@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Registrations.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Retrieve;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.Registrations.Retrieve.IDataLayer> _dataLayer;
+    private Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Registrations.Retrieve.IBusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Registrations.Retrieve.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NortheastMegabuck.Registrations.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.Registrations.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_ReturnsDataLayerExecute()
     {
-        var registrations = Enumerable.Repeat(new NortheastMegabuck.Models.Registration(), 2);
+        var registrations = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.Registration(), 2);
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrations);
 
         var tournamentId = TournamentId.New();

@@ -1,27 +1,27 @@
 ﻿
 using MockQueryable;
 
-namespace NortheastMegabuck.Tests.Registrations.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<NortheastMegabuck.Registrations.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.Registrations.IRepository> _repository;
 
-    private NortheastMegabuck.Registrations.Retrieve.IDataLayer _dataLayer;
+    private BowlingMegabucks.TournamentManager.Registrations.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NortheastMegabuck.Registrations.IRepository>();
+        _repository = new Mock<BowlingMegabucks.TournamentManager.Registrations.IRepository>();
 
-        _dataLayer = new NortheastMegabuck.Registrations.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_TournamentId_RepositoryRetrieve_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Registration>().BuildMock());
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.Registration>().BuildMock());
         var tournamentId = TournamentId.New();
 
         await _dataLayer.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
@@ -32,32 +32,32 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_TournamentId_ReturnsRepositoryRetrieve()
     {
-        var registration1 = new NortheastMegabuck.Database.Entities.Registration
+        var registration1 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
-            Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
+            Squads = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
         };
 
-        var registration2 = new NortheastMegabuck.Database.Entities.Registration
+        var registration2 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
-            Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
+            Squads = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
         };
 
-        var registration3 = new NortheastMegabuck.Database.Entities.Registration
+        var registration3 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = RegistrationId.New(),
-            Bowler = new NortheastMegabuck.Database.Entities.Bowler { Id = BowlerId.New() },
-            Division = new NortheastMegabuck.Database.Entities.Division { Id = NortheastMegabuck.DivisionId.New() },
-            Squads = Enumerable.Repeat(new NortheastMegabuck.Database.Entities.SquadRegistration(), 2).ToList(),
+            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() },
+            Squads = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration(), 2).ToList(),
             SuperSweeper = true,
             Average = 200
         };

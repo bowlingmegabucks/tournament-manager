@@ -1,6 +1,6 @@
-﻿namespace NortheastMegabuck.Squads.Add;
+﻿namespace BowlingMegabucks.TournamentManager.Squads.Add;
 
-internal interface IView : NortheastMegabuck.IView
+internal interface IView : BowlingMegabucks.TournamentManager.IView
 {
     void SetTournamentFinalsRatio(string ratio);
 

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.LaneAssignments.Retrieve;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve;
 
 /// <summary>
 /// 

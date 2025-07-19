@@ -1,11 +1,11 @@
 ﻿
-namespace NortheastMegabuck.Tests.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments;
 
 [TestFixture]
 internal sealed class Staggered : Generate
 {
-    protected override NortheastMegabuck.LaneAssignments.IGenerate InstanciateInterface()
-        => new NortheastMegabuck.LaneAssignments.StaggeredSkip();
+    protected override BowlingMegabucks.TournamentManager.LaneAssignments.IGenerate InstanciateInterface()
+        => new BowlingMegabucks.TournamentManager.LaneAssignments.StaggeredSkip();
 
     protected override string StartLane1_EnoughLanesToNotCircleBack_Skip3_Game2()
         => "10A";

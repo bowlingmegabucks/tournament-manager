@@ -1,27 +1,27 @@
 ﻿using MockQueryable;
 
-namespace NortheastMegabuck.Tests.Bowlers.Search;
+namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Search;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<NortheastMegabuck.Bowlers.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.Bowlers.IRepository> _repository;
 
-    private NortheastMegabuck.Bowlers.Search.IDataLayer _dataLayer;
+    private BowlingMegabucks.TournamentManager.Bowlers.Search.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NortheastMegabuck.Bowlers.IRepository>();
+        _repository = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IRepository>();
 
-        _dataLayer = new NortheastMegabuck.Bowlers.Search.DataLayer(_repository.Object);
+        _dataLayer = new BowlingMegabucks.TournamentManager.Bowlers.Search.DataLayer(_repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_RepositorySearch_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.Search(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Bowler>().BuildMock());
-        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
+        _repository.Setup(repository => repository.Search(It.IsAny<BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria>())).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.Bowler>().BuildMock());
+        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria();
 
         await _dataLayer.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
@@ -31,9 +31,9 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_ReturnsCorrectResult()
     {
-        var searchCriteria = new NortheastMegabuck.Models.BowlerSearchCriteria();
+        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria();
 
-        var bowlers = new List<NortheastMegabuck.Database.Entities.Bowler>
+        var bowlers = new List<BowlingMegabucks.TournamentManager.Database.Entities.Bowler>
         {
             new() {
                 Id = BowlerId.New(),
@@ -54,7 +54,7 @@ internal sealed class DataLayer
             }
         };
 
-        _repository.Setup(repository => repository.Search(It.IsAny<NortheastMegabuck.Models.BowlerSearchCriteria>())).Returns(bowlers.BuildMock());
+        _repository.Setup(repository => repository.Search(It.IsAny<BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria>())).Returns(bowlers.BuildMock());
 
         var actual = (await _dataLayer.ExecuteAsync(searchCriteria, default).ConfigureAwait(false)).ToList();
 

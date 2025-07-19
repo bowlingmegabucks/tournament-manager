@@ -1,25 +1,25 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
 
-namespace NortheastMegabuck.Tests.Bowlers.Add;
+namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Add;
 
 [TestFixture]
 internal sealed class Validator
 {
-    private IValidator<NortheastMegabuck.Models.Bowler> _validator;
+    private IValidator<BowlingMegabucks.TournamentManager.Models.Bowler> _validator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _validator = new NortheastMegabuck.Bowlers.Add.Validator();
+        => _validator = new BowlingMegabucks.TournamentManager.Bowlers.Add.Validator();
 
     [Test]
     public void Name_HasPersonNameValidator()
-        => _validator.ShouldHaveChildValidator(bowler => bowler.Name, typeof(NortheastMegabuck.Bowlers.PersonNameValidator));
+        => _validator.ShouldHaveChildValidator(bowler => bowler.Name, typeof(BowlingMegabucks.TournamentManager.Bowlers.PersonNameValidator));
 
     [Test]
     public void CityAddress_NullOrEmpty_With_Street_Has_Error([Values(null, "", " ")] string city)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             CityAddress = city,
             StreetAddress = "123 Main St",
@@ -35,7 +35,7 @@ internal sealed class Validator
     [Test]
     public void City_NullOrEmpty_With_No_Street_Has_No_Error([Values(null, "", " ")] string city, [Values(null, "", " ")] string state)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             CityAddress = city,
             StreetAddress = null,
@@ -56,7 +56,7 @@ internal sealed class Validator
 
     private void State_Length_Not_2_Has_Error(int length)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             CityAddress = "Boston",
             StreetAddress = "123 Main St",
@@ -71,7 +71,7 @@ internal sealed class Validator
     [Test]
     public void State_Length_2_Has_No_Error()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             CityAddress = "Boston",
             StreetAddress = "123 Main St",
@@ -87,7 +87,7 @@ internal sealed class Validator
     [Test]
     public void State_NullOrEmpty_Street_Given_Has_Error([Values(null, "", " ")] string state)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             StreetAddress = "123 Main St",
             StateAddress = state,
@@ -100,7 +100,7 @@ internal sealed class Validator
     [Test]
     public void Zip_NullOrEmpty_Street_Given_Has_Error([Values(null, "", " ")] string zip)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             StreetAddress = "123 Main St",
             StateAddress = "MA",
@@ -125,7 +125,7 @@ internal sealed class Validator
 
     private void Zip_Length_Not_5or9_Street_Given_Has_Error(int length)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             StreetAddress = "123 Main St",
             ZipCode = new string('J', length)
@@ -138,7 +138,7 @@ internal sealed class Validator
     [Test]
     public void Zip_Length_5or9_NotNumeric_Country_USA_Street_Given_Has_Error([Values("aaaaa", "bbbbbbbbb")] string zip)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             StreetAddress = "123 Main St",
             ZipCode = zip,
@@ -151,7 +151,7 @@ internal sealed class Validator
     [Test]
     public void Zip_Length_5or9_Numeric_Street_Given_Or_Not_Given_Has_No_Error([Values("12345", "123456789")] string zip)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             StreetAddress = "123 Main St",
             ZipCode = zip,
@@ -166,7 +166,7 @@ internal sealed class Validator
         [Values(null, "", " ", "a", "bb", "ccc", "ddddd", "eeeeeeeee", "12345", "123456789")] string zip,
         [Values(null, "", " ")] string street)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             StreetAddress = street,
             ZipCode = zip,
@@ -179,7 +179,7 @@ internal sealed class Validator
     [Test]
     public void State_NullOrEmpty_City_Given_Has_Error([Values(null, "", " ")] string state)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             CityAddress = "Boston",
             StateAddress = state,
@@ -210,7 +210,7 @@ internal sealed class Validator
                                                                        "email@111.222.333.44444",
                                                                        "email@domain..com")]string emailAddress)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             EmailAddress = emailAddress,
         };
@@ -227,7 +227,7 @@ internal sealed class Validator
     [TestCase("email@domain@domain.com")]
     public void EmailAddress_Invalid_NotVerified_validator_Error(string emailAddress)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             EmailAddress = emailAddress,
         };
@@ -239,7 +239,7 @@ internal sealed class Validator
     [Test]
     public void PhoneNumber_NullEmptyWhitespace_NoValidatorError([Values(null, "", "          ")] string phoneNumber)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             PhoneNumber = phoneNumber,
         };
@@ -252,7 +252,7 @@ internal sealed class Validator
     [TestCase("123-456-7890")]
     public void PhoneNumber_Valid_NoValidatorError(string phoneNumber)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             PhoneNumber = phoneNumber,
         };
@@ -266,7 +266,7 @@ internal sealed class Validator
     [TestCase("puzzled")]
     public void PhoneNumber_Invalid_HasValidatorError(string phoneNumber)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             PhoneNumber = phoneNumber,
         };
@@ -278,7 +278,7 @@ internal sealed class Validator
     [Test]
     public void DateOfBirth_Today_HasValidatorError()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today)
         };
@@ -290,7 +290,7 @@ internal sealed class Validator
     [Test]
     public void DateOfBirth_Future_HasValidatorError()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(1))
         };
@@ -302,7 +302,7 @@ internal sealed class Validator
     [Test]
     public void DateOfBirth_Yesterday_NoValidatorError()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(-1))
         };
@@ -314,7 +314,7 @@ internal sealed class Validator
     [TestCase(null)]
     public void DateOfBirth_Null_NoValidatorError(DateOnly? dob)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             DateOfBirth = dob
         };
@@ -330,7 +330,7 @@ internal sealed class Validator
     [TestCase("12345-583")]
     public void USBCId_Valid_NoValidatorError(string usbcId)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             USBCId = usbcId
         };
@@ -349,7 +349,7 @@ internal sealed class Validator
     [TestCase("-123-465")]
     public void USBCId_Invalid_HasValidatorError(string usbcId)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             USBCId = usbcId
         };
@@ -361,7 +361,7 @@ internal sealed class Validator
     [Test]
     public void USBCId_EmptyNull_NoValidationError([Values(null, "")] string usbcId)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             USBCId = usbcId
         };
@@ -374,7 +374,7 @@ internal sealed class Validator
     [TestCase("18754628a")]
     public void SSN_Invalid_HasValidatorError(string ssn)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             SocialSecurityNumber = ssn.Encrypt()
         };
@@ -386,7 +386,7 @@ internal sealed class Validator
     [Test]
     public void SSN_Valid_NoValidatorError()
     {
-        var bowler = new NortheastMegabuck.Models.Bowler
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
         {
             SocialSecurityNumber = "123456789".Encrypt()
         };
@@ -398,7 +398,7 @@ internal sealed class Validator
     [Test]
     public void SSN_Whitespace_HasValidatorError([Values(" ", "  ", "         ")] string ssn)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler { SocialSecurityNumber = ssn.Encrypt() };
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { SocialSecurityNumber = ssn.Encrypt() };
 
         var result = _validator.TestValidate(bowler);
         result.ShouldHaveValidationErrorFor(b => b.SocialSecurityNumber).WithErrorMessage("Invalid Social Security Number");
@@ -407,7 +407,7 @@ internal sealed class Validator
     [Test]
     public void SSN_NullOrEmpty_NoValidatorError([Values(null, "")] string ssn)
     {
-        var bowler = new NortheastMegabuck.Models.Bowler { SocialSecurityNumber = ssn.Encrypt() };
+        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { SocialSecurityNumber = ssn.Encrypt() };
 
         var result = _validator.TestValidate(bowler);
         result.ShouldNotHaveValidationErrorFor(b => b.SocialSecurityNumber);

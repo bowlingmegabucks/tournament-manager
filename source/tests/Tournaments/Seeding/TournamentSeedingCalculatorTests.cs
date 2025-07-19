@@ -1,32 +1,32 @@
-﻿namespace NortheastMegabuck.Tests.Tournaments.Seeding;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Seeding;
 
 [TestFixture]
 internal sealed class Calculator
 {
-    private NortheastMegabuck.Tournaments.Seeding.Calculator _calculator;
+    private BowlingMegabucks.TournamentManager.Tournaments.Seeding.Calculator _calculator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _calculator = new NortheastMegabuck.Tournaments.Seeding.Calculator();
+        => _calculator = new BowlingMegabucks.TournamentManager.Tournaments.Seeding.Calculator();
 
     [Test]
     public void Execute_NoReEntries_CorrectSeedingReturned()
     {
-        var division = new NortheastMegabuck.Models.Division();
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
 
-        var advancingScore1 = new NortheastMegabuck.Models.BowlerSquadScore(297);
-        var advancingScore2 = new NortheastMegabuck.Models.BowlerSquadScore(299);
-        var atLargeScore1 = new NortheastMegabuck.Models.BowlerSquadScore(250);
+        var advancingScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(297);
+        var advancingScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(299);
+        var atLargeScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(250);
 
-        var nonQualifyingScore1 = new NortheastMegabuck.Models.BowlerSquadScore(150);
-        var nonQualifyingScore2 = new NortheastMegabuck.Models.BowlerSquadScore(198);
-        var nonQualifyingScore3 = new NortheastMegabuck.Models.BowlerSquadScore(197);
-        var nonQualifyingScore4 = new NortheastMegabuck.Models.BowlerSquadScore(167);
+        var nonQualifyingScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(150);
+        var nonQualifyingScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(198);
+        var nonQualifyingScore3 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(197);
+        var nonQualifyingScore4 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(167);
 
-        var squad1 = new NortheastMegabuck.Models.Squad();
-        var squad2 = new NortheastMegabuck.Models.Squad();
+        var squad1 = new BowlingMegabucks.TournamentManager.Models.Squad();
+        var squad2 = new BowlingMegabucks.TournamentManager.Models.Squad();
 
-        var squadResult1 = new NortheastMegabuck.Models.SquadResult
+        var squadResult1 = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
             AdvancingScores = [advancingScore1],
             Division = division,
@@ -34,7 +34,7 @@ internal sealed class Calculator
             Squad = squad1
         };
 
-        var squadResult2 = new NortheastMegabuck.Models.SquadResult
+        var squadResult2 = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
             AdvancingScores = [advancingScore2],
             Division = division,
@@ -42,11 +42,11 @@ internal sealed class Calculator
             Squad = squad2
         };
 
-        var tournamentResult = new NortheastMegabuck.Models.TournamentResults()
+        var tournamentResult = new BowlingMegabucks.TournamentManager.Models.TournamentResults()
         {
             Division = division,
             SquadResults = [squadResult1, squadResult2],
-            AtLarge = new NortheastMegabuck.Models.AtLargeResults
+            AtLarge = new BowlingMegabucks.TournamentManager.Models.AtLargeResults
             {
                 AdvancingScores = [atLargeScore1],
                 DivisionId = division.Id
@@ -78,21 +78,21 @@ internal sealed class Calculator
     {
         var bowlerId = BowlerId.New();
 
-        var division = new NortheastMegabuck.Models.Division();
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
 
-        var advancingScore1 = new NortheastMegabuck.Models.BowlerSquadScore(297);
-        var advancingScore2 = new NortheastMegabuck.Models.BowlerSquadScore(299);
-        var atLargeScore1 = new NortheastMegabuck.Models.BowlerSquadScore(250);
+        var advancingScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(297);
+        var advancingScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(299);
+        var atLargeScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(250);
 
-        var nonQualifyingScore1 = new NortheastMegabuck.Models.BowlerSquadScore(150);
-        var nonQualifyingScore2 = new NortheastMegabuck.Models.BowlerSquadScore(bowlerId, 198);
-        var nonQualifyingScore3 = new NortheastMegabuck.Models.BowlerSquadScore(197);
-        var nonQualifyingScore4 = new NortheastMegabuck.Models.BowlerSquadScore(bowlerId, 167);
+        var nonQualifyingScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(150);
+        var nonQualifyingScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(bowlerId, 198);
+        var nonQualifyingScore3 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(197);
+        var nonQualifyingScore4 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(bowlerId, 167);
 
-        var squad1 = new NortheastMegabuck.Models.Squad();
-        var squad2 = new NortheastMegabuck.Models.Squad();
+        var squad1 = new BowlingMegabucks.TournamentManager.Models.Squad();
+        var squad2 = new BowlingMegabucks.TournamentManager.Models.Squad();
 
-        var squadResult1 = new NortheastMegabuck.Models.SquadResult
+        var squadResult1 = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
             AdvancingScores = [advancingScore1],
             Division = division,
@@ -100,7 +100,7 @@ internal sealed class Calculator
             Squad = squad1
         };
 
-        var squadResult2 = new NortheastMegabuck.Models.SquadResult
+        var squadResult2 = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
             AdvancingScores = [advancingScore2],
             Division = division,
@@ -108,11 +108,11 @@ internal sealed class Calculator
             Squad = squad2
         };
 
-        var tournamentResult = new NortheastMegabuck.Models.TournamentResults()
+        var tournamentResult = new BowlingMegabucks.TournamentManager.Models.TournamentResults()
         {
             Division = division,
             SquadResults = [squadResult1, squadResult2],
-            AtLarge = new NortheastMegabuck.Models.AtLargeResults
+            AtLarge = new BowlingMegabucks.TournamentManager.Models.AtLargeResults
             {
                 AdvancingScores = [atLargeScore1],
                 DivisionId = division.Id,

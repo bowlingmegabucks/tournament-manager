@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿namespace BowlingMegabucks.TournamentManager.Controls;
 
 partial class SquadControl
 {

@@ -1,8 +1,8 @@
 ﻿
 using System.Diagnostics.CodeAnalysis;
-using NortheastMegabuck.Scores;
+using BowlingMegabucks.TournamentManager.Scores;
 
-namespace NortheastMegabuck.Controls.Grids;
+namespace BowlingMegabucks.TournamentManager.Controls.Grids;
 
 internal partial class ScoresGrid
 #if DEBUG

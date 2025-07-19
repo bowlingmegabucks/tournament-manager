@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Tournaments.Seeding;
+﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Seeding;
 
 /// <summary>
 /// 

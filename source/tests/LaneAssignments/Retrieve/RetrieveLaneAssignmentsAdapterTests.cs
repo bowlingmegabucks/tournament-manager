@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments.Retrieve;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.LaneAssignments.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.LaneAssignments.Retrieve.IAdapter _adapter;
+    private BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.IAdapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.LaneAssignments.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.LaneAssignments.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ErrorSetToBusinessLogicError()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
@@ -40,7 +40,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ReturnsLaneAssignments()
     {
-        var laneAssignments = Enumerable.Repeat(new NortheastMegabuck.Models.LaneAssignment { Average = 200 }, 3);
+        var laneAssignments = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.LaneAssignment { Average = 200 }, 3);
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(laneAssignments);
 
         var result = (await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false)).ToList();

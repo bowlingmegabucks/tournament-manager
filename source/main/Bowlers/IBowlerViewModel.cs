@@ -1,7 +1,7 @@
 ﻿
-using NortheastMegabuck.Models;
+using BowlingMegabucks.TournamentManager.Models;
 
-namespace NortheastMegabuck.Bowlers;
+namespace BowlingMegabucks.TournamentManager.Bowlers;
 
 internal interface IViewModel
 {

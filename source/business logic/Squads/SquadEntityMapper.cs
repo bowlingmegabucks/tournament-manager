@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Squads;
+﻿namespace BowlingMegabucks.TournamentManager.Squads;
 
 internal class EntityMapper : IEntityMapper
 {

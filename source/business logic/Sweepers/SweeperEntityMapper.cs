@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Sweepers;
+﻿namespace BowlingMegabucks.TournamentManager.Sweepers;
 internal class EntityMapper : IEntityMapper
 {
     public Database.Entities.SweeperSquad Execute(Models.Sweeper sweeper)

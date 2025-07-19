@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Controls;
+﻿namespace BowlingMegabucks.TournamentManager.Controls;
 
 partial class AtLargeResultsControl
 {
@@ -86,7 +86,7 @@ partial class AtLargeResultsControl
             // cashingPictureBox
             // 
             this.cashingPictureBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cashingPictureBox.Image = global::NortheastMegabuck.Properties.Resources.DollarSign;
+            this.cashingPictureBox.Image = global::BowlingMegabucks.TournamentManager.Properties.Resources.DollarSign;
             this.cashingPictureBox.Location = new System.Drawing.Point(650, 0);
             this.cashingPictureBox.Name = "cashingPictureBox";
             this.cashingPictureBox.Size = new System.Drawing.Size(46, 33);

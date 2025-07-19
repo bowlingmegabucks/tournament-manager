@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.LaneAssignments.Update;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments.Update;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error

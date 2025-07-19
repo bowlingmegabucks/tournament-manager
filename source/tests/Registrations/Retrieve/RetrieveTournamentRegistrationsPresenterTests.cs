@@ -1,28 +1,28 @@
-﻿namespace NortheastMegabuck.Tests.Registrations.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Retrieve;
 
 [TestFixture]
 internal sealed class TournamentRegistrationsPresenter
 {
-    private Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationsView> _view;
-    private Mock<NortheastMegabuck.Registrations.Retrieve.IAdapter> _registrationsAdapter;
-    private Mock<NortheastMegabuck.Squads.Retrieve.IAdapter> _squadsAdapter;
-    private Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
-    private Mock<NortheastMegabuck.Registrations.Delete.IAdapter> _deleteAdapter;
-    private Mock<NortheastMegabuck.Registrations.Update.IAdapter> _updateRegistrationAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationsView> _view;
+    private Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.IAdapter> _registrationsAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.Retrieve.IAdapter> _squadsAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IAdapter> _deleteAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Registrations.Update.IAdapter> _updateRegistrationAdapter;
 
-    private NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter _presenter;
+    private BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationsPresenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationsView>();
-        _registrationsAdapter = new Mock<NortheastMegabuck.Registrations.Retrieve.IAdapter>();
-        _squadsAdapter = new Mock<NortheastMegabuck.Squads.Retrieve.IAdapter>();
-        _sweepersAdapter = new Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter>();
-        _deleteAdapter = new Mock<NortheastMegabuck.Registrations.Delete.IAdapter>();
-        _updateRegistrationAdapter = new Mock<NortheastMegabuck.Registrations.Update.IAdapter>();
+        _view = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationsView>();
+        _registrationsAdapter = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.IAdapter>();
+        _squadsAdapter = new Mock<BowlingMegabucks.TournamentManager.Squads.Retrieve.IAdapter>();
+        _sweepersAdapter = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IAdapter>();
+        _deleteAdapter = new Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IAdapter>();
+        _updateRegistrationAdapter = new Mock<BowlingMegabucks.TournamentManager.Registrations.Update.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationsPresenter(_view.Object, _registrationsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _deleteAdapter.Object, _updateRegistrationAdapter.Object);
+        _presenter = new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationsPresenter(_view.Object, _registrationsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _deleteAdapter.Object, _updateRegistrationAdapter.Object);
     }
 
     [Test]
@@ -66,7 +66,7 @@ internal sealed class TournamentRegistrationsPresenter
     [Test]
     public async Task ExecuteAsync_TwoAdaptersHasSameError_ErrorDisplayedCorrectly()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _registrationsAdapter.SetupGet(registrationAdapter => registrationAdapter.Error).Returns(error);
         _squadsAdapter.SetupGet(squadsAdapter => squadsAdapter.Error).Returns(error);
 
@@ -78,13 +78,13 @@ internal sealed class TournamentRegistrationsPresenter
     [Test]
     public async Task ExecuteAsync_AllAdaptersHaveDifferentErrors_ErrorDisplayedCorrectly()
     {
-        var error1 = new NortheastMegabuck.Models.ErrorDetail("error1");
+        var error1 = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error1");
         _registrationsAdapter.SetupGet(registrationsAdapter => registrationsAdapter.Error).Returns(error1);
 
-        var error2 = new NortheastMegabuck.Models.ErrorDetail("error2");
+        var error2 = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error2");
         _squadsAdapter.SetupGet(squadsAdapter => squadsAdapter.Error).Returns(error2);
 
-        var error3 = new NortheastMegabuck.Models.ErrorDetail("error3");
+        var error3 = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error3");
         _sweepersAdapter.SetupGet(sweepersAdapter => sweepersAdapter.Error).Returns(error3);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
@@ -95,7 +95,7 @@ internal sealed class TournamentRegistrationsPresenter
     [Test]
     public async Task ExecuteAsync_AdaperCallHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _registrationsAdapter.SetupGet(registrationAdapter => registrationAdapter.Error).Returns(error);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
@@ -104,7 +104,7 @@ internal sealed class TournamentRegistrationsPresenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>>()), Times.Never);
             _view.Verify(view => view.SetDivisionEntries(It.IsAny<IDictionary<string, int>>()), Times.Never);
             _view.Verify(view => view.SetSquadEntries(It.IsAny<IDictionary<string, int>>()), Times.Never);
             _view.Verify(view => view.SetSweeperEntries(It.IsAny<IDictionary<string, int>>()), Times.Never);
@@ -114,19 +114,19 @@ internal sealed class TournamentRegistrationsPresenter
     [Test]
     public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewBindRegistrationsCalledCorrectly()
     {
-        var registrations = new List<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>
+        var registrations = new List<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>
         {
-            new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel
+            new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel
             {
                 FirstName = "Joe",
                 LastName = "Bowler"
             },
-            new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel
+            new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel
             {
                 FirstName = "John",
                 LastName = "Apples"
             },
-            new NortheastMegabuck.Registrations.Retrieve.TournamentRegistrationViewModel
+            new BowlingMegabucks.TournamentManager.Registrations.Retrieve.TournamentRegistrationViewModel
             {
                 FirstName = "Jane",
                 LastName = "Bowler"
@@ -139,24 +139,24 @@ internal sealed class TournamentRegistrationsPresenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>>(r => r.First().FirstName == "John")), Times.Once);
-            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>>(r => r.Last().FirstName == "Joe")), Times.Once);
-            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>>(r => r.ToList()[1].FirstName == "Jane")), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>>(r => r.First().FirstName == "John")), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>>(r => r.Last().FirstName == "Joe")), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>>(r => r.ToList()[1].FirstName == "Jane")), Times.Once);
         });
     }
 
     [Test]
     public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewSetDivisionEntries_CalledCorrectly()
     {
-        var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registration1 = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
         registration1.SetupGet(registration => registration.SquadsEnteredCount).Returns(1);
 
-        var registration2 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registration2 = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration2.SetupGet(registration => registration.DivisionName).Returns("division2");
         registration2.SetupGet(registration => registration.SquadsEnteredCount).Returns(2);
 
-        var registration3 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registration3 = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration3.SetupGet(registration => registration.DivisionName).Returns("division1");
         registration3.SetupGet(registration => registration.SquadsEnteredCount).Returns(3);
 
@@ -177,26 +177,26 @@ internal sealed class TournamentRegistrationsPresenter
     [Test]
     public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewSetSquadEntries_CalledCorrectly()
     {
-        var squad1 = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var squad1 = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Id).Returns(SquadId.New());
         squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
 
-        var squad2 = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var squad2 = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         squad2.SetupGet(squad => squad.Id).Returns(SquadId.New());
         squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
 
         var squads = new[] { squad1.Object, squad2.Object };
         _squadsAdapter.Setup(squadsAdapter => squadsAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squads);
 
-        var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registration1 = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
         registration1.SetupGet(registration => registration.SquadsEntered).Returns([squad1.Object.Id]);
 
-        var registration2 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registration2 = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration2.SetupGet(registration => registration.DivisionName).Returns("division2");
         registration2.SetupGet(registration => registration.SquadsEntered).Returns([squad1.Object.Id]);
 
-        var registration3 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registration3 = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration3.SetupGet(registration => registration.DivisionName).Returns("division1");
         registration3.SetupGet(registration => registration.SquadsEntered).Returns([squad1.Object.Id, squad2.Object.Id]);
 
@@ -217,28 +217,28 @@ internal sealed class TournamentRegistrationsPresenter
     [Test]
     public async Task ExecuteAsync_AdapterCallsHaveNoErrors_ViewSetSweepersEntries_CalledCorrectly()
     {
-        var sweeper1 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
-        sweeper1.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
+        var sweeper1 = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>();
+        sweeper1.SetupGet(squad => squad.Id).Returns(BowlingMegabucks.TournamentManager.SquadId.New());
         sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
 
-        var sweeper2 = new Mock<NortheastMegabuck.Sweepers.IViewModel>();
-        sweeper2.SetupGet(squad => squad.Id).Returns(NortheastMegabuck.SquadId.New());
+        var sweeper2 = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>();
+        sweeper2.SetupGet(squad => squad.Id).Returns(BowlingMegabucks.TournamentManager.SquadId.New());
         sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
 
         var sweepers = new[] { sweeper1.Object, sweeper2.Object };
         _sweepersAdapter.Setup(sweepersAdapter => sweepersAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweepers);
 
-        var registration1 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registration1 = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration1.SetupGet(registration => registration.DivisionName).Returns("division1");
         registration1.SetupGet(registration => registration.SweepersEntered).Returns([sweeper1.Object.Id]);
         registration1.SetupGet(registration => registration.SuperSweeperEntered).Returns(true);
 
-        var registration2 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registration2 = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration2.SetupGet(registration => registration.DivisionName).Returns("division2");
         registration2.SetupGet(registration => registration.SweepersEntered).Returns([sweeper1.Object.Id]);
         registration2.SetupGet(registration => registration.SuperSweeperEntered).Returns(false);
 
-        var registration3 = new Mock<NortheastMegabuck.Registrations.Retrieve.ITournamentRegistrationViewModel>();
+        var registration3 = new Mock<BowlingMegabucks.TournamentManager.Registrations.Retrieve.ITournamentRegistrationViewModel>();
         registration3.SetupGet(registration => registration.DivisionName).Returns("division1");
         registration3.SetupGet(registration => registration.SweepersEntered).Returns([sweeper1.Object.Id, sweeper2.Object.Id]);
         registration3.SetupGet(registration => registration.SuperSweeperEntered).Returns(true);
@@ -299,7 +299,7 @@ internal sealed class TournamentRegistrationsPresenter
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _deleteAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.DeleteAsync(RegistrationId.New(), default).ConfigureAwait(false);

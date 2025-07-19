@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Registrations.Delete;
+namespace BowlingMegabucks.TournamentManager.Registrations.Delete;
 
 internal class DataLayer : IDataLayer
 {

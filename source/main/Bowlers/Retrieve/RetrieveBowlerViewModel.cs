@@ -1,6 +1,6 @@
-﻿using NortheastMegabuck.Models;
+﻿using BowlingMegabucks.TournamentManager.Models;
 
-namespace NortheastMegabuck.Bowlers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Retrieve;
 internal class ViewModel(Bowler bowler) : IViewModel
 {
     public BowlerId Id { get; set; } = bowler.Id;

@@ -1,7 +1,7 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace NortheastMegabuck.Api.Registrations.DeleteRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.DeleteRegistration;
 
 /// <summary>
 /// 

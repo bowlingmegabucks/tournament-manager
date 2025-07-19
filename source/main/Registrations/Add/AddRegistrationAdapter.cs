@@ -1,6 +1,6 @@
-﻿using NortheastMegabuck.Bowlers;
+﻿using BowlingMegabucks.TournamentManager.Bowlers;
 
-namespace NortheastMegabuck.Registrations.Add;
+namespace BowlingMegabucks.TournamentManager.Registrations.Add;
 
 internal class Adapter : IAdapter
 {

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NortheastMegabuck.Tournaments.Add;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Add;
 
 /// <summary>
 /// 

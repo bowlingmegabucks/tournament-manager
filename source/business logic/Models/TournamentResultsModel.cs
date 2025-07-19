@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Models;
+﻿namespace BowlingMegabucks.TournamentManager.Models;
 
 /// <summary>
 /// Represents the results of a tournament division, including squad and at-large results.

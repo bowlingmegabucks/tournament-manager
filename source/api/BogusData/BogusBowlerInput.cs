@@ -1,8 +1,8 @@
 using Bogus;
-using NortheastMegabuck.Api.Registrations.CreateRegistration;
-using NortheastMegabuck.Models;
+using BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
+using BowlingMegabucks.TournamentManager.Models;
 
-namespace NortheastMegabuck.Api.BogusData;
+namespace BowlingMegabucks.TournamentManager.Api.BogusData;
 
 internal sealed class BogusBowlerInput
     : Faker<BowlerInput>

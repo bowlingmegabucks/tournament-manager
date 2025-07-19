@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NortheastMegabuck.Controls.Grids;
+namespace BowlingMegabucks.TournamentManager.Controls.Grids;
 
 /// <summary>
 ///

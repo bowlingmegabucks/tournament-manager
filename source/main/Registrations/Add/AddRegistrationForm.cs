@@ -2,7 +2,7 @@
 using System.Data;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Registrations.Add;
+namespace BowlingMegabucks.TournamentManager.Registrations.Add;
 internal partial class Form
     : System.Windows.Forms.Form, IView
 {

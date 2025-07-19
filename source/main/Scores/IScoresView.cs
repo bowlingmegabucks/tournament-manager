@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Scores;
+namespace BowlingMegabucks.TournamentManager.Scores;
 internal interface IView
 {
     SquadId SquadId { get; }

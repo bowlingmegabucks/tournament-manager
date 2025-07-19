@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 internal static class LaneAssignmentsExtensions
 {
     public static IServiceCollection AddLaneAssignmentsModule(this IServiceCollection services)

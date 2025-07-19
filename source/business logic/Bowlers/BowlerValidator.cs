@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using NortheastMegabuck.Validators;
+using BowlingMegabucks.TournamentManager.Validators;
 
-namespace NortheastMegabuck.Bowlers;
+namespace BowlingMegabucks.TournamentManager.Bowlers;
 internal class Validator 
     : AbstractValidator<Models.Bowler>
 {

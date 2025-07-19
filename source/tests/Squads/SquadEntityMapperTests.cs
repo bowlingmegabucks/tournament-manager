@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Squads;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Squads;
 
 [TestFixture]
 internal sealed class EntityMapper
 {
-    private NortheastMegabuck.Squads.EntityMapper _mapper;
+    private BowlingMegabucks.TournamentManager.Squads.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new NortheastMegabuck.Squads.EntityMapper();
+        => _mapper = new BowlingMegabucks.TournamentManager.Squads.EntityMapper();
 
     [Test]
     public void Execute_IdMapped()
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             Id = SquadId.New()
         };
@@ -25,7 +25,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_TournamentIdMapped()
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             TournamentId = TournamentId.New()
         };
@@ -38,7 +38,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_EntryFeeMapped([Values(null, 100)] decimal? entryFee)
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             EntryFee = entryFee
         };
@@ -51,7 +51,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_CashRatioMapped([Values(null, 4.5)] decimal? cashRatio)
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             CashRatio = cashRatio
         };
@@ -64,7 +64,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_FinalsRatioMapped([Values(null, 5.5)] decimal? finalsRatio)
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             FinalsRatio = finalsRatio
         };
@@ -77,7 +77,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_DateMapped()
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             Date = DateTime.Now
         };
@@ -90,7 +90,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_MaxPerPairMapped()
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             MaxPerPair = 5
         };
@@ -103,7 +103,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_CompleteMapped([Values] bool complete)
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             Complete = complete
         };
@@ -116,7 +116,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_StartingLane_Mapped()
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             StartingLane = 1
         };
@@ -129,7 +129,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_NumberOfLanes_Mapped()
     {
-        var model = new NortheastMegabuck.Models.Squad
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad
         {
             NumberOfLanes = 10
         };

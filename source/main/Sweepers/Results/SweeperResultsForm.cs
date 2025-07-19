@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NortheastMegabuck.Sweepers.Results;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Results;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

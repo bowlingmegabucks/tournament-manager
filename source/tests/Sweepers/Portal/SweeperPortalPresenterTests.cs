@@ -1,29 +1,29 @@
 ﻿
-namespace NortheastMegabuck.Tests.Sweepers.Portal;
+namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Portal;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<NortheastMegabuck.Sweepers.Portal.IView> _view;
-    private Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter> _retrieveAdapter;
-    private Mock<NortheastMegabuck.Sweepers.Complete.IAdapter> _completeAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Portal.IView> _view;
+    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IAdapter> _retrieveAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Complete.IAdapter> _completeAdapter;
 
-    private NortheastMegabuck.Sweepers.Portal.Presenter _presenter;
+    private BowlingMegabucks.TournamentManager.Sweepers.Portal.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NortheastMegabuck.Sweepers.Portal.IView>();
-        _retrieveAdapter = new Mock<NortheastMegabuck.Sweepers.Retrieve.IAdapter>();
-        _completeAdapter = new Mock<NortheastMegabuck.Sweepers.Complete.IAdapter>();
+        _view = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Portal.IView>();
+        _retrieveAdapter = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IAdapter>();
+        _completeAdapter = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Complete.IAdapter>();
 
-        _presenter = new NortheastMegabuck.Sweepers.Portal.Presenter(_view.Object, _retrieveAdapter.Object, _completeAdapter.Object);
+        _presenter = new BowlingMegabucks.TournamentManager.Sweepers.Portal.Presenter(_view.Object, _retrieveAdapter.Object, _completeAdapter.Object);
     }
 
     [Test]
     public async Task LoadAsync_RetrieveSquadAdapterExecute_CalledCorrectly()
     {
-        var squad = new NortheastMegabuck.Sweepers.ViewModel();
+        var squad = new BowlingMegabucks.TournamentManager.Sweepers.ViewModel();
         _retrieveAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad);
 
         var squadId = SquadId.New();
@@ -38,7 +38,7 @@ internal sealed class Presenter
     [Test]
     public async Task LoadAsync_RetrieveSquadAdapterHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _retrieveAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.LoadAsync(default).ConfigureAwait(false);
@@ -59,7 +59,7 @@ internal sealed class Presenter
     [Test]
     public async Task LoadAsync_RetrieveSquadAdapterSuccessful_ViewFieldsSetCorrectly([Values] bool complete)
     {
-        var squad = new NortheastMegabuck.Sweepers.ViewModel
+        var squad = new BowlingMegabucks.TournamentManager.Sweepers.ViewModel
         {
             Date = new DateTime(2000, 1, 2, 9, 30, 30, DateTimeKind.Unspecified),
             StartingLane = 1,
@@ -127,7 +127,7 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _completeAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.CompleteAsync(default).ConfigureAwait(false);

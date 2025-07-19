@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Tournaments.Seeding;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Seeding;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

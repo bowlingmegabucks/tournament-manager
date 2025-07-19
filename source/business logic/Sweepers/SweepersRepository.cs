@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NortheastMegabuck.Sweepers;
+namespace BowlingMegabucks.TournamentManager.Sweepers;
 
 internal class Repository : IRepository
 {

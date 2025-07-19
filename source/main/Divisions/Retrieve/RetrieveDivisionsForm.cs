@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Divisions.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Divisions.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;
@@ -30,7 +30,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
     private async void AddButton_Click(object sender, EventArgs e)
         => await _presenter.AddDivisionAsync(default).ConfigureAwait(true);
 
-    public NortheastMegabuck.DivisionId? AddDivision(TournamentId tournamentId)
+    public BowlingMegabucks.TournamentManager.DivisionId? AddDivision(TournamentId tournamentId)
     {
         using var form = new Add.Form(_services, tournamentId);
 

@@ -1,3 +1,8 @@
+variable "subscription_id" {
+  description = "The Azure Subscription ID where resources will be deployed"
+  type        = string
+}
+
 variable "environment" {
   description = "The environment for which the infrastructure is being provisioned (e.g., dev, staging, prod)"
   type        = string

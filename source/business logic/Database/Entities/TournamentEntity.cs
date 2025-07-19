@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 
-namespace NortheastMegabuck.Database.Entities;
+namespace BowlingMegabucks.TournamentManager.Database.Entities;
 
 internal class Tournament
 {

@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Tournaments.Results;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Results;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.Tournaments.Results.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Results.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Tournaments.Results.Adapter _adapter;
+    private BowlingMegabucks.TournamentManager.Tournaments.Results.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.Tournaments.Results.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Results.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.Tournaments.Results.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.Tournaments.Results.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal sealed class Adapter
     [Test]
     public async Task AtLargeAsync_BusinessLogicHasError_ErrorMapped()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var result = await _adapter.AtLargeAsync(TournamentId.New(), default).ConfigureAwait(false);
@@ -46,32 +46,32 @@ internal sealed class Adapter
     {
         var previousCasherId = BowlerId.New();
 
-        var division1Result = new NortheastMegabuck.Models.AtLargeResults
+        var division1Result = new BowlingMegabucks.TournamentManager.Models.AtLargeResults
         {
             DivisionId = DivisionId.New(),
             AdvancingScores =
             [
-                new NortheastMegabuck.Models.BowlerSquadScore(200),
-                new NortheastMegabuck.Models.BowlerSquadScore(199)
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(199)
             ]
         };
 
-        var division2Result = new NortheastMegabuck.Models.AtLargeResults
+        var division2Result = new BowlingMegabucks.TournamentManager.Models.AtLargeResults
         {
             DivisionId = DivisionId.New(),
             AdvancingScores =
             [
-                new NortheastMegabuck.Models.BowlerSquadScore(198),
-                new NortheastMegabuck.Models.BowlerSquadScore(previousCasherId, 197),
-                new NortheastMegabuck.Models.BowlerSquadScore(196)
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(198),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(previousCasherId, 197),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(196)
             ],
             AdvancersWhoPreviouslyCashed = [previousCasherId]
         };
 
         var tournamentResults = new[]
         {
-            new NortheastMegabuck.Models.TournamentResults { AtLarge = division1Result },
-            new NortheastMegabuck.Models.TournamentResults {AtLarge = division2Result }
+            new BowlingMegabucks.TournamentManager.Models.TournamentResults { AtLarge = division1Result },
+            new BowlingMegabucks.TournamentManager.Models.TournamentResults {AtLarge = division2Result }
          };
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournamentResults);

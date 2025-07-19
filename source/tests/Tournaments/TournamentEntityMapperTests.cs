@@ -1,20 +1,20 @@
-﻿namespace NortheastMegabuck.Tests.Tournaments;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Tournaments;
 
 [TestFixture]
 internal sealed class EntityMapperTests
 {
-    private NortheastMegabuck.Tournaments.IEntityMapper _mapper;
+    private BowlingMegabucks.TournamentManager.Tournaments.IEntityMapper _mapper;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
-        => _mapper = new NortheastMegabuck.Tournaments.EntityMapper();
+        => _mapper = new BowlingMegabucks.TournamentManager.Tournaments.EntityMapper();
 
     [Test]
     public void Execute_IdMapped()
     {
         var id = TournamentId.New();
 
-        var model = new NortheastMegabuck.Models.Tournament { Id = id };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { Id = id };
 
         var entity = _mapper.Execute(model);
 
@@ -26,7 +26,7 @@ internal sealed class EntityMapperTests
     {
         var name = "Test Tournament";
 
-        var model = new NortheastMegabuck.Models.Tournament { Name = name };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { Name = name };
 
         var entity = _mapper.Execute(model);
 
@@ -38,7 +38,7 @@ internal sealed class EntityMapperTests
     {
         var startDate = new DateOnly(2000, 1, 1);
 
-        var model = new NortheastMegabuck.Models.Tournament { Start = startDate };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { Start = startDate };
 
         var entity = _mapper.Execute(model);
 
@@ -50,7 +50,7 @@ internal sealed class EntityMapperTests
     {
         var endDate = new DateOnly(2000, 1, 1);
 
-        var model = new NortheastMegabuck.Models.Tournament { End = endDate };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { End = endDate };
 
         var entity = _mapper.Execute(model);
 
@@ -62,7 +62,7 @@ internal sealed class EntityMapperTests
     {
         var entryFee = 100.50m;
 
-        var model = new NortheastMegabuck.Models.Tournament { EntryFee = entryFee };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { EntryFee = entryFee };
 
         var entity = _mapper.Execute(model);
 
@@ -74,7 +74,7 @@ internal sealed class EntityMapperTests
     {
         short games = 5;
 
-        var model = new NortheastMegabuck.Models.Tournament { Games = games };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { Games = games };
 
         var entity = _mapper.Execute(model);
 
@@ -86,7 +86,7 @@ internal sealed class EntityMapperTests
     {
         var finalsRatio = 0.5m;
 
-        var model = new NortheastMegabuck.Models.Tournament { FinalsRatio = finalsRatio };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { FinalsRatio = finalsRatio };
 
         var entity = _mapper.Execute(model);
 
@@ -98,7 +98,7 @@ internal sealed class EntityMapperTests
     {
         var cashRatio = 0.5m;
 
-        var model = new NortheastMegabuck.Models.Tournament { CashRatio = cashRatio };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { CashRatio = cashRatio };
 
         var entity = _mapper.Execute(model);
 
@@ -110,7 +110,7 @@ internal sealed class EntityMapperTests
     {
         var bowlingCenter = "Test Bowling Center";
 
-        var model = new NortheastMegabuck.Models.Tournament { BowlingCenter = bowlingCenter };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { BowlingCenter = bowlingCenter };
 
         var entity = _mapper.Execute(model);
 
@@ -120,7 +120,7 @@ internal sealed class EntityMapperTests
     [Test]
     public void Execute_CompletedMapped([Values] bool completed)
     {
-        var model = new NortheastMegabuck.Models.Tournament { Completed = completed };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { Completed = completed };
 
         var entity = _mapper.Execute(model);
 
@@ -130,7 +130,7 @@ internal sealed class EntityMapperTests
     [Test]
     public void Execute_SuperSweeperCashRatioMapped()
     {
-        var model = new NortheastMegabuck.Models.Tournament { SuperSweeperCashRatio = 1.2m };
+        var model = new BowlingMegabucks.TournamentManager.Models.Tournament { SuperSweeperCashRatio = 1.2m };
 
         var entity = _mapper.Execute(model);
 

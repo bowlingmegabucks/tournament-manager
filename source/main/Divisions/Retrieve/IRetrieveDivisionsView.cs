@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Divisions.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Divisions.Retrieve;
 
 internal interface IView
 {
@@ -10,7 +10,7 @@ internal interface IView
 
     void BindDivisions(IEnumerable<IViewModel> divisions);
 
-    NortheastMegabuck.DivisionId? AddDivision(TournamentId tournamentId);
+    BowlingMegabucks.TournamentManager.DivisionId? AddDivision(TournamentId tournamentId);
 
     Task RefreshDivisionsAsync(CancellationToken cancellationToken);
 }

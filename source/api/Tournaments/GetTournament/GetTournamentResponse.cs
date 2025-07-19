@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Tournaments.GetTournament;
+namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournament;
 
 /// <summary>
 /// Response containing the details of a specific tournament.

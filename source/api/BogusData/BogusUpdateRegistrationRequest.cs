@@ -1,7 +1,7 @@
 using Bogus;
-using NortheastMegabuck.Api.Registrations.UpdateRegistration;
+using BowlingMegabucks.TournamentManager.Api.Registrations.UpdateRegistration;
 
-namespace NortheastMegabuck.Api.BogusData;
+namespace BowlingMegabucks.TournamentManager.Api.BogusData;
 
 internal sealed class BogusUpdateRegistrationRequest
     : Faker<UpdateRegistrationRequest>

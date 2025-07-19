@@ -1,23 +1,23 @@
-﻿namespace NortheastMegabuck.Tests.Tournaments.Results;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Results;
 
 [TestFixture]
 internal sealed class Calculator
 {
-    private NortheastMegabuck.Tournaments.Results.Calculator _calculator;
+    private BowlingMegabucks.TournamentManager.Tournaments.Results.Calculator _calculator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _calculator = new NortheastMegabuck.Tournaments.Results.Calculator();
+        => _calculator = new BowlingMegabucks.TournamentManager.Tournaments.Results.Calculator();
 
     [Test]
     public void Execute_TotalFinalsSpotsLessThanSquadFinalistCount_ReturnsEmptyAtLargeResults()
     {
-        var division = new NortheastMegabuck.Models.Division();
-        var squadResult = new NortheastMegabuck.Models.SquadResult
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var squadResult = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
-            AdvancingScores = Enumerable.Repeat(new NortheastMegabuck.Models.BowlerSquadScore(), 3),
+            AdvancingScores = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(), 3),
             Division = division,
-            CashingScores = Enumerable.Repeat(new NortheastMegabuck.Models.BowlerSquadScore(), 1)
+            CashingScores = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(), 1)
         };
         var finalsRatio = 2m;
         var squadResults = new[] { squadResult };
@@ -35,12 +35,12 @@ internal sealed class Calculator
     [Test]
     public void Execute_TotalFinalsSpotsEqualToSquadFinalistCount_ReturnsEmptyAtLargeResults()
     {
-        var division = new NortheastMegabuck.Models.Division();
-        var squadResult = new NortheastMegabuck.Models.SquadResult
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var squadResult = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
-            AdvancingScores = Enumerable.Repeat(new NortheastMegabuck.Models.BowlerSquadScore(), 2),
+            AdvancingScores = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(), 2),
             Division = division,
-            CashingScores = Enumerable.Repeat(new NortheastMegabuck.Models.BowlerSquadScore(), 2)
+            CashingScores = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(), 2)
         };
         var finalsRatio = 2m;
         var squadResults = new[] { squadResult };
@@ -58,22 +58,22 @@ internal sealed class Calculator
     [Test]
     public void Execute_TotalFinalsSpotsGreaterThanSquadFinalistCount_NoAdvancersWhoPreviouslyCashed_ReturnsCorrectResults()
     {
-        var division = new NortheastMegabuck.Models.Division();
-        var squadResult = new NortheastMegabuck.Models.SquadResult
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var squadResult = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
             Division = division,
             AdvancingScores =
             [
-                new NortheastMegabuck.Models.BowlerSquadScore(250),
-                new NortheastMegabuck.Models.BowlerSquadScore(249)
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(250),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(249)
             ],
             CashingScores = [],
             NonQualifyingScores =
             [
-                new NortheastMegabuck.Models.BowlerSquadScore(200),
-                new NortheastMegabuck.Models.BowlerSquadScore(199),
-                new NortheastMegabuck.Models.BowlerSquadScore(198),
-                new NortheastMegabuck.Models.BowlerSquadScore(197)
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(199),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(198),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(197)
             ]
         };
         var finalsRatio = 2m;
@@ -97,24 +97,24 @@ internal sealed class Calculator
     {
         var casherId = BowlerId.New();
 
-        var division = new NortheastMegabuck.Models.Division();
-        var squadResult = new NortheastMegabuck.Models.SquadResult
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var squadResult = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
             Division = division,
             AdvancingScores =
             [
-                new NortheastMegabuck.Models.BowlerSquadScore(250),
-                new NortheastMegabuck.Models.BowlerSquadScore(249)
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(250),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(249)
             ],
             CashingScores =
             [
-                new NortheastMegabuck.Models.BowlerSquadScore(casherId, 200)
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(casherId, 200)
             ],
             NonQualifyingScores =
             [
-                new NortheastMegabuck.Models.BowlerSquadScore(199),
-                new NortheastMegabuck.Models.BowlerSquadScore(198),
-                new NortheastMegabuck.Models.BowlerSquadScore(197)
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(199),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(198),
+                new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(197)
             ]
         };
         var finalsRatio = 2m;

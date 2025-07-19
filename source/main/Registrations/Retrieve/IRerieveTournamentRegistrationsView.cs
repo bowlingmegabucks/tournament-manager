@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Registrations.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 internal interface ITournamentRegistrationsView
 {
     TournamentId TournamentId { get; }

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Squads.Complete;
+namespace BowlingMegabucks.TournamentManager.Squads.Complete;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error

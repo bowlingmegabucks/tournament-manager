@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Tournaments.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Retrieve;
 
 partial class Form
 {
@@ -29,7 +29,7 @@ partial class Form
     private void InitializeComponent()
     {
             this.openButton = new System.Windows.Forms.Button();
-            this.tournamentsGrid = new NortheastMegabuck.Controls.Grids.TournamentsGrid();
+            this.tournamentsGrid = new BowlingMegabucks.TournamentManager.Controls.Grids.TournamentsGrid();
             this.newButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -52,7 +52,7 @@ partial class Form
             this.tournamentsGrid.SelectedRowContextMenu = null;
             this.tournamentsGrid.Size = new System.Drawing.Size(670, 377);
             this.tournamentsGrid.TabIndex = 1;
-            this.tournamentsGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.Grids.GridRowDoubleClickEventArgs>(this.TournamentsGrid_GridRowDoubleClicked);
+            this.tournamentsGrid.GridRowDoubleClicked += new System.EventHandler<BowlingMegabucks.TournamentManager.Controls.Grids.GridRowDoubleClickEventArgs>(this.TournamentsGrid_GridRowDoubleClicked);
             // 
             // newButton
             // 

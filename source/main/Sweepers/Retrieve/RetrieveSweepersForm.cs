@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Sweepers.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Sweepers.Retrieve;
 
 internal partial class Form : System.Windows.Forms.Form, IView
 {

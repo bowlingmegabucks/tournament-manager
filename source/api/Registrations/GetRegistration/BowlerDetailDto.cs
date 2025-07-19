@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using Ardalis.SmartEnum.SystemTextJson;
 
-namespace NortheastMegabuck.Api.Registrations.GetRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 
 /// <summary>
 /// Represents the details of a bowler in a registration.

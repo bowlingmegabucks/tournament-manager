@@ -1,20 +1,20 @@
-﻿namespace NortheastMegabuck.Tests.Bowlers.Update;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Update;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<NortheastMegabuck.Bowlers.IRepository> _repository;
-    private Mock<NortheastMegabuck.Bowlers.IEntityMapper> _entityMapper;
+    private Mock<BowlingMegabucks.TournamentManager.Bowlers.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.Bowlers.IEntityMapper> _entityMapper;
 
-    private NortheastMegabuck.Bowlers.Update.IDataLayer _dataLayer;
+    private BowlingMegabucks.TournamentManager.Bowlers.Update.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NortheastMegabuck.Bowlers.IRepository>();
-        _entityMapper = new Mock<NortheastMegabuck.Bowlers.IEntityMapper>();
+        _repository = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IRepository>();
+        _entityMapper = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IEntityMapper>();
 
-        _dataLayer = new NortheastMegabuck.Bowlers.Update.DataLayer(_repository.Object, _entityMapper.Object);
+        _dataLayer = new BowlingMegabucks.TournamentManager.Bowlers.Update.DataLayer(_repository.Object, _entityMapper.Object);
     }
 
     [Test]
@@ -22,7 +22,7 @@ internal sealed class DataLayer
     {
         var id = BowlerId.New();
 
-        var name = new NortheastMegabuck.Models.PersonName
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName
         {
             First = "firstName",
             MiddleInitial = "middleInitial",

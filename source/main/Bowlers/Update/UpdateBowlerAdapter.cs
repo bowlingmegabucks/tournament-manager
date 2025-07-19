@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Bowlers.Update;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 internal class Adapter : IAdapter
 {
     public IEnumerable<Models.ErrorDetail> Errors

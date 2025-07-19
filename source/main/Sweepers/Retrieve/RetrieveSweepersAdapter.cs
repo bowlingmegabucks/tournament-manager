@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Sweepers.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Sweepers.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

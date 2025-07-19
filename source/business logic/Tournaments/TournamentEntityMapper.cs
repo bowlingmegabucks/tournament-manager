@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Tournaments;
+namespace BowlingMegabucks.TournamentManager.Tournaments;
 
 internal class EntityMapper : IEntityMapper
 {

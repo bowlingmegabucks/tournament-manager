@@ -1,15 +1,15 @@
 ﻿
-namespace NortheastMegabuck.Tests.Scores;
+namespace BowlingMegabucks.TournamentManager.Tests.Scores;
 
 [TestFixture]
 internal sealed class GridViewModel
 {
-    private Mock<NortheastMegabuck.LaneAssignments.IViewModel> _laneAssignment;
+    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel> _laneAssignment;
 
     [OneTimeSetUp]
     public void SetUp()
     {
-        _laneAssignment = new Mock<NortheastMegabuck.LaneAssignments.IViewModel>();
+        _laneAssignment = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
 
         _laneAssignment.SetupGet(laneAssignment => laneAssignment.BowlerId).Returns(BowlerId.New());
         _laneAssignment.SetupGet(laneAssignment => laneAssignment.LaneAssignment).Returns("2C");
@@ -19,7 +19,7 @@ internal sealed class GridViewModel
     [Test]
     public void Constructor_LaneAssignmentViewModel_BowlerIdMapped()
     {
-        var model = new NortheastMegabuck.Scores.GridViewModel(_laneAssignment.Object);
+        var model = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(_laneAssignment.Object);
 
         Assert.That(model.BowlerId, Is.EqualTo(_laneAssignment.Object.BowlerId));
     }
@@ -27,7 +27,7 @@ internal sealed class GridViewModel
     [Test]
     public void Constructor_LaneAssignmentViewModel_LaneAssignmentMapped()
     {
-        var model = new NortheastMegabuck.Scores.GridViewModel(_laneAssignment.Object);
+        var model = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(_laneAssignment.Object);
 
         Assert.That(model.LaneAssignment, Is.EqualTo(_laneAssignment.Object.LaneAssignment));
     }
@@ -35,7 +35,7 @@ internal sealed class GridViewModel
     [Test]
     public void Constructor_LaneAssignmentViewModel_BowlerNameMapped()
     {
-        var model = new NortheastMegabuck.Scores.GridViewModel(_laneAssignment.Object);
+        var model = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(_laneAssignment.Object);
 
         Assert.That(model.BowlerName, Is.EqualTo(_laneAssignment.Object.BowlerName));
     }
@@ -43,7 +43,7 @@ internal sealed class GridViewModel
     [Test]
     public void Constructor_LaneAssignmentViewModel_ScoresEmpty()
     {
-        var model = new NortheastMegabuck.Scores.GridViewModel(_laneAssignment.Object);
+        var model = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(_laneAssignment.Object);
 
         Assert.That(model.Scores, Is.Empty);
     }
@@ -51,12 +51,12 @@ internal sealed class GridViewModel
     [Test]
     public void Constructor_LaneAssignmentsIViewModel_BowlerIdMapped()
     {
-        var laneAssignmentViewModel = new NortheastMegabuck.LaneAssignments.ViewModel
+        var laneAssignmentViewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
         {
             BowlerId = BowlerId.New()
         };
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(laneAssignmentViewModel);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(laneAssignmentViewModel);
 
         Assert.That(viewModel.BowlerId, Is.EqualTo(laneAssignmentViewModel.BowlerId));
     }
@@ -64,9 +64,9 @@ internal sealed class GridViewModel
     [Test]
     public void Constructor_LaneAssignmentsIViewModel_LaneAssignmentMapped()
     {
-        var laneAssignmentViewModel = new NortheastMegabuck.LaneAssignments.ViewModel("1A");
+        var laneAssignmentViewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel("1A");
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(laneAssignmentViewModel);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(laneAssignmentViewModel);
 
         Assert.That(viewModel.LaneAssignment, Is.EqualTo(laneAssignmentViewModel.LaneAssignment));
     }
@@ -74,12 +74,12 @@ internal sealed class GridViewModel
     [Test]
     public void Constructor_LaneAssignmentsIViewModel_BowlerNameMapped()
     {
-        var laneAssignmentViewModel = new NortheastMegabuck.LaneAssignments.ViewModel
+        var laneAssignmentViewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
         {
             BowlerName = "bowlerName"
         };
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(laneAssignmentViewModel);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(laneAssignmentViewModel);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo(laneAssignmentViewModel.BowlerName));
     }
@@ -87,9 +87,9 @@ internal sealed class GridViewModel
     [Test]
     public void Constructor_LaneAssignmentsIViewModel_ScoresEmpty()
     {
-        var laneAssignmentViewModel = new NortheastMegabuck.LaneAssignments.ViewModel();
+        var laneAssignmentViewModel = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel();
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(laneAssignmentViewModel);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(laneAssignmentViewModel);
 
         Assert.That(viewModel.Scores, Is.Empty);
     }
@@ -99,7 +99,7 @@ internal sealed class GridViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(data, 4);
 
         Assert.That(viewModel.LaneAssignment, Is.EqualTo("1A"));
     }
@@ -109,7 +109,7 @@ internal sealed class GridViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(data, 4);
 
         Assert.That(viewModel.BowlerId, Is.EqualTo(new BowlerId(new Guid("6c28c592-c241-401e-8414-251f658b8ae9"))));
     }
@@ -119,7 +119,7 @@ internal sealed class GridViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(data, 4);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo("Bowler 1"));
     }
@@ -129,7 +129,7 @@ internal sealed class GridViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(data, 4);
 
         Assert.Multiple(() =>
         {
@@ -147,7 +147,7 @@ internal sealed class GridViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203\t806";
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 4);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(data, 4);
 
         Assert.Multiple(() =>
         {
@@ -165,7 +165,7 @@ internal sealed class GridViewModel
     {
         var data = "1A\t6c28c592-c241-401e-8414-251f658b8ae9\tBowler 1\t3\t0\t200\t201\t202\t203";
 
-        var viewModel = new NortheastMegabuck.Scores.GridViewModel(data, 5);
+        var viewModel = new BowlingMegabucks.TournamentManager.Scores.GridViewModel(data, 5);
 
         Assert.Multiple(() =>
         {

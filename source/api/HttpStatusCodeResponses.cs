@@ -1,7 +1,7 @@
 using FastEndpoints;
 using FluentValidation.Results;
 
-namespace NortheastMegabuck.Api;
+namespace BowlingMegabucks.TournamentManager.Api;
 
 internal static class HttpStatusCodeResponses
 {

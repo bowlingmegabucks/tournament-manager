@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Divisions.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Divisions.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

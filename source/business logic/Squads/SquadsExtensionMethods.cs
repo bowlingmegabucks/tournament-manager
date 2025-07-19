@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Squads;
+namespace BowlingMegabucks.TournamentManager.Squads;
 internal static class SquadsExtensionMethods
 {
     public static IServiceCollection AddSquadsModule(this IServiceCollection services)

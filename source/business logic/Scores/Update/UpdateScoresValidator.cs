@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NortheastMegabuck.Scores.Update;
+namespace BowlingMegabucks.TournamentManager.Scores.Update;
 
 internal class Validator : AbstractValidator<IEnumerable<Models.SquadScore>>
 {

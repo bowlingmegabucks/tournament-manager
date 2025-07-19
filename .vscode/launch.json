@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/source/main/bin/Debug/net7.0-windows/NortheastMegabuck.dll",
+            "program": "${workspaceFolder}/source/main/bin/Debug/net7.0-windows/BowlingMegabucks.TournamentManager.dll",
             "args": [],
             "cwd": "${workspaceFolder}/source/main",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console

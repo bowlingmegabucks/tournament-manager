@@ -1,7 +1,7 @@
 ﻿
 using System.Runtime.Versioning;
 
-namespace NortheastMegabuck.Squads.Portal;
+namespace BowlingMegabucks.TournamentManager.Squads.Portal;
 
 [SupportedOSPlatform("windows")]
 internal partial class Form : System.Windows.Forms.Form, IView

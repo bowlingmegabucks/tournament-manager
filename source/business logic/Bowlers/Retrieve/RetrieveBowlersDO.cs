@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Bowlers.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Bowlers.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

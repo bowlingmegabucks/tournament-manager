@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Squads.Results;
+namespace BowlingMegabucks.TournamentManager.Tests.Squads.Results;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.Squads.Results.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.Results.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Squads.Results.Adapter _adapter;
+    private BowlingMegabucks.TournamentManager.Squads.Results.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.Squads.Results.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Squads.Results.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.Squads.Results.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.Squads.Results.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -30,7 +30,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_SquadId_BusinessLogicHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var result = await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
@@ -46,111 +46,111 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_SquadId_BusinessLogicNoError_ResultsReturnedCorrectly()
     {
-        var squad = new NortheastMegabuck.Models.Squad { Id = SquadId.New(), Date = new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified) };
+        var squad = new BowlingMegabucks.TournamentManager.Models.Squad { Id = SquadId.New(), Date = new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified) };
 
-        var division1 = new NortheastMegabuck.Models.Division { Name = "division1" };
-        var division2 = new NortheastMegabuck.Models.Division { Name = "division2" };
+        var division1 = new BowlingMegabucks.TournamentManager.Models.Division { Name = "division1" };
+        var division2 = new BowlingMegabucks.TournamentManager.Models.Division { Name = "division2" };
 
-        var division1AdvancerScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200)
+        var division1AdvancerScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 200, 200)
         {
             SquadId = squad.Id,
             Division = division1,
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "division1AdvancerScore" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division1AdvancerScore" } }
         };
 
-        var division1CasherScore1 = new NortheastMegabuck.Models.BowlerSquadScore(199, 199, 199)
+        var division1CasherScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(199, 199, 199)
         {
             SquadId = squad.Id,
             Division = division1,
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "division1CasherScore1" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division1CasherScore1" } }
         };
 
-        var division1CasherScore2 = new NortheastMegabuck.Models.BowlerSquadScore(198, 198, 198)
+        var division1CasherScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(198, 198, 198)
         {
             SquadId = squad.Id,
             Division = division1,
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "division1CasherScore2" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division1CasherScore2" } }
         };
 
-        var division1NonQualifierScore1 = new NortheastMegabuck.Models.BowlerSquadScore(197, 197, 197)
+        var division1NonQualifierScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(197, 197, 197)
         {
             SquadId = squad.Id,
             Division = division1,
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "division1NonQualifierScore1" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division1NonQualifierScore1" } }
         };
 
-        var division1NonQualifierScore2 = new NortheastMegabuck.Models.BowlerSquadScore(196, 196, 196)
+        var division1NonQualifierScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(196, 196, 196)
         {
             SquadId = squad.Id,
             Division = division1,
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
-                Name = new NortheastMegabuck.Models.PersonName { First = "division1NonQualifierScore2" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division1NonQualifierScore2" }
             }
         };
 
-        var division1NonQualifierScore3 = new NortheastMegabuck.Models.BowlerSquadScore(195, 195, 195)
+        var division1NonQualifierScore3 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(195, 195, 195)
         {
             SquadId = squad.Id,
             Division = division1,
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
-                Name = new NortheastMegabuck.Models.PersonName { First = "division1NonQualifierScore3" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division1NonQualifierScore3" }
             }
         };
 
-        var division2AdvancerScore = new NortheastMegabuck.Models.BowlerSquadScore(200, 200, 200)
+        var division2AdvancerScore = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 200, 200)
         {
             SquadId = squad.Id,
             Division = division2,
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
-                Name = new NortheastMegabuck.Models.PersonName { First = "division2AdvancerScore" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division2AdvancerScore" }
             }
         };
 
-        var division2CasherScore1 = new NortheastMegabuck.Models.BowlerSquadScore(199, 199, 199)
+        var division2CasherScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(199, 199, 199)
         {
             SquadId = squad.Id,
             Division = division2,
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
-                Name = new NortheastMegabuck.Models.PersonName { First = "division2CasherScore1" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division2CasherScore1" }
             }
         };
 
-        var division2CasherScore2 = new NortheastMegabuck.Models.BowlerSquadScore(198, 198, 198)
+        var division2CasherScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(198, 198, 198)
         {
             SquadId = squad.Id,
             Division = division2,
-            Bowler = new NortheastMegabuck.Models.Bowler
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
             {
-                Name = new NortheastMegabuck.Models.PersonName { First = "division2CasherScore2" }
+                Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division2CasherScore2" }
             }
         };
 
-        var division2NonQualifierScore1 = new NortheastMegabuck.Models.BowlerSquadScore(197, 197, 197)
+        var division2NonQualifierScore1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(197, 197, 197)
         {
             SquadId = squad.Id,
             Division = division2,
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "division2NonQualifierScore1" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division2NonQualifierScore1" } }
         };
 
-        var division2NonQualifierScore2 = new NortheastMegabuck.Models.BowlerSquadScore(196, 196, 196)
+        var division2NonQualifierScore2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(196, 196, 196)
         {
             SquadId = squad.Id,
             Division = division2,
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "division2NonQualifierScore2" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division2NonQualifierScore2" } }
         };
 
-        var division2NonQualifierScore3 = new NortheastMegabuck.Models.BowlerSquadScore(195, 195, 195)
+        var division2NonQualifierScore3 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(195, 195, 195)
         {
             SquadId = squad.Id,
             Division = division2,
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "division2NonQualifierScore3" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "division2NonQualifierScore3" } }
         };
 
-        var division1Result = new NortheastMegabuck.Models.SquadResult
+        var division1Result = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
             AdvancingScores = [division1AdvancerScore],
             CashingScores = [division1CasherScore1, division1CasherScore2],
@@ -159,7 +159,7 @@ internal sealed class Adapter
             Division = division1
         };
 
-        var division2Result = new NortheastMegabuck.Models.SquadResult
+        var division2Result = new BowlingMegabucks.TournamentManager.Models.SquadResult
         {
             AdvancingScores = [division2AdvancerScore],
             CashingScores = [division2CasherScore1, division2CasherScore2],

@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Sweepers;
+namespace BowlingMegabucks.TournamentManager.Api.Sweepers;
 
 /// <summary>
 /// Data Transfer Object for retrieving detailed information about a sweeper in a tournament.

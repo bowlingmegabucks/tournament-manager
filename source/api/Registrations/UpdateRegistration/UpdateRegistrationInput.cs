@@ -1,5 +1,5 @@
 
-namespace NortheastMegabuck.Api.Registrations.UpdateRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.UpdateRegistration;
 
 /// <summary>
 /// Input for updating a registration.

@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Squads.Complete;
+namespace BowlingMegabucks.TournamentManager.Tests.Squads.Complete;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<NortheastMegabuck.Squads.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.IRepository> _repository;
 
-    private NortheastMegabuck.Squads.Complete.DataLayer _dataLayer;
+    private BowlingMegabucks.TournamentManager.Squads.Complete.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NortheastMegabuck.Squads.IRepository>();
+        _repository = new Mock<BowlingMegabucks.TournamentManager.Squads.IRepository>();
 
-        _dataLayer = new NortheastMegabuck.Squads.Complete.DataLayer(_repository.Object);
+        _dataLayer = new BowlingMegabucks.TournamentManager.Squads.Complete.DataLayer(_repository.Object);
     }
 
     [Test]

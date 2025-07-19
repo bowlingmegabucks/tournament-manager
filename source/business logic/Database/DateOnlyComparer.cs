@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace NortheastMegabuck.Database;
+namespace BowlingMegabucks.TournamentManager.Database;
 
 internal class DateOnlyComparer : ValueComparer<DateOnly>
 {

@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using NortheastMegabuck.Bowlers.Add;
+using BowlingMegabucks.TournamentManager.Bowlers.Add;
 
-namespace NortheastMegabuck.Bowlers;
+namespace BowlingMegabucks.TournamentManager.Bowlers;
 internal static class BowlersExtensions
 {
     public static IServiceCollection AddBowlersModule(this IServiceCollection services)

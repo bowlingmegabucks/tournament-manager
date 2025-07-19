@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Models;
+namespace BowlingMegabucks.TournamentManager.Models;
 
 /// <summary>
 /// 
@@ -54,7 +54,7 @@ public class Registration
     /// <param name="sweepers"></param>
     /// <param name="superSweeper"></param>
     /// <param name="average"></param>
-    public Registration(BowlerId bowlerId, NortheastMegabuck.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+    public Registration(BowlerId bowlerId, BowlingMegabucks.TournamentManager.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
         : this(new Bowler { Id = bowlerId }, divisionId, squads, sweepers, superSweeper, average)
     { }
 
@@ -67,7 +67,7 @@ public class Registration
     /// <param name="sweepers"></param>
     /// <param name="superSweeper"></param>
     /// <param name="average"></param>
-    public Registration(Bowler bowler, NortheastMegabuck.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+    public Registration(Bowler bowler, BowlingMegabucks.TournamentManager.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
     {
         Bowler = bowler;
         Division = new Division { Id = divisionId };

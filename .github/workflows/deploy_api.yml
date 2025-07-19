@@ -28,7 +28,7 @@ jobs:
 
           - name: Publish API Project
             run: |
-              dotnet publish "source/api/NortheastMegabuck.Api.csproj" --configuration Release --output ./publish -r linux-x64 --self-contained false
+              dotnet publish "source/api/BowlingMegabucks.TournamentManager.Api.csproj" --configuration Release --output ./publish -r linux-x64 --self-contained false
 
           - name: Zip Published Files
             run: |

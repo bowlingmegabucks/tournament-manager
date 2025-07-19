@@ -2,7 +2,7 @@ using Ardalis.SmartEnum;
 using NJsonSchema;
 using NJsonSchema.Generation.TypeMappers;
 
-namespace NortheastMegabuck.Api;
+namespace BowlingMegabucks.TournamentManager.Api;
 
 internal class SmartEnumTypeMapper<TEnum, TVal> : PrimitiveTypeMapper
     where TEnum : SmartEnum<TEnum, TVal>

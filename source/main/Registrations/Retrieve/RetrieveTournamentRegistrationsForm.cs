@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Text;
 
-namespace NortheastMegabuck.Registrations.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRegistrationsView
 {
     private readonly IServiceProvider _services;

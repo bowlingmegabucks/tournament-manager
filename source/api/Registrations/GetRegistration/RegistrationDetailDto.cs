@@ -1,8 +1,8 @@
-using NortheastMegabuck.Api.Divisions;
-using NortheastMegabuck.Api.Squads;
-using NortheastMegabuck.Api.Sweepers;
+using BowlingMegabucks.TournamentManager.Api.Divisions;
+using BowlingMegabucks.TournamentManager.Api.Squads;
+using BowlingMegabucks.TournamentManager.Api.Sweepers;
 
-namespace NortheastMegabuck.Api.Registrations.GetRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 
 /// <summary>
 /// 

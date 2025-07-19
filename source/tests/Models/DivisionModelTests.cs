@@ -1,6 +1,6 @@
-﻿using NortheastMegabuck.Divisions;
+﻿using BowlingMegabucks.TournamentManager.Divisions;
 
-namespace NortheastMegabuck.Tests.Models;
+namespace BowlingMegabucks.TournamentManager.Tests.Models;
 
 [TestFixture]
 internal sealed class Division
@@ -8,9 +8,9 @@ internal sealed class Division
     [Test]
     public void Constructor_ViewModel_IdMapped()
     {
-        var id = NortheastMegabuck.DivisionId.New();
+        var id = BowlingMegabucks.TournamentManager.DivisionId.New();
 
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(id);
 
         var model = viewModel.Object.ToModel();
@@ -23,7 +23,7 @@ internal sealed class Division
     {
         short number = 5;
 
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.Number).Returns(number);
 
         var model = viewModel.Object.ToModel();
@@ -36,7 +36,7 @@ internal sealed class Division
     {
         var name = "Division Name";
 
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.DivisionName).Returns(name);
 
         var model = viewModel.Object.ToModel();
@@ -49,7 +49,7 @@ internal sealed class Division
     {
         var tournamentId = TournamentId.New();
 
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.TournamentId).Returns(tournamentId);
 
         var model = viewModel.Object.ToModel();
@@ -60,7 +60,7 @@ internal sealed class Division
     [Test]
     public void Constructor_ViewModel_MinimumAgeMapped([Values(null, 5)] short? age)
     {
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MinimumAge).Returns(age);
 
         var model = viewModel.Object.ToModel();
@@ -71,7 +71,7 @@ internal sealed class Division
     [Test]
     public void Constructor_ViewModel_MaximumAgeMapped([Values(null, 5)] short? age)
     {
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MaximumAge).Returns(age);
 
         var model = viewModel.Object.ToModel();
@@ -82,7 +82,7 @@ internal sealed class Division
     [Test]
     public void Constructor_ViewModel_MinimumAverageMapped([Values(null, 200)] int? average)
     {
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MinimumAverage).Returns(average);
 
         var model = viewModel.Object.ToModel();
@@ -93,7 +93,7 @@ internal sealed class Division
     [Test]
     public void Constructor_ViewModel_MaximumAverageMapped([Values(null, 200)] int? average)
     {
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MaximumAverage).Returns(average);
 
         var model = viewModel.Object.ToModel();
@@ -104,7 +104,7 @@ internal sealed class Division
     [Test]
     public void Constructor_ViewModel_HandicapPercentageMapped([Values(null, .7, 1)] decimal? handicapPercentage)
     {
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.HandicapPercentage).Returns(handicapPercentage);
 
         var model = viewModel.Object.ToModel();
@@ -115,7 +115,7 @@ internal sealed class Division
     [Test]
     public void Constructor_ViewModel_HandicapBaseMapped([Values(null, 200)] int? handicapBase)
     {
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.HandicapBase).Returns(handicapBase);
 
         var model = viewModel.Object.ToModel();
@@ -126,7 +126,7 @@ internal sealed class Division
     [Test]
     public void Constructor_ViewModel_MaximumHandicapPerGameMapped([Values(null, 50)] int? maximumHandicapPerGame)
     {
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
         viewModel.SetupGet(v => v.MaximumHandicapPerGame).Returns(maximumHandicapPerGame);
 
         var model = viewModel.Object.ToModel();
@@ -137,36 +137,36 @@ internal sealed class Division
     [Test]
     public void Constructor_ViewModel_GenderMapped_Male()
     {
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
-        viewModel.SetupGet(v => v.Gender).Returns(NortheastMegabuck.Models.Gender.Male);
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
+        viewModel.SetupGet(v => v.Gender).Returns(BowlingMegabucks.TournamentManager.Models.Gender.Male);
 
         var model = viewModel.Object.ToModel();
 
-        Assert.That(model.Gender, Is.EqualTo(NortheastMegabuck.Models.Gender.Male));
+        Assert.That(model.Gender, Is.EqualTo(BowlingMegabucks.TournamentManager.Models.Gender.Male));
     }
 
     [Test]
     public void Constructor_ViewModel_GenderMapped_Female()
     {
-        var viewModel = new Mock<NortheastMegabuck.Divisions.IViewModel>();
-        viewModel.SetupGet(v => v.Gender).Returns(NortheastMegabuck.Models.Gender.Female);
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
+        viewModel.SetupGet(v => v.Gender).Returns(BowlingMegabucks.TournamentManager.Models.Gender.Female);
 
         var model = viewModel.Object.ToModel();
 
-        Assert.That(model.Gender, Is.EqualTo(NortheastMegabuck.Models.Gender.Female));
+        Assert.That(model.Gender, Is.EqualTo(BowlingMegabucks.TournamentManager.Models.Gender.Female));
     }
 
     [Test]
     public void Constructor_Entities_IdMapped()
     {
-        var id = NortheastMegabuck.DivisionId.New();
+        var id = BowlingMegabucks.TournamentManager.DivisionId.New();
 
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             Id = id
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.Id, Is.EqualTo(id));
     }
@@ -176,12 +176,12 @@ internal sealed class Division
     {
         short number = 5;
 
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             Number = number
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.Number, Is.EqualTo(number));
     }
@@ -191,12 +191,12 @@ internal sealed class Division
     {
         var name = "Division Name";
 
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             Name = name
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.Name, Is.EqualTo(name));
     }
@@ -206,12 +206,12 @@ internal sealed class Division
     {
         var tournamentId = TournamentId.New();
 
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             TournamentId = tournamentId
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.TournamentId, Is.EqualTo(tournamentId));
     }
@@ -219,12 +219,12 @@ internal sealed class Division
     [Test]
     public void Constructor_Entities_MinimumAgeMapped([Values(null, 5)] short? age)
     {
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             MinimumAge = age
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.MinimumAge, Is.EqualTo(age));
     }
@@ -232,12 +232,12 @@ internal sealed class Division
     [Test]
     public void Constructor_Entities_MaximumAgeMapped([Values(null, 5)] short? age)
     {
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             MaximumAge = age
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.MaximumAge, Is.EqualTo(age));
     }
@@ -245,12 +245,12 @@ internal sealed class Division
     [Test]
     public void Constructor_Entities_MinimumAverageMapped([Values(null, 200)] int? average)
     {
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             MinimumAverage = average
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.MinimumAverage, Is.EqualTo(average));
     }
@@ -258,12 +258,12 @@ internal sealed class Division
     [Test]
     public void Constructor_Entities_MaximumAverageMapped([Values(null, 200)] int? average)
     {
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             MaximumAverage = average
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.MaximumAverage, Is.EqualTo(average));
     }
@@ -271,12 +271,12 @@ internal sealed class Division
     [Test]
     public void Constructor_Entities_HandicapPercentageMapped([Values(null, .7, 1)] decimal? handicapPercentage)
     {
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             HandicapPercentage = handicapPercentage
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.HandicapPercentage, Is.EqualTo(handicapPercentage));
     }
@@ -284,12 +284,12 @@ internal sealed class Division
     [Test]
     public void Constructor_Entities_HandicapBaseMapped([Values(null, 200)] int? handicapBase)
     {
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             HandicapBase = handicapBase
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.HandicapBase, Is.EqualTo(handicapBase));
     }
@@ -297,12 +297,12 @@ internal sealed class Division
     [Test]
     public void Constructor_Entities_MaximumHandicapPerGameMapped([Values(null, 50)] int? maximumHandicapPerGame)
     {
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
             MaximumHandicapPerGame = maximumHandicapPerGame
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
         Assert.That(model.MaximumHandicapPerGame, Is.EqualTo(maximumHandicapPerGame));
     }
@@ -310,34 +310,34 @@ internal sealed class Division
     [Test]
     public void Constructor_Entities_GenderMapped_Male()
     {
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
-            Gender = NortheastMegabuck.Models.Gender.Male
+            Gender = BowlingMegabucks.TournamentManager.Models.Gender.Male
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
-        Assert.That(model.Gender, Is.EqualTo(NortheastMegabuck.Models.Gender.Male));
+        Assert.That(model.Gender, Is.EqualTo(BowlingMegabucks.TournamentManager.Models.Gender.Male));
     }
 
     [Test]
     public void Constructor_Entities_GenderMapped_Female()
     {
-        var entity = new NortheastMegabuck.Database.Entities.Division
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Division
         {
-            Gender = NortheastMegabuck.Models.Gender.Female
+            Gender = BowlingMegabucks.TournamentManager.Models.Gender.Female
         };
 
-        var model = new NortheastMegabuck.Models.Division(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Division(entity);
 
-        Assert.That(model.Gender, Is.EqualTo(NortheastMegabuck.Models.Gender.Female));
+        Assert.That(model.Gender, Is.EqualTo(BowlingMegabucks.TournamentManager.Models.Gender.Female));
     }
 
     [Test]
     public void GetHashCode_ReturnsIdHashCode()
     {
         var id = DivisionId.New();
-        var division = new NortheastMegabuck.Models.Division { Id = id };
+        var division = new BowlingMegabucks.TournamentManager.Models.Division { Id = id };
 
         Assert.That(division.GetHashCode(), Is.EqualTo(id.GetHashCode()));
     }
@@ -345,7 +345,7 @@ internal sealed class Division
     [Test]
     public void Equals_ObjNull_ReturnsFalse()
     {
-        var division = new NortheastMegabuck.Models.Division();
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
 
 #pragma warning disable CA1508 // Avoid dead conditional code
         Assert.That(division.Equals(null), Is.False);
@@ -355,16 +355,16 @@ internal sealed class Division
     [Test]
     public void Equals_ObjNotDivision_ReturnsFalse()
     {
-        var division = new NortheastMegabuck.Models.Division();
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
 
-        Assert.That(division.Equals(new NortheastMegabuck.Models.Bowler()), Is.False);
+        Assert.That(division.Equals(new BowlingMegabucks.TournamentManager.Models.Bowler()), Is.False);
     }
 
     [Test]
     public void Equals_ObjDivision_IdsDoNotMatch_ReturnsFalse()
     {
-        var division = new NortheastMegabuck.Models.Division();
-        var other = new NortheastMegabuck.Models.Division();
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var other = new BowlingMegabucks.TournamentManager.Models.Division();
 
         Assert.That(division.Equals(other), Is.False);
     }
@@ -372,8 +372,8 @@ internal sealed class Division
     [Test]
     public void Equals_ObjDivision_IdsMatch_ReturnsTrue()
     {
-        var division = new NortheastMegabuck.Models.Division();
-        var other = new NortheastMegabuck.Models.Division { Id = division.Id };
+        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var other = new BowlingMegabucks.TournamentManager.Models.Division { Id = division.Id };
 
         Assert.That(division.Equals(other), Is.True);
     }

@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Registrations.CreateRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 
 /// <summary>
 /// Represents an address input for registration.

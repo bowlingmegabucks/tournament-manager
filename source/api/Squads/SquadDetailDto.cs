@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Squads;
+namespace BowlingMegabucks.TournamentManager.Api.Squads;
 
 /// <summary>
 /// Data Transfer Object for retrieving detailed information about a squad in a tournament.

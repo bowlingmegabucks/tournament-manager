@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using NortheastMegabuck.Registrations.Retrieve;
+using BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 
-namespace NortheastMegabuck.Registrations.Update;
+namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
 internal partial class UpdateRegistrationAverageForm
     : Form, IAverageView

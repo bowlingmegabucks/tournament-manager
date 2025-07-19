@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Squads.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Squads.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;

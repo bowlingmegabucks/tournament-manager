@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using QuestPDF.Fluent;
 
-namespace NortheastMegabuck.Tournaments.Seeding;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Seeding;
 internal class TournamentSeedingReport(string division, IList<IViewModel> results) : ResultReportBase<IViewModel>("Finals Seeding", null, division, results)
 {
     protected override void ComposeColumnDefinitionDescriptor(TableColumnsDefinitionDescriptor columns)

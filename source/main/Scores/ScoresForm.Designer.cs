@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Scores;
+﻿namespace BowlingMegabucks.TournamentManager.Scores;
 
 partial class Form
 {

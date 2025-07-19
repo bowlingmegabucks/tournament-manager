@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Registrations.Delete;
+namespace BowlingMegabucks.TournamentManager.Registrations.Delete;
 
 /// <summary>
 /// 

@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Sweepers.Add;
+﻿namespace BowlingMegabucks.TournamentManager.Sweepers.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;

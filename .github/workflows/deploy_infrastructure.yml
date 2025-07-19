@@ -47,7 +47,7 @@ jobs:
           -backend-config="key=${{ github.event.inputs.environment }}.tfstate"
 
       - name: Terraform Plan
-        run: terraform plan -out=${{ github.event.inputs.environment }}-tfplan -var-file="${{ github.event.inputs.environment }}.tfvars"
+        run: terraform plan -out=${{ github.event.inputs.environment }}-tfplan -var-file="${{ github.event.inputs.environment }}.tfvars" -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
       - name: Terraform Apply
         run: terraform apply -auto-approve ${{ github.event.inputs.environment }}-tfplan

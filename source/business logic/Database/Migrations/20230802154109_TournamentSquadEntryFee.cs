@@ -3,7 +3,7 @@
 #nullable disable
 #pragma warning disable
 
-namespace NortheastMegabuck.Database.Migrations;
+namespace BowlingMegabucks.TournamentManager.Database.Migrations;
 
 /// <inheritdoc />
 public partial class TournamentSquadEntryFee : Migration

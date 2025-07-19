@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Sweepers.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Sweepers.Retrieve;
 
 partial class Form
 {
@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.sweepersGrid = new NortheastMegabuck.Controls.Grids.SweepersGrid();
+            this.sweepersGrid = new BowlingMegabucks.TournamentManager.Controls.Grids.SweepersGrid();
             this.addButton = new System.Windows.Forms.Button();
             this.openButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -42,7 +42,7 @@ partial class Form
             this.sweepersGrid.SelectedRowContextMenu = null;
             this.sweepersGrid.Size = new System.Drawing.Size(654, 377);
             this.sweepersGrid.TabIndex = 0;
-            this.sweepersGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.Grids.GridRowDoubleClickEventArgs>(this.SweepersGrid_GridRowDoubleClicked);
+            this.sweepersGrid.GridRowDoubleClicked += new System.EventHandler<BowlingMegabucks.TournamentManager.Controls.Grids.GridRowDoubleClickEventArgs>(this.SweepersGrid_GridRowDoubleClicked);
             // 
             // addButton
             // 

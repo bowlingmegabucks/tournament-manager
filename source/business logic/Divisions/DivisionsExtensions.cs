@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Divisions;
+namespace BowlingMegabucks.TournamentManager.Divisions;
 internal static class DivisionsExtensions
 {
     internal static IServiceCollection AddDivisionsModule(this IServiceCollection services)

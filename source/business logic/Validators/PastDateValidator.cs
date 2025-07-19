@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Validators;
 using FluentValidation;
 
-namespace NortheastMegabuck.Validators;
+namespace BowlingMegabucks.TournamentManager.Validators;
 internal class PastDate<T> : PropertyValidator<T, DateOnly>
 {
     public override string Name => "PastDateValidator";

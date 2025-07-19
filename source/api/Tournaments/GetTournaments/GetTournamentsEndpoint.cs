@@ -1,6 +1,6 @@
 using FastEndpoints;
 
-namespace NortheastMegabuck.Api.Tournaments.GetTournaments;
+namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
 
 /// <summary>
 /// Endpoint to retrieve a list of tournaments.

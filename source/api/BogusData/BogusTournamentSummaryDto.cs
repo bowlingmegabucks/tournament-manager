@@ -1,8 +1,8 @@
 using Bogus;
-using NortheastMegabuck.Api.Tournaments.GetTournaments;
-using NortheastMegabuck.Models;
+using BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
+using BowlingMegabucks.TournamentManager.Models;
 
-namespace NortheastMegabuck.Api.BogusData;
+namespace BowlingMegabucks.TournamentManager.Api.BogusData;
 
 internal sealed class BogusGetTournamentsDto
     : Faker<TournamentSummaryDto>

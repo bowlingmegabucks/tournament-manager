@@ -1,11 +1,11 @@
 ﻿using System.Drawing.Printing;
 using System.Globalization;
-using NortheastMegabuck.Properties;
+using BowlingMegabucks.TournamentManager.Properties;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
-namespace NortheastMegabuck;
+namespace BowlingMegabucks.TournamentManager;
 
 #if WINDOWS
 internal abstract class ResultReportBase<TViewModel> : IDocument

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Sweepers.Complete;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Complete;
 
 internal class DataLayer : IDataLayer
 {

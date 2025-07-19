@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
-using NortheastMegabuck.Api.Divisions;
-using NortheastMegabuck.Api.Squads;
-using NortheastMegabuck.Api.Sweepers;
+using BowlingMegabucks.TournamentManager.Api.Divisions;
+using BowlingMegabucks.TournamentManager.Api.Squads;
+using BowlingMegabucks.TournamentManager.Api.Sweepers;
 
-namespace NortheastMegabuck.Api.Tournaments.GetTournament;
+namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournament;
 
 /// <summary>
 /// Data Transfer Object for retrieving detailed tournament information.

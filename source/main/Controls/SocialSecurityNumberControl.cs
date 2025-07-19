@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using NortheastMegabuck.Properties;
+using BowlingMegabucks.TournamentManager.Properties;
 
-namespace NortheastMegabuck.Controls;
+namespace BowlingMegabucks.TournamentManager.Controls;
 internal partial class SocialSecurityNumberControl : UserControl
 {
     /// <summary>

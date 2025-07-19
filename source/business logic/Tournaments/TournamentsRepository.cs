@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NortheastMegabuck.Tournaments;
+namespace BowlingMegabucks.TournamentManager.Tournaments;
 internal class Repository : IRepository
 {
     private readonly Database.IDataContext _dataContext;

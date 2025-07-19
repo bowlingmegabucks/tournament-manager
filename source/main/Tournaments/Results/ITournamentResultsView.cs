@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Tournaments.Results;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Results;
 
 internal interface IView
 {

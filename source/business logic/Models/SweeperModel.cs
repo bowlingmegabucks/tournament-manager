@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Models;
+namespace BowlingMegabucks.TournamentManager.Models;
 
 /// <summary>
 /// 
@@ -83,6 +83,6 @@ public class Sweeper
     /// </summary>
     public Sweeper()
     {
-        Divisions = new Dictionary<NortheastMegabuck.DivisionId, int?>();
+        Divisions = new Dictionary<BowlingMegabucks.TournamentManager.DivisionId, int?>();
     }
 }

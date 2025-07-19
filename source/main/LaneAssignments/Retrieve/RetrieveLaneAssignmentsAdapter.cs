@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.LaneAssignments.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

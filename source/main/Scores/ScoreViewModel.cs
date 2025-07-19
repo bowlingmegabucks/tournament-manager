@@ -1,7 +1,7 @@
 ﻿
-using NortheastMegabuck.Models;
+using BowlingMegabucks.TournamentManager.Models;
 
-namespace NortheastMegabuck.Scores;
+namespace BowlingMegabucks.TournamentManager.Scores;
 
 internal class ViewModel : IViewModel
 {

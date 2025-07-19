@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Scores.Update;
+namespace BowlingMegabucks.TournamentManager.Scores.Update;
 
 internal class Presenter
 {

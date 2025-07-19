@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Squads.Results;
+namespace BowlingMegabucks.TournamentManager.Squads.Results;
 
 internal class ViewModel : IViewModel
 {

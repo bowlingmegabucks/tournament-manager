@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Registrations.CreateRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 
 /// <summary>
 /// RegistrationInput is a record that represents the input data required to create a registration for a tournament.
