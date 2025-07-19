@@ -32,7 +32,7 @@ internal sealed class ApiKeyAuthentication
 
         if (!IsPublicEndpoint() && !apiKeyHeader.Equals(_apiKey))
         {
-            return Task.FromResult(AuthenticateResult.Fail($"Invalid API credentials. Received:{apiKeyHeader} Should be:{_apiKey}"));
+            return Task.FromResult(AuthenticateResult.Fail("Invalid API credentials."));
         }
 
         var identity = new ClaimsIdentity(

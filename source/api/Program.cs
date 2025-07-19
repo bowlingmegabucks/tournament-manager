@@ -76,8 +76,6 @@ builder.Services.SwaggerDocument(o =>
 
 var keyVaultUrl = builder.Configuration.GetValue<string>("KEYVAULT_URL");
 
-Console.WriteLine($"Key Vault URL: {keyVaultUrl}");
-
 if (!string.IsNullOrEmpty(keyVaultUrl))
 {
     builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
