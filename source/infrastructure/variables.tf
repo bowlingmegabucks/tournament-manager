@@ -43,3 +43,8 @@ variable "asp_net_core_environment" {
   description = "The ASP.NET Core environment setting (e.g., Development, Staging, Production)"
   type        = string
 }
+
+variable "api_megabucks_url_redirect" {
+  description = "The URL to redirect API requests to"
+  type        = string
+}

@@ -149,6 +149,22 @@ resource "azurerm_linux_web_app" "api" {
   }
 }
 
+resource "azurerm_app_service_custom_hostname_binding" "api_custom_domain" {
+  hostname            = var.api_megabucks_url_redirect
+  app_service_name    = azurerm_linux_web_app.api.name
+  resource_group_name = azurerm_resource_group.resource_group.name
+}
+
+resource "azurerm_app_service_managed_certificate" "api_custom_domain_managed_cert" {
+  custom_hostname_binding_id = azurerm_app_service_custom_hostname_binding.api_custom_domain.id
+}
+
+resource "azurerm_app_service_certificate_binding" "api_custom_domain_cert_binding" {
+  hostname_binding_id = azurerm_app_service_custom_hostname_binding.api_custom_domain.id
+  certificate_id      = azurerm_app_service_managed_certificate.api_custom_domain_managed_cert.id
+  ssl_state           = "SniEnabled"
+}
+
 resource "azurerm_role_assignment" "web_app_kv_secrets_user" {
   scope                = azurerm_key_vault.app_key_vault.id
   role_definition_name = "Key Vault Secrets User"
