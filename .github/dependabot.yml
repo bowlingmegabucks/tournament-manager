@@ -9,19 +9,29 @@ updates:
     directory: "/source/api/"
     schedule:
       interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"
   - package-ecosystem: "nuget"
     directory: "/source/business logic/"
     schedule:
       interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"
   - package-ecosystem: "nuget"
     directory: "/source/main/"
     schedule:
       interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"
   - package-ecosystem: "nuget"
     directory: "/source/tests/"
     schedule:
       interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"
   - package-ecosystem: "terraform"
     directory: "/source/infrastructure/"
     schedule:
       interval: "weekly"
+    pull_request_assignees:
+      - "kippermand"
