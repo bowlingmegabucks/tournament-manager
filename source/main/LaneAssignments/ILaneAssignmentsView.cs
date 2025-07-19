@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 internal interface IView
 {
     TournamentId TournamentId { get; }

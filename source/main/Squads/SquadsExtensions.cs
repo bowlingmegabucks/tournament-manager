@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Squads;
+namespace BowlingMegabucks.TournamentManager.Squads;
 internal static class SquadsExtensions
 {
     public static IServiceCollection AddSquadsModule(this IServiceCollection services)

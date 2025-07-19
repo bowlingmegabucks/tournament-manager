@@ -1,7 +1,7 @@
 ﻿
-using NortheastMegabuck.Models;
+using BowlingMegabucks.TournamentManager.Models;
 
-namespace NortheastMegabuck.Registrations.Update;
+namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
 internal class DataLayer : IDataLayer
 {

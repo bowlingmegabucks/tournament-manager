@@ -1,8 +1,8 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
-using NortheastMegabuck.Api.BogusData;
+using BowlingMegabucks.TournamentManager.Api.BogusData;
 
-namespace NortheastMegabuck.Api.Tournaments.GetTournament;
+namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournament;
 
 /// <summary>
 /// 

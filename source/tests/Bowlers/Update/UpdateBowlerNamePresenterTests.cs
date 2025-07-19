@@ -1,24 +1,24 @@
-﻿using NortheastMegabuck.Tests.Extensions;
+﻿using BowlingMegabucks.TournamentManager.Tests.Extensions;
 
-namespace NortheastMegabuck.Tests.Bowlers.Update;
+namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Update;
 
 [TestFixture]
 internal sealed class NamePresenter
 {
-    private Mock<NortheastMegabuck.Bowlers.Update.IBowlerNameView> _view;
-    private Mock<NortheastMegabuck.Bowlers.Retrieve.IAdapter> _retrieveBowlerAdapter;
-    private Mock<NortheastMegabuck.Bowlers.Update.IAdapter> _updateBowlerAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Update.IBowlerNameView> _view;
+    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IAdapter> _retrieveBowlerAdapter;
+    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Update.IAdapter> _updateBowlerAdapter;
 
-    private NortheastMegabuck.Bowlers.Update.NamePresenter _namePresenter;
+    private BowlingMegabucks.TournamentManager.Bowlers.Update.NamePresenter _namePresenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<NortheastMegabuck.Bowlers.Update.IBowlerNameView>();
-        _retrieveBowlerAdapter = new Mock<NortheastMegabuck.Bowlers.Retrieve.IAdapter>();
-        _updateBowlerAdapter = new Mock<NortheastMegabuck.Bowlers.Update.IAdapter>();
+        _view = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Update.IBowlerNameView>();
+        _retrieveBowlerAdapter = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IAdapter>();
+        _updateBowlerAdapter = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Update.IAdapter>();
 
-        _namePresenter = new NortheastMegabuck.Bowlers.Update.NamePresenter(_view.Object, _retrieveBowlerAdapter.Object, _updateBowlerAdapter.Object);
+        _namePresenter = new BowlingMegabucks.TournamentManager.Bowlers.Update.NamePresenter(_view.Object, _retrieveBowlerAdapter.Object, _updateBowlerAdapter.Object);
     }
 
     [Test]
@@ -37,7 +37,7 @@ internal sealed class NamePresenter
     [Test]
     public async Task LoadAsync_RetrieveBowlerAdapterErrorNotNull_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _retrieveBowlerAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _namePresenter.LoadAsync(default).ConfigureAwait(false);
@@ -47,14 +47,14 @@ internal sealed class NamePresenter
             _view.Verify(view => view.DisplayError("error"), Times.Once);
             _view.Verify(view => view.Disable(), Times.Once);
 
-            _view.Verify(view => view.Bind(It.IsAny<NortheastMegabuck.Bowlers.Retrieve.IViewModel>()), Times.Never);
+            _view.Verify(view => view.Bind(It.IsAny<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IViewModel>()), Times.Never);
         });
     }
 
     [Test]
     public async Task LoadAsync_RetrievebowlerAdapterSuccessful_ViewBind_CalledCorrectly()
     {
-        var bowler = new Mock<NortheastMegabuck.Bowlers.Retrieve.IViewModel>().Object;
+        var bowler = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IViewModel>().Object;
         _retrieveBowlerAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
         await _namePresenter.LoadAsync(default).ConfigureAwait(false);
@@ -81,7 +81,7 @@ internal sealed class NamePresenter
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _updateBowlerAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<NortheastMegabuck.Bowlers.Update.INameViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
+            _updateBowlerAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<BowlingMegabucks.TournamentManager.Bowlers.Update.INameViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
             _view.Verify(view => view.DisplayErrors(It.IsAny<IEnumerable<string>>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.OkToClose(), Times.Never);
@@ -96,7 +96,7 @@ internal sealed class NamePresenter
         var bowlerId = BowlerId.New();
         _view.SetupGet(view => view.Id).Returns(bowlerId);
 
-        var bowlerName = new Mock<NortheastMegabuck.Bowlers.Update.INameViewModel>().Object;
+        var bowlerName = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Update.INameViewModel>().Object;
         _view.SetupGet(view => view.BowlerName).Returns(bowlerName);
 
         CancellationToken cancellationToken = default;
@@ -111,7 +111,7 @@ internal sealed class NamePresenter
     {
         _view.IsValid_True();
 
-        var errors = new[] { new NortheastMegabuck.Models.ErrorDetail("error1"), new NortheastMegabuck.Models.ErrorDetail("error2") };
+        var errors = new[] { new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error1"), new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error2") };
         _updateBowlerAdapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
         await _namePresenter.ExecuteAsync(default).ConfigureAwait(false);

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Bowlers.Search;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
 internal interface IView
 {
     void BindResults(IEnumerable<IViewModel> bowlers);

@@ -1,27 +1,27 @@
-﻿using NortheastMegabuck.Tests.Extensions;
+﻿using BowlingMegabucks.TournamentManager.Tests.Extensions;
 
-namespace NortheastMegabuck.Tests.Sweepers;
+namespace BowlingMegabucks.TournamentManager.Tests.Sweepers;
 
 [TestFixture]
 internal sealed class Repository
 {
-    private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
+    private Mock<BowlingMegabucks.TournamentManager.Database.IDataContext> _dataContext;
 
-    private NortheastMegabuck.Sweepers.Repository _repository;
+    private BowlingMegabucks.TournamentManager.Sweepers.Repository _repository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<NortheastMegabuck.Database.IDataContext>();
-        _repository = new NortheastMegabuck.Sweepers.Repository(_dataContext.Object);
+        _dataContext = new Mock<BowlingMegabucks.TournamentManager.Database.IDataContext>();
+        _repository = new BowlingMegabucks.TournamentManager.Sweepers.Repository(_dataContext.Object);
     }
 
     [Test]
     public async Task AddAsync_SquadAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperSquad>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad>().SetUpDbContext());
 
-        var sweeper = new NortheastMegabuck.Database.Entities.SweeperSquad();
+        var sweeper = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad();
 
         var id = await _repository.AddAsync(sweeper, default).ConfigureAwait(false);
 
@@ -31,9 +31,9 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.SweeperSquad>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad>().SetUpDbContext());
 
-        var sweeper = new NortheastMegabuck.Database.Entities.SweeperSquad();
+        var sweeper = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad();
 
         CancellationToken cancellationToken = default;
         await _repository.AddAsync(sweeper, cancellationToken).ConfigureAwait(false);
@@ -46,21 +46,21 @@ internal sealed class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var sweeper1 = new NortheastMegabuck.Database.Entities.SweeperSquad
+        var sweeper1 = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
-        var sweeper2 = new NortheastMegabuck.Database.Entities.SweeperSquad
+        var sweeper2 = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
-        var sweeper3 = new NortheastMegabuck.Database.Entities.SweeperSquad
+        var sweeper3 = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -84,21 +84,21 @@ internal sealed class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var sweeper1 = new NortheastMegabuck.Database.Entities.SweeperSquad
+        var sweeper1 = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1,
         };
 
-        var sweeper2 = new NortheastMegabuck.Database.Entities.SweeperSquad
+        var sweeper2 = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 2
         };
 
-        var sweeper3 = new NortheastMegabuck.Database.Entities.SweeperSquad
+        var sweeper3 = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),

@@ -2,7 +2,7 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Tournaments;
+namespace BowlingMegabucks.TournamentManager.Tournaments;
 
 internal static class TournamentsExtensions
 {

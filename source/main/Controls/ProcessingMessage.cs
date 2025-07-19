@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Versioning;
 
-namespace NortheastMegabuck.Controls;
+namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
 internal partial class ProcessingMessage : UserControl

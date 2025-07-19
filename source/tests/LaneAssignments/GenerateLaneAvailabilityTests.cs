@@ -1,13 +1,13 @@
-﻿namespace NortheastMegabuck.Tests.LaneAssignments;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments;
 
 [TestFixture]
 internal sealed class LaneAvailability
 {
-    private NortheastMegabuck.LaneAssignments.ILaneAvailability _laneAvailability;
+    private BowlingMegabucks.TournamentManager.LaneAssignments.ILaneAvailability _laneAvailability;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _laneAvailability = new NortheastMegabuck.LaneAssignments.LaneAvailability();
+        => _laneAvailability = new BowlingMegabucks.TournamentManager.LaneAssignments.LaneAvailability();
 
     [Test]
     public void StartingLaneEven_ThrowsInvalidOperationException()

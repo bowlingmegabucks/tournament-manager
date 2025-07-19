@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api;
+namespace BowlingMegabucks.TournamentManager.Api;
 
 internal static class HttpContentTypes
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Divisions.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Divisions.Retrieve;
 
 internal class Presenter
 {

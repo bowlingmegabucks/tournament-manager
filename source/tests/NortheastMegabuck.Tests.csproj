@@ -34,7 +34,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\business logic\NortheastMegabuck.BusinessLogic.csproj" />
-	  <ProjectReference Include="..\main\NortheastMegabuck.csproj" />
+	  <ProjectReference Include="..\business logic\BowlingMegabucks.TournamentManager.BusinessLogic.csproj" />
+	  <ProjectReference Include="..\main\BowlingMegabucks.TournamentManager.csproj" />
 	</ItemGroup>
 </Project>

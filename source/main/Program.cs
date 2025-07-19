@@ -6,17 +6,17 @@ using Azure.Security.KeyVault.Secrets;
 
 using System.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NortheastMegabuck.Bowlers;
-using NortheastMegabuck.Divisions;
-using NortheastMegabuck.LaneAssignments;
-using NortheastMegabuck.Registrations;
-using NortheastMegabuck.Scores;
-using NortheastMegabuck.Squads;
-using NortheastMegabuck.Sweepers;
-using NortheastMegabuck.Tournaments;
+using BowlingMegabucks.TournamentManager.Bowlers;
+using BowlingMegabucks.TournamentManager.Divisions;
+using BowlingMegabucks.TournamentManager.LaneAssignments;
+using BowlingMegabucks.TournamentManager.Registrations;
+using BowlingMegabucks.TournamentManager.Scores;
+using BowlingMegabucks.TournamentManager.Squads;
+using BowlingMegabucks.TournamentManager.Sweepers;
+using BowlingMegabucks.TournamentManager.Tournaments;
 using QuestPDF.Infrastructure;
 
-namespace NortheastMegabuck;
+namespace BowlingMegabucks.TournamentManager;
 
 internal static class Program
 {

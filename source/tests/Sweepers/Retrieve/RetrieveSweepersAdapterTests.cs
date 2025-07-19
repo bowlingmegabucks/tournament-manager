@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Sweepers.Retrieve.Adapter _adapter;
+    private BowlingMegabucks.TournamentManager.Sweepers.Retrieve.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.Sweepers.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.Sweepers.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_TournamentId_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
-        var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        var error = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var tournamentId = TournamentId.New();
@@ -42,8 +42,8 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_TournamentId_ReturnsSweepersFromBusinessLogic()
     {
-        var sweeper1 = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 1 };
-        var sweeper2 = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 2 };
+        var sweeper1 = new BowlingMegabucks.TournamentManager.Models.Sweeper { MaxPerPair = 1 };
+        var sweeper2 = new BowlingMegabucks.TournamentManager.Models.Sweeper { MaxPerPair = 2 };
         var sweepers = new[] { sweeper1, sweeper2 };
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweepers);
@@ -74,7 +74,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_SquadId_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
-        var error = Enumerable.Repeat(new NortheastMegabuck.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        var error = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var squadId = SquadId.New();
@@ -87,7 +87,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_SquadId_ReturnsSquadsFromBusinessLogic()
     {
-        var squad = new NortheastMegabuck.Models.Sweeper { MaxPerPair = 1 };
+        var squad = new BowlingMegabucks.TournamentManager.Models.Sweeper { MaxPerPair = 1 };
 
         _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad);
 

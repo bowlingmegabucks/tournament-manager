@@ -1,22 +1,22 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
 
-namespace NortheastMegabuck.Tests.names;
+namespace BowlingMegabucks.TournamentManager.Tests.names;
 
 [TestFixture]
 internal sealed class PersonNameValidator
 {
 
-    private IValidator<NortheastMegabuck.Models.PersonName> _validator;
+    private IValidator<BowlingMegabucks.TournamentManager.Models.PersonName> _validator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _validator = new NortheastMegabuck.Bowlers.PersonNameValidator();
+        => _validator = new BowlingMegabucks.TournamentManager.Bowlers.PersonNameValidator();
 
     [Test]
     public void First_NullWhitespace_HasValidatorError([Values(null, "", " ")] string First)
     {
-        var name = new NortheastMegabuck.Models.PersonName { First = First };
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = First };
 
         var result = _validator.TestValidate(name);
         result.ShouldHaveValidationErrorFor(b => b.First).WithErrorMessage("First Name is Required");
@@ -25,7 +25,7 @@ internal sealed class PersonNameValidator
     [Test]
     public void First_NotNullOrWhitespace_NoValidatorError()
     {
-        var name = new NortheastMegabuck.Models.PersonName { First = "John" };
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "John" };
 
         var result = _validator.TestValidate(name);
         result.ShouldNotHaveValidationErrorFor(b => b.First);
@@ -34,7 +34,7 @@ internal sealed class PersonNameValidator
     [Test]
     public void MiddleInitial_NullEmpty_HasNoValidatorError([Values(null, "")] string middleInitial)
     {
-        var name = new NortheastMegabuck.Models.PersonName { MiddleInitial = middleInitial };
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName { MiddleInitial = middleInitial };
 
         var result = _validator.TestValidate(name);
         result.ShouldNotHaveValidationErrorFor(b => b.MiddleInitial);
@@ -43,7 +43,7 @@ internal sealed class PersonNameValidator
     [Test]
     public void MiddleInitial_Length1_HasNoValidatorError()
     {
-        var name = new NortheastMegabuck.Models.PersonName { MiddleInitial = "J" };
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName { MiddleInitial = "J" };
 
         var result = _validator.TestValidate(name);
         result.ShouldNotHaveValidationErrorFor(b => b.MiddleInitial);
@@ -52,7 +52,7 @@ internal sealed class PersonNameValidator
     [Test]
     public void MiddleInitial_LengthGreaterThan1_HasValidatorError([Range(2, 10)] int length)
     {
-        var name = new NortheastMegabuck.Models.PersonName { MiddleInitial = new string('J', length) };
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName { MiddleInitial = new string('J', length) };
 
         var result = _validator.TestValidate(name);
         result.ShouldHaveValidationErrorFor(b => b.MiddleInitial).WithErrorMessage("Middle Initial must only be 1 character");
@@ -61,7 +61,7 @@ internal sealed class PersonNameValidator
     [Test]
     public void Last_NullWhitespace_HasValidatorError([Values(null, "", " ")] string Last)
     {
-        var name = new NortheastMegabuck.Models.PersonName { Last = Last };
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName { Last = Last };
 
         var result = _validator.TestValidate(name);
         result.ShouldHaveValidationErrorFor(b => b.Last).WithErrorMessage("Last Name is Required");
@@ -70,7 +70,7 @@ internal sealed class PersonNameValidator
     [Test]
     public void Last_NotNullWhitespace_NoValidatorError()
     {
-        var name = new NortheastMegabuck.Models.PersonName { Last = "Doe" };
+        var name = new BowlingMegabucks.TournamentManager.Models.PersonName { Last = "Doe" };
 
         var result = _validator.TestValidate(name);
         result.ShouldNotHaveValidationErrorFor(b => b.Last);

@@ -1,6 +1,6 @@
 using FastEndpoints;
 
-namespace NortheastMegabuck.Api.Registrations.UpdateRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.UpdateRegistration;
 
 /// <summary>
 /// Request for updating a registration.

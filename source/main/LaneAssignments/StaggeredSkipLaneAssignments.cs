@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 internal class StaggeredSkip : GenerateCross
 {
     protected override short NextLane(int startingLane, IList<short> lanesUsed, short defaultSkip, int previousIndex, short gameNumber)

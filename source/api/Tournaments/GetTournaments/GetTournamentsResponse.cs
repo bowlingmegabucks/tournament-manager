@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace NortheastMegabuck.Api.Tournaments.GetTournaments;
+namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
 
 /// <summary>
 /// Response for retrieving a list of tournaments.

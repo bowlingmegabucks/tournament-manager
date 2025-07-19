@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NortheastMegabuck.Bowlers;
+namespace BowlingMegabucks.TournamentManager.Bowlers;
 internal sealed class SocialSecurityNumberValidator : FluentValidation.Validators.PropertyValidator<Models.Bowler, string>
 {
     public override string Name => "SocialSecurityNumberValidator";

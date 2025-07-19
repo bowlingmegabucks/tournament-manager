@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Bowlers.Search;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
 internal class Presenter
 {
     private readonly IView _view;

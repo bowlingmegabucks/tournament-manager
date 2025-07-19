@@ -1,9 +1,9 @@
 ﻿
-using NortheastMegabuck.Divisions;
-using NortheastMegabuck.Models;
-using NortheastMegabuck.Registrations.Retrieve;
+using BowlingMegabucks.TournamentManager.Divisions;
+using BowlingMegabucks.TournamentManager.Models;
+using BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 
-namespace NortheastMegabuck.Registrations.Update;
+namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
 internal interface IView
 {

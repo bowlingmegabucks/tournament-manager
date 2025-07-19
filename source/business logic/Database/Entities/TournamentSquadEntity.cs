@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace NortheastMegabuck.Database.Entities;
+namespace BowlingMegabucks.TournamentManager.Database.Entities;
 internal class TournamentSquad : Squad
 {
     [Precision(3, 1)]

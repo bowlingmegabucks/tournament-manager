@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Divisions.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Divisions.Retrieve;
 
 /// <summary>
 /// 

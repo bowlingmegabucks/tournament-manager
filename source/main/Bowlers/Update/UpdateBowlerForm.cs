@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Bowlers.Update;
+﻿namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 
 internal partial class UpdateForm
     : System.Windows.Forms.Form, IView

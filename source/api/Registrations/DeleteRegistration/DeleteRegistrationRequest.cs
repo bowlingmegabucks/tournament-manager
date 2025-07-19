@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Registrations.DeleteRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.DeleteRegistration;
 
 /// <summary>
 /// Represents a request to delete a registration.

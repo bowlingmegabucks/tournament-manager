@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Registrations.Update;
+namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
 internal class UpdateRegistrationModel
 {

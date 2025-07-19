@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Registrations.CreateRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 
 /// <summary>
 /// Response for creating a new registration.

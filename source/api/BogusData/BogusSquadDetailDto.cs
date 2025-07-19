@@ -1,7 +1,7 @@
 using Bogus;
-using NortheastMegabuck.Api.Squads;
+using BowlingMegabucks.TournamentManager.Api.Squads;
 
-namespace NortheastMegabuck.Api.BogusData;
+namespace BowlingMegabucks.TournamentManager.Api.BogusData;
 
 internal sealed class BogusSquadDetailDto
     : Faker<SquadDetailDto>

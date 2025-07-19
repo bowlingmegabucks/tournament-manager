@@ -1,7 +1,7 @@
 using Bogus;
-using NortheastMegabuck.Api.Sweepers;
+using BowlingMegabucks.TournamentManager.Api.Sweepers;
 
-namespace NortheastMegabuck.Api.BogusData;
+namespace BowlingMegabucks.TournamentManager.Api.BogusData;
 
 internal sealed class BogusSweeperDetailDto
     : Faker<SweeperDetailDto>

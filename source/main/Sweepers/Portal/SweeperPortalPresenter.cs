@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Sweepers.Portal;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Portal;
 internal class Presenter
 {
     private readonly IView _view;

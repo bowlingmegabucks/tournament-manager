@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Registrations.Delete;
+namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Delete;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<NortheastMegabuck.Registrations.IRepository> _repository;
+    private Mock<BowlingMegabucks.TournamentManager.Registrations.IRepository> _repository;
 
-    private NortheastMegabuck.Registrations.Delete.DataLayer _dataLayer;
+    private BowlingMegabucks.TournamentManager.Registrations.Delete.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<NortheastMegabuck.Registrations.IRepository>();
+        _repository = new Mock<BowlingMegabucks.TournamentManager.Registrations.IRepository>();
 
-        _dataLayer = new NortheastMegabuck.Registrations.Delete.DataLayer(_repository.Object);
+        _dataLayer = new BowlingMegabucks.TournamentManager.Registrations.Delete.DataLayer(_repository.Object);
     }
 
     [Test]

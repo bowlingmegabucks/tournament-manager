@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NortheastMegabuck.Bowlers.Search;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
 internal partial class Dialog : Form, IView
 {
     private readonly Presenter _presenter;

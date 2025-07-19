@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NortheastMegabuck.Squads;
+using BowlingMegabucks.TournamentManager.Squads;
 
-namespace NortheastMegabuck.LaneAssignments.Retrieve;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

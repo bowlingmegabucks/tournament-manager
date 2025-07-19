@@ -1,29 +1,29 @@
 ﻿
-namespace NortheastMegabuck.Tests.Sweepers.Results;
+namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Results;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic> _retrieveSweeper;
-    private Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
-    private Mock<NortheastMegabuck.Scores.Retrieve.IBusinessLogic> _retrieveScores;
+    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IBusinessLogic> _retrieveSweeper;
+    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
+    private Mock<BowlingMegabucks.TournamentManager.Scores.Retrieve.IBusinessLogic> _retrieveScores;
 
-    private NortheastMegabuck.Sweepers.Results.BusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Sweepers.Results.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _retrieveSweeper = new Mock<NortheastMegabuck.Sweepers.Retrieve.IBusinessLogic>();
-        _retrieveTournament = new Mock<NortheastMegabuck.Tournaments.Retrieve.IBusinessLogic>();
-        _retrieveScores = new Mock<NortheastMegabuck.Scores.Retrieve.IBusinessLogic>();
+        _retrieveSweeper = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IBusinessLogic>();
+        _retrieveTournament = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IBusinessLogic>();
+        _retrieveScores = new Mock<BowlingMegabucks.TournamentManager.Scores.Retrieve.IBusinessLogic>();
 
-        _businessLogic = new NortheastMegabuck.Sweepers.Results.BusinessLogic(_retrieveSweeper.Object, _retrieveTournament.Object, _retrieveScores.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Sweepers.Results.BusinessLogic(_retrieveSweeper.Object, _retrieveTournament.Object, _retrieveScores.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecute_CalledCorrectly()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new BowlingMegabucks.TournamentManager.Models.Sweeper());
 
         var squadId = SquadId.New();
         CancellationToken cancellationToken = default;
@@ -36,7 +36,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _retrieveSweeper.SetupGet(retrieveSweeper => retrieveSweeper.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
@@ -53,7 +53,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecute_CalledCorrectly()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new BowlingMegabucks.TournamentManager.Models.Sweeper());
 
         var squadId = SquadId.New();
         CancellationToken cancellationToken = default;
@@ -66,9 +66,9 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteHasError_ErrorFlow()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new BowlingMegabucks.TournamentManager.Models.Sweeper());
 
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _retrieveScores.SetupGet(retrieveScores => retrieveScores.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
@@ -83,7 +83,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_RetrieveSweeperExecuteSuccess_RetrieveScoresExecuteReturnsNoScores_NoScoreFlow()
     {
-        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Sweeper());
+        _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new BowlingMegabucks.TournamentManager.Models.Sweeper());
 
         var result = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
 
@@ -100,65 +100,65 @@ internal sealed class BusinessLogic
         var squadId = SquadId.New();
 
         var bowler1 = BowlerId.New();
-        var bowler1SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 1,
             Score = 201
         };
-        var bowler1SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 2,
             Score = 202
         };
 
         var bowler2 = BowlerId.New();
-        var bowler2SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 1,
             Score = 203
         };
-        var bowler2SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 2,
             Score = 204
         };
 
         var bowler3 = BowlerId.New();
-        var bowler3SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 1,
             Score = 205
         };
-        var bowler3SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 2,
             Score = 206
         };
 
         var bowler4 = BowlerId.New();
-        var bowler4SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 1,
             Score = 207
         };
-        var bowler4SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 2,
             Score = 208
         };
@@ -170,7 +170,7 @@ internal sealed class BusinessLogic
 
         _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             CashRatio = 2
         };
@@ -198,65 +198,65 @@ internal sealed class BusinessLogic
         var squadId = SquadId.New();
 
         var bowler1 = BowlerId.New();
-        var bowler1SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 1,
             Score = 201
         };
-        var bowler1SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 2,
             Score = 202
         };
 
         var bowler2 = BowlerId.New();
-        var bowler2SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 1,
             Score = 203
         };
-        var bowler2SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 2,
             Score = 204
         };
 
         var bowler3 = BowlerId.New();
-        var bowler3SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 1,
             Score = 205
         };
-        var bowler3SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 2,
             Score = 206
         };
 
         var bowler4 = BowlerId.New();
-        var bowler4SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 1,
             Score = 207
         };
-        var bowler4SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = squadId,
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 2,
             Score = 208
         };
@@ -268,7 +268,7 @@ internal sealed class BusinessLogic
 
         _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
-        var sweeper = new NortheastMegabuck.Models.Sweeper
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper
         {
             CashRatio = 500
         };
@@ -290,7 +290,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecute_CalledCorrectly()
     {
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Tournament());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new BowlingMegabucks.TournamentManager.Models.Tournament());
 
         var tournamentId = TournamentId.New();
         CancellationToken cancellationToken = default;
@@ -303,7 +303,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _retrieveTournament.SetupGet(retrieveTournament => retrieveTournament.ErrorDetail).Returns(error);
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
@@ -320,9 +320,9 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresExecute_CalledCorrectly()
     {
-        var tournament = new NortheastMegabuck.Models.Tournament
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
         {
-            Sweepers = [new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }]
+            Sweepers = [new BowlingMegabucks.TournamentManager.Models.Sweeper { Id = SquadId.New() }, new BowlingMegabucks.TournamentManager.Models.Sweeper { Id = SquadId.New() }]
         };
 
         _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
@@ -338,10 +338,10 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperHasError_ErrorFlow()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _retrieveScores.SetupGet(retrieveScores => retrieveScores.ErrorDetail).Returns(error);
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Tournament());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new BowlingMegabucks.TournamentManager.Models.Tournament());
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
@@ -355,7 +355,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperReturnsNoScores_NoScoreFlow()
     {
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new NortheastMegabuck.Models.Tournament());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new BowlingMegabucks.TournamentManager.Models.Tournament());
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
@@ -372,57 +372,57 @@ internal sealed class BusinessLogic
         var tournamentId = TournamentId.New();
 
         var bowler1 = BowlerId.New();
-        var bowler1SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 1,
             Score = 201
         };
-        var bowler1SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 2,
             Score = 202
         };
 
         var bowler2 = BowlerId.New();
-        var bowler2SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 1,
             Score = 203
         };
-        var bowler2SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 2,
             Score = 204
         };
 
         var bowler3 = BowlerId.New();
-        var bowler3SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 1,
             Score = 205
         };
-        var bowler3SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 2,
             Score = 206
         };
 
         var bowler4 = BowlerId.New();
-        var bowler4SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 1,
             Score = 207
         };
-        var bowler4SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 2,
             Score = 208
         };
@@ -437,7 +437,7 @@ internal sealed class BusinessLogic
 
         _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
-        var tournament = new NortheastMegabuck.Models.Tournament
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
         {
             SuperSweeperCashRatio = 2
         };
@@ -464,57 +464,57 @@ internal sealed class BusinessLogic
     {
 
         var bowler1 = BowlerId.New();
-        var bowler1SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 1,
             Score = 201
         };
-        var bowler1SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 2,
             Score = 202
         };
 
         var bowler2 = BowlerId.New();
-        var bowler2SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 1,
             Score = 203
         };
-        var bowler2SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 2,
             Score = 204
         };
 
         var bowler3 = BowlerId.New();
-        var bowler3SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 1,
             Score = 205
         };
-        var bowler3SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 2,
             Score = 206
         };
 
         var bowler4 = BowlerId.New();
-        var bowler4SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 1,
             Score = 207
         };
-        var bowler4SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 2,
             Score = 208
         };
@@ -526,7 +526,7 @@ internal sealed class BusinessLogic
 
         _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
-        var tournament = new NortheastMegabuck.Models.Tournament
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
         {
             SuperSweeperCashRatio = 500
         };
@@ -554,71 +554,71 @@ internal sealed class BusinessLogic
         var tournamentId = TournamentId.New();
 
         var bowler1 = BowlerId.New();
-        var bowler1SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 1,
             Score = 201
         };
-        var bowler1SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler1SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler1 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler1 },
             GameNumber = 2,
             Score = 202
         };
 
         var bowler2 = BowlerId.New();
-        var bowler2SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 1,
             Score = 203
         };
-        var bowler2SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler2SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler2 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler2 },
             GameNumber = 2,
             Score = 204
         };
 
         var bowler3 = BowlerId.New();
-        var bowler3SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 1,
             Score = 205
         };
-        var bowler3SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler3SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler3 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler3 },
             GameNumber = 2,
             Score = 206
         };
 
         var bowler4 = BowlerId.New();
-        var bowler4SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 1,
             Score = 207
         };
-        var bowler4SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler4SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler4 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler4 },
             GameNumber = 2,
             Score = 208
         };
 
         var bowler5 = BowlerId.New();
-        var bowler5SquadScore1 = new NortheastMegabuck.Models.SquadScore
+        var bowler5SquadScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler5 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler5 },
             GameNumber = 1,
             Score = 300
         };
-        var bowler5SquadScore2 = new NortheastMegabuck.Models.SquadScore
+        var bowler5SquadScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = bowler5 },
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowler5 },
             GameNumber = 2,
             Score = 300
         };
@@ -634,7 +634,7 @@ internal sealed class BusinessLogic
 
         _retrieveScores.Setup(retrieveScores => retrieveScores.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadScores);
 
-        var tournament = new NortheastMegabuck.Models.Tournament
+        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
         {
             SuperSweeperCashRatio = 2
         };

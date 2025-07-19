@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Controls.Grids;
+namespace BowlingMegabucks.TournamentManager.Controls.Grids;
 internal partial class SquadsGrid
 #if DEBUG
     : SquadMiddleGrid

@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using QuestPDF.Fluent;
 
-namespace NortheastMegabuck.Tournaments.Results;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Results;
 internal class AtLargeReport(string division, IList<IAtLargeViewModel> results) : ResultReportBase<IAtLargeViewModel>("At Large", null, division, results)
 {
     protected override void ComposeColumnDefinitionDescriptor(TableColumnsDefinitionDescriptor columns)

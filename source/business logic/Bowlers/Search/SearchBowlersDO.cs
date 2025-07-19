@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NortheastMegabuck.Bowlers.Search;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
 
 internal class DataLayer : IDataLayer
 {

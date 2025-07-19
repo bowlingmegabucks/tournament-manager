@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Scores.Update;
+﻿namespace BowlingMegabucks.TournamentManager.Scores.Update;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

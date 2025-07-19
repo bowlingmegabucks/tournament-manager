@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NortheastMegabuck.Sweepers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Sweepers.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Retrieve;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.Sweepers.Retrieve.IDataLayer> _dataLayer;
+    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.Sweepers.Retrieve.BusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.Sweepers.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NortheastMegabuck.Sweepers.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.Sweepers.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.Sweepers.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_ReturnsDataLayerExecuteResults()
     {
-        var sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, 2);
+        var sweepers = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.Sweeper { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweepers);
 
         var tournamentId = TournamentId.New();
@@ -42,7 +42,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_DataLayerExecuteNoException_ErrorNull()
     {
-        var sweepers = Enumerable.Repeat(new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() }, 2);
+        var sweepers = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.Sweeper { Id = SquadId.New() }, 2);
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweepers);
 
         var tournamentId = TournamentId.New();
@@ -83,7 +83,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_ReturnsDataLayerExecuteResults()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() };
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper { Id = SquadId.New() };
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeper);
 
         var id = SquadId.New();
@@ -96,7 +96,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadId_DataLayerExecuteNoException_ErrorNull()
     {
-        var sweeper = new NortheastMegabuck.Models.Sweeper { Id = SquadId.New() };
+        var sweeper = new BowlingMegabucks.TournamentManager.Models.Sweeper { Id = SquadId.New() };
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweeper);
 
         var id = SquadId.New();

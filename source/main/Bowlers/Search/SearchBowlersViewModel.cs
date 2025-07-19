@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Bowlers.Search;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
 internal class ViewModel(Models.Bowler bowler) : IViewModel
 {
     public BowlerId Id { get; set; } = bowler.Id;

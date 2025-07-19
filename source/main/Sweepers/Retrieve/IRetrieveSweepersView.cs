@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Sweepers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Retrieve;
 internal interface IView
 {
     TournamentId TournamentId { get; }

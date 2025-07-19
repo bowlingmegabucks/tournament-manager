@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.LaneAssignments;
+﻿namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 internal class GenerateCrossFactory : IGenerateCrossFactory
 {
     public IGenerate Execute(bool staggeredSkip)

@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 
-namespace NortheastMegabuck.Scores;
+namespace BowlingMegabucks.TournamentManager.Scores;
 
 internal class Repository : IRepository
 {

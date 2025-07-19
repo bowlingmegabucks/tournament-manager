@@ -5,7 +5,7 @@ using StronglyTypedIds;
 #pragma warning disable S1210 // "Equals" and the comparison operators should be overridden when implementing "IComparable"
 #pragma warning disable CA1036 // Override methods on structs should be used instead of operators
 
-namespace NortheastMegabuck;
+namespace BowlingMegabucks.TournamentManager;
 
 /// <summary>
 /// Strongly-typed identifier for a Bowler entity.

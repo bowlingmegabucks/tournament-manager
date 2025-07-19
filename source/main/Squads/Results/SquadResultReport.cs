@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using QuestPDF.Fluent;
 
-namespace NortheastMegabuck.Squads.Results;
+namespace BowlingMegabucks.TournamentManager.Squads.Results;
 internal class SquadResultReport : ResultReportBase<IViewModel>
 {
     private readonly bool _handicap;

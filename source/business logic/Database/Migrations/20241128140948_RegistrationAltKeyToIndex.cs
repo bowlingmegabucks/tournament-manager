@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace NortheastMegabuck.Database.Migrations
+namespace BowlingMegabucks.TournamentManager.Database.Migrations
 {
     /// <inheritdoc />
     public partial class RegistrationAltKeyToIndex : Migration

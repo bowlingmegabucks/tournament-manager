@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Sweepers;
+namespace BowlingMegabucks.TournamentManager.Sweepers;
 internal static class SweepersExtensions
 {
     public static IServiceCollection AddSweepersModule(this IServiceCollection services)

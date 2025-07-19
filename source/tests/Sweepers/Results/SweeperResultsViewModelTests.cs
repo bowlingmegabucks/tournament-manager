@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Tests.Sweepers.Results;
+namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Results;
 
 [TestFixture]
 internal sealed class ViewModel
@@ -7,7 +7,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_ModelsBowlerSquadScorePlaceCashingPositions_PlaceMapped()
     {
-        var viewModel = new NortheastMegabuck.Sweepers.Results.ViewModel(new NortheastMegabuck.Models.BowlerSquadScore(200), 1, 5);
+        var viewModel = new BowlingMegabucks.TournamentManager.Sweepers.Results.ViewModel(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200), 1, 5);
 
         Assert.That(viewModel.Place, Is.EqualTo(1));
     }
@@ -15,9 +15,9 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_ModelsBowlerSquadScorePlaceCashingPositions_BowlerNameMapped()
     {
-        var viewModel = new NortheastMegabuck.Sweepers.Results.ViewModel(new NortheastMegabuck.Models.BowlerSquadScore(200)
+        var viewModel = new BowlingMegabucks.TournamentManager.Sweepers.Results.ViewModel(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200)
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Name = new NortheastMegabuck.Models.PersonName { First = "first", Last = "last" } }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "first", Last = "last" } }
         }, 1, 5);
 
         Assert.That(viewModel.BowlerName, Is.EqualTo("first last"));
@@ -26,7 +26,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_ModelsBowlerSquadScorePlaceCashingPositions_ScoreMapped()
     {
-        var viewModel = new NortheastMegabuck.Sweepers.Results.ViewModel(new NortheastMegabuck.Models.BowlerSquadScore(200, 201), 1, 5);
+        var viewModel = new BowlingMegabucks.TournamentManager.Sweepers.Results.ViewModel(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201), 1, 5);
 
         Assert.That(viewModel.Score, Is.EqualTo(401));
     }
@@ -34,7 +34,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_ModelsBowlerSquadScorePlaceCashingPositions_HighGameMapped()
     {
-        var viewModel = new NortheastMegabuck.Sweepers.Results.ViewModel(new NortheastMegabuck.Models.BowlerSquadScore(200, 201), 1, 5);
+        var viewModel = new BowlingMegabucks.TournamentManager.Sweepers.Results.ViewModel(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200, 201), 1, 5);
 
         Assert.That(viewModel.HighGame, Is.EqualTo(201));
     }
@@ -42,7 +42,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_ModelsBowlerSquadScorePlaceCashingPositions_PlaceLessThanOrEqualToCashingPosition_CasherMapped([Range(1, 5)] short place)
     {
-        var viewModel = new NortheastMegabuck.Sweepers.Results.ViewModel(new NortheastMegabuck.Models.BowlerSquadScore(200), place, 5);
+        var viewModel = new BowlingMegabucks.TournamentManager.Sweepers.Results.ViewModel(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200), place, 5);
 
         Assert.That(viewModel.Casher, Is.True);
     }
@@ -50,7 +50,7 @@ internal sealed class ViewModel
     [Test]
     public void Constructor_ModelsBowlerSquadScorePlaceCashingPositions_PlaceGreaterThanCashingPosition_CasherMapped()
     {
-        var viewModel = new NortheastMegabuck.Sweepers.Results.ViewModel(new NortheastMegabuck.Models.BowlerSquadScore(200), 6, 5);
+        var viewModel = new BowlingMegabucks.TournamentManager.Sweepers.Results.ViewModel(new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(200), 6, 5);
 
         Assert.That(viewModel.Casher, Is.False);
     }

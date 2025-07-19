@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Divisions;
+namespace BowlingMegabucks.TournamentManager.Divisions;
 internal static class DivisionExtensions
 {
     public static IServiceCollection AddDivisionModule(this IServiceCollection services)

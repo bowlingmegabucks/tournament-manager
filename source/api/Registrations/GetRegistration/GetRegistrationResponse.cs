@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Registrations.GetRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 
 /// <summary>
 /// Response for retrieving a specific registration.

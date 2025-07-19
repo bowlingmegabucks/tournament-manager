@@ -1,7 +1,7 @@
 ﻿
 using System.Globalization;
 
-namespace NortheastMegabuck.Scores;
+namespace BowlingMegabucks.TournamentManager.Scores;
 
 internal class GridViewModel : IGridViewModel
 {

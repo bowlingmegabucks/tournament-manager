@@ -1,7 +1,7 @@
 ﻿
 using System.Diagnostics.CodeAnalysis;
 
-namespace NortheastMegabuck.Controls;
+namespace BowlingMegabucks.TournamentManager.Controls;
 internal partial class SweeperDivisionsControl : UserControl
 {
     public SweeperDivisionsControl()

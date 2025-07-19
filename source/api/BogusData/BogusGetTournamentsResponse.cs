@@ -1,7 +1,7 @@
 using Bogus;
-using NortheastMegabuck.Api.Tournaments.GetTournaments;
+using BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
 
-namespace NortheastMegabuck.Api.BogusData;
+namespace BowlingMegabucks.TournamentManager.Api.BogusData;
 
 internal sealed class BogusGetTournamentsResponse
     : Faker<GetTournamentsResponse>

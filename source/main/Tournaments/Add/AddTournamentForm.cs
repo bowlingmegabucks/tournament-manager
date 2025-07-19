@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Tournaments.Add;
+﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Add;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Sweepers;
+namespace BowlingMegabucks.TournamentManager.Sweepers;
 internal class ViewModel : IViewModel
 {
     public SquadId Id { get; set; }
@@ -70,7 +70,7 @@ internal interface IViewModel
 
     bool Complete { get; set; }
 
-    IDictionary<NortheastMegabuck.DivisionId, int?> Divisions { get; }
+    IDictionary<BowlingMegabucks.TournamentManager.DivisionId, int?> Divisions { get; }
 }
 
 internal static class ViewModelExtensions

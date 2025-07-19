@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Sweepers;
+namespace BowlingMegabucks.TournamentManager.Sweepers;
 
 internal static class SweepersExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace NortheastMegabuck.Database.Entities;
+namespace BowlingMegabucks.TournamentManager.Database.Entities;
 internal class SquadScore
 {
     public BowlerId BowlerId { get; set; }

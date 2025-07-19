@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Squads.Add;
+﻿namespace BowlingMegabucks.TournamentManager.Squads.Add;
 
 /// <summary>
 /// 

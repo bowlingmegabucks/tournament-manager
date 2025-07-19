@@ -3,7 +3,7 @@ using System.Text;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
-namespace NortheastMegabuck.Tournaments.Results;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Results;
 internal partial class AtLarge : System.Windows.Forms.Form, IView
 {
     private readonly Dictionary<TabPage, string> _toSpreadsheet;

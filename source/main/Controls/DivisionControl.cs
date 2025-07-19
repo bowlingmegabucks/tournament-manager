@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 
-namespace NortheastMegabuck.Controls;
+namespace BowlingMegabucks.TournamentManager.Controls;
 internal partial class DivisionControl : UserControl, Divisions.IViewModel
 {
     public DivisionControl()

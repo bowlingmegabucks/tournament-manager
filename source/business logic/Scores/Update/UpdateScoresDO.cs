@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Scores.Update;
+namespace BowlingMegabucks.TournamentManager.Scores.Update;
 
 internal class DataLayer : IDataLayer
 {

@@ -1,19 +1,19 @@
 ﻿
-namespace NortheastMegabuck.Tests.Squads.Complete;
+namespace BowlingMegabucks.TournamentManager.Tests.Squads.Complete;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<NortheastMegabuck.Squads.Complete.IBusinessLogic> _businessLogic;
+    private Mock<BowlingMegabucks.TournamentManager.Squads.Complete.IBusinessLogic> _businessLogic;
 
-    private NortheastMegabuck.Squads.Complete.Adapter _adapter;
+    private BowlingMegabucks.TournamentManager.Squads.Complete.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<NortheastMegabuck.Squads.Complete.IBusinessLogic>();
+        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Squads.Complete.IBusinessLogic>();
 
-        _adapter = new NortheastMegabuck.Squads.Complete.Adapter(_businessLogic.Object);
+        _adapter = new BowlingMegabucks.TournamentManager.Squads.Complete.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -30,7 +30,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ErrorSetToBusinessLogicError()
     {
-        var error = new NortheastMegabuck.Models.ErrorDetail("error");
+        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);

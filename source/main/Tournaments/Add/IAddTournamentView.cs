@@ -1,5 +1,5 @@
-﻿namespace NortheastMegabuck.Tournaments.Add;
-internal interface IView : NortheastMegabuck.IView
+﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Add;
+internal interface IView : BowlingMegabucks.TournamentManager.IView
 {
     void DisplayErrors(IEnumerable<string> errorMessages);
 

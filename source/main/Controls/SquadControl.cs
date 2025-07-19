@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace NortheastMegabuck.Controls;
+namespace BowlingMegabucks.TournamentManager.Controls;
 internal partial class SquadControl : UserControl, Squads.IViewModel
 {
     public SquadControl()

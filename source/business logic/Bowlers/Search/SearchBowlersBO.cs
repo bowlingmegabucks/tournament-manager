@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Bowlers.Search;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
 
 /// <summary>
 /// 

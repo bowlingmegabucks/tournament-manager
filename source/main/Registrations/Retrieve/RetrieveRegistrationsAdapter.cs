@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Registrations.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error

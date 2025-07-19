@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NortheastMegabuck.Models;
+using BowlingMegabucks.TournamentManager.Models;
 
-namespace NortheastMegabuck.Registrations;
+namespace BowlingMegabucks.TournamentManager.Registrations;
 
 internal class Repository : IRepository
 {

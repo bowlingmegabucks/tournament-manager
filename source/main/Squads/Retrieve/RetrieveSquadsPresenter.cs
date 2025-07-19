@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Squads.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Squads.Retrieve;
 internal class Presenter
 {
     private readonly IView _view;

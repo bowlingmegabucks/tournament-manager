@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Tournaments.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Retrieve;
 internal partial class Form : System.Windows.Forms.Form, IView
 {
     private readonly IServiceProvider _services;

@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.LaneAssignments.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments.Retrieve;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<NortheastMegabuck.LaneAssignments.Retrieve.IDataLayer> _dataLayer;
+    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.IDataLayer> _dataLayer;
 
-    private NortheastMegabuck.LaneAssignments.Retrieve.IBusinessLogic _businessLogic;
+    private BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.IBusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<NortheastMegabuck.LaneAssignments.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.IDataLayer>();
 
-        _businessLogic = new NortheastMegabuck.LaneAssignments.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_ReturnsDataLayerExecute()
     {
-        var laneAssignments = Enumerable.Empty<NortheastMegabuck.Models.LaneAssignment>();
+        var laneAssignments = Enumerable.Empty<BowlingMegabucks.TournamentManager.Models.LaneAssignment>();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(laneAssignments);
 
         var actual = await _businessLogic.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);

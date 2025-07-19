@@ -1,7 +1,7 @@
 ﻿
 using System.Runtime.Versioning;
 
-namespace NortheastMegabuck.Sweepers.Portal;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Portal;
 
 [SupportedOSPlatform("windows")]
 internal partial class Form

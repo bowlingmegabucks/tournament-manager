@@ -6,7 +6,7 @@ using SmartEnum.EFCore;
 using Microsoft.Extensions.Logging;
 #endif
 
-namespace NortheastMegabuck.Database;
+namespace BowlingMegabucks.TournamentManager.Database;
 
 internal class DataContext 
     : DbContext, IDataContext

@@ -1,8 +1,8 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using NortheastMegabuck.Squads;
+using BowlingMegabucks.TournamentManager.Squads;
 
-namespace NortheastMegabuck.Scores.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Scores.Retrieve;
 internal class DataLayer : IDataLayer
 {
     private readonly IRepository _repository;

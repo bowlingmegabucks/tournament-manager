@@ -1,18 +1,18 @@
-﻿namespace NortheastMegabuck.Tests.Scores;
+﻿namespace BowlingMegabucks.TournamentManager.Tests.Scores;
 
 [TestFixture]
 internal sealed class EntityMapper
 {
-    private NortheastMegabuck.Scores.EntityMapper _mapper;
+    private BowlingMegabucks.TournamentManager.Scores.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new NortheastMegabuck.Scores.EntityMapper();
+        => _mapper = new BowlingMegabucks.TournamentManager.Scores.EntityMapper();
 
     [Test]
     public void Execute_SquadIdMapped()
     {
-        var model = new NortheastMegabuck.Models.SquadScore
+        var model = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             SquadId = SquadId.New()
         };
@@ -25,9 +25,9 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_BowlerIdMapped()
     {
-        var model = new NortheastMegabuck.Models.SquadScore
+        var model = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
-            Bowler = new NortheastMegabuck.Models.Bowler { Id = BowlerId.New() }
+            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }
         };
 
         var entity = _mapper.Execute(model);
@@ -38,7 +38,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_GameMapped()
     {
-        var model = new NortheastMegabuck.Models.SquadScore
+        var model = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             GameNumber = 5
         };
@@ -51,7 +51,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_ScoreMapped()
     {
-        var model = new NortheastMegabuck.Models.SquadScore
+        var model = new BowlingMegabucks.TournamentManager.Models.SquadScore
         {
             Score = 200
         };

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Sweepers.Results;
+namespace BowlingMegabucks.TournamentManager.Sweepers.Results;
 internal class Adapter : IAdapter
 {
     public Models.ErrorDetail? Error

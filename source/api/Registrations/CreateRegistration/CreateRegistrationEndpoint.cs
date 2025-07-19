@@ -1,8 +1,8 @@
 using FastEndpoints;
-using NortheastMegabuck.Api.BogusData;
-using NortheastMegabuck.Api.Registrations.GetRegistration;
+using BowlingMegabucks.TournamentManager.Api.BogusData;
+using BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 
-namespace NortheastMegabuck.Api.Registrations.CreateRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 
 /// <summary>
 /// 

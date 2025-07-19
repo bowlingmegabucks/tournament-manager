@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Divisions;
+﻿namespace BowlingMegabucks.TournamentManager.Divisions;
 internal class EntityMapper : IEntityMapper
 {
     Database.Entities.Division IEntityMapper.Execute(Models.Division division)

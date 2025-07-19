@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Bowlers;
+namespace BowlingMegabucks.TournamentManager.Bowlers;
 internal class EntityMapper : IEntityMapper
 {
     public Database.Entities.Bowler Execute(Models.Bowler bowler)

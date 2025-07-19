@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Runtime.Versioning;
 
-namespace NortheastMegabuck.Scores;
+namespace BowlingMegabucks.TournamentManager.Scores;
 
 [SupportedOSPlatform("windows")]
 internal partial class RecapSheetForm : System.Windows.Forms.Form

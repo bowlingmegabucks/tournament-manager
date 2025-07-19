@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Bowlers.Search;
+﻿namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
 
 partial class Dialog
 {
@@ -31,12 +31,12 @@ partial class Dialog
             this.searchCriteriaGroupBox = new System.Windows.Forms.GroupBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.emailText = new System.Windows.Forms.TextBox();
-            this.emailLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.emailLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
             this.firstNameText = new System.Windows.Forms.TextBox();
-            this.firstNameLabel = new NortheastMegabuck.Controls.LabelControl();
+            this.firstNameLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
             this.lastNameText = new System.Windows.Forms.TextBox();
-            this.lastNameLabel = new NortheastMegabuck.Controls.LabelControl();
-            this.searchResultsGrid = new NortheastMegabuck.Controls.Grids.SearchBowlersGrid();
+            this.lastNameLabel = new BowlingMegabucks.TournamentManager.Controls.LabelControl();
+            this.searchResultsGrid = new BowlingMegabucks.TournamentManager.Controls.Grids.SearchBowlersGrid();
             this.selectButton = new System.Windows.Forms.Button();
             this.newBowlerButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -144,7 +144,7 @@ partial class Dialog
             this.searchResultsGrid.SelectedRowContextMenu = null;
             this.searchResultsGrid.Size = new System.Drawing.Size(832, 290);
             this.searchResultsGrid.TabIndex = 1;
-            this.searchResultsGrid.GridRowDoubleClicked += new System.EventHandler<NortheastMegabuck.Controls.Grids.GridRowDoubleClickEventArgs>(this.SearchResultsGrid_GridRowDoubleClicked);
+            this.searchResultsGrid.GridRowDoubleClicked += new System.EventHandler<BowlingMegabucks.TournamentManager.Controls.Grids.GridRowDoubleClickEventArgs>(this.SearchResultsGrid_GridRowDoubleClicked);
             // 
             // selectButton
             // 

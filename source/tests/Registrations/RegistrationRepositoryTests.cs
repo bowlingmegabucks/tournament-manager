@@ -1,27 +1,27 @@
-﻿using NortheastMegabuck.Tests.Extensions;
+﻿using BowlingMegabucks.TournamentManager.Tests.Extensions;
 
-namespace NortheastMegabuck.Tests.Registrations;
+namespace BowlingMegabucks.TournamentManager.Tests.Registrations;
 
 [TestFixture]
 internal sealed class Repository
 {
-    private Mock<NortheastMegabuck.Database.IDataContext> _dataContext;
+    private Mock<BowlingMegabucks.TournamentManager.Database.IDataContext> _dataContext;
 
-    private NortheastMegabuck.Registrations.IRepository _repository;
+    private BowlingMegabucks.TournamentManager.Registrations.IRepository _repository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<NortheastMegabuck.Database.IDataContext>();
-        _repository = new NortheastMegabuck.Registrations.Repository(_dataContext.Object);
+        _dataContext = new Mock<BowlingMegabucks.TournamentManager.Database.IDataContext>();
+        _repository = new BowlingMegabucks.TournamentManager.Registrations.Repository(_dataContext.Object);
     }
 
     [Test]
     public async Task AddAsync_RegistrationAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Registration>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.Registration>().SetUpDbContext());
 
-        var registration = new NortheastMegabuck.Database.Entities.Registration();
+        var registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration();
 
         var id = await _repository.AddAsync(registration, default).ConfigureAwait(false);
 
@@ -31,9 +31,9 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<NortheastMegabuck.Database.Entities.Registration>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.Registration>().SetUpDbContext());
 
-        var registration = new NortheastMegabuck.Database.Entities.Registration();
+        var registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration();
         CancellationToken cancellationToken = default;
 
         await _repository.AddAsync(registration, cancellationToken).ConfigureAwait(false);
@@ -51,22 +51,22 @@ internal sealed class Repository
         var registrationId2 = RegistrationId.New();
         var registrationId3 = RegistrationId.New();
 
-        var registration1 = new NortheastMegabuck.Database.Entities.Registration
+        var registration1 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = registrationId1,
-            Division = new NortheastMegabuck.Database.Entities.Division { TournamentId = tournament1 }
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { TournamentId = tournament1 }
         };
 
-        var registration2 = new NortheastMegabuck.Database.Entities.Registration
+        var registration2 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = registrationId2,
-            Division = new NortheastMegabuck.Database.Entities.Division { TournamentId = tournament2 }
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { TournamentId = tournament2 }
         };
 
-        var registration3 = new NortheastMegabuck.Database.Entities.Registration
+        var registration3 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
         {
             Id = registrationId3,
-            Division = new NortheastMegabuck.Database.Entities.Division { TournamentId = tournament1 }
+            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division { TournamentId = tournament1 }
         };
 
         var registrations = new[] { registration1, registration2, registration3 };

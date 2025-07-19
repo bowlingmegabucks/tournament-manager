@@ -1,4 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("NortheastMegabuck.Tests")]
+[assembly: InternalsVisibleTo("BowlingMegabucks.TournamentManager.Tests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Bowlers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Retrieve;
 internal class Adapter : IAdapter
 {
     private readonly IBusinessLogic _businessLogic;

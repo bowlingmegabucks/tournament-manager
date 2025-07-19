@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Sweepers.Portal;
+﻿namespace BowlingMegabucks.TournamentManager.Sweepers.Portal;
 
 partial class Form
 {

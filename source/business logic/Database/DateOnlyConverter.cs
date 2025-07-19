@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace NortheastMegabuck.Database;
+namespace BowlingMegabucks.TournamentManager.Database;
 internal class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
 {
     public DateOnlyConverter() : base(dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue), dateTime => DateOnly.FromDateTime(dateTime))

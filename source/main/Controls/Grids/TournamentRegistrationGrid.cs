@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using NortheastMegabuck.Registrations.Retrieve;
+using BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 
-namespace NortheastMegabuck.Controls.Grids;
+namespace BowlingMegabucks.TournamentManager.Controls.Grids;
 internal partial class TournamentRegistrationGrid
 #if DEBUG
     : TournamentRegistrationMiddleGrid

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Registrations;
+namespace BowlingMegabucks.TournamentManager.Registrations;
 internal class EntityMapper : IEntityMapper
 {
     private readonly Bowlers.IEntityMapper _bowlerMapper;

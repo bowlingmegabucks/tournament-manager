@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace NortheastMegabuck.Registrations.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 internal class TournamentRegistrationsPresenter
 {
     private readonly ITournamentRegistrationsView _view;

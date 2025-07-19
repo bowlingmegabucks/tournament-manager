@@ -1,4 +1,4 @@
-namespace NortheastMegabuck.Api.Registrations.GetRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 
 /// <summary>
 /// Represents the address details of a bowler in a registration.

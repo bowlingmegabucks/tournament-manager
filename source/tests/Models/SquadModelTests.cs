@@ -1,6 +1,6 @@
-﻿using NortheastMegabuck.Squads;
+﻿using BowlingMegabucks.TournamentManager.Squads;
 
-namespace NortheastMegabuck.Tests.Models;
+namespace BowlingMegabucks.TournamentManager.Tests.Models;
 
 [TestFixture]
 internal sealed class Squad
@@ -8,13 +8,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_IdMapped()
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.Id, Is.EqualTo(entity.Id));
     }
@@ -22,13 +22,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_TournamentIdMapped()
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             TournamentId = TournamentId.New(),
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.TournamentId, Is.EqualTo(entity.TournamentId));
     }
@@ -36,13 +36,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_EntryFeeMapped([Values(null, 100)] decimal? entryFee)
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             EntryFee = entryFee,
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.EntryFee, Is.EqualTo(entity.EntryFee));
     }
@@ -50,13 +50,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_CashRatioMapped([Values(null, 5.5)] decimal? cashRatio)
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             CashRatio = cashRatio,
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.CashRatio, Is.EqualTo(entity.CashRatio));
     }
@@ -64,13 +64,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_FinalsRatioMapped([Values(null, 4.5)] decimal? finalsRatio)
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             FinalsRatio = finalsRatio,
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.FinalsRatio, Is.EqualTo(entity.FinalsRatio));
     }
@@ -78,13 +78,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_DateMapped()
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             Date = DateTime.Now,
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.Date, Is.EqualTo(entity.Date));
     }
@@ -92,13 +92,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_MaxPerPairMapped()
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             MaxPerPair = 5,
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.MaxPerPair, Is.EqualTo(entity.MaxPerPair));
     }
@@ -106,13 +106,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_StartingLaneMapped()
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             StartingLane = 1,
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.StartingLane, Is.EqualTo(entity.StartingLane));
     }
@@ -120,13 +120,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_NumberOfLanesMapped()
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             NumberOfLanes = 32,
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.NumberOfLanes, Is.EqualTo(entity.NumberOfLanes));
     }
@@ -134,13 +134,13 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadEntity_CompleteMapped([Values] bool complete)
     {
-        var entity = new NortheastMegabuck.Database.Entities.TournamentSquad
+        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
         {
             Complete = complete,
-            Tournament = new NortheastMegabuck.Database.Entities.Tournament()
+            Tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament()
         };
 
-        var model = new NortheastMegabuck.Models.Squad(entity);
+        var model = new BowlingMegabucks.TournamentManager.Models.Squad(entity);
 
         Assert.That(model.Complete, Is.EqualTo(entity.Complete));
     }
@@ -148,7 +148,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_IdMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(SquadId.New());
 
         var model = viewModel.Object.ToModel();
@@ -159,7 +159,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_TournamentIdMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.TournamentId).Returns(TournamentId.New());
 
         var model = viewModel.Object.ToModel();
@@ -170,7 +170,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_EntryFeeMapped([Values(null, 100)] decimal? entryFee)
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.EntryFee).Returns(entryFee);
 
         var model = viewModel.Object.ToModel();
@@ -181,7 +181,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_CashRatioMapped([Values(null, 1.2)] decimal? cashRatio)
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.CashRatio).Returns(cashRatio);
 
         var model = viewModel.Object.ToModel();
@@ -192,7 +192,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_FinalsRatioMapped([Values(null, 2.2)] decimal? finalsRatio)
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.FinalsRatio).Returns(finalsRatio);
 
         var model = viewModel.Object.ToModel();
@@ -203,7 +203,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_DateMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.Date).Returns(DateTime.Now);
 
         var model = viewModel.Object.ToModel();
@@ -214,7 +214,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_MaxPerPairMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.MaxPerPair).Returns(5);
 
         var model = viewModel.Object.ToModel();
@@ -225,7 +225,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_StartingLaneMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.StartingLane).Returns(1);
 
         var model = viewModel.Object.ToModel();
@@ -236,7 +236,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_NumberOfLanesMapped()
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.NumberOfLanes).Returns(32);
 
         var model = viewModel.Object.ToModel();
@@ -247,7 +247,7 @@ internal sealed class Squad
     [Test]
     public void Constructor_SquadViewModel_CompleteMapped([Values] bool complete)
     {
-        var viewModel = new Mock<NortheastMegabuck.Squads.IViewModel>();
+        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
         viewModel.SetupGet(v => v.Complete).Returns(complete);
 
         var model = viewModel.Object.ToModel();

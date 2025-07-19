@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NortheastMegabuck.Bowlers.Update;
+namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 
 /// <summary>
 /// 

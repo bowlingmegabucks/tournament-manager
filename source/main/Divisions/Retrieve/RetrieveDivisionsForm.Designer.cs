@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Divisions.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.Divisions.Retrieve;
 
 partial class Form
 {
@@ -28,7 +28,7 @@ partial class Form
     /// </summary>
     private void InitializeComponent()
     {
-            this.divisionsGrid = new NortheastMegabuck.Controls.Grids.DivisionsGrid();
+            this.divisionsGrid = new BowlingMegabucks.TournamentManager.Controls.Grids.DivisionsGrid();
             this.addButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 

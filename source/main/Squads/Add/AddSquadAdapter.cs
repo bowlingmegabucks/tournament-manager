@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Squads.Add;
+﻿namespace BowlingMegabucks.TournamentManager.Squads.Add;
 internal class Adapter : IAdapter
 {
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];

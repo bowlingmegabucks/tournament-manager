@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace NortheastMegabuck.Divisions.Add;
+namespace BowlingMegabucks.TournamentManager.Divisions.Add;
 internal class Validator : AbstractValidator<Models.Division>
 {
     public Validator()

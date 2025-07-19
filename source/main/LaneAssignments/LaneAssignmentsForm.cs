@@ -3,9 +3,9 @@ using System.Globalization;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using NortheastMegabuck.Controls;
+using BowlingMegabucks.TournamentManager.Controls;
 
-namespace NortheastMegabuck.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 
 [SupportedOSPlatform("windows")]
 internal partial class Form : System.Windows.Forms.Form, IView

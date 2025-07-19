@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Tournaments.Retrieve;
+namespace BowlingMegabucks.TournamentManager.Tournaments.Retrieve;
 
 /// <summary>
 /// 

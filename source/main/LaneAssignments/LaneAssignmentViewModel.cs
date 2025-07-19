@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
-using NortheastMegabuck.Squads;
+using BowlingMegabucks.TournamentManager.Squads;
 
-namespace NortheastMegabuck.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 internal class ViewModel : IViewModel
 {
     public BowlerId BowlerId { get; internal set; }

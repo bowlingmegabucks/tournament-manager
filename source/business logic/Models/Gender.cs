@@ -1,6 +1,6 @@
 ﻿using Ardalis.SmartEnum;
 
-namespace NortheastMegabuck.Models;
+namespace BowlingMegabucks.TournamentManager.Models;
 
 /// <summary>
 /// 

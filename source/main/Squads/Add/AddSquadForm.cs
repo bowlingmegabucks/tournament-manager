@@ -1,4 +1,4 @@
-﻿namespace NortheastMegabuck.Squads.Add;
+﻿namespace BowlingMegabucks.TournamentManager.Squads.Add;
 
 internal partial class Form : System.Windows.Forms.Form, IView
 {

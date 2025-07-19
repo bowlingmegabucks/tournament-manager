@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 internal class LaneAvailability : ILaneAvailability
 {
     IEnumerable<string> ILaneAvailability.Generate(int startingLane, int numberOfLanes, int maxPerPair)

@@ -1,5 +1,5 @@
 ﻿
-namespace NortheastMegabuck.Divisions;
+namespace BowlingMegabucks.TournamentManager.Divisions;
 internal class ViewModel : IViewModel
 {
     public DivisionId Id { get; set; }

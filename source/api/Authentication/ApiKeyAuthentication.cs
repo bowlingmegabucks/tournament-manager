@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
-namespace NortheastMegabuck.Api.Authentication;
+namespace BowlingMegabucks.TournamentManager.Api.Authentication;
 
 internal sealed class ApiKeyAuthentication
     : AuthenticationHandler<AuthenticationSchemeOptions>

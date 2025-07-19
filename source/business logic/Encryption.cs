@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace NortheastMegabuck;
+namespace BowlingMegabucks.TournamentManager;
 
 /// <summary>
 /// 
