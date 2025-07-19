@@ -106,11 +106,11 @@ app.MapScalarApiReference();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseHttpsRedirection();
+    
     using var scope = app.Services.CreateScope();
     await scope.ApplyMigrationsAsync();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthentication()
     .UseAuthorization()
