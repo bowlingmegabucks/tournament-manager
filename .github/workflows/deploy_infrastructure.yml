@@ -39,22 +39,16 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Show Pipeline Identity
-        run: az ad signed-in-user show || az account show
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=rg-infrastructure" \
+            -backend-config="storage_account_name=megabucksinfrastructure" \
+            -backend-config="container_name=tfstate" \
+            -backend-config="key=stage.tfstate"
 
-      - name: Test Key Vault Secret Access
-        run: az keyvault secret show --vault-name kv-megabucks-stage --name api-key
+      - name: Terraform Plan
+        run: terraform plan -out=${{ github.event.inputs.environment }}-tfplan -var-file="${{ github.event.inputs.environment }}.tfvars" -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
-      # - name: Terraform Init
-      #   run: |
-      #     terraform init \
-      #       -backend-config="resource_group_name=rg-infrastructure" \
-      #       -backend-config="storage_account_name=megabucksinfrastructure" \
-      #       -backend-config="container_name=tfstate" \
-      #       -backend-config="key=stage.tfstate"
-
-      # - name: Terraform Plan
-      #   run: terraform plan -out=${{ github.event.inputs.environment }}-tfplan -var-file="${{ github.event.inputs.environment }}.tfvars" -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
-
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve ${{ github.event.inputs.environment }}-tfplan
+      - name: Terraform Apply
+        run: terraform apply -auto-approve ${{ github.event.inputs.environment }}-tfplan
