@@ -95,13 +95,20 @@ if (!string.IsNullOrEmpty(keyVaultUrl))
     }, name: "Azure Key Vault", tags: new[] { "secrets", "azure" });
 }
 
-    healthChecks.AddMySql(builder.Configuration.GetConnectionString("Default")
-        ?? throw new InvalidOperationException("Default connection string is not configured (Health Check)"),
-        name: "MySQL",
-        tags: new[] { "db", "mysql" });
+healthChecks.AddMySql(builder.Configuration.GetConnectionString("Default")
+    ?? throw new InvalidOperationException("Default connection string is not configured (Health Check)"),
+    name: "MySQL",
+    tags: new[] { "db", "mysql" });
 
-    
-    
+var appInsightsConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"];
+
+if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
+{
+    healthChecks.AddAzureApplicationInsights(appInsightsConnectionString,
+        name: "Application Insights",
+        tags: new[] { "monitoring", "azure" });
+}
+
 #pragma warning restore CA1861
 
 builder.Services.AddOpenTelemetry()
