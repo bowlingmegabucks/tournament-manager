@@ -87,9 +87,12 @@ if (!string.IsNullOrEmpty(keyVaultUrl))
 
     builder.Configuration.AddAzureKeyVault(uri, credential);
 
-    healthChecks.AddAzureKeyVault(uri, credential,
-        name: "Azure Key Vault",
-        tags: new[] { "secrets", "azure" });
+    healthChecks.AddAzureKeyVault(uri, credential, options =>
+    {
+        options.AddSecret("ConnectionStrings--Default");
+        options.AddSecret("Authentication--ApiKey");
+        options.AddSecret("EncryptionKey");
+    }, name: "Azure Key Vault", tags: new[] { "secrets", "azure" });
 }
 
     healthChecks.AddMySql(builder.Configuration.GetConnectionString("Default")
