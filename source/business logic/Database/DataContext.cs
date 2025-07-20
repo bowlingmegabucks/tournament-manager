@@ -78,19 +78,26 @@ public sealed class DataContext
         modelBuilder.ApplyConfiguration(new Entities.SquadScore.Configuration());
     }
 
-    DbSet<Entities.Tournament> IDataContext.Tournaments { get; } = null!;
+    DbSet<Entities.Tournament> IDataContext.Tournaments
+        => Set<Entities.Tournament>();
 
-    DbSet<Entities.Division> IDataContext.Divisions { get; } = null!;
+    DbSet<Entities.Division> IDataContext.Divisions
+        => Set<Entities.Division>();
 
-    DbSet<Entities.TournamentSquad> IDataContext.Squads { get; } = null!;
+    DbSet<Entities.TournamentSquad> IDataContext.Squads
+        => Set<Entities.TournamentSquad>();
 
-    DbSet<Entities.SweeperSquad> IDataContext.Sweepers { get; } = null!;
+    DbSet<Entities.SweeperSquad> IDataContext.Sweepers
+        => Set<Entities.SweeperSquad>();
 
-    DbSet<Entities.Bowler> IDataContext.Bowlers { get; } = null!;
+    DbSet<Entities.Bowler> IDataContext.Bowlers
+        => Set<Entities.Bowler>();
 
-    DbSet<Entities.Registration> IDataContext.Registrations { get; } = null!;
+    DbSet<Entities.Registration> IDataContext.Registrations
+        => Set<Entities.Registration>();
 
-    DbSet<Entities.SquadScore> IDataContext.SquadScores { get; } = null!;
+    DbSet<Entities.SquadScore> IDataContext.SquadScores
+        => Set<Entities.SquadScore>();
 }
 
 internal interface IDataContext
