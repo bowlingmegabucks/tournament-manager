@@ -38,7 +38,8 @@ public sealed class DataContext
     private static readonly ILoggerFactory _consoleLogger = LoggerFactory.Create(builder => builder.AddConsole());
 
     /// <summary>
-    /// 
+    /// Configures the database context to use a console logger and enables sensitive data logging.
+    /// This method is only executed in the DEBUG build configuration.
     /// </summary>
     /// <param name="optionsBuilder"></param>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
