@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace BowlingMegabucks.TournamentManager.Database;
 
 /// <summary>
-/// 
+/// A factory class used by Entity Framework Core at design time to create instances of <see cref="DataContext"/>.
+/// This is primarily used for migrations and other design-time operations.
 /// </summary>
 public class DataContextFactory
     : IDesignTimeDbContextFactory<DataContext>
