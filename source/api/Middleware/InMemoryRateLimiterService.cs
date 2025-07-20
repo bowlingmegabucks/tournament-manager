@@ -1,15 +1,18 @@
 using System.Collections.Concurrent;
+using Microsoft.Extensions.Options;
 
 namespace BowlingMegabucks.TournamentManager.Api.Middleware;
 
 internal sealed class InMemoryRateLimiterService
-    : IRateLimiterService, IDisposable
+: IRateLimiterService, IDisposable
 {
+    private readonly TimeSpan _windowDuration;
     private readonly ConcurrentDictionary<string, (int Count, DateTime WindowStart)> _counters = new();
     private readonly Timer _cleanupTimer;
 
-    public InMemoryRateLimiterService()
+    public InMemoryRateLimiterService(IOptions<RateLimitingOptions> options)
     {
+        _windowDuration = TimeSpan.FromSeconds(options.Value.WindowSeconds);
         _cleanupTimer = new Timer(CleanupExpiredEntries, null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
     }
 
@@ -25,27 +28,32 @@ internal sealed class InMemoryRateLimiterService
         }
     }
 
-    public void Dispose()
-        => _cleanupTimer.Dispose();
-        
+    public void Dispose() => _cleanupTimer.Dispose();
+
     public Task<bool> IsRequestAllowedAsync(string key, int permitLimit, TimeSpan window)
     {
         var now = DateTime.UtcNow;
-        var (Count, WindowStart) = _counters.GetOrAdd(key, _ => (0, now));
+        var allowed = false;
+        _counters.AddOrUpdate(key,
+            _ => (1, now),
+            (_, old) =>
+            {
+                if (now - old.WindowStart > window)
+                {
+                    allowed = true;
+                    return (1, now);
+                }
 
-        if (now - WindowStart > window)
-        {
-            _counters[key] = (1, now);
-            return Task.FromResult(true);
-        }
-
-        if (Count < permitLimit)
-        {
-            _counters[key] = (Count + 1, WindowStart);
-            return Task.FromResult(true);
-        }
-
-        return Task.FromResult(false);
+                if (old.Count < permitLimit)
+                {
+                    allowed = true;
+                    return (old.Count + 1, old.WindowStart);
+                }
+                
+                allowed = false;
+                return old;
+            });
+        return Task.FromResult(allowed);
     }
 }
 
