@@ -19,9 +19,10 @@ public sealed class CreateRegistrationEndpoint
 
         Description(d => d
             .Produces<CreateRegistrationResponse>(StatusCodes.Status201Created, HttpContentTypes.Json)
-            .Produces<ProblemDetails>(StatusCodes.Status400BadRequest, HttpContentTypes.ProblemJson)
+            .ProducesProblemDetails(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized)
-            .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError, HttpContentTypes.ProblemJson)
+            .ProducesProblemDetails(StatusCodes.Status429TooManyRequests)
+            .ProducesProblemDetails(StatusCodes.Status500InternalServerError)
             .WithName("Create Registration"));
 
         Summary(s =>
@@ -36,11 +37,13 @@ public sealed class CreateRegistrationEndpoint
                 RegistrationId = RegistrationId.New()
             };
             s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400("/registrations");
+            s.ResponseExamples[StatusCodes.Status429TooManyRequests] = HttpStatusCodeResponses.SampleTooManyRequests429("/registrations");
             s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500("/registrations");
 
             s.Response<CreateRegistrationResponse>(StatusCodes.Status201Created, "Successfully created the registration.");
             s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
             s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);
+            s.Response<ProblemDetails>(StatusCodes.Status429TooManyRequests, "Rate limit exceeded.", HttpContentTypes.ProblemJson);
             s.Response<ProblemDetails>(StatusCodes.Status500InternalServerError, "An unexpected error occurred.", HttpContentTypes.ProblemJson);
         });
     }

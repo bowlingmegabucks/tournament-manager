@@ -47,6 +47,15 @@ internal static class HttpStatusCodeResponses
             TraceId = "0HMPNHL0JHL76:00000001"
         };
 
+    internal static ProblemDetails SampleTooManyRequests429(string instance)
+        => new()
+        {
+            Status = StatusCodes.Status429TooManyRequests,
+            Instance = instance,
+            TraceId = "0HMPNHL0JHL76:00000001",
+            Detail = "You have exceeded the allowed number of requests. Please try again later."
+        };
+
     internal static ProblemDetails SampleInternalServerError500(string instance)
         => new()
         {

@@ -21,6 +21,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
+builder.Services.Configure<RateLimitingOptions>(builder.Configuration.GetSection("RateLimiting"));
+
+builder.Services.AddProblemDetails();
+
 builder.Services.AddFastEndpoints()
     .AddAuthorization()
     .AddAuthentication(ApiKeyAuthentication.SchemeName)
@@ -123,6 +127,8 @@ if (app.Environment.IsDevelopment())
     await scope.ApplyMigrationsAsync();
 }
 
+app.UseMiddleware<RateLimitingMiddleware>();
+
 app.UseDefaultExceptionHandler()
     .UseAuthentication()
     .UseAuthorization()
@@ -141,8 +147,9 @@ app.UseDefaultExceptionHandler()
             pd.IndicateErrorSeverity = true;
         });
 
-        c.Endpoints.Configurator = endpoints =>
-            endpoints.Options(options => options.AddEndpointFilter<RequestContextLoggingMiddleware>());
+        c.Endpoints.Configurator = endpoints => endpoints
+            .Options(options => options
+                .AddEndpointFilter<RequestContextLoggingMiddleware>());
     })
     .UseSwaggerGen();
 
