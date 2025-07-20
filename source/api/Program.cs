@@ -25,6 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.Configure<RateLimitingOptions>(builder.Configuration.GetSection("RateLimiting"));
+builder.Services.AddSingleton<IRateLimiterService, InMemoryRateLimiterService>();
 
 builder.Services.AddProblemDetails();
 
