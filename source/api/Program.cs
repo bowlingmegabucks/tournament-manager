@@ -29,14 +29,6 @@ builder.Services.AddSingleton<IRateLimiterService, InMemoryRateLimiterService>()
 
 builder.Services.AddProblemDetails();
 
-builder.Services.AddHealthChecks()
-    .AddMySql(
-        builder.Configuration.GetConnectionString("Default")
-            ?? throw new InvalidOperationException("Default connection string is not configured."),
-        name: "database",
-        tags: new[] { "db", "sql", "mysql" }
-    );
-
 builder.Services.AddFastEndpoints()
     .AddAuthorization()
     .AddAuthentication(ApiKeyAuthentication.SchemeName)
@@ -97,6 +89,14 @@ if (!string.IsNullOrEmpty(keyVaultUrl))
 {
     builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
 }
+
+builder.Services.AddHealthChecks()
+    .AddMySql(
+        builder.Configuration.GetConnectionString("Default")
+            ?? throw new InvalidOperationException("Default connection string is not configured."),
+        name: "database",
+        tags: new[] { "db", "sql", "mysql" }
+    );
 
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
