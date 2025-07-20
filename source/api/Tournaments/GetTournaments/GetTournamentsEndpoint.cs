@@ -11,9 +11,9 @@ public sealed class GetTournamentsEndpoint
     private readonly ILogger<GetTournamentsEndpoint> _logger;
 
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="GetTournamentsEndpoint"/> class.
     /// </summary>
-    /// <param name="logger"></param>
+    /// <param name="logger">The logger instance used to log diagnostic and operational information.</param>
     public GetTournamentsEndpoint(ILogger<GetTournamentsEndpoint> logger)
     {
         _logger = logger;
