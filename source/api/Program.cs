@@ -127,15 +127,18 @@ else
 
 var app = builder.Build();
 
-app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
-app.MapScalarApiReference();
-
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
-    app.UseHttpsRedirection();
+    app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
+    app.MapScalarApiReference();
+    
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseHttpsRedirection();
 
-    using var scope = app.Services.CreateScope();
-    await scope.ApplyMigrationsAsync();
+        using var scope = app.Services.CreateScope();
+        await scope.ApplyMigrationsAsync();
+    }
 }
 
 app.MapHealthChecks("/health", new HealthCheckOptions
