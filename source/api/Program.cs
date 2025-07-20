@@ -75,19 +75,30 @@ builder.Services.SwaggerDocument(o =>
         => s.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
 
+#pragma warning disable CA1861
+var healthChecks = builder.Services.AddHealthChecks();
+
 var keyVaultUrl = builder.Configuration.GetValue<string>("KEYVAULT_URL");
 
 if (!string.IsNullOrEmpty(keyVaultUrl))
 {
-    builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
+    var uri = new Uri(keyVaultUrl);
+    var credential = new DefaultAzureCredential();
+
+    builder.Configuration.AddAzureKeyVault(uri, credential);
+
+    healthChecks.AddAzureKeyVault(uri, credential,
+        name: "Azure Key Vault",
+        tags: new[] { "secrets", "azure" });
 }
 
-#pragma warning disable CA1861
-builder.Services.AddHealthChecks()
-    .AddMySql(builder.Configuration.GetConnectionString("Default")
+    healthChecks.AddMySql(builder.Configuration.GetConnectionString("Default")
         ?? throw new InvalidOperationException("Default connection string is not configured (Health Check)"),
         name: "MySQL",
         tags: new[] { "db", "mysql" });
+
+    
+    
 #pragma warning restore CA1861
 
 builder.Services.AddOpenTelemetry()
@@ -118,7 +129,7 @@ else
 
 var app = builder.Build();
 
-app.UseHealthChecks("/health", new HealthCheckOptions
+app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = async (context, report) =>
     {
