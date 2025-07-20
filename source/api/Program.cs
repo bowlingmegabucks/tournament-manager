@@ -118,7 +118,7 @@ else
 
 var app = builder.Build();
 
-app.MapHealthChecks("/health", new HealthCheckOptions
+app.UseHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = async (context, report) =>
     {
