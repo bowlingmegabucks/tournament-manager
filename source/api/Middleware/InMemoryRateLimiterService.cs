@@ -6,7 +6,29 @@ internal sealed class InMemoryRateLimiterService
     : IRateLimiterService
 {
     private readonly ConcurrentDictionary<string, (int Count, DateTime WindowStart)> _counters = new();
+    private readonly Timer _cleanupTimer;
 
+    public InMemoryRateLimiterService()
+    {
+        _cleanupTimer = new Timer(CleanupExpiredEntries, null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
+    }
+
+    private void CleanupExpiredEntries(object? state)
+    {
+        var now = DateTime.UtcNow;
+        foreach (var key in _counters.Keys)
+        {
+            if (_counters.TryGetValue(key, out var value) && now - value.WindowStart > TimeSpan.FromMinutes(1))
+            {
+                _counters.TryRemove(key, out _);
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        _cleanupTimer.Dispose();
+    }
     public Task<bool> IsRequestAllowedAsync(string key, int permitLimit, TimeSpan window)
     {
         var now = DateTime.UtcNow;
