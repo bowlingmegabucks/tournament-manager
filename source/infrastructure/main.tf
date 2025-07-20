@@ -133,6 +133,9 @@ resource "azurerm_linux_web_app" "api" {
     application_stack {
       dotnet_version = "9.0"
     }
+
+    health_check_path                 = "/health"
+    health_check_eviction_time_in_min = 5
   }
 
   app_settings = {
