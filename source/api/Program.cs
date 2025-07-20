@@ -16,6 +16,9 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 using BowlingMegabucks.TournamentManager.Api.Middleware;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,14 @@ builder.Services.AddOpenApi();
 builder.Services.Configure<RateLimitingOptions>(builder.Configuration.GetSection("RateLimiting"));
 
 builder.Services.AddProblemDetails();
+
+builder.Services.AddHealthChecks()
+    .AddMySql(
+        builder.Configuration.GetConnectionString("Default")
+            ?? throw new InvalidOperationException("Default connection string is not configured."),
+        name: "database",
+        tags: new[] { "db", "sql", "mysql" }
+    );
 
 builder.Services.AddFastEndpoints()
     .AddAuthorization()
@@ -126,6 +137,26 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     await scope.ApplyMigrationsAsync();
 }
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+        var result = JsonSerializer.Serialize(new
+        {
+            status = report.Status.ToString(),
+            results = report.Entries.Select(e => new
+            {
+                key = e.Key,
+                status = e.Value.Status.ToString(),
+                description = e.Value.Description,
+                data = e.Value.Data
+            })
+        });
+        await context.Response.WriteAsync(result);
+    }
+});
 
 app.UseMiddleware<RateLimitingMiddleware>();
 
