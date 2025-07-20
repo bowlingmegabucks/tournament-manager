@@ -1,6 +1,5 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
-using OpenTelemetry.Trace;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.DeleteRegistration;
 
