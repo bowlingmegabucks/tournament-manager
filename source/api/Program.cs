@@ -90,7 +90,9 @@ builder.Services.AddOpenTelemetry()
     .WithMetrics(metrics => metrics
         .AddHttpClientInstrumentation()
         .AddAspNetCoreInstrumentation()
-        .AddRuntimeInstrumentation());
+        .AddRuntimeInstrumentation()
+        .AddMeter("Microsoft.AspNetCore.Hosting")
+        .AddMeter("Microsoft.AspNetCore.Server.Kestrel"));
 
 builder.Logging.AddOpenTelemetry(options =>
 {
