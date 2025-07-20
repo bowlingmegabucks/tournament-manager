@@ -16,31 +16,27 @@ internal class PerformanceInterceptor : DbCommandInterceptor
         _warningThresholdMilliseconds = options.Value.DatabaseWarningThresholdMilliseconds;
     }
 
-    public override DbDataReader ReaderExecuted(DbCommand command, CommandExecutedEventData eventData, DbDataReader result)
+    private void LogCommandExecution(string commandText, double durationMilliseconds)
     {
-        if (eventData.Duration.TotalMilliseconds > _warningThresholdMilliseconds)
+        if (durationMilliseconds > _warningThresholdMilliseconds)
         {
-            PerformanceLogger.LogCommandExecutionWarning(_logger, command.CommandText, eventData.Duration.TotalMilliseconds);
+            PerformanceLogger.LogCommandExecutionWarning(_logger, commandText, durationMilliseconds);
         }
         else
         {
-            PerformanceLogger.LogCommandExecution(_logger, command.CommandText, eventData.Duration.TotalMilliseconds);
+            PerformanceLogger.LogCommandExecution(_logger, commandText, durationMilliseconds);
         }
+    }
 
+    public override DbDataReader ReaderExecuted(DbCommand command, CommandExecutedEventData eventData, DbDataReader result)
+    {
+        LogCommandExecution(command.CommandText, eventData.Duration.TotalMilliseconds);
         return base.ReaderExecuted(command, eventData, result);
     }
 
     public override ValueTask<DbDataReader> ReaderExecutedAsync(DbCommand command, CommandExecutedEventData eventData, DbDataReader result, CancellationToken cancellationToken = default)
     { 
-        if (eventData.Duration.TotalMilliseconds > _warningThresholdMilliseconds)
-        {
-            PerformanceLogger.LogCommandExecutionWarning(_logger, command.CommandText, eventData.Duration.TotalMilliseconds);
-        }
-        else
-        {
-            PerformanceLogger.LogCommandExecution(_logger, command.CommandText, eventData.Duration.TotalMilliseconds);
-        }
-
+        LogCommandExecution(command.CommandText, eventData.Duration.TotalMilliseconds);
         return base.ReaderExecutedAsync(command, eventData, result, cancellationToken);
     }
 }
