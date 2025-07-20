@@ -11,7 +11,7 @@ namespace BowlingMegabucks.TournamentManager.Database;
 /// <summary>
 /// Represents the database context for the Tournament Manager application.
 /// </summary>
-public sealed class DataContext
+internal sealed class DataContext
     : DbContext, IDataContext
 {
 
