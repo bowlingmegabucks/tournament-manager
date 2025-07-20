@@ -18,7 +18,7 @@ internal sealed class InMemoryRateLimiterService
         var now = DateTime.UtcNow;
         foreach (var key in _counters.Keys)
         {
-            if (_counters.TryGetValue(key, out var value) && now - value.WindowStart > TimeSpan.FromMinutes(1))
+            if (_counters.TryGetValue(key, out var value) && now - value.WindowStart > _windowDuration)
             {
                 _counters.TryRemove(key, out _);
             }
