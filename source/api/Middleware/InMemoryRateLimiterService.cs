@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 namespace BowlingMegabucks.TournamentManager.Api.Middleware;
 
 internal sealed class InMemoryRateLimiterService
-    : IRateLimiterService
+    : IRateLimiterService, IDisposable
 {
     private readonly ConcurrentDictionary<string, (int Count, DateTime WindowStart)> _counters = new();
     private readonly Timer _cleanupTimer;
@@ -26,9 +26,8 @@ internal sealed class InMemoryRateLimiterService
     }
 
     public void Dispose()
-    {
-        _cleanupTimer.Dispose();
-    }
+        => _cleanupTimer.Dispose();
+        
     public Task<bool> IsRequestAllowedAsync(string key, int permitLimit, TimeSpan window)
     {
         var now = DateTime.UtcNow;
