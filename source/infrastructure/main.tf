@@ -133,6 +133,8 @@ resource "azurerm_linux_web_app" "api" {
     application_stack {
       dotnet_version = "9.0"
     }
+
+    health_check_path = "/health"
   }
 
   app_settings = {
@@ -149,6 +151,33 @@ resource "azurerm_linux_web_app" "api" {
   identity {
     type = "SystemAssigned"
   }
+}
+
+resource "azurerm_application_insights_web_test" "api_health_check" {
+  name                    = "api-health-check"
+  location                = azurerm_application_insights.appinsights.location
+  resource_group_name     = azurerm_resource_group.rg.name
+  application_insights_id = azurerm_application_insights.appinsights.id
+  kind                    = "ping"
+  frequency               = 300 # seconds
+  timeout                 = 30
+  enabled                 = true
+
+  geo_locations = [
+  "us-west-azr",
+  "us-southcentral-azr",
+  "us-northcentral-azr",
+  "us-east-azr",
+  "us-central-azr"
+]
+
+  configuration = <<WEBTEST
+<WebTest Name="api-health-check" Id="12345678-1234-1234-1234-123456789abc" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="30" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Items>
+    <Request Method="GET" Guid="abcdefab-1234-5678-9abc-def012345678" Version="1.1" Url="https://${azurerm_linux_web_app.api.default_hostname}${azurerm_linux_web_app.api.site_config[0].health_check_path}" ThinkTime="0" Timeout="30" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="200" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+  </Items>
+</WebTest>
+WEBTEST
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "api_custom_domain" {
