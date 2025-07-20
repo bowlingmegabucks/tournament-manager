@@ -8,6 +8,17 @@ namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
 public sealed class GetTournamentsEndpoint
     : EndpointWithoutRequest<GetTournamentsResponse>
 {
+    private readonly ILogger<GetTournamentsEndpoint> _logger;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="logger"></param>
+    public GetTournamentsEndpoint(ILogger<GetTournamentsEndpoint> logger)
+    {
+        _logger = logger;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -43,6 +54,10 @@ public sealed class GetTournamentsEndpoint
     /// <returns></returns>
     public override async Task HandleAsync(CancellationToken ct)
     {
+#pragma warning disable CA1848 // Use the LoggerMessage delegates
+        _logger.LogDebug("Handling GetTournaments request");
+#pragma warning restore CA1848 // Use the LoggerMessage delegates
+
         var response = new BogusData.BogusGetTournamentsResponse().Generate();
 
         await SendOkAsync(response, ct);

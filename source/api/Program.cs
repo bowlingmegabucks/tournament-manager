@@ -15,6 +15,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
+using BowlingMegabucks.TournamentManager.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -138,6 +139,9 @@ if (app.Environment.IsDevelopment())
                 pd.IndicateErrorCode = true;
                 pd.IndicateErrorSeverity = true;
             });
+
+            c.Endpoints.Configurator = endpoints =>
+                endpoints.Options(options => options.AddEndpointFilter<RequestContextLoggingMiddleware>());
         })
         .UseSwaggerGen();
 
