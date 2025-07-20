@@ -13,6 +13,8 @@ public static class DatabaseExtensions
 {
     internal static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config)
     {
+        services.Configure<DatabasePerformanceOptions>(config.GetSection("Performance"));
+        
         services.AddScoped<PerformanceInterceptor>();
         services.AddDbContext<DataContext>((sp, options) => options
             .UseMySql(config.GetConnectionString("Default") ?? throw new InvalidOperationException("Cannot get connection string Default"),

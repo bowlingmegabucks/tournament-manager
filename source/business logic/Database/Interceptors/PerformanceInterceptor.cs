@@ -1,18 +1,19 @@
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace BowlingMegabucks.TournamentManager.Database.Interceptors;
 
-internal class PerformanceInterceptor
-    : DbCommandInterceptor
+internal class PerformanceInterceptor : DbCommandInterceptor
 {
-    private const int _warningThresholdMilliseconds = 250; // Threshold for logging long queries
+    private readonly int _warningThresholdMilliseconds;
     private readonly ILogger<PerformanceInterceptor> _logger;
 
-    public PerformanceInterceptor(ILogger<PerformanceInterceptor> logger)
+    public PerformanceInterceptor(ILogger<PerformanceInterceptor> logger, IOptions<DatabasePerformanceOptions> options)
     {
         _logger = logger;
+        _warningThresholdMilliseconds = options.Value.DatabaseWarningThresholdMilliseconds;
     }
 
     public override DbDataReader ReaderExecuted(DbCommand command, CommandExecutedEventData eventData, DbDataReader result)
