@@ -4,6 +4,7 @@ using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using NJsonSchema.Generation.TypeMappers;
 using BowlingMegabucks.TournamentManager;
 using BowlingMegabucks.TournamentManager.Api;
@@ -81,6 +82,14 @@ if (!string.IsNullOrEmpty(keyVaultUrl))
     builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
 }
 
+#pragma warning disable CA1861
+builder.Services.AddHealthChecks()
+    .AddMySql(builder.Configuration.GetConnectionString("Default")
+        ?? throw new InvalidOperationException("Default connection string is not configured (Health Check)"),
+        name: "MySQL",
+        tags: new[] { "db", "mysql" });
+#pragma warning restore CA1861
+
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
     .WithTracing(tracing => tracing
@@ -109,6 +118,28 @@ else
 
 var app = builder.Build();
 
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+        var result = JsonSerializer.Serialize(new
+        {
+            status = report.Status.ToString(),
+            checks = report.Entries.Select(e => new
+            {
+                name = e.Key,
+                status = e.Value.Status.ToString(),
+                description = e.Value.Description,
+                duration = e.Value.Duration.TotalMilliseconds,
+                data = e.Value.Data
+            }),
+            totalDuration = report.TotalDuration.TotalMilliseconds
+        });
+        await context.Response.WriteAsync(result);
+    }
+});
+
 app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
 app.MapScalarApiReference();
 
@@ -120,23 +151,23 @@ if (app.Environment.IsDevelopment())
     await scope.ApplyMigrationsAsync();
 }
 
-    app.UseAuthentication()
-        .UseAuthorization()
-        .UseFastEndpoints(c =>
+app.UseAuthentication()
+    .UseAuthorization()
+    .UseFastEndpoints(c =>
+    {
+        c.Versioning.Prefix = "v";
+        c.Versioning.DefaultVersion = 1;
+        c.Versioning.PrependToRoute = true;
+
+        c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+        c.Endpoints.ShortNames = true;
+        c.Errors.UseProblemDetails(pd =>
         {
-            c.Versioning.Prefix = "v";
-            c.Versioning.DefaultVersion = 1;
-            c.Versioning.PrependToRoute = true;
-
-            c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-
-            c.Endpoints.ShortNames = true;
-            c.Errors.UseProblemDetails(pd =>
-            {
-                pd.IndicateErrorCode = true;
-                pd.IndicateErrorSeverity = true;
-            });
-        })
-        .UseSwaggerGen();
+            pd.IndicateErrorCode = true;
+            pd.IndicateErrorSeverity = true;
+        });
+    })
+    .UseSwaggerGen();
 
 await app.RunAsync();
