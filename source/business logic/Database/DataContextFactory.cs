@@ -18,11 +18,12 @@ public class DataContextFactory
         => mySqlOptions => mySqlOptions.EnableRetryOnFailure(3);
 
     /// <summary>
-    /// 
+    /// Creates a new instance of <see cref="DataContext"/> using the specified arguments.
+    /// This method is used by Entity Framework Core at design time.
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <param name="args">An array of arguments passed by the design-time tools. Not used in this implementation.</param>
+    /// <returns>A new instance of <see cref="DataContext"/> configured with the connection string and MySQL options.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the "DB_CONNECTION_STRING" environment variable is not set.</exception>
     public DataContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<DataContext>();

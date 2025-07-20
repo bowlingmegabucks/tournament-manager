@@ -9,24 +9,24 @@ using Microsoft.Extensions.Logging;
 namespace BowlingMegabucks.TournamentManager.Database;
 
 /// <summary>
-/// 
+/// Represents the database context for the Tournament Manager application.
 /// </summary>
 public sealed class DataContext
     : DbContext, IDataContext
 {
 
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="DataContext"/> class with the specified options.
     /// </summary>
-    /// <param name="options"></param>
+    /// <param name="options">The options to configure the database context.</param>
     public DataContext(DbContextOptions<DataContext> options)
         : base(options)
     { }
 
     /// <summary>
-    /// 
+    /// Configures conventions for the database context, including support for SmartEnum.
     /// </summary>
-    /// <param name="configurationBuilder"></param>
+    /// <param name="configurationBuilder">The builder used to configure model conventions.</param>
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.ConfigureSmartEnum();
