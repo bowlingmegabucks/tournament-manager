@@ -155,26 +155,26 @@ resource "azurerm_linux_web_app" "api" {
 
 resource "azurerm_application_insights_web_test" "api_health_check" {
   name                    = "api-health-check"
-  location                = azurerm_application_insights.appinsights.location
-  resource_group_name     = azurerm_resource_group.rg.name
-  application_insights_id = azurerm_application_insights.appinsights.id
+  location                = azurerm_application_insights.application_insights.location
+  resource_group_name     = azurerm_resource_group.resource_group.name
+  application_insights_id = azurerm_application_insights.application_insights.id
   kind                    = "ping"
   frequency               = 300 # seconds
   timeout                 = 30
   enabled                 = true
 
   geo_locations = [
-  "us-west-azr",
-  "us-southcentral-azr",
-  "us-northcentral-azr",
-  "us-east-azr",
-  "us-central-azr"
-]
+    "us-west-azr",
+    "us-southcentral-azr",
+    "us-northcentral-azr",
+    "us-east-azr",
+    "us-central-azr"
+  ]
 
   configuration = <<WEBTEST
-<WebTest Name="api-health-check" Id="12345678-1234-1234-1234-123456789abc" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="30" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+<WebTest Name="api-health-check" Id="e2b1c7a2-4d3e-4b8a-9c1f-2a7e5b6d8f9c" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="30" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Items>
-    <Request Method="GET" Guid="abcdefab-1234-5678-9abc-def012345678" Version="1.1" Url="https://${azurerm_linux_web_app.api.default_hostname}${azurerm_linux_web_app.api.site_config[0].health_check_path}" ThinkTime="0" Timeout="30" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="200" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="a1f3b5c7-8d9e-4a2b-9c3d-5e6f7a8b9c0d" Version="1.1" Url="https://${azurerm_linux_web_app.api.default_hostname}${azurerm_linux_web_app.api.site_config[0].health_check_path}" ThinkTime="0" Timeout="30" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="200" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
   </Items>
 </WebTest>
 WEBTEST
