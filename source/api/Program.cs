@@ -123,26 +123,27 @@ if (app.Environment.IsDevelopment())
     await scope.ApplyMigrationsAsync();
 }
 
-    app.UseAuthentication()
-        .UseAuthorization()
-        .UseFastEndpoints(c =>
+app.UseDefaultExceptionHandler()
+    .UseAuthentication()
+    .UseAuthorization()
+    .UseFastEndpoints(c =>
+    {
+        c.Versioning.Prefix = "v";
+        c.Versioning.DefaultVersion = 1;
+        c.Versioning.PrependToRoute = true;
+
+        c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+        c.Endpoints.ShortNames = true;
+        c.Errors.UseProblemDetails(pd =>
         {
-            c.Versioning.Prefix = "v";
-            c.Versioning.DefaultVersion = 1;
-            c.Versioning.PrependToRoute = true;
+            pd.IndicateErrorCode = true;
+            pd.IndicateErrorSeverity = true;
+        });
 
-            c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-
-            c.Endpoints.ShortNames = true;
-            c.Errors.UseProblemDetails(pd =>
-            {
-                pd.IndicateErrorCode = true;
-                pd.IndicateErrorSeverity = true;
-            });
-
-            c.Endpoints.Configurator = endpoints =>
-                endpoints.Options(options => options.AddEndpointFilter<RequestContextLoggingMiddleware>());
-        })
-        .UseSwaggerGen();
+        c.Endpoints.Configurator = endpoints =>
+            endpoints.Options(options => options.AddEndpointFilter<RequestContextLoggingMiddleware>());
+    })
+    .UseSwaggerGen();
 
 await app.RunAsync();
