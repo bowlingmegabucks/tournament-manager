@@ -58,9 +58,10 @@ public sealed class DataContext
         => await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
     /// <summary>
-    /// 
+    /// Configures the entity mappings and relationships for the database context.
+    /// This method is called by the Entity Framework runtime when the model is being created.
     /// </summary>
-    /// <param name="modelBuilder"></param>
+    /// <param name="modelBuilder">The builder used to define the model for the database context.</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         ArgumentNullException.ThrowIfNull(modelBuilder);
