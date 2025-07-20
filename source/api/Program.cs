@@ -104,7 +104,14 @@ var appInsightsConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CON
 
 if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
 {
-    healthChecks.AddAzureApplicationInsights(appInsightsConnectionString,
+    var instrumentationKey = appInsightsConnectionString
+        .Split(';', StringSplitOptions.RemoveEmptyEntries)
+        .Select(part => part.Trim())
+        .Where(part => part.StartsWith("InstrumentationKey=", StringComparison.OrdinalIgnoreCase))
+        .Select(part => part.Substring("InstrumentationKey=".Length).Trim())
+        .FirstOrDefault() ?? string.Empty;
+
+    healthChecks.AddAzureApplicationInsights(instrumentationKey,
         name: "Application Insights",
         tags: new[] { "monitoring", "azure" });
 }
