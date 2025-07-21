@@ -16,10 +16,68 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
+using System.Threading.RateLimiting;
+using BowlingMegabucks.TournamentManager.Api.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+
+builder.Services.AddProblemDetails();
+
+builder.Services.Configure<RateLimitingOptions>(builder.Configuration.GetSection("RateLimiting"));
+var rateLimitingOptions = builder.Configuration.GetSection("RateLimiting").Get<RateLimitingOptions>()
+    ?? throw new InvalidOperationException("Rate limiting options are not configured.");
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+    {
+        var isAuthenticated = httpContext.User.Identity?.IsAuthenticated ?? false;
+        var policy = isAuthenticated
+            ? rateLimitingOptions.Authenticated
+            : rateLimitingOptions.Anonymous;
+
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.User.Identity?.Name
+                ?? httpContext.Connection.RemoteIpAddress?.ToString()
+                ?? httpContext.Request.Headers.Host.ToString(),
+            factory: partition => new FixedWindowRateLimiterOptions
+            {
+                AutoReplenishment = true,
+                PermitLimit = policy.PermitLimit,
+                QueueLimit = policy.QueueLimit,
+                Window = TimeSpan.FromSeconds(policy.WindowSeconds)
+            });
+    });
+
+    options.OnRejected = async (context, token) =>
+    {
+        var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger("RateLimiting");
+        var user = context.HttpContext.User.Identity?.Name ?? "anonymous";
+        var ip = context.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+        logger.RateLimitExceeded(user, ip);
+
+        var problemDetailsService = context.HttpContext.RequestServices.GetRequiredService<IProblemDetailsService>();
+
+        var problemDetailsContext = new ProblemDetailsContext
+        {
+            HttpContext = context.HttpContext,
+            ProblemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+            {
+                Title = "Rate limit exceeded",
+                Detail = "You have exceeded the rate limit for this API.",
+                Status = StatusCodes.Status429TooManyRequests,
+                Type = "https://httpstatuses.org/429"
+            }
+        };
+
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+
+        await problemDetailsService.WriteAsync(problemDetailsContext);
+    };
+});
 
 builder.Services.AddFastEndpoints()
     .AddAuthorization()
@@ -154,6 +212,9 @@ else
 
 var app = builder.Build();
 
+app.UseRateLimiter();
+app.UseMiddleware<RateLimitHeaders>();
+
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = async (context, report) =>
@@ -193,7 +254,7 @@ app.MapGet("/", () => Results.Json(new
     version = "v1",
     status = "OK",
     documentation = "/openapi/v1.json"
-}));
+})).AllowAnonymous();
 
 app.UseAuthentication()
     .UseAuthorization()
