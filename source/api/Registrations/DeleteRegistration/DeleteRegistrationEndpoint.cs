@@ -18,9 +18,10 @@ public sealed class DeleteRegistrationEndpoint
 
         Description(d => d
             .Produces(StatusCodes.Status204NoContent)
-            .Produces<ProblemDetails>(StatusCodes.Status400BadRequest, HttpContentTypes.ProblemJson)
+            .ProducesProblemDetails(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized)
-            .Produces<ProblemDetails>(StatusCodes.Status404NotFound, HttpContentTypes.ProblemJson)
+            .ProducesProblemDetails(StatusCodes.Status404NotFound)
+            .ProducesProblemDetails(StatusCodes.Status429TooManyRequests)
             .WithName("Delete Registration"));
 
         Summary(s =>
@@ -36,11 +37,13 @@ public sealed class DeleteRegistrationEndpoint
             s.ResponseExamples[StatusCodes.Status204NoContent] = new();
             s.ResponseExamples[StatusCodes.Status401Unauthorized] = HttpStatusCodeResponses.SampleUnauthorized401("/registrations/{Id}");
             s.ResponseExamples[StatusCodes.Status404NotFound] = HttpStatusCodeResponses.SampleNotFound404("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status429TooManyRequests] = HttpStatusCodeResponses.SampleRateLimitExceeded429();
             s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500("/registrations/{Id}");
 
             s.Response(StatusCodes.Status204NoContent, "Successfully deleted the registration.");
             s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
             s.Response<ProblemDetails>(StatusCodes.Status404NotFound, "Registration not found.", HttpContentTypes.ProblemJson);
+            s.Response<ProblemDetails>(StatusCodes.Status429TooManyRequests, "Rate limit exceeded.", HttpContentTypes.ProblemJson);
             s.Response<ProblemDetails>(StatusCodes.Status500InternalServerError, "An unexpected error occurred.", HttpContentTypes.ProblemJson);
         });
     }

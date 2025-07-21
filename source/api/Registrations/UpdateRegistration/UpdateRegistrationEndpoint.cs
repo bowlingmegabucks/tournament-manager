@@ -19,9 +19,10 @@ public sealed class UpdateRegistrationEndpoint
 
         Description(d => d
             .Produces(StatusCodes.Status204NoContent)
-            .Produces<ProblemDetails>(StatusCodes.Status400BadRequest, HttpContentTypes.ProblemJson)
+            .ProducesProblemDetails(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized)
-            .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError, HttpContentTypes.ProblemJson)
+            .ProducesProblemDetails(StatusCodes.Status429TooManyRequests)
+            .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError)
             .WithName("Update Registration"));
 
         Summary(s =>
@@ -33,11 +34,13 @@ public sealed class UpdateRegistrationEndpoint
 
             s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400("/registrations/{Id}");
             s.ResponseExamples[StatusCodes.Status401Unauthorized] = HttpStatusCodeResponses.SampleUnauthorized401("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status429TooManyRequests] = HttpStatusCodeResponses.SampleRateLimitExceeded429();
             s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500("/registrations/{Id}");
 
             s.Response<NoContent>(StatusCodes.Status204NoContent, "Successfully updated the registration.");
             s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);
             s.Response(StatusCodes.Status401Unauthorized, "Unauthorized access.");
+            s.Response<ProblemDetails>(StatusCodes.Status429TooManyRequests, "Rate limit exceeded.", HttpContentTypes.ProblemJson);
             s.Response<ProblemDetails>(StatusCodes.Status500InternalServerError, "An unexpected error occurred.", HttpContentTypes.ProblemJson);
         });
     }
