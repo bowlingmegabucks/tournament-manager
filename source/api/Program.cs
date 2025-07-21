@@ -193,7 +193,6 @@ app.MapGet("/", () => Results.Json(new
     status = "OK",
     documentation = "/openapi/v1.json"
 }));
-// ...existing code...
 
 app.UseAuthentication()
     .UseAuthorization()
