@@ -22,7 +22,7 @@ public sealed class UpdateRegistrationEndpoint
             .ProducesProblemDetails(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized)
             .ProducesProblemDetails(StatusCodes.Status429TooManyRequests)
-            .Produces<ProblemDetails>(StatusCodes.Status500InternalServerError)
+            .ProducesProblemDetails(StatusCodes.Status500InternalServerError)
             .WithName("Update Registration"));
 
         Summary(s =>
