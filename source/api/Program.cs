@@ -76,6 +76,8 @@ builder.Services.SwaggerDocument(o =>
 });
 
 #pragma warning disable CA1861 // Suppressing CA1861 because the constant array allocations are small and acceptable for health check configuration.
+private static readonly string[] AzureKeyVaultTags = { "secrets", "azure" };
+private static readonly string[] MySqlTags = { "db", "mysql" };
 var healthChecks = builder.Services.AddHealthChecks();
 
 var keyVaultUrl = builder.Configuration.GetValue<string>("KEYVAULT_URL");
