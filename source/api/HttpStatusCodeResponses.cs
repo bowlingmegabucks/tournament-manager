@@ -47,6 +47,15 @@ internal static class HttpStatusCodeResponses
             TraceId = "0HMPNHL0JHL76:00000001"
         };
 
+    internal static ProblemDetails SampleRateLimitExceeded429()
+        => new()
+        {
+            Status = StatusCodes.Status429TooManyRequests,
+            Detail = "You have exceeded the rate limit for this API. Please try again later.",
+            Instance = "/tournaments/{Id}",
+            TraceId = "0HMPNHL0JHL76:00000001"
+        };
+
     internal static ProblemDetails SampleInternalServerError500(string instance)
         => new()
         {
