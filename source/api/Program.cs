@@ -67,6 +67,8 @@ builder.Services.AddRateLimiter(options =>
             }
         };
 
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+
         await problemDetailsService.WriteAsync(problemDetailsContext);
     };
 });
@@ -205,6 +207,7 @@ else
 var app = builder.Build();
 
 app.UseRateLimiter();
+app.UseMiddleware<RateLimitHeaders>();
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
