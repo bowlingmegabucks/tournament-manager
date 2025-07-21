@@ -76,8 +76,6 @@ builder.Services.SwaggerDocument(o =>
 });
 
 #pragma warning disable CA1861 // Suppressing CA1861 because the constant array allocations are small and acceptable for health check configuration.
-private static readonly string[] AzureKeyVaultTags = { "secrets", "azure" };
-private static readonly string[] MySqlTags = { "db", "mysql" };
 var healthChecks = builder.Services.AddHealthChecks();
 
 var keyVaultUrl = builder.Configuration.GetValue<string>("KEYVAULT_URL");
@@ -106,13 +104,14 @@ var appInsightsConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CON
 
 if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
 {
+    var instrumentationKeyPrefix = "InstrumentationKey=";
     var instrumentationKey = appInsightsConnectionString
         .Split(';', StringSplitOptions.RemoveEmptyEntries)
         .Select(part => part.Trim())
-        .Where(part => part.StartsWith(InstrumentationKeyPrefix, StringComparison.OrdinalIgnoreCase))
+        .Where(part => part.StartsWith(instrumentationKeyPrefix, StringComparison.OrdinalIgnoreCase))
         .Select(part =>
         {
-            var prefix = InstrumentationKeyPrefix;
+            var prefix = instrumentationKeyPrefix;
             var span = part.AsSpan();
             return span.Length > prefix.Length
                 ? span.Slice(prefix.Length).Trim().ToString()
