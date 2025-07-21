@@ -17,12 +17,17 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 using System.Threading.RateLimiting;
+using BowlingMegaBucks.TournamentManager.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
 builder.Services.AddProblemDetails();
+
+builder.Services.Configure<RateLimitingOptions>(builder.Configuration.GetSection("RateLimiting"));
+var rateLimitingOptions = builder.Configuration.GetSection("RateLimiting").Get<RateLimitingOptions>()
+    ?? throw new InvalidOperationException("Rate limiting options are not configured.");
 
 builder.Services.AddRateLimiter(options =>
 {
@@ -32,9 +37,9 @@ builder.Services.AddRateLimiter(options =>
                 factory: partition => new FixedWindowRateLimiterOptions
                 {
                     AutoReplenishment = true,
-                    PermitLimit = 10,
-                    QueueLimit = 0,
-                    Window = TimeSpan.FromMinutes(1)
+                    PermitLimit = rateLimitingOptions.PermitLimit,
+                    QueueLimit = rateLimitingOptions.QueueLimit,
+                    Window = TimeSpan.FromSeconds(rateLimitingOptions.WindowSeconds)
                 }));
     options.OnRejected = async (context, token) =>
     {
