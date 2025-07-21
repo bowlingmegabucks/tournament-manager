@@ -96,7 +96,7 @@ if (!string.IsNullOrEmpty(keyVaultUrl))
 }
 
 healthChecks.AddMySql(builder.Configuration.GetConnectionString("Default")
-    ?? throw new InvalidOperationException("Default connection string is not configured (Health Check)"),
+    ?? throw new InvalidOperationException("Connection string 'Default' is required for MySQL health check configuration."),
     name: "MySQL",
     tags: new[] { "db", "mysql" });
 
