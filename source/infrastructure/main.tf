@@ -175,3 +175,32 @@ resource "azurerm_role_assignment" "web_app_kv_secrets_user" {
   role_definition_name = "Key Vault Secrets User"
   principal_id         = azurerm_linux_web_app.api.identity[0].principal_id
 }
+
+resource "azurerm_application_insights_standard_web_test" "api_health_check" {
+  name                    = "api-health-check-${var.environment}"
+  location                = azurerm_service_plan.app_service_plan.location
+  resource_group_name     = azurerm_resource_group.resource_group.name
+  application_insights_id = azurerm_application_insights.application_insights.id
+
+  description   = "Tournament Manager API Health Check"
+  enabled       = true
+  frequency     = 300 # Check every 5 minutes
+  timeout       = 30  # Timeout after 30 seconds
+  retry_enabled = true
+
+  geo_locations = [
+    "us-fl-mia-edge", #Central US
+    "us-va-ash-edge", #East US
+    "us-ca-sjc-edge", #West US
+    "us-il-chi-edge", #North Central US
+    "us-az-sn1-edge", #South Central US
+  ]
+
+  request {
+    url = "https://${var.api_megabucks_url_redirect}/health"
+  }
+
+  validation_rules {
+    expected_status_code = 200
+  }
+}
