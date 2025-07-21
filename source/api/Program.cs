@@ -179,7 +179,15 @@ if (app.Environment.IsDevelopment())
     await scope.ApplyMigrationsAsync();
 }
 
-app.MapGet("/", () => "Hello there");
+// ...existing code...
+app.MapGet("/", () => Results.Json(new
+{
+    name = "Northeast Megabuck Tournament API",
+    version = "v1",
+    status = "OK",
+    documentation = "/openapi/v1.json"
+}));
+// ...existing code...
 
 app.UseAuthentication()
     .UseAuthorization()
