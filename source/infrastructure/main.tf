@@ -133,6 +133,9 @@ resource "azurerm_linux_web_app" "api" {
     application_stack {
       dotnet_version = "9.0"
     }
+
+    health_check_path                 = "/health"
+    health_check_eviction_time_in_min = 5
   }
 
   app_settings = {
@@ -171,4 +174,33 @@ resource "azurerm_role_assignment" "web_app_kv_secrets_user" {
   scope                = azurerm_key_vault.app_key_vault.id
   role_definition_name = "Key Vault Secrets User"
   principal_id         = azurerm_linux_web_app.api.identity[0].principal_id
+}
+
+resource "azurerm_application_insights_standard_web_test" "api_health_check" {
+  name                    = "api-health-check-${var.environment}"
+  location                = azurerm_service_plan.app_service_plan.location
+  resource_group_name     = azurerm_resource_group.resource_group.name
+  application_insights_id = azurerm_application_insights.application_insights.id
+
+  description   = "Tournament Manager API Health Check"
+  enabled       = true
+  frequency     = 300 # Check every 5 minutes
+  timeout       = 30  # Timeout after 30 seconds
+  retry_enabled = true
+
+  geo_locations = [
+    "us-fl-mia-edge", #Central US
+    "us-va-ash-azr",  #East US
+    "us-ca-sjc-azr",  #West US
+    #"us-il-ch1-azr", #North Central US
+    "us-tx-sn1-azr",  #South Central US
+  ]
+
+  request {
+    url = "https://${var.api_megabucks_url_redirect}/health"
+  }
+
+  validation_rules {
+    expected_status_code = 200
+  }
 }

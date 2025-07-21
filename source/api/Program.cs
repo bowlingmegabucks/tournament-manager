@@ -4,6 +4,7 @@ using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using NJsonSchema.Generation.TypeMappers;
 using BowlingMegabucks.TournamentManager;
 using BowlingMegabucks.TournamentManager.Api;
@@ -74,12 +75,56 @@ builder.Services.SwaggerDocument(o =>
         => s.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
 
+#pragma warning disable CA1861 // Suppressing CA1861 because the constant array allocations are small and acceptable for health check configuration.
+var healthChecks = builder.Services.AddHealthChecks();
+
 var keyVaultUrl = builder.Configuration.GetValue<string>("KEYVAULT_URL");
 
 if (!string.IsNullOrEmpty(keyVaultUrl))
 {
-    builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
+    var uri = new Uri(keyVaultUrl);
+    var credential = new DefaultAzureCredential();
+
+    builder.Configuration.AddAzureKeyVault(uri, credential);
+
+    healthChecks.AddAzureKeyVault(uri, credential, options =>
+    {
+        options.AddSecret("ConnectionStrings--Default");
+        options.AddSecret("Authentication--ApiKey");
+        options.AddSecret("EncryptionKey");
+    }, name: "Azure Key Vault", tags: new[] { "secrets", "azure" });
 }
+
+healthChecks.AddMySql(builder.Configuration.GetConnectionString("Default")
+    ?? throw new InvalidOperationException("Connection string 'Default' is required for MySQL health check configuration."),
+    name: "MySQL",
+    tags: new[] { "db", "mysql" });
+
+var appInsightsConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"];
+
+if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
+{
+    var instrumentationKeyPrefix = "InstrumentationKey=";
+    var instrumentationKey = appInsightsConnectionString
+        .Split(';', StringSplitOptions.RemoveEmptyEntries)
+        .Select(part => part.Trim())
+        .Where(part => part.StartsWith(instrumentationKeyPrefix, StringComparison.OrdinalIgnoreCase))
+        .Select(part =>
+        {
+            var prefix = instrumentationKeyPrefix;
+            var span = part.AsSpan();
+            return span.Length > prefix.Length
+                ? span.Slice(prefix.Length).Trim().ToString()
+                : string.Empty;
+        })
+        .FirstOrDefault() ?? string.Empty;
+
+    healthChecks.AddAzureApplicationInsights(instrumentationKey,
+        name: "Application Insights",
+        tags: new[] { "monitoring", "azure" });
+}
+
+#pragma warning restore CA1861
 
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
@@ -109,6 +154,28 @@ else
 
 var app = builder.Build();
 
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+        var result = JsonSerializer.Serialize(new
+        {
+            status = report.Status.ToString(),
+            checks = report.Entries.Select(e => new
+            {
+                name = e.Key,
+                status = e.Value.Status.ToString(),
+                description = e.Value.Description,
+                duration = e.Value.Duration.TotalMilliseconds,
+                data = e.Value.Data
+            }),
+            totalDuration = report.TotalDuration.TotalMilliseconds
+        });
+        await context.Response.WriteAsync(result);
+    }
+});
+
 app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
 app.MapScalarApiReference();
 
@@ -120,23 +187,31 @@ if (app.Environment.IsDevelopment())
     await scope.ApplyMigrationsAsync();
 }
 
-    app.UseAuthentication()
-        .UseAuthorization()
-        .UseFastEndpoints(c =>
+app.MapGet("/", () => Results.Json(new
+{
+    name = "Northeast Megabuck Tournament API",
+    version = "v1",
+    status = "OK",
+    documentation = "/openapi/v1.json"
+}));
+
+app.UseAuthentication()
+    .UseAuthorization()
+    .UseFastEndpoints(c =>
+    {
+        c.Versioning.Prefix = "v";
+        c.Versioning.DefaultVersion = 1;
+        c.Versioning.PrependToRoute = true;
+
+        c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+
+        c.Endpoints.ShortNames = true;
+        c.Errors.UseProblemDetails(pd =>
         {
-            c.Versioning.Prefix = "v";
-            c.Versioning.DefaultVersion = 1;
-            c.Versioning.PrependToRoute = true;
-
-            c.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-
-            c.Endpoints.ShortNames = true;
-            c.Errors.UseProblemDetails(pd =>
-            {
-                pd.IndicateErrorCode = true;
-                pd.IndicateErrorSeverity = true;
-            });
-        })
-        .UseSwaggerGen();
+            pd.IndicateErrorCode = true;
+            pd.IndicateErrorSeverity = true;
+        });
+    })
+    .UseSwaggerGen();
 
 await app.RunAsync();
