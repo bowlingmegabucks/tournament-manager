@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.Extensions.Options;
 
-namespace BowlingMegaBucks.TournamentManager.Api.Middleware;
+namespace BowlingMegabucks.TournamentManager.Api.RateLimiting;
 
 internal sealed class RateLimitHeaders
 { 

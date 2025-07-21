@@ -17,7 +17,7 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 using System.Threading.RateLimiting;
-using BowlingMegaBucks.TournamentManager.Api.Middleware;
+using BowlingMegabucks.TournamentManager.Api.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +53,12 @@ builder.Services.AddRateLimiter(options =>
 
     options.OnRejected = async (context, token) =>
     {
+        var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger("RateLimiting");
+        var user = context.HttpContext.User.Identity?.Name ?? "anonymous";
+        var ip = context.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+        logger.RateLimitExceeded(user, ip);
+
         var problemDetailsService = context.HttpContext.RequestServices.GetRequiredService<IProblemDetailsService>();
 
         var problemDetailsContext = new ProblemDetailsContext

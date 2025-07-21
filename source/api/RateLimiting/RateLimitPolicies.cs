@@ -1,4 +1,4 @@
-namespace BowlingMegaBucks.TournamentManager.Api.Middleware;
+namespace BowlingMegabucks.TournamentManager.Api.RateLimiting;
 
 internal sealed class RateLimitingOptions
 {
