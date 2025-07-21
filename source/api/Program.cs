@@ -16,10 +16,30 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+            RateLimitPartition.GetFixedWindowLimiter(
+                partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
+                factory: partition => new FixedWindowRateLimiterOptions
+                {
+                    AutoReplenishment = true,
+                    PermitLimit = 10,
+                    QueueLimit = 0,
+                    Window = TimeSpan.FromMinutes(1)
+                }));
+    options.OnRejected = (context, token) =>
+    {
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        return new ValueTask(context.HttpContext.Response.WriteAsync("Too many requests. Please try again later.", token));
+    };
+});
 
 builder.Services.AddFastEndpoints()
     .AddAuthorization()
@@ -154,6 +174,8 @@ else
 
 var app = builder.Build();
 
+app.UseRateLimiter();
+
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = async (context, report) =>
@@ -193,7 +215,7 @@ app.MapGet("/", () => Results.Json(new
     version = "v1",
     status = "OK",
     documentation = "/openapi/v1.json"
-}));
+})).AllowAnonymous();
 
 app.UseAuthentication()
     .UseAuthorization()
