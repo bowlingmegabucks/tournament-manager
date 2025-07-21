@@ -32,15 +32,23 @@ var rateLimitingOptions = builder.Configuration.GetSection("RateLimiting").Get<R
 builder.Services.AddRateLimiter(options =>
 {
     options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-            RateLimitPartition.GetFixedWindowLimiter(
-                partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
-                factory: partition => new FixedWindowRateLimiterOptions
-                {
-                    AutoReplenishment = true,
-                    PermitLimit = rateLimitingOptions.PermitLimit,
-                    QueueLimit = rateLimitingOptions.QueueLimit,
-                    Window = TimeSpan.FromSeconds(rateLimitingOptions.WindowSeconds)
-                }));
+    {
+        var isAuthenticated = httpContext.User.Identity?.IsAuthenticated ?? false;
+        var policy = isAuthenticated
+            ? rateLimitingOptions.Authenticated
+            : rateLimitingOptions.Anonymous;
+
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
+            factory: partition => new FixedWindowRateLimiterOptions
+            {
+                AutoReplenishment = true,
+                PermitLimit = policy.PermitLimit,
+                QueueLimit = policy.QueueLimit,
+                Window = TimeSpan.FromSeconds(policy.WindowSeconds)
+            });
+    });
+    
     options.OnRejected = async (context, token) =>
     {
         var problemDetailsService = context.HttpContext.RequestServices.GetRequiredService<IProblemDetailsService>();
