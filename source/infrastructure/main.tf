@@ -190,7 +190,7 @@ resource "azurerm_application_insights_standard_web_test" "api_health_check" {
 
   geo_locations = [
     "us-fl-mia-edge", #Central US
-    "us-va-ash-edge", #East US
+    "us-va-ash-azr", #East US
     "us-ca-sjc-edge", #West US
     "us-il-chi-edge", #North Central US
     "us-az-sn1-edge", #South Central US
