@@ -75,7 +75,7 @@ builder.Services.SwaggerDocument(o =>
         => s.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
 
-#pragma warning disable CA1861
+#pragma warning disable CA1861 // Suppressing CA1861 because the constant array allocations are small and acceptable for health check configuration.
 var healthChecks = builder.Services.AddHealthChecks();
 
 var keyVaultUrl = builder.Configuration.GetValue<string>("KEYVAULT_URL");
