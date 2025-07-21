@@ -186,7 +186,6 @@ if (app.Environment.IsDevelopment())
     await scope.ApplyMigrationsAsync();
 }
 
-// ...existing code...
 app.MapGet("/", () => Results.Json(new
 {
     name = "Northeast Megabuck Tournament API",
