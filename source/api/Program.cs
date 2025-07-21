@@ -108,7 +108,14 @@ if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
         .Split(';', StringSplitOptions.RemoveEmptyEntries)
         .Select(part => part.Trim())
         .Where(part => part.StartsWith("InstrumentationKey=", StringComparison.OrdinalIgnoreCase))
-        .Select(part => part.Substring("InstrumentationKey=".Length).Trim())
+        .Select(part =>
+        {
+            var prefix = "InstrumentationKey=";
+            var span = part.AsSpan();
+            return span.Length > prefix.Length
+                ? span.Slice(prefix.Length).Trim().ToString()
+                : string.Empty;
+        })
         .FirstOrDefault() ?? string.Empty;
 
     healthChecks.AddAzureApplicationInsights(instrumentationKey,
