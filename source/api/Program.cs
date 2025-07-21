@@ -39,7 +39,9 @@ builder.Services.AddRateLimiter(options =>
             : rateLimitingOptions.Anonymous;
 
         return RateLimitPartition.GetFixedWindowLimiter(
-            partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
+            partitionKey: httpContext.User.Identity?.Name
+                ?? httpContext.Connection.RemoteIpAddress?.ToString()
+                ?? httpContext.Request.Headers.Host.ToString(),
             factory: partition => new FixedWindowRateLimiterOptions
             {
                 AutoReplenishment = true,
@@ -48,7 +50,7 @@ builder.Services.AddRateLimiter(options =>
                 Window = TimeSpan.FromSeconds(policy.WindowSeconds)
             });
     });
-    
+
     options.OnRejected = async (context, token) =>
     {
         var problemDetailsService = context.HttpContext.RequestServices.GetRequiredService<IProblemDetailsService>();
