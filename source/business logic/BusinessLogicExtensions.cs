@@ -25,6 +25,8 @@ public static class BusinessLogicExtensions
     /// <returns></returns>
     public static IServiceCollection AddBusinessLogic(this IServiceCollection services, IConfiguration config)
     {
+        ArgumentNullException.ThrowIfNull(config);
+
         services.AddDatabase(config)
             .AddBowlersModule()
             .AddDivisionsModule()

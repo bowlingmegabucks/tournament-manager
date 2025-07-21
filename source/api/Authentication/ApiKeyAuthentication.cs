@@ -10,8 +10,8 @@ namespace BowlingMegabucks.TournamentManager.Api.Authentication;
 internal sealed class ApiKeyAuthentication
     : AuthenticationHandler<AuthenticationSchemeOptions>
 {
-    internal const string SchemeName = "ApiKey";
-    internal const string HeaderName = "x-api-key";
+    internal const string _schemeName = "ApiKey";
+    internal const string _headerName = "x-api-key";
 
     private readonly string _apiKey = null!; // This should be set from configuration or environment variable
 
@@ -28,7 +28,7 @@ internal sealed class ApiKeyAuthentication
 
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-        Request.Headers.TryGetValue(HeaderName, out var apiKeyHeader);
+        Request.Headers.TryGetValue(_headerName, out var apiKeyHeader);
 
         if (!IsPublicEndpoint() && !apiKeyHeader.Equals(_apiKey))
         {
