@@ -109,10 +109,10 @@ if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
     var instrumentationKey = appInsightsConnectionString
         .Split(';', StringSplitOptions.RemoveEmptyEntries)
         .Select(part => part.Trim())
-        .Where(part => part.StartsWith("InstrumentationKey=", StringComparison.OrdinalIgnoreCase))
+        .Where(part => part.StartsWith(InstrumentationKeyPrefix, StringComparison.OrdinalIgnoreCase))
         .Select(part =>
         {
-            var prefix = "InstrumentationKey=";
+            var prefix = InstrumentationKeyPrefix;
             var span = part.AsSpan();
             return span.Length > prefix.Length
                 ? span.Slice(prefix.Length).Trim().ToString()
