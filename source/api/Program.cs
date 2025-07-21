@@ -22,6 +22,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
+builder.Services.AddProblemDetails();
+
 builder.Services.AddRateLimiter(options =>
 {
     options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
@@ -34,10 +36,23 @@ builder.Services.AddRateLimiter(options =>
                     QueueLimit = 0,
                     Window = TimeSpan.FromMinutes(1)
                 }));
-    options.OnRejected = (context, token) =>
+    options.OnRejected = async (context, token) =>
     {
-        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
-        return new ValueTask(context.HttpContext.Response.WriteAsync("Too many requests. Please try again later.", token));
+        var problemDetailsService = context.HttpContext.RequestServices.GetRequiredService<IProblemDetailsService>();
+
+        var problemDetailsContext = new ProblemDetailsContext
+        {
+            HttpContext = context.HttpContext,
+            ProblemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+            {
+                Title = "Rate limit exceeded",
+                Detail = "You have exceeded the rate limit for this API.",
+                Status = StatusCodes.Status429TooManyRequests,
+                Type = "https://httpstatuses.org/429"
+            }
+        };
+
+        await problemDetailsService.WriteAsync(problemDetailsContext);
     };
 });
 
