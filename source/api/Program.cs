@@ -179,6 +179,8 @@ if (app.Environment.IsDevelopment())
     await scope.ApplyMigrationsAsync();
 }
 
+app.MapGet("/", () => "Hello there");
+
 app.UseAuthentication()
     .UseAuthorization()
     .UseFastEndpoints(c =>
