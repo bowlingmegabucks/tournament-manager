@@ -43,13 +43,14 @@ internal sealed class SlowQueryInterceptor
         }
     }
 
-    private string SanitizeCommandText(DbCommand command)
+    private static string SanitizeCommandText(DbCommand command)
     {
-        string sanitizedText = command.CommandText;
+        var sanitizedText = command.CommandText;
         foreach (DbParameter parameter in command.Parameters)
         {
-            sanitizedText = sanitizedText.Replace(parameter.Value?.ToString() ?? string.Empty, $"@{parameter.ParameterName}");
+            sanitizedText = sanitizedText.Replace(parameter.Value?.ToString() ?? string.Empty, $"@{parameter.ParameterName}", StringComparison.OrdinalIgnoreCase);
         }
+        
         return sanitizedText;
     }
 }
