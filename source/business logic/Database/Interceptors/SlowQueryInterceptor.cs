@@ -15,6 +15,11 @@ internal sealed class SlowQueryInterceptor
     {
         _logger = logger;
         _options = options.Value;
+
+        if (_options.ThresholdMilliseconds <= 0)
+        { 
+            throw new ArgumentException("ThresholdMilliseconds must be greater than zero.", nameof(options));
+        }
     }
 
     public override DbDataReader ReaderExecuted(DbCommand command, CommandExecutedEventData eventData, DbDataReader result)
@@ -50,7 +55,7 @@ internal sealed class SlowQueryInterceptor
         {
             sanitizedText = sanitizedText.Replace(parameter.Value?.ToString() ?? string.Empty, $"@{parameter.ParameterName}", StringComparison.OrdinalIgnoreCase);
         }
-        
+
         return sanitizedText;
     }
 }
