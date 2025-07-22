@@ -81,8 +81,8 @@ builder.Services.AddRateLimiter(options =>
 
 builder.Services.AddFastEndpoints()
     .AddAuthorization()
-    .AddAuthentication(ApiKeyAuthentication.SchemeName)
-    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthentication>(ApiKeyAuthentication.SchemeName, null);
+    .AddAuthentication(ApiKeyAuthentication._schemeName)
+    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthentication>(ApiKeyAuthentication._schemeName, null);
 
 builder.Services.AddBusinessLogic(builder.Configuration);
 
@@ -94,9 +94,9 @@ builder.Services.SwaggerDocument(o =>
         s.DocumentName = "v1";
         s.Title = "Northeast Megabuck Tournament API";
         s.Version = "v1";
-        s.AddAuth(ApiKeyAuthentication.SchemeName, new()
+        s.AddAuth(ApiKeyAuthentication._schemeName, new()
         {
-            Name = ApiKeyAuthentication.HeaderName,
+            Name = ApiKeyAuthentication._headerName,
             In = NSwag.OpenApiSecurityApiKeyLocation.Header,
             Type = NSwag.OpenApiSecuritySchemeType.ApiKey
         });
