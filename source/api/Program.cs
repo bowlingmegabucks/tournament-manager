@@ -9,7 +9,7 @@ using NJsonSchema.Generation.TypeMappers;
 using BowlingMegabucks.TournamentManager;
 using BowlingMegabucks.TournamentManager.Api;
 using BowlingMegabucks.TournamentManager.Api.Authentication;
-using BowlingMegabucks.TournamentManager.Api.RateLimiting;
+using BowlingMegabucks.TournamentManager.Api.Extensions;
 using BowlingMegabucks.TournamentManager.Database;
 using BowlingMegabucks.TournamentManager.Models;
 using OpenTelemetry;
@@ -159,8 +159,7 @@ else
 
 var app = builder.Build();
 
-app.UseRateLimiter();
-app.UseMiddleware<RateLimitHeaders>();
+app.UseApiRateLimiting();
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {

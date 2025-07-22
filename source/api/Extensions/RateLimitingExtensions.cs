@@ -1,6 +1,7 @@
 using System.Threading.RateLimiting;
+using BowlingMegabucks.TournamentManager.Api.RateLimiting;
 
-namespace BowlingMegabucks.TournamentManager.Api.RateLimiting;
+namespace BowlingMegabucks.TournamentManager.Api.Extensions;
 
 internal static class RateLimitingExtensions
 {
@@ -15,7 +16,7 @@ internal static class RateLimitingExtensions
         {
             options.GlobalLimiter = PartitionedRateLimiter.Create(SetupGlobalLimiter(rateLimitingOptions));
 
-            options.OnRejected = async (context, _ ) =>
+            options.OnRejected = async (context, _) =>
             {
                 var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger("RateLimiting");
                 var user = context.HttpContext.User.Identity?.Name ?? "anonymous";
@@ -67,5 +68,13 @@ internal static class RateLimitingExtensions
                     Window = TimeSpan.FromSeconds(policy.WindowSeconds)
                 });
         };
+    }
+    
+    internal static IApplicationBuilder UseApiRateLimiting(this IApplicationBuilder app)
+    {
+        app.UseRateLimiter();
+        app.UseMiddleware<RateLimitHeaders>();
+        
+        return app;
     }
 }
