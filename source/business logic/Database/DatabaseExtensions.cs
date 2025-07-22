@@ -15,7 +15,7 @@ public static class DatabaseExtensions
     {
         services.Configure<SlowQueryOptions>(config.GetSection("QueryPerformance"));
 
-        services.AddSingleton<SlowQueryInterceptor>();
+        services.AddScoped<SlowQueryInterceptor>();
 
         services.AddDbContext<DataContext>((sp, options) =>
             options.UseMySql(config.GetConnectionString("Default") ?? throw new InvalidOperationException("Cannot get connection string Default"),
