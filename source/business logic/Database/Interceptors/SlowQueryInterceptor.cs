@@ -35,12 +35,22 @@ internal sealed class SlowQueryInterceptor
     {
         if (eventData.Duration.TotalMilliseconds > _options.ThresholdMilliseconds)
         {
-            _logger.SlowQuery(command.CommandText, eventData.Duration.TotalMilliseconds);
+            _logger.SlowQuery(SanitizeCommandText(command), eventData.Duration.TotalMilliseconds);
         }
         else
         {
-            _logger.QueryExecuted(command.CommandText, eventData.Duration.TotalMilliseconds);
+            _logger.QueryExecuted(SanitizeCommandText(command), eventData.Duration.TotalMilliseconds);
         }
+    }
+
+    private string SanitizeCommandText(DbCommand command)
+    {
+        string sanitizedText = command.CommandText;
+        foreach (DbParameter parameter in command.Parameters)
+        {
+            sanitizedText = sanitizedText.Replace(parameter.Value?.ToString() ?? string.Empty, $"@{parameter.ParameterName}");
+        }
+        return sanitizedText;
     }
 }
 
