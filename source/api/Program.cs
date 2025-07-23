@@ -9,16 +9,14 @@ using BowlingMegabucks.TournamentManager.Api;
 using BowlingMegabucks.TournamentManager.Api.Authentication;
 using BowlingMegabucks.TournamentManager.Api.Extensions;
 using BowlingMegabucks.TournamentManager.Database;
-using BowlingMegabucks.TournamentManager.Models;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApiDocumentation();
 
 builder.Services.AddProblemDetails();
 
@@ -30,53 +28,6 @@ builder.Services.AddFastEndpoints()
     .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthentication>(ApiKeyAuthentication._schemeName, null);
 
 builder.Services.AddBusinessLogic(builder.Configuration);
-
-builder.Services.SwaggerDocument(o =>
-{
-    o.ReleaseVersion = 1;
-    o.DocumentSettings = s =>
-    {
-        s.DocumentName = "v1";
-        s.Title = "Northeast Megabuck Tournament API";
-        s.Version = "v1";
-        s.AddAuth(ApiKeyAuthentication._schemeName, new()
-        {
-            Name = ApiKeyAuthentication._headerName,
-            In = NSwag.OpenApiSecurityApiKeyLocation.Header,
-            Type = NSwag.OpenApiSecuritySchemeType.ApiKey
-        });
-
-        s.SchemaSettings.TypeMappers.Add(new PrimitiveTypeMapper(typeof(TournamentId), schema =>
-        {
-            schema.Type = NJsonSchema.JsonObjectType.String;
-            schema.Format = "uuid";
-            schema.Example = TournamentId.New();
-        }));
-
-        s.SchemaSettings.TypeMappers.Add(new PrimitiveTypeMapper(typeof(SquadId), schema =>
-        {
-            schema.Type = NJsonSchema.JsonObjectType.String;
-            schema.Format = "uuid";
-            schema.Example = SquadId.New();
-        }));
-
-        s.SchemaSettings.TypeMappers.Add(new PrimitiveTypeMapper(typeof(RegistrationId), schema =>
-        {
-            schema.Type = NJsonSchema.JsonObjectType.String;
-            schema.Format = "uuid";
-            schema.Example = RegistrationId.New();
-        }));
-
-        s.SchemaSettings.TypeMappers.Add(new SmartEnumTypeMapper<Gender>());
-    };
-
-    o.UsePropertyNamingPolicy = true;
-    o.EnableJWTBearerAuth = false;
-    o.ShortSchemaNames = true;
-
-    o.SerializerSettings = s
-        => s.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-});
 
 builder.Services.AddApiHealthChecks(builder.Configuration);
 
@@ -112,8 +63,7 @@ app.UseApiRateLimiting();
 
 app.MapApiHealthChecks();
 
-app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
-app.MapScalarApiReference();
+app.UseOpenApiDocumentation();
 
 if (app.Environment.IsDevelopment())
 {
