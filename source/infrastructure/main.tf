@@ -170,6 +170,29 @@ resource "azurerm_linux_web_app" "api" {
   }
 }
 
+resource "azurerm_monitor_diagnostic_setting" "app_service_diagnostics" {
+  name                       = "app-service-diagnostics-${var.environment}"
+  target_resource_id         = azurerm_linux_web_app.api.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics_workspace.id
+
+  enabled_log {
+    category = "AppServiceHTTPLogs"
+  }
+  enabled_log {
+    category = "AppServiceConsoleLogs"
+  }
+  enabled_log {
+    category = "AppServiceAuditLogs"
+  }
+  enabled_log {
+    category = "AppServiceAppLogs"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
+}
+
 resource "azurerm_app_service_custom_hostname_binding" "api_custom_domain" {
   hostname            = var.api_megabucks_url_redirect
   app_service_name    = azurerm_linux_web_app.api.name
