@@ -1,10 +1,8 @@
 using System.Text.Json;
-using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using NJsonSchema.Generation.TypeMappers;
 using BowlingMegabucks.TournamentManager;
 using BowlingMegabucks.TournamentManager.Api;
