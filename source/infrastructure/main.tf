@@ -124,6 +124,8 @@ resource "azurerm_linux_web_app" "api" {
   resource_group_name = azurerm_resource_group.resource_group.name
   service_plan_id     = azurerm_service_plan.app_service_plan.id
 
+  https_only = true
+
   site_config {
     always_on           = true
     http2_enabled       = true
