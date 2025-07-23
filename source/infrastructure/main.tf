@@ -94,6 +94,20 @@ resource "azurerm_key_vault" "app_key_vault" {
   enable_rbac_authorization = true
 }
 
+resource "azurerm_monitor_diagnostic_setting" "app_key_vault_diagnostics" {
+  name               = "kv-diagnostics-${var.environment}"
+  target_resource_id = azurerm_key_vault.app_key_vault.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.log_analytics_workspace.id
+
+  enabled_log {
+    category = "AuditEvent"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
+}
+
 resource "azurerm_role_assignment" "terraform_kv_secrets_user" {
   scope                = azurerm_key_vault.app_key_vault.id
   role_definition_name = "Key Vault Secrets Officer"
