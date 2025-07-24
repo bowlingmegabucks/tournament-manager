@@ -13,8 +13,6 @@ on:
 
 jobs:
   terraform:
-    env:
-      ARM_STORAGE_USE_AZUREAD: true
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     defaults:
