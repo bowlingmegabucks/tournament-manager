@@ -1,18 +1,12 @@
 using System.Text.Json;
-using Azure.Monitor.OpenTelemetry.AspNetCore;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Authentication;
-using NJsonSchema.Generation.TypeMappers;
 using BowlingMegabucks.TournamentManager;
 using BowlingMegabucks.TournamentManager.Api;
 using BowlingMegabucks.TournamentManager.Api.Authentication;
 using BowlingMegabucks.TournamentManager.Api.Extensions;
 using BowlingMegabucks.TournamentManager.Database;
-using OpenTelemetry;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,31 +25,7 @@ builder.Services.AddBusinessLogic(builder.Configuration);
 
 builder.Services.AddApiHealthChecks(builder.Configuration);
 
-builder.Services.AddOpenTelemetry()
-    .ConfigureResource(resource => resource.AddService(builder.Environment.ApplicationName))
-    .WithTracing(tracing => tracing
-        .AddHttpClientInstrumentation()
-        .AddAspNetCoreInstrumentation()
-        .AddEntityFrameworkCoreInstrumentation())
-    .WithMetrics(metrics => metrics
-        .AddHttpClientInstrumentation()
-        .AddAspNetCoreInstrumentation()
-        .AddRuntimeInstrumentation());
-
-builder.Logging.AddOpenTelemetry(options =>
-{
-    options.IncludeScopes = true;
-    options.IncludeFormattedMessage = true;
-});
-
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddOpenTelemetry().UseOtlpExporter();
-}
-else
-{
-    builder.Services.AddOpenTelemetry().UseAzureMonitor();
-}
+builder.Services.AddOpenTelemetry(builder.Logging, builder.Environment);
 
 var app = builder.Build();
 
