@@ -27,10 +27,6 @@ jobs:
       contents: read
 
     steps:
-      - name: Print Environment Variables and Enable Terraform Debug Logging
-        run: |
-          env
-        shell: bash
       - name: Checkout Infrastructure Code
         uses: actions/checkout@v4
         with:
