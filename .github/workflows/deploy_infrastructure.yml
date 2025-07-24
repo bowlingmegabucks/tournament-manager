@@ -13,6 +13,10 @@ on:
 
 jobs:
   terraform:
+    env:
+      TF_LOG: DEBUG
+      TF_LOG_PATH: terraform-debug.log
+      ARM_ACCESS_KEY: ""
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     defaults:
@@ -23,6 +27,10 @@ jobs:
       contents: read
 
     steps:
+      - name: Print Environment Variables and Enable Terraform Debug Logging
+        run: |
+          env
+        shell: bash
       - name: Checkout Infrastructure Code
         uses: actions/checkout@v4
         with:
