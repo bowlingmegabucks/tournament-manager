@@ -14,9 +14,7 @@ on:
 jobs:
   terraform:
     env:
-      TF_LOG: DEBUG
-      TF_LOG_PATH: terraform-debug.log
-      ARM_ACCESS_KEY: ""
+      ARM_STORAGE_USE_AZUREAD: true
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     defaults:
