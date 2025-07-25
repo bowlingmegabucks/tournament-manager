@@ -53,7 +53,8 @@ internal sealed class SlowQueryInterceptor
         var sanitizedText = command.CommandText;
         foreach (DbParameter parameter in command.Parameters)
         {
-            sanitizedText = sanitizedText.Replace(parameter.Value?.ToString() ?? string.Empty, $"@{parameter.ParameterName}", StringComparison.OrdinalIgnoreCase);
+            // Replace parameter placeholders directly with their parameter names
+            sanitizedText = sanitizedText.Replace($"@{parameter.ParameterName}", $"@{parameter.ParameterName}", StringComparison.OrdinalIgnoreCase);
         }
 
         return sanitizedText;
