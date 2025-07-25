@@ -1,4 +1,6 @@
 ﻿
+using ErrorOr;
+
 namespace BowlingMegabucks.TournamentManager.Tournaments.Retrieve;
 
 /// <summary>
@@ -18,8 +20,8 @@ internal sealed class BusinessLogic : IBusinessLogic
         _dataLayer = dataLayer;
     }
 
-    async Task<IEnumerable<Models.Tournament>> IBusinessLogic.ExecuteAsync(CancellationToken cancellationToken)
-        => await _dataLayer.ExecuteAsync(cancellationToken).ConfigureAwait(false);
+    async Task<ErrorOr<IEnumerable<Models.Tournament>>> IBusinessLogic.ExecuteAsync(CancellationToken cancellationToken)
+        => (await _dataLayer.ExecuteAsync(cancellationToken)).ToErrorOr();
 
     async Task<Models.Tournament?> IBusinessLogic.ExecuteAsync(TournamentId id, CancellationToken cancellationToken)
     {
@@ -93,7 +95,7 @@ public interface IBusinessLogic
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<IEnumerable<Models.Tournament>> ExecuteAsync(CancellationToken cancellationToken);
+    Task<ErrorOr<IEnumerable<Models.Tournament>>> ExecuteAsync(CancellationToken cancellationToken);
 
     /// <summary>
     /// 
