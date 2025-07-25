@@ -37,20 +37,12 @@ internal static class HealthCheckExtensions
 
         if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
         {
-            var instrumentationKeyPrefix = "InstrumentationKey=";
-            var instrumentationKey = appInsightsConnectionString
-                .Split(';', StringSplitOptions.RemoveEmptyEntries)
-                .Select(part => part.Trim())
-                .Where(part => part.StartsWith(instrumentationKeyPrefix, StringComparison.OrdinalIgnoreCase))
-                .Select(part =>
-                {
-                    var prefix = instrumentationKeyPrefix;
-                    var span = part.AsSpan();
-                    return span.Length > prefix.Length
-                        ? span.Slice(prefix.Length).Trim().ToString()
-                        : string.Empty;
-                })
-                .FirstOrDefault() ?? string.Empty;
+            var instrumentationKey = string.Empty;
+            var match = Regex.Match(appInsightsConnectionString, @"InstrumentationKey=([^;]+)", RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                instrumentationKey = match.Groups[1].Value.Trim();
+            }
 
             healthChecks.AddAzureApplicationInsights(instrumentationKey,
                 name: "Application Insights",
