@@ -1,4 +1,6 @@
 ﻿
+using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -16,11 +18,7 @@ internal static class TournamentsExtensions
         services.AddTransient<Add.IBusinessLogic, Add.BusinessLogic>();
         services.AddTransient<Add.IDataLayer, Add.DataLayer>();
 
-        services.AddTransient<Retrieve.BusinessLogic>();
-        services.AddTransient<Retrieve.IBusinessLogic>(provider =>
-            new Retrieve.BusinessLogicDecorator(
-                provider.GetRequiredService<Retrieve.BusinessLogic>(),
-                provider.GetRequiredService<ILogger<Retrieve.BusinessLogicDecorator>>()));
+        services.AddTransient<Retrieve.IBusinessLogic, Retrieve.BusinessLogic>();
         services.AddTransient<Retrieve.IDataLayer, Retrieve.DataLayer>();
 
         services.AddSingleton<Results.ICalculator, Results.Calculator>();
@@ -28,6 +26,12 @@ internal static class TournamentsExtensions
 
         services.AddSingleton<Seeding.ICalculator, Seeding.Calculator>();
         services.AddTransient<Seeding.IBusinessLogic, Seeding.BusinessLogic>();
+
+        services.AddTransient<GetTournamentsQueryHandler>();
+        services.AddTransient<IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>>>(provider =>
+            new GetTournamentsQueryHandlerLoggingDecorator(
+                provider.GetRequiredService<GetTournamentsQueryHandler>(),
+                provider.GetRequiredService<ILogger<GetTournamentsQueryHandlerLoggingDecorator>>()));
 
         return services;
     }

@@ -20,9 +20,6 @@ internal sealed class BusinessLogic : IBusinessLogic
         _dataLayer = dataLayer;
     }
 
-    async Task<ErrorOr<IEnumerable<Models.Tournament>>> IBusinessLogic.ExecuteAsync(CancellationToken cancellationToken)
-        => (await _dataLayer.ExecuteAsync(cancellationToken)).ToErrorOr();
-
     async Task<Models.Tournament?> IBusinessLogic.ExecuteAsync(TournamentId id, CancellationToken cancellationToken)
     {
         try
@@ -89,13 +86,6 @@ public interface IBusinessLogic
     /// 
     /// </summary>
     Models.ErrorDetail? ErrorDetail { get; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<ErrorOr<IEnumerable<Models.Tournament>>> ExecuteAsync(CancellationToken cancellationToken);
 
     /// <summary>
     /// 
