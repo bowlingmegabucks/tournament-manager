@@ -15,7 +15,9 @@ internal static class OpenTelemetryExtensions
             .WithTracing(tracing => tracing
                 .AddHttpClientInstrumentation()
                 .AddAspNetCoreInstrumentation()
-                .AddEntityFrameworkCoreInstrumentation())
+                .AddEntityFrameworkCoreInstrumentation()
+                .AddSqlClientInstrumentation()
+                .AddMySqlDataInstrumentation())
             .WithMetrics(metrics => metrics
                 .AddHttpClientInstrumentation()
                 .AddAspNetCoreInstrumentation()
