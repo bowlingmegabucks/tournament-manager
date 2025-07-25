@@ -19,18 +19,7 @@ internal sealed class BusinessLogic : IBusinessLogic
     }
 
     async Task<IEnumerable<Models.Tournament>> IBusinessLogic.ExecuteAsync(CancellationToken cancellationToken)
-    {
-        try
-        {
-            return await _dataLayer.ExecuteAsync(cancellationToken).ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-            ErrorDetail = new Models.ErrorDetail(ex);
-
-            return [];
-        }
-    }
+        => await _dataLayer.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
     async Task<Models.Tournament?> IBusinessLogic.ExecuteAsync(TournamentId id, CancellationToken cancellationToken)
     {
