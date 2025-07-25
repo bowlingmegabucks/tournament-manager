@@ -1,11 +1,12 @@
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Azure.Identity;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 namespace BowlingMegabucks.TournamentManager.Api.Extensions;
 
 #pragma warning disable CA1861 // Suppressing CA1861 because the constant array allocations are small and acceptable for health check configuration.
-internal static class HealthCheckExtensions
+internal static partial class HealthCheckExtensions
 {
     public static IServiceCollection AddApiHealthChecks(this IServiceCollection services, IConfigurationManager config)
     {
@@ -38,7 +39,7 @@ internal static class HealthCheckExtensions
         if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
         {
             var instrumentationKey = string.Empty;
-            var match = Regex.Match(appInsightsConnectionString, @"InstrumentationKey=([^;]+)", RegexOptions.IgnoreCase);
+            var match = InstrumentationKeyRegex().Match(appInsightsConnectionString);
             if (match.Success)
             {
                 instrumentationKey = match.Groups[1].Value.Trim();
@@ -78,5 +79,8 @@ internal static class HealthCheckExtensions
 
         return app;
     }
+
+    [GeneratedRegex(@"InstrumentationKey=([^;]+)", RegexOptions.IgnoreCase, "en-US")]
+    private static partial Regex InstrumentationKeyRegex();
 }
 #pragma warning restore CA1861
