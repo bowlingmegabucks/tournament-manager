@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BowlingMegabucks.TournamentManager.Database.Interceptors;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,9 +13,14 @@ public static class DatabaseExtensions
 {
     internal static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config)
     {
-        services.AddDbContext<DataContext>(options =>
+        services.Configure<SlowQueryOptions>(config.GetSection("QueryPerformance"));
+
+        services.AddScoped<SlowQueryInterceptor>();
+
+        services.AddDbContext<DataContext>((sp, options) =>
             options.UseMySql(config.GetConnectionString("Default") ?? throw new InvalidOperationException("Cannot get connection string Default"),
-            new MySqlServerVersion(new Version(11, 4, 7)), mySqlOptions => mySqlOptions.EnableRetryOnFailure(3)));
+            new MySqlServerVersion(new Version(11, 4, 7)), mySqlOptions => mySqlOptions.EnableRetryOnFailure(3))
+            .AddInterceptors(sp.GetRequiredService<SlowQueryInterceptor>()));
 
         services.AddTransient<IDataContext, DataContext>();
 
