@@ -24,7 +24,6 @@ internal sealed class RateLimitHeaders
         context.Response.OnStarting(() =>
         {
             context.Response.Headers["X-RateLimit-Limit"] = policy.PermitLimit.ToString(CultureInfo.InvariantCulture);
-            context.Response.Headers["X-RateLimit-Remaining"] = "unknown";
             context.Response.Headers["X-RateLimit-Reset"] = (DateTimeOffset.UtcNow.ToUnixTimeSeconds() + policy.WindowSeconds).ToString(CultureInfo.InvariantCulture);
             return Task.CompletedTask;
         });
