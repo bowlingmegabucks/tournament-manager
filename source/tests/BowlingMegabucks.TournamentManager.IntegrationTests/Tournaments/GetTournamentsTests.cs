@@ -9,10 +9,10 @@ public sealed class GetTournamentsTests
 {
     private readonly HttpClient _client;
 
-    public GetTournamentsTests(ApiTestFixture fixture)
-        : base(fixture)
+    public GetTournamentsTests(ApiFactory factory)
+        : base(factory)
     {
-        _client = fixture.CreateClient();
+        _client = factory.CreateClient();
     }
 
     [Fact]
