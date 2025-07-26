@@ -55,6 +55,7 @@ internal static partial class GetTournamentsLogMessages
     [LoggerMessage(Level = LogLevel.Trace, Message = "Executing business logic for retrieving tournaments.", EventName = "RetrieveTournaments")]
     public static partial void RetrievingTournaments(this ILogger<GetTournamentsQueryHandlerLoggingDecorator> logger);
 
+    // need to figure out how to show the errors in the log
     [LoggerMessage(Level = LogLevel.Error, Message = "Error retrieving tournaments: {@Errors}", EventName = "ErrorRetrievingTournaments")]
     public static partial void ErrorRetrievingTournaments(this ILogger<GetTournamentsQueryHandlerLoggingDecorator> logger, IEnumerable<Error> errors);
 

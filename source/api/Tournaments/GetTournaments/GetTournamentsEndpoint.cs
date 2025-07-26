@@ -1,4 +1,5 @@
-using BowlingMegabucks.TournamentManager.Tournaments.Retrieve;
+using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 
@@ -8,18 +9,17 @@ namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
 /// Endpoint to retrieve a list of tournaments.
 /// </summary>
 public sealed class GetTournamentsEndpoint
-    : EndpointWithoutRequest<Results<Ok<GetTournamentsResponse>,
-                                        ProblemDetails>>
+    : EndpointWithoutRequest<IResult>
 {
-    private readonly IBusinessLogic _businessLogic;
+    private readonly IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> _queryHandler;
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="businessLogic"></param>
-    public GetTournamentsEndpoint(IBusinessLogic businessLogic)
+    /// <param name="queryHandler"></param>
+    public GetTournamentsEndpoint(IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> queryHandler)
     {
-        _businessLogic = businessLogic;
+        _queryHandler = queryHandler;
     }
 
     /// <summary>
@@ -58,24 +58,36 @@ public sealed class GetTournamentsEndpoint
     /// </summary>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task<Results<Ok<GetTournamentsResponse>, ProblemDetails>> ExecuteAsync(CancellationToken ct)
+    public override async Task<IResult> ExecuteAsync(CancellationToken ct)
     {
-        var tournaments = await _businessLogic.ExecuteAsync(ct);
+        var tournamentsResult = await _queryHandler.HandleAsync(new(), ct);
 
-        if (_businessLogic.ErrorDetail is not null)
-        {
-            return new ProblemDetails
+        return tournamentsResult.Match<IResult>(
+            tournaments =>
             {
-                Detail = _businessLogic.ErrorDetail.Message,
-                Status = StatusCodes.Status500InternalServerError
-            };
-        }
+                var response = new GetTournamentsResponse
+                {
+                    Tournaments = tournaments.Select(t => t.ToDto()).ToList().AsReadOnly()
+                };
 
-        var response = new GetTournamentsResponse
-        {
-            Tournaments = tournaments.Select(t => t.ToDto()).ToList().AsReadOnly()
-        };
+                return TypedResults.Ok(response);
+            },
+            errors =>
+            {
+                var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+                {
+                    Detail = "An error occurred while retrieving tournaments.",
+                    Status = StatusCodes.Status500InternalServerError
+                };
 
-        return TypedResults.Ok(response);
+                problemDetails.Extensions["errors"] = errors.Select(e => new
+                {
+                    e.Code,
+                    e.Description
+                }).ToList();
+
+                return TypedResults.Problem(problemDetails);
+            }
+        );
     }
 }
