@@ -29,7 +29,8 @@ internal class DataContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseLoggerFactory(_consoleLogger);
-        optionsBuilder.EnableSensitiveDataLogging(true);
+        optionsBuilder.EnableSensitiveDataLogging();
+        optionsBuilder.EnableDetailedErrors();
     }
 #endif
 

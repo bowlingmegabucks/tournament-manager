@@ -1,4 +1,7 @@
+using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 using FastEndpoints;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
 
@@ -6,8 +9,19 @@ namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
 /// Endpoint to retrieve a list of tournaments.
 /// </summary>
 public sealed class GetTournamentsEndpoint
-    : EndpointWithoutRequest<GetTournamentsResponse>
+    : EndpointWithoutRequest<Results<Ok<GetTournamentsResponse>, ProblemHttpResult>>
 {
+    private readonly IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> _queryHandler;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="queryHandler"></param>
+    public GetTournamentsEndpoint(IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> queryHandler)
+    {
+        _queryHandler = queryHandler;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -44,10 +58,36 @@ public sealed class GetTournamentsEndpoint
     /// </summary>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task HandleAsync(CancellationToken ct)
+    public override async Task<Results<Ok<GetTournamentsResponse>, ProblemHttpResult>> ExecuteAsync(CancellationToken ct)
     {
-        var response = new BogusData.BogusGetTournamentsResponse().Generate();
+        var tournamentsResult = await _queryHandler.HandleAsync(new(), ct);
 
-        await SendOkAsync(response, ct);
+        return tournamentsResult.Match<Results<Ok<GetTournamentsResponse>,ProblemHttpResult>>(
+            tournaments =>
+            {
+                var response = new GetTournamentsResponse
+                {
+                    Tournaments = tournaments.Select(t => t.ToDto()).ToList().AsReadOnly()
+                };
+
+                return TypedResults.Ok(response);
+            },
+            errors =>
+            {
+                var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+                {
+                    Detail = "An error occurred while retrieving tournaments.",
+                    Status = StatusCodes.Status500InternalServerError
+                };
+
+                problemDetails.Extensions["errors"] = errors.Select(e => new
+                {
+                    e.Code,
+                    e.Description
+                }).ToList();
+
+                return TypedResults.Problem(problemDetails);
+            }
+        );
     }
 }
