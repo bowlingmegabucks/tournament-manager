@@ -21,5 +21,9 @@ jobs:
       run: dotnet clean source --configuration Release && dotnet nuget locals all --clear
     - name: Build
       run: dotnet build source --configuration Release
+    - name: Start Docker
+      run: |
+        Start-Service docker
+        docker version
     - name: Test
       run: dotnet test source --no-build --verbosity normal --configuration Release
