@@ -1,7 +1,5 @@
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 using ErrorOr;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 
@@ -17,9 +15,9 @@ internal sealed class GetTournamentsQueryHandler
 
     public async Task<ErrorOr<IEnumerable<Models.Tournament>>> HandleAsync(GetTournamentsQuery query, CancellationToken cancellationToken)
     {
-        var tournaments = _repository.RetrieveAll();
+        var tournaments = await _repository.RetrieveAllAsync(cancellationToken);
 
-        return (await tournaments.ToListAsync(cancellationToken))
+        return tournaments
                 .Select(tournament => new Models.Tournament(tournament))
                 .ToErrorOr();
     }

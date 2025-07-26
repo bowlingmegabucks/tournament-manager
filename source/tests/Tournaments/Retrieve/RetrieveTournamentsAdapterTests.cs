@@ -23,6 +23,9 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_QueryHandlerHandleAsync_Called()
     {
+        _queryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new List<TournamentManager.Models.Tournament>());
+
         CancellationToken cancellationToken = default;
 
         await _adapter.ExecuteAsync(cancellationToken).ConfigureAwait(false);

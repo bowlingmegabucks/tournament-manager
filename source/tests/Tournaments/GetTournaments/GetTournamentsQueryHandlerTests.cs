@@ -28,7 +28,7 @@ public sealed class GetTournamentsQueryHandlerTests
     {
         await _loggingDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);
 
-        _repositoryMock.Verify(repo => repo.RetrieveAll(), Times.Once);
+        _repositoryMock.Verify(repo => repo.RetrieveAllAsync(CancellationToken.None), Times.Once);
     }
 
     [Test]
@@ -38,21 +38,23 @@ public sealed class GetTournamentsQueryHandlerTests
         {
             new() { Id = TournamentId.New(), Name = "Tournament 1" },
             new() { Id = TournamentId.New(), Name = "Tournament 2" }
-        }.AsQueryable();
+        };
 
-        _repositoryMock.Setup(repo => repo.RetrieveAll()).Returns(expectedTournaments);
+        _repositoryMock.Setup(repo => repo.RetrieveAllAsync(It.IsAny<CancellationToken>())).ReturnsAsync(expectedTournaments);
 
         var result = await _loggingDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);
 
         Assert.That(result.IsError, Is.False);
-        Assert.That(result.Value, Is.EqualTo(expectedTournaments));
+        Assert.That(result.Value.Count(), Is.EqualTo(expectedTournaments.Count));
+        Assert.That(result.Value.First().Id, Is.EqualTo(expectedTournaments[0].Id));
+        Assert.That(result.Value.Last().Id, Is.EqualTo(expectedTournaments[1].Id));
     }
 
     [Test]
     public async Task HandleAsync_RepositoryRetrieveAll_ThrowsException_ReturnsError()
     {
         var exception = new Exception("Database error");
-        _repositoryMock.Setup(repo => repo.RetrieveAll()).Throws(exception);
+        _repositoryMock.Setup(repo => repo.RetrieveAllAsync(It.IsAny<CancellationToken>())).ThrowsAsync(exception);
 
         var result = await _loggingDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);
 
