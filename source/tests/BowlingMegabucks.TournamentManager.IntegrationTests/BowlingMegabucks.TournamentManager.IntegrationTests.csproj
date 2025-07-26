@@ -6,7 +6,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
-    <NoWarn>CA1515</NoWarn>
+    <NoWarn>CA1515;CS1591</NoWarn>
 
     <!--
     To enable the Microsoft Testing Platform 'dotnet test' experience, add property:

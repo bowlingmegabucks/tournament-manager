@@ -1,12 +1,10 @@
 using BowlingMegabucks.TournamentManager.Api;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.Hosting;
 using Testcontainers.MariaDb;
 
 namespace BowlingMegabucks.TournamentManager.IntegrationTests;
 
-/// <summary>
-/// 
-/// </summary>
 public class ApiTestFixture
     : WebApplicationFactory<IApiMarker>, IAsyncLifetime
 {
@@ -15,21 +13,16 @@ public class ApiTestFixture
         .WithDatabase("bowlingmegabucks")
         .Build();
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask InitializeAsync()
-    {
-        await _mariaDbContainer.StartAsync();
-    }
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+        => Environment.SetEnvironmentVariable("ConnectionStrings:Default", _mariaDbContainer.GetConnectionString());
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+    public async ValueTask InitializeAsync()
+        => await _mariaDbContainer.StartAsync();
+
     public new async Task DisposeAsync()
     {
         await _mariaDbContainer.DisposeAsync();
+
+        await base.DisposeAsync();
     }
 }
