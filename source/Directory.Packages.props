@@ -55,6 +55,10 @@
     <PackageVersion Include="ReportGenerator" Version="5.4.9" />
     <PackageVersion Include="ReportViewerCore.WinForms" Version="15.1.17" />
     <PackageVersion Include="Scalar.AspNetCore" Version="2.6.3" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageVersion Include="Serilog.Enrichers.Environment" Version="3.0.1" />
+    <PackageVersion Include="Serilog.Enrichers.Thread" Version="4.0.0" />
+    <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
     <PackageVersion Include="SmartEnums" Version="3.0.2" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="StronglyTypedId.Templates" Version="1.0.0-beta08" />

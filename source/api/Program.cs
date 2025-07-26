@@ -24,7 +24,7 @@ builder.Services.AddBusinessLogic(builder.Configuration);
 
 builder.Services.AddApiHealthChecks(builder.Configuration);
 
-builder.Services.AddOpenTelemetry(builder.Logging, builder.Environment);
+builder.Services.AddOpenTelemetry(builder.Logging, builder.Host, builder.Environment);
 
 var app = builder.Build();
 
