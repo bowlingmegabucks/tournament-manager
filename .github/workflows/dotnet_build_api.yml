@@ -22,4 +22,4 @@ jobs:
     - name: Build
       run: dotnet build source/api --configuration Release
     - name: Integration Tests
-      run: dotnet test source/tests/BowlingMegabucks.TournamentManager.IntegrationTests --no-build --verbosity normal --configuration Release
+      run: dotnet run --project source/tests/BowlingMegabucks.TournamentManager.IntegrationTests
