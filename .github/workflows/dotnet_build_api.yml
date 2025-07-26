@@ -1,4 +1,4 @@
-name: .Net Build (WinForm / Unit Tests)
+name: .Net Build (Api / Integration Tests)
 
 permissions:
   contents: read
