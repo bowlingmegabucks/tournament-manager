@@ -1,26 +1,26 @@
 ﻿
 using BowlingMegabucks.TournamentManager.Squads;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Models;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Models;
 internal sealed class LaneAssignment
 {
-    private BowlingMegabucks.TournamentManager.Models.LaneAssignment _laneAssignment;
+    private TournamentManager.Models.LaneAssignment _laneAssignment;
 
     [OneTimeSetUp]
     public void SetUp()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration
+        var entity = new TournamentManager.Database.Entities.SquadRegistration
         {
             SquadId = SquadId.New(),
-            Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad(),
+            Squad = new TournamentManager.Database.Entities.TournamentSquad(),
             RegistrationId = RegistrationId.New(),
-            Registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+            Registration = new TournamentManager.Database.Entities.Registration
             {
-                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+                Bowler = new TournamentManager.Database.Entities.Bowler
                 {
                     Id = BowlerId.New()
                 },
-                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+                Division = new TournamentManager.Database.Entities.Division
                 {
                     Id = DivisionId.New()
                 },
@@ -29,7 +29,7 @@ internal sealed class LaneAssignment
             LaneAssignment = "12C"
         };
 
-        _laneAssignment = new BowlingMegabucks.TournamentManager.Models.LaneAssignment(entity, new Mock<IHandicapCalculatorInternal>().Object);
+        _laneAssignment = new TournamentManager.Models.LaneAssignment(entity, new Mock<IHandicapCalculatorInternal>().Object);
     }
 
     [Test]
@@ -59,18 +59,18 @@ internal sealed class LaneAssignment
     [Test]
     public void Constructor_SquadIsTournamentSquad_HandicapCalculator_CalledCorrectly()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration
+        var entity = new TournamentManager.Database.Entities.SquadRegistration
         {
             SquadId = SquadId.New(),
-            Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad(),
+            Squad = new TournamentManager.Database.Entities.TournamentSquad(),
             RegistrationId = RegistrationId.New(),
-            Registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+            Registration = new TournamentManager.Database.Entities.Registration
             {
-                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+                Bowler = new TournamentManager.Database.Entities.Bowler
                 {
                     Id = BowlerId.New()
                 },
-                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division(),
+                Division = new TournamentManager.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
@@ -78,7 +78,7 @@ internal sealed class LaneAssignment
 
         var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
 
-        _ = new BowlingMegabucks.TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
+        _ = new TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
 
         handicapCalculator.Verify(calculator => calculator.Calculate(entity.Registration), Times.Once);
     }
@@ -86,27 +86,27 @@ internal sealed class LaneAssignment
     [Test]
     public void Constructor_SquadIsTournamentSquad_HandicapMappedToCalculatorResult()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration
+        var entity = new TournamentManager.Database.Entities.SquadRegistration
         {
             SquadId = SquadId.New(),
-            Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad(),
+            Squad = new TournamentManager.Database.Entities.TournamentSquad(),
             RegistrationId = RegistrationId.New(),
-            Registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+            Registration = new TournamentManager.Database.Entities.Registration
             {
-                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+                Bowler = new TournamentManager.Database.Entities.Bowler
                 {
                     Id = BowlerId.New()
                 },
-                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division(),
+                Division = new TournamentManager.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
         };
 
         var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
-        handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<BowlingMegabucks.TournamentManager.Database.Entities.Registration>())).Returns(10);
+        handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<TournamentManager.Database.Entities.Registration>())).Returns(10);
 
-        var model = new BowlingMegabucks.TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
+        var model = new TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
 
         Assert.That(model.Handicap, Is.EqualTo(10));
     }
@@ -114,21 +114,21 @@ internal sealed class LaneAssignment
     [Test]
     public void Constructor_SquadIsSweeperSquad_HandicapCalculator_NotCalled()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration
+        var entity = new TournamentManager.Database.Entities.SquadRegistration
         {
             SquadId = SquadId.New(),
-            Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
+            Squad = new TournamentManager.Database.Entities.SweeperSquad
             {
-                Divisions = Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision>().ToList()
+                Divisions = Enumerable.Empty<TournamentManager.Database.Entities.SweeperDivision>().ToList()
             },
             RegistrationId = RegistrationId.New(),
-            Registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+            Registration = new TournamentManager.Database.Entities.Registration
             {
-                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+                Bowler = new TournamentManager.Database.Entities.Bowler
                 {
                     Id = BowlerId.New()
                 },
-                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division(),
+                Division = new TournamentManager.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
@@ -136,9 +136,9 @@ internal sealed class LaneAssignment
 
         var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
 
-        _ = new BowlingMegabucks.TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
+        _ = new TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
 
-        handicapCalculator.Verify(calculator => calculator.Calculate(It.IsAny<BowlingMegabucks.TournamentManager.Database.Entities.Registration>()), Times.Never);
+        handicapCalculator.Verify(calculator => calculator.Calculate(It.IsAny<TournamentManager.Database.Entities.Registration>()), Times.Never);
     }
 
     [TestCase(null, 0)]
@@ -147,26 +147,26 @@ internal sealed class LaneAssignment
     {
         var divisionId = DivisionId.New();
 
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration
+        var entity = new TournamentManager.Database.Entities.SquadRegistration
         {
             SquadId = SquadId.New(),
-            Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
+            Squad = new TournamentManager.Database.Entities.SweeperSquad
             {
                 Divisions =
                 [
-                    new BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision {DivisionId = DivisionId.New(), BonusPinsPerGame = 5 },
-                    new BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision { DivisionId = divisionId, BonusPinsPerGame = bonusPinsPerGame},
-                    new BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision { DivisionId = DivisionId.New(), BonusPinsPerGame = 15}
+                    new TournamentManager.Database.Entities.SweeperDivision {DivisionId = DivisionId.New(), BonusPinsPerGame = 5 },
+                    new TournamentManager.Database.Entities.SweeperDivision { DivisionId = divisionId, BonusPinsPerGame = bonusPinsPerGame},
+                    new TournamentManager.Database.Entities.SweeperDivision { DivisionId = DivisionId.New(), BonusPinsPerGame = 15}
                 ]
             },
             RegistrationId = RegistrationId.New(),
-            Registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+            Registration = new TournamentManager.Database.Entities.Registration
             {
-                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+                Bowler = new TournamentManager.Database.Entities.Bowler
                 {
                     Id = BowlerId.New()
                 },
-                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+                Division = new TournamentManager.Database.Entities.Division
                 {
                     Id = divisionId
                 },
@@ -176,9 +176,9 @@ internal sealed class LaneAssignment
         };
 
         var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
-        handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<BowlingMegabucks.TournamentManager.Database.Entities.Registration>())).Returns(10);
+        handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<TournamentManager.Database.Entities.Registration>())).Returns(10);
 
-        var model = new BowlingMegabucks.TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
+        var model = new TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
 
         Assert.That(model.Handicap, Is.EqualTo(handicap));
     }
@@ -186,18 +186,18 @@ internal sealed class LaneAssignment
     [Test]
     public void Constructor_SquadIsTournamentSquad_SuperSweeperIsNull()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration
+        var entity = new TournamentManager.Database.Entities.SquadRegistration
         {
             SquadId = SquadId.New(),
-            Squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad(),
+            Squad = new TournamentManager.Database.Entities.TournamentSquad(),
             RegistrationId = RegistrationId.New(),
-            Registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+            Registration = new TournamentManager.Database.Entities.Registration
             {
-                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+                Bowler = new TournamentManager.Database.Entities.Bowler
                 {
                     Id = BowlerId.New()
                 },
-                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division(),
+                Division = new TournamentManager.Database.Entities.Division(),
                 Average = 200
             },
             LaneAssignment = "12C"
@@ -205,7 +205,7 @@ internal sealed class LaneAssignment
 
         var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
 
-        var model = new BowlingMegabucks.TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
+        var model = new TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
 
         Assert.That(model.SuperSweeper, Is.Null);
     }
@@ -215,25 +215,25 @@ internal sealed class LaneAssignment
     {
         var divisionId = DivisionId.New();
 
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration
+        var entity = new TournamentManager.Database.Entities.SquadRegistration
         {
             SquadId = SquadId.New(),
-            Squad = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
+            Squad = new TournamentManager.Database.Entities.SweeperSquad
             {
                 Divisions =
                 [
-                    new BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision {DivisionId = DivisionId.New(), BonusPinsPerGame = 5 },
-                    new BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision { DivisionId = DivisionId.New(), BonusPinsPerGame = 15}
+                    new TournamentManager.Database.Entities.SweeperDivision {DivisionId = DivisionId.New(), BonusPinsPerGame = 5 },
+                    new TournamentManager.Database.Entities.SweeperDivision { DivisionId = DivisionId.New(), BonusPinsPerGame = 15}
                 ]
             },
             RegistrationId = RegistrationId.New(),
-            Registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+            Registration = new TournamentManager.Database.Entities.Registration
             {
-                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+                Bowler = new TournamentManager.Database.Entities.Bowler
                 {
                     Id = BowlerId.New()
                 },
-                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+                Division = new TournamentManager.Database.Entities.Division
                 {
                     Id = divisionId
                 },
@@ -244,9 +244,9 @@ internal sealed class LaneAssignment
         };
 
         var handicapCalculator = new Mock<IHandicapCalculatorInternal>();
-        handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<BowlingMegabucks.TournamentManager.Database.Entities.Registration>())).Returns(10);
+        handicapCalculator.Setup(calculator => calculator.Calculate(It.IsAny<TournamentManager.Database.Entities.Registration>())).Returns(10);
 
-        var model = new BowlingMegabucks.TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
+        var model = new TournamentManager.Models.LaneAssignment(entity, handicapCalculator.Object);
 
         Assert.That(model.SuperSweeper, Is.EqualTo(superSweeper));
     }

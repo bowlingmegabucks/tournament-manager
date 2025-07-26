@@ -1,4 +1,4 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Database;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Database;
 
 [TestFixture]
 internal sealed class DateOnlyConverterTests
@@ -6,7 +6,7 @@ internal sealed class DateOnlyConverterTests
     [Test]
     public void DateOnlyToDateTime_MappedCorrectly()
     {
-        var dateOnlyConverter = new BowlingMegabucks.TournamentManager.Database.DateOnlyConverter();
+        var dateOnlyConverter = new TournamentManager.Database.DateOnlyConverter();
 
         var dateOnly = new DateOnly(2000, 1, 2);
 
@@ -20,7 +20,7 @@ internal sealed class DateOnlyConverterTests
     [Test]
     public void DateTimeToDateOnly_MappedCorrectly()
     {
-        var dateOnlyConverter = new BowlingMegabucks.TournamentManager.Database.DateOnlyConverter();
+        var dateOnlyConverter = new TournamentManager.Database.DateOnlyConverter();
 
         var dateTime = new DateTime(2000, 1, 2, 3, 4, 5, DateTimeKind.Unspecified);
 

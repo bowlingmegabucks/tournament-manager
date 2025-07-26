@@ -1,24 +1,24 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Add;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.Add;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Add.IBusinessLogic> _businessLogic;
+    private Mock<TournamentManager.Tournaments.Add.IBusinessLogic> _businessLogic;
 
-    private BowlingMegabucks.TournamentManager.Tournaments.Add.Adapter _adapter;
+    private TournamentManager.Tournaments.Add.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Add.IBusinessLogic>();
+        _businessLogic = new Mock<TournamentManager.Tournaments.Add.IBusinessLogic>();
 
-        _adapter = new BowlingMegabucks.TournamentManager.Tournaments.Add.Adapter(_businessLogic.Object);
+        _adapter = new TournamentManager.Tournaments.Add.Adapter(_businessLogic.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
-        var viewModel = new BowlingMegabucks.TournamentManager.Tournaments.ViewModel
+        var viewModel = new TournamentManager.Tournaments.ViewModel
         {
             TournamentName = "name"
         };
@@ -26,16 +26,16 @@ internal sealed class Adapter
 
         await _adapter.ExecuteAsync(viewModel, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<BowlingMegabucks.TournamentManager.Models.Tournament>(tournament => tournament.Name == "name"), cancellationToken), Times.Once);
+        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<TournamentManager.Models.Tournament>(tournament => tournament.Name == "name"), cancellationToken), Times.Once);
     }
 
     [Test]
     public async Task ExecuteAsync_Errors_SetToBusinessLogicErrors([Range(0, 2)] int count)
     {
-        var errors = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error"), count);
+        var errors = Enumerable.Repeat(new TournamentManager.Models.ErrorDetail("error"), count);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
-        var viewModel = new BowlingMegabucks.TournamentManager.Tournaments.ViewModel();
+        var viewModel = new TournamentManager.Tournaments.ViewModel();
 
         await _adapter.ExecuteAsync(viewModel, default).ConfigureAwait(false);
 
@@ -46,9 +46,9 @@ internal sealed class Adapter
     public async Task ExecuteAsync_ReturnsBusinessLogicId()
     {
         var id = TournamentId.New();
-        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Tournament>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentManager.Models.Tournament>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
-        var viewModel = new BowlingMegabucks.TournamentManager.Tournaments.ViewModel();
+        var viewModel = new TournamentManager.Tournaments.ViewModel();
 
         var result = await _adapter.ExecuteAsync(viewModel, default).ConfigureAwait(false);
 

@@ -1,11 +1,11 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Sweepers;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Sweepers;
 
 [TestFixture]
 internal sealed class SweeperViewModelTests
 {
-    private BowlingMegabucks.TournamentManager.Models.Sweeper _model;
-    private BowlingMegabucks.TournamentManager.Sweepers.ViewModel _viewModel;
+    private TournamentManager.Models.Sweeper _model;
+    private TournamentManager.Sweepers.ViewModel _viewModel;
 
     [OneTimeSetUp]
     public void SetUp()
@@ -24,13 +24,13 @@ internal sealed class SweeperViewModelTests
             Complete = true,
             Divisions = new Dictionary<DivisionId, int?>
             {
-                { BowlingMegabucks.TournamentManager.DivisionId.New(), 1 },
-                { BowlingMegabucks.TournamentManager.DivisionId.New(), 2 },
-                { BowlingMegabucks.TournamentManager.DivisionId.New(), 3 },
+                { DivisionId.New(), 1 },
+                { DivisionId.New(), 2 },
+                { DivisionId.New(), 3 },
             }
         };
 
-        _viewModel = new BowlingMegabucks.TournamentManager.Sweepers.ViewModel(_model);
+        _viewModel = new TournamentManager.Sweepers.ViewModel(_model);
     }
 
     [Test]

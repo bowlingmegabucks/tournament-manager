@@ -1,20 +1,20 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Results;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Sweepers.Results;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Results.IView> _view;
-    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Results.IAdapter> _adapter;
+    private Mock<TournamentManager.Sweepers.Results.IView> _view;
+    private Mock<TournamentManager.Sweepers.Results.IAdapter> _adapter;
 
-    private BowlingMegabucks.TournamentManager.Sweepers.Results.Presenter _presenter;
+    private TournamentManager.Sweepers.Results.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Results.IView>();
-        _adapter = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Results.IAdapter>();
+        _view = new Mock<TournamentManager.Sweepers.Results.IView>();
+        _adapter = new Mock<TournamentManager.Sweepers.Results.IAdapter>();
 
-        _presenter = new BowlingMegabucks.TournamentManager.Sweepers.Results.Presenter(_view.Object, _adapter.Object);
+        _presenter = new TournamentManager.Sweepers.Results.Presenter(_view.Object, _adapter.Object);
     }
 
     [Test]
@@ -31,7 +31,7 @@ internal sealed class Presenter
     [Test]
     public async Task ExecuteAsync_SquadId_AdapterHasError_ErrorFlow()
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
@@ -40,14 +40,14 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindResults(It.IsAny<ICollection<BowlingMegabucks.TournamentManager.Sweepers.Results.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<ICollection<TournamentManager.Sweepers.Results.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public async Task ExecuteAsync_SquadId_AdapterExecuteNoError_ViewBindResults_CalledCorrectly()
     {
-        var results = new List<BowlingMegabucks.TournamentManager.Sweepers.Results.IViewModel>();
+        var results = new List<TournamentManager.Sweepers.Results.IViewModel>();
         _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(results);
 
         await _presenter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
@@ -69,7 +69,7 @@ internal sealed class Presenter
     [Test]
     public async Task ExecuteAsync_TournamentId_AdapterHasError_ErrorFlow()
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _adapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
@@ -78,14 +78,14 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindResults(It.IsAny<ICollection<BowlingMegabucks.TournamentManager.Sweepers.Results.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindResults(It.IsAny<ICollection<TournamentManager.Sweepers.Results.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public async Task ExecuteAsync_TournamentId_AdapterExecuteNoError_ViewBindResults_CalledCorrectly()
     {
-        var results = new List<BowlingMegabucks.TournamentManager.Sweepers.Results.IViewModel>();
+        var results = new List<TournamentManager.Sweepers.Results.IViewModel>();
         _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(results);
 
         await _presenter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);

@@ -1,20 +1,20 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Divisions;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Divisions;
 
 [TestFixture]
 internal sealed class EntityMapper
 {
-    private BowlingMegabucks.TournamentManager.Divisions.IEntityMapper _mapper;
+    private TournamentManager.Divisions.IEntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new BowlingMegabucks.TournamentManager.Divisions.EntityMapper();
+        => _mapper = new TournamentManager.Divisions.EntityMapper();
 
     [Test]
     public void Id_Mapped()
     {
-        var id = BowlingMegabucks.TournamentManager.DivisionId.New();
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var id = DivisionId.New();
+        var model = new TournamentManager.Models.Division
         {
             Id = id
         };
@@ -28,7 +28,7 @@ internal sealed class EntityMapper
     public void Number_Mapped()
     {
         short number = 123;
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             Number = number
         };
@@ -42,7 +42,7 @@ internal sealed class EntityMapper
     public void Name_Mapped()
     {
         var name = "Test Division";
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             Name = name
         };
@@ -56,7 +56,7 @@ internal sealed class EntityMapper
     public void TournamentId_Mapped()
     {
         var id = TournamentId.New();
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             TournamentId = id
         };
@@ -69,7 +69,7 @@ internal sealed class EntityMapper
     [Test]
     public void MinimumAge_Mapped([Values(null, 50)] short? minimumAge)
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             MinimumAge = minimumAge
         };
@@ -82,7 +82,7 @@ internal sealed class EntityMapper
     [Test]
     public void MaximumAge_Mapped([Values(null, 50)] short? maximumAge)
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             MaximumAge = maximumAge
         };
@@ -95,7 +95,7 @@ internal sealed class EntityMapper
     [Test]
     public void MinimumAverage_Mapped([Values(null, 200)] int? minimumAverage)
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             MinimumAverage = minimumAverage
         };
@@ -108,7 +108,7 @@ internal sealed class EntityMapper
     [Test]
     public void MaximumAverage_Mapped([Values(null, 200)] int? maximumAverage)
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             MaximumAverage = maximumAverage
         };
@@ -121,7 +121,7 @@ internal sealed class EntityMapper
     [Test]
     public void HandicapPercentage_Mapped([Values(null, .5, 1)] decimal? handicapPercentage)
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             HandicapPercentage = handicapPercentage
         };
@@ -134,7 +134,7 @@ internal sealed class EntityMapper
     [Test]
     public void HandicapBase_Mapped([Values(null, 200)] int? handicapBase)
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             HandicapBase = handicapBase
         };
@@ -147,7 +147,7 @@ internal sealed class EntityMapper
     [Test]
     public void MaximumHandicapPerGame_Mapped([Values(null, 0, 50)] int? maximumHandicap)
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             MaximumHandicapPerGame = maximumHandicap
         };
@@ -158,9 +158,9 @@ internal sealed class EntityMapper
     }
 
     [Test]
-    public void Gender_Mapped([Values] BowlingMegabucks.TournamentManager.Models.Gender gender)
+    public void Gender_Mapped([Values] TournamentManager.Models.Gender gender)
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             Gender = gender
         };
@@ -173,7 +173,7 @@ internal sealed class EntityMapper
     [Test]
     public void Gender_Mapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Division
+        var model = new TournamentManager.Models.Division
         {
             Gender = null
         };

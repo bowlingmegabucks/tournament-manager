@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Seeding;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.Seeding;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Seeding.IBusinessLogic> _businessLogic;
+    private Mock<TournamentManager.Tournaments.Seeding.IBusinessLogic> _businessLogic;
 
-    private BowlingMegabucks.TournamentManager.Tournaments.Seeding.Adapter _adapter;
+    private TournamentManager.Tournaments.Seeding.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Seeding.IBusinessLogic>();
+        _businessLogic = new Mock<TournamentManager.Tournaments.Seeding.IBusinessLogic>();
 
-        _adapter = new BowlingMegabucks.TournamentManager.Tournaments.Seeding.Adapter(_businessLogic.Object);
+        _adapter = new TournamentManager.Tournaments.Seeding.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -30,7 +30,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_BusinessLogicHasError_ErrorFlow()
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
@@ -46,29 +46,29 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_BusinessLogicHasNoError_ReturnsSeedingByDivision()
     {
-        var division1 = new BowlingMegabucks.TournamentManager.Models.Division() { Name = "Division 1" };
-        var division2 = new BowlingMegabucks.TournamentManager.Models.Division() { Name = "Division 2" };
+        var division1 = new TournamentManager.Models.Division() { Name = "Division 1" };
+        var division2 = new TournamentManager.Models.Division() { Name = "Division 2" };
 
-        var bowler1Division1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 300) { Division = division1 };
-        var bowler2Division1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 299) { Division = division1 };
-        var bowler3Division1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 298) { Division = division1 };
-        var bowler4Division1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 255) { Division = division1 };
-        var bowler5Division1 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 254) { Division = division1 };
+        var bowler1Division1 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 300) { Division = division1 };
+        var bowler2Division1 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 299) { Division = division1 };
+        var bowler3Division1 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 298) { Division = division1 };
+        var bowler4Division1 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 255) { Division = division1 };
+        var bowler5Division1 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 254) { Division = division1 };
 
-        var bowler1Division2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 200) { Division = division2 };
-        var bowler2Division2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 199) { Division = division2 };
-        var bowler3Division2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 198) { Division = division2 };
-        var bowler4Division2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 197) { Division = division2 };
-        var bowler5Division2 = new BowlingMegabucks.TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 196) { Division = division2 };
+        var bowler1Division2 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 200) { Division = division2 };
+        var bowler2Division2 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 199) { Division = division2 };
+        var bowler3Division2 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 198) { Division = division2 };
+        var bowler4Division2 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 197) { Division = division2 };
+        var bowler5Division2 = new TournamentManager.Models.BowlerSquadScore(BowlerId.New(), 196) { Division = division2 };
 
-        var division1Result = new BowlingMegabucks.TournamentManager.Models.TournamentFinalsSeeding
+        var division1Result = new TournamentManager.Models.TournamentFinalsSeeding
         {
             Division = division1,
             Qualifiers = [bowler1Division1, bowler2Division1],
             NonQualifiers = [bowler3Division1, bowler4Division1, bowler5Division1]
         };
 
-        var division2Result = new BowlingMegabucks.TournamentManager.Models.TournamentFinalsSeeding
+        var division2Result = new TournamentManager.Models.TournamentFinalsSeeding
         {
             Division = division2,
             Qualifiers = [bowler1Division2, bowler2Division2, bowler3Division2],

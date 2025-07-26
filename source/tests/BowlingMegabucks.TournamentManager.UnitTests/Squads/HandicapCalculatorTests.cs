@@ -1,21 +1,21 @@
 ﻿using BowlingMegabucks.TournamentManager.Squads;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Squads;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Squads;
 internal sealed class HandicapCalculator
 {
     private IHandicapCalculatorInternal _calculator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _calculator = new BowlingMegabucks.TournamentManager.Squads.HandicapCalculator();
+        => _calculator = new TournamentManager.Squads.HandicapCalculator();
 
     [Test]
     public void Calculate_Entity_Handicap_NoAverage_HandicapZero()
     {
-        var registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration = new TournamentManager.Database.Entities.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Bowler = new TournamentManager.Database.Entities.Bowler(),
+            Division = new TournamentManager.Database.Entities.Division
             {
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
@@ -32,10 +32,10 @@ internal sealed class HandicapCalculator
     [Test]
     public void Calculate_Entity_Handicap_NoHandicapInfoOnDivision_HandicapZero()
     {
-        var registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration = new TournamentManager.Database.Entities.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Bowler = new TournamentManager.Database.Entities.Bowler(),
+            Division = new TournamentManager.Database.Entities.Division
             {
                 HandicapBase = null,
                 HandicapPercentage = null,
@@ -52,10 +52,10 @@ internal sealed class HandicapCalculator
     [Test]
     public void Calculate_Entity_Handicap_AverageGreaterThanOrEqualToBase_HandicapZero([Values(215, 216)] int average)
     {
-        var registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration = new TournamentManager.Database.Entities.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Bowler = new TournamentManager.Database.Entities.Bowler(),
+            Division = new TournamentManager.Database.Entities.Division
             {
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
@@ -72,10 +72,10 @@ internal sealed class HandicapCalculator
     [Test]
     public void Calculate_Entity_Handicap_HandicapUnderMaxPerGame_HandicapMapped()
     {
-        var registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration = new TournamentManager.Database.Entities.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Bowler = new TournamentManager.Database.Entities.Bowler(),
+            Division = new TournamentManager.Database.Entities.Division
             {
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
@@ -92,10 +92,10 @@ internal sealed class HandicapCalculator
     [Test]
     public void Calculate_Entity_Handicap_HandicapOverMaxPerGame_HandicapMapped()
     {
-        var registration = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration = new TournamentManager.Database.Entities.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Bowler = new TournamentManager.Database.Entities.Bowler(),
+            Division = new TournamentManager.Database.Entities.Division
             {
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
@@ -112,10 +112,10 @@ internal sealed class HandicapCalculator
     [Test]
     public void Calculate_Model_Handicap_NoAverage_HandicapZero()
     {
-        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
+        var registration = new TournamentManager.Models.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Models.Division
+            Bowler = new TournamentManager.Models.Bowler(),
+            Division = new TournamentManager.Models.Division
             {
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
@@ -132,10 +132,10 @@ internal sealed class HandicapCalculator
     [Test]
     public void Calculate_Model_Handicap_NoHandicapInfoOnDivision_HandicapZero()
     {
-        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
+        var registration = new TournamentManager.Models.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Models.Division
+            Bowler = new TournamentManager.Models.Bowler(),
+            Division = new TournamentManager.Models.Division
             {
                 HandicapBase = null,
                 HandicapPercentage = null,
@@ -152,10 +152,10 @@ internal sealed class HandicapCalculator
     [Test]
     public void Calculate_Model_Handicap_AverageGreaterThanOrEqualToBase_HandicapZero([Values(215, 216)] int average)
     {
-        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
+        var registration = new TournamentManager.Models.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Models.Division
+            Bowler = new TournamentManager.Models.Bowler(),
+            Division = new TournamentManager.Models.Division
             {
                 HandicapBase = 215,
                 HandicapPercentage = .8m,
@@ -172,10 +172,10 @@ internal sealed class HandicapCalculator
     [Test]
     public void Calculate_Model_Handicap_HandicapUnderMaxPerGame_HandicapMapped()
     {
-        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
+        var registration = new TournamentManager.Models.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Models.Division
+            Bowler = new TournamentManager.Models.Bowler(),
+            Division = new TournamentManager.Models.Division
             {
                 HandicapBase = 215,
                 HandicapPercentage = .7m,
@@ -192,10 +192,10 @@ internal sealed class HandicapCalculator
     [Test]
     public void Calculate_Model_Handicap_HandicapOverMaxPerGame_HandicapMapped()
     {
-        var registration = new BowlingMegabucks.TournamentManager.Models.Registration
+        var registration = new TournamentManager.Models.Registration
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler(),
-            Division = new BowlingMegabucks.TournamentManager.Models.Division
+            Bowler = new TournamentManager.Models.Bowler(),
+            Division = new TournamentManager.Models.Division
             {
                 HandicapBase = 215,
                 HandicapPercentage = .7m,

@@ -1,27 +1,27 @@
-﻿using BowlingMegabucks.TournamentManager.Tests.Extensions;
+﻿using BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Squads;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Squads;
 
 [TestFixture]
 internal sealed class Repository
 {
-    private Mock<BowlingMegabucks.TournamentManager.Database.IDataContext> _dataContext;
+    private Mock<TournamentManager.Database.IDataContext> _dataContext;
 
-    private BowlingMegabucks.TournamentManager.Squads.Repository _repository;
+    private TournamentManager.Squads.Repository _repository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<BowlingMegabucks.TournamentManager.Database.IDataContext>();
-        _repository = new BowlingMegabucks.TournamentManager.Squads.Repository(_dataContext.Object);
+        _dataContext = new Mock<TournamentManager.Database.IDataContext>();
+        _repository = new TournamentManager.Squads.Repository(_dataContext.Object);
     }
 
     [Test]
     public async Task AddAsync_SquadAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<TournamentManager.Database.Entities.TournamentSquad>().SetUpDbContext());
 
-        var squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad();
+        var squad = new TournamentManager.Database.Entities.TournamentSquad();
 
         var id = await _repository.AddAsync(squad, default).ConfigureAwait(false);
 
@@ -31,9 +31,9 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Squads).Returns(Enumerable.Empty<TournamentManager.Database.Entities.TournamentSquad>().SetUpDbContext());
 
-        var squad = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad();
+        var squad = new TournamentManager.Database.Entities.TournamentSquad();
         CancellationToken cancellationToken = default;
 
         await _repository.AddAsync(squad, cancellationToken).ConfigureAwait(false);
@@ -46,21 +46,21 @@ internal sealed class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var squad1 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
+        var squad1 = new TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
-        var squad2 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
+        var squad2 = new TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1
         };
 
-        var squad3 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
+        var squad3 = new TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),
@@ -84,21 +84,21 @@ internal sealed class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var squad1 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
+        var squad1 = new TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 1,
         };
 
-        var squad2 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
+        var squad2 = new TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             TournamentId = tournamentId,
             MaxPerPair = 2
         };
 
-        var squad3 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
+        var squad3 = new TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             TournamentId = TournamentId.New(),

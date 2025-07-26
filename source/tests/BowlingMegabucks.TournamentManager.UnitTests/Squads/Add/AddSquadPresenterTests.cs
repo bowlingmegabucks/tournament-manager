@@ -1,22 +1,22 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Squads.Add;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Squads.Add;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Squads.Add.IView> _view;
-    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IAdapter> _retrieveTournamentAdapter;
-    private Mock<BowlingMegabucks.TournamentManager.Squads.Add.IAdapter> _addSquadAdapter;
+    private Mock<TournamentManager.Squads.Add.IView> _view;
+    private Mock<TournamentManager.Tournaments.Retrieve.IAdapter> _retrieveTournamentAdapter;
+    private Mock<TournamentManager.Squads.Add.IAdapter> _addSquadAdapter;
 
-    private BowlingMegabucks.TournamentManager.Squads.Add.Presenter _presenter;
+    private TournamentManager.Squads.Add.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<BowlingMegabucks.TournamentManager.Squads.Add.IView>();
-        _retrieveTournamentAdapter = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IAdapter>();
-        _addSquadAdapter = new Mock<BowlingMegabucks.TournamentManager.Squads.Add.IAdapter>();
+        _view = new Mock<TournamentManager.Squads.Add.IView>();
+        _retrieveTournamentAdapter = new Mock<TournamentManager.Tournaments.Retrieve.IAdapter>();
+        _addSquadAdapter = new Mock<TournamentManager.Squads.Add.IAdapter>();
 
-        _presenter = new BowlingMegabucks.TournamentManager.Squads.Add.Presenter(_view.Object, _retrieveTournamentAdapter.Object, _addSquadAdapter.Object);
+        _presenter = new TournamentManager.Squads.Add.Presenter(_view.Object, _retrieveTournamentAdapter.Object, _addSquadAdapter.Object);
     }
 
     [Test]
@@ -24,12 +24,12 @@ internal sealed class Presenter
     {
         var tournamentId = TournamentId.New();
 
-        var squad = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad = new Mock<TournamentManager.Squads.IViewModel>();
         squad.SetupGet(s => s.TournamentId).Returns(tournamentId);
 
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
-        var tournament = new Mock<BowlingMegabucks.TournamentManager.Tournaments.IViewModel>();
+        var tournament = new Mock<TournamentManager.Tournaments.IViewModel>();
         _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament.Object);
 
         CancellationToken cancellationToken = default;
@@ -42,10 +42,10 @@ internal sealed class Presenter
     [Test]
     public async Task GetTournamentDetailsAsync_RetrieveTournamentAdapterHasError_ErrorFlow()
     {
-        var squad = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad = new Mock<TournamentManager.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _retrieveTournamentAdapter.SetupGet(retrieveTournamentAdapter => retrieveTournamentAdapter.Error).Returns(error);
 
         await _presenter.GetTournamentDetailsAsync(default).ConfigureAwait(false);
@@ -63,14 +63,14 @@ internal sealed class Presenter
     [Test]
     public async Task GetTournamentDetailsAsync_RetrieveTournamentAdapterHasNoError_SuccessFlow()
     {
-        var tournament = new Mock<BowlingMegabucks.TournamentManager.Tournaments.IViewModel>();
+        var tournament = new Mock<TournamentManager.Tournaments.IViewModel>();
         tournament.SetupGet(t => t.FinalsRatio).Returns(1m);
         tournament.SetupGet(t => t.CashRatio).Returns(3m);
         tournament.SetupGet(t => t.EntryFee).Returns(50m);
 
         _retrieveTournamentAdapter.Setup(retrieveTournamentAdapter => retrieveTournamentAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament.Object);
 
-        var squad = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad = new Mock<TournamentManager.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         await _presenter.GetTournamentDetailsAsync(default).ConfigureAwait(false);
@@ -98,14 +98,14 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.IsValid()).Returns(false);
 
-        var squad = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad = new Mock<TournamentManager.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
-            _addSquadAdapter.Verify(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Squads.IViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
+            _addSquadAdapter.Verify(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<TournamentManager.Squads.IViewModel>(), It.IsAny<CancellationToken>()), Times.Never);
 
             _view.Verify(view => view.KeepOpen(), Times.Once);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
@@ -120,11 +120,11 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
-        var squad = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad = new Mock<TournamentManager.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         var squadId = SquadId.New();
-        _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Squads.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadId);
+        _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<TournamentManager.Squads.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadId);
 
         CancellationToken cancellationToken = default;
 
@@ -138,14 +138,14 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
-        var squad = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad = new Mock<TournamentManager.Squads.IViewModel>();
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         var errors = new[]
         {
-            new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error1"),
-            new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error2"),
-            new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error3")
+            new TournamentManager.Models.ErrorDetail("error1"),
+            new TournamentManager.Models.ErrorDetail("error2"),
+            new TournamentManager.Models.ErrorDetail("error3")
         };
 
         _addSquadAdapter.SetupGet(addSquadAdapter => addSquadAdapter.Errors).Returns(errors);
@@ -168,12 +168,12 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
-        var squad = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad = new Mock<TournamentManager.Squads.IViewModel>();
         squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 00, DateTimeKind.Unspecified));
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         var squadId = SquadId.New();
-        _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Squads.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadId);
+        _addSquadAdapter.Setup(addSquadAdapter => addSquadAdapter.ExecuteAsync(It.IsAny<TournamentManager.Squads.IViewModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(squadId);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 

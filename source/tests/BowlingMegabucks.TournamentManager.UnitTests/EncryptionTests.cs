@@ -1,12 +1,12 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests;
+namespace BowlingMegabucks.TournamentManager.UnitTests;
 
 [TestFixture]
 internal sealed class Encryption
 {
     [OneTimeSetUp]
     public void SetUpKey()
-        => BowlingMegabucks.TournamentManager.Encryption.Key = "key";
+        => TournamentManager.Encryption.Key = "key";
 
     [Test]
     public void EncryptDecrypt_Returns_OriginalValue()
@@ -20,7 +20,7 @@ internal sealed class Encryption
     }
 
     [Test]
-    public void Encrypt_DoneMultipleTimesOnSameValue_YeildsDifferentResults()
+    public void Encrypt_DoneMultipleTimesOnSameValue_YieldsDifferentResults()
     {
         var plainText = "test";
 
@@ -73,7 +73,7 @@ internal sealed class Encryption
         var value1 = "test".Encrypt();
         var value2 = "test".Encrypt();
 
-        Assert.That(BowlingMegabucks.TournamentManager.Encryption.ValuesMatch(value1, value2), Is.True);
+        Assert.That(TournamentManager.Encryption.ValuesMatch(value1, value2), Is.True);
     }
 
     [Test]
@@ -82,6 +82,6 @@ internal sealed class Encryption
         var value1 = "test".Encrypt();
         var value2 = "value".Encrypt();
 
-        Assert.That(BowlingMegabucks.TournamentManager.Encryption.ValuesMatch(value1, value2), Is.False);
+        Assert.That(TournamentManager.Encryption.ValuesMatch(value1, value2), Is.False);
     }
 }

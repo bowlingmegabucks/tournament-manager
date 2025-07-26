@@ -1,29 +1,29 @@
-﻿using BowlingMegabucks.TournamentManager.Tests.Extensions;
+﻿using BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Divisions;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Divisions;
 
 [TestFixture]
 internal sealed class Repository
 {
 
-    private Mock<BowlingMegabucks.TournamentManager.Database.IDataContext> _dataContext;
+    private Mock<TournamentManager.Database.IDataContext> _dataContext;
 
-    private BowlingMegabucks.TournamentManager.Divisions.IRepository _repository;
+    private TournamentManager.Divisions.IRepository _repository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<BowlingMegabucks.TournamentManager.Database.IDataContext>();
+        _dataContext = new Mock<TournamentManager.Database.IDataContext>();
 
-        _repository = new BowlingMegabucks.TournamentManager.Divisions.Repository(_dataContext.Object);
+        _repository = new TournamentManager.Divisions.Repository(_dataContext.Object);
     }
 
     [Test]
     public async Task AddAsync_DivisionAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.Division>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Division>().SetUpDbContext());
 
-        var division = new BowlingMegabucks.TournamentManager.Database.Entities.Division();
+        var division = new TournamentManager.Database.Entities.Division();
 
         var id = await _repository.AddAsync(division, default).ConfigureAwait(false);
 
@@ -33,9 +33,9 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.Division>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Division>().SetUpDbContext());
 
-        var division = new BowlingMegabucks.TournamentManager.Database.Entities.Division();
+        var division = new TournamentManager.Database.Entities.Division();
         CancellationToken cancellationToken = default;
 
         await _repository.AddAsync(division, cancellationToken).ConfigureAwait(false);
@@ -48,21 +48,21 @@ internal sealed class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var division1 = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+        var division1 = new TournamentManager.Database.Entities.Division
         {
             Id = DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
-        var division2 = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+        var division2 = new TournamentManager.Database.Entities.Division
         {
             Id = DivisionId.New(),
             TournamentId = tournamentId,
             Name = "Yes"
         };
 
-        var division3 = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+        var division3 = new TournamentManager.Database.Entities.Division
         {
             Id = DivisionId.New(),
             TournamentId = TournamentId.New(),
@@ -86,21 +86,21 @@ internal sealed class Repository
     {
         var divisionId = DivisionId.New();
 
-        var division1 = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+        var division1 = new TournamentManager.Database.Entities.Division
         {
             Id = divisionId,
             TournamentId = TournamentId.New(),
             Name = "Yes"
         };
 
-        var division2 = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+        var division2 = new TournamentManager.Database.Entities.Division
         {
             Id = DivisionId.New(),
             TournamentId = TournamentId.New(),
             Name = "No"
         };
 
-        var division3 = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+        var division3 = new TournamentManager.Database.Entities.Division
         {
             Id = DivisionId.New(),
             TournamentId = TournamentId.New(),

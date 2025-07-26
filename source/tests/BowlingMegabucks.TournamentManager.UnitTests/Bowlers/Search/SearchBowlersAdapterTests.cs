@@ -1,24 +1,24 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Search;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Bowlers.Search;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Search.IBusinessLogic> _businessLogic;
+    private Mock<TournamentManager.Bowlers.Search.IBusinessLogic> _businessLogic;
 
-    private BowlingMegabucks.TournamentManager.Bowlers.Search.Adapter _adapter;
+    private TournamentManager.Bowlers.Search.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Search.IBusinessLogic>();
+        _businessLogic = new Mock<TournamentManager.Bowlers.Search.IBusinessLogic>();
 
-        _adapter = new BowlingMegabucks.TournamentManager.Bowlers.Search.Adapter(_businessLogic.Object);
+        _adapter = new TournamentManager.Bowlers.Search.Adapter(_businessLogic.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_BusinessLogicExecute_CalledCorrectly()
     {
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria();
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria();
         CancellationToken cancellationToken = default;
 
         await _adapter.ExecuteAsync(searchCriteria, cancellationToken).ConfigureAwait(false);
@@ -29,10 +29,10 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ErrorsSetToBusinessLogicErrors([Range(0, 1)] int errorCount)
     {
-        var error = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
+        var error = Enumerable.Repeat(new TournamentManager.Models.ErrorDetail("test"), errorCount).SingleOrDefault();
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria();
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria();
 
         await _adapter.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
@@ -42,13 +42,13 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ReturnsBowlersFromBusinessLogic()
     {
-        var bowler1 = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { Last = "Bowler 1" } };
-        var bowler2 = new BowlingMegabucks.TournamentManager.Models.Bowler { Name = new BowlingMegabucks.TournamentManager.Models.PersonName { Last = "Bowler 2" } };
+        var bowler1 = new TournamentManager.Models.Bowler { Name = new TournamentManager.Models.PersonName { Last = "Bowler 1" } };
+        var bowler2 = new TournamentManager.Models.Bowler { Name = new TournamentManager.Models.PersonName { Last = "Bowler 2" } };
         var bowlers = new[] { bowler1, bowler2 };
 
-        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowlers);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowlers);
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria();
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria();
 
         var actual = (await _adapter.ExecuteAsync(searchCriteria, default).ConfigureAwait(false)).ToList();
 

@@ -1,18 +1,18 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Add;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Sweepers.Add;
 
 [TestFixture]
 internal sealed class EntityMapper
 {
-    private BowlingMegabucks.TournamentManager.Sweepers.EntityMapper _mapper;
+    private TournamentManager.Sweepers.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new BowlingMegabucks.TournamentManager.Sweepers.EntityMapper();
+        => _mapper = new TournamentManager.Sweepers.EntityMapper();
 
     [Test]
     public void Execute_IdMapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             Id = SquadId.New()
         };
@@ -25,7 +25,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_TournamentIdMapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             TournamentId = TournamentId.New()
         };
@@ -38,7 +38,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_CashRatioMapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             CashRatio = 5.5m
         };
@@ -51,7 +51,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_DateMapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             Date = new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Unspecified)
         };
@@ -64,7 +64,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_MaxPerPairMapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             MaxPerPair = 1
         };
@@ -77,7 +77,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_CompleteMapped([Values] bool complete)
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             Complete = complete
         };
@@ -90,7 +90,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_EntryFeeMapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             EntryFee = 123.45m
         };
@@ -103,7 +103,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_GamesMapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             Games = 5
         };
@@ -121,7 +121,7 @@ internal sealed class EntityMapper
         var division2 = DivisionId.New();
         var division3 = DivisionId.New();
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             Id = SquadId.New(),
             Divisions = new Dictionary<DivisionId, int?>
@@ -150,7 +150,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_StartingLane_Mapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             StartingLane = 1
         };
@@ -163,7 +163,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_NumberOfLanes_Mapped()
     {
-        var model = new BowlingMegabucks.TournamentManager.Models.Sweeper
+        var model = new TournamentManager.Models.Sweeper
         {
             NumberOfLanes = 10
         };

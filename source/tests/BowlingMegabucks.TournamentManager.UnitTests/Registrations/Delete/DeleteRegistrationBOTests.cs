@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Delete;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Delete;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IDataLayer> _dataLayer;
+    private Mock<TournamentManager.Registrations.Delete.IDataLayer> _dataLayer;
 
-    private BowlingMegabucks.TournamentManager.Registrations.Delete.BusinessLogic _businessLogic;
+    private TournamentManager.Registrations.Delete.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IDataLayer>();
+        _dataLayer = new Mock<TournamentManager.Registrations.Delete.IDataLayer>();
 
-        _businessLogic = new BowlingMegabucks.TournamentManager.Registrations.Delete.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new TournamentManager.Registrations.Delete.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]

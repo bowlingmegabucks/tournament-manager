@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Scores.Retrieve;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Scores.Retrieve;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<BowlingMegabucks.TournamentManager.Scores.Retrieve.IDataLayer> _dataLayer;
+    private Mock<TournamentManager.Scores.Retrieve.IDataLayer> _dataLayer;
 
-    private BowlingMegabucks.TournamentManager.Scores.Retrieve.BusinessLogic _businessLogic;
+    private TournamentManager.Scores.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Scores.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<TournamentManager.Scores.Retrieve.IDataLayer>();
 
-        _businessLogic = new BowlingMegabucks.TournamentManager.Scores.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new TournamentManager.Scores.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -45,7 +45,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_SquadIds_ReturnsDataLayerExecute()
     {
-        var scores = new Mock<IEnumerable<BowlingMegabucks.TournamentManager.Models.SquadScore>>();
+        var scores = new Mock<IEnumerable<TournamentManager.Models.SquadScore>>();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>())).ReturnsAsync(scores.Object);
 
         var actual = await _businessLogic.ExecuteAsync([SquadId.New(), SquadId.New()], default).ConfigureAwait(false);

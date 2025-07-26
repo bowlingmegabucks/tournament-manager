@@ -1,16 +1,17 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Bowlers;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Bowlers;
+
 internal sealed class EntityMapper
 {
-    private BowlingMegabucks.TournamentManager.Bowlers.EntityMapper _mapper;
+    private TournamentManager.Bowlers.EntityMapper _mapper;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _mapper = new BowlingMegabucks.TournamentManager.Bowlers.EntityMapper();
+        => _mapper = new TournamentManager.Bowlers.EntityMapper();
 
     [Test]
     public void Execute_IdMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             Id = BowlerId.New()
         };
@@ -23,9 +24,9 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_FirstNameMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
-            Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "firstName" }
+            Name = new TournamentManager.Models.PersonName { First = "firstName" }
         };
 
         var entity = _mapper.Execute(bowler);
@@ -36,9 +37,9 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_MiddleInitialMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
-            Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "middleInitial" }
+            Name = new TournamentManager.Models.PersonName { First = "middleInitial" }
         };
 
         var entity = _mapper.Execute(bowler);
@@ -49,9 +50,9 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_LastNameMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
-            Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "lastName" }
+            Name = new TournamentManager.Models.PersonName { First = "lastName" }
         };
 
         var entity = _mapper.Execute(bowler);
@@ -62,9 +63,9 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_SuffixMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
-            Name = new BowlingMegabucks.TournamentManager.Models.PersonName { First = "suffix" }
+            Name = new TournamentManager.Models.PersonName { First = "suffix" }
         };
 
         var entity = _mapper.Execute(bowler);
@@ -75,7 +76,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_StreetAddressMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             StreetAddress = "streetAddress"
         };
@@ -88,7 +89,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_StreetCityMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             CityAddress = "cityAddress"
         };
@@ -101,7 +102,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_StateAddressMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             StateAddress = "stateAddress"
         };
@@ -114,7 +115,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_ZipCodeMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             ZipCode = "zipCode"
         };
@@ -127,7 +128,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_EmailAddressMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             EmailAddress = "emailAddress"
         };
@@ -140,7 +141,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_DateOfBirthMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now)
         };
@@ -153,9 +154,9 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_GenderMapped_Male()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
-            Gender = BowlingMegabucks.TournamentManager.Models.Gender.Male
+            Gender = TournamentManager.Models.Gender.Male
         };
 
         var entity = _mapper.Execute(bowler);
@@ -166,9 +167,9 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_GenderMapped_Female()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
-            Gender = BowlingMegabucks.TournamentManager.Models.Gender.Female
+            Gender = TournamentManager.Models.Gender.Female
         };
 
         var entity = _mapper.Execute(bowler);
@@ -179,7 +180,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_USBCIdMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             USBCId = "usbcId"
         };
@@ -192,7 +193,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_PhoneNumberMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             PhoneNumber = "phoneNumber"
         };
@@ -205,7 +206,7 @@ internal sealed class EntityMapper
     [Test]
     public void Execute_SocialSecurityNumberMapped()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             SocialSecurityNumber = "ssn"
         };

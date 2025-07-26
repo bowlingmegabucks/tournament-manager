@@ -1,31 +1,31 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Add;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Add;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Registrations.Add.IView> _view;
+    private Mock<TournamentManager.Registrations.Add.IView> _view;
 
-    private Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IAdapter> _divisionsAdapter;
-    private Mock<BowlingMegabucks.TournamentManager.Squads.Retrieve.IAdapter> _squadsAdapter;
-    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
-    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IAdapter> _bowlersAdapter;
-    private Mock<BowlingMegabucks.TournamentManager.Registrations.Add.IAdapter> _adapter;
+    private Mock<TournamentManager.Divisions.Retrieve.IAdapter> _divisionsAdapter;
+    private Mock<TournamentManager.Squads.Retrieve.IAdapter> _squadsAdapter;
+    private Mock<TournamentManager.Sweepers.Retrieve.IAdapter> _sweepersAdapter;
+    private Mock<TournamentManager.Bowlers.Retrieve.IAdapter> _bowlersAdapter;
+    private Mock<TournamentManager.Registrations.Add.IAdapter> _adapter;
 
-    private BowlingMegabucks.TournamentManager.Registrations.Add.Presenter _presenter;
+    private TournamentManager.Registrations.Add.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<BowlingMegabucks.TournamentManager.Registrations.Add.IView>();
+        _view = new Mock<TournamentManager.Registrations.Add.IView>();
 
-        _divisionsAdapter = new Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IAdapter>();
-        _squadsAdapter = new Mock<BowlingMegabucks.TournamentManager.Squads.Retrieve.IAdapter>();
-        _sweepersAdapter = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IAdapter>();
-        _bowlersAdapter = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IAdapter>();
-        _adapter = new Mock<BowlingMegabucks.TournamentManager.Registrations.Add.IAdapter>();
+        _divisionsAdapter = new Mock<TournamentManager.Divisions.Retrieve.IAdapter>();
+        _squadsAdapter = new Mock<TournamentManager.Squads.Retrieve.IAdapter>();
+        _sweepersAdapter = new Mock<TournamentManager.Sweepers.Retrieve.IAdapter>();
+        _bowlersAdapter = new Mock<TournamentManager.Bowlers.Retrieve.IAdapter>();
+        _adapter = new Mock<TournamentManager.Registrations.Add.IAdapter>();
 
-        _presenter = new BowlingMegabucks.TournamentManager.Registrations.Add.Presenter(_view.Object, _divisionsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _bowlersAdapter.Object, _adapter.Object);
+        _presenter = new TournamentManager.Registrations.Add.Presenter(_view.Object, _divisionsAdapter.Object, _squadsAdapter.Object, _sweepersAdapter.Object, _bowlersAdapter.Object, _adapter.Object);
     }
 
     [Test]
@@ -55,10 +55,10 @@ internal sealed class Presenter
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Disable(), Times.Never);
 
-            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.Divisions.IViewModel>>()), Times.Never);
-            _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.Squads.IViewModel>>()), Times.Never);
-            _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>>()), Times.Never);
-            _view.Verify(view => view.BindBowler(It.IsAny<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IViewModel>()), Times.Never);
+            _view.Verify(view => view.BindDivisions(It.IsAny<IEnumerable<TournamentManager.Divisions.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSquads(It.IsAny<IEnumerable<TournamentManager.Squads.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<TournamentManager.Sweepers.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindBowler(It.IsAny<TournamentManager.Bowlers.Retrieve.IViewModel>()), Times.Never);
         });
     }
 
@@ -132,16 +132,16 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var divisionError = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("division");
+        var divisionError = new TournamentManager.Models.ErrorDetail("division");
         _divisionsAdapter.SetupGet(adapter => adapter.Error).Returns(divisionError);
 
-        var squadError = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("squad");
+        var squadError = new TournamentManager.Models.ErrorDetail("squad");
         _squadsAdapter.SetupGet(adapter => adapter.Error).Returns(squadError);
 
-        var sweeperError = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("sweeper");
+        var sweeperError = new TournamentManager.Models.ErrorDetail("sweeper");
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
-        var bowlerError = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("bowler");
+        var bowlerError = new TournamentManager.Models.ErrorDetail("bowler");
         _bowlersAdapter.SetupGet(adapter => adapter.Error).Returns(bowlerError);
 
         var tournamentId = TournamentId.New();
@@ -160,10 +160,10 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var squadError = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("squad");
+        var squadError = new TournamentManager.Models.ErrorDetail("squad");
         _squadsAdapter.SetupGet(adapter => adapter.Error).Returns(squadError);
 
-        var sweeperError = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("sweeper");
+        var sweeperError = new TournamentManager.Models.ErrorDetail("sweeper");
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
         var tournamentId = TournamentId.New();
@@ -182,7 +182,7 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var sweeperError = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("sweeper");
+        var sweeperError = new TournamentManager.Models.ErrorDetail("sweeper");
         _sweepersAdapter.SetupGet(adapter => adapter.Error).Returns(sweeperError);
 
         var tournamentId = TournamentId.New();
@@ -201,13 +201,13 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var division1 = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
+        var division1 = new Mock<TournamentManager.Divisions.IViewModel>();
         division1.SetupGet(division => division.Number).Returns(1);
 
-        var division2 = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
+        var division2 = new Mock<TournamentManager.Divisions.IViewModel>();
         division2.SetupGet(division => division.Number).Returns(2);
 
-        var division3 = new Mock<BowlingMegabucks.TournamentManager.Divisions.IViewModel>();
+        var division3 = new Mock<TournamentManager.Divisions.IViewModel>();
         division3.SetupGet(division => division.Number).Returns(3);
 
         var divisions = new[] { division3.Object, division1.Object, division2.Object };
@@ -219,11 +219,11 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Divisions.IViewModel>>(divisions => divisions.ToList()[0].Number == 1)), Times.Once);
-            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Divisions.IViewModel>>(divisions => divisions.ToList()[1].Number == 2)), Times.Once);
-            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Divisions.IViewModel>>(divisions => divisions.ToList()[2].Number == 3)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<TournamentManager.Divisions.IViewModel>>(divisions => divisions.ToList()[0].Number == 1)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<TournamentManager.Divisions.IViewModel>>(divisions => divisions.ToList()[1].Number == 2)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<TournamentManager.Divisions.IViewModel>>(divisions => divisions.ToList()[2].Number == 3)), Times.Once);
 
-            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Divisions.IViewModel>>(divisions => divisions.ToList().Count == 3)), Times.Once);
+            _view.Verify(view => view.BindDivisions(It.Is<IEnumerable<TournamentManager.Divisions.IViewModel>>(divisions => divisions.ToList().Count == 3)), Times.Once);
         });
     }
 
@@ -232,17 +232,17 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var squad1 = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad1 = new Mock<TournamentManager.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
 
-        var squad2 = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad2 = new Mock<TournamentManager.Squads.IViewModel>();
         squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified));
 
-        var squad2A = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad2A = new Mock<TournamentManager.Squads.IViewModel>();
         squad2A.SetupGet(squad => squad.Complete).Returns(true);
         squad2A.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
-        var squad3 = new Mock<BowlingMegabucks.TournamentManager.Squads.IViewModel>();
+        var squad3 = new Mock<TournamentManager.Squads.IViewModel>();
         squad3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squads = new[] { squad3.Object, squad2A.Object, squad1.Object, squad2.Object };
@@ -254,11 +254,11 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[0].Date == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[1].Date == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[2].Date == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[0].Date == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[1].Date == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[2].Date == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
 
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Squads.IViewModel>>(squads => squads.ToList().Count == 3)), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList().Count == 3)), Times.Once);
         });
     }
 
@@ -267,17 +267,17 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
-        var sweeper1 = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>();
+        var sweeper1 = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
 
-        var sweeper2 = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>();
+        var sweeper2 = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified));
 
-        var sweeper2A = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>();
+        var sweeper2A = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper2A.SetupGet(sweeper => sweeper.Complete).Returns(true);
         sweeper2A.SetupGet(sweeper => sweeper.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
-        var sweeper3 = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>();
+        var sweeper3 = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweepers = new[] { sweeper3.Object, sweeper1.Object, sweeper2.Object };
@@ -289,11 +289,11 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].Date == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[1].Date == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[2].Date == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].Date == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[1].Date == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[2].Date == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
 
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList().Count == 3)), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList().Count == 3)), Times.Once);
         });
     }
 
@@ -304,7 +304,7 @@ internal sealed class Presenter
 
         await _presenter.LoadAsync(new TournamentId(), default);
 
-        _view.Verify(view => view.BindBowler(It.IsAny<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IViewModel>()), Times.Never);
+        _view.Verify(view => view.BindBowler(It.IsAny<TournamentManager.Bowlers.Retrieve.IViewModel>()), Times.Never);
     }
 
     [Test]
@@ -312,7 +312,7 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.New());
 
-        var bowler = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IViewModel>();
+        var bowler = new Mock<TournamentManager.Bowlers.Retrieve.IViewModel>();
         _bowlersAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler.Object);
 
         await _presenter.LoadAsync(new TournamentId(), default);
@@ -339,7 +339,7 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _adapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>(), It.IsAny<DivisionId>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>(), It.IsAny<CancellationToken>()), Times.Never);
+            _adapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<TournamentManager.Bowlers.IViewModel>(), It.IsAny<DivisionId>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>(), It.IsAny<CancellationToken>()), Times.Never);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
@@ -351,8 +351,8 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.IsValid()).Returns(true);
 
-        var bowler = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
-        var divisionId = BowlingMegabucks.TournamentManager.DivisionId.New();
+        var bowler = new Mock<TournamentManager.Bowlers.IViewModel>();
+        var divisionId = DivisionId.New();
         var sweepers = new List<SquadId>();
         var squads = new List<SquadId>();
         var average = 200;
@@ -374,7 +374,7 @@ internal sealed class Presenter
     [Test]
     public async Task ExecuteAsync_ViewIsValidTrue_AdapterHasErrors_ErrorFlow()
     {
-        var errors = new[] { new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error1"), new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error2") };
+        var errors = new[] { new TournamentManager.Models.ErrorDetail("error1"), new TournamentManager.Models.ErrorDetail("error2") };
         _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
         _view.Setup(view => view.IsValid()).Returns(true);

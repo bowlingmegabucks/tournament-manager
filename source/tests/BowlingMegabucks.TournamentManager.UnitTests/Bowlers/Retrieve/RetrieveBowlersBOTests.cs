@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Bowlers.Retrieve;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IDataLayer> _dataLayer;
+    private Mock<TournamentManager.Bowlers.Retrieve.IDataLayer> _dataLayer;
 
-    private BowlingMegabucks.TournamentManager.Bowlers.Retrieve.BusinessLogic _businessLogic;
+    private TournamentManager.Bowlers.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<TournamentManager.Bowlers.Retrieve.IDataLayer>();
 
-        _businessLogic = new BowlingMegabucks.TournamentManager.Bowlers.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new TournamentManager.Bowlers.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -30,7 +30,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_BowlerId_DataLayerExecuteSuccessful_ReturnsBowler()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler();
+        var bowler = new TournamentManager.Models.Bowler();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(bowler);
 
         var actual = await _businessLogic.ExecuteAsync(BowlerId.New(), default).ConfigureAwait(false);
@@ -41,7 +41,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_BowlerId_DataLayerExecuteThrowsException_ExceptionFlow()
     {
-        var ex = new Exception("ex");
+        var ex = new InvalidOperationException("ex");
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
         var actual = await _businessLogic.ExecuteAsync(BowlerId.New(), default).ConfigureAwait(false);

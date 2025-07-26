@@ -1,6 +1,6 @@
-﻿using BowlingMegabucks.TournamentManager.Tests.Extensions;
+﻿using BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Tournaments;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments;
 
 [TestFixture]
 internal sealed class Repository
@@ -84,10 +84,10 @@ internal sealed class Repository
     [Test]
     public async Task RetrieveByDivisionAsync_ReturnsTournamentWithDivision()
     {
-        var division1 = new TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() };
-        var division2 = new TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() };
-        var division3 = new TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() };
-        var division4 = new TournamentManager.Database.Entities.Division { Id = BowlingMegabucks.TournamentManager.DivisionId.New() };
+        var division1 = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() };
+        var division2 = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() };
+        var division3 = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() };
+        var division4 = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() };
 
         var tournament1 = new TournamentManager.Database.Entities.Tournament
         {

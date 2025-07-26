@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<Platforms>AnyCPU;x86</Platforms>
+		<NoWarn>CA1812;CA1861;CA2201</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>

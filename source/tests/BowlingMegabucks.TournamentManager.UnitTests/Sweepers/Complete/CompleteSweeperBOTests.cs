@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Complete;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Sweepers.Complete;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Complete.IDataLayer> _dataLayer;
+    private Mock<TournamentManager.Sweepers.Complete.IDataLayer> _dataLayer;
 
-    private BowlingMegabucks.TournamentManager.Sweepers.Complete.BusinessLogic _businessLogic;
+    private TournamentManager.Sweepers.Complete.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Complete.IDataLayer>();
+        _dataLayer = new Mock<TournamentManager.Sweepers.Complete.IDataLayer>();
 
-        _businessLogic = new BowlingMegabucks.TournamentManager.Sweepers.Complete.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new TournamentManager.Sweepers.Complete.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]

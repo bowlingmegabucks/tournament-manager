@@ -1,15 +1,15 @@
 ﻿using FluentValidation.TestHelper;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Scores.Update;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Scores.Update;
 
 [TestFixture]
 internal sealed class Validator
 {
-    private BowlingMegabucks.TournamentManager.Scores.Update.Validator _validator;
+    private TournamentManager.Scores.Update.Validator _validator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _validator = new BowlingMegabucks.TournamentManager.Scores.Update.Validator();
+        => _validator = new TournamentManager.Scores.Update.Validator();
 
     [Test]
     public void HappyPath_NoErrors()
@@ -17,25 +17,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -54,25 +54,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.Empty },
+            Bowler = new TournamentManager.Models.Bowler { Id = BowlerId.Empty },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -91,25 +91,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = SquadId.Empty,
             GameNumber = 2,
             Score = 220
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -128,25 +128,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 0,
             Score = 240
@@ -165,25 +165,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 0
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -202,25 +202,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 301
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -239,25 +239,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 4,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -276,25 +276,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() },
+            Bowler = new TournamentManager.Models.Bowler { Id = BowlerId.New() },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -312,25 +312,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = SquadId.New(),
             GameNumber = 1,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 3,
             Score = 240
@@ -348,25 +348,25 @@ internal sealed class Validator
         var bowlerId = BowlerId.New();
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 1,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 220
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score3 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = bowlerId },
+            Bowler = new TournamentManager.Models.Bowler { Id = bowlerId },
             SquadId = squadId,
             GameNumber = 2,
             Score = 240

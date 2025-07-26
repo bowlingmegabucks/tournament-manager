@@ -1,23 +1,23 @@
 ﻿using FluentValidation;
-using BowlingMegabucks.TournamentManager.Tests.Extensions;
+using BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Add;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.Add;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<IValidator<BowlingMegabucks.TournamentManager.Models.Tournament>> _validator;
-    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Add.IDataLayer> _dataLayer;
+    private Mock<IValidator<TournamentManager.Models.Tournament>> _validator;
+    private Mock<TournamentManager.Tournaments.Add.IDataLayer> _dataLayer;
 
-    private BowlingMegabucks.TournamentManager.Tournaments.Add.BusinessLogic _businessLogic;
+    private TournamentManager.Tournaments.Add.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _validator = new Mock<IValidator<BowlingMegabucks.TournamentManager.Models.Tournament>>();
-        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Add.IDataLayer>();
+        _validator = new Mock<IValidator<TournamentManager.Models.Tournament>>();
+        _dataLayer = new Mock<TournamentManager.Tournaments.Add.IDataLayer>();
 
-        _businessLogic = new BowlingMegabucks.TournamentManager.Tournaments.Add.BusinessLogic(_validator.Object, _dataLayer.Object);
+        _businessLogic = new TournamentManager.Tournaments.Add.BusinessLogic(_validator.Object, _dataLayer.Object);
     }
 
     [Test]
@@ -25,7 +25,7 @@ internal sealed class BusinessLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
+        var tournament = new TournamentManager.Models.Tournament();
         CancellationToken cancellationToken = default;
 
         await _businessLogic.ExecuteAsync(tournament, cancellationToken).ConfigureAwait(false);
@@ -38,7 +38,7 @@ internal sealed class BusinessLogic
     {
         _validator.Validate_IsNotValid("error");
 
-        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
+        var tournament = new TournamentManager.Models.Tournament();
 
         var result = await _businessLogic.ExecuteAsync(tournament, default).ConfigureAwait(false);
 
@@ -47,7 +47,7 @@ internal sealed class BusinessLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(result, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Tournament>(), It.IsAny<CancellationToken>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentManager.Models.Tournament>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -56,7 +56,7 @@ internal sealed class BusinessLogic
     {
         _validator.Validate_IsValid();
 
-        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
+        var tournament = new TournamentManager.Models.Tournament();
         CancellationToken cancellationToken = default;
 
         await _businessLogic.ExecuteAsync(tournament, cancellationToken).ConfigureAwait(false);
@@ -70,9 +70,9 @@ internal sealed class BusinessLogic
         _validator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Tournament>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentManager.Models.Tournament>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
+        var tournament = new TournamentManager.Models.Tournament();
 
         var result = await _businessLogic.ExecuteAsync(tournament, default).ConfigureAwait(false);
 
@@ -89,9 +89,9 @@ internal sealed class BusinessLogic
         _validator.Validate_IsValid();
 
         var id = TournamentId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Tournament>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentManager.Models.Tournament>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
-        var tournament = new BowlingMegabucks.TournamentManager.Models.Tournament();
+        var tournament = new TournamentManager.Models.Tournament();
 
         var result = await _businessLogic.ExecuteAsync(tournament, default).ConfigureAwait(false);
 

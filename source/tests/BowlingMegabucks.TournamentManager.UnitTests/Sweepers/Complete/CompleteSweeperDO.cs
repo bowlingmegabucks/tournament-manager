@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Complete;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Sweepers.Complete;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<BowlingMegabucks.TournamentManager.Sweepers.IRepository> _repository;
+    private Mock<TournamentManager.Sweepers.IRepository> _repository;
 
-    private BowlingMegabucks.TournamentManager.Sweepers.Complete.DataLayer _dataLayer;
+    private TournamentManager.Sweepers.Complete.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IRepository>();
+        _repository = new Mock<TournamentManager.Sweepers.IRepository>();
 
-        _dataLayer = new BowlingMegabucks.TournamentManager.Sweepers.Complete.DataLayer(_repository.Object);
+        _dataLayer = new TournamentManager.Sweepers.Complete.DataLayer(_repository.Object);
     }
 
     [Test]

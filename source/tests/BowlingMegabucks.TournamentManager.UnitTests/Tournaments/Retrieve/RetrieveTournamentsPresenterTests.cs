@@ -1,20 +1,20 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.Retrieve;
 
 [TestFixture]
 internal sealed class Presenters
 {
-    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IView> _view;
-    private Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IAdapter> _adapter;
+    private Mock<TournamentManager.Tournaments.Retrieve.IView> _view;
+    private Mock<TournamentManager.Tournaments.Retrieve.IAdapter> _adapter;
 
-    private BowlingMegabucks.TournamentManager.Tournaments.Retrieve.Presenter _presenter;
+    private TournamentManager.Tournaments.Retrieve.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IView>();
-        _adapter = new Mock<BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IAdapter>();
+        _view = new Mock<TournamentManager.Tournaments.Retrieve.IView>();
+        _adapter = new Mock<TournamentManager.Tournaments.Retrieve.IAdapter>();
 
-        _presenter = new BowlingMegabucks.TournamentManager.Tournaments.Retrieve.Presenter(_view.Object, _adapter.Object);
+        _presenter = new TournamentManager.Tournaments.Retrieve.Presenter(_view.Object, _adapter.Object);
     }
 
     [Test]
@@ -30,7 +30,7 @@ internal sealed class Presenters
     [Test]
     public async Task ExecuteAsync_AdapterErrorNotNull_ErrorFlow()
     {
-        var errorDetail = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("message");
+        var errorDetail = new TournamentManager.Models.ErrorDetail("message");
         _adapter.SetupGet(adapter => adapter.Error).Returns(errorDetail);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
@@ -40,7 +40,7 @@ internal sealed class Presenters
             _view.Verify(view => view.DisplayErrorMessage("message"), Times.Once);
             _view.Verify(view => view.DisableOpenTournament(), Times.Once);
 
-            _view.Verify(view => view.BindTournaments(It.IsAny<ICollection<BowlingMegabucks.TournamentManager.Tournaments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindTournaments(It.IsAny<ICollection<TournamentManager.Tournaments.IViewModel>>()), Times.Never);
         });
     }
 
@@ -57,7 +57,7 @@ internal sealed class Presenters
     [Test]
     public async Task ExecuteAsync_AdapterErrorDetailNull_TournamentsReturned_ViewBindTournamentsCalled()
     {
-        var tournaments = Enumerable.Repeat(new Mock<BowlingMegabucks.TournamentManager.Tournaments.IViewModel>().Object, 3).ToList();
+        var tournaments = Enumerable.Repeat(new Mock<TournamentManager.Tournaments.IViewModel>().Object, 3).ToList();
         _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(tournaments);
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);

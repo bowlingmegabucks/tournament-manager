@@ -1,26 +1,26 @@
 ﻿using MockQueryable;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Sweepers.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<BowlingMegabucks.TournamentManager.Sweepers.IRepository> _repository;
+    private Mock<TournamentManager.Sweepers.IRepository> _repository;
 
-    private BowlingMegabucks.TournamentManager.Sweepers.Retrieve.DataLayer _dataLayer;
+    private TournamentManager.Sweepers.Retrieve.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IRepository>();
+        _repository = new Mock<TournamentManager.Sweepers.IRepository>();
 
-        _dataLayer = new BowlingMegabucks.TournamentManager.Sweepers.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new TournamentManager.Sweepers.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_TournamentId_RepositoryRetrieve_Called()
     {
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad>().BuildMock());
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<TournamentManager.Database.Entities.SweeperSquad>().BuildMock());
 
         var id = TournamentId.New();
 
@@ -32,25 +32,25 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_TournamentId_ReturnsRepositoryRetrieveResponse()
     {
-        var sweeper1 = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
+        var sweeper1 = new TournamentManager.Database.Entities.SweeperSquad
         {
             MaxPerPair = 1,
             CashRatio = 2,
-            Divisions = Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision>().ToList()
+            Divisions = Enumerable.Empty<TournamentManager.Database.Entities.SweeperDivision>().ToList()
         };
 
-        var sweeper2 = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
+        var sweeper2 = new TournamentManager.Database.Entities.SweeperSquad
         {
             MaxPerPair = 2,
             CashRatio = 3,
-            Divisions = Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision>().ToList()
+            Divisions = Enumerable.Empty<TournamentManager.Database.Entities.SweeperDivision>().ToList()
         };
 
-        var sweeper3 = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
+        var sweeper3 = new TournamentManager.Database.Entities.SweeperSquad
         {
             MaxPerPair = 3,
             CashRatio = 4,
-            Divisions = Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision>().ToList()
+            Divisions = Enumerable.Empty<TournamentManager.Database.Entities.SweeperDivision>().ToList()
         };
 
         var sweepers = new[] { sweeper1, sweeper2, sweeper3 };
@@ -72,7 +72,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_SquadId_RepositoryRetrieve_CalledCorrectly()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
+        var entity = new TournamentManager.Database.Entities.SweeperSquad
         {
             MaxPerPair = 1,
             CashRatio = 1.5m
@@ -91,7 +91,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_SquadId_ReturnsModel()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad
+        var entity = new TournamentManager.Database.Entities.SweeperSquad
         {
             MaxPerPair = 1,
             CashRatio = 1.5m

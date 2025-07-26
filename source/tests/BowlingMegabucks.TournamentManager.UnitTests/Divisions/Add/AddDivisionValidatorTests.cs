@@ -1,21 +1,21 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Divisions.Add;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Divisions.Add;
 
 [TestFixture]
 internal sealed class Validator
 {
-    private IValidator<BowlingMegabucks.TournamentManager.Models.Division> _validator;
+    private IValidator<TournamentManager.Models.Division> _validator;
 
     [SetUp]
     public void SetUp()
-        => _validator = new BowlingMegabucks.TournamentManager.Divisions.Add.Validator();
+        => _validator = new TournamentManager.Divisions.Add.Validator();
 
     [Test]
     public void Number_LessThanOrEqualToZero_HasError([Values(-1, 0)] short number)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             Number = number
         };
@@ -27,7 +27,7 @@ internal sealed class Validator
     [Test]
     public void Number_GreaterThanZero_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             Number = 1
         };
@@ -39,7 +39,7 @@ internal sealed class Validator
     [Test]
     public void Name_NullEmptyOrWhitespace_HasError([Values(null, "", " ")] string name)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             Name = name
         };
@@ -51,7 +51,7 @@ internal sealed class Validator
     [Test]
     public void Name_HasValue_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             Name = "Division 1"
         };
@@ -63,7 +63,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAge_LessThanEqualToZero_HasError([Values(-1, 0)] short minimumAge)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAge = minimumAge
         };
@@ -75,7 +75,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAge_GreaterThanZero_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAge = 1
         };
@@ -87,7 +87,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAge_Null_MaximumAgeNullOrValue_NoError([Values(null, 50)] short maximumAge)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAge = null,
             MaximumAge = maximumAge
@@ -100,7 +100,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAge_GreaterThanMaximumAge_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAge = 50,
             MaximumAge = 49
@@ -113,7 +113,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAge_LessThanOrEqualToMaximumAge_NoError([Values(49, 50)] short minimumAge)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAge = minimumAge,
             MaximumAge = 50
@@ -126,7 +126,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAge_LessThanOrEqualToZero_HasError([Values(-1, 0)] short maximumAge)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAge = maximumAge
         };
@@ -138,7 +138,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAge_GreaterThanZero_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAge = 1
         };
@@ -150,7 +150,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAge_Null_MinimumAgeNullOrHasValue_NoError([Values(null, 50)] short? minimumAge)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAge = null,
             MinimumAge = minimumAge
@@ -163,7 +163,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAge_LessThanMinimumAge_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAge = 49,
             MinimumAge = 50
@@ -176,7 +176,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAge_GreaterThanOrEqualToMinimumAge_NoError([Values(50, 51)] short maximumAge)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAge = maximumAge,
             MinimumAge = 50
@@ -189,7 +189,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAverage_LessThanOrEqualToZero_HasError([Values(-1, 0)] int minimumAverage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAverage = minimumAverage
         };
@@ -201,7 +201,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAverage_GreaterThanEqualTo300_HasError([Values(300, 301)] int minimumAverage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAverage = minimumAverage
         };
@@ -213,7 +213,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAverage_BetweenZeroAnd300_NoError([Values(1, 299)] int minimumAverage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAverage = minimumAverage
         };
@@ -225,7 +225,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAverage_Null_MaximumAverageNullOrHasValue_NoError([Values(null, 200)] int? maximumAverage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAverage = null,
             MaximumAverage = maximumAverage
@@ -238,7 +238,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAverage_GreaterThanMaximumAverage_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAverage = 200,
             MaximumAverage = 199
@@ -251,7 +251,7 @@ internal sealed class Validator
     [Test]
     public void MinimumAverage_LessThanOrEqualToMaximumAverage_NoError([Values(199, 200)] int minimumAverage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MinimumAverage = minimumAverage,
             MaximumAverage = 200
@@ -264,7 +264,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAverage_LessThanOrEqualToZero_HasError([Values(-1, 0)] int maximumAverage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAverage = maximumAverage
         };
@@ -276,7 +276,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAverage_GreaterThanEqualTo300_HasError([Values(300, 301)] int maximumAverage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAverage = maximumAverage
         };
@@ -288,7 +288,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAverage_Null_MinimumAverageNullOrHasValue_NoError([Values(null, 200)] int? minimumAverage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAverage = null,
             MinimumAverage = minimumAverage
@@ -301,7 +301,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAverage_GreaterThanOrEqualToMinimumAverage_NoError([Values(200, 201)] int maximumAverage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAverage = maximumAverage,
             MinimumAverage = 200
@@ -314,7 +314,7 @@ internal sealed class Validator
     [Test]
     public void MaximumAverage_LessThanMinimumAverage_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumAverage = 199,
             MinimumAverage = 200
@@ -327,7 +327,7 @@ internal sealed class Validator
     [Test]
     public void HandicapPercentage_LessThanZero_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapPercentage = -.1m
         };
@@ -339,7 +339,7 @@ internal sealed class Validator
     [Test]
     public void HandicapPercentage_GreaterThanOrEqualToZero_NoError([Values(0, .1)] decimal handicapPercentage)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapPercentage = handicapPercentage
         };
@@ -351,7 +351,7 @@ internal sealed class Validator
     [Test]
     public void HandicapPercentage_Null_HandicapBase_Null_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapPercentage = null,
             HandicapBase = null
@@ -364,7 +364,7 @@ internal sealed class Validator
     [Test]
     public void HandicapPercentage_Null_HandicapBase_NotNull_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapPercentage = null,
             HandicapBase = 200
@@ -377,7 +377,7 @@ internal sealed class Validator
     [Test]
     public void HandicapPercentage_HasValue_HandicapBase_HasValue_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapPercentage = .1m,
             HandicapBase = 200
@@ -390,7 +390,7 @@ internal sealed class Validator
     [Test]
     public void HandicapBase_LessThanZero_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapBase = -1
         };
@@ -402,7 +402,7 @@ internal sealed class Validator
     [Test]
     public void HandicapBase_GreaterThan300_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapBase = 301
         };
@@ -414,7 +414,7 @@ internal sealed class Validator
     [Test]
     public void HandicapBase_BetweenZeroAnd300_NoError([Values(0, 300)] int handicapBase)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapBase = handicapBase
         };
@@ -426,7 +426,7 @@ internal sealed class Validator
     [Test]
     public void HandicapBase_Null_HandicapPercentage_Null_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapBase = null,
             HandicapPercentage = null
@@ -439,7 +439,7 @@ internal sealed class Validator
     [Test]
     public void HandicapBase_Null_HandicapPercentage_NotNull_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapBase = null,
             HandicapPercentage = .1m
@@ -452,7 +452,7 @@ internal sealed class Validator
     [Test]
     public void HandicapBase_HasValue_HandicapPercentage_HasValue_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             HandicapBase = 200,
             HandicapPercentage = .1m
@@ -465,7 +465,7 @@ internal sealed class Validator
     [Test]
     public void MaximumHandicapPerGame_LessThanOrEqualToZero_HasError([Values(-1, 0)] int maximumHandicapPerGame)
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumHandicapPerGame = maximumHandicapPerGame
         };
@@ -477,7 +477,7 @@ internal sealed class Validator
     [Test]
     public void MaximumHandicapPerGame_GreaterThanZero_HandicapPercentageHasValue_HandicapBaseHasValue_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumHandicapPerGame = 1,
             HandicapBase = 200,
@@ -491,7 +491,7 @@ internal sealed class Validator
     [Test]
     public void MaximumHandicapPerGame_NotNull_HandicapPercentageNull_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumHandicapPerGame = 1,
             HandicapPercentage = null,
@@ -505,7 +505,7 @@ internal sealed class Validator
     [Test]
     public void MaximumHandicapPerGame_NotNull_HandicapBaseNull_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumHandicapPerGame = 1,
             HandicapPercentage = .1m,
@@ -519,7 +519,7 @@ internal sealed class Validator
     [Test]
     public void MaximumHandicapPerGame_NotNull_HandicapBaseNull_HandicapPercentageNull_HasError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumHandicapPerGame = 1,
             HandicapPercentage = null,
@@ -533,7 +533,7 @@ internal sealed class Validator
     [Test]
     public void MaximumHandicapPerGame_Null_HandicapBaseNotNull_HandicapPercentageNotNull_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumHandicapPerGame = null,
             HandicapPercentage = .1m,
@@ -547,7 +547,7 @@ internal sealed class Validator
     [Test]
     public void MaximumHandicapPerGame_NotNull_HandicapBaseNotNull_HandicapPercentageNotNull_NoError()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division
+        var division = new TournamentManager.Models.Division
         {
             MaximumHandicapPerGame = 1,
             HandicapPercentage = .1m,

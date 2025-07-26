@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Squads.Complete;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Squads.Complete;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<BowlingMegabucks.TournamentManager.Squads.Complete.IDataLayer> _dataLayer;
+    private Mock<TournamentManager.Squads.Complete.IDataLayer> _dataLayer;
 
-    private BowlingMegabucks.TournamentManager.Squads.Complete.BusinessLogic _businessLogic;
+    private TournamentManager.Squads.Complete.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Squads.Complete.IDataLayer>();
+        _dataLayer = new Mock<TournamentManager.Squads.Complete.IDataLayer>();
 
-        _businessLogic = new BowlingMegabucks.TournamentManager.Squads.Complete.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new TournamentManager.Squads.Complete.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]

@@ -1,7 +1,7 @@
 ﻿using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 using ErrorOr;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Retrieve;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.Retrieve;
 
 [TestFixture]
 internal sealed class Adapter

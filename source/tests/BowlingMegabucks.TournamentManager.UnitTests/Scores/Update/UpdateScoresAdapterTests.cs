@@ -1,18 +1,18 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Scores.Update;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Scores.Update;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Scores.Update.IBusinessLogic> _businessLogic;
+    private Mock<TournamentManager.Scores.Update.IBusinessLogic> _businessLogic;
 
-    private BowlingMegabucks.TournamentManager.Scores.Update.Adapter _adapter;
+    private TournamentManager.Scores.Update.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Scores.Update.IBusinessLogic>();
+        _businessLogic = new Mock<TournamentManager.Scores.Update.IBusinessLogic>();
 
-        _adapter = new BowlingMegabucks.TournamentManager.Scores.Update.Adapter(_businessLogic.Object);
+        _adapter = new TournamentManager.Scores.Update.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -20,7 +20,7 @@ internal sealed class Adapter
     {
         var squadId = SquadId.New();
 
-        var score1 = new BowlingMegabucks.TournamentManager.Scores.ViewModel
+        var score1 = new TournamentManager.Scores.ViewModel
         {
             SquadId = squadId,
             BowlerId = BowlerId.New(),
@@ -28,7 +28,7 @@ internal sealed class Adapter
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Scores.ViewModel
+        var score2 = new TournamentManager.Scores.ViewModel
         {
             SquadId = squadId,
             BowlerId = score1.BowlerId,
@@ -36,7 +36,7 @@ internal sealed class Adapter
             Score = 201
         };
 
-        var score3 = new BowlingMegabucks.TournamentManager.Scores.ViewModel
+        var score3 = new TournamentManager.Scores.ViewModel
         {
             SquadId = squadId,
             BowlerId = BowlerId.New(),
@@ -51,18 +51,18 @@ internal sealed class Adapter
 
         Assert.Multiple(() =>
         {
-            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Models.SquadScore>>(squadScores => squadScores.Count() == 3), cancellationToken), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<TournamentManager.Models.SquadScore>>(squadScores => squadScores.Count() == 3), cancellationToken), Times.Once);
 
-            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.SquadId == squadId)), cancellationToken), Times.Once);
-            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.Bowler.Id == score1.BowlerId) == 2), cancellationToken), Times.Once);
-            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.Bowler.Id == score3.BowlerId) == 1), cancellationToken), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<TournamentManager.Models.SquadScore>>(squadScores => squadScores.All(squadScore => squadScore.SquadId == squadId)), cancellationToken), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<TournamentManager.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.Bowler.Id == score1.BowlerId) == 2), cancellationToken), Times.Once);
+            _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<IEnumerable<TournamentManager.Models.SquadScore>>(squadScores => squadScores.Count(squadScore => squadScore.Bowler.Id == score3.BowlerId) == 1), cancellationToken), Times.Once);
         });
     }
 
     [Test]
     public async Task ExecuteAsync_ErrorsSetToBusinessLogicErrors()
     {
-        var errors = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error"), 2);
+        var errors = Enumerable.Repeat(new TournamentManager.Models.ErrorDetail("error"), 2);
         _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
 
         await _adapter.ExecuteAsync([], default).ConfigureAwait(false);
@@ -73,22 +73,22 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_InvalidScoresReturnedIfAny()
     {
-        var invalidScore1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var invalidScore1 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() },
+            Bowler = new TournamentManager.Models.Bowler { Id = BowlerId.New() },
             GameNumber = 1,
             Score = 200
         };
 
-        var invalidScore2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var invalidScore2 = new TournamentManager.Models.SquadScore
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() },
+            Bowler = new TournamentManager.Models.Bowler { Id = BowlerId.New() },
             GameNumber = 2,
             Score = 201
         };
 
         var invalidScores = new[] { invalidScore1, invalidScore2 };
-        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.Models.SquadScore>>(), It.IsAny<CancellationToken>())).ReturnsAsync(invalidScores);
+        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<IEnumerable<TournamentManager.Models.SquadScore>>(), It.IsAny<CancellationToken>())).ReturnsAsync(invalidScores);
 
         var result = (await _adapter.ExecuteAsync([], default).ConfigureAwait(false)).ToList();
 

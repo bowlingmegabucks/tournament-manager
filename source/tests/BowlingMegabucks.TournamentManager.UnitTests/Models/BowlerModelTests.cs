@@ -1,6 +1,6 @@
 ﻿using BowlingMegabucks.TournamentManager.Bowlers;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Models;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Models;
 
 [TestFixture]
 internal sealed class Bowler
@@ -8,12 +8,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_IdMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New()
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.Id, Is.EqualTo(entity.Id));
     }
@@ -21,12 +21,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_FirstNameMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             FirstName = "John"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.Name.First, Is.EqualTo(entity.FirstName));
     }
@@ -34,12 +34,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_MiddleInitialMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             MiddleInitial = "J"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.Name.MiddleInitial, Is.EqualTo(entity.MiddleInitial));
     }
@@ -47,12 +47,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_LastNameMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             LastName = "Doe"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.Name.Last, Is.EqualTo(entity.LastName));
     }
@@ -60,12 +60,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_SuffixMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             Suffix = "III"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.Name.Suffix, Is.EqualTo(entity.Suffix));
     }
@@ -73,12 +73,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_StreetAddressMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             StreetAddress = "123 Main St"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.StreetAddress, Is.EqualTo(entity.StreetAddress));
     }
@@ -86,12 +86,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_CityAddressMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             CityAddress = "New York"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.CityAddress, Is.EqualTo(entity.CityAddress));
     }
@@ -99,12 +99,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_StateAddressMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             StateAddress = "NY"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.StateAddress, Is.EqualTo(entity.StateAddress));
     }
@@ -112,12 +112,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_ZipCodeMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             ZipCode = "12345"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.ZipCode, Is.EqualTo(entity.ZipCode));
     }
@@ -125,12 +125,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_EmailAddressMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             EmailAddress = "test@gmail.com"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.EmailAddress, Is.EqualTo(entity.EmailAddress));
     }
@@ -138,12 +138,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_PhoneNumberMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             PhoneNumber = "1234567890"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.PhoneNumber, Is.EqualTo(entity.PhoneNumber));
     }
@@ -151,12 +151,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_USBCIdMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             USBCId = "123-4567"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.USBCId, Is.EqualTo(entity.USBCId));
     }
@@ -164,12 +164,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_DateOfBirthHasValue_Mapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             DateOfBirth = new DateOnly(1980, 1, 1)
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.DateOfBirth, Is.EqualTo(entity.DateOfBirth));
     }
@@ -177,12 +177,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_DateOfBirthNull_Mapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             DateOfBirth = null
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.DateOfBirth, Is.Null);
     }
@@ -190,12 +190,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_GenderMapped_Male()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
-            Gender = BowlingMegabucks.TournamentManager.Models.Gender.Male
+            Gender = TournamentManager.Models.Gender.Male
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.Gender, Is.EqualTo(entity.Gender));
     }
@@ -203,12 +203,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_GenderMapped_Female()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
-            Gender = BowlingMegabucks.TournamentManager.Models.Gender.Female
+            Gender = TournamentManager.Models.Gender.Female
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.Gender, Is.EqualTo(entity.Gender));
     }
@@ -216,12 +216,12 @@ internal sealed class Bowler
     [Test]
     public void Constructor_Entity_SocialSecurityNumberMapped()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var entity = new TournamentManager.Database.Entities.Bowler
         {
             SocialSecurityNumber = "ssn"
         };
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Bowler(entity);
+        var model = new TournamentManager.Models.Bowler(entity);
 
         Assert.That(model.SocialSecurityNumber, Is.EqualTo(entity.SocialSecurityNumber));
     }
@@ -229,7 +229,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_IdMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.Id).Returns(BowlerId.New());
 
         var model = viewModel.Object.ToModel();
@@ -240,7 +240,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_FirstNameMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.FirstName).Returns("John");
 
         var model = viewModel.Object.ToModel();
@@ -251,7 +251,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_MiddleInitialMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.MiddleInitial).Returns("J");
 
         var model = viewModel.Object.ToModel();
@@ -262,7 +262,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_LastNameMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.LastName).Returns("Doe");
 
         var model = viewModel.Object.ToModel();
@@ -273,7 +273,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_SuffixMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.Suffix).Returns("III");
 
         var model = viewModel.Object.ToModel();
@@ -284,7 +284,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_StreetAddressMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.StreetAddress).Returns("123 Main St");
 
         var model = viewModel.Object.ToModel();
@@ -295,7 +295,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_CityAddressMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.CityAddress).Returns("New York");
 
         var model = viewModel.Object.ToModel();
@@ -306,7 +306,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_StateAddressMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.StateAddress).Returns("NY");
 
         var model = viewModel.Object.ToModel();
@@ -317,7 +317,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_ZipCodeMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.ZipCode).Returns("12345");
 
         var model = viewModel.Object.ToModel();
@@ -328,7 +328,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_PhoneNumberMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.PhoneNumber).Returns("1234567890");
 
         var model = viewModel.Object.ToModel();
@@ -339,7 +339,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_EmailAddressMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.EmailAddress).Returns("test@gmail.com");
 
         var model = viewModel.Object.ToModel();
@@ -350,7 +350,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_DateOfBirthMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.DateOfBirth).Returns(new DateOnly(2000, 1, 1));
 
         var model = viewModel.Object.ToModel();
@@ -361,7 +361,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_DateOfBirthNull_Mapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.DateOfBirth).Returns((DateOnly?)null);
 
         var model = viewModel.Object.ToModel();
@@ -372,7 +372,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_USBCIdMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.USBCId).Returns("123-4567");
 
         var model = viewModel.Object.ToModel();
@@ -383,7 +383,7 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_SocialSecurityNumberMapped()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
+        var viewModel = new Mock<IViewModel>();
         viewModel.SetupGet(v => v.SocialSecurityNumber).Returns("ssn");
 
         var model = viewModel.Object.ToModel();
@@ -394,8 +394,8 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_GenderMapped_Male()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
-        viewModel.SetupGet(v => v.Gender).Returns(BowlingMegabucks.TournamentManager.Models.Gender.Male);
+        var viewModel = new Mock<IViewModel>();
+        viewModel.SetupGet(v => v.Gender).Returns(TournamentManager.Models.Gender.Male);
 
         var model = viewModel.Object.ToModel();
 
@@ -405,8 +405,8 @@ internal sealed class Bowler
     [Test]
     public void Constructor_IAddViewModel_GenderMapped_Female()
     {
-        var viewModel = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IViewModel>();
-        viewModel.SetupGet(v => v.Gender).Returns(BowlingMegabucks.TournamentManager.Models.Gender.Female);
+        var viewModel = new Mock<IViewModel>();
+        viewModel.SetupGet(v => v.Gender).Returns(TournamentManager.Models.Gender.Female);
 
         var model = viewModel.Object.ToModel();
 
@@ -416,7 +416,7 @@ internal sealed class Bowler
     [Test]
     public void Age_BirthDayYesterday_Correct()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler()
+        var bowler = new TournamentManager.Models.Bowler()
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(-1).AddYears(-20))
         };
@@ -430,7 +430,7 @@ internal sealed class Bowler
     [Test]
     public void Age_BirthDayToday_Correct()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler()
+        var bowler = new TournamentManager.Models.Bowler()
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddYears(-20))
         };
@@ -444,7 +444,7 @@ internal sealed class Bowler
     [Test]
     public void Age_BirthDayTomorrow_Correct()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler()
+        var bowler = new TournamentManager.Models.Bowler()
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Today.AddDays(1).AddYears(-20))
         };
@@ -458,7 +458,7 @@ internal sealed class Bowler
     [Test]
     public void ToString_NoSuffix_ReturnsFirstLastName()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler();
+        var bowler = new TournamentManager.Models.Bowler();
         bowler.Name.First = "first";
         bowler.Name.MiddleInitial = "m";
         bowler.Name.Last = "last";
@@ -472,7 +472,7 @@ internal sealed class Bowler
     [Test]
     public void ToString_Suffix_ReturnsFirstLastCommaSuffix()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler();
+        var bowler = new TournamentManager.Models.Bowler();
         bowler.Name.First = "first";
         bowler.Name.MiddleInitial = "m";
         bowler.Name.Last = "last";
@@ -488,7 +488,7 @@ internal sealed class Bowler
     public void GetHashCode_ReturnsIdHashCode()
     {
         var id = BowlerId.New();
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             Id = id
         };
@@ -500,7 +500,7 @@ internal sealed class Bowler
     public void Equals_ObjNull_ReturnsFalse()
     {
         var id = BowlerId.New();
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             Id = id
         };
@@ -514,12 +514,12 @@ internal sealed class Bowler
     public void Equals_ObjNotBowlerModel_ReturnsFalse()
     {
         var id = BowlerId.New();
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             Id = id
         };
 
-        var somethingElse = new BowlingMegabucks.TournamentManager.Models.Squad();
+        var somethingElse = new TournamentManager.Models.Squad();
 
         Assert.That(bowler.Equals(somethingElse), Is.False);
     }
@@ -528,13 +528,13 @@ internal sealed class Bowler
     public void Equals_ObjBowlerButDifferentId_ReturnsFalse()
     {
         var id = BowlerId.New();
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             Id = id
         };
 
         var id2 = BowlerId.New();
-        var bowler2 = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler2 = new TournamentManager.Models.Bowler
         {
             Id = id2
         };
@@ -546,12 +546,12 @@ internal sealed class Bowler
     public void Equals_ObjBowlerAndSameId_ReturnsTrue()
     {
         var id = BowlerId.New();
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             Id = id
         };
 
-        var bowler2 = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler2 = new TournamentManager.Models.Bowler
         {
             Id = id,
         };

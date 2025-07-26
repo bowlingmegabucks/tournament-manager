@@ -1,28 +1,28 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Add;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Add;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<BowlingMegabucks.TournamentManager.Registrations.IEntityMapper> _mapper;
-    private Mock<BowlingMegabucks.TournamentManager.Registrations.IRepository> _repository;
+    private Mock<TournamentManager.Registrations.IEntityMapper> _mapper;
+    private Mock<TournamentManager.Registrations.IRepository> _repository;
 
-    private BowlingMegabucks.TournamentManager.Registrations.Add.DataLayer _dataLayer;
+    private TournamentManager.Registrations.Add.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _mapper = new Mock<BowlingMegabucks.TournamentManager.Registrations.IEntityMapper>();
-        _repository = new Mock<BowlingMegabucks.TournamentManager.Registrations.IRepository>();
+        _mapper = new Mock<TournamentManager.Registrations.IEntityMapper>();
+        _repository = new Mock<TournamentManager.Registrations.IRepository>();
 
-        _dataLayer = new BowlingMegabucks.TournamentManager.Registrations.Add.DataLayer(_mapper.Object, _repository.Object);
+        _dataLayer = new TournamentManager.Registrations.Add.DataLayer(_mapper.Object, _repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_Model_MapperExecute_Model_CalledCorrectly()
     {
-        _mapper.Setup(mapper => mapper.Execute(It.IsAny<BowlingMegabucks.TournamentManager.Models.Registration>())).Returns(new BowlingMegabucks.TournamentManager.Database.Entities.Registration());
+        _mapper.Setup(mapper => mapper.Execute(It.IsAny<TournamentManager.Models.Registration>())).Returns(new TournamentManager.Database.Entities.Registration());
 
-        var registration = new BowlingMegabucks.TournamentManager.Models.Registration();
+        var registration = new TournamentManager.Models.Registration();
 
         await _dataLayer.ExecuteAsync(registration, default).ConfigureAwait(false);
 
@@ -32,10 +32,10 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_Model_RepositoryExecute_Model_CalledCorrectly()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.Registration();
-        _mapper.Setup(mapper => mapper.Execute(It.IsAny<BowlingMegabucks.TournamentManager.Models.Registration>())).Returns(entity);
+        var entity = new TournamentManager.Database.Entities.Registration();
+        _mapper.Setup(mapper => mapper.Execute(It.IsAny<TournamentManager.Models.Registration>())).Returns(entity);
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Registration();
+        var model = new TournamentManager.Models.Registration();
         CancellationToken cancellationToken = default;
 
         await _dataLayer.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
@@ -46,12 +46,12 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_Model_ReturnsRepositoryAddResponse()
     {
-        _mapper.Setup(mapper => mapper.Execute(It.IsAny<BowlingMegabucks.TournamentManager.Models.Registration>())).Returns(new BowlingMegabucks.TournamentManager.Database.Entities.Registration());
+        _mapper.Setup(mapper => mapper.Execute(It.IsAny<TournamentManager.Models.Registration>())).Returns(new TournamentManager.Database.Entities.Registration());
 
         var registrationId = RegistrationId.New();
-        _repository.Setup(repository => repository.AddAsync(It.IsAny<BowlingMegabucks.TournamentManager.Database.Entities.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrationId);
+        _repository.Setup(repository => repository.AddAsync(It.IsAny<TournamentManager.Database.Entities.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(registrationId);
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Registration();
+        var model = new TournamentManager.Models.Registration();
         var actual = await _dataLayer.ExecuteAsync(model, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(registrationId));
@@ -61,11 +61,11 @@ internal sealed class DataLayer
     public async Task ExecuteAsync_BowlerIdSquadId_RepositoryAddSquad_CalledCorrectly()
     {
         _repository.Setup(repository => repository.AddSquadAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+            .ReturnsAsync(new TournamentManager.Database.Entities.Registration
             {
                 Squads = [],
-                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler(),
-                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division()
+                Bowler = new TournamentManager.Database.Entities.Bowler(),
+                Division = new TournamentManager.Database.Entities.Division()
             });
 
         var bowlerId = BowlerId.New();
@@ -83,12 +83,12 @@ internal sealed class DataLayer
         var registrationId = RegistrationId.New();
 
         _repository.Setup(repository => repository.AddSquadAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+            .ReturnsAsync(new TournamentManager.Database.Entities.Registration
             {
                 Id = registrationId,
                 Squads = [],
-                Bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler(),
-                Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division()
+                Bowler = new TournamentManager.Database.Entities.Bowler(),
+                Division = new TournamentManager.Database.Entities.Division()
             });
 
         var bowlerId = BowlerId.New();

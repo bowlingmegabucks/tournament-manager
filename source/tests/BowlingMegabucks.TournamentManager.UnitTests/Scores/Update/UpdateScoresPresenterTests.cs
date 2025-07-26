@@ -1,22 +1,22 @@
 ﻿using BowlingMegabucks.TournamentManager.Scores;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Scores.Update;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Scores.Update;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Scores.Update.IView> _view;
-    private Mock<BowlingMegabucks.TournamentManager.Scores.Update.IAdapter> _adapter;
+    private Mock<TournamentManager.Scores.Update.IView> _view;
+    private Mock<TournamentManager.Scores.Update.IAdapter> _adapter;
 
-    private BowlingMegabucks.TournamentManager.Scores.Update.Presenter _presenter;
+    private TournamentManager.Scores.Update.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<BowlingMegabucks.TournamentManager.Scores.Update.IView>();
-        _adapter = new Mock<BowlingMegabucks.TournamentManager.Scores.Update.IAdapter>();
+        _view = new Mock<TournamentManager.Scores.Update.IView>();
+        _adapter = new Mock<TournamentManager.Scores.Update.IAdapter>();
 
-        _presenter = new BowlingMegabucks.TournamentManager.Scores.Update.Presenter(_view.Object, _adapter.Object);
+        _presenter = new TournamentManager.Scores.Update.Presenter(_view.Object, _adapter.Object);
     }
 
     [Test]
@@ -35,8 +35,8 @@ internal sealed class Presenter
     [Test]
     public async Task ExecuteAsync_AdapterHasErrors_ErrorFlow()
     {
-        var error1 = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error1");
-        var error2 = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error2");
+        var error1 = new TournamentManager.Models.ErrorDetail("error1");
+        var error2 = new TournamentManager.Models.ErrorDetail("error2");
 
         var errors = new[] { error1, error2 };
         _adapter.SetupGet(adapter => adapter.Errors).Returns(errors);

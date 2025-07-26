@@ -1,30 +1,30 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.LaneAssignments;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IView> _view;
-    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.ILaneAvailability> _laneAvailability;
-    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.IAdapter> _retrieveAdapter;
-    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Update.IAdapter> _updateAdapter;
-    private Mock<BowlingMegabucks.TournamentManager.Registrations.Add.IAdapter> _addRegistrationAdapter;
-    private Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IGenerateCrossFactory> _generateCrossFactory;
-    private Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IAdapter> _deleteAdapter;
+    private Mock<TournamentManager.LaneAssignments.IView> _view;
+    private Mock<TournamentManager.LaneAssignments.ILaneAvailability> _laneAvailability;
+    private Mock<TournamentManager.LaneAssignments.Retrieve.IAdapter> _retrieveAdapter;
+    private Mock<TournamentManager.LaneAssignments.Update.IAdapter> _updateAdapter;
+    private Mock<TournamentManager.Registrations.Add.IAdapter> _addRegistrationAdapter;
+    private Mock<TournamentManager.LaneAssignments.IGenerateCrossFactory> _generateCrossFactory;
+    private Mock<TournamentManager.Registrations.Delete.IAdapter> _deleteAdapter;
 
-    private BowlingMegabucks.TournamentManager.LaneAssignments.Presenter _presenter;
+    private TournamentManager.LaneAssignments.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IView>();
-        _laneAvailability = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.ILaneAvailability>();
-        _retrieveAdapter = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Retrieve.IAdapter>();
-        _updateAdapter = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.Update.IAdapter>();
-        _addRegistrationAdapter = new Mock<BowlingMegabucks.TournamentManager.Registrations.Add.IAdapter>();
-        _generateCrossFactory = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IGenerateCrossFactory>();
-        _deleteAdapter = new Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IAdapter>();
+        _view = new Mock<TournamentManager.LaneAssignments.IView>();
+        _laneAvailability = new Mock<TournamentManager.LaneAssignments.ILaneAvailability>();
+        _retrieveAdapter = new Mock<TournamentManager.LaneAssignments.Retrieve.IAdapter>();
+        _updateAdapter = new Mock<TournamentManager.LaneAssignments.Update.IAdapter>();
+        _addRegistrationAdapter = new Mock<TournamentManager.Registrations.Add.IAdapter>();
+        _generateCrossFactory = new Mock<TournamentManager.LaneAssignments.IGenerateCrossFactory>();
+        _deleteAdapter = new Mock<TournamentManager.Registrations.Delete.IAdapter>();
 
-        _presenter = new BowlingMegabucks.TournamentManager.LaneAssignments.Presenter(_view.Object, _laneAvailability.Object, _retrieveAdapter.Object, _updateAdapter.Object, _addRegistrationAdapter.Object, _generateCrossFactory.Object, _deleteAdapter.Object);
+        _presenter = new TournamentManager.LaneAssignments.Presenter(_view.Object, _laneAvailability.Object, _retrieveAdapter.Object, _updateAdapter.Object, _addRegistrationAdapter.Object, _generateCrossFactory.Object, _deleteAdapter.Object);
     }
 
     [Test]
@@ -64,8 +64,8 @@ internal sealed class Presenter
             _view.Verify(view => view.Disable(), Times.Once);
 
             _retrieveAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>()), Times.Never);
-            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
-            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
         });
     }
 
@@ -84,7 +84,7 @@ internal sealed class Presenter
     [Test]
     public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterHasError_ErrorFlow()
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _retrieveAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.LoadAsync(default).ConfigureAwait(false);
@@ -94,23 +94,23 @@ internal sealed class Presenter
             _view.Verify(view => view.DisplayError("error"), Times.Once);
             _view.Verify(view => view.Disable(), Times.Once);
 
-            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
-            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindRegistrations_CalledCorrectly()
     {
-        var assignment1 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment1 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
         assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
-        var assignment2 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment2 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
         assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
-        var assignment3 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment3 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
@@ -121,23 +121,23 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 1)), Times.Once);
-            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 1)), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
         });
     }
 
     [Test]
     public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindEntriesPerDivision_CalledCorrectly()
     {
-        var assignment1 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment1 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
         assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
-        var assignment2 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment2 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
         assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
-        var assignment3 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment3 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
@@ -158,15 +158,15 @@ internal sealed class Presenter
     [Test]
     public async Task LoadAsync_LaneAvailabilityGenerateNoErrors_RetrieveAdapterExecuteNoErrors_ViewBindLaneAssignments_CalledCorrectly()
     {
-        var assignment1 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment1 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
         assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
-        var assignment2 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment2 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
         assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
-        var assignment3 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment3 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
@@ -177,8 +177,8 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 2)), Times.Once);
-            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => !string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
+            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 2)), Times.Once);
+            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => !string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
         });
     }
 
@@ -189,7 +189,7 @@ internal sealed class Presenter
 
         var bowlerId = BowlerId.New();
         var originalPosition = "1A";
-        var registration = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var registration = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         registration.SetupGet(r => r.BowlerId).Returns(bowlerId);
         registration.SetupGet(r => r.LaneAssignment).Returns(originalPosition);
 
@@ -203,11 +203,11 @@ internal sealed class Presenter
     [Test]
     public async Task UpdateAsync_UpdateAdapterHasError_ErrorFlow([Values("", "21A")] string position)
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _updateAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         var squadId = SquadId.New();
-        var registration = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var registration = new Mock<TournamentManager.LaneAssignments.IViewModel>();
 
         await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
 
@@ -215,8 +215,8 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.RemoveLaneAssignment(It.IsAny<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
-            _view.Verify(view => view.AssignToLane(It.IsAny<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>(), It.IsAny<string>()), Times.Never);
+            _view.Verify(view => view.RemoveLaneAssignment(It.IsAny<TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
+            _view.Verify(view => view.AssignToLane(It.IsAny<TournamentManager.LaneAssignments.IViewModel>(), It.IsAny<string>()), Times.Never);
         });
     }
 
@@ -224,7 +224,7 @@ internal sealed class Presenter
     public async Task UpdateAsync_UpdateAdapterHasNoError_PositionEmpty_ViewRemoveLaneAssignment_CalledCorrectly()
     {
         var squadId = SquadId.New();
-        var registration = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var registration = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         var position = string.Empty;
 
         await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
@@ -236,19 +236,19 @@ internal sealed class Presenter
     public async Task UpdateAsync_UpdateAdapterHasNoError_PositionEmpty_ViewAssignToLane_NotCalled()
     {
         var squadId = SquadId.New();
-        var registration = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var registration = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         var position = string.Empty;
 
         await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
 
-        _view.Verify(view => view.AssignToLane(It.IsAny<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>(), It.IsAny<string>()), Times.Never);
+        _view.Verify(view => view.AssignToLane(It.IsAny<TournamentManager.LaneAssignments.IViewModel>(), It.IsAny<string>()), Times.Never);
     }
 
     [Test]
     public async Task UpdateAsync_UpdateAdapterHasNoError_PositionHasValue_ViewAssignToLane_CalledCorrectly()
     {
         var squadId = SquadId.New();
-        var registration = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var registration = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         var position = "21A";
 
         await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
@@ -260,12 +260,12 @@ internal sealed class Presenter
     public async Task UpdateAsync_UpdateAdapterHasNoError_PositionHasValue_RemoveLaneAssignment_NotCalled()
     {
         var squadId = SquadId.New();
-        var registration = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var registration = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         var position = "21A";
 
         await _presenter.UpdateAsync(squadId, registration.Object, position, default).ConfigureAwait(false);
 
-        _view.Verify(view => view.RemoveLaneAssignment(It.IsAny<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
+        _view.Verify(view => view.RemoveLaneAssignment(It.IsAny<TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
     }
 
     [Test]
@@ -293,7 +293,7 @@ internal sealed class Presenter
 
             _addRegistrationAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>()), Times.Never);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
-            _view.Verify(view => view.AddToUnassigned(It.IsAny<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
+            _view.Verify(view => view.AddToUnassigned(It.IsAny<TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
         });
     }
 
@@ -306,7 +306,7 @@ internal sealed class Presenter
         var bowlerId = BowlerId.New();
         _view.Setup(view => view.SelectBowler(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(bowlerId);
 
-        var registration = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var registration = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         registration.SetupGet(r => r.BowlerName).Returns("bowler name");
         _addRegistrationAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration.Object);
 
@@ -323,7 +323,7 @@ internal sealed class Presenter
         var bowlerId = BowlerId.New();
         _view.Setup(view => view.SelectBowler(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(bowlerId);
 
-        var errors = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error"), 3);
+        var errors = Enumerable.Repeat(new TournamentManager.Models.ErrorDetail("error"), 3);
         _addRegistrationAdapter.SetupGet(adapter => adapter.Errors).Returns(errors);
 
         await _presenter.AddToRegistrationAsync(default).ConfigureAwait(false);
@@ -332,7 +332,7 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.DisplayError($"error{Environment.NewLine}error{Environment.NewLine}error"), Times.Once);
 
-            _view.Verify(view => view.AddToUnassigned(It.IsAny<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
+            _view.Verify(view => view.AddToUnassigned(It.IsAny<TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
         });
     }
 
@@ -342,7 +342,7 @@ internal sealed class Presenter
         var bowlerId = BowlerId.New();
         _view.Setup(view => view.SelectBowler(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(bowlerId);
 
-        var registration = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var registration = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         registration.SetupGet(r => r.BowlerName).Returns("bowler name");
         _addRegistrationAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<BowlerId>(), It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(registration.Object);
 
@@ -378,7 +378,7 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.DisplayMessage("New Registration Canceled"), Times.Once);
 
-            _view.Verify(view => view.AddToUnassigned(It.IsAny<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
+            _view.Verify(view => view.AddToUnassigned(It.IsAny<TournamentManager.LaneAssignments.IViewModel>()), Times.Never);
         });
     }
 
@@ -445,8 +445,8 @@ internal sealed class Presenter
             _view.Verify(view => view.Disable(), Times.Once);
 
             _retrieveAdapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>()), Times.Never);
-            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
-            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
         });
     }
 
@@ -470,7 +470,7 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _retrieveAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.NewRegistrationAsync(default).ConfigureAwait(false);
@@ -480,8 +480,8 @@ internal sealed class Presenter
             _view.Verify(view => view.DisplayError("error"), Times.Once);
             _view.Verify(view => view.Disable(), Times.Once);
 
-            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
-            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindRegistrations(It.IsAny<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindLaneAssignments(It.IsAny<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>()), Times.Never);
         });
     }
 
@@ -490,15 +490,15 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
-        var assignment1 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment1 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
         assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
-        var assignment2 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment2 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
         assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
-        var assignment3 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment3 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
@@ -509,8 +509,8 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 1)), Times.Once);
-            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 1)), Times.Once);
+            _view.Verify(view => view.BindRegistrations(It.Is<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
         });
     }
 
@@ -519,15 +519,15 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
-        var assignment1 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment1 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
         assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
-        var assignment2 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment2 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
         assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
-        var assignment3 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment3 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
@@ -550,15 +550,15 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.NewRegistration(It.IsAny<TournamentId>(), It.IsAny<SquadId>())).Returns(true);
 
-        var assignment1 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment1 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment1.SetupGet(assignment => assignment.LaneAssignment).Returns("1");
         assignment1.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
-        var assignment2 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment2 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment2.SetupGet(assignment => assignment.LaneAssignment).Returns(string.Empty);
         assignment2.SetupGet(assignment => assignment.DivisionName).Returns("division2");
 
-        var assignment3 = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>();
+        var assignment3 = new Mock<TournamentManager.LaneAssignments.IViewModel>();
         assignment3.SetupGet(assignment => assignment.LaneAssignment).Returns("2");
         assignment3.SetupGet(assignment => assignment.DivisionName).Returns("division1");
 
@@ -569,15 +569,15 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 2)), Times.Once);
-            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => !string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
+            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.Count() == 2)), Times.Once);
+            _view.Verify(view => view.BindLaneAssignments(It.Is<IEnumerable<TournamentManager.LaneAssignments.IViewModel>>(registrations => registrations.All(registration => !string.IsNullOrWhiteSpace(registration.LaneAssignment)))), Times.Once);
         });
     }
 
     [Test]
     public void GenerateRecaps_GenerateCrossFactoryExecute_CalledCorrectly([Values] bool staggeredSkipSelected)
     {
-        var mockCrossGenerator = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IGenerate>();
+        var mockCrossGenerator = new Mock<TournamentManager.LaneAssignments.IGenerate>();
         _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
 
         _view.SetupGet(view => view.StaggeredSkipSelected).Returns(staggeredSkipSelected);
@@ -590,30 +590,30 @@ internal sealed class Presenter
     [Test]
     public void GenerateRecaps_CrossGeneratorDetermineSkip_CalledCorrectly()
     {
-        var mockCrossGenerator = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IGenerate>();
+        var mockCrossGenerator = new Mock<TournamentManager.LaneAssignments.IGenerate>();
         _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
 
-        var recap1 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap1 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "1A"
         };
 
-        var recap2 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap2 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "1B"
         };
 
-        var recap3 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap3 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "4C"
         };
 
-        var recap4 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap4 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "5A"
         };
 
-        var recap5 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap5 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "6C"
         };
@@ -628,33 +628,33 @@ internal sealed class Presenter
     [Test]
     public void GenerateRecaps_CrossGeneratorExecute_CalledCorrectly()
     {
-        var mockCrossGenerator = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IGenerate>();
+        var mockCrossGenerator = new Mock<TournamentManager.LaneAssignments.IGenerate>();
         mockCrossGenerator.Setup(generator => generator.DetermineSkip(It.IsAny<int>())).Returns(10);
         _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
 
         _view.SetupGet(view => view.Games).Returns(15);
 
-        var recap1 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap1 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "1A"
         };
 
-        var recap2 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap2 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "1B"
         };
 
-        var recap3 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap3 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "4C"
         };
 
-        var recap4 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap4 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "5A"
         };
 
-        var recap5 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap5 = new TournamentManager.LaneAssignments.ViewModel
         {
             LaneAssignment = "6C"
         };
@@ -676,36 +676,36 @@ internal sealed class Presenter
     [Test]
     public void GenerateRecaps_ViewGenerateRecaps_CalledCorrectly()
     {
-        var mockCrossGenerator = new Mock<BowlingMegabucks.TournamentManager.LaneAssignments.IGenerate>();
+        var mockCrossGenerator = new Mock<TournamentManager.LaneAssignments.IGenerate>();
         mockCrossGenerator.Setup(generator => generator.DetermineSkip(It.IsAny<int>())).Returns(10);
         mockCrossGenerator.Setup(generator => generator.Execute(It.IsAny<short>(), It.IsAny<string>(), It.IsAny<short>(), It.IsAny<IList<short>>(), It.IsAny<short>())).Returns(["a", "b", "c", "d"]);
         _generateCrossFactory.Setup(factory => factory.Execute(It.IsAny<bool>())).Returns(mockCrossGenerator.Object);
 
-        var recap1 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap1 = new TournamentManager.LaneAssignments.ViewModel
         {
             BowlerName = "bowler1",
             LaneAssignment = "1A"
         };
 
-        var recap2 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap2 = new TournamentManager.LaneAssignments.ViewModel
         {
             BowlerName = "bowler2",
             LaneAssignment = "1B"
         };
 
-        var recap3 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap3 = new TournamentManager.LaneAssignments.ViewModel
         {
             BowlerName = "bowler3",
             LaneAssignment = "4C"
         };
 
-        var recap4 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap4 = new TournamentManager.LaneAssignments.ViewModel
         {
             BowlerName = "bowler4",
             LaneAssignment = "5A"
         };
 
-        var recap5 = new BowlingMegabucks.TournamentManager.LaneAssignments.ViewModel
+        var recap5 = new TournamentManager.LaneAssignments.ViewModel
         {
             BowlerName = "bowler5",
             LaneAssignment = "6C"
@@ -717,18 +717,18 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count() == 5)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count() == 5)), Times.Once);
 
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler1") == 1)), Times.Once);
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler2") == 1)), Times.Once);
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler3") == 1)), Times.Once);
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler4") == 1)), Times.Once);
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler5") == 1)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler1") == 1)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler2") == 1)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler3") == 1)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler4") == 1)), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.Count(recap => recap.BowlerName == "bowler5") == 1)), Times.Once);
 
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[1] == "a"))), Times.Once);
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[2] == "b"))), Times.Once);
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[3] == "c"))), Times.Once);
-            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[4] == "d"))), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[1] == "a"))), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[2] == "b"))), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[3] == "c"))), Times.Once);
+            _view.Verify(view => view.GenerateRecaps(It.Is<IEnumerable<TournamentManager.Scores.IRecapSheetViewModel>>(recaps => recaps.All(recap => recap.Cross[4] == "d"))), Times.Once);
         });
     }
 
@@ -777,7 +777,7 @@ internal sealed class Presenter
     {
         _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
 
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _deleteAdapter.SetupGet(adapter => adapter.Error).Returns(error);
 
         await _presenter.DeleteAsync(BowlerId.New(), default).ConfigureAwait(false);

@@ -1,24 +1,24 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Bowlers.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<BowlingMegabucks.TournamentManager.Bowlers.IRepository> _repository;
+    private Mock<TournamentManager.Bowlers.IRepository> _repository;
 
-    private BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IDataLayer _dataLayer;
+    private TournamentManager.Bowlers.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<BowlingMegabucks.TournamentManager.Bowlers.IRepository>();
+        _repository = new Mock<TournamentManager.Bowlers.IRepository>();
 
-        _dataLayer = new BowlingMegabucks.TournamentManager.Bowlers.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new TournamentManager.Bowlers.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_BowlerId_RepositoryRetrieve_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new BowlingMegabucks.TournamentManager.Database.Entities.Bowler());
+        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<BowlerId>(), It.IsAny<CancellationToken>())).ReturnsAsync(new TournamentManager.Database.Entities.Bowler());
 
         var bowlerId = BowlerId.New();
         CancellationToken cancellationToken = default;
@@ -31,7 +31,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_BowlerId_ReturnsRepositoryRetrieve()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler = new TournamentManager.Database.Entities.Bowler
         {
             LastName = "test"
         };

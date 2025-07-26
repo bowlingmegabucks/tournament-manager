@@ -1,23 +1,23 @@
 ﻿using FluentValidation;
-using BowlingMegabucks.TournamentManager.Tests.Extensions;
+using BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Divisions.Add;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Divisions.Add;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<IValidator<BowlingMegabucks.TournamentManager.Models.Division>> _validator;
-    private Mock<BowlingMegabucks.TournamentManager.Divisions.Add.IDataLayer> _dataLayer;
+    private Mock<IValidator<TournamentManager.Models.Division>> _validator;
+    private Mock<TournamentManager.Divisions.Add.IDataLayer> _dataLayer;
 
-    private BowlingMegabucks.TournamentManager.Divisions.Add.BusinessLogic _businessLogic;
+    private TournamentManager.Divisions.Add.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _validator = new Mock<IValidator<BowlingMegabucks.TournamentManager.Models.Division>>();
-        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Divisions.Add.IDataLayer>();
+        _validator = new Mock<IValidator<TournamentManager.Models.Division>>();
+        _dataLayer = new Mock<TournamentManager.Divisions.Add.IDataLayer>();
 
-        _businessLogic = new BowlingMegabucks.TournamentManager.Divisions.Add.BusinessLogic(_validator.Object, _dataLayer.Object);
+        _businessLogic = new TournamentManager.Divisions.Add.BusinessLogic(_validator.Object, _dataLayer.Object);
     }
 
     [Test]
@@ -25,7 +25,7 @@ internal sealed class BusinessLogic
     {
         _validator.Validate_IsValid();
 
-        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var division = new TournamentManager.Models.Division();
         CancellationToken cancellationToken = default;
 
         await _businessLogic.ExecuteAsync(division, cancellationToken).ConfigureAwait(true);
@@ -38,7 +38,7 @@ internal sealed class BusinessLogic
     {
         _validator.Validate_IsNotValid("error");
 
-        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var division = new TournamentManager.Models.Division();
 
         var result = await _businessLogic.ExecuteAsync(division, default).ConfigureAwait(true);
 
@@ -47,7 +47,7 @@ internal sealed class BusinessLogic
             _businessLogic.Errors.Assert_HasErrorMessage("error");
             Assert.That(result, Is.Null);
 
-            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Division>(), It.IsAny<CancellationToken>()), Times.Never);
+            _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentManager.Models.Division>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
 
@@ -56,7 +56,7 @@ internal sealed class BusinessLogic
     {
         _validator.Validate_IsValid();
 
-        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var division = new TournamentManager.Models.Division();
         CancellationToken cancellationToken = default;
 
         await _businessLogic.ExecuteAsync(division, cancellationToken).ConfigureAwait(false);
@@ -70,9 +70,9 @@ internal sealed class BusinessLogic
         _validator.Validate_IsValid();
 
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Division>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentManager.Models.Division>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var division = new TournamentManager.Models.Division();
 
         var result = await _businessLogic.ExecuteAsync(division, default).ConfigureAwait(true);
 
@@ -88,10 +88,10 @@ internal sealed class BusinessLogic
     {
         _validator.Validate_IsValid();
 
-        var divisionId = BowlingMegabucks.TournamentManager.DivisionId.New();
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.Division>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisionId);
+        var divisionId = DivisionId.New();
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentManager.Models.Division>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisionId);
 
-        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var division = new TournamentManager.Models.Division();
 
         var result = await _businessLogic.ExecuteAsync(division, default).ConfigureAwait(true);
 

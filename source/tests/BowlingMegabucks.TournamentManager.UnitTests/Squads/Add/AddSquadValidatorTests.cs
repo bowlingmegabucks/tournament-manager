@@ -1,21 +1,21 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Squads.Add;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Squads.Add;
 
 [TestFixture]
 internal sealed class Validator
 {
-    private IValidator<BowlingMegabucks.TournamentManager.Models.Squad> _validator;
+    private IValidator<TournamentManager.Models.Squad> _validator;
 
     [SetUp]
     public void SetUp()
-        => _validator = new BowlingMegabucks.TournamentManager.Squads.Add.Validator();
+        => _validator = new TournamentManager.Squads.Add.Validator();
 
     [Test]
     public void TournamentId_Empty_HasError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             TournamentId = TournamentId.Empty
         };
@@ -27,7 +27,7 @@ internal sealed class Validator
     [Test]
     public void Tournament_Null_HasError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             Tournament = null
         };
@@ -39,9 +39,9 @@ internal sealed class Validator
     [Test]
     public void Tournament_NotNull_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
-            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
+            Tournament = new TournamentManager.Models.Tournament
             {
                 Id = TournamentId.New()
             }
@@ -57,10 +57,10 @@ internal sealed class Validator
         var id1 = TournamentId.New();
         var id2 = TournamentId.New();
 
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             TournamentId = id1,
-            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
+            Tournament = new TournamentManager.Models.Tournament
             {
                 Id = id2
             }
@@ -75,10 +75,10 @@ internal sealed class Validator
     {
         var id = TournamentId.New();
 
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             TournamentId = id,
-            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
+            Tournament = new TournamentManager.Models.Tournament
             {
                 Id = id
             }
@@ -91,7 +91,7 @@ internal sealed class Validator
     [Test]
     public void FinalsRatio_Null_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             FinalsRatio = null
         };
@@ -103,7 +103,7 @@ internal sealed class Validator
     [Test]
     public void FinalsRatio_LessThanOrEqualTo1_HasError([Values(-1, 0, .5, 1)] decimal finalsRatio)
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             FinalsRatio = finalsRatio
         };
@@ -115,7 +115,7 @@ internal sealed class Validator
     [Test]
     public void FinalsRatio_GreaterThan1_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             FinalsRatio = 1.1m
         };
@@ -127,7 +127,7 @@ internal sealed class Validator
     [Test]
     public void CashRatio_Null_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             CashRatio = null
         };
@@ -139,7 +139,7 @@ internal sealed class Validator
     [Test]
     public void CashRatio_LessThanOrEqualTo1_HasError([Values(-1, 0, .5, 1)] decimal cashRatio)
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             CashRatio = cashRatio
         };
@@ -151,7 +151,7 @@ internal sealed class Validator
     [Test]
     public void CashRatio_GreaterThan1_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             CashRatio = 1.1m
         };
@@ -163,10 +163,10 @@ internal sealed class Validator
     [Test]
     public void Date_BeforeTournamentStart_HasError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             Date = new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
+            Tournament = new TournamentManager.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2)
             }
@@ -179,10 +179,10 @@ internal sealed class Validator
     [Test]
     public void Date_OnTournamentStart_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             Date = new DateTime(2018, 1, 2, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
+            Tournament = new TournamentManager.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2),
                 End = new DateOnly(2018, 1, 3)
@@ -196,10 +196,10 @@ internal sealed class Validator
     [Test]
     public void Date_AfterTournamentStart_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             Date = new DateTime(2018, 1, 3, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
+            Tournament = new TournamentManager.Models.Tournament
             {
                 Start = new DateOnly(2018, 1, 2),
                 End = new DateOnly(2018, 1, 4)
@@ -213,10 +213,10 @@ internal sealed class Validator
     [Test]
     public void Date_BeforeTournamentEnd_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             Date = new DateTime(2018, 1, 1, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
+            Tournament = new TournamentManager.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
             }
@@ -229,10 +229,10 @@ internal sealed class Validator
     [Test]
     public void Date_OnTournamentEnd_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             Date = new DateTime(2018, 1, 2, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
+            Tournament = new TournamentManager.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
             }
@@ -245,10 +245,10 @@ internal sealed class Validator
     [Test]
     public void Date_AfterTournamentEnd_HasError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             Date = new DateTime(2018, 1, 3, 0, 0, 0, DateTimeKind.Unspecified),
-            Tournament = new BowlingMegabucks.TournamentManager.Models.Tournament
+            Tournament = new TournamentManager.Models.Tournament
             {
                 End = new DateOnly(2018, 1, 2)
             }
@@ -261,7 +261,7 @@ internal sealed class Validator
     [Test]
     public void MaxPerPair_LessThanOrEqualToZero_HasError([Values(-1, 0)] short maxPerPair)
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             MaxPerPair = maxPerPair
         };
@@ -273,7 +273,7 @@ internal sealed class Validator
     [Test]
     public void MaxPerPair_GreaterThanZero_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             MaxPerPair = 1
         };
@@ -285,7 +285,7 @@ internal sealed class Validator
     [Test]
     public void StartingLane_LessThanOrEqualToZero_HasError([Values(-1, 0)] short startingLane)
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             StartingLane = startingLane
         };
@@ -297,7 +297,7 @@ internal sealed class Validator
     [Test]
     public void StartingLane_Even_HasError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             StartingLane = 2
         };
@@ -309,7 +309,7 @@ internal sealed class Validator
     [Test]
     public void StartingLane_GreaterThanZeroAndOdd_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             StartingLane = 1
         };
@@ -321,7 +321,7 @@ internal sealed class Validator
     [Test]
     public void NumberOfLanes_LessThanOrEqualToZero_HasError([Values(-1, 0)] short numberOfLanes)
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             NumberOfLanes = numberOfLanes
         };
@@ -333,7 +333,7 @@ internal sealed class Validator
     [Test]
     public void NumberOfLanes_Odd_HasError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             NumberOfLanes = 3
         };
@@ -345,7 +345,7 @@ internal sealed class Validator
     [Test]
     public void NumberOfLanes_GreaterThanZeroAndEven_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             NumberOfLanes = 10
         };
@@ -357,7 +357,7 @@ internal sealed class Validator
     [Test]
     public void Complete_False_NoError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             Complete = false
         };
@@ -369,7 +369,7 @@ internal sealed class Validator
     [Test]
     public void Complete_True_HasError()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad
+        var squad = new TournamentManager.Models.Squad
         {
             Complete = true
         };

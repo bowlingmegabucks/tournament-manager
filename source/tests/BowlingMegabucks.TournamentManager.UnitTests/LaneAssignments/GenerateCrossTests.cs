@@ -1,16 +1,16 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.UnitTests.LaneAssignments;
 
 [TestFixture]
 internal abstract class Generate
 {
-    private BowlingMegabucks.TournamentManager.LaneAssignments.IGenerate _generator;
+    private TournamentManager.LaneAssignments.IGenerate _generator;
 
     [SetUp]
     public void SetUp()
         => _generator = InstanciateInterface();
 
-    protected abstract BowlingMegabucks.TournamentManager.LaneAssignments.IGenerate InstanciateInterface();
+    protected abstract TournamentManager.LaneAssignments.IGenerate InstanciateInterface();
 
     [Test]
     public void Execute_StartLane1_EnoughLanesToNotCircleBack_MappedCorrectly()

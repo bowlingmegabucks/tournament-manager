@@ -1,21 +1,21 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Sweepers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Sweepers.Retrieve;
 
 [TestFixture]
 internal sealed class Presenter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IView> _view;
-    private Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IAdapter> _getSweepersAdapter;
+    private Mock<TournamentManager.Sweepers.Retrieve.IView> _view;
+    private Mock<TournamentManager.Sweepers.Retrieve.IAdapter> _getSweepersAdapter;
 
-    private BowlingMegabucks.TournamentManager.Sweepers.Retrieve.Presenter _presenter;
+    private TournamentManager.Sweepers.Retrieve.Presenter _presenter;
 
     [SetUp]
     public void SetUp()
     {
-        _view = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IView>();
-        _getSweepersAdapter = new Mock<BowlingMegabucks.TournamentManager.Sweepers.Retrieve.IAdapter>();
+        _view = new Mock<TournamentManager.Sweepers.Retrieve.IView>();
+        _getSweepersAdapter = new Mock<TournamentManager.Sweepers.Retrieve.IAdapter>();
 
-        _presenter = new BowlingMegabucks.TournamentManager.Sweepers.Retrieve.Presenter(_view.Object, _getSweepersAdapter.Object);
+        _presenter = new TournamentManager.Sweepers.Retrieve.Presenter(_view.Object, _getSweepersAdapter.Object);
     }
 
     [Test]
@@ -34,7 +34,7 @@ internal sealed class Presenter
     [Test]
     public async Task ExecuteAsync_GetSweepersAdapterHasError_ErrorFlow()
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
 
         _getSweepersAdapter.SetupGet(getSweepersAdapter => getSweepersAdapter.Error).Returns(error);
 
@@ -45,22 +45,22 @@ internal sealed class Presenter
             _view.Verify(view => view.Disable(), Times.Once);
             _view.Verify(view => view.DisplayError("error"), Times.Once);
 
-            _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>>()), Times.Never);
+            _view.Verify(view => view.BindSweepers(It.IsAny<IEnumerable<TournamentManager.Sweepers.IViewModel>>()), Times.Never);
         });
     }
 
     [Test]
     public async Task ExecuteAsync_GetSweepersAdapterReturnsSweepers_ViewBindSweepers_CalledCorrectly()
     {
-        var sweeper1 = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>();
+        var sweeper1 = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper1.SetupGet(sweeper => sweeper.Date).Returns(DateTime.Now);
         sweeper1.SetupGet(sweeper => sweeper.MaxPerPair).Returns(1);
 
-        var sweeper2 = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>();
+        var sweeper2 = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper2.SetupGet(sweeper => sweeper.Date).Returns(DateTime.Now.AddDays(1));
         sweeper2.SetupGet(sweeper => sweeper.MaxPerPair).Returns(2);
 
-        var sweeper3 = new Mock<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>();
+        var sweeper3 = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper3.SetupGet(sweeper => sweeper.Date).Returns(DateTime.Now.AddHours(-1));
         sweeper3.SetupGet(sweeper => sweeper.MaxPerPair).Returns(3);
 
@@ -71,9 +71,9 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>>(collection => collection.ToList()[0].MaxPerPair == 3)), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>>(collection => collection.ToList()[1].MaxPerPair == 1)), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<BowlingMegabucks.TournamentManager.Sweepers.IViewModel>>(collection => collection.ToList()[2].MaxPerPair == 2)), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(collection => collection.ToList()[0].MaxPerPair == 3)), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(collection => collection.ToList()[1].MaxPerPair == 1)), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(collection => collection.ToList()[2].MaxPerPair == 2)), Times.Once);
         });
     }
 

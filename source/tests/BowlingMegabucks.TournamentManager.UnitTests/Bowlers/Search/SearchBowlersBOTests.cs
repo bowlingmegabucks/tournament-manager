@@ -1,24 +1,24 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Search;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Bowlers.Search;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Search.IDataLayer> _dataLayer;
+    private Mock<TournamentManager.Bowlers.Search.IDataLayer> _dataLayer;
 
-    private BowlingMegabucks.TournamentManager.Bowlers.Search.BusinessLogic _businessLogic;
+    private TournamentManager.Bowlers.Search.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Search.IDataLayer>();
+        _dataLayer = new Mock<TournamentManager.Bowlers.Search.IDataLayer>();
 
-        _businessLogic = new BowlingMegabucks.TournamentManager.Bowlers.Search.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new TournamentManager.Bowlers.Search.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_DataLayerExecute_CalledCorrectly()
     {
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria();
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria();
         CancellationToken cancellationToken = default;
 
         await _businessLogic.ExecuteAsync(searchCriteria, cancellationToken).ConfigureAwait(false);
@@ -29,10 +29,10 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_ReturnsDataLayerExecuteResults()
     {
-        var divisions = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
+        var divisions = Enumerable.Repeat(new TournamentManager.Models.Bowler { Id = BowlerId.New() }, 2);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria();
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria();
 
         var actual = await _businessLogic.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
@@ -42,10 +42,10 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_DataLayerExecuteNoException_ErrorNull()
     {
-        var divisions = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() }, 2);
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
+        var divisions = Enumerable.Repeat(new TournamentManager.Models.Bowler { Id = BowlerId.New() }, 2);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria();
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria();
 
         await _businessLogic.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 
@@ -56,9 +56,9 @@ internal sealed class BusinessLogic
     public async Task ExecuteAsync_DataLayerExecuteThrowsException_ErrorFlow()
     {
         var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
+        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria();
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria();
 
         var actual = await _businessLogic.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);
 

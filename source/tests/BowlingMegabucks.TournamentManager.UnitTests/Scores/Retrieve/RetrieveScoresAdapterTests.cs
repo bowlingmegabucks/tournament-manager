@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Scores.Retrieve;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Scores.Retrieve;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Scores.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<TournamentManager.Scores.Retrieve.IBusinessLogic> _businessLogic;
 
-    private BowlingMegabucks.TournamentManager.Scores.Retrieve.Adapter _adapter;
+    private TournamentManager.Scores.Retrieve.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Scores.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<TournamentManager.Scores.Retrieve.IBusinessLogic>();
 
-        _adapter = new BowlingMegabucks.TournamentManager.Scores.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new TournamentManager.Scores.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -30,7 +30,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_AdapterError_SetToBusinessLogicError()
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         await _adapter.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);
@@ -41,13 +41,13 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_ReturnsAdapterExecute()
     {
-        var score1 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score1 = new TournamentManager.Models.SquadScore
         {
             GameNumber = 1,
             Score = 200
         };
 
-        var score2 = new BowlingMegabucks.TournamentManager.Models.SquadScore
+        var score2 = new TournamentManager.Models.SquadScore
         {
             GameNumber = 2,
             Score = 201

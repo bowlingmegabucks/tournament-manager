@@ -1,53 +1,53 @@
-﻿using BowlingMegabucks.TournamentManager.Tests.Extensions;
+﻿using BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 
-namespace BowlingMegabucks.TournamentManager.Tests.LaneAssignments;
+namespace BowlingMegabucks.TournamentManager.UnitTests.LaneAssignments;
 internal sealed class LaneAssignmentsRepositoryTests
 {
-    private Mock<BowlingMegabucks.TournamentManager.Database.IDataContext> _dataContext;
+    private Mock<TournamentManager.Database.IDataContext> _dataContext;
 
-    private BowlingMegabucks.TournamentManager.LaneAssignments.IRepository _repository;
+    private TournamentManager.LaneAssignments.IRepository _repository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<BowlingMegabucks.TournamentManager.Database.IDataContext>();
-        _repository = new BowlingMegabucks.TournamentManager.LaneAssignments.Repository(_dataContext.Object);
+        _dataContext = new Mock<TournamentManager.Database.IDataContext>();
+        _repository = new TournamentManager.LaneAssignments.Repository(_dataContext.Object);
     }
 
     [Test]
     public void Retrieve_SquadId_ReturnsSquadRegistrations()
     {
-        var squad1 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
+        var squad1 = new TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             Registrations =
             [
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "1A" },
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "1B" }
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "1A" },
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "1B" }
             ]
         };
 
-        var squad2 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
+        var squad2 = new TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             Registrations =
             [
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3A" },
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3B" },
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3C" }
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3A" },
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3B" },
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "3C" }
             ]
         };
 
-        var squad3 = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad
+        var squad3 = new TournamentManager.Database.Entities.TournamentSquad
         {
             Id = SquadId.New(),
             Registrations =
             [
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5A"},
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5B" },
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5C" },
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5D" },
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5E" }
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5A"},
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5B" },
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5C" },
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5D" },
+                new TournamentManager.Database.Entities.SquadRegistration{RegistrationId = RegistrationId.New(), LaneAssignment = "5E" }
             ]
         };
 

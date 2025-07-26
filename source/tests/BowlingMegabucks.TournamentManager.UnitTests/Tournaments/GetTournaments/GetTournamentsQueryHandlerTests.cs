@@ -3,7 +3,7 @@ using BowlingMegabucks.TournamentManager.Tournaments;
 using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.GetTournaments;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.GetTournaments;
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 #pragma warning disable CA1515 
 #pragma warning disable CA1707
@@ -53,7 +53,7 @@ public sealed class GetTournamentsQueryHandlerTests
     [Test]
     public async Task HandleAsync_RepositoryRetrieveAll_ThrowsException_ReturnsError()
     {
-        var exception = new Exception("Database error");
+        var exception = new InvalidOperationException("Database error");
         _repositoryMock.Setup(repo => repo.RetrieveAllAsync(It.IsAny<CancellationToken>())).ThrowsAsync(exception);
 
         var result = await _loggingDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);

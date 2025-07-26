@@ -1,18 +1,18 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Divisions.Retrieve;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Divisions.Retrieve;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
-    private Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IDataLayer> _dataLayer;
+    private Mock<TournamentManager.Divisions.Retrieve.IDataLayer> _dataLayer;
 
-    private BowlingMegabucks.TournamentManager.Divisions.Retrieve.BusinessLogic _businessLogic;
+    private TournamentManager.Divisions.Retrieve.BusinessLogic _businessLogic;
 
     [SetUp]
     public void SetUp()
     {
-        _dataLayer = new Mock<BowlingMegabucks.TournamentManager.Divisions.Retrieve.IDataLayer>();
+        _dataLayer = new Mock<TournamentManager.Divisions.Retrieve.IDataLayer>();
 
-        _businessLogic = new BowlingMegabucks.TournamentManager.Divisions.Retrieve.BusinessLogic(_dataLayer.Object);
+        _businessLogic = new TournamentManager.Divisions.Retrieve.BusinessLogic(_dataLayer.Object);
     }
 
     [Test]
@@ -29,7 +29,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_ReturnsDataLayerExecuteResults()
     {
-        var divisions = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.Division(), 2);
+        var divisions = Enumerable.Repeat(new TournamentManager.Models.Division(), 2);
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
         var tournamentId = TournamentId.New();
@@ -42,7 +42,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_DataLayerExecuteNoException_ErrorNull()
     {
-        var divisions = Enumerable.Repeat(new BowlingMegabucks.TournamentManager.Models.Division(), 2);
+        var divisions = Enumerable.Repeat(new TournamentManager.Models.Division(), 2);
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(divisions);
 
         var tournamentId = TournamentId.New();
@@ -83,7 +83,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_ReturnsDataLayerExecuteResult()
     {
-        var division = new BowlingMegabucks.TournamentManager.Models.Division();
+        var division = new TournamentManager.Models.Division();
         _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(division);
 
         var divisionId = DivisionId.New();

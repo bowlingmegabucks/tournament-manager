@@ -1,27 +1,27 @@
 ﻿using MockQueryable;
-using BowlingMegabucks.TournamentManager.Tests.Extensions;
+using BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Tournaments.Retrieve;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.Retrieve;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<BowlingMegabucks.TournamentManager.Tournaments.IRepository> _repository;
+    private Mock<TournamentManager.Tournaments.IRepository> _repository;
 
-    private BowlingMegabucks.TournamentManager.Tournaments.Retrieve.IDataLayer _dataLayer;
+    private TournamentManager.Tournaments.Retrieve.IDataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _repository = new Mock<BowlingMegabucks.TournamentManager.Tournaments.IRepository>();
+        _repository = new Mock<TournamentManager.Tournaments.IRepository>();
 
-        _dataLayer = new BowlingMegabucks.TournamentManager.Tournaments.Retrieve.DataLayer(_repository.Object);
+        _dataLayer = new TournamentManager.Tournaments.Retrieve.DataLayer(_repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_Id_RepositoryExecuteId_CalledCorrectly()
     {
-        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var id = TournamentId.New();
@@ -35,7 +35,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_Id_ReturnsTournament()
     {
-        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var actual = await _dataLayer.ExecuteAsync(tournament.Id, default).ConfigureAwait(false);
@@ -46,7 +46,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_DivisionId_RepositoryExecuteDivisionId_CalledCorrectly()
     {
-        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var id = DivisionId.New();
@@ -60,7 +60,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_DivisionId_ReturnsTournament()
     {
-        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var actual = await _dataLayer.ExecuteAsync(DivisionId.New(), default).ConfigureAwait(false);
@@ -71,7 +71,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_SquadId_RepositoryExecuteSquadId_CalledCorrectly()
     {
-        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var id = SquadId.New();
@@ -85,7 +85,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_SquadId_ReturnsTournament()
     {
-        var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
+        var tournament = new TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
         _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var actual = await _dataLayer.ExecuteAsync(SquadId.New(), default).ConfigureAwait(false);

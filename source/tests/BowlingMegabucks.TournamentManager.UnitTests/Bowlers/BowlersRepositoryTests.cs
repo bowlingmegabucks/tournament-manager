@@ -1,26 +1,26 @@
-﻿using BowlingMegabucks.TournamentManager.Tests.Extensions;
+﻿using BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Bowlers;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Bowlers;
 
 [TestFixture]
 internal sealed class Repository
 {
-    private Mock<BowlingMegabucks.TournamentManager.Database.IDataContext> _dataContext;
+    private Mock<TournamentManager.Database.IDataContext> _dataContext;
 
-    private BowlingMegabucks.TournamentManager.Bowlers.IRepository _repository;
+    private TournamentManager.Bowlers.IRepository _repository;
 
     [SetUp]
     public void SetUp()
     {
-        _dataContext = new Mock<BowlingMegabucks.TournamentManager.Database.IDataContext>();
+        _dataContext = new Mock<TournamentManager.Database.IDataContext>();
 
-        _repository = new BowlingMegabucks.TournamentManager.Bowlers.Repository(_dataContext.Object);
+        _repository = new TournamentManager.Bowlers.Repository(_dataContext.Object);
     }
 
     [Test]
     public void Search_AllSearchCriteriaNullOrWhitespace_ReturnsAllBowlers([Values(null, "", " ")] string value)
     {
-        var bowler1 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler1 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -28,7 +28,7 @@ internal sealed class Repository
             EmailAddress = "johndoe@gmail.com"
         };
 
-        var bowler2 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler2 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "Jane",
@@ -36,7 +36,7 @@ internal sealed class Repository
             EmailAddress = "janedoe@gmail.com"
         };
 
-        var bowler3 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler3 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -48,7 +48,7 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria()
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria()
         {
             LastName = value,
             FirstName = value,
@@ -70,7 +70,7 @@ internal sealed class Repository
     [Test]
     public void Search_OnlyLastNameSetForSearchCriteria_CorrectBowlersReturned([Values(null, "", " ")] string value)
     {
-        var bowler1 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler1 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -78,7 +78,7 @@ internal sealed class Repository
             EmailAddress = "johndoe@gmail.com"
         };
 
-        var bowler2 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler2 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "Jane",
@@ -86,7 +86,7 @@ internal sealed class Repository
             EmailAddress = "janedoe@gmail.com"
         };
 
-        var bowler3 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler3 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -98,7 +98,7 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria()
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria()
         {
             LastName = "Do",
             FirstName = value,
@@ -119,7 +119,7 @@ internal sealed class Repository
     [Test]
     public void Search_OnlyFirstNameSetForSearchCriteria_CorrectBowlersReturned([Values(null, "", " ")] string value)
     {
-        var bowler1 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler1 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -127,7 +127,7 @@ internal sealed class Repository
             EmailAddress = "johndoe@gmail.com"
         };
 
-        var bowler2 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler2 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "Jane",
@@ -135,7 +135,7 @@ internal sealed class Repository
             EmailAddress = "janedoe@gmail.com"
         };
 
-        var bowler3 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler3 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -147,7 +147,7 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria()
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria()
         {
             LastName = value,
             FirstName = "Jo",
@@ -168,7 +168,7 @@ internal sealed class Repository
     [Test]
     public void Search_OnlyEmailAddressSetForSearchCriteria_CorrectBowlersReturned([Values(null, "", " ")] string value)
     {
-        var bowler1 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler1 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -176,7 +176,7 @@ internal sealed class Repository
             EmailAddress = "johndoe@gmail.com"
         };
 
-        var bowler2 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler2 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "Jane",
@@ -184,7 +184,7 @@ internal sealed class Repository
             EmailAddress = "janedoe@gmail.com"
         };
 
-        var bowler3 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler3 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -196,7 +196,7 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria()
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria()
         {
             LastName = value,
             FirstName = value,
@@ -216,7 +216,7 @@ internal sealed class Repository
     [Test]
     public void Search_AllBowlerFieldsSet_ResultsAreCumulative_NoResultsReturned()
     {
-        var bowler1 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler1 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -224,7 +224,7 @@ internal sealed class Repository
             EmailAddress = "johndoe@gmail.com"
         };
 
-        var bowler2 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler2 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "Jane",
@@ -232,7 +232,7 @@ internal sealed class Repository
             EmailAddress = "janedoe@gmail.com"
         };
 
-        var bowler3 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler3 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -244,7 +244,7 @@ internal sealed class Repository
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(bowlers.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria()
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria()
         {
             LastName = "D",
             FirstName = "J",
@@ -265,28 +265,28 @@ internal sealed class Repository
         var squad4 = SquadId.New();
         var squad5 = SquadId.New();
 
-        var registration1 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration1 = new TournamentManager.Database.Entities.Registration
         {
-            Squads = [new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { SquadId = squad1 }]
+            Squads = [new TournamentManager.Database.Entities.SquadRegistration { SquadId = squad1 }]
         };
 
-        var registration2 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration2 = new TournamentManager.Database.Entities.Registration
         {
             Squads =
             [
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { SquadId = squad2},
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { SquadId = squad3}
+                new TournamentManager.Database.Entities.SquadRegistration { SquadId = squad2},
+                new TournamentManager.Database.Entities.SquadRegistration { SquadId = squad3}
             ]
         };
 
-        var bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler = new TournamentManager.Database.Entities.Bowler
         {
             Registrations = [registration1, registration2]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria
         {
             WithoutRegistrationOnSquads = [squad4, squad5]
         };
@@ -305,28 +305,28 @@ internal sealed class Repository
         var squad4 = SquadId.New();
         var squad5 = SquadId.New();
 
-        var registration1 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration1 = new TournamentManager.Database.Entities.Registration
         {
-            Squads = [new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { SquadId = squad1 }]
+            Squads = [new TournamentManager.Database.Entities.SquadRegistration { SquadId = squad1 }]
         };
 
-        var registration2 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration2 = new TournamentManager.Database.Entities.Registration
         {
             Squads =
             [
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { SquadId = squad2},
-                new BowlingMegabucks.TournamentManager.Database.Entities.SquadRegistration { SquadId = squad3}
+                new TournamentManager.Database.Entities.SquadRegistration { SquadId = squad2},
+                new TournamentManager.Database.Entities.SquadRegistration { SquadId = squad3}
             ]
         };
 
-        var bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler = new TournamentManager.Database.Entities.Bowler
         {
             Registrations = [registration1, registration2]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria
         {
             WithoutRegistrationOnSquads = [squad4, squad5, squad3]
         };
@@ -341,38 +341,38 @@ internal sealed class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var registration1 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration1 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var registration2 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration2 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = tournamentId
             }
         };
 
-        var registration3 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration3 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler = new TournamentManager.Database.Entities.Bowler
         {
             Registrations = [registration1, registration2, registration3]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria
         {
             RegisteredInTournament = tournamentId
         };
@@ -387,38 +387,38 @@ internal sealed class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var registration1 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration1 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var registration2 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration2 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var registration3 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration3 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler = new TournamentManager.Database.Entities.Bowler
         {
             Registrations = [registration1, registration2, registration3]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria
         {
             RegisteredInTournament = tournamentId
         };
@@ -433,38 +433,38 @@ internal sealed class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var registration1 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration1 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var registration2 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration2 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = tournamentId
             }
         };
 
-        var registration3 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration3 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler = new TournamentManager.Database.Entities.Bowler
         {
             Registrations = [registration1, registration2, registration3]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria
         {
             NotRegisteredInTournament = tournamentId
         };
@@ -479,38 +479,38 @@ internal sealed class Repository
     {
         var tournamentId = TournamentId.New();
 
-        var registration1 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration1 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var registration2 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration2 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var registration3 = new BowlingMegabucks.TournamentManager.Database.Entities.Registration
+        var registration3 = new TournamentManager.Database.Entities.Registration
         {
-            Division = new BowlingMegabucks.TournamentManager.Database.Entities.Division
+            Division = new TournamentManager.Database.Entities.Division
             {
                 TournamentId = TournamentId.New()
             }
         };
 
-        var bowler = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler = new TournamentManager.Database.Entities.Bowler
         {
             Registrations = [registration1, registration2, registration3]
         };
 
         _dataContext.Setup(dataContext => dataContext.Bowlers).Returns(new[] { bowler }.SetUpDbContext());
 
-        var searchCriteria = new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria
+        var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria
         {
             NotRegisteredInTournament = tournamentId
         };
@@ -523,7 +523,7 @@ internal sealed class Repository
     [Test]
     public async Task UpdateAsync_BowlerName_NameUpdated()
     {
-        var bowler1 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler1 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "firstName1",
@@ -536,7 +536,7 @@ internal sealed class Repository
 
         await _repository.UpdateAsync(bowler1.Id, "firstName2", "middleInitial2", "lastName2", "suffix2", default).ConfigureAwait(false);
 
-        var updated = _repository.Search(new BowlingMegabucks.TournamentManager.Models.BowlerSearchCriteria { LastName = "lastName2" });
+        var updated = _repository.Search(new TournamentManager.Models.BowlerSearchCriteria { LastName = "lastName2" });
 
         Assert.Multiple(() =>
         {
@@ -553,7 +553,7 @@ internal sealed class Repository
     [Test]
     public async Task RetrieveAsync_BowlerId_ReturnsBowler()
     {
-        var bowler1 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler1 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",
@@ -561,7 +561,7 @@ internal sealed class Repository
             EmailAddress = "johndoe@gmail.com"
         };
 
-        var bowler2 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler2 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "Jane",
@@ -569,7 +569,7 @@ internal sealed class Repository
             EmailAddress = "janedoe@gmail.com"
         };
 
-        var bowler3 = new BowlingMegabucks.TournamentManager.Database.Entities.Bowler
+        var bowler3 = new TournamentManager.Database.Entities.Bowler
         {
             Id = BowlerId.New(),
             FirstName = "John",

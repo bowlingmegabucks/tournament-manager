@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Registrations.Delete;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Delete;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IBusinessLogic> _businessLogic;
+    private Mock<TournamentManager.Registrations.Delete.IBusinessLogic> _businessLogic;
 
-    private BowlingMegabucks.TournamentManager.Registrations.Delete.Adapter _adapter;
+    private TournamentManager.Registrations.Delete.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Registrations.Delete.IBusinessLogic>();
+        _businessLogic = new Mock<TournamentManager.Registrations.Delete.IBusinessLogic>();
 
-        _adapter = new BowlingMegabucks.TournamentManager.Registrations.Delete.Adapter(_businessLogic.Object);
+        _adapter = new TournamentManager.Registrations.Delete.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -31,7 +31,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_BowlerIdSquadId_ErrorSetToBusinessLogicError()
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         await _adapter.ExecuteAsync(BowlerId.New(), SquadId.New(), default).ConfigureAwait(false);
@@ -53,7 +53,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_RegistrationId_ErrorSetToBusinessLogicError()
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         await _adapter.ExecuteAsync(RegistrationId.New(), default).ConfigureAwait(false);

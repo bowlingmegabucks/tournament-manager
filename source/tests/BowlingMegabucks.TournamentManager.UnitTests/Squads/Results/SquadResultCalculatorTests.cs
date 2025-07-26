@@ -1,23 +1,23 @@
 ﻿using System.Security.Cryptography;
 
-namespace BowlingMegabucks.TournamentManager.Tests.Squads.Results;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Squads.Results;
 
 [TestFixture]
 internal sealed class Calculator
 {
-    private BowlingMegabucks.TournamentManager.Squads.Results.Calculator _calculator;
+    private TournamentManager.Squads.Results.Calculator _calculator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _calculator = new BowlingMegabucks.TournamentManager.Squads.Results.Calculator();
+        => _calculator = new TournamentManager.Squads.Results.Calculator();
 
-    private static BowlingMegabucks.TournamentManager.Models.BowlerSquadScore BuildBowlerSquadScore(int game)
+    private static TournamentManager.Models.BowlerSquadScore BuildBowlerSquadScore(int game)
         => BuildBowlerSquadScore(Enumerable.Repeat(game, 3).ToArray());
 
-    private static BowlingMegabucks.TournamentManager.Models.BowlerSquadScore BuildBowlerSquadScore(params int[] scores)
+    private static TournamentManager.Models.BowlerSquadScore BuildBowlerSquadScore(params int[] scores)
         => new(scores)
         {
-            Bowler = new BowlingMegabucks.TournamentManager.Models.Bowler { Id = BowlerId.New() },
+            Bowler = new TournamentManager.Models.Bowler { Id = BowlerId.New() },
         };
 
     [Test]
@@ -85,7 +85,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new BowlingMegabucks.TournamentManager.Models.Squad(), new BowlingMegabucks.TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
+        var result = _calculator.Execute(new TournamentManager.Models.Squad(), new TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -172,7 +172,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new BowlingMegabucks.TournamentManager.Models.Squad(), new BowlingMegabucks.TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
+        var result = _calculator.Execute(new TournamentManager.Models.Squad(), new TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -259,7 +259,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new BowlingMegabucks.TournamentManager.Models.Squad(), new BowlingMegabucks.TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
+        var result = _calculator.Execute(new TournamentManager.Models.Squad(), new TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -296,7 +296,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new BowlingMegabucks.TournamentManager.Models.Squad(), new BowlingMegabucks.TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
+        var result = _calculator.Execute(new TournamentManager.Models.Squad(), new TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -328,7 +328,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new BowlingMegabucks.TournamentManager.Models.Squad(), new BowlingMegabucks.TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
+        var result = _calculator.Execute(new TournamentManager.Models.Squad(), new TournamentManager.Models.Division(), scores, [], finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -409,7 +409,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new BowlingMegabucks.TournamentManager.Models.Squad(), new BowlingMegabucks.TournamentManager.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
+        var result = _calculator.Execute(new TournamentManager.Models.Squad(), new TournamentManager.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -498,7 +498,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new BowlingMegabucks.TournamentManager.Models.Squad(), new BowlingMegabucks.TournamentManager.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
+        var result = _calculator.Execute(new TournamentManager.Models.Squad(), new TournamentManager.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {
@@ -587,7 +587,7 @@ internal sealed class Calculator
         var cashRatio = 5.0m;
         var finalsRatio = 8.0m;
 
-        var result = _calculator.Execute(new BowlingMegabucks.TournamentManager.Models.Squad(), new BowlingMegabucks.TournamentManager.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
+        var result = _calculator.Execute(new TournamentManager.Models.Squad(), new TournamentManager.Models.Division(), scores, previousAdvancersIds, finalsRatio, cashRatio);
 
         Assert.Multiple(() =>
         {

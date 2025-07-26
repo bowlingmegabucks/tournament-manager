@@ -1,19 +1,19 @@
 ﻿
-namespace BowlingMegabucks.TournamentManager.Tests.Bowlers.Retrieve;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Bowlers.Retrieve;
 
 [TestFixture]
 internal sealed class Adapter
 {
-    private Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<TournamentManager.Bowlers.Retrieve.IBusinessLogic> _businessLogic;
 
-    private BowlingMegabucks.TournamentManager.Bowlers.Retrieve.Adapter _adapter;
+    private TournamentManager.Bowlers.Retrieve.Adapter _adapter;
 
     [SetUp]
     public void SetUp()
     {
-        _businessLogic = new Mock<BowlingMegabucks.TournamentManager.Bowlers.Retrieve.IBusinessLogic>();
+        _businessLogic = new Mock<TournamentManager.Bowlers.Retrieve.IBusinessLogic>();
 
-        _adapter = new BowlingMegabucks.TournamentManager.Bowlers.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new TournamentManager.Bowlers.Retrieve.Adapter(_businessLogic.Object);
     }
 
     [Test]
@@ -30,7 +30,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_BusinessLogicHasError_ErrorFlow()
     {
-        var error = new BowlingMegabucks.TournamentManager.Models.ErrorDetail("error");
+        var error = new TournamentManager.Models.ErrorDetail("error");
         _businessLogic.SetupGet(businessLogic => businessLogic.ErrorDetail).Returns(error);
 
         var bowlerId = BowlerId.New();
@@ -48,7 +48,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_BusinessLogicSuccess_ReturnsMappedViewModel()
     {
-        var bowler = new BowlingMegabucks.TournamentManager.Models.Bowler
+        var bowler = new TournamentManager.Models.Bowler
         {
             Id = BowlerId.New()
         };

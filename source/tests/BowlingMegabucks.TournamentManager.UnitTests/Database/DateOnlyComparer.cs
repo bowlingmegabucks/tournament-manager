@@ -1,4 +1,4 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Database;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Database;
 
 [TestFixture]
 internal sealed class DateOnlyComparer
@@ -6,7 +6,7 @@ internal sealed class DateOnlyComparer
     [Test]
     public void Comparer_SameValues_ReturnsTrue()
     {
-        var comparer = new BowlingMegabucks.TournamentManager.Database.DateOnlyComparer();
+        var comparer = new TournamentManager.Database.DateOnlyComparer();
 
         var equals = comparer.EqualsExpression.Compile();
 
@@ -19,7 +19,7 @@ internal sealed class DateOnlyComparer
     [Test]
     public void Comparer_DifferentValues_ReturnsFalse()
     {
-        var comparer = new BowlingMegabucks.TournamentManager.Database.DateOnlyComparer();
+        var comparer = new TournamentManager.Database.DateOnlyComparer();
 
         var equals = comparer.EqualsExpression.Compile();
 
@@ -32,7 +32,7 @@ internal sealed class DateOnlyComparer
     [Test]
     public void Comparer_GetHashCode_ReturnsDateOnlyHashCode()
     {
-        var comparer = new BowlingMegabucks.TournamentManager.Database.DateOnlyComparer();
+        var comparer = new TournamentManager.Database.DateOnlyComparer();
 
         var hashCode = comparer.HashCodeExpression.Compile();
 

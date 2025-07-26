@@ -1,26 +1,26 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tests.Squads.Add;
+﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Squads.Add;
 
 [TestFixture]
 internal sealed class DataLayer
 {
-    private Mock<BowlingMegabucks.TournamentManager.Squads.IEntityMapper> _mapper;
-    private Mock<BowlingMegabucks.TournamentManager.Squads.IRepository> _repository;
+    private Mock<TournamentManager.Squads.IEntityMapper> _mapper;
+    private Mock<TournamentManager.Squads.IRepository> _repository;
 
-    private BowlingMegabucks.TournamentManager.Squads.Add.DataLayer _dataLayer;
+    private TournamentManager.Squads.Add.DataLayer _dataLayer;
 
     [SetUp]
     public void SetUp()
     {
-        _mapper = new Mock<BowlingMegabucks.TournamentManager.Squads.IEntityMapper>();
-        _repository = new Mock<BowlingMegabucks.TournamentManager.Squads.IRepository>();
+        _mapper = new Mock<TournamentManager.Squads.IEntityMapper>();
+        _repository = new Mock<TournamentManager.Squads.IRepository>();
 
-        _dataLayer = new BowlingMegabucks.TournamentManager.Squads.Add.DataLayer(_mapper.Object, _repository.Object);
+        _dataLayer = new TournamentManager.Squads.Add.DataLayer(_mapper.Object, _repository.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_MapperExecute_CalledCorrectly()
     {
-        var squad = new BowlingMegabucks.TournamentManager.Models.Squad();
+        var squad = new TournamentManager.Models.Squad();
 
         await _dataLayer.ExecuteAsync(squad, default).ConfigureAwait(false);
 
@@ -30,10 +30,10 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_RepositoryExecute_CalledCorrectly()
     {
-        var entity = new BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad();
-        _mapper.Setup(mapper => mapper.Execute(It.IsAny<BowlingMegabucks.TournamentManager.Models.Squad>())).Returns(entity);
+        var entity = new TournamentManager.Database.Entities.TournamentSquad();
+        _mapper.Setup(mapper => mapper.Execute(It.IsAny<TournamentManager.Models.Squad>())).Returns(entity);
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Squad();
+        var model = new TournamentManager.Models.Squad();
         CancellationToken cancellationToken = default;
 
         await _dataLayer.ExecuteAsync(model, cancellationToken).ConfigureAwait(false);
@@ -45,9 +45,9 @@ internal sealed class DataLayer
     public async Task ExecuteAsync_ReturnsRepositoryAddResponse()
     {
         var id = SquadId.New();
-        _repository.Setup(repository => repository.AddAsync(It.IsAny<BowlingMegabucks.TournamentManager.Database.Entities.TournamentSquad>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
+        _repository.Setup(repository => repository.AddAsync(It.IsAny<TournamentManager.Database.Entities.TournamentSquad>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
-        var model = new BowlingMegabucks.TournamentManager.Models.Squad();
+        var model = new TournamentManager.Models.Squad();
         var actual = await _dataLayer.ExecuteAsync(model, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(id));
