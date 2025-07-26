@@ -9,6 +9,8 @@ using BowlingMegabucks.TournamentManager.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddOpenApiDocumentation();
 
 builder.Services.AddProblemDetails();
@@ -27,6 +29,8 @@ builder.Services.AddApiHealthChecks(builder.Configuration);
 builder.Services.AddOpenTelemetry(builder.Logging, builder.Host, builder.Environment);
 
 var app = builder.Build();
+
+app.UseLogging();
 
 app.UseApiRateLimiting();
 
