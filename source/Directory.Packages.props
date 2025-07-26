@@ -70,5 +70,7 @@
     <PackageVersion Include="System.Formats.Asn1" Version="9.0.6" />
     <PackageVersion Include="System.IO.Packaging" Version="9.0.7" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="9.0.7" />
+    <PackageVersion Include="xunit.v3" Version="3.0.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.2" />
   </ItemGroup>
 </Project>
