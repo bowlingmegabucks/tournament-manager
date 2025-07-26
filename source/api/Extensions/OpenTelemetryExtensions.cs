@@ -33,7 +33,7 @@ internal static class OpenTelemetryExtensions
             .WithTracing(tracing => tracing
                 .AddHttpClientInstrumentation()
                 .AddAspNetCoreInstrumentation()
-                .AddEntityFrameworkCoreInstrumentation( options => options.SetDbStatementForText = true)
+                .AddEntityFrameworkCoreInstrumentation( options => options.SetDbStatementForText = !environment.IsProduction())
                 .AddSqlClientInstrumentation()
                 .AddMySqlDataInstrumentation())
             .WithMetrics(metrics => metrics
