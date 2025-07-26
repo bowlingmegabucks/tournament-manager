@@ -21,5 +21,5 @@ jobs:
       run: dotnet clean source/api --configuration Release && dotnet nuget locals all --clear
     - name: Build
       run: dotnet build source/api --configuration Release
-    - name: Test
+    - name: Integration Tests
       run: dotnet test source/tests/BowlingMegabucks.TournamentManager.IntegrationTests --no-build --verbosity normal --configuration Release
