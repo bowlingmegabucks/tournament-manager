@@ -22,4 +22,4 @@ jobs:
     - name: Build
       run: dotnet build source --configuration Release
     - name: Test
-      run: dotnet test source/tests --no-build --verbosity normal --configuration Release
+      run: dotnet test source --no-build --verbosity normal --configuration Release
