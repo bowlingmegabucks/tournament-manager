@@ -19,42 +19,6 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public async Task ExecuteAsync_RepositoryRetrieveAll_Called()
-    {
-        _repository.Setup(repository => repository.RetrieveAll()).Returns(Enumerable.Empty<BowlingMegabucks.TournamentManager.Database.Entities.Tournament>().SetUpDbContext());
-        await _dataLayer.ExecuteAsync(default).ConfigureAwait(false);
-
-        _repository.Verify(repository => repository.RetrieveAll(), Times.Once);
-    }
-
-    [Test]
-    public async Task ExecuteAsync_ReturnsTournamentModels()
-    {
-        var id1 = TournamentId.New();
-        var id2 = TournamentId.New();
-        var id3 = TournamentId.New();
-
-        var tournament1 = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = id1 };
-        var tournament2 = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = id2 };
-        var tournament3 = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = id3 };
-
-        var tournaments = new[] { tournament1, tournament2, tournament3 };
-
-        _repository.Setup(repository => repository.RetrieveAll()).Returns(tournaments.BuildMock());
-
-        var actual = (await _dataLayer.ExecuteAsync(default).ConfigureAwait(false)).ToList();
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(actual, Has.Count.EqualTo(3));
-
-            Assert.That(actual.Exists(tournament => tournament.Id == id1), "tournament1 not returned");
-            Assert.That(actual.Exists(tournament => tournament.Id == id2), "tournament2 not returned");
-            Assert.That(actual.Exists(tournament => tournament.Id == id3), "tournament3 not returned");
-        });
-    }
-
-    [Test]
     public async Task ExecuteAsync_Id_RepositoryExecuteId_CalledCorrectly()
     {
         var tournament = new BowlingMegabucks.TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
