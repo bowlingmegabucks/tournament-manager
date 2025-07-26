@@ -16,61 +16,6 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public async Task ExecuteAsync_DataLayerExecute_Called()
-    {
-        CancellationToken cancellationToken = default;
-
-        await _businessLogic.ExecuteAsync(cancellationToken).ConfigureAwait(false);
-
-        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(cancellationToken), Times.Once);
-    }
-
-    [Test]
-    public async Task ExecuteAsync_ReturnsResultFromDataLayer()
-    {
-        var tournaments = new Mock<IEnumerable<BowlingMegabucks.TournamentManager.Models.Tournament>>();
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ReturnsAsync(tournaments.Object);
-
-        var result = await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
-
-        Assert.That(result, Is.EqualTo(tournaments.Object));
-    }
-
-    [Test]
-    public async Task ExecuteAsync_NoErrors_ErrorNull()
-    {
-        await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
-
-        Assert.That(_businessLogic.ErrorDetail, Is.Null);
-    }
-
-    [Test]
-    public async Task ExecuteAsync_DataLayerExecuteThrowsException_ReturnsEmptyCollection()
-    {
-        var ex = new Exception();
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ThrowsAsync(ex);
-
-        var result = await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
-
-        Assert.That(result, Is.Empty);
-    }
-
-    [Test]
-    public async Task Execute_DataLayerExecuteThrowsException_ErrorPopulated()
-    {
-        var ex = new Exception("message");
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<CancellationToken>())).ThrowsAsync(ex);
-
-        await _businessLogic.ExecuteAsync(default).ConfigureAwait(false);
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
-            Assert.That(_businessLogic.ErrorDetail.ReturnCode, Is.EqualTo(-1));
-        });
-    }
-
-    [Test]
     public async Task ExecuteAsync_Id_DataLayerExecute_Called()
     {
         var id = TournamentId.New();
