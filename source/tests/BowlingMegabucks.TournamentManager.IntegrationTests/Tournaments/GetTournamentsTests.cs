@@ -7,13 +7,9 @@ namespace BowlingMegabucks.TournamentManager.IntegrationTests.Tournaments;
 public sealed class GetTournamentsTests
     : BaseIntegrationTests
 {
-    private readonly HttpClient _client;
-
     public GetTournamentsTests(ApiFactory factory)
         : base(factory)
-    {
-        _client = factory.CreateClient();
-    }
+    { }
 
     [Fact]
     public async Task GetTournaments_ShouldReturnOk_WhenEndpointIsCalled()
@@ -22,7 +18,7 @@ public sealed class GetTournamentsTests
         using var request = new HttpRequestMessage(HttpMethod.Get, "/v1/tournaments");
 
         // Act
-        var response = await _client.SendAsync(request, TestContext.Current.CancellationToken);
+        var response = await HttpClient.SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -41,7 +37,7 @@ public sealed class GetTournamentsTests
         using var request = new HttpRequestMessage(HttpMethod.Get, "/v1/tournaments");
 
         // Act
-        var response = await _client.SendAsync(request, TestContext.Current.CancellationToken);
+        var response = await HttpClient.SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
         response.EnsureSuccessStatusCode();
