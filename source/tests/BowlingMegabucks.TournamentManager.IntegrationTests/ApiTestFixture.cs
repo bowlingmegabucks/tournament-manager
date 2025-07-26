@@ -2,6 +2,9 @@ using BowlingMegabucks.TournamentManager.Api;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.Hosting;
 using Testcontainers.MariaDb;
+using BowlingMegabucks.TournamentManager.IntegrationTests;
+
+[assembly: AssemblyFixture(typeof(ApiTestFixture))]
 
 namespace BowlingMegabucks.TournamentManager.IntegrationTests;
 
