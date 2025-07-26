@@ -9,7 +9,7 @@ namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
 /// Endpoint to retrieve a list of tournaments.
 /// </summary>
 public sealed class GetTournamentsEndpoint
-    : EndpointWithoutRequest<IResult>
+    : EndpointWithoutRequest<Results<Ok<GetTournamentsResponse>, ProblemHttpResult>>
 {
     private readonly IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> _queryHandler;
 
@@ -58,11 +58,11 @@ public sealed class GetTournamentsEndpoint
     /// </summary>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task<IResult> ExecuteAsync(CancellationToken ct)
+    public override async Task<Results<Ok<GetTournamentsResponse>, ProblemHttpResult>> ExecuteAsync(CancellationToken ct)
     {
         var tournamentsResult = await _queryHandler.HandleAsync(new(), ct);
 
-        return tournamentsResult.Match<IResult>(
+        return tournamentsResult.Match<Results<Ok<GetTournamentsResponse>,ProblemHttpResult>>(
             tournaments =>
             {
                 var response = new GetTournamentsResponse
