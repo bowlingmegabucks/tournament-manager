@@ -4,9 +4,6 @@ using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.GetTournaments;
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CA1515 
-#pragma warning disable CA1707
 
 [TestFixture]
 public sealed class GetTournamentsQueryHandlerTests
