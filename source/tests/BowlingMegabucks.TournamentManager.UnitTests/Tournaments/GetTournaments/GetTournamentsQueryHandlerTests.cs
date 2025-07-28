@@ -10,20 +10,20 @@ public sealed class GetTournamentsQueryHandlerTests
 {
     private Mock<IRepository> _repositoryMock;
     private GetTournamentsQueryHandler _handler;
-    private GetTournamentsQueryHandlerTelemetryDecorator _loggingDecorator;
+    private GetTournamentsQueryHandlerTelemetryDecorator _telemetryDecorator;
 
     [SetUp]
     public void SetUp()
     {
         _repositoryMock = new Mock<IRepository>();
         _handler = new GetTournamentsQueryHandler(_repositoryMock.Object);
-        _loggingDecorator = new GetTournamentsQueryHandlerTelemetryDecorator(_handler, NullLogger<GetTournamentsQueryHandlerTelemetryDecorator>.Instance);
+        _telemetryDecorator = new GetTournamentsQueryHandlerTelemetryDecorator(_handler, NullLogger<GetTournamentsQueryHandlerTelemetryDecorator>.Instance);
     }
 
     [Test]
     public async Task HandleAsync_RepositoryRetrieveAll_Called()
     {
-        await _loggingDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);
+        await _telemetryDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);
 
         _repositoryMock.Verify(repo => repo.RetrieveAllAsync(CancellationToken.None), Times.Once);
     }
@@ -39,7 +39,7 @@ public sealed class GetTournamentsQueryHandlerTests
 
         _repositoryMock.Setup(repo => repo.RetrieveAllAsync(It.IsAny<CancellationToken>())).ReturnsAsync(expectedTournaments);
 
-        var result = await _loggingDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);
+        var result = await _telemetryDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);
 
         Assert.That(result.IsError, Is.False);
         Assert.That(result.Value.Count(), Is.EqualTo(expectedTournaments.Count));
@@ -53,7 +53,7 @@ public sealed class GetTournamentsQueryHandlerTests
         var exception = new InvalidOperationException("Database error");
         _repositoryMock.Setup(repo => repo.RetrieveAllAsync(It.IsAny<CancellationToken>())).ThrowsAsync(exception);
 
-        var result = await _loggingDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);
+        var result = await _telemetryDecorator.HandleAsync(new GetTournamentsQuery(), CancellationToken.None);
 
         Assert.That(result.IsError, Is.True);
         Assert.That(result.FirstError.Code, Is.EqualTo("GetTournamentsQueryHandler.Exception"));
