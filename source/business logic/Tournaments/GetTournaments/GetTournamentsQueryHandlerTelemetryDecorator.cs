@@ -21,7 +21,7 @@ internal sealed class GetTournamentsQueryHandlerTelemetryDecorator
 
     public async Task<ErrorOr<IEnumerable<Models.Tournament>>> HandleAsync(GetTournamentsQuery query, CancellationToken cancellationToken)
     {
-        using var activity = TournamentsTelemetry._activity.StartActivity("RetrieveTournaments", ActivityKind.Internal);
+        using var activity = TournamentsTelemetry._activity.StartActivity("Retrieve Tournaments", ActivityKind.Internal);
 
         try
         {
