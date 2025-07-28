@@ -11,11 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddOpenApiDocumentation();
+builder.AddOpenApi();
 
 builder.Services.AddProblemDetails();
 
-builder.Services.ConfigureRateLimiting(builder.Configuration);
+builder.ConfigureRateLimiting();
 
 builder.Services.AddFastEndpoints()
     .AddAuthorization()
@@ -24,9 +24,9 @@ builder.Services.AddFastEndpoints()
 
 builder.Services.AddBusinessLogic(builder.Configuration);
 
-builder.Services.AddApiHealthChecks(builder.Configuration);
+builder.AddHealthChecks();
 
-builder.Services.AddOpenTelemetry(builder.Logging, builder.Host, builder.Environment);
+builder.AddOpenTelemetry();
 
 var app = builder.Build();
 

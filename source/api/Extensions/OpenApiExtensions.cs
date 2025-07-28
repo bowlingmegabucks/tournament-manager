@@ -9,12 +9,12 @@ namespace BowlingMegabucks.TournamentManager.Api.Extensions;
 
 internal static class OpenApiExtensions
 {
-    public static IServiceCollection AddOpenApiDocumentation(this IServiceCollection services)
+    public static WebApplicationBuilder AddOpenApi(this WebApplicationBuilder builder)
     {
-        services.AddOpenApi()
+        builder.Services.AddOpenApi()
             .SwaggerDocument(ConfigureSwaggerDocument);
 
-        return services;
+        return builder;
     }
 
     private static void ConfigureSwaggerDocument(DocumentOptions o)

@@ -8,18 +8,18 @@ namespace BowlingMegabucks.TournamentManager.Api.Extensions;
 #pragma warning disable CA1861 // Suppressing CA1861 because the constant array allocations are small and acceptable for health check configuration.
 internal static partial class HealthCheckExtensions
 {
-    public static IServiceCollection AddApiHealthChecks(this IServiceCollection services, IConfigurationManager config)
+    public static WebApplicationBuilder AddHealthChecks(this WebApplicationBuilder builder)
     {
-        var healthChecks = services.AddHealthChecks();
+        var healthChecks = builder.Services.AddHealthChecks();
 
-        var keyVaultUrl = config.GetValue<string>("KEYVAULT_URL");
+        var keyVaultUrl = builder.Configuration.GetValue<string>("KEYVAULT_URL");
 
         if (!string.IsNullOrEmpty(keyVaultUrl))
         {
             var uri = new Uri(keyVaultUrl);
             var credential = new DefaultAzureCredential();
 
-            config.AddAzureKeyVault(uri, credential);
+            builder.Configuration.AddAzureKeyVault(uri, credential);
 
             healthChecks.AddAzureKeyVault(uri, credential, options =>
             {
@@ -29,12 +29,12 @@ internal static partial class HealthCheckExtensions
             }, name: "Azure Key Vault", tags: new[] { "secrets", "azure" });
         }
 
-        healthChecks.AddMySql(config.GetConnectionString("Default")
+        healthChecks.AddMySql(builder.Configuration.GetConnectionString("Default")
             ?? throw new InvalidOperationException("Connection string 'Default' is required for MySQL health check configuration."),
             name: "MySQL",
             tags: new[] { "db", "mysql" });
 
-        var appInsightsConnectionString = config["APPLICATIONINSIGHTS_CONNECTION_STRING"];
+        var appInsightsConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"];
 
         if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
         {
@@ -50,7 +50,7 @@ internal static partial class HealthCheckExtensions
                 tags: new[] { "monitoring", "azure" });
         }
 
-        return services;
+        return builder;
     }
 
     public static IApplicationBuilder MapApiHealthChecks(this IApplicationBuilder app)
