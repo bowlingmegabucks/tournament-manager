@@ -29,9 +29,9 @@ internal static class TournamentsExtensions
 
         services.AddTransient<GetTournamentsQueryHandler>();
         services.AddTransient<IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>>>(provider =>
-            new GetTournamentsQueryHandlerLoggingDecorator(
+            new GetTournamentsQueryHandlerTelemetryDecorator(
                 provider.GetRequiredService<GetTournamentsQueryHandler>(),
-                provider.GetRequiredService<ILogger<GetTournamentsQueryHandlerLoggingDecorator>>()));
+                provider.GetRequiredService<ILogger<GetTournamentsQueryHandlerTelemetryDecorator>>()));
 
         return services;
     }

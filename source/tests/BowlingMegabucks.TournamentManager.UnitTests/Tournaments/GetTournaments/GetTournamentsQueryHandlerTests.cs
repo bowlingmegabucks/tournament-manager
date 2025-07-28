@@ -10,14 +10,14 @@ public sealed class GetTournamentsQueryHandlerTests
 {
     private Mock<IRepository> _repositoryMock;
     private GetTournamentsQueryHandler _handler;
-    private GetTournamentsQueryHandlerLoggingDecorator _loggingDecorator;
+    private GetTournamentsQueryHandlerTelemetryDecorator _loggingDecorator;
 
     [SetUp]
     public void SetUp()
     {
         _repositoryMock = new Mock<IRepository>();
         _handler = new GetTournamentsQueryHandler(_repositoryMock.Object);
-        _loggingDecorator = new GetTournamentsQueryHandlerLoggingDecorator(_handler, NullLogger<GetTournamentsQueryHandlerLoggingDecorator>.Instance);
+        _loggingDecorator = new GetTournamentsQueryHandlerTelemetryDecorator(_handler, NullLogger<GetTournamentsQueryHandlerTelemetryDecorator>.Instance);
     }
 
     [Test]

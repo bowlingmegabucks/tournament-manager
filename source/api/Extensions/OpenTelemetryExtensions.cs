@@ -1,11 +1,13 @@
 using System.Globalization;
 using Azure.Monitor.OpenTelemetry.AspNetCore;
 using BowlingMegabucks.TournamentManager.Api.Middleware;
+using BowlingMegabucks.TournamentManager.Tournaments;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using Serilog;
 using Serilog.Enrichers.AspNetCore;
+using Serilog.Enrichers.Span;
 
 namespace BowlingMegabucks.TournamentManager.Api.Extensions;
 
@@ -23,6 +25,7 @@ internal static class OpenTelemetryExtensions
                 .Enrich.WithProcessName()
 
                 .Enrich.WithThreadId()
+                .Enrich.WithSpan()
 
                 .Enrich.WithClientIp()
                 .Enrich.WithRequestHeader("User-Agent")
@@ -35,7 +38,8 @@ internal static class OpenTelemetryExtensions
                 .AddAspNetCoreInstrumentation()
                 .AddEntityFrameworkCoreInstrumentation( options => options.SetDbStatementForText = !builder.Environment.IsProduction())
                 .AddSqlClientInstrumentation()
-                .AddMySqlDataInstrumentation())
+                .AddMySqlDataInstrumentation(o => o.EnableConnectionLevelAttributes = !builder.Environment.IsProduction())
+                .AddSource(TournamentsTelemetry.ActivitySourceName))
             .WithMetrics(metrics => metrics
                 .AddHttpClientInstrumentation()
                 .AddAspNetCoreInstrumentation()
