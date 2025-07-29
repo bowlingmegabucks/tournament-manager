@@ -39,11 +39,24 @@ public class ErrorDetail(string message, int returnCode)
     }
 }
 
-internal static class ErrorDetailExtensions
+/// <summary>
+/// 
+/// </summary>
+public static class ErrorDetailExtensions
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="errors"></param>
+    /// <returns></returns>
     public static IEnumerable<ErrorDetail> ToErrorDetails(this IEnumerable<ErrorOr.Error> errors)
         => errors.Select(e => e.ToErrorDetail());
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="error"></param>
+    /// <returns></returns>
     public static ErrorDetail ToErrorDetail(this ErrorOr.Error error)
         => new(error.Description, -1);
 }
