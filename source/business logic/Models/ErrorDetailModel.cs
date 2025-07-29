@@ -22,7 +22,7 @@ public class ErrorDetail(string message, int returnCode)
     /// 
     /// </summary>
     /// <param name="ex"></param>
-    public ErrorDetail(Exception ex) 
+    public ErrorDetail(Exception ex)
         : this(ex?.Message ?? throw new ArgumentNullException(nameof(ex)))
     {
 
@@ -32,9 +32,18 @@ public class ErrorDetail(string message, int returnCode)
     /// 
     /// </summary>
     /// <param name="message"></param>
-    public ErrorDetail(string message) 
+    public ErrorDetail(string message)
         : this(message, -1)
     {
 
     }
+}
+
+internal static class ErrorDetailExtensions
+{
+    public static IEnumerable<ErrorDetail> ToErrorDetails(this IEnumerable<ErrorOr.Error> errors)
+        => errors.Select(e => e.ToErrorDetail());
+
+    public static ErrorDetail ToErrorDetail(this ErrorOr.Error error)
+        => new(error.Description, -1);
 }

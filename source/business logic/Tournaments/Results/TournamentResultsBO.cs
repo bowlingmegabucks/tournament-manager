@@ -1,4 +1,8 @@
-﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Results;
+﻿using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Models;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
+
+namespace BowlingMegabucks.TournamentManager.Tournaments.Results;
 
 /// <summary>
 /// 
@@ -12,9 +16,9 @@ internal class BusinessLogic : IBusinessLogic
 
     private readonly ICalculator _calculator;
     private readonly Squads.Results.IBusinessLogic _retrieveSquadResults;
-    private readonly Retrieve.IBusinessLogic _retrieveTournament;
+    private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _retrieveTournament;
 
-    public BusinessLogic(ICalculator calculator, Squads.Results.IBusinessLogic retrieveSquadResults, Retrieve.IBusinessLogic retrieveTournament)
+    public BusinessLogic(ICalculator calculator, Squads.Results.IBusinessLogic retrieveSquadResults, IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> retrieveTournament)
     {
         _calculator = calculator;
         _retrieveSquadResults = retrieveSquadResults;
@@ -29,11 +33,11 @@ internal class BusinessLogic : IBusinessLogic
     /// <returns></returns>
     public async Task<IEnumerable<Models.TournamentResults>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var tournament = await _retrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
+        var tournamentResult = await _retrieveTournament.HandleAsync(new() { Id = tournamentId }, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveTournament.ErrorDetail != null)
+        if (tournamentResult.IsError)
         {
-            ErrorDetail = _retrieveTournament.ErrorDetail;
+            ErrorDetail = tournamentResult.FirstError.ToErrorDetail();
 
             return [];
         }
@@ -46,6 +50,8 @@ internal class BusinessLogic : IBusinessLogic
 
             return [];
         }
+
+        var tournament = tournamentResult.Value!;
 
         return squadResults.Select(squadResult => new Models.TournamentResults(squadResult.Key, squadResult, _calculator.Execute(squadResult.Key.Id, [.. squadResult], tournament!.FinalsRatio))).ToList();
     }
