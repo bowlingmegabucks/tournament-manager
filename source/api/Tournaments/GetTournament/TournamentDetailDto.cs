@@ -43,17 +43,17 @@ public sealed record TournamentDetailDto
     /// <summary>
     /// The divisions available in the tournament.
     /// </summary>
-    public required ReadOnlyCollection<DivisionDetailDto> Divisions { get; init; }
+    public required IReadOnlyCollection<DivisionDetailDto> Divisions { get; init; }
 
     /// <summary>
     /// The squads available in the tournament.
     /// </summary>
-    public required ReadOnlyCollection<SquadDetailDto> Squads { get; init; }
+    public required IReadOnlyCollection<SquadDetailDto> Squads { get; init; }
 
     /// <summary>
     /// The sweepers available in the tournament.
     /// </summary>
-    public required ReadOnlyCollection<SweeperDetailDto> Sweepers { get; init; }
+    public required IReadOnlyCollection<SweeperDetailDto> Sweepers { get; init; }
 }
 
 internal static class TournamentDetailDtoExtensions
