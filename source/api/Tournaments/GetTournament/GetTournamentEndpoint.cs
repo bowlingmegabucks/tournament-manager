@@ -85,7 +85,7 @@ public sealed class GetTournamentEndpoint
             });
         }
 
-        return tournamentResult.FirstError.NumericType == (int)ErrorType.NotFound
+        return tournamentResult.FirstError.Type == ErrorType.NotFound
             ? TypedResults.NotFound().ToProblemDetails()
             : tournamentResult.Errors.ToProblemDetails("An error occurred while retrieving the tournament.");
     }
