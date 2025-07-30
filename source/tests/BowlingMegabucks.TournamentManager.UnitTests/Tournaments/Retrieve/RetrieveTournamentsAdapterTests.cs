@@ -91,6 +91,9 @@ internal sealed class Adapter
         var tournamentId = TournamentId.New();
         CancellationToken cancellationToken = default;
 
+        _getTournamentByIdQueryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Error.Conflict());
+
         await _adapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
         _getTournamentByIdQueryHandler.Verify(queryHandler => queryHandler.HandleAsync(It.Is<GetTournamentByIdQuery>(query => query.Id == tournamentId), cancellationToken), Times.Once);
