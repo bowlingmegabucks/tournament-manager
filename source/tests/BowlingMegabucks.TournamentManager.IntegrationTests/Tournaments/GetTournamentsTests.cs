@@ -15,6 +15,10 @@ public sealed class GetTournamentsTests
     public async Task GetTournaments_ShouldReturnOk_WhenEndpointIsCalled()
     {
         // Arrange
+        var tournamentSeeds = TournamentEntityFactory.Bogus(7);
+        await _dbContext.Tournaments.AddRangeAsync(tournamentSeeds, TestContext.Current.CancellationToken);
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
         using var request = new HttpRequestMessage(HttpMethod.Get, "/v1/tournaments");
 
         // Act
@@ -24,6 +28,11 @@ public sealed class GetTournamentsTests
         response.EnsureSuccessStatusCode();
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var tournaments = await response.Content.ReadFromJsonAsync<GetTournamentsResponse>(TestContext.Current.CancellationToken);
+        tournaments.Should().NotBeNull();
+        tournaments.TotalCount.Should().Be(7);
+        tournaments.Tournaments.Should().HaveCount(7);
     }
 
     [Fact]

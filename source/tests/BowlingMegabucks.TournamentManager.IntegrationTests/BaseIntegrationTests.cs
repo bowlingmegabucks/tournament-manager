@@ -22,14 +22,16 @@ public abstract class BaseIntegrationTests
         ResetDatabaseAsync = factory.ResetDatabaseAsync;
     }
 
-    public ValueTask InitializeAsync() => ValueTask.CompletedTask;
+    public ValueTask InitializeAsync()
+        => ValueTask.CompletedTask;
 
     public async ValueTask DisposeAsync()
     {
+        await ResetDatabaseAsync();
+        
         _scope.Dispose();
         await _dbContext.DisposeAsync();
         
         GC.SuppressFinalize(this);
-        await ResetDatabaseAsync();
     }
 }

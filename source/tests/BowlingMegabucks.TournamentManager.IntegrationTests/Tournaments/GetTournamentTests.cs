@@ -1,7 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
 using BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournament;
-using BowlingMegabucks.TournamentManager.IntegrationTests.Divisions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BowlingMegabucks.TournamentManager.IntegrationTests.Tournaments;
@@ -17,9 +16,7 @@ public sealed class GetTournamentTests
     public async Task GetTournament_ShouldReturn404_WhenNoTournamentIsFound()
     {
         // Arrange
-        var tournamentSeeds = TournamentEntityFactory.Bogus(10);
-        await _dbContext.Tournaments.AddRangeAsync(tournamentSeeds, TestContext.Current.CancellationToken);
-        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+        // used to seed data but it was causing the count test in the other class to fail, will revisit if/when more tests fail for the same reason on different entities in the future.
 
         using var request = new HttpRequestMessage(HttpMethod.Get, $"/v1/tournaments/{TournamentId.New()}");
 
