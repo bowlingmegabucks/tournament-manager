@@ -1,5 +1,7 @@
+using ErrorOr;
 using FastEndpoints;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BowlingMegabucks.TournamentManager.Api;
 
@@ -64,4 +66,16 @@ internal static class HttpStatusCodeResponses
             TraceId = "0HMPNHL0JHL76:00000001",
             Detail = "An unexpected error occurred while processing the request."
         };
+
+    internal static ProblemHttpResult ToProblemDetails(this IEnumerable<Error> errors, string detail, int? statusCode = StatusCodes.Status500InternalServerError)
+    { 
+        var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+        {
+            Detail = detail,
+            Status = statusCode,
+            Extensions = { ["errors"] = errors.Select(e => new { e.Code, e.Description }).ToList() }
+        };
+
+        return TypedResults.Problem(problemDetails);
+    }
 }

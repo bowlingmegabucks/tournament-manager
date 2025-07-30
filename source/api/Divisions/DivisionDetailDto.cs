@@ -45,3 +45,25 @@ public sealed record DivisionDetailDto
     [JsonConverter(typeof(SmartEnumNameConverter<Gender, int>))]
     public Gender? Gender { get; init; }
 }
+
+internal static class DivisionDetailDtoExtensions
+{
+    /// <summary>
+    /// Converts a division model to a DivisionDetailDto.
+    /// </summary>
+    /// <param name="division">The division model.</param>
+    /// <returns>A DivisionDetailDto containing the division details.</returns>
+    public static DivisionDetailDto ToDto(this Models.Division division)
+    {
+        return new DivisionDetailDto
+        {
+            Id = division.Id,
+            Name = division.Name,
+            MinimumAge = division.MinimumAge,
+            MaximumAge = division.MaximumAge,
+            MinimumAverage = division.MinimumAverage,
+            MaximumAverage = division.MaximumAverage,
+            Gender = division.Gender
+        };
+    }
+}

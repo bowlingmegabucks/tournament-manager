@@ -55,3 +55,27 @@ public sealed record TournamentDetailDto
     /// </summary>
     public required ReadOnlyCollection<SweeperDetailDto> Sweepers { get; init; }
 }
+
+internal static class TournamentDetailDtoExtensions
+{
+    /// <summary>
+    /// Converts a tournament model to a TournamentDetailDto.
+    /// </summary>
+    /// <param name="tournament">The tournament model.</param>
+    /// <returns>A TournamentDetailDto containing the tournament details.</returns>
+    public static TournamentDetailDto ToDto(this Models.Tournament tournament)
+    {
+        return new TournamentDetailDto
+        {
+            Id = tournament.Id,
+            Name = tournament.Name,
+            StartDate = tournament.Start,
+            EndDate = tournament.End,
+            EntryFee = tournament.EntryFee,
+            BowlingCenter = tournament.BowlingCenter,
+            Divisions = tournament.Divisions.Select(d => d.ToDto()).ToList().AsReadOnly(),
+            Squads = tournament.Squads.Select(s => s.ToDto()).ToList().AsReadOnly(),
+            Sweepers = tournament.Sweepers.Select(s => s.ToDto()).ToList().AsReadOnly()
+        };
+    }
+}

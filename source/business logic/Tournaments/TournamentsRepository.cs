@@ -17,6 +17,7 @@ internal class Repository : IRepository
         => await _dataContext.Tournaments.AsNoTrackingWithIdentityResolution()
             .Include(tournament => tournament.Sweepers)
             .Include(tournament => tournament.Squads)
+            .Include(tournament => tournament.Divisions)
         .FirstAsync(tournament => tournament.Id == id, cancellationToken).ConfigureAwait(false);
 
     async Task<Database.Entities.Tournament> IRepository.RetrieveAsync(DivisionId divisionId, CancellationToken cancellationToken)
