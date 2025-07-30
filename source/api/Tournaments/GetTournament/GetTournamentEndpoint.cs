@@ -11,7 +11,7 @@ namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournament;
 /// 
 /// </summary>
 public sealed class GetTournamentEndpoint
-    : Endpoint<GetTournamentRequest, Results<Ok<GetTournamentResponse>, NotFound, ProblemHttpResult>>
+    : Endpoint<GetTournamentRequest, Results<Ok<GetTournamentResponse>, ProblemHttpResult>>
 {
     private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _queryHandler;
 
@@ -69,7 +69,7 @@ public sealed class GetTournamentEndpoint
     /// <param name="req"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task<Results<Ok<GetTournamentResponse>, NotFound, ProblemHttpResult>> ExecuteAsync(GetTournamentRequest req, CancellationToken ct)
+    public override async Task<Results<Ok<GetTournamentResponse>, ProblemHttpResult>> ExecuteAsync(GetTournamentRequest req, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(req);
 
@@ -86,7 +86,7 @@ public sealed class GetTournamentEndpoint
         }
 
         return tournamentResult.FirstError.NumericType == (int)ErrorType.NotFound
-            ? TypedResults.NotFound()
+            ? TypedResults.NotFound().ToProblemDetails()
             : tournamentResult.Errors.ToProblemDetails("An error occurred while retrieving the tournament.");
     }
 }

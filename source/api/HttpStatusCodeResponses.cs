@@ -68,12 +68,23 @@ internal static class HttpStatusCodeResponses
         };
 
     internal static ProblemHttpResult ToProblemDetails(this IEnumerable<Error> errors, string detail, int? statusCode = StatusCodes.Status500InternalServerError)
-    { 
+    {
         var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
         {
             Detail = detail,
             Status = statusCode,
             Extensions = { ["errors"] = errors.Select(e => new { e.Code, e.Description }).ToList() }
+        };
+
+        return TypedResults.Problem(problemDetails);
+    }
+    
+    internal static ProblemHttpResult ToProblemDetails(this NotFound _)
+    {
+        var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+        {
+            Detail = "Resource not found",
+            Status = StatusCodes.Status404NotFound
         };
 
         return TypedResults.Problem(problemDetails);
