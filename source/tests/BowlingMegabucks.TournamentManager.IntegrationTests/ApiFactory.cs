@@ -44,6 +44,7 @@ public class ApiFactory
         {
             DbAdapter = DbAdapter.MySql,
             TablesToIgnore = [new Table("__EFMigrationsHistory")],
+            TablesToInclude = [new Table("Tournaments")],
             WithReseed = true
         });
     }
