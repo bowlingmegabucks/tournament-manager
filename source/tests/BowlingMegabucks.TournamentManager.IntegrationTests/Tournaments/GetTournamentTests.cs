@@ -1,14 +1,15 @@
 using System.Net;
 using System.Net.Http.Json;
 using BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournament;
+using BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BowlingMegabucks.TournamentManager.IntegrationTests.Tournaments;
 
 public sealed class GetTournamentTests
-    : BaseIntegrationTests
+    : IntegrationTestFixture
 {
-    public GetTournamentTests(ApiFactory apiFactory)
+    public GetTournamentTests(TournamentManagerWebAppFactory apiFactory)
         : base(apiFactory)
     { }
 
@@ -16,12 +17,14 @@ public sealed class GetTournamentTests
     public async Task GetTournament_ShouldReturn404_WhenNoTournamentIsFound()
     {
         // Arrange
-        // used to seed data but it was causing the count test in the other class to fail, will revisit if/when more tests fail for the same reason on different entities in the future.
+        var tournamentSeeds = TournamentEntityFactory.Bogus(5);
+        await _dbContext.Tournaments.AddRangeAsync(tournamentSeeds, TestContext.Current.CancellationToken);
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         using var request = new HttpRequestMessage(HttpMethod.Get, $"/v1/tournaments/{TournamentId.New()}");
 
         // Act
-        var response = await HttpClient.SendAsync(request, TestContext.Current.CancellationToken);
+        var response = await CreateClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -36,7 +39,7 @@ public sealed class GetTournamentTests
     public async Task GetTournament_ShouldReturnTournament_WhenTournamentExists()
     {
         // Arrange
-        var tournamentSeeds = TournamentEntityFactory.Bogus(9);
+        var tournamentSeeds = TournamentEntityFactory.Bogus(8);
         var tournamentSeed = TournamentEntityFactory.Bogus(3, 3, 3);
         await _dbContext.Tournaments.AddAsync(tournamentSeed, TestContext.Current.CancellationToken);
         await _dbContext.Tournaments.AddRangeAsync(tournamentSeeds, TestContext.Current.CancellationToken);
@@ -45,7 +48,7 @@ public sealed class GetTournamentTests
         using var request = new HttpRequestMessage(HttpMethod.Get, $"/v1/tournaments/{tournamentSeed.Id}");
 
         // Act
-        var response = await HttpClient.SendAsync(request, TestContext.Current.CancellationToken);
+        var response = await CreateClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
