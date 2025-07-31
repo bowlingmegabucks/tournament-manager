@@ -17,6 +17,8 @@ public sealed class GetTournamentTests
     public async Task GetTournament_ShouldReturn404_WhenNoTournamentIsFound()
     {
         // Arrange
+        await ResetDatabaseAsync();
+
         var tournamentSeeds = TournamentEntityFactory.Bogus(5);
         await _dbContext.Tournaments.AddRangeAsync(tournamentSeeds, TestContext.Current.CancellationToken);
         await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
@@ -39,6 +41,8 @@ public sealed class GetTournamentTests
     public async Task GetTournament_ShouldReturnTournament_WhenTournamentExists()
     {
         // Arrange
+        await ResetDatabaseAsync();
+        
         var tournamentSeeds = TournamentEntityFactory.Bogus(8);
         var tournamentSeed = TournamentEntityFactory.Bogus(3, 3, 3);
         await _dbContext.Tournaments.AddAsync(tournamentSeed, TestContext.Current.CancellationToken);
