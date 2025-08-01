@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0-windows</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<Platforms>AnyCPU;x86</Platforms>
@@ -36,6 +36,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\business logic\BowlingMegabucks.TournamentManager.BusinessLogic.csproj" />
-	  <ProjectReference Include="..\..\main\BowlingMegabucks.TournamentManager.csproj" />
+	  <ProjectReference Include="..\..\presentation\BowlingMegabucks.TournamentManager.Presentation\BowlingMegabucks.TournamentManager.Presentation.csproj" />
 	</ItemGroup>
 </Project>
