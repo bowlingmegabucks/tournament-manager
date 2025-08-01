@@ -3,7 +3,7 @@
 namespace BowlingMegabucks.TournamentManager.Divisions.Add;
 
 /// <summary>
-/// 
+/// Handles the presentation logic for adding a new division, coordinating between the view and the data adapters.
 /// </summary>
 public class Presenter
 {
@@ -16,10 +16,10 @@ public class Presenter
     private readonly IView _view;
 
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="Presenter"/> class with the specified view and service provider.
     /// </summary>
-    /// <param name="view"></param>
-    /// <param name="services"></param>
+    /// <param name="view">The view interface for displaying and adding division information.</param>
+    /// <param name="services">The service provider used to resolve dependencies.</param>
     public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
@@ -29,11 +29,11 @@ public class Presenter
     }
 
     /// <summary>
-    /// Unit Test Constructor
+    /// Initializes a new instance of the <see cref="Presenter"/> class for unit testing with mock dependencies.
     /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockRetrieveDivisionsAdapter"></param>
-    /// <param name="mockAddDivisionAdapter"></param>
+    /// <param name="mockView">A mock view for testing.</param>
+    /// <param name="mockRetrieveDivisionsAdapter">A mock adapter for retrieving division data.</param>
+    /// <param name="mockAddDivisionAdapter">A mock adapter for adding division data.</param>
     internal Presenter(IView mockView, Retrieve.IAdapter mockRetrieveDivisionsAdapter, IAdapter mockAddDivisionAdapter)
     {
         _view = mockView;
@@ -42,10 +42,14 @@ public class Presenter
     }
 
     /// <summary>
-    /// 
+    /// Retrieves the next available division number asynchronously and updates the view.
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <remarks>
+    /// This method retrieves the list of existing divisions and sets the next division number in the view.
+    /// If an error occurs, the error message is displayed to the user.
+    /// </remarks>
     public async Task GetNextDivisionNumberAsync(CancellationToken cancellationToken)
     {
         var divisions = await RetrieveDivisionsAdapter.ExecuteAsync(_view.Division.TournamentId, cancellationToken).ConfigureAwait(true);
@@ -63,12 +67,14 @@ public class Presenter
     /// <summary>
     /// Executes the operation to add a division asynchronously, handling validation, errors, and user feedback.
     /// </summary>
-    /// <remarks>This method validates the division data before attempting to add it. If validation fails, the
+    /// <remarks>
+    /// This method validates the division data before attempting to add it. If validation fails, the
     /// view remains open, and no further action is taken. If the operation encounters errors, the errors are displayed
     /// to the user, and the view remains open. On success, a confirmation message is displayed, the division's ID is
-    /// updated, and the view is closed.</remarks>
+    /// updated, and the view is closed.
+    /// </remarks>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns></returns>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())

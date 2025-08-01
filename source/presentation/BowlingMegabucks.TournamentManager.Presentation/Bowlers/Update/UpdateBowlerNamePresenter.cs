@@ -1,10 +1,9 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 
 /// <summary>
-/// 
+/// Handles the presentation logic for updating a bowler's name, coordinating between the view and the data adapters.
 /// </summary>
 public class NamePresenter
 {
@@ -16,10 +15,13 @@ public class NamePresenter
     private IAdapter UpdateBowlerNameAdapter => _updateBowlerNameAdapter.Value;
 
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="NamePresenter"/> class with the specified view and service provider.
     /// </summary>
-    /// <param name="view"></param>
-    /// <param name="services"></param>
+    /// <param name="view">The view interface for displaying and updating bowler name information.</param>
+    /// <param name="services">The service provider used to resolve dependencies.</param>
+    /// <remarks>
+    /// This constructor is used in production to inject the required view and adapters via dependency injection.
+    /// </remarks>
     public NamePresenter(IBowlerNameView view, IServiceProvider services)
     {
         _view = view;
@@ -29,11 +31,11 @@ public class NamePresenter
     }
 
     /// <summary>
-    /// Unit Test Constructor
+    /// Initializes a new instance of the <see cref="NamePresenter"/> class for unit testing with mock dependencies.
     /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockRetrieveBowlerAdapter"></param>
-    /// <param name="mockUpdateBowlerNameAdapter"></param>
+    /// <param name="mockView">A mock view for testing.</param>
+    /// <param name="mockRetrieveBowlerAdapter">A mock adapter for retrieving bowler data.</param>
+    /// <param name="mockUpdateBowlerNameAdapter">A mock adapter for updating bowler name data.</param>
     internal NamePresenter(IBowlerNameView mockView, Retrieve.IAdapter mockRetrieveBowlerAdapter, IAdapter mockUpdateBowlerNameAdapter)
     {
         _view = mockView;
@@ -42,10 +44,14 @@ public class NamePresenter
     }
 
     /// <summary>
-    /// 
+    /// Loads the bowler's data asynchronously and binds it to the view.
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <remarks>
+    /// This method retrieves the bowler's information using the retrieve adapter. If an error occurs, it displays the error and disables the view.
+    /// Otherwise, it binds the retrieved bowler data to the view.
+    /// </remarks>
     public async Task LoadAsync(CancellationToken cancellationToken)
     {
         var bowler = await _retrieveBowlerAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
@@ -62,10 +68,14 @@ public class NamePresenter
     }
 
     /// <summary>
-    /// 
+    /// Executes the update operation for the bowler's name asynchronously.
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <remarks>
+    /// This method validates the view input, attempts to update the bowler's name, and handles any errors by displaying them to the user.
+    /// If the update is successful, it displays a confirmation message and closes the view.
+    /// </remarks>
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())

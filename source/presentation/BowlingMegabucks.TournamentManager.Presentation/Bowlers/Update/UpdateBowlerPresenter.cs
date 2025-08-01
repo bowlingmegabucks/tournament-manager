@@ -1,10 +1,9 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 
 /// <summary>
-/// 
+/// Handles the presentation logic f    or updating a bowler's information, coordinating between the view and the data adapters.
 /// </summary>
 public class Presenter
 {
@@ -16,10 +15,10 @@ public class Presenter
     private IAdapter Adapter => _adapter.Value;
 
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="Presenter"/> class with the specified view and service provider.
     /// </summary>
-    /// <param name="view"></param>
-    /// <param name="services"></param>
+    /// <param name="view">The view interface for displaying and updating bowler information.</param>
+    /// <param name="services">The service provider used to resolve dependencies.</param>
     public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
@@ -29,11 +28,11 @@ public class Presenter
     }
 
     /// <summary>
-    /// Unit Test Constructor
+    /// Initializes a new instance of the <see cref="Presenter"/> class for unit testing with mock dependencies.
     /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockRetrieveBowlerAdapter"></param>
-    /// <param name="mockUpdateBowlerAdapter"></param>
+    /// <param name="mockView">A mock view for testing.</param>
+    /// <param name="mockRetrieveBowlerAdapter">A mock adapter for retrieving bowler data.</param>
+    /// <param name="mockUpdateBowlerAdapter">A mock adapter for updating bowler data.</param>
     internal Presenter(IView mockView, Retrieve.IAdapter mockRetrieveBowlerAdapter, IAdapter mockUpdateBowlerAdapter)
     {
         _view = mockView;
@@ -42,11 +41,15 @@ public class Presenter
     }
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// Loads the bowler's data asynchronously and binds it to the view.
+    /// </summary>  
+    /// <param name="id">The unique identifier of the bowler to load.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <remarks>
+    /// This method retrieves the bowler's information using the retrieve adapter. If an error occurs, it displays the error and disables the view.
+    /// Otherwise, it binds the retrieved bowler data to the view.
+    /// </remarks>
     public async Task LoadAsync(BowlerId id, CancellationToken cancellationToken)
     {
         var bowler = await _retrieveBowlerAdapter.ExecuteAsync(id, cancellationToken).ConfigureAwait(true);
@@ -63,10 +66,14 @@ public class Presenter
     }
 
     /// <summary>
-    /// 
+    /// Executes the update operation for the bowler's information asynchronously.
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <remarks>
+    /// This method validates the view input, attempts to update the bowler's information, and handles any errors by displaying them to the user.
+    /// If the update is successful, it displays a confirmation message and closes the view.
+    /// </remarks>
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())

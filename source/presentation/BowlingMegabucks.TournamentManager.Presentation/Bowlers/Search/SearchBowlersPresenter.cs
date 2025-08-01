@@ -1,10 +1,9 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
 
 /// <summary>
-/// 
+/// Handles the presentation logic for searching bowlers, coordinating between the view and the data adapter.
 /// </summary>
 public class Presenter
 {
@@ -14,10 +13,10 @@ public class Presenter
     private IAdapter Adapter => _adapter.Value;
 
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="Presenter"/> class with the specified view and service provider.
     /// </summary>
-    /// <param name="view"></param>
-    /// <param name="services"></param>
+    /// <param name="view">The view interface for displaying search results and messages.</param>
+    /// <param name="services">The service provider used to resolve dependencies.</param>
     public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
@@ -25,10 +24,10 @@ public class Presenter
     }
 
     /// <summary>
-    /// Unit Test Constructor
+    /// Initializes a new instance of the <see cref="Presenter"/> class for unit testing with mock dependencies.
     /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockAdapter"></param>
+    /// <param name="mockView">A mock view for testing.</param>
+    /// <param name="mockAdapter">A mock adapter for testing.</param>
     internal Presenter(IView mockView, IAdapter mockAdapter)
     {
         _view = mockView;
@@ -38,12 +37,14 @@ public class Presenter
     /// <summary>
     /// Executes the search operation asynchronously and updates the view with the results.
     /// </summary>
-    /// <remarks>This method retrieves a list of bowlers based on the search criteria defined in the view.  If
-    /// an error occurs during the operation, the error message is displayed in the view.  If no results are found, a
+    /// <remarks>
+    /// This method retrieves a list of bowlers based on the search criteria defined in the view. If
+    /// an error occurs during the operation, the error message is displayed in the view. If no results are found, a
     /// "No Results" message is displayed. Otherwise, the results are sorted by last name and first name, and then
-    /// bound to the view.</remarks>
+    /// bound to the view.
+    /// </remarks>
     /// <param name="cancellationToken">A token to monitor for cancellation requests. Passing a canceled token will terminate the operation.</param>
-    /// <returns></returns>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         var bowlers = (await Adapter.ExecuteAsync(_view.SearchCriteria, cancellationToken).ConfigureAwait(true)).ToList();

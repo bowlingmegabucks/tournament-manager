@@ -1,6 +1,6 @@
-﻿
-namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
-internal class ViewModel(Models.Bowler bowler) : IViewModel
+﻿namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
+internal class ViewModel(Models.Bowler bowler) 
+    : IViewModel
 {
     public BowlerId Id { get; set; } = bowler.Id;
 
@@ -16,37 +16,37 @@ internal class ViewModel(Models.Bowler bowler) : IViewModel
 }
 
 /// <summary>
-/// 
+/// Represents a lightweight view model for displaying bowler search results.
 /// </summary>
 public interface IViewModel
 {
     /// <summary>
-    /// 
+    /// Gets the unique identifier for the bowler.
     /// </summary>
     BowlerId Id { get; }
 
     /// <summary>
-    /// 
+    /// Gets the first name of the bowler.
     /// </summary>
     string FirstName { get; }
 
     /// <summary>
-    /// 
+    /// Gets the last name of the bowler.
     /// </summary>
     string LastName { get; }
 
     /// <summary>
-    /// 
+    /// Gets the email address of the bowler.
     /// </summary>
     string EmailAddress { get; }
 
     /// <summary>
-    /// 
+    /// Gets the city of the bowler's address.
     /// </summary>
     string City { get; }
 
     /// <summary>
-    /// 
+    /// Gets the state of the bowler's address.
     /// </summary>
     string State { get; }
 }
