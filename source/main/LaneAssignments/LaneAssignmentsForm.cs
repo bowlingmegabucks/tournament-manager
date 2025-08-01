@@ -8,7 +8,8 @@ using BowlingMegabucks.TournamentManager.Controls;
 namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 
 [SupportedOSPlatform("windows")]
-internal partial class Form : System.Windows.Forms.Form, IView
+internal partial class Form 
+    : System.Windows.Forms.Form, IView
 {
     private Scores.RecapSheetForm? _recapSheetForm;
 

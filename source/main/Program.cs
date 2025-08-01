@@ -64,7 +64,6 @@ internal static class Program
         services.AddPresentation(config)
             .AddBowlersModule()
             .AddDivisionModule()
-            .AddLaneAssignmentsModule()
             .AddRegistrationsModule()
             .AddScoresModule()
             .AddSquadsModule()

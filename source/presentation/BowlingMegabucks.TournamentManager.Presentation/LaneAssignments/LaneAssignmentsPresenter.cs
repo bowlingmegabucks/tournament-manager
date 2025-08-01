@@ -2,7 +2,11 @@
 using BowlingMegabucks.TournamentManager.Scores;
 
 namespace BowlingMegabucks.TournamentManager.LaneAssignments;
-internal class Presenter
+
+/// <summary>
+/// Handles presentation logic for lane assignments in the tournament manager.
+/// </summary>
+public class Presenter
 {
     private readonly IView _view;
     private readonly ILaneAvailability _laneAvailability;
@@ -21,6 +25,11 @@ internal class Presenter
     private readonly Lazy<Registrations.Delete.IAdapter> _deleteAdapter;
     private Registrations.Delete.IAdapter DeleteAdapter => _deleteAdapter.Value;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Presenter"/> class.
+    /// </summary>
+    /// <param name="view">The view interface.</param>
+    /// <param name="services">The service provider for dependency injection.</param>
     public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
@@ -35,15 +44,15 @@ internal class Presenter
     }
 
     /// <summary>
-    /// Unit Test Constructor
+    /// Unit Test Constructor.
     /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockLaneAvailability"></param>
-    /// <param name="mockRetrieveAdapter"></param>
-    /// <param name="mockUpdateAdapter"></param>
-    /// <param name="mockAddRegistrationAdapter"></param>
-    /// <param name="mockGenerateCrossFactory"></param>
-    /// <param name="mockDeleteAdapter"></param>
+    /// <param name="mockView">Mock view for testing.</param>
+    /// <param name="mockLaneAvailability">Mock lane availability service.</param>
+    /// <param name="mockRetrieveAdapter">Mock retrieve adapter.</param>
+    /// <param name="mockUpdateAdapter">Mock update adapter.</param>
+    /// <param name="mockAddRegistrationAdapter">Mock add registration adapter.</param>
+    /// <param name="mockGenerateCrossFactory">Mock cross generator factory.</param>
+    /// <param name="mockDeleteAdapter">Mock delete adapter.</param>
     internal Presenter(IView mockView, ILaneAvailability mockLaneAvailability, Retrieve.IAdapter mockRetrieveAdapter, Update.IAdapter mockUpdateAdapter, Registrations.Add.IAdapter mockAddRegistrationAdapter, IGenerateCrossFactory mockGenerateCrossFactory, Registrations.Delete.IAdapter mockDeleteAdapter)
     {
         _view = mockView;
@@ -55,6 +64,13 @@ internal class Presenter
         _deleteAdapter = new Lazy<Registrations.Delete.IAdapter>(() => mockDeleteAdapter);
     }
 
+    /// <summary>
+    /// Loads lane assignments and registrations for the current squad and updates the view.
+    /// </summary>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <remarks>
+    /// This method retrieves lane assignments and registrations, handles errors, and updates the view accordingly.
+    /// </remarks>
     public async Task LoadAsync(CancellationToken cancellationToken)
     {
         try
@@ -88,8 +104,20 @@ internal class Presenter
         _view.BindEntriesPerDivision(entriesPerDivision);
     }
 
+    /// <summary>
+    /// Updates a registration's lane assignment and updates the view.
+    /// </summary>
+    /// <param name="squadId">The squad identifier.</param>
+    /// <param name="registration">The registration view model.</param>
+    /// <param name="updatedPosition">The updated lane position.</param>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <remarks>
+    /// This method updates the lane assignment for a registration and handles errors and view updates.
+    /// </remarks>
     public async Task UpdateAsync(SquadId squadId, IViewModel registration, string updatedPosition, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(registration);
+
         await UpdateAdapter.ExecuteAsync(squadId, registration.BowlerId, registration.LaneAssignment, updatedPosition, cancellationToken).ConfigureAwait(true);
 
         if (UpdateAdapter.Error != null)
@@ -110,6 +138,13 @@ internal class Presenter
         }
     }
 
+    /// <summary>
+    /// Adds a new registration to the current squad and updates the view.
+    /// </summary>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <remarks>
+    /// This method prompts the user to select a bowler, adds the registration, and updates the view. Handles errors and cancellation.
+    /// </remarks>
     public async Task AddToRegistrationAsync(CancellationToken cancellationToken)
     {
         var bowlerId = _view.SelectBowler(_view.TournamentId, _view.SquadId);
@@ -134,6 +169,13 @@ internal class Presenter
         _view.AddToUnassigned(laneAssignment);
     }
 
+    /// <summary>
+    /// Initiates a new registration process and reloads lane assignments.
+    /// </summary>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <remarks>
+    /// This method prompts the user for a new registration, clears lanes and unassigned, and reloads assignments.
+    /// </remarks>
     public async Task NewRegistrationAsync(CancellationToken cancellationToken)
     {
         var added = _view.NewRegistration(_view.TournamentId, _view.SquadId);
@@ -151,7 +193,14 @@ internal class Presenter
         await LoadAsync(cancellationToken).ConfigureAwait(true);
     }
 
-    internal void GenerateRecaps(IEnumerable<IViewModel> assignments)
+    /// <summary>
+    /// Generates recap sheets for the provided assignments and updates the view.
+    /// </summary>
+    /// <param name="assignments">A collection of assignment view models.</param>
+    /// <remarks>
+    /// This method determines lanes used, generates recaps, and updates the view.
+    /// </remarks>
+    public void GenerateRecaps(IEnumerable<IViewModel> assignments)
     {
         var lanesUsed = assignments.Select(assignment => assignment.LaneNumber()).Distinct().Order().ToList();
 
@@ -184,6 +233,14 @@ internal class Presenter
         _view.GenerateRecaps(recaps);
     }
 
+    /// <summary>
+    /// Deletes a registration for the specified bowler and updates the view.
+    /// </summary>
+    /// <param name="bowlerId">The bowler identifier.</param>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <remarks>
+    /// This method prompts for confirmation, deletes the registration, and updates the view. Handles errors.
+    /// </remarks>
     public async Task DeleteAsync(BowlerId bowlerId, CancellationToken cancellationToken)
     {
         if (!_view.Confirm("Are you sure you want remove bowler from this squad (Refund may be required)?"))
