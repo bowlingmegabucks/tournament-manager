@@ -1,4 +1,6 @@
-﻿using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
+﻿using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.Retrieve;
@@ -7,7 +9,8 @@ namespace BowlingMegabucks.TournamentManager.UnitTests.Tournaments.Retrieve;
 internal sealed class Adapter
 {
     private Mock<TournamentManager.Tournaments.Retrieve.IBusinessLogic> _businessLogic;
-    private Mock<Abstractions.Messaging.IQueryHandler<GetTournamentsQuery, IEnumerable<TournamentManager.Models.Tournament>>> _queryHandler;
+    private Mock<Abstractions.Messaging.IQueryHandler<GetTournamentsQuery, IEnumerable<TournamentManager.Models.Tournament>>> _getTournamentsQueryHandler;
+    private Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>> _getTournamentByIdQueryHandler;
 
     private TournamentManager.Tournaments.Retrieve.Adapter _adapter;
 
@@ -15,28 +18,29 @@ internal sealed class Adapter
     public void SetUp()
     {
         _businessLogic = new Mock<TournamentManager.Tournaments.Retrieve.IBusinessLogic>();
-        _queryHandler = new Mock<Abstractions.Messaging.IQueryHandler<GetTournamentsQuery, IEnumerable<TournamentManager.Models.Tournament>>>();
+        _getTournamentsQueryHandler = new Mock<Abstractions.Messaging.IQueryHandler<GetTournamentsQuery, IEnumerable<TournamentManager.Models.Tournament>>>();
+        _getTournamentByIdQueryHandler = new Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>>();
 
-        _adapter = new TournamentManager.Tournaments.Retrieve.Adapter(_businessLogic.Object, _queryHandler.Object);
+        _adapter = new TournamentManager.Tournaments.Retrieve.Adapter(_businessLogic.Object, _getTournamentsQueryHandler.Object, _getTournamentByIdQueryHandler.Object);
     }
 
     [Test]
     public async Task ExecuteAsync_QueryHandlerHandleAsync_Called()
     {
-        _queryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), It.IsAny<CancellationToken>()))
+        _getTournamentsQueryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new List<TournamentManager.Models.Tournament>());
 
         CancellationToken cancellationToken = default;
 
         await _adapter.ExecuteAsync(cancellationToken).ConfigureAwait(false);
 
-        _queryHandler.Verify(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), cancellationToken), Times.Once);
+        _getTournamentsQueryHandler.Verify(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), cancellationToken), Times.Once);
     }
 
     [Test]
     public async Task ExecuteAsync_NoErrorFromQueryHandler_AdapterErrorDetailNull()
     {
-        _queryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), It.IsAny<CancellationToken>()))
+        _getTournamentsQueryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new List<TournamentManager.Models.Tournament>());
 
         await _adapter.ExecuteAsync(default).ConfigureAwait(false);
@@ -47,7 +51,7 @@ internal sealed class Adapter
     [Test]
     public async Task ExecuteAsync_QueryHandlerReturnsError_AdapterErrorDetailEqualToQueryHandlerError()
     {
-        _queryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), It.IsAny<CancellationToken>()))
+        _getTournamentsQueryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(Error.Validation(description: "Test Error"));
 
         await _adapter.ExecuteAsync(default).ConfigureAwait(false);
@@ -65,7 +69,7 @@ internal sealed class Adapter
 
         var tournaments = new[] { tournament1, tournament2, tournament3 };
 
-        _queryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), It.IsAny<CancellationToken>()))
+        _getTournamentsQueryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentsQuery>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(tournaments);
 
         var actual = await _adapter.ExecuteAsync(default).ConfigureAwait(false);
@@ -82,19 +86,23 @@ internal sealed class Adapter
     }
 
     [Test]
-    public async Task ExecuteAsync_TournamentId_BusinessLogicExecute_CalledCorrectly()
+    public async Task ExecuteAsync_TournamentId_QueryHandlerByIdHandleAsync_CalledCorrectly()
     {
         var tournamentId = TournamentId.New();
         CancellationToken cancellationToken = default;
 
+        _getTournamentByIdQueryHandler.Setup(queryHandler => queryHandler.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Error.Conflict());
+
         await _adapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(tournamentId, cancellationToken), Times.Once);
+        _getTournamentByIdQueryHandler.Verify(queryHandler => queryHandler.HandleAsync(It.Is<GetTournamentByIdQuery>(query => query.Id == tournamentId), cancellationToken), Times.Once);
     }
 
     [Test]
     public async Task ExecuteAsync_TournamentId_BusinessLogicExecuteReturnsNull_NullReturned()
     {
+        _getTournamentByIdQueryHandler.Setup(query => query.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(Error.Conflict());
         var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
         Assert.That(result, Is.Null);
@@ -104,7 +112,7 @@ internal sealed class Adapter
     public async Task ExecuteAsync_TournamentId_BusinessLogicExecuteReturnsTournament_TournamentReturned()
     {
         var tournament = new TournamentManager.Models.Tournament { Id = TournamentId.New() };
-        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
+        _getTournamentByIdQueryHandler.Setup(query => query.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var result = await _adapter.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 

@@ -72,22 +72,6 @@ public sealed class GetTournamentsEndpoint
 
                 return TypedResults.Ok(response);
             },
-            errors =>
-            {
-                var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
-                {
-                    Detail = "An error occurred while retrieving tournaments.",
-                    Status = StatusCodes.Status500InternalServerError
-                };
-
-                problemDetails.Extensions["errors"] = errors.Select(e => new
-                {
-                    e.Code,
-                    e.Description
-                }).ToList();
-
-                return TypedResults.Problem(problemDetails);
-            }
-        );
+            errors => errors.ToProblemDetails("An error occurred while retrieving tournaments."));
     }
 }

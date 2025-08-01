@@ -16,66 +16,6 @@ internal sealed class BusinessLogic
     }
 
     [Test]
-    public async Task ExecuteAsync_Id_DataLayerExecute_Called()
-    {
-        var id = TournamentId.New();
-        CancellationToken cancellationToken = default;
-
-        await _businessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
-
-        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(id, cancellationToken), Times.Once);
-    }
-
-    [Test]
-    public async Task ExecuteAsync_Id_ReturnsResultFromDataLayer()
-    {
-        var tournament = new TournamentManager.Models.Tournament();
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
-
-        var id = TournamentId.New();
-        var result = await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
-
-        Assert.That(result, Is.EqualTo(tournament));
-    }
-
-    [Test]
-    public async Task ExecuteAsync_Id_NoErrors_ErrorNull()
-    {
-        var id = TournamentId.New();
-        await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
-
-        Assert.That(_businessLogic.ErrorDetail, Is.Null);
-    }
-
-    [Test]
-    public async Task ExecuteAsync_Id_DataLayerExecuteThrowsException_ReturnsNull()
-    {
-        var ex = new Exception();
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
-
-        var id = TournamentId.New();
-        var result = await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
-
-        Assert.That(result, Is.Null);
-    }
-
-    [Test]
-    public async Task ExecuteAsync_Id_DataLayerExecuteThrowsException_ErrorPopulated()
-    {
-        var ex = new Exception("message");
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
-
-        var id = TournamentId.New();
-        await _businessLogic.ExecuteAsync(id, default).ConfigureAwait(false);
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
-            Assert.That(_businessLogic.ErrorDetail.ReturnCode, Is.EqualTo(-1));
-        });
-    }
-
-    [Test]
     public async Task ExecuteAsync_DivisionId_DataLayerExecute_DivisionId_Called()
     {
         var id = DivisionId.New();

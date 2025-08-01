@@ -1,5 +1,6 @@
 ﻿
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
 using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,9 +30,15 @@ internal static class TournamentsExtensions
 
         services.AddTransient<GetTournamentsQueryHandler>();
         services.AddTransient<IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>>>(provider =>
-            new GetTournamentsQueryHandlerLoggingDecorator(
+            new GetTournamentsQueryHandlerTelemetryDecorator(
                 provider.GetRequiredService<GetTournamentsQueryHandler>(),
-                provider.GetRequiredService<ILogger<GetTournamentsQueryHandlerLoggingDecorator>>()));
+                provider.GetRequiredService<ILogger<GetTournamentsQueryHandlerTelemetryDecorator>>()));
+
+        services.AddTransient<GetTournamentByIdQueryHandler>();
+        services.AddTransient<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>>(provider =>
+            new GetTournamentByIdQueryHandlerTelemetryDecorator(
+                provider.GetRequiredService<GetTournamentByIdQueryHandler>(),
+                provider.GetRequiredService<ILogger<GetTournamentByIdQueryHandlerTelemetryDecorator>>()));
 
         return services;
     }

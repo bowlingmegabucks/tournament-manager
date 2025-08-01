@@ -19,31 +19,6 @@ internal sealed class DataLayer
     }
 
     [Test]
-    public async Task ExecuteAsync_Id_RepositoryExecuteId_CalledCorrectly()
-    {
-        var tournament = new TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
-
-        var id = TournamentId.New();
-        CancellationToken cancellationToken = default;
-
-        await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
-
-        _repository.Verify(repository => repository.RetrieveAsync(id, cancellationToken), Times.Once);
-    }
-
-    [Test]
-    public async Task ExecuteAsync_Id_ReturnsTournament()
-    {
-        var tournament = new TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };
-        _repository.Setup(repository => repository.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
-
-        var actual = await _dataLayer.ExecuteAsync(tournament.Id, default).ConfigureAwait(false);
-
-        Assert.That(actual.Id, Is.EqualTo(tournament.Id));
-    }
-
-    [Test]
     public async Task ExecuteAsync_DivisionId_RepositoryExecuteDivisionId_CalledCorrectly()
     {
         var tournament = new TournamentManager.Database.Entities.Tournament { Id = TournamentId.New() };

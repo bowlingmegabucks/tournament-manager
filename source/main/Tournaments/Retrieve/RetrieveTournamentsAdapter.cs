@@ -1,4 +1,6 @@
 ﻿using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Models;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
 using BowlingMegabucks.TournamentManager.Tournaments.GetTournaments;
 
 namespace BowlingMegabucks.TournamentManager.Tournaments.Retrieve;
@@ -11,13 +13,19 @@ internal class Adapter : IAdapter
     private IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> QueryHandler
         => _queryHandler.Value;
 
+    private readonly Lazy<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>> _retrieveTournament;
+    private IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> RetrieveTournament
+        => _retrieveTournament.Value;
+
     public Models.ErrorDetail? Error { get; private set; }
 
     public Adapter(IBusinessLogic businessLogic, 
-        IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> queryHandler)
+        IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> queryHandler,
+        IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> retrieveTournament)
     {
         _queryHandler = new Lazy<IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>>>(() => queryHandler);
         _businessLogic = new Lazy<IBusinessLogic>(() => businessLogic);
+        _retrieveTournament = new Lazy<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>>(() => retrieveTournament);
     }
 
     public async Task<IEnumerable<IViewModel>> ExecuteAsync(CancellationToken cancellationToken)
@@ -36,11 +44,16 @@ internal class Adapter : IAdapter
 
     public async Task<IViewModel?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var tournament = await BusinessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
+        var tournamentResult = await RetrieveTournament.HandleAsync(new() { Id = tournamentId }, cancellationToken).ConfigureAwait(false);
 
-        Error = BusinessLogic.ErrorDetail;
+        if (tournamentResult.IsError)
+        {
+            Error = tournamentResult.FirstError.ToErrorDetail();
 
-        return tournament != null ? new ViewModel(tournament) : null;
+            return null;
+        }
+
+        return new ViewModel(tournamentResult.Value!);
     }
 
     public async Task<IViewModel?> ExecuteAsync(SquadId squadId, CancellationToken cancellationToken)

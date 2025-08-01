@@ -1,13 +1,14 @@
 using System.Net;
 using System.Net.Http.Json;
 using BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournaments;
+using BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure;
 
 namespace BowlingMegabucks.TournamentManager.IntegrationTests.Tournaments;
 
 public sealed class GetTournamentsTests
-    : BaseIntegrationTests
+    : IntegrationTestFixture
 {
-    public GetTournamentsTests(ApiFactory factory)
+    public GetTournamentsTests(TournamentManagerWebAppFactory factory)
         : base(factory)
     { }
 
@@ -15,10 +16,16 @@ public sealed class GetTournamentsTests
     public async Task GetTournaments_ShouldReturnOk_WhenEndpointIsCalled()
     {
         // Arrange
+        await ResetDatabaseAsync();
+
+        var tournamentSeeds = TournamentEntityFactory.Bogus(7);
+        await _dbContext.Tournaments.AddRangeAsync(tournamentSeeds, TestContext.Current.CancellationToken);
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
         using var request = new HttpRequestMessage(HttpMethod.Get, "/v1/tournaments");
 
         // Act
-        var response = await HttpClient.SendAsync(request, TestContext.Current.CancellationToken);
+        var response = await CreateClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -30,6 +37,8 @@ public sealed class GetTournamentsTests
     public async Task GetTournaments_ShouldReturnTournaments_WhenTournamentsExist()
     {
         // Arrange
+        await ResetDatabaseAsync();
+        
         var tournamentSeeds = TournamentEntityFactory.Bogus(10);
         await _dbContext.Tournaments.AddRangeAsync(tournamentSeeds, TestContext.Current.CancellationToken);
         await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
@@ -37,7 +46,7 @@ public sealed class GetTournamentsTests
         using var request = new HttpRequestMessage(HttpMethod.Get, "/v1/tournaments");
 
         // Act
-        var response = await HttpClient.SendAsync(request, TestContext.Current.CancellationToken);
+        var response = await CreateClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
         response.EnsureSuccessStatusCode();

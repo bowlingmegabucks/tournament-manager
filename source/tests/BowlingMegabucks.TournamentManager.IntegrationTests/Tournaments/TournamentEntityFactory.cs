@@ -1,4 +1,7 @@
 using Bogus;
+using BowlingMegabucks.TournamentManager.IntegrationTests.Divisions;
+using BowlingMegabucks.TournamentManager.IntegrationTests.Squads;
+using BowlingMegabucks.TournamentManager.IntegrationTests.Sweepers;
 
 namespace BowlingMegabucks.TournamentManager.IntegrationTests.Tournaments;
 
@@ -6,6 +9,17 @@ internal static class TournamentEntityFactory
 {
     public static IEnumerable<Database.Entities.Tournament> Bogus(int count)
         => new TournamentEntityFaker().Generate(count);
+
+    public static Database.Entities.Tournament Bogus(int divisionCount = 0, int squadCount = 0, int sweeperCount = 0)
+    {
+        var tournament = new TournamentEntityFaker().Generate();
+
+        tournament.Divisions = [.. DivisionEntityFactory.Bogus(divisionCount, tournament.Id)];
+        tournament.Squads = [.. SquadEntityFactory.Bogus(squadCount, tournament.Id)];
+        tournament.Sweepers = [.. SweeperEntityFactory.Bogus(sweeperCount, tournament.Id)];
+
+        return tournament;
+    }
 }
 
 internal sealed class TournamentEntityFaker

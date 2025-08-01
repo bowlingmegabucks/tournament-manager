@@ -1,9 +1,13 @@
-﻿namespace BowlingMegabucks.TournamentManager.UnitTests.Squads.Results;
+﻿using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
+
+namespace BowlingMegabucks.TournamentManager.UnitTests.Squads.Results;
 
 [TestFixture]
 internal sealed class BusinessLogic
 {
     private Mock<TournamentManager.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
+    private Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>> _getTournamentByQueryHandler;
     private Mock<TournamentManager.Squads.Results.ICalculator> _squadResultCalculator;
     private Mock<TournamentManager.Scores.Retrieve.IBusinessLogic> _retrieveScores;
 
@@ -13,10 +17,11 @@ internal sealed class BusinessLogic
     public void SetUp()
     {
         _retrieveTournament = new Mock<TournamentManager.Tournaments.Retrieve.IBusinessLogic>();
+        _getTournamentByQueryHandler = new Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>>();
         _squadResultCalculator = new Mock<TournamentManager.Squads.Results.ICalculator>();
         _retrieveScores = new Mock<TournamentManager.Scores.Retrieve.IBusinessLogic>();
 
-        _businessLogic = new TournamentManager.Squads.Results.BusinessLogic(_retrieveTournament.Object, _squadResultCalculator.Object, _retrieveScores.Object);
+        _businessLogic = new TournamentManager.Squads.Results.BusinessLogic(_retrieveTournament.Object, _getTournamentByQueryHandler.Object, _squadResultCalculator.Object, _retrieveScores.Object);
     }
 
     [Test]
@@ -122,7 +127,7 @@ internal sealed class BusinessLogic
         mockResultCalculator.InSequence(sequence).Setup(calculator => calculator.Execute(It.Is<TournamentManager.Models.Squad>(squad => squad.Id == pastSquad.Id), It.IsAny<TournamentManager.Models.Division>(), It.IsAny<List<TournamentManager.Models.BowlerSquadScore>>(), It.IsAny<IEnumerable<BowlerId>>(), It.IsAny<decimal>(), It.IsAny<decimal>()));
         mockResultCalculator.InSequence(sequence).Setup(calculator => calculator.Execute(It.Is<TournamentManager.Models.Squad>(squad => squad.Id == currentSquad.Id), It.IsAny<TournamentManager.Models.Division>(), It.IsAny<List<TournamentManager.Models.BowlerSquadScore>>(), It.IsAny<IEnumerable<BowlerId>>(), It.IsAny<decimal>(), It.IsAny<decimal>()));
         mockResultCalculator.Setup(calculator => calculator.Execute(It.IsAny<TournamentManager.Models.Squad>(), It.IsAny<TournamentManager.Models.Division>(), It.IsAny<List<TournamentManager.Models.BowlerSquadScore>>(), It.IsAny<IEnumerable<BowlerId>>(), It.IsAny<decimal>(), It.IsAny<decimal>())).Returns(new TournamentManager.Models.SquadResult());
-        _businessLogic = new TournamentManager.Squads.Results.BusinessLogic(_retrieveTournament.Object, mockResultCalculator.Object, _retrieveScores.Object);
+        _businessLogic = new TournamentManager.Squads.Results.BusinessLogic(_retrieveTournament.Object, _getTournamentByQueryHandler.Object, mockResultCalculator.Object, _retrieveScores.Object);
 
         var pastSquadBowler1Score1 = new TournamentManager.Models.SquadScore
         {
