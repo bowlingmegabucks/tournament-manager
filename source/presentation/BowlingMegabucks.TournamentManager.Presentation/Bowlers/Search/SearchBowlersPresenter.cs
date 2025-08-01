@@ -13,7 +13,12 @@ public class Presenter
     private readonly Lazy<IAdapter> _adapter;
     private IAdapter Adapter => _adapter.Value;
 
-    internal Presenter(IView view, IServiceProvider services)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="view"></param>
+    /// <param name="services"></param>
+    public Presenter(IView view, IServiceProvider services)
     {
         _view = view;
         _adapter = new Lazy<IAdapter>(services.GetRequiredService<IAdapter>);

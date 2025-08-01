@@ -61,7 +61,7 @@ internal static class Program
 
         QuestPDF.Settings.License = LicenseType.Community;
 
-        services.AddBusinessLogic(config)
+        services.AddPresentation(config)
             .AddBowlersModule()
             .AddDivisionModule()
             .AddLaneAssignmentsModule()
