@@ -1,4 +1,5 @@
 ﻿using BowlingMegabucks.TournamentManager.Bowlers;
+using BowlingMegabucks.TournamentManager.Divisions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,7 +19,8 @@ public static class PresentationExtensions
     public static IServiceCollection AddPresentation(this IServiceCollection services, IConfiguration config)
     {
         services.AddBusinessLogic(config)
-            .AddBowlersModule();
+            .AddBowlersModule()
+            .AddDivisionModule();
 
         return services;
     }
