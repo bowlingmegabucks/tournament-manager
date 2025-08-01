@@ -1,14 +1,29 @@
 ﻿
 namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 
-internal interface INameViewModel
+/// <summary>
+/// 
+/// </summary>
+public interface INameViewModel
 {
+    /// <summary>
+    /// 
+    /// </summary>
     string FirstName { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     string MiddleInitial { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     string LastName { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     string Suffix { get; }
 }
 

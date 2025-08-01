@@ -2,7 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
-internal class NamePresenter
+
+/// <summary>
+/// 
+/// </summary>
+public class NamePresenter
 {
     private readonly IBowlerNameView _view;
 
@@ -11,6 +15,11 @@ internal class NamePresenter
     private readonly Lazy<IAdapter> _updateBowlerNameAdapter;
     private IAdapter UpdateBowlerNameAdapter => _updateBowlerNameAdapter.Value;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="view"></param>
+    /// <param name="services"></param>
     public NamePresenter(IBowlerNameView view, IServiceProvider services)
     {
         _view = view;
@@ -32,6 +41,11 @@ internal class NamePresenter
         _updateBowlerNameAdapter = new Lazy<IAdapter>(() => mockUpdateBowlerNameAdapter);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task LoadAsync(CancellationToken cancellationToken)
     {
         var bowler = await _retrieveBowlerAdapter.ExecuteAsync(_view.Id, cancellationToken).ConfigureAwait(true);
@@ -47,6 +61,11 @@ internal class NamePresenter
         _view.Bind(bowler!);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         if (!_view.IsValid())
