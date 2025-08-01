@@ -1,6 +1,9 @@
 using FastEndpoints;
-using Microsoft.AspNetCore.Http.HttpResults;
 using BowlingMegabucks.TournamentManager.Api.BogusData;
+using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
+using Microsoft.AspNetCore.Http.HttpResults;
+using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournament;
 
@@ -8,8 +11,19 @@ namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournament;
 /// 
 /// </summary>
 public sealed class GetTournamentEndpoint
-    : Endpoint<GetTournamentRequest, GetTournamentResponse>
+    : Endpoint<GetTournamentRequest, Results<Ok<GetTournamentResponse>, ProblemHttpResult>>
 {
+    private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _queryHandler;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="queryHandler"></param>
+    public GetTournamentEndpoint(IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> queryHandler)
+    {
+        _queryHandler = queryHandler;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -33,7 +47,7 @@ public sealed class GetTournamentEndpoint
             s.Description = "This endpoint returns the details of a specific tournament identified by its unique ID.";
 
             s.ExampleRequest = new()
-            { 
+            {
                 Id = TournamentId.New()
             };
 
@@ -55,21 +69,24 @@ public sealed class GetTournamentEndpoint
     /// <param name="req"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task HandleAsync(
-        GetTournamentRequest req,
-        CancellationToken ct)
+    public override async Task<Results<Ok<GetTournamentResponse>, ProblemHttpResult>> ExecuteAsync(GetTournamentRequest req, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(req);
 
-        // Simulate fetching the tournament from a data source
-        var response = new BogusGetTournamentResponse(req.Id).Generate();
+        var tournamentResult = await _queryHandler.HandleAsync(new() { Id = req.Id }, ct);
 
-        if (response.Tournament is null)
+        if (!tournamentResult.IsError)
         {
-            await SendNotFoundAsync(ct);
-            return;
+            var tournament = tournamentResult.Value!.ToDto();
+
+            return TypedResults.Ok(new GetTournamentResponse
+            {
+                Tournament = tournament
+            });
         }
 
-        await SendOkAsync(response, ct);
+        return tournamentResult.FirstError.Type == ErrorType.NotFound
+            ? TypedResults.NotFound().ToProblemDetails()
+            : tournamentResult.Errors.ToProblemDetails("An error occurred while retrieving the tournament.");
     }
 }

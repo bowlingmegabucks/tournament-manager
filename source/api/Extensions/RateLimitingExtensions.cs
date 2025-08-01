@@ -5,14 +5,14 @@ namespace BowlingMegabucks.TournamentManager.Api.Extensions;
 
 internal static class RateLimitingExtensions
 {
-    public static IServiceCollection ConfigureRateLimiting(this IServiceCollection services, IConfiguration config)
+    public static WebApplicationBuilder ConfigureRateLimiting(this WebApplicationBuilder builder)
     {
-        services.Configure<RateLimitingOptions>(config.GetSection("RateLimiting"));
+        builder.Services.Configure<RateLimitingOptions>(builder.Configuration.GetSection("RateLimiting"));
 
-        var rateLimitingOptions = config.GetSection("RateLimiting").Get<RateLimitingOptions>()
+        var rateLimitingOptions = builder.Configuration.GetSection("RateLimiting").Get<RateLimitingOptions>()
             ?? throw new InvalidOperationException("Rate limiting options are not configured.");
 
-        services.AddRateLimiter(options =>
+        builder.Services.AddRateLimiter(options =>
         {
             options.GlobalLimiter = PartitionedRateLimiter.Create(SetupGlobalLimiter(rateLimitingOptions));
 
@@ -44,7 +44,7 @@ internal static class RateLimitingExtensions
             };
         });
 
-        return services;
+        return builder;
     }
 
     private static Func<HttpContext, RateLimitPartition<string>> SetupGlobalLimiter(RateLimitingOptions rateLimitingOptions)

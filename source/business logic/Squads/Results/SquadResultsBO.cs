@@ -1,4 +1,8 @@
-﻿namespace BowlingMegabucks.TournamentManager.Squads.Results;
+﻿using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Models;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
+
+namespace BowlingMegabucks.TournamentManager.Squads.Results;
 
 /// <summary>
 /// 
@@ -11,12 +15,14 @@ internal class BusinessLogic : IBusinessLogic
     public Models.ErrorDetail? ErrorDetail { get; private set; }
 
     private readonly Tournaments.Retrieve.IBusinessLogic _retrieveTournament;
+    private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _getTournamentQueryHandler;
     private readonly ICalculator _squadResultCalculator;
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
-    public BusinessLogic(Tournaments.Retrieve.IBusinessLogic retrieveTournament, ICalculator calculator, Scores.Retrieve.IBusinessLogic retrieveScores)
+    public BusinessLogic(Tournaments.Retrieve.IBusinessLogic retrieveTournament, IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> getTournamentQueryHandler, ICalculator calculator, Scores.Retrieve.IBusinessLogic retrieveScores)
     {
         _retrieveTournament = retrieveTournament;
+        _getTournamentQueryHandler = getTournamentQueryHandler;
         _squadResultCalculator = calculator;
         _retrieveScores = retrieveScores;
     }
@@ -58,16 +64,18 @@ internal class BusinessLogic : IBusinessLogic
     /// <returns></returns>
     public async Task<IEnumerable<IGrouping<Models.Division, Models.SquadResult>>> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var tournament = await _retrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
+        var tournamentResult = await _getTournamentQueryHandler.HandleAsync(new() { Id = tournamentId }, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveTournament.ErrorDetail != null)
+        if (tournamentResult.IsError)
         {
-            ErrorDetail = _retrieveTournament.ErrorDetail;
+            ErrorDetail = tournamentResult.FirstError.ToErrorDetail();
 
             return [];
         }
 
-        var scores = (await _retrieveScores.ExecuteAsync(tournament!.Squads.Select(squad => squad.Id), cancellationToken).ConfigureAwait(false)).ToList();
+        var tournament = tournamentResult.Value!;
+
+        var scores = (await _retrieveScores.ExecuteAsync(tournament.Squads.Select(squad => squad.Id), cancellationToken).ConfigureAwait(false)).ToList();
 
         if (_retrieveScores.ErrorDetail != null)
         {

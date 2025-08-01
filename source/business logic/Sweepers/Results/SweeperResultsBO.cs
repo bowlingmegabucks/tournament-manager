@@ -1,4 +1,8 @@
-﻿namespace BowlingMegabucks.TournamentManager.Sweepers.Results;
+﻿using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Models;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
+
+namespace BowlingMegabucks.TournamentManager.Sweepers.Results;
 
 /// <summary>
 /// 
@@ -13,15 +17,15 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<Retrieve.IBusinessLogic> _retrieveSweeper;
     private Retrieve.IBusinessLogic RetrieveSweeper => _retrieveSweeper.Value;
 
-    private readonly Lazy<Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
-    private Tournaments.Retrieve.IBusinessLogic RetrieveTournament => _retrieveTournament.Value;
+    private readonly Lazy<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>> _retrieveTournament;
+    private IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> RetrieveTournament => _retrieveTournament.Value;
 
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
-    public BusinessLogic(Retrieve.IBusinessLogic retrieveSweeper, Tournaments.Retrieve.IBusinessLogic retrieveTournament, Scores.Retrieve.IBusinessLogic retrieveScores)
+    public BusinessLogic(Retrieve.IBusinessLogic retrieveSweeper, IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> retrieveTournament, Scores.Retrieve.IBusinessLogic retrieveScores)
     {
         _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => retrieveSweeper);
-        _retrieveTournament = new Lazy<Tournaments.Retrieve.IBusinessLogic>(() => retrieveTournament);
+        _retrieveTournament = new Lazy<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>>(() => retrieveTournament);
         _retrieveScores = retrieveScores;
     }
 
@@ -55,11 +59,11 @@ internal class BusinessLogic : IBusinessLogic
     /// <returns></returns>
     public async Task<Models.SweeperResult?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
-        var tournament = await RetrieveTournament.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
+        var tournamentResult = await RetrieveTournament.HandleAsync(new() { Id = tournamentId }, cancellationToken).ConfigureAwait(false);
 
-        if (RetrieveTournament.ErrorDetail != null)
+        if (tournamentResult.IsError)
         {
-            ErrorDetail = RetrieveTournament.ErrorDetail;
+            ErrorDetail = tournamentResult.FirstError.ToErrorDetail();
 
             return null;
         }
@@ -73,7 +77,9 @@ internal class BusinessLogic : IBusinessLogic
             return null;
         }
 
-        var scores = (await _retrieveScores.ExecuteAsync(tournament!.Sweepers.Select(sweeper => sweeper.Id), cancellationToken).ConfigureAwait(false)).Where(score => superSweeperBowlers.Contains(score.Bowler.Id));
+        var tournament = tournamentResult.Value!;
+
+        var scores = (await _retrieveScores.ExecuteAsync(tournament.Sweepers.Select(sweeper => sweeper.Id), cancellationToken).ConfigureAwait(false)).Where(score => superSweeperBowlers.Contains(score.Bowler.Id));
 
         return Execute(scores, tournament!.SuperSweeperCashRatio);
     }

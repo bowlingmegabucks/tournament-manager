@@ -70,6 +70,11 @@ public class Tournament
     /// </summary>
     public IEnumerable<Sweeper> Sweepers { get; init; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public IEnumerable<Division> Divisions { get; init; }
+
     internal Tournament(Database.Entities.Tournament entity)
     {
         Id = entity.Id;
@@ -84,6 +89,7 @@ public class Tournament
         BowlingCenter = entity.BowlingCenter;
         Completed = entity.Completed;
 
+        Divisions = entity.Divisions?.Select(division => new Division(division)).ToList() ?? Enumerable.Empty<Division>();
         Squads = entity.Squads?.Select(squad => new Squad(squad)).ToList() ?? Enumerable.Empty<Squad>();
         Sweepers = entity.Sweepers?.Select(sweeper => new Sweeper(sweeper)).ToList() ?? Enumerable.Empty<Sweeper>();
     }
@@ -93,6 +99,7 @@ public class Tournament
     /// </summary>
     public Tournament()
     {
+        Divisions = [];
         Squads = [];
         Sweepers = [];
     }

@@ -1,4 +1,8 @@
-﻿namespace BowlingMegabucks.TournamentManager.Squads.Add;
+﻿using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Models;
+using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
+
+namespace BowlingMegabucks.TournamentManager.Squads.Add;
 
 /// <summary>
 /// 
@@ -10,7 +14,7 @@ internal class BusinessLogic : IBusinessLogic
     /// </summary>
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
-    private readonly Tournaments.Retrieve.IBusinessLogic _getTournamentBO;
+    private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _getTournamentBO;
 
     private readonly Lazy<FluentValidation.IValidator<Models.Squad>> _validator;
     private FluentValidation.IValidator<Models.Squad> Validator => _validator.Value;
@@ -18,7 +22,7 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    public BusinessLogic(Tournaments.Retrieve.IBusinessLogic getTournamentBO, FluentValidation.IValidator<Models.Squad> validator, IDataLayer dataLayer)
+    public BusinessLogic(IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> getTournamentBO, FluentValidation.IValidator<Models.Squad> validator, IDataLayer dataLayer)
     {
         _getTournamentBO = getTournamentBO;
         _validator = new Lazy<FluentValidation.IValidator<Models.Squad>>(() => validator);
@@ -35,16 +39,16 @@ internal class BusinessLogic : IBusinessLogic
     {
         ArgumentNullException.ThrowIfNull(squad);
 
-        var tournament = await _getTournamentBO.ExecuteAsync(squad.TournamentId, cancellationToken).ConfigureAwait(false);
+        var tournamentResult = await _getTournamentBO.HandleAsync(new() { Id = squad.TournamentId }, cancellationToken).ConfigureAwait(false);
 
-        if (_getTournamentBO.ErrorDetail != null)
+        if (tournamentResult.IsError)
         {
-            Errors = [_getTournamentBO.ErrorDetail];
+            Errors = tournamentResult.Errors.ToErrorDetails();
 
             return null;
         }
 
-        squad.Tournament = tournament!;
+        squad.Tournament = tournamentResult.Value;
 
         var validationResults = await Validator.ValidateAsync(squad, cancellationToken).ConfigureAwait(false);
 

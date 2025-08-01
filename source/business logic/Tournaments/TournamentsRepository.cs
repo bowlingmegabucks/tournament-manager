@@ -10,14 +10,15 @@ internal class Repository : IRepository
         _dataContext = dataContext;
     }
 
-    IQueryable<Database.Entities.Tournament> IRepository.RetrieveAll()
-        => _dataContext.Tournaments.AsNoTracking();
+    async Task<IEnumerable<Database.Entities.Tournament>> IRepository.RetrieveAllAsync(CancellationToken cancellationToken)
+        => await _dataContext.Tournaments.AsNoTracking().ToListAsync(cancellationToken);
 
-    async Task<Database.Entities.Tournament> IRepository.RetrieveAsync(TournamentId id, CancellationToken cancellationToken)
+    async Task<Database.Entities.Tournament?> IRepository.RetrieveAsync(TournamentId id, CancellationToken cancellationToken)
         => await _dataContext.Tournaments.AsNoTrackingWithIdentityResolution()
             .Include(tournament => tournament.Sweepers)
             .Include(tournament => tournament.Squads)
-        .FirstAsync(tournament => tournament.Id == id, cancellationToken).ConfigureAwait(false);
+            .Include(tournament => tournament.Divisions)
+        .FirstOrDefaultAsync(tournament => tournament.Id == id, cancellationToken).ConfigureAwait(false);
 
     async Task<Database.Entities.Tournament> IRepository.RetrieveAsync(DivisionId divisionId, CancellationToken cancellationToken)
         => await _dataContext.Tournaments.Include(tournament => tournament.Divisions)
@@ -46,9 +47,9 @@ internal class Repository : IRepository
 
 internal interface IRepository
 {
-    IQueryable<Database.Entities.Tournament> RetrieveAll();
+    Task<IEnumerable<Database.Entities.Tournament>> RetrieveAllAsync(CancellationToken cancellationToken);
 
-    Task<Database.Entities.Tournament> RetrieveAsync(TournamentId id, CancellationToken cancellationToken);
+    Task<Database.Entities.Tournament?> RetrieveAsync(TournamentId id, CancellationToken cancellationToken);
 
     Task<Database.Entities.Tournament> RetrieveAsync(DivisionId divisionId, CancellationToken cancellationToken);
 

@@ -1,5 +1,7 @@
+using ErrorOr;
 using FastEndpoints;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BowlingMegabucks.TournamentManager.Api;
 
@@ -44,7 +46,7 @@ internal static class HttpStatusCodeResponses
             Status = StatusCodes.Status404NotFound,
             Detail = "The requested resource was not found.",
             Instance = instance,
-            TraceId = "0HMPNHL0JHL76:00000001"
+            TraceId = "0HMPNHL0JHL76:00000002"
         };
 
     internal static ProblemDetails SampleRateLimitExceeded429(string instance = "/generic/endpoint")
@@ -53,7 +55,7 @@ internal static class HttpStatusCodeResponses
             Status = StatusCodes.Status429TooManyRequests,
             Detail = "You have exceeded the rate limit for this API. Please try again later.",
             Instance = instance,
-            TraceId = "0HMPNHL0JHL76:00000001"
+            TraceId = "0HMPNHL0JHL76:00000003"
         };
 
     internal static ProblemDetails SampleInternalServerError500(string instance)
@@ -61,7 +63,30 @@ internal static class HttpStatusCodeResponses
         {
             Status = StatusCodes.Status500InternalServerError,
             Instance = instance,
-            TraceId = "0HMPNHL0JHL76:00000001",
+            TraceId = "0HMPNHL0JHL76:00000004",
             Detail = "An unexpected error occurred while processing the request."
         };
+
+    internal static ProblemHttpResult ToProblemDetails(this IEnumerable<Error> errors, string detail, int? statusCode = StatusCodes.Status500InternalServerError)
+    {
+        var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+        {
+            Detail = detail,
+            Status = statusCode,
+            Extensions = { ["errors"] = errors.Select(e => new { e.Code, e.Description }).ToList() }
+        };
+
+        return TypedResults.Problem(problemDetails);
+    }
+    
+    internal static ProblemHttpResult ToProblemDetails(this NotFound _)
+    {
+        var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
+        {
+            Detail = "Resource not found",
+            Status = StatusCodes.Status404NotFound
+        };
+
+        return TypedResults.Problem(problemDetails);
+    }
 }

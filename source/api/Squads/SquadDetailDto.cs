@@ -20,3 +20,21 @@ public sealed record SquadDetailDto
     /// </summary>
     public required decimal? EntryFee { get; init; }
 }
+
+internal static class SquadDetailDtoExtensions
+{
+    /// <summary>
+    /// Converts a squad model to a SquadDetailDto.
+    /// </summary>
+    /// <param name="squad">The squad model.</param>
+    /// <returns>A SquadDetailDto containing the squad details.</returns>
+    public static SquadDetailDto ToDto(this Models.Squad squad)
+    {
+        return new SquadDetailDto
+        {
+            Id = squad.Id,
+            Date = squad.Date,
+            EntryFee = squad.EntryFee
+        };
+    }
+}
