@@ -2,7 +2,7 @@
 /// <summary>
 /// Represents the view interface for adding a tournament.
 /// </summary>
-internal interface IView 
+public interface IView 
     : TournamentManager.IView
 {
     /// <summary>

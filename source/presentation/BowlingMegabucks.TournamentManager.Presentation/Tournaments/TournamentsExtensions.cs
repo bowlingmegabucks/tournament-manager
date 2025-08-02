@@ -5,15 +5,13 @@ internal static class TournamentsExtensions
 {
     public static IServiceCollection AddTournamentsModule(this IServiceCollection services)
     {
-        services.AddTransient<Add.Form>();
+        services.AddTransient<Add.IAdapter, Add.Adapter>();
 
-        services.AddTransient<Portal.Form>();
+        services.AddTransient<Results.IAdapter, Results.Adapter>();
 
-        services.AddTransient<Results.AtLarge>();
+        services.AddTransient<Retrieve.IAdapter, Retrieve.Adapter>();
 
-        services.AddTransient<Retrieve.Form>();
-
-        services.AddTransient<Seeding.Form>();
+        services.AddTransient<Seeding.IAdapter, Seeding.Adapter>();
 
         return services;
     }

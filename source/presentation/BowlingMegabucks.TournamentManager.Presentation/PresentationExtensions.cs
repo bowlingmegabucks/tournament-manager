@@ -5,6 +5,7 @@ using BowlingMegabucks.TournamentManager.Registrations;
 using BowlingMegabucks.TournamentManager.Scores;
 using BowlingMegabucks.TournamentManager.Squads;
 using BowlingMegabucks.TournamentManager.Sweepers;
+using BowlingMegabucks.TournamentManager.Tournaments;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,7 +31,8 @@ public static class PresentationExtensions
             .AddRegistrationsModule()
             .AddScoresModule()
             .AddSquadsModule()
-            .AddSweepersModule();
+            .AddSweepersModule()
+            .AddTournamentsModule();
 
         return services;
     }
