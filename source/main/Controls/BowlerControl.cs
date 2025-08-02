@@ -4,7 +4,7 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class BowlerControl
+internal sealed partial class BowlerControl
     : UserControl, Bowlers.IViewModel
 {
     private static readonly IDictionary<string, string> _states = new Dictionary<string, string>

@@ -6,7 +6,7 @@ namespace BowlingMegabucks.TournamentManager.Controls.Grids;
 ///
 /// </summary>
 [Designer(typeof(System.Windows.Forms.Design.ControlDesigner))]
-internal partial class DataGridView : System.Windows.Forms.DataGridView
+internal sealed partial class DataGridView : System.Windows.Forms.DataGridView
 {
     /// <summary>
     ///

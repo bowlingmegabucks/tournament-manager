@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace BowlingMegabucks.TournamentManager.Controls;
-internal partial class SweeperControl : UserControl, Sweepers.IViewModel
+internal sealed partial class SweeperControl : UserControl, Sweepers.IViewModel
 {
     public SweeperControl()
     {
@@ -63,7 +63,7 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public DateTime Date
+    public DateTime SweeperDate
     {
         get => squadDatePicker.Value;
         set => squadDatePicker.Value = value;
@@ -71,7 +71,7 @@ internal partial class SweeperControl : UserControl, Sweepers.IViewModel
 
     private void SquadDatePicker_Validating(object sender, CancelEventArgs e)
     {
-        if (Date < DateTime.Now)
+        if (SweeperDate < DateTime.Now)
         {
             e.Cancel = true;
             sweeperErrorProvider.SetError(squadDatePicker, "Date cannot be in past");

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.ComponentModel;
 
 namespace BowlingMegabucks.TournamentManager.Controls;
-internal partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
+internal sealed partial class LaneAssignmentControl : UserControl, LaneAssignments.IViewModel
 {
     private readonly CultureInfo _culture;
 

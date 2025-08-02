@@ -1,5 +1,6 @@
 ﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Add;
-internal partial class Form : System.Windows.Forms.Form, IView
+internal sealed partial class Form 
+    : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;
 
@@ -7,8 +8,8 @@ internal partial class Form : System.Windows.Forms.Form, IView
     {
         InitializeComponent();
 
-        newTournament.Start = new DateOnly(DateTime.Now.Year, 1, 1);
-        newTournament.End = new DateOnly(DateTime.Now.Year, 12, 31);
+        newTournament.StartDate = new DateOnly(DateTime.Now.Year, 1, 1);
+        newTournament.EndDate = new DateOnly(DateTime.Now.Year, 12, 31);
 
         _presenter = new(this, services);
     }

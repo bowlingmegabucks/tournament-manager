@@ -1,5 +1,5 @@
 ﻿namespace BowlingMegabucks.TournamentManager.Tournaments.Portal;
-internal partial class Form : System.Windows.Forms.Form
+internal sealed partial class Form : System.Windows.Forms.Form
 {
     private readonly IServiceProvider _services;
     private readonly TournamentId _id;

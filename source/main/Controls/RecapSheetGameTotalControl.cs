@@ -5,7 +5,8 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class RecapSheetGameTotalControl : UserControl
+internal sealed partial class RecapSheetGameTotalControl 
+    : UserControl
 {
     public RecapSheetGameTotalControl()
     {

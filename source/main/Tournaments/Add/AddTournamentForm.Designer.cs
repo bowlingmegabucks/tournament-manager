@@ -38,14 +38,14 @@ partial class Form
         newTournament.BowlingCenter = "";
         newTournament.CashRatio = new decimal(new int[] { 0, 0, 0, 0 });
         newTournament.Completed = false;
-        newTournament.End = new DateOnly(2023, 8, 21);
+        newTournament.EndDate = new DateOnly(2023, 8, 21);
         newTournament.EntryFee = new decimal(new int[] { 0, 0, 0, 0 });
         newTournament.FinalsRatio = new decimal(new int[] { 0, 0, 0, 0 });
         newTournament.Games = 0;
         newTournament.Location = new Point(12, 12);
         newTournament.Name = "newTournament";
         newTournament.Size = new Size(354, 388);
-        newTournament.Start = new DateOnly(2023, 8, 21);
+        newTournament.StartDate = new DateOnly(2023, 8, 21);
         newTournament.SuperSweeperCashRatio = new decimal(new int[] { 0, 0, 0, 0 });
         newTournament.TabIndex = 0;
         newTournament.TournamentName = "";

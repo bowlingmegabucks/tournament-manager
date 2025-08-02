@@ -1,6 +1,7 @@
 ﻿
 namespace BowlingMegabucks.TournamentManager.Squads.Retrieve;
-internal partial class Form : System.Windows.Forms.Form, IView
+internal sealed partial class Form 
+    : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;
     private readonly IServiceProvider _services;
@@ -34,7 +35,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
 
     private void OpenButton_Click(object sender, EventArgs e)
     {
-        using var form = new Portal.Form(_services, TournamentId, squadsGrid.SelectedSquad!.Id, _gamesPerSquad, squadsGrid.SelectedSquad.Date, squadsGrid.SelectedSquad.Complete);
+        using var form = new Portal.Form(_services, TournamentId, squadsGrid.SelectedSquad!.Id, _gamesPerSquad, squadsGrid.SelectedSquad.SquadDate, squadsGrid.SelectedSquad.Complete);
 
         if (!form.IsDisposed)
         {

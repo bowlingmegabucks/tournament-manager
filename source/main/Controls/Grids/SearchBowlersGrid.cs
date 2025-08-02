@@ -1,6 +1,6 @@
 ﻿
 namespace BowlingMegabucks.TournamentManager.Controls.Grids;
-internal partial class SearchBowlersGrid
+internal sealed partial class SearchBowlersGrid
 #if DEBUG
     : SearchBowlersMiddleGrid
 #else

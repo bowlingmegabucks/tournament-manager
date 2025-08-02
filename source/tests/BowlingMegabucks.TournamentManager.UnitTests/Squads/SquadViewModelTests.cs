@@ -66,7 +66,7 @@ internal sealed class ViewModel
 
         var viewModel = new TournamentManager.Squads.ViewModel(model);
 
-        Assert.That(viewModel.Date, Is.EqualTo(model.Date));
+        Assert.That(viewModel.SquadDate, Is.EqualTo(model.Date));
     }
 
     [Test]

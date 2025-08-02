@@ -65,11 +65,11 @@ internal sealed class Sweeper
     public void Constructor_IViewModel_DateMapped()
     {
         var viewModel = new Mock<IViewModel>();
-        viewModel.SetupGet(v => v.Date).Returns(DateTime.Now);
+        viewModel.SetupGet(v => v.SweeperDate).Returns(DateTime.Now);
 
         var model = viewModel.Object.ToModel();
 
-        Assert.That(model.Date, Is.EqualTo(viewModel.Object.Date));
+        Assert.That(model.Date, Is.EqualTo(viewModel.Object.SweeperDate));
     }
 
     [Test]

@@ -2,7 +2,8 @@
 using QuestPDF.Fluent;
 
 namespace BowlingMegabucks.TournamentManager.Sweepers.Results;
-internal class SweeperResultReport : ResultReportBase<IViewModel>
+internal sealed class SweeperResultReport 
+    : ResultReportBase<IViewModel>
 {
     internal SweeperResultReport(string title, DateTime? bowlDate, ICollection<IViewModel> results)
         : base(title, bowlDate, string.Empty, results)

@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 
 namespace BowlingMegabucks.TournamentManager.Dialogs;
-internal partial class ConfirmSensitiveInfoDialog : Form
+internal sealed partial class ConfirmSensitiveInfoDialog 
+    : Form
 {
     /// <summary>
     ///

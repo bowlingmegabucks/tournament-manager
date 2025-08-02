@@ -42,7 +42,7 @@ internal sealed class ViewModel
 
         var viewModel = new TournamentManager.Tournaments.ViewModel(model);
 
-        Assert.That(viewModel.Start, Is.EqualTo(start));
+        Assert.That(viewModel.StartDate, Is.EqualTo(start));
     }
 
     [Test]
@@ -56,7 +56,7 @@ internal sealed class ViewModel
 
         var viewModel = new TournamentManager.Tournaments.ViewModel(model);
 
-        Assert.That(viewModel.End, Is.EqualTo(end));
+        Assert.That(viewModel.EndDate, Is.EqualTo(end));
     }
 
     [Test]

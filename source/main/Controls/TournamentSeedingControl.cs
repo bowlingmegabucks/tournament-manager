@@ -5,7 +5,8 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class TournamentSeedingControl : UserControl
+internal sealed partial class TournamentSeedingControl
+    : UserControl
 {
     internal TournamentSeedingControl(Tournaments.Seeding.IViewModel model)
     {

@@ -3,7 +3,7 @@ using System.Data;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.Add;
-internal partial class Form
+internal sealed partial class Form
     : System.Windows.Forms.Form, IView
 {
     private readonly IServiceProvider _services;
@@ -79,7 +79,7 @@ internal partial class Form
     {
         foreach (var squad in squads)
         {
-            squadsFlowPanelLayout.Controls.Add(new Controls.SelectSquadControl(squad.Id, $"{squad.Date:d} ({squad.Date:t})", false));
+            squadsFlowPanelLayout.Controls.Add(new Controls.SelectSquadControl(squad.Id, $"{squad.SquadDate:d} ({squad.SquadDate:t})", false));
         }
     }
 
@@ -102,7 +102,7 @@ internal partial class Form
     {
         foreach (var sweeper in sweepers)
         {
-            sweepersFlowLayoutPanel.Controls.Add(new Controls.SelectSquadControl(sweeper.Id, $"{sweeper.Date:d} ({sweeper.Date:t})", false));
+            sweepersFlowLayoutPanel.Controls.Add(new Controls.SelectSquadControl(sweeper.Id, $"{sweeper.SweeperDate:d} ({sweeper.SweeperDate:t})", false));
         }
     }
 

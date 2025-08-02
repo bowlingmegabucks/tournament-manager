@@ -5,7 +5,8 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class SweeperResultsControl : UserControl
+internal sealed partial class SweeperResultsControl 
+    : UserControl
 {
     internal SweeperResultsControl(Sweepers.Results.IViewModel model)
     {

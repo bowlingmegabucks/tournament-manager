@@ -1,6 +1,6 @@
 ﻿namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
 
-internal partial class UpdateForm
+internal sealed partial class UpdateForm
     : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;

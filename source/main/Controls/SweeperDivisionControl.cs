@@ -2,7 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 
 namespace BowlingMegabucks.TournamentManager.Controls;
-internal partial class SweeperDivisionControl : UserControl
+internal sealed partial class SweeperDivisionControl
+    : UserControl
 {
     public DivisionId DivisionId { get; }
 

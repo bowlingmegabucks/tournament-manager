@@ -1,6 +1,6 @@
 ﻿
 namespace BowlingMegabucks.TournamentManager.Controls.Grids;
-internal partial class SweepersGrid
+internal sealed partial class SweepersGrid
 #if DEBUG
     : SweeperMiddleGrid
 #else

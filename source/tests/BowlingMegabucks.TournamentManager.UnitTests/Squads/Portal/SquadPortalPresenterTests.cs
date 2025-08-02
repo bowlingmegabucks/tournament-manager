@@ -60,7 +60,7 @@ internal sealed class Presenter
     public async Task LoadAsync_RetrieveSquadAdapterHasNoError_ViewSetPortalTitle_CalledCorrectly()
     {
         var squad = new Mock<TournamentManager.Squads.IViewModel>();
-        squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified));
+        squad.SetupGet(s => s.SquadDate).Returns(new DateTime(2000, 1, 2, 9, 30, 0, DateTimeKind.Unspecified));
         _adapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<SquadId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squad.Object);
 
         var squadId = new SquadId();

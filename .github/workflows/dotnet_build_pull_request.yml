@@ -1,0 +1,28 @@
+name: .Net Build (Pull Request)
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on: [pull_request]
+
+jobs:
+  Build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+        
+    - name: Clean
+      run: dotnet clean source --configuration Release && dotnet nuget locals all --clear
+    - name: Build
+      run: dotnet build source --configuration Release
+    - name: Unit Tests
+      run: dotnet test source/tests/BowlingMegabucks.TournamentManager.UnitTests --verbosity normal --configuration Release
+    - name: Integration Tests
+      run: dotnet run --project source/tests/BowlingMegabucks.TournamentManager.IntegrationTests

@@ -38,7 +38,7 @@ partial class Form
         newSweeper.AutoSize = true;
         newSweeper.CashRatio = new decimal(new int[] { 0, 0, 0, 0 });
         newSweeper.Complete = false;
-        newSweeper.Date = new DateTime(2022, 6, 10, 20, 43, 13, 850);
+        newSweeper.SweeperDate = new DateTime(2022, 6, 10, 20, 43, 13, 850);
         newSweeper.EntryFee = new decimal(new int[] { 0, 0, 0, 0 });
         newSweeper.Games = 0;
         newSweeper.Location = new Point(12, 12);

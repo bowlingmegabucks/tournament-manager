@@ -233,17 +233,17 @@ internal sealed class Presenter
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var squad1 = new Mock<TournamentManager.Squads.IViewModel>();
-        squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
+        squad1.SetupGet(squad => squad.SquadDate).Returns(new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squad2 = new Mock<TournamentManager.Squads.IViewModel>();
-        squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified));
+        squad2.SetupGet(squad => squad.SquadDate).Returns(new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squad2A = new Mock<TournamentManager.Squads.IViewModel>();
         squad2A.SetupGet(squad => squad.Complete).Returns(true);
-        squad2A.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
+        squad2A.SetupGet(squad => squad.SquadDate).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squad3 = new Mock<TournamentManager.Squads.IViewModel>();
-        squad3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
+        squad3.SetupGet(squad => squad.SquadDate).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var squads = new[] { squad3.Object, squad2A.Object, squad1.Object, squad2.Object };
         _squadsAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squads);
@@ -254,9 +254,9 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[0].Date == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[1].Date == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
-            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[2].Date == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[0].SquadDate == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[1].SquadDate == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList()[2].SquadDate == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
 
             _view.Verify(view => view.BindSquads(It.Is<IEnumerable<TournamentManager.Squads.IViewModel>>(squads => squads.ToList().Count == 3)), Times.Once);
         });
@@ -268,17 +268,17 @@ internal sealed class Presenter
         _view.Setup(view => view.SelectBowler()).Returns(BowlerId.Empty);
 
         var sweeper1 = new Mock<TournamentManager.Sweepers.IViewModel>();
-        sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
+        sweeper1.SetupGet(squad => squad.SweeperDate).Returns(new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweeper2 = new Mock<TournamentManager.Sweepers.IViewModel>();
-        sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified));
+        sweeper2.SetupGet(squad => squad.SweeperDate).Returns(new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweeper2A = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper2A.SetupGet(sweeper => sweeper.Complete).Returns(true);
-        sweeper2A.SetupGet(sweeper => sweeper.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
+        sweeper2A.SetupGet(sweeper => sweeper.SweeperDate).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweeper3 = new Mock<TournamentManager.Sweepers.IViewModel>();
-        sweeper3.SetupGet(squad => squad.Date).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
+        sweeper3.SetupGet(squad => squad.SweeperDate).Returns(new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified));
 
         var sweepers = new[] { sweeper3.Object, sweeper1.Object, sweeper2.Object };
         _sweepersAdapter.Setup(adapter => adapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweepers);
@@ -289,9 +289,9 @@ internal sealed class Presenter
 
         Assert.Multiple(() =>
         {
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].Date == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[1].Date == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
-            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[2].Date == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[0].SweeperDate == new DateTime(2015, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[1].SweeperDate == new DateTime(2015, 1, 2, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
+            _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList()[2].SweeperDate == new DateTime(2015, 1, 3, 0, 0, 0, DateTimeKind.Unspecified))), Times.Once);
 
             _view.Verify(view => view.BindSweepers(It.Is<IEnumerable<TournamentManager.Sweepers.IViewModel>>(sweepers => sweepers.ToList().Count == 3)), Times.Once);
         });

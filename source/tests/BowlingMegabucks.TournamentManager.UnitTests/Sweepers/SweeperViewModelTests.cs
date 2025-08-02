@@ -55,7 +55,7 @@ internal sealed class SweeperViewModelTests
 
     [Test]
     public void Constructor_Model_DateMapped()
-        => Assert.That(_viewModel.Date, Is.EqualTo(_model.Date));
+        => Assert.That(_viewModel.SweeperDate, Is.EqualTo(_model.Date));
 
     [Test]
     public void Constructor_Model_MaxPerPairMapped()

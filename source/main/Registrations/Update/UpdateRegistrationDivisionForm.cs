@@ -3,7 +3,7 @@ using BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
-internal partial class UpdateRegistrationDivisionForm
+internal sealed partial class UpdateRegistrationDivisionForm
     : Form, IView
 {
     private readonly UpdateRegistrationDivisionPresenter _presenter;

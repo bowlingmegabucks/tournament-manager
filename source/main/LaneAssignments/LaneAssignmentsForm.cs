@@ -2,13 +2,13 @@
 using System.Globalization;
 using System.Runtime.Versioning;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using BowlingMegabucks.TournamentManager.Controls;
 
 namespace BowlingMegabucks.TournamentManager.LaneAssignments;
 
 [SupportedOSPlatform("windows")]
-internal partial class Form : System.Windows.Forms.Form, IView
+internal sealed partial class Form 
+    : System.Windows.Forms.Form, IView
 {
     private Scores.RecapSheetForm? _recapSheetForm;
 

@@ -338,7 +338,7 @@ partial class BowlerControl
     private TextBox usbcIdText;
     private TextBox cityText;
     private TextBox streetText;
-    protected ComboBox stateDropdown;
+    private ComboBox stateDropdown;
     private MaskedTextBox zipCodeText;
     private TextBox emailText;
     private Controls.LabelControl streetLabel;

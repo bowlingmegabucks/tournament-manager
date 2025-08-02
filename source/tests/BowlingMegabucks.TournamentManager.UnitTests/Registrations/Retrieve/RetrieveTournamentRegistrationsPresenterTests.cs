@@ -179,11 +179,11 @@ internal sealed class TournamentRegistrationsPresenter
     {
         var squad1 = new Mock<TournamentManager.Squads.IViewModel>();
         squad1.SetupGet(squad => squad.Id).Returns(SquadId.New());
-        squad1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
+        squad1.SetupGet(squad => squad.SquadDate).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
 
         var squad2 = new Mock<TournamentManager.Squads.IViewModel>();
         squad2.SetupGet(squad => squad.Id).Returns(SquadId.New());
-        squad2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
+        squad2.SetupGet(squad => squad.SquadDate).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
 
         var squads = new[] { squad1.Object, squad2.Object };
         _squadsAdapter.Setup(squadsAdapter => squadsAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(squads);
@@ -219,11 +219,11 @@ internal sealed class TournamentRegistrationsPresenter
     {
         var sweeper1 = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper1.SetupGet(squad => squad.Id).Returns(SquadId.New());
-        sweeper1.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
+        sweeper1.SetupGet(squad => squad.SweeperDate).Returns(new DateTime(2000, 1, 1, 9, 0, 0, DateTimeKind.Unspecified));
 
         var sweeper2 = new Mock<TournamentManager.Sweepers.IViewModel>();
         sweeper2.SetupGet(squad => squad.Id).Returns(SquadId.New());
-        sweeper2.SetupGet(squad => squad.Date).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
+        sweeper2.SetupGet(squad => squad.SweeperDate).Returns(new DateTime(2000, 1, 1, 11, 0, 0, DateTimeKind.Unspecified));
 
         var sweepers = new[] { sweeper1.Object, sweeper2.Object };
         _sweepersAdapter.Setup(sweepersAdapter => sweepersAdapter.ExecuteAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(sweepers);

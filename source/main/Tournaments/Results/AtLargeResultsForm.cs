@@ -4,7 +4,8 @@ using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
 namespace BowlingMegabucks.TournamentManager.Tournaments.Results;
-internal partial class AtLarge : System.Windows.Forms.Form, IView
+internal sealed partial class AtLarge 
+    : System.Windows.Forms.Form, IView
 {
     private readonly Dictionary<TabPage, string> _toSpreadsheet;
 
@@ -73,7 +74,7 @@ internal partial class AtLarge : System.Windows.Forms.Form, IView
 
     private MergedDocument GenerateReport()
     {
-        var reports = _results.Select(result => new AtLargeReport(result.Key, result.Value.ToList()));
+        var reports = _results.Select(result => new AtLargeReport(result.Key, [.. result.Value]));
 
         return Document.Merge(reports).UseOriginalPageNumbers();
     }

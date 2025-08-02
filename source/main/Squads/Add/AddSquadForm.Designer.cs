@@ -64,7 +64,7 @@ partial class Form
         // 
         newSquad.CashRatio = null;
         newSquad.Complete = false;
-        newSquad.Date = new DateTime(2022, 6, 8, 10, 30, 39, 618);
+        newSquad.SquadDate = new DateTime(2022, 6, 8, 10, 30, 39, 618);
         newSquad.EntryFee = null;
         newSquad.FinalsRatio = null;
         newSquad.Location = new Point(12, 139);

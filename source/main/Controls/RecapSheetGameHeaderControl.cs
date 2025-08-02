@@ -1,6 +1,6 @@
 ﻿
 namespace BowlingMegabucks.TournamentManager.Controls;
-internal partial class RecapSheetGameHeaderControl : UserControl
+internal sealed partial class RecapSheetGameHeaderControl : UserControl
 {
     public RecapSheetGameHeaderControl()
     {

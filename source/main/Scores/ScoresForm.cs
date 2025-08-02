@@ -1,5 +1,6 @@
 ﻿namespace BowlingMegabucks.TournamentManager.Scores;
-internal partial class Form : System.Windows.Forms.Form, IView, Update.IView
+internal sealed partial class Form
+    : System.Windows.Forms.Form, IView, Update.IView
 {
     private readonly Presenter _presenter;
     private readonly IServiceProvider _services;

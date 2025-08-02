@@ -4,7 +4,8 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class SelectSquadControl : UserControl, ISelectedIds
+internal sealed partial class SelectSquadControl 
+    : UserControl, ISelectedIds
 {
     public SelectSquadControl(SquadId id, string displayText, bool selected)
     {

@@ -2,7 +2,8 @@
 using QuestPDF.Fluent;
 
 namespace BowlingMegabucks.TournamentManager.Squads.Results;
-internal class SquadResultReport : ResultReportBase<IViewModel>
+internal sealed class SquadResultReport 
+    : ResultReportBase<IViewModel>
 {
     private readonly bool _handicap;
 

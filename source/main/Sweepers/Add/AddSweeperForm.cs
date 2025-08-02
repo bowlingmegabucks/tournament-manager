@@ -1,5 +1,6 @@
 ﻿namespace BowlingMegabucks.TournamentManager.Sweepers.Add;
-internal partial class Form : System.Windows.Forms.Form, IView
+internal sealed partial class Form 
+    : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;
 
@@ -12,7 +13,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _presenter = new(this, services);
         TournamentId = tournamentId;
 
-        newSweeper.Date = DateTime.Today;
+        newSweeper.SweeperDate = DateTime.Today;
         newSweeper.TournamentId = tournamentId;
 
         _ = _presenter.GetDivisionsAsync(default);

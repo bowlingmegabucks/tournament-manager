@@ -4,7 +4,7 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Sweepers.Portal;
 
 [SupportedOSPlatform("windows")]
-internal partial class Form
+internal sealed partial class Form
     : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;

@@ -3,7 +3,7 @@ using System.Text;
 using BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 
 namespace BowlingMegabucks.TournamentManager.Controls.Grids;
-internal partial class TournamentRegistrationGrid
+internal sealed partial class TournamentRegistrationGrid
 #if DEBUG
     : TournamentRegistrationMiddleGrid
 #else
