@@ -6,12 +6,13 @@ internal static class RegistrationsExtension
 {
     public static IServiceCollection AddRegistrationsModule(this IServiceCollection services)
     {
-        services.AddTransient<Add.Form>();
+        services.AddTransient<Add.IAdapter, Add.Adapter>();
 
-        services.AddTransient<Retrieve.RetrieveTournamentRegistrationsForm>();
+        services.AddTransient<Delete.IAdapter, Delete.Adapter>();
 
-        services.AddTransient<Update.UpdateRegistrationAverageForm>();
-        services.AddTransient<Update.UpdateRegistrationDivisionForm>();
+        services.AddTransient<Retrieve.IAdapter, Retrieve.Adapter>();
+
+        services.AddTransient<Update.IAdapter, Update.Adapter>();
 
         return services;
     }
