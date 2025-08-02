@@ -2,56 +2,58 @@
 
 namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
-internal class UpdateRegistrationDivisionPresenter
+/// <summary>
+/// Handles presentation logic for updating a registration's average.
+/// </summary>
+public class UpdateRegistrationAveragePresenter
 {
-    private readonly IView _view;
+    private readonly IAverageView _view;
 
-    private readonly Divisions.Retrieve.IAdapter _retrieveDivisionsAdapter;
     private readonly Bowlers.Retrieve.IAdapter _retrieveBowlerAdapter;
     private readonly Retrieve.IAdapter _retrieveRegistrationAdapter;
     private readonly IAdapter _updateRegistrationAdapter;
 
-    public UpdateRegistrationDivisionPresenter(IView view, IServiceProvider services)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateRegistrationAveragePresenter"/> class.
+    /// </summary>
+    /// <param name="view">The view interface.</param>
+    /// <param name="services">The service provider for dependency injection.</param>
+    public UpdateRegistrationAveragePresenter(IAverageView view, IServiceProvider services)
     {
         _view = view;
 
-        _retrieveDivisionsAdapter = services.GetRequiredService<Divisions.Retrieve.IAdapter>();
         _retrieveBowlerAdapter = services.GetRequiredService<Bowlers.Retrieve.IAdapter>();
         _retrieveRegistrationAdapter = services.GetRequiredService<Retrieve.IAdapter>();
         _updateRegistrationAdapter = services.GetRequiredService<IAdapter>();
     }
 
     /// <summary>
-    /// Unit Test Constructor
+    /// Unit Test Constructor.
     /// </summary>
-    /// <param name="mockView"></param>
-    /// <param name="mockDivisionAdapter"></param>
-    /// <param name="mockBowlerAdapter"></param>
-    /// <param name="mockRetrieveRegistrationAdapter"></param>
-    /// <param name="mockUpdateRegistrationAdapter"></param>
-    internal UpdateRegistrationDivisionPresenter(IView mockView, Divisions.Retrieve.IAdapter mockDivisionAdapter,
+    /// <param name="mockView">Mock view for testing.</param>
+    /// <param name="mockBowlerAdapter">Mock bowler adapter.</param>
+    /// <param name="mockRetrieveRegistrationAdapter">Mock retrieve registration adapter.</param>
+    /// <param name="mockUpdateRegistrationAdapter">Mock update registration adapter.</param>
+    internal UpdateRegistrationAveragePresenter(IAverageView mockView,
         Bowlers.Retrieve.IAdapter mockBowlerAdapter, Retrieve.IAdapter mockRetrieveRegistrationAdapter,
         IAdapter mockUpdateRegistrationAdapter)
     {
         _view = mockView;
-        _retrieveDivisionsAdapter = mockDivisionAdapter;
         _retrieveBowlerAdapter = mockBowlerAdapter;
         _retrieveRegistrationAdapter = mockRetrieveRegistrationAdapter;
         _updateRegistrationAdapter = mockUpdateRegistrationAdapter;
     }
 
-    public async Task LoadAsync(TournamentId tournamentId, RegistrationId registrationId, CancellationToken cancellationToken)
+    /// <summary>
+    /// Loads the bowler and registration data for the specified registration and updates the view.
+    /// </summary>
+    /// <param name="registrationId">The registration identifier.</param>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <remarks>
+    /// This method retrieves bowler and registration information, handles errors, and updates the view accordingly.
+    /// </remarks>
+    public async Task LoadAsync(RegistrationId registrationId, CancellationToken cancellationToken)
     {
-        var divisions = await _retrieveDivisionsAdapter.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(true);
-
-        if (_retrieveDivisionsAdapter.Error is not null)
-        {
-            _view.DisplayError(_retrieveDivisionsAdapter.Error.Message);
-            _view.Disable();
-
-            return;
-        }
-
         var bowler = await _retrieveBowlerAdapter.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(true);
 
         if (_retrieveBowlerAdapter.Error is not null)
@@ -72,14 +74,20 @@ internal class UpdateRegistrationDivisionPresenter
             return;
         }
 
-        _view.BindDivisions(divisions);
         _view.BindBowler(bowler!);
         _view.BindRegistration(registration!);
     }
 
-    internal async Task ExecuteAsync(CancellationToken cancellationToken)
+    /// <summary>
+    /// Executes the update of the registration's average and updates the view based on the result.
+    /// </summary>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <remarks>
+    /// This method updates the registration's average, handles errors, and updates the view accordingly.
+    /// </remarks>
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        await _updateRegistrationAdapter.ExecuteAsync(_view.RegistrationId, _view.DivisionId, _view.Gender, _view.Average, _view.UsbcId, _view.DateOfBirth, cancellationToken).ConfigureAwait(true);
+        await _updateRegistrationAdapter.ExecuteAsync(_view.RegistrationId, _view.Average, cancellationToken).ConfigureAwait(true);
 
         if (_updateRegistrationAdapter.Errors.Any())
         {
