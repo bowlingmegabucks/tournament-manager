@@ -5,13 +5,13 @@ internal static class SquadsExtensions
 {
     public static IServiceCollection AddSquadsModule(this IServiceCollection services)
     {
-        services.AddTransient<Add.Form>();
+        services.AddTransient<Add.IAdapter, Add.Adapter>();
 
-        services.AddTransient<Portal.Form>();
+        services.AddTransient<Complete.IAdapter, Complete.Adapter>();
 
-        services.AddTransient<Results.Form>();
+        services.AddTransient<Results.IAdapter, Results.Adapter>();
 
-        services.AddTransient<Retrieve.Form>();
+        services.AddTransient<Retrieve.IAdapter, Retrieve.Adapter>();
 
         return services;
     }
