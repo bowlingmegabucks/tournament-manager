@@ -12,9 +12,6 @@ internal sealed class Presenter
     [SetUp]
     public void SetUp()
     {
-        System.Globalization.CultureInfo.DefaultThreadCurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-        System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-
         _view = new Mock<TournamentManager.Squads.Add.IView>();
         _retrieveTournamentAdapter = new Mock<TournamentManager.Tournaments.Retrieve.IAdapter>();
         _addSquadAdapter = new Mock<TournamentManager.Squads.Add.IAdapter>();

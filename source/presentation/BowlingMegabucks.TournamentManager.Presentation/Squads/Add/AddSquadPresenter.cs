@@ -58,7 +58,7 @@ public class Presenter
         }
         else
         {
-            _view.SetTournamentEntryFee(tournament!.EntryFee.ToString("C2", CultureInfo.CurrentCulture));
+            _view.SetTournamentEntryFee(tournament!.EntryFee.ToString("C2", CultureInfo.GetCultureInfo("en-US")));
             _view.SetTournamentFinalsRatio(tournament.FinalsRatio.ToString("N1", CultureInfo.CurrentCulture));
             _view.SetTournamentCashRatio(tournament.CashRatio.ToString("N1", CultureInfo.CurrentCulture));
         }
