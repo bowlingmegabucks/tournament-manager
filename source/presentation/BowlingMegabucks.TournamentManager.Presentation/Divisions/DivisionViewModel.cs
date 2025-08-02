@@ -26,9 +26,9 @@ internal class ViewModel : IViewModel
 
     public Models.Gender? Gender { get; set; }
 
-/// <summary>
-    /// Unit Test Constructor
-/// </summary>
+    /// <summary>
+        /// Unit Test Constructor
+    /// </summary>
     internal ViewModel()
     {
         DivisionName = string.Empty;
