@@ -1,4 +1,4 @@
-name: .Net Build (Api / Integration Tests)
+name: .Net Build (Pull Request)
 
 permissions:
   contents: read
@@ -17,9 +17,12 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+        
     - name: Clean
-      run: dotnet clean source/api --configuration Release && dotnet nuget locals all --clear
+      run: dotnet clean source --configuration Release && dotnet nuget locals all --clear
     - name: Build
-      run: dotnet build source/api --configuration Release
+      run: dotnet build source --configuration Release
+    - name: Unit Tests
+      run: dotnet test source/tests/BowlingMegabucks.TournamentManager.UnitTests --verbosity normal --configuration Release
     - name: Integration Tests
       run: dotnet run --project source/tests/BowlingMegabucks.TournamentManager.IntegrationTests
