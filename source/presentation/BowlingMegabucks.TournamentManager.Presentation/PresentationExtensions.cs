@@ -4,6 +4,7 @@ using BowlingMegabucks.TournamentManager.LaneAssignments;
 using BowlingMegabucks.TournamentManager.Registrations;
 using BowlingMegabucks.TournamentManager.Scores;
 using BowlingMegabucks.TournamentManager.Squads;
+using BowlingMegabucks.TournamentManager.Sweepers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,7 +29,8 @@ public static class PresentationExtensions
             .AddLaneAssignmentsModule()
             .AddRegistrationsModule()
             .AddScoresModule()
-            .AddSquadsModule();
+            .AddSquadsModule()
+            .AddSweepersModule();
 
         return services;
     }
