@@ -4,7 +4,7 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class LabelControl
+internal sealed partial class LabelControl
     : UserControl
 {
     /// <summary>

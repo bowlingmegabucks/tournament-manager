@@ -5,7 +5,8 @@ namespace BowlingMegabucks.TournamentManager.Scores;
 /// <summary>
 /// Represents the grid view model for displaying bowler scores and lane assignments.
 /// </summary>
-internal class GridViewModel : IGridViewModel
+public class GridViewModel 
+    : IGridViewModel
 {
     /// <inheritdoc/>
     public BowlerId BowlerId { get; set; }
@@ -25,6 +26,8 @@ internal class GridViewModel : IGridViewModel
     /// <param name="laneAssignment">The lane assignment view model.</param>
     public GridViewModel(LaneAssignments.IViewModel laneAssignment)
     {
+        ArgumentNullException.ThrowIfNull(laneAssignment);
+
         BowlerId = laneAssignment.BowlerId;
         LaneAssignment = laneAssignment.LaneAssignment;
         BowlerName = laneAssignment.BowlerName;
@@ -41,6 +44,8 @@ internal class GridViewModel : IGridViewModel
     /// </remarks>
     public GridViewModel(string clipboardData, short gamesPerSquad)
     {
+        ArgumentNullException.ThrowIfNull(clipboardData);
+
         Scores = new Dictionary<short, int>();
 
         var items = clipboardData.Split('\t');

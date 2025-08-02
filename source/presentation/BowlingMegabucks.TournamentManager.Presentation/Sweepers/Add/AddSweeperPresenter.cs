@@ -86,7 +86,7 @@ public class Presenter
         else
         {
             _view.Sweeper.Id = id!.Value;
-            _view.DisplayMessage($"Sweeper added for {_view.Sweeper.Date:MM/dd/yyyy hh:mm tt}");
+            _view.DisplayMessage($"Sweeper added for {_view.Sweeper.SweeperDate:MM/dd/yyyy hh:mm tt}");
             _view.Close();
         }
     }

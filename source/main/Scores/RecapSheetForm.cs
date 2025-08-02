@@ -4,7 +4,7 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Scores;
 
 [SupportedOSPlatform("windows")]
-internal partial class RecapSheetForm : System.Windows.Forms.Form
+internal sealed partial class RecapSheetForm : System.Windows.Forms.Form
 {
     private readonly Dictionary<short, Controls.RecapSheetGameRowControl> _games;
     private readonly DateTime _squadDate;

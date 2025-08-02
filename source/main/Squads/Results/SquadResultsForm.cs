@@ -3,7 +3,8 @@ using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
 namespace BowlingMegabucks.TournamentManager.Squads.Results;
-internal partial class Form : System.Windows.Forms.Form, IView
+internal sealed partial class Form 
+    : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;
 

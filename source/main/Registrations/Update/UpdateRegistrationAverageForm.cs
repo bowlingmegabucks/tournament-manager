@@ -3,7 +3,7 @@ using BowlingMegabucks.TournamentManager.Registrations.Retrieve;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.Update;
 
-internal partial class UpdateRegistrationAverageForm
+internal sealed partial class UpdateRegistrationAverageForm
     : Form, IAverageView
 {
     private readonly UpdateRegistrationAveragePresenter _presenter;

@@ -57,7 +57,7 @@ public class Presenter
             return;
         }
 
-        _view.SetPortalTitle($"{squad!.Date:MM/dd/yyyy hh:mmtt}");
+        _view.SetPortalTitle($"{squad!.SquadDate:MM/dd/yyyy hh:mmtt}");
         _view.SetStartingLane(squad.StartingLane);
         _view.SetNumberOfLanes(squad.NumberOfLanes);
         _view.SetMaxPerPair(squad.MaxPerPair);

@@ -2,7 +2,7 @@
 using System.Globalization;
 
 namespace BowlingMegabucks.TournamentManager.Controls;
-internal partial class DivisionControl : UserControl, Divisions.IViewModel
+internal sealed partial class DivisionControl : UserControl, Divisions.IViewModel
 {
     public DivisionControl()
     {

@@ -1,6 +1,6 @@
 ﻿
 namespace BowlingMegabucks.TournamentManager.Bowlers.Update;
-internal partial class NameForm
+internal sealed partial class NameForm
     : Form, IBowlerNameView
 {
     private readonly NamePresenter _presenter;

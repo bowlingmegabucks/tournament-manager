@@ -13,6 +13,7 @@
 		<PackageIcon>NMT.ico</PackageIcon>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<NeutralLanguage>en-US</NeutralLanguage>
+		<NoWarn>CA1812</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

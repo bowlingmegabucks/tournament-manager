@@ -109,8 +109,8 @@ public class Presenter
         {
             _view.BindDivisions(divisions.OrderBy(division => division.Number));
 
-            _view.BindSquads(squads.Where(squad => !squad.Complete).OrderBy(squad => squad.Date));
-            _view.BindSweepers(sweepers.Where(squad => !squad.Complete).OrderBy(sweeper => sweeper.Date));
+            _view.BindSquads(squads.Where(squad => !squad.Complete).OrderBy(squad => squad.SquadDate));
+            _view.BindSweepers(sweepers.Where(squad => !squad.Complete).OrderBy(sweeper => sweeper.SweeperDate));
 
             if (bowler is not null)
             {
@@ -174,8 +174,8 @@ public class Presenter
         {
             _view.BindDivisions(divisions.OrderBy(division => division.Number));
 
-            _view.BindSquads(squads.Where(squad => !squad.Complete).OrderBy(squad => squad.Date), squadId);
-            _view.BindSweepers(sweepers.Where(sweeper => !sweeper.Complete).OrderBy(sweeper => sweeper.Date), squadId);
+            _view.BindSquads(squads.Where(squad => !squad.Complete).OrderBy(squad => squad.SquadDate), squadId);
+            _view.BindSweepers(sweepers.Where(sweeper => !sweeper.Complete).OrderBy(sweeper => sweeper.SweeperDate), squadId);
 
             if (bowler is not null)
             {

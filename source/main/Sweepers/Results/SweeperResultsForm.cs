@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 
 namespace BowlingMegabucks.TournamentManager.Sweepers.Results;
-internal partial class Form : System.Windows.Forms.Form, IView
+internal sealed partial class Form 
+    : System.Windows.Forms.Form, IView
 {
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     internal string ToSpreadsheet { get; private set; }

@@ -51,7 +51,7 @@ public class Presenter
         }
         else
         {
-            _view.BindSweepers(sweepers.OrderBy(sweeper => sweeper.Date));
+            _view.BindSweepers(sweepers.OrderBy(sweeper => sweeper.SweeperDate));
         }
     }
 

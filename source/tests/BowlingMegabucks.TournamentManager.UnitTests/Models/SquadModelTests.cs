@@ -204,11 +204,11 @@ internal sealed class Squad
     public void Constructor_SquadViewModel_DateMapped()
     {
         var viewModel = new Mock<IViewModel>();
-        viewModel.SetupGet(v => v.Date).Returns(DateTime.Now);
+        viewModel.SetupGet(v => v.SquadDate).Returns(DateTime.Now);
 
         var model = viewModel.Object.ToModel();
 
-        Assert.That(model.Date, Is.EqualTo(viewModel.Object.Date));
+        Assert.That(model.Date, Is.EqualTo(viewModel.Object.SquadDate));
     }
 
     [Test]

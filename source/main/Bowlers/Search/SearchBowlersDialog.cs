@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 
 namespace BowlingMegabucks.TournamentManager.Bowlers.Search;
-internal partial class Dialog : Form, IView
+internal sealed partial class Dialog 
+    : Form, IView
 {
     private readonly Presenter _presenter;
     private readonly IEnumerable<SquadId> _registrationsWithoutSquads;

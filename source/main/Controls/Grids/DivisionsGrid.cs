@@ -2,7 +2,7 @@
 using System.Text;
 
 namespace BowlingMegabucks.TournamentManager.Controls.Grids;
-internal partial class DivisionsGrid
+internal sealed partial class DivisionsGrid
 #if DEBUG
     : DivisionsMiddleGrid
 #else

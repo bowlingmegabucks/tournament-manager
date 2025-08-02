@@ -1,6 +1,7 @@
 ﻿namespace BowlingMegabucks.TournamentManager.Squads.Add;
 
-internal partial class Form : System.Windows.Forms.Form, IView
+internal sealed partial class Form
+    : System.Windows.Forms.Form, IView
 {
     private readonly Presenter _presenter;
 
@@ -11,7 +12,7 @@ internal partial class Form : System.Windows.Forms.Form, IView
         _presenter = new(this, services);
 
         newSquad.TournamentId = tournamentId;
-        newSquad.Date = DateTime.Today;
+        newSquad.SquadDate = DateTime.Today;
 
         _ = _presenter.GetTournamentDetailsAsync(default);
     }

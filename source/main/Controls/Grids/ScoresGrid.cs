@@ -4,7 +4,7 @@ using BowlingMegabucks.TournamentManager.Scores;
 
 namespace BowlingMegabucks.TournamentManager.Controls.Grids;
 
-internal partial class ScoresGrid
+internal sealed partial class ScoresGrid
 #if DEBUG
     : ScoresMiddleGrid
 #else

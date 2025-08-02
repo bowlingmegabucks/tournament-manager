@@ -51,7 +51,7 @@ public class Presenter
         }
         else
         {
-            _view.BindSquads(squads.OrderBy(squad => squad.Date));
+            _view.BindSquads(squads.OrderBy(squad => squad.SquadDate));
         }
     }
 

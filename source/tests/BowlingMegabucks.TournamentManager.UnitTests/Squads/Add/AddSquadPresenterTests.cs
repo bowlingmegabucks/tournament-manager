@@ -169,7 +169,7 @@ internal sealed class Presenter
         _view.Setup(view => view.IsValid()).Returns(true);
 
         var squad = new Mock<TournamentManager.Squads.IViewModel>();
-        squad.SetupGet(s => s.Date).Returns(new DateTime(2000, 1, 2, 9, 30, 00, DateTimeKind.Unspecified));
+        squad.SetupGet(s => s.SquadDate).Returns(new DateTime(2000, 1, 2, 9, 30, 00, DateTimeKind.Unspecified));
         _view.SetupGet(view => view.Squad).Returns(squad.Object);
 
         var squadId = SquadId.New();

@@ -22,7 +22,7 @@ internal class ViewModel
     public decimal CashRatio { get; set; }
 
     /// <inheritdoc/>
-    public DateTime Date { get; set; }
+    public DateTime SweeperDate { get; set; }
 
     /// <inheritdoc/>
     public short MaxPerPair { get; set; }
@@ -50,7 +50,7 @@ internal class ViewModel
         EntryFee = sweeper.EntryFee;
         Games = sweeper.Games;
         CashRatio = sweeper.CashRatio;
-        Date = sweeper.Date;
+        SweeperDate = sweeper.Date;
         MaxPerPair = sweeper.MaxPerPair;
         StartingLane = sweeper.StartingLane;
         NumberOfLanes = sweeper.NumberOfLanes;
@@ -99,7 +99,7 @@ public interface IViewModel
     /// <summary>
     /// Gets or sets the date of the sweeper.
     /// </summary>
-    DateTime Date { get; set; }
+    DateTime SweeperDate { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum number of bowlers per pair.
@@ -149,7 +149,7 @@ internal static class ViewModelExtensions
             EntryFee = viewModel.EntryFee,
             Games = viewModel.Games,
             CashRatio = viewModel.CashRatio,
-            Date = viewModel.Date,
+            Date = viewModel.SweeperDate,
             MaxPerPair = viewModel.MaxPerPair,
             StartingLane = viewModel.StartingLane,
             NumberOfLanes = viewModel.NumberOfLanes,

@@ -89,7 +89,7 @@ public class Presenter
         }
         else
         {
-            _view.DisplayMessage($"Squad added for {_view.Squad.Date:MM/dd/yyyy hh:mm tt}");
+            _view.DisplayMessage($"Squad added for {_view.Squad.SquadDate:MM/dd/yyyy hh:mm tt}");
             _view.Squad.Id = id!.Value;
             _view.Close();
         }

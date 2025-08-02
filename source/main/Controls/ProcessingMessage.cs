@@ -3,7 +3,7 @@
 namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class ProcessingMessage : UserControl
+internal sealed partial class ProcessingMessage : UserControl
 {
     private readonly CancellationTokenSource _cancelToken;
 

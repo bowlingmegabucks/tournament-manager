@@ -2,7 +2,8 @@
 using BowlingMegabucks.TournamentManager.Properties;
 
 namespace BowlingMegabucks.TournamentManager.Controls;
-internal partial class SocialSecurityNumberControl : UserControl
+internal sealed partial class SocialSecurityNumberControl 
+    : UserControl
 {
     /// <summary>
     ///

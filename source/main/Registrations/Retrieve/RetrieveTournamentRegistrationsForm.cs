@@ -2,7 +2,7 @@
 using System.Text;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.Retrieve;
-internal partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRegistrationsView
+internal sealed partial class RetrieveTournamentRegistrationsForm : Form, ITournamentRegistrationsView
 {
     private readonly IServiceProvider _services;
     private readonly TournamentRegistrationsPresenter _tournamentRegistrationsPresenter;

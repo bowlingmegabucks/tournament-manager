@@ -53,15 +53,15 @@ internal sealed class Presenter
     public async Task ExecuteAsync_GetSquadsAdapterReturnsSquads_ViewBindSquads_CalledCorrectly()
     {
         var squad1 = new Mock<TournamentManager.Squads.IViewModel>();
-        squad1.SetupGet(squad => squad.Date).Returns(DateTime.Now);
+        squad1.SetupGet(squad => squad.SquadDate).Returns(DateTime.Now);
         squad1.SetupGet(squad => squad.MaxPerPair).Returns(1);
 
         var squad2 = new Mock<TournamentManager.Squads.IViewModel>();
-        squad2.SetupGet(squad => squad.Date).Returns(DateTime.Now.AddDays(1));
+        squad2.SetupGet(squad => squad.SquadDate).Returns(DateTime.Now.AddDays(1));
         squad2.SetupGet(squad => squad.MaxPerPair).Returns(2);
 
         var squad3 = new Mock<TournamentManager.Squads.IViewModel>();
-        squad3.SetupGet(squad => squad.Date).Returns(DateTime.Now.AddHours(-1));
+        squad3.SetupGet(squad => squad.SquadDate).Returns(DateTime.Now.AddHours(-1));
         squad3.SetupGet(squad => squad.MaxPerPair).Returns(3);
 
         var squads = new[] { squad1.Object, squad2.Object, squad3.Object };

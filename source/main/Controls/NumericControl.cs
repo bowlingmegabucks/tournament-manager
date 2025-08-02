@@ -6,7 +6,8 @@ namespace BowlingMegabucks.TournamentManager.Controls;
 ///
 /// </summary>
 [SupportedOSPlatform("windows")]
-internal partial class NumericControl : NumericUpDown
+internal sealed partial class NumericControl 
+    : NumericUpDown
 {
     /// <summary>
     ///

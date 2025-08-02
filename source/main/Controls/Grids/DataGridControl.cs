@@ -163,7 +163,7 @@ internal abstract partial class DataGrid<TModel> : UserControl where TModel : cl
 /// <summary>
 ///
 /// </summary>
-internal class GridRowDoubleClickEventArgs : System.EventArgs
+internal sealed class GridRowDoubleClickEventArgs : System.EventArgs
 {
 
     /// <summary>

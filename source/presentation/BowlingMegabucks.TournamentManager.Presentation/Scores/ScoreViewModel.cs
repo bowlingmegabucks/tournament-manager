@@ -5,7 +5,8 @@ namespace BowlingMegabucks.TournamentManager.Scores;
 /// <summary>
 /// Represents the view model for a squad score, exposing score details for presentation and data transfer.
 /// </summary>
-internal class ViewModel : IViewModel
+public class ViewModel 
+    : IViewModel
 {
     /// <inheritdoc/>
     public SquadId SquadId { get; set; }
@@ -25,6 +26,8 @@ internal class ViewModel : IViewModel
     /// <param name="squadScore">The squad score model to map from.</param>
     public ViewModel(Models.SquadScore squadScore)
     {
+        ArgumentNullException.ThrowIfNull(squadScore);
+
         BowlerId = squadScore.Bowler.Id;
         GameNumber = squadScore.GameNumber;
         Score = squadScore.Score;
@@ -34,7 +37,7 @@ internal class ViewModel : IViewModel
     /// <summary>
     /// Unit Test Constructor
     /// </summary>
-    internal ViewModel()
+    public ViewModel()
     {
     }
 }

@@ -197,7 +197,7 @@ internal sealed class Tournament
     public void Constructor_TournamentViewModel_StartMapped()
     {
         var start = new DateOnly(2000, 1, 2);
-        var viewModel = new ViewModel { Start = start };
+        var viewModel = new ViewModel { StartDate = start };
 
         var model = viewModel.ToModel();
 
@@ -208,7 +208,7 @@ internal sealed class Tournament
     public void Constructor_TournamentViewModel_EndMapped()
     {
         var end = new DateOnly(2000, 1, 2);
-        var viewModel = new ViewModel { End = end };
+        var viewModel = new ViewModel { EndDate = end };
 
         var model = viewModel.ToModel();
 

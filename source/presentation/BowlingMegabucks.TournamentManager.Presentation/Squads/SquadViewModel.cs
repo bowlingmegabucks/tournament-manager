@@ -21,7 +21,7 @@ internal class ViewModel(Models.Squad squad) : IViewModel
     public decimal? FinalsRatio { get; set; } = squad.FinalsRatio;
 
     /// <inheritdoc/>
-    public DateTime Date { get; set; } = squad.Date;
+    public DateTime SquadDate { get; set; } = squad.Date;
 
     /// <inheritdoc/>
     public short MaxPerPair { get; set; } = squad.MaxPerPair;
@@ -74,7 +74,7 @@ public interface IViewModel
     /// <summary>
     /// Gets or sets the date of the squad.
     /// </summary>
-    DateTime Date { get; set; }
+    DateTime SquadDate { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum number of bowlers per pair.
@@ -118,7 +118,7 @@ internal static class ViewModelExtensions
             TournamentId = viewModel.TournamentId,
             CashRatio = viewModel.CashRatio,
             FinalsRatio = viewModel.FinalsRatio,
-            Date = viewModel.Date,
+            Date = viewModel.SquadDate,
             MaxPerPair = viewModel.MaxPerPair,
             StartingLane = viewModel.StartingLane,
             NumberOfLanes = viewModel.NumberOfLanes,

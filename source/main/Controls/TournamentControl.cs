@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 
 namespace BowlingMegabucks.TournamentManager.Controls;
-internal partial class TournamentControl : UserControl, Tournaments.IViewModel
+internal sealed partial class TournamentControl 
+    : UserControl, Tournaments.IViewModel
 {
     public TournamentControl()
     {
@@ -31,14 +32,14 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public DateOnly Start
+    public DateOnly StartDate
     {
         get => DateOnly.FromDateTime(startDatePicker.Value);
         set => startDatePicker.Value = new DateTime(value.Year, value.Month, value.Day, 0, 0, 0, DateTimeKind.Unspecified);
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public DateOnly End
+    public DateOnly EndDate
     {
         get => DateOnly.FromDateTime(endDatePicker.Value);
         set => endDatePicker.Value = new DateTime(value.Year, value.Month, value.Day, 0, 0, 0, DateTimeKind.Unspecified);
@@ -46,7 +47,7 @@ internal partial class TournamentControl : UserControl, Tournaments.IViewModel
 
     private void TournamentDates_Validating(object sender, CancelEventArgs e)
     {
-        if (Start > End)
+        if (StartDate > EndDate)
         {
             e.Cancel = true;
             tournamentErrorProvider.SetError((Control)sender, "Start date must be before end date");

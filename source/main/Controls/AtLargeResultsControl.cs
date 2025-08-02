@@ -5,7 +5,8 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class AtLargeResultsControl : UserControl
+internal sealed partial class AtLargeResultsControl 
+    : UserControl
 {
     internal AtLargeResultsControl(Tournaments.Results.IAtLargeViewModel model)
     {

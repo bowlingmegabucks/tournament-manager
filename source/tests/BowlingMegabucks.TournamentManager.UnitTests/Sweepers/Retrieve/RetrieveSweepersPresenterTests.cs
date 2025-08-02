@@ -53,15 +53,15 @@ internal sealed class Presenter
     public async Task ExecuteAsync_GetSweepersAdapterReturnsSweepers_ViewBindSweepers_CalledCorrectly()
     {
         var sweeper1 = new Mock<TournamentManager.Sweepers.IViewModel>();
-        sweeper1.SetupGet(sweeper => sweeper.Date).Returns(DateTime.Now);
+        sweeper1.SetupGet(sweeper => sweeper.SweeperDate).Returns(DateTime.Now);
         sweeper1.SetupGet(sweeper => sweeper.MaxPerPair).Returns(1);
 
         var sweeper2 = new Mock<TournamentManager.Sweepers.IViewModel>();
-        sweeper2.SetupGet(sweeper => sweeper.Date).Returns(DateTime.Now.AddDays(1));
+        sweeper2.SetupGet(sweeper => sweeper.SweeperDate).Returns(DateTime.Now.AddDays(1));
         sweeper2.SetupGet(sweeper => sweeper.MaxPerPair).Returns(2);
 
         var sweeper3 = new Mock<TournamentManager.Sweepers.IViewModel>();
-        sweeper3.SetupGet(sweeper => sweeper.Date).Returns(DateTime.Now.AddHours(-1));
+        sweeper3.SetupGet(sweeper => sweeper.SweeperDate).Returns(DateTime.Now.AddHours(-1));
         sweeper3.SetupGet(sweeper => sweeper.MaxPerPair).Returns(3);
 
         var sweepers = new[] { sweeper1.Object, sweeper2.Object, sweeper3.Object };

@@ -61,7 +61,7 @@ internal sealed class Presenter
     {
         var squad = new TournamentManager.Sweepers.ViewModel
         {
-            Date = new DateTime(2000, 1, 2, 9, 30, 30, DateTimeKind.Unspecified),
+            SweeperDate = new DateTime(2000, 1, 2, 9, 30, 30, DateTimeKind.Unspecified),
             StartingLane = 1,
             NumberOfLanes = 2,
             MaxPerPair = 3,

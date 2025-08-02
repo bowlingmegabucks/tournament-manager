@@ -12,10 +12,10 @@ internal class ViewModel : IViewModel
     public string TournamentName { get; set; } = string.Empty;
 
     /// <inheritdoc/>
-    public DateOnly Start { get; set; }
+    public DateOnly StartDate { get; set; }
 
     /// <inheritdoc/>
-    public DateOnly End { get; set; }
+    public DateOnly EndDate { get; set; }
 
     /// <inheritdoc/>
     public decimal EntryFee { get; set; }
@@ -46,8 +46,8 @@ internal class ViewModel : IViewModel
     {
         Id = model.Id;
         TournamentName = model.Name;
-        Start = model.Start;
-        End = model.End;
+        StartDate = model.Start;
+        EndDate = model.End;
         EntryFee = model.EntryFee;
         Games = model.Games;
         FinalsRatio = model.FinalsRatio;
@@ -83,12 +83,12 @@ public interface IViewModel
     /// <summary>
     /// Gets or sets the start date of the tournament.
     /// </summary>
-    DateOnly Start { get; set; }
+    DateOnly StartDate { get; set; }
 
     /// <summary>
     /// Gets or sets the end date of the tournament.
     /// </summary>
-    DateOnly End { get; set; }
+    DateOnly EndDate { get; set; }
 
     /// <summary>
     /// Gets or sets the entry fee for the tournament.
@@ -144,8 +144,8 @@ internal static class  ViewModelExtensions
         {
             Id = viewModel.Id,
             Name = viewModel.TournamentName,
-            Start = viewModel.Start,
-            End = viewModel.End,
+            Start = viewModel.StartDate,
+            End = viewModel.EndDate,
             EntryFee = viewModel.EntryFee,
             Games = viewModel.Games,
             FinalsRatio = viewModel.FinalsRatio,

@@ -4,7 +4,8 @@ using System.Runtime.Versioning;
 namespace BowlingMegabucks.TournamentManager.Controls;
 
 [SupportedOSPlatform("windows")]
-internal partial class PersonNameControl : UserControl, Bowlers.Update.INameViewModel
+internal sealed partial class PersonNameControl 
+    : UserControl, Bowlers.Update.INameViewModel
 {
     public PersonNameControl()
     {
