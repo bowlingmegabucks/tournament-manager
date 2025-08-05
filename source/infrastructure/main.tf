@@ -223,7 +223,7 @@ resource "azurerm_application_insights_standard_web_test" "api_health_check" {
 
   description   = "Tournament Manager API Health Check"
   enabled       = true
-  frequency     = 300 # Check every 5 minutes
+  frequency     = var.api_health_check_frequency
   timeout       = 30  # Timeout after 30 seconds
   retry_enabled = true
 
