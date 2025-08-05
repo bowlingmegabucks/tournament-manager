@@ -47,6 +47,9 @@ jobs:
             -backend-config="container_name=tfstate" \
             -backend-config="key=stage.tfstate"
 
+      - name: Terraform Validate
+        run: terraform validate
+
       - name: Terraform Plan
         run: terraform plan -out=${{ github.event.inputs.environment }}-tfplan -var-file="${{ github.event.inputs.environment }}.tfvars" -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
