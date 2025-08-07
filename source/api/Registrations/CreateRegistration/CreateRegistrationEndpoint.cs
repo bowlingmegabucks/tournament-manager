@@ -60,8 +60,8 @@ public sealed class CreateRegistrationEndpoint
     {
         ArgumentNullException.ThrowIfNull(req);
 
-        // Logic to create the registration goes here
-        // For example, you might save the registration to a database
+        // need to see if a registration is already created, if so, we need to call the update flow
+        // check for a conflict error
 
         var response = new CreateRegistrationResponse
         {

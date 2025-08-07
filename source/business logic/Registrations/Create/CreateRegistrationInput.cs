@@ -11,6 +11,11 @@ public record CreateRegistrationInput
     public required Models.Bowler Bowler { get; init; }
 
     /// <summary>
+    /// The unique identifier for the tournament.
+    /// </summary>
+    public required TournamentId TournamentId { get; init; }
+
+    /// <summary>
     /// The division the bowler is registering for.
     /// </summary>
     public required DivisionId DivisionId { get; init; }

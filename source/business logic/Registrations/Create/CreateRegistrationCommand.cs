@@ -6,4 +6,10 @@ namespace BowlingMegabucks.TournamentManager.Registrations.Create;
 /// Command to create a new registration.
 /// </summary>
 public record CreateRegistrationCommand
-    : ICommand<RegistrationId>;
+    : ICommand<RegistrationId>
+{ 
+    /// <summary>
+    /// Gets or sets the registration details.
+    /// </summary>
+    public required CreateRegistrationInput Registration { get; init; }
+}

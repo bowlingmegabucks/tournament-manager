@@ -1,4 +1,6 @@
 ﻿
+using ErrorOr;
+
 namespace BowlingMegabucks.TournamentManager.Models;
 
 /// <summary>
@@ -59,4 +61,10 @@ public static class ErrorDetailExtensions
     /// <returns></returns>
     public static ErrorDetail ToErrorDetail(this ErrorOr.Error error)
         => new(error.Description, -1);
+
+    internal static Error ToError(this ErrorDetail errorDetail, string code = "General.Failure")
+        => Error.Failure(code, errorDetail.Message);
+
+    internal static List<Error> ToErrors(this IEnumerable<ErrorDetail> errorDetails, string code = "General.Failure")
+        => [.. errorDetails.Select(errorDetail => errorDetail.ToError(code))];
 }
