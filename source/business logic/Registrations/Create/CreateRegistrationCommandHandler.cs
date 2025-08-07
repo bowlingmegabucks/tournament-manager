@@ -3,6 +3,7 @@ using BowlingMegabucks.TournamentManager.Models;
 using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
 using ErrorOr;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.Create;
 
@@ -16,10 +17,11 @@ internal sealed class CreateRegistrationCommandHandler
     private readonly Bowlers.Update.IBusinessLogic _updateBowler;
     private readonly IEntityMapper _entityMapper;
     private readonly IRepository _repository;
+    private readonly ILogger<CreateRegistrationCommandHandler> _logger;
 
     public CreateRegistrationCommandHandler(Divisions.Retrieve.IBusinessLogic getDivision, IQueryHandler<GetTournamentByIdQuery, Tournament?> getTournament,
         IValidator<Registration> validator, Bowlers.Search.IBusinessLogic searchBowlers, Bowlers.Update.IBusinessLogic updateBowler,
-        IEntityMapper entityMapper, IRepository repository)
+        IEntityMapper entityMapper, IRepository repository, ILogger<CreateRegistrationCommandHandler> logger)
     {
         _getDivision = getDivision;
         _getTournament = getTournament;
@@ -30,6 +32,7 @@ internal sealed class CreateRegistrationCommandHandler
         _repository = repository;
         _entityMapper = entityMapper;
         _updateBowler = updateBowler;
+        _logger = logger;
     }
 
     public async Task<ErrorOr<RegistrationId>> HandleAsync(CreateRegistrationCommand command, CancellationToken cancellationToken)

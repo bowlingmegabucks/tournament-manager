@@ -1,6 +1,9 @@
 ﻿
+using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Registrations.Create;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace BowlingMegabucks.TournamentManager.Registrations;
 
@@ -14,6 +17,12 @@ internal static class RegistrationExtensions
         services.AddSingleton<IValidator<Models.Registration>, Add.Validator>();
         services.AddTransient<Add.IBusinessLogic, Add.BusinessLogic>();
         services.AddTransient<Add.IDataLayer, Add.DataLayer>();
+
+        services.AddTransient<CreateRegistrationCommandHandler>();
+        services.AddTransient<ICommandHandler<CreateRegistrationCommand, RegistrationId>>(provider =>
+            new CreateRegistrationCommandHandlerTelemetryDecorator(
+                provider.GetRequiredService<CreateRegistrationCommandHandler>(),
+                provider.GetRequiredService<ILogger<CreateRegistrationCommandHandlerTelemetryDecorator>>()));
 
         services.AddTransient<Delete.IBusinessLogic, Delete.BusinessLogic>();
         services.AddTransient<Delete.IDataLayer, Delete.DataLayer>();
