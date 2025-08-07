@@ -108,11 +108,6 @@ internal sealed class CreateRegistrationCommandHandler
 
         var registrationEntity = _entityMapper.Execute(registration);
 
-        if (registrationEntity.BowlerId != BowlerId.Empty)
-        {
-            registrationEntity.Bowler = null!; // Prevent EF Core from trying to insert a new bowler
-        }
-
         return await _repository.AddAsync(registrationEntity, cancellationToken);
     }
 

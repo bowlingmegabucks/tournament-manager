@@ -14,6 +14,11 @@ internal class Repository : IRepository
 
     async Task<RegistrationId> IRepository.AddAsync(Database.Entities.Registration registration, CancellationToken cancellationToken)
     {
+        if (registration.BowlerId != BowlerId.Empty)
+        {
+            registration.Bowler = null!; // Prevent EF Core from trying to insert a new bowler
+        }
+
         await _dataContext.Registrations.AddAsync(registration, cancellationToken).ConfigureAwait(false);
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
