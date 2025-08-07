@@ -68,6 +68,11 @@ internal class Repository : IRepository
             bowlers = bowlers.Where(bowler => bowler.Id == searchCriteria.BowlerId.Value);
         }
 
+        if (searchCriteria.UsbcId is not null)
+        {
+            bowlers = bowlers.Where(bowler => bowler.USBCId == searchCriteria.UsbcId);
+        }
+
         if (searchCriteria.WithoutRegistrationOnSquads.Any())
         {
             var excludeIds = new List<BowlerId>();

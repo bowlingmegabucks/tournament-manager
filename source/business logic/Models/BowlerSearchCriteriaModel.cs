@@ -16,7 +16,7 @@ public class BowlerSearchCriteria
     /// </summary>
     public string? LastName { get; set; }
 
-    /// <summary>
+    /// <summary>   `
     /// 
     /// </summary>
     public string? EmailAddress { get; set; }
@@ -37,4 +37,6 @@ public class BowlerSearchCriteria
     public TournamentId? NotRegisteredInTournament { get; set; }
 
     internal BowlerId? BowlerId { get; set; }
+
+    internal string? UsbcId { get; set; }
 }
