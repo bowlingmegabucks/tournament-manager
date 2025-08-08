@@ -48,7 +48,8 @@ internal sealed class CreateRegistrationCommandHandler
 
         if (alreadyRegisteredResult.Value)
         {
-            return Error.Conflict("Bowler is already registered for this tournament.");
+            _logger.BowlerAlreadyRegistered(command.Registration.Bowler.USBCId, command.Registration.TournamentId);
+            return Error.Conflict(description: "Bowler is already registered for this tournament.");
         }
 
         var division = await _getDivision.ExecuteAsync(command.Registration.DivisionId, cancellationToken);
@@ -70,7 +71,7 @@ internal sealed class CreateRegistrationCommandHandler
         var registration = new Registration
         {
             Bowler = command.Registration.Bowler,
-            Division = division!,
+            Division = division ?? throw new InvalidOperationException("Division not found."),
             TournamentStartDate = tournament.Start,
             TournamentSweeperCount = tournament.Sweepers.Count(),
 
@@ -99,6 +100,7 @@ internal sealed class CreateRegistrationCommandHandler
 
         if (existingBowlerRecord is not null)
         {
+            command.Registration.Bowler.Id = existingBowlerRecord.Id;
             await _updateBowler.ExecuteAsync(command.Registration.Bowler, cancellationToken);
 
             if (_updateBowler.Errors.Any())
@@ -145,4 +147,10 @@ internal sealed class CreateRegistrationCommandHandler
             ? _searchBowlers.ErrorDetail.ToError()
             : bowlerSearchResult.SingleOrDefault();
     }
+}
+
+internal static partial class CreateRegistrationCommandHandlerLogMessages
+{ 
+    [LoggerMessage(LogLevel.Information, "Bowler with USBC ID {UsbcId} is already registered for tournament {TournamentId}.")]
+    public static partial void BowlerAlreadyRegistered(this ILogger<CreateRegistrationCommandHandler> logger, string usbcId, TournamentId tournamentId);
 }

@@ -51,8 +51,4 @@
 	  <EditorConfigFiles Remove="C:\source\northeast-megabuck-tournament-winform\source\business logic\Database\Migrations\.editorconfig" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Include="C:\source\northeast-megabuck-tournament-winform\source\business logic\Database\Migrations\.editorconfig" />
-	</ItemGroup>
-
 </Project>
