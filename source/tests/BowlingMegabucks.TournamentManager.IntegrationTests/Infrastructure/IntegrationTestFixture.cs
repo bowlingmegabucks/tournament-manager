@@ -29,6 +29,14 @@ public abstract class IntegrationTestFixture
     protected HttpClient CreateClient()
         => _factory.CreateClient();
 
+    protected HttpClient CreateAuthenticatedClient()
+    {
+        var client = CreateClient();
+        client.DefaultRequestHeaders.Add("x-api-key", TournamentManagerWebAppFactory._apiKey);
+
+        return client;
+    }
+
     protected async Task ResetDatabaseAsync()
         => await _respawner.ResetAsync(_dbConnection);
 

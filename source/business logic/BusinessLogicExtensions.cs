@@ -9,6 +9,7 @@ using BowlingMegabucks.TournamentManager.Scores;
 using BowlingMegabucks.TournamentManager.Squads;
 using BowlingMegabucks.TournamentManager.Sweepers;
 using BowlingMegabucks.TournamentManager.Tournaments;
+using System.Text.RegularExpressions;
 
 namespace BowlingMegabucks.TournamentManager;
 
@@ -38,5 +39,26 @@ public static class BusinessLogicExtensions
             .AddTournamentsModule();
 
         return services;
+    }
+}
+
+internal static class DataNormalizationExtensions
+{ 
+    public static string NormalizePhoneNumber(this string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return string.Empty;
+
+        // Remove all non-digit characters
+        var digitsOnly = Regex.Replace(input, @"\D", "");
+
+        // If it starts with '1' and is 11 digits long, remove the leading '1'
+        if (digitsOnly.Length == 11 && digitsOnly.StartsWith('1'))
+        {
+            digitsOnly = digitsOnly.Substring(1);
+        }
+
+        // Return 10-digit number or empty string if invalid
+        return digitsOnly.Length == 10 ? digitsOnly : string.Empty;
     }
 }

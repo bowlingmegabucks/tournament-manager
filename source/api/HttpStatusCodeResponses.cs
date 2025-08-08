@@ -67,8 +67,12 @@ internal static class HttpStatusCodeResponses
             Detail = "An unexpected error occurred while processing the request."
         };
 
-    internal static ProblemHttpResult ToProblemDetails(this IEnumerable<Error> errors, string detail, int? statusCode = StatusCodes.Status500InternalServerError)
+    internal static ProblemHttpResult ToProblemDetails(this ICollection<Error> errors, string detail)
     {
+        var statusCode = errors.Any(error => error.Type == ErrorType.Validation)
+            ? StatusCodes.Status400BadRequest
+            : StatusCodes.Status500InternalServerError;
+
         var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
         {
             Detail = detail,

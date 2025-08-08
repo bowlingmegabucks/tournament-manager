@@ -119,7 +119,7 @@ internal class Repository : IRepository
         current.StateAddress = bowler.StateAddress;
         current.ZipCode = bowler.ZipCode;
         current.EmailAddress = bowler.EmailAddress;
-        current.PhoneNumber = bowler.PhoneNumber;
+        current.PhoneNumber = bowler.PhoneNumber.NormalizePhoneNumber();
         current.DateOfBirth = bowler.DateOfBirth;
         current.SocialSecurityNumber = bowler.SocialSecurityNumber;
         current.Gender = bowler.Gender;
