@@ -39,7 +39,7 @@ internal sealed class CreateRegistrationCommandHandler
     {
         ArgumentNullException.ThrowIfNull(command);
 
-        var alreadyRegisteredResult = await IsBowlerAlreadyRegisteredForTournamentAsync(command.Registration.Bowler.USBCId, command.Registration.TournamentId, cancellationToken);
+        var alreadyRegisteredResult = await IsBowlerAlreadyRegisteredForTournamentAsync(command.Bowler.USBCId, command.TournamentId, cancellationToken);
 
         if (alreadyRegisteredResult.IsError)
         {
@@ -48,18 +48,18 @@ internal sealed class CreateRegistrationCommandHandler
 
         if (alreadyRegisteredResult.Value)
         {
-            _logger.BowlerAlreadyRegistered(command.Registration.Bowler.USBCId, command.Registration.TournamentId);
+            _logger.BowlerAlreadyRegistered(command.Bowler.USBCId, command.TournamentId);
             return Error.Conflict(description: "Bowler is already registered for this tournament.");
         }
 
-        var division = await _getDivision.ExecuteAsync(command.Registration.DivisionId, cancellationToken);
+        var division = await _getDivision.ExecuteAsync(command.DivisionId, cancellationToken);
 
         if (_getDivision.ErrorDetail is not null)
         {
             return _getDivision.ErrorDetail.ToError();
         }
 
-        var tournamentResult = await _getTournament.HandleAsync(new() { Id = command.Registration.TournamentId }, cancellationToken);
+        var tournamentResult = await _getTournament.HandleAsync(new() { Id = command.TournamentId }, cancellationToken);
 
         if (tournamentResult.IsError)
         {
@@ -70,16 +70,16 @@ internal sealed class CreateRegistrationCommandHandler
 
         var registration = new Registration
         {
-            Bowler = command.Registration.Bowler,
+            Bowler = command.Bowler,
             Division = division ?? throw new InvalidOperationException("Division not found."),
             TournamentStartDate = tournament.Start,
             TournamentSweeperCount = tournament.Sweepers.Count(),
 
-            Squads = command.Registration.Squads.Select(squadId => new Models.Squad { Id = squadId }).ToList(),
-            Sweepers = command.Registration.Sweepers.Select(sweeperId => new Models.Sweeper { Id = sweeperId }).ToList(),
-            SuperSweeper = command.Registration.SuperSweeper,
+            Squads = command.Squads.Select(squadId => new Models.Squad { Id = squadId }).ToList(),
+            Sweepers = command.Sweepers.Select(sweeperId => new Models.Sweeper { Id = sweeperId }).ToList(),
+            SuperSweeper = command.SuperSweeper,
 
-            Average = command.Registration.Average
+            Average = command.Average
         };
 
         var validatorResults = await _validator.ValidateAsync(registration, cancellationToken);
@@ -89,7 +89,7 @@ internal sealed class CreateRegistrationCommandHandler
             return validatorResults.Errors.Select(e => Error.Validation(e.ErrorCode, e.ErrorMessage)).ToList();
         }
 
-        var existingBowlerRecordResult = await GetExistingBowlerRecord(command.Registration.Bowler.USBCId, cancellationToken);
+        var existingBowlerRecordResult = await GetExistingBowlerRecord(command.Bowler.USBCId, cancellationToken);
 
         if (existingBowlerRecordResult.IsError)
         {
@@ -100,15 +100,15 @@ internal sealed class CreateRegistrationCommandHandler
 
         if (existingBowlerRecord is not null)
         {
-            command.Registration.Bowler.Id = existingBowlerRecord.Id;
-            await _updateBowler.ExecuteAsync(command.Registration.Bowler, cancellationToken);
+            command.Bowler.Id = existingBowlerRecord.Id;
+            await _updateBowler.ExecuteAsync(command.Bowler, cancellationToken);
 
             if (_updateBowler.Errors.Any())
             {
                 return _updateBowler.Errors.ToErrors();
             }
 
-            command.Registration.Bowler.Id = existingBowlerRecord.Id;
+            command.Bowler.Id = existingBowlerRecord.Id;
         }
 
         var registrationEntity = _entityMapper.Execute(registration);

@@ -62,3 +62,35 @@ public sealed record BowlerInput
     /// </example>
     public string? Gender { get; init; }
 }
+
+internal static class BowlerInputExtensions
+{
+    /// <summary>
+    /// Converts the BowlerInput to a Bowler model.
+    /// </summary>
+    /// <param name="input">The BowlerInput instance.</param>
+    /// <returns>A Bowler model populated with the data from the input.</returns>
+    public static Models.Bowler ToModel(this BowlerInput input)
+        => new()
+        {
+            Name = new Models.PersonName
+            {
+                First = input.FirstName,
+                MiddleInitial = input.MiddleInitial ?? "",
+                Last = input.LastName,
+                Suffix = input.Suffix ?? ""
+            },
+
+            StreetAddress = input.Address.Street,
+            CityAddress = input.Address.City,
+            StateAddress = input.Address.State,
+            ZipCode = input.Address.ZipCode,
+
+            EmailAddress = input.Email,
+            PhoneNumber = input.PhoneNumber ?? "",
+            DateOfBirth = input.DateOfBirth,
+
+            USBCId = input.UsbcId,
+            Gender = Models.Gender.FromName(input.Gender)
+        };
+}

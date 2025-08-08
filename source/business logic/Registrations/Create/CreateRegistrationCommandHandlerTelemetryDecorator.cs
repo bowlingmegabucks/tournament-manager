@@ -21,12 +21,12 @@ internal sealed class CreateRegistrationCommandHandlerTelemetryDecorator
     {
         using var activity = RegistrationsTelemetry._activity.StartActivity("Create Registration", ActivityKind.Internal);
 
-        _logger.CreatingRegistration(command.Registration.Bowler.USBCId, command.Registration.TournamentId);
+        _logger.CreatingRegistration(command.Bowler.USBCId, command.TournamentId);
 
         try
         {
-            activity?.SetTag("tournament.id", command.Registration.TournamentId.Value);
-            activity?.SetTag("bowler.usbcId", command.Registration.Bowler.USBCId);
+            activity?.SetTag("tournament.id", command.TournamentId.Value);
+            activity?.SetTag("bowler.usbcId", command.Bowler.USBCId);
 
             var result = await _innerHandler.HandleAsync(command, cancellationToken);
 
@@ -55,7 +55,7 @@ internal sealed class CreateRegistrationCommandHandlerTelemetryDecorator
         }
         finally
         {
-            _logger.ExecutedCreateRegistration(command.Registration.Bowler.USBCId, command.Registration.TournamentId);
+            _logger.ExecutedCreateRegistration(command.Bowler.USBCId, command.TournamentId);
         }
     }
 }
