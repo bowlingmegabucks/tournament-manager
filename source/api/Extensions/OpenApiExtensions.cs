@@ -20,6 +20,8 @@ internal static class OpenApiExtensions
     private static void ConfigureSwaggerDocument(DocumentOptions o)
     {
         o.ReleaseVersion = 1;
+        o.ExcludeNonFastEndpoints = true;
+        
         o.DocumentSettings = s =>
         {
             s.DocumentName = "v1";
