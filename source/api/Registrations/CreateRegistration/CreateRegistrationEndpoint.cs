@@ -2,7 +2,6 @@ using FastEndpoints;
 using BowlingMegabucks.TournamentManager.Api.BogusData;
 using BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 using Microsoft.AspNetCore.Http.HttpResults;
-using BowlingMegabucks.TournamentManager;
 using BowlingMegabucks.TournamentManager.Registrations.Create;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
@@ -22,7 +21,7 @@ public sealed class CreateRegistrationEndpoint
         Post("/registrations");
 
         Description(d => d
-            .Produces<CreatedAtRoute<CreateRegistrationResponse>>(StatusCodes.Status201Created, HttpContentTypes.Json)
+            .Produces<CreateRegistrationResponse>(StatusCodes.Status201Created, HttpContentTypes.Json)
             .ProducesValidationProblem(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized)
             .ProducesProblemDetails(StatusCodes.Status429TooManyRequests)

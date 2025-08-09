@@ -205,16 +205,53 @@ public sealed class CreateRegistrationTests
 
         var problemDetails = await response.Content.ReadFromJsonAsync<FastEndpoints.ProblemDetails>(TestContext.Current.CancellationToken);
 
-        // convert problem details to json string
-#pragma warning disable CA1869 // Cache and reuse 'JsonSerializerOptions' instances
-        var json = System.Text.Json.JsonSerializer.Serialize(problemDetails, new System.Text.Json.JsonSerializerOptions
-        {
-            WriteIndented = true
-        });
-#pragma warning restore CA1869 // Cache and reuse 'JsonSerializerOptions' instances
-
         problemDetails.Should().NotBeNull();
         problemDetails!.Status.Should().Be((int)HttpStatusCode.BadRequest);
         problemDetails.Detail.Should().Be("An error occurred while creating the registration.");
+    }
+
+    [Fact]
+    public async Task CreateRegistration_ShouldReturnUnauthorized_WhenNoApiKeyIsProvided()
+    {
+        // Arrange
+        await ResetDatabaseAsync();
+
+        var tournament = TournamentEntityFactory.Bogus();
+        var division = DivisionEntityFactory.Create(tournament.Id, gender: Models.Gender.Male);
+        var squads = SquadEntityFactory.Bogus(6, tournament.Id);
+        var sweepers = SweeperEntityFactory.Bogus(2, tournament.Id);
+
+        _dbContext.Tournaments.Add(tournament);
+        _dbContext.Divisions.Add(division);
+        _dbContext.Squads.AddRange(squads);
+        _dbContext.Sweepers.AddRange(sweepers);
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        var bowlerInput = BowlerInputFactory.Create(gender: Models.Gender.Male);
+        var registrationInput = new RegistrationInput
+        {
+            Bowler = bowlerInput,
+            TournamentId = tournament.Id,
+            DivisionId = division.Id,
+            Squads = squads.Take(2).Select(s => s.Id).ToList(),
+            Sweepers = sweepers.Select(s => s.Id).ToList(),
+            SuperSweeper = false,
+            PaymentConfirmation = "TestPayment123"
+        };
+        var createRegistrationRequest = new CreateRegistrationRequest
+        {
+            Registration = registrationInput
+        };
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, "/v1/registrations")
+        {
+            Content = JsonContent.Create(createRegistrationRequest)
+        };
+
+        // Act
+        var response = await CreateClient().SendAsync(request, TestContext.Current.CancellationToken);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 }

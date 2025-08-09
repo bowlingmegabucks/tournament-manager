@@ -18,6 +18,10 @@ internal class Repository : IRepository
         {
             registration.Bowler = null!; // Prevent EF Core from trying to insert a new bowler
         }
+        else
+        {
+            registration.Bowler.PhoneNumber = registration.Bowler.PhoneNumber.NormalizePhoneNumber();
+        }
 
         await _dataContext.Registrations.AddAsync(registration, cancellationToken).ConfigureAwait(false);
         await _dataContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
