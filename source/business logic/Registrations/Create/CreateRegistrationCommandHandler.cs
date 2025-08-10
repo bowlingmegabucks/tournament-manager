@@ -30,7 +30,6 @@ internal sealed class CreateRegistrationCommandHandler
         _updateBowler = updateBowler;
         _entityMapper = entityMapper;
         _repository = repository;
-        _entityMapper = entityMapper;
         _updateBowler = updateBowler;
         _logger = logger;
     }
