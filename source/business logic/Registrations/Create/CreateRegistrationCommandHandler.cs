@@ -107,7 +107,6 @@ internal sealed class CreateRegistrationCommandHandler
                 return _updateBowler.Errors.ToErrors();
             }
 
-            command.Bowler.Id = existingBowlerRecord.Id;
         }
 
         var registrationEntity = _entityMapper.Execute(registration);
