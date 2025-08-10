@@ -79,7 +79,7 @@ internal static class HttpStatusCodeResponses
             Detail = "An unexpected error occurred while processing the request."
         };
 
-    internal static ProblemHttpResult ToProblemDetails(this ICollection<Error> errors, string detail)
+    internal static ProblemHttpResult ToProblemDetails(this ICollection<Error> errors, string detail, string traceId)
     {
         var statusCode = errors.Any(error => error.Type == ErrorType.Validation)
             ? StatusCodes.Status400BadRequest
@@ -91,19 +91,24 @@ internal static class HttpStatusCodeResponses
             Status = statusCode,
             Extensions =
                 {
-                    ["errors"] = errors.Select(e => new { e.Code, e.Description, Value=e.Metadata?["PropertyValue"] }).ToList()
+                    ["errors"] = errors.Select(e => new { e.Code, e.Description, Value=e.Metadata?["PropertyValue"] }).ToList(),
+                    ["traceId"] = traceId
                 }
         };
 
         return TypedResults.Problem(problemDetails);
     }
     
-    internal static ProblemHttpResult ToProblemDetails(this NotFound _)
+    internal static ProblemHttpResult ToProblemDetails(this NotFound _, string traceId)
     {
         var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
         {
             Detail = "Resource not found",
-            Status = StatusCodes.Status404NotFound
+            Status = StatusCodes.Status404NotFound,
+            Extensions =
+                {
+                    ["traceId"] = traceId
+                }
         };
 
         return TypedResults.Problem(problemDetails);

@@ -86,7 +86,7 @@ public sealed class GetTournamentEndpoint
         }
 
         return tournamentResult.FirstError.Type == ErrorType.NotFound
-            ? TypedResults.NotFound().ToProblemDetails()
-            : tournamentResult.Errors.ToProblemDetails("An error occurred while retrieving the tournament.");
+            ? TypedResults.NotFound().ToProblemDetails(HttpContext.TraceIdentifier)
+            : tournamentResult.Errors.ToProblemDetails("An error occurred while retrieving the tournament.", HttpContext.TraceIdentifier);
     }
 }

@@ -72,6 +72,6 @@ public sealed class GetTournamentsEndpoint
 
                 return TypedResults.Ok(response);
             },
-            errors => errors.ToProblemDetails("An error occurred while retrieving tournaments."));
+            errors => errors.ToProblemDetails("An error occurred while retrieving tournaments.", HttpContext.TraceIdentifier));
     }
 }

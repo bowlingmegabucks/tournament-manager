@@ -36,10 +36,10 @@ public sealed class CreateRegistrationEndpoint
             s.ExampleRequest = new BogusCreateRegistrationRequest();
 
             var sampleId = RegistrationId.New();
-            s.ResponseExamples[StatusCodes.Status201Created] = TypedResults.CreatedAtRoute(new CreateRegistrationResponse
+            s.ResponseExamples[StatusCodes.Status201Created] = new CreateRegistrationResponse
             {
                 RegistrationId = sampleId
-            }, "v1/registrations/{id}", new { Id = sampleId });
+            };
             s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400("/registrations");
             s.ResponseExamples[StatusCodes.Status429TooManyRequests] = HttpStatusCodeResponses.SampleRateLimitExceeded429();
             s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500("/registrations");
@@ -102,7 +102,7 @@ public sealed class CreateRegistrationEndpoint
             // this needs to call update registration instead.  returning problem for now.
             return TypedResults.Problem("Bowler is already registered for this tournament.", statusCode: StatusCodes.Status409Conflict);
         }
-        
-        return result.Errors.ToProblemDetails("An error occurred while creating the registration.");
+
+        return result.Errors.ToProblemDetails("An error occurred while creating the registration.", HttpContext.TraceIdentifier);
     }
 }
