@@ -22,7 +22,7 @@ public sealed class CreateRegistrationEndpoint
 
         Description(d => d
             .Produces<CreateRegistrationResponse>(StatusCodes.Status201Created, HttpContentTypes.Json)
-            .ProducesValidationProblem(StatusCodes.Status400BadRequest)
+            .ProducesProblemDetails(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized)
             .ProducesProblemDetails(StatusCodes.Status429TooManyRequests)
             .ProducesProblemDetails(StatusCodes.Status500InternalServerError)

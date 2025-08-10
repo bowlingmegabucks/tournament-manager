@@ -1,26 +1,38 @@
 using ErrorOr;
 using FastEndpoints;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Http.HttpResults;
+using System.Text.Json;
 
 namespace BowlingMegabucks.TournamentManager.Api;
 
 internal static class HttpStatusCodeResponses
 {
-    internal static ProblemDetails SampleBadRequest400(string instance)
-        => new()
+    private static JsonSerializerOptions _jsonOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        WriteIndented = true,
+    };
+
+    private static string ToJson<T>(this T value)
+        => JsonSerializer.Serialize(value, _jsonOptions);
+
+    internal static string SampleBadRequest400(string instance)
+        => new Microsoft.AspNetCore.Mvc.ProblemDetails
         {
             Status = StatusCodes.Status400BadRequest,
             Instance = instance,
-            TraceId = "0HMPNHL0JHL76:00000001",
             Detail = "The request parameters are invalid or missing.",
-            Errors = new List<ProblemDetails.Error>
+            Extensions =
+            {
+                ["errors"] = new List<object>
                 {
-                    new(new ValidationFailure("Entity.Property1","Validation error for Property1"){ ErrorCode = "Entity.ValidationFailure1" }),
-                    new(new ValidationFailure("Entity.Property2","Validation error for Property2"){ ErrorCode = "Entity.ValidationFailure2" }),
-                    new(new ValidationFailure("Entity.Property3","Validation error for Property3"){ ErrorCode = "Entity.ValidationFailure3" })
-                }
-        };
+                    new { code = "Entity.ValidationFailure1", description = "Validation error for Property1", value = "InvalidValue" },
+                    new { code = "Entity.ValidationFailure2", description = "Validation error for Property2", value = 123 },
+                    new { code = "Entity.ValidationFailure3", description = "Validation error for Property3", value = true }
+                },
+                ["traceId"] = "0HMPNHL0JHL76:00000001"
+            }
+        }.ToJson();
 
     internal static ProblemDetails SampleUnauthorized401(string instance)
         => new()
@@ -77,7 +89,10 @@ internal static class HttpStatusCodeResponses
         {
             Detail = detail,
             Status = statusCode,
-            Extensions = { ["errors"] = errors.Select(e => new { e.Code, e.Description }).ToList() }
+            Extensions =
+                {
+                    ["errors"] = errors.Select(e => new { e.Code, e.Description, Value=e.Metadata?["PropertyValue"] }).ToList()
+                }
         };
 
         return TypedResults.Problem(problemDetails);
