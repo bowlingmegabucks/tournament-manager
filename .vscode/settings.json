@@ -42,6 +42,21 @@
             "group": "Bowling Megabucks",
             "database": "bowlingm_nec_tournament",
             "username": "bowlingm_nec"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 50517,
+            "driver": "MariaDB",
+            "name": "Test Containers",
+            "database": "bowlingmegabucks",
+            "username": "root",
+            "password": "password",
+            "group": "Bowling Megabucks"
         }
     ]
 }

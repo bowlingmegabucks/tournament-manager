@@ -37,4 +37,6 @@ public class BowlerSearchCriteria
     public TournamentId? NotRegisteredInTournament { get; set; }
 
     internal BowlerId? BowlerId { get; set; }
+
+    internal string? UsbcId { get; set; }
 }

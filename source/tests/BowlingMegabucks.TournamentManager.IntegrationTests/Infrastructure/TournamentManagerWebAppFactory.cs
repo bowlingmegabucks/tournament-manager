@@ -15,6 +15,7 @@ public sealed class TournamentManagerWebAppFactory
         .WithDatabase("bowlingmegabucks")
         .WithUsername("root")
         .WithPassword("password")
+        .WithExposedPort(50517)
         .Build();
 
     internal string DatabaseConnectionString

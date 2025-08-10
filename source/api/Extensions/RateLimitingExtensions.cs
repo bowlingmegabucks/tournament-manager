@@ -38,6 +38,12 @@ internal static class RateLimitingExtensions
                     }
                 };
 
+                if (context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retryAfter))
+                {
+                    context.HttpContext.Response.Headers.RetryAfter = $"{retryAfter.TotalSeconds}";
+                    problemDetailsContext.ProblemDetails.Extensions["retryAfter"] = retryAfter.TotalSeconds;
+                }
+
                 context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
 
                 await problemDetailsService.WriteAsync(problemDetailsContext);

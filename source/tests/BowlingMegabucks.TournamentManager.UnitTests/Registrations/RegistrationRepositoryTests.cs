@@ -21,7 +21,10 @@ internal sealed class Repository
     {
         _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Registration>().SetUpDbContext());
 
-        var registration = new TournamentManager.Database.Entities.Registration();
+        var registration = new TournamentManager.Database.Entities.Registration()
+        { 
+            BowlerId = BowlerId.New(),
+        };
 
         var id = await _repository.AddAsync(registration, default).ConfigureAwait(false);
 
@@ -33,7 +36,11 @@ internal sealed class Repository
     {
         _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Registration>().SetUpDbContext());
 
-        var registration = new TournamentManager.Database.Entities.Registration();
+        var registration = new TournamentManager.Database.Entities.Registration()
+        { 
+            BowlerId = BowlerId.New(),
+        };
+        
         CancellationToken cancellationToken = default;
 
         await _repository.AddAsync(registration, cancellationToken).ConfigureAwait(false);
