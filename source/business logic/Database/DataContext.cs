@@ -50,6 +50,7 @@ internal class DataContext
         modelBuilder.ApplyConfiguration(new Entities.SweeperDivision.Configuration());
         modelBuilder.ApplyConfiguration(new Entities.Registration.Configuration());
         modelBuilder.ApplyConfiguration(new Entities.SquadRegistration.Configuration());
+        modelBuilder.ApplyConfiguration(new Entities.Payment.Configuration());
 
         modelBuilder.ApplyConfiguration(new Entities.Bowler.Configuration());
 
