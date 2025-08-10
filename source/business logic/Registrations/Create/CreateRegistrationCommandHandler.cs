@@ -105,7 +105,6 @@ internal sealed class CreateRegistrationCommandHandler
             {
                 return _updateBowler.Errors.ToErrors();
             }
-
         }
 
         var registrationEntity = _entityMapper.Execute(registration);
