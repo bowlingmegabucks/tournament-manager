@@ -16,7 +16,7 @@ public class BowlerSearchCriteria
     /// </summary>
     public string? LastName { get; set; }
 
-    /// <summary>   `
+    /// <summary>
     /// 
     /// </summary>
     public string? EmailAddress { get; set; }
