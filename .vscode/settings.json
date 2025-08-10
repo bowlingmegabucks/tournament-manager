@@ -50,7 +50,7 @@
             },
             "previewLimit": 50,
             "server": "localhost",
-            "port": 50821,
+            "port": 50517,
             "driver": "MariaDB",
             "name": "Test Containers",
             "database": "bowlingmegabucks",
