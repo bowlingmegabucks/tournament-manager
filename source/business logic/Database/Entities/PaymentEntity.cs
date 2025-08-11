@@ -29,6 +29,8 @@ internal sealed class Payment
     {
         public void Configure(EntityTypeBuilder<Payment> builder)
         {
+            builder.ToTable("Payments");
+            
             builder.Property(payment => payment.Id)
                 .HasConversion<PaymentId.EfCoreValueConverter>()
                 .HasValueGenerator<PaymentIdValueGenerator>();

@@ -12,6 +12,12 @@ internal class DataContext
     : DbContext, IDataContext
 {
 
+    /// <summary>
+    /// Migration Constructor
+    /// </summary>
+    public DataContext()
+    { }
+
     public DataContext(DbContextOptions<DataContext> options)
         : base(options)
     { }
