@@ -28,8 +28,8 @@ internal class Adapter : IAdapter
             Bowler = bowler.ToModel(),
             TournamentId = tournamentId,
             DivisionId = divisionId,
-            Squads = squads.ToList(),
-            Sweepers = sweepers.ToList(),
+            Squads = squads,
+            Sweepers = sweepers,
             SuperSweeper = superSweeper,
             Average = average,
             Payment = new Models.Payment
