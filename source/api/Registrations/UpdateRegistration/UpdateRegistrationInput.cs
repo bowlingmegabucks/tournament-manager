@@ -33,5 +33,5 @@ public sealed record UpdateRegistrationInput
     /// The payment confirmation for the registration if a new payment has been made or a refund has been issued.
     /// If there is no new charge, this should be null.
     /// </summary>
-    public string? PaymentConfirmation { get; init; }
+    public required PaymentInput Payment { get; init; }
 }

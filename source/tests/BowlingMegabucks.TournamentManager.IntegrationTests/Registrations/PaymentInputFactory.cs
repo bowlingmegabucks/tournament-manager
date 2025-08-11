@@ -1,4 +1,4 @@
-using BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
+using BowlingMegabucks.TournamentManager.Api.Registrations;
 
 namespace BowlingMegabucks.TournamentManager.IntegrationTests.Registrations;
 

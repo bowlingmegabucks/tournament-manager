@@ -1,4 +1,4 @@
-namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
+namespace BowlingMegabucks.TournamentManager.Api.Registrations;
 
 /// <summary>
 /// PaymentInput is a record that represents the input data required for payment confirmation

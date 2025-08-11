@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.Api.Registrations;
 using BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 using BowlingMegabucks.TournamentManager.Registrations;
 

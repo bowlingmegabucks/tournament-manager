@@ -1,5 +1,5 @@
 using Bogus;
-using BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
+using BowlingMegabucks.TournamentManager.Api.Registrations;
 
 namespace BowlingMegabucks.TournamentManager.Api.BogusData;
 
