@@ -1,5 +1,4 @@
 using FastEndpoints;
-using Microsoft.AspNetCore.Http.HttpResults;
 using BowlingMegabucks.TournamentManager.Api.BogusData;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
