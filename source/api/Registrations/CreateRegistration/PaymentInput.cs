@@ -8,15 +8,20 @@ public sealed record PaymentInput
     /// <summary>
     /// The unique identifier for the payment processing system used in the registration.
     /// </summary>
+    /// <example>Pinwheel</example>
+    /// <example>PayPal</example>
     public required string ProcessingSystem { get; init; }
 
     /// <summary>
     /// The unique identifier for the payment method used in the registration.
+    /// This should be a unique confirmation code provided by the payment processing system.
+    /// <example>CONF12345</example>
     /// </summary>
     public required string ConfirmationCode { get; init; }
 
     /// <summary>
-    /// The method of payment used for the registration, such as credit card, PayPal, etc.
+    /// The amount of the payment made for the registration.
+    /// This should be a positive decimal value representing the payment amount.
     /// </summary>
     public required decimal Amount { get; init; }
 }
