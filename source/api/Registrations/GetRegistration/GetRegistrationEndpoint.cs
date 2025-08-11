@@ -11,13 +11,14 @@ public sealed class GetRegistrationEndpoint
     : Endpoint<GetRegistrationRequest, GetRegistrationResponse>
 {
     internal const string EndpointName = "Get Registration";
+    private const string _route = "/registrations/{Id}";
 
     /// <summary>
     /// 
     /// </summary>
     public override void Configure()
     {
-        Get("/registrations/{Id}");
+        Get(_route);
 
         Description(d => d
             .Produces<GetRegistrationResponse>(StatusCodes.Status200OK)
@@ -32,11 +33,11 @@ public sealed class GetRegistrationEndpoint
             s.Description = "This endpoint allows you to retrieve a registration using its unique identifier.";
 
             s.ResponseExamples[StatusCodes.Status200OK] = new BogusGetRegistrationResponse().Generate();
-            s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400("/registrations/{Id}");
-            s.ResponseExamples[StatusCodes.Status401Unauthorized] = HttpStatusCodeResponses.SampleUnauthorized401("/registrations/{Id}");
-            s.ResponseExamples[StatusCodes.Status404NotFound] = HttpStatusCodeResponses.SampleNotFound404("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400(_route);
+            s.ResponseExamples[StatusCodes.Status401Unauthorized] = HttpStatusCodeResponses.SampleUnauthorized401(_route);
+            s.ResponseExamples[StatusCodes.Status404NotFound] = HttpStatusCodeResponses.SampleNotFound404(_route);
             s.ResponseExamples[StatusCodes.Status429TooManyRequests] = HttpStatusCodeResponses.SampleRateLimitExceeded429();
-            s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500(_route);
 
             s.Response<GetRegistrationResponse>(StatusCodes.Status200OK, "Successfully retrieved the registration.");
             s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);
