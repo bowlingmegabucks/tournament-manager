@@ -6,6 +6,11 @@ namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistratio
 public sealed record PaymentInput
 {
     /// <summary>
+    /// The unique identifier for the payment processing system used in the registration.
+    /// </summary>
+    public required string ProcessingSystem { get; init; }
+
+    /// <summary>
     /// The unique identifier for the payment method used in the registration.
     /// </summary>
     public required string ConfirmationCode { get; init; }
@@ -22,7 +27,7 @@ internal static class PaymentInputExtensions
     {
         return new Models.Payment
         {
-            ConfirmationCode = input.ConfirmationCode,
+            ConfirmationCode = $"{input.ProcessingSystem}_{input.ConfirmationCode}",
             Amount = input.Amount
         };
     }

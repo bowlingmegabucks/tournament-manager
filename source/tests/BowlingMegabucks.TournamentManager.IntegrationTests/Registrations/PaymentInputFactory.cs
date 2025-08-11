@@ -11,7 +11,8 @@ internal static class PaymentInputFactory
     {
         return new PaymentInput
         {
-            ConfirmationCode = confirmationCode ?? $"Test_{Guid.CreateVersion7()}",
+            ProcessingSystem = "Test",
+            ConfirmationCode = confirmationCode ?? Guid.CreateVersion7().ToString(),
             Amount = amount ?? 100.00m
         };
     }
