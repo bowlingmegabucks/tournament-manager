@@ -7,7 +7,7 @@ namespace BowlingMegabucks.TournamentManager.Registrations.Create;
 /// </summary>
 public record CreateRegistrationCommand
     : ICommand<RegistrationId>
-{ 
+{
     /// <summary>
     /// The bowler being registered.
     /// </summary>
@@ -42,4 +42,9 @@ public record CreateRegistrationCommand
     /// Indicates whether the bowler is registering for the super sweeper.
     /// </summary>
     public bool SuperSweeper { get; init; }
+    
+    /// <summary>
+    /// The payment details for the registration.
+    /// </summary>
+    public required Models.Payment Payment { get; init; }
 }

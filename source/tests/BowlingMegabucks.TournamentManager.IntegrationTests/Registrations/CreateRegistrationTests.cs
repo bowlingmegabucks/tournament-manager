@@ -45,7 +45,7 @@ public sealed class CreateRegistrationTests
             Squads = squads.Take(2).Select(s => s.Id).ToList(),
             Sweepers = sweepers.Select(s => s.Id).ToList(),
             SuperSweeper = false,
-            PaymentConfirmation = "TestPayment123"
+            Payment = PaymentInputFactory.Create(),
         };
         var createRegistrationRequest = new CreateRegistrationRequest
         {
@@ -114,7 +114,7 @@ public sealed class CreateRegistrationTests
             Squads = squads.Take(2).Select(s => s.Id).ToList(),
             Sweepers = sweepers.Select(s => s.Id).ToList(),
             SuperSweeper = false,
-            PaymentConfirmation = "TestPayment123"
+            Payment = PaymentInputFactory.Create()
         };
         var createRegistrationRequest = new CreateRegistrationRequest
         {
@@ -185,7 +185,7 @@ public sealed class CreateRegistrationTests
             Squads = squads.Take(2).Select(s => s.Id).ToList(),
             Sweepers = sweepers.Select(s => s.Id).ToList(),
             SuperSweeper = false,
-            PaymentConfirmation = "TestPayment123"
+            Payment = PaymentInputFactory.Create()
         };
         var createRegistrationRequest = new CreateRegistrationRequest
         {
@@ -236,7 +236,7 @@ public sealed class CreateRegistrationTests
             Squads = squads.Take(2).Select(s => s.Id).ToList(),
             Sweepers = sweepers.Select(s => s.Id).ToList(),
             SuperSweeper = false,
-            PaymentConfirmation = "TestPayment123"
+            Payment = PaymentInputFactory.Create()
         };
         var createRegistrationRequest = new CreateRegistrationRequest
         {

@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BowlingMegabucks.Tournament
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinForm", "WinForm", "{5D0361D9-264E-4288-BAC5-88B6AC4B3403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BowlingMegabucks.TournamentManager.Presentation", "presentation\BowlingMegabucks.TournamentManager.Presentation\BowlingMegabucks.TournamentManager.Presentation.csproj", "{C84E56D2-9D46-4960-BE2E-3D20E1464E04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BowlingMegabucks.TournamentManager.Presentation", "presentation\BowlingMegabucks.TournamentManager.Presentation.csproj", "{C84E56D2-9D46-4960-BE2E-3D20E1464E04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

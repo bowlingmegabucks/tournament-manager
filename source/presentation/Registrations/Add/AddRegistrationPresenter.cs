@@ -199,7 +199,7 @@ public class Presenter
             return;
         }
 
-        await Adapter.ExecuteAsync(_view.Bowler, _view.DivisionId, _view.Squads, _view.Sweepers, _view.SuperSweeper, _view.Average, cancellationToken).ConfigureAwait(true);
+        await Adapter.ExecuteAsync(_view.Bowler, _view.TournamentId, _view.DivisionId, _view.Squads, _view.Sweepers, _view.SuperSweeper, _view.Average, cancellationToken).ConfigureAwait(true);
 
         if (Adapter.Errors.Any())
         {

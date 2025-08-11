@@ -19,7 +19,7 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_SquadAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<TournamentManager.Database.Entities.SweeperSquad>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Array.Empty<TournamentManager.Database.Entities.SweeperSquad>().SetUpDbContext());
 
         var sweeper = new TournamentManager.Database.Entities.SweeperSquad();
 
@@ -31,7 +31,7 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Enumerable.Empty<TournamentManager.Database.Entities.SweeperSquad>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Sweepers).Returns(Array.Empty<TournamentManager.Database.Entities.SweeperSquad>().SetUpDbContext());
 
         var sweeper = new TournamentManager.Database.Entities.SweeperSquad();
 

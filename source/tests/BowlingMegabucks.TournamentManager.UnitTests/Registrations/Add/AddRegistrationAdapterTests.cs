@@ -1,9 +1,13 @@
-﻿
+﻿using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Registrations.Create;
+using ErrorOr;
+
 namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Add;
 
 [TestFixture]
 internal sealed class Adapter
 {
+    private Mock<ICommandHandler<CreateRegistrationCommand, RegistrationId>> _commandHandler;
     private Mock<TournamentManager.Registrations.Add.IBusinessLogic> _businessLogic;
 
     private TournamentManager.Registrations.Add.Adapter _adapter;
@@ -11,9 +15,10 @@ internal sealed class Adapter
     [SetUp]
     public void SetUp()
     {
+        _commandHandler = new Mock<ICommandHandler<CreateRegistrationCommand, RegistrationId>>();
         _businessLogic = new Mock<TournamentManager.Registrations.Add.IBusinessLogic>();
 
-        _adapter = new TournamentManager.Registrations.Add.Adapter(_businessLogic.Object);
+        _adapter = new TournamentManager.Registrations.Add.Adapter(_commandHandler.Object, _businessLogic.Object);
     }
 
     [Test]
@@ -21,52 +26,60 @@ internal sealed class Adapter
     {
         var bowler = new Mock<TournamentManager.Bowlers.IViewModel>();
         bowler.SetupGet(b => b.LastName).Returns("lastName");
+        var tournamentId = TournamentId.New();
         var divisionId = DivisionId.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
         CancellationToken cancellationToken = default;
 
-        await _adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers, superSweeper, average, cancellationToken).ConfigureAwait(false);
+        await _adapter.ExecuteAsync(bowler.Object, tournamentId, divisionId, squads, sweepers, superSweeper, average, cancellationToken).ConfigureAwait(false);
 
-        _businessLogic.Verify(businessLogic => businessLogic.ExecuteAsync(It.Is<TournamentManager.Models.Registration>(registration => registration.Bowler.Name.Last == "lastName" &&
-                                                                                                                                registration.Division.Id == divisionId &&
-                                                                                                                                registration.Sweepers.Select(sweeper => sweeper.Id) == sweepers &&
+        _commandHandler.Verify(commandHandler => commandHandler.HandleAsync(It.Is<CreateRegistrationCommand>(registration => registration.Bowler.Name.Last == "lastName" &&
+                                                                                                                                registration.TournamentId == tournamentId &&
+                                                                                                                                registration.DivisionId == divisionId &&
+                                                                                                                                registration.Sweepers == sweepers &&
                                                                                                                                 registration.SuperSweeper == superSweeper &&
-                                                                                                                                registration.Squads.Select(squad => squad.Id) == squads &&
-                                                                                                                                registration.Average == average), cancellationToken), Times.Once);
+                                                                                                                                registration.Squads == squads &&
+                                                                                                                                registration.Average == average &&
+                                                                                                                                registration.Payment.Amount == 0 &&
+                                                                                                                                registration.Payment.ConfirmationCode.StartsWith("Manual_", StringComparison.OrdinalIgnoreCase)), cancellationToken), Times.Once);
     }
 
     [Test]
     public async Task ExecuteAsync_AddBowlerViewModel_ErrorsSetToBusinessLogicErrors([Values] bool superSweeper)
     {
-        var errors = Enumerable.Repeat(new TournamentManager.Models.ErrorDetail("error"), 5);
-        _businessLogic.SetupGet(businessLogic => businessLogic.Errors).Returns(errors);
+        var error = Error.Failure(description: "command handler error");
+        _commandHandler.Setup(commandHandler => commandHandler.HandleAsync(It.IsAny<CreateRegistrationCommand>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(error);
 
         var bowler = new Mock<TournamentManager.Bowlers.IViewModel>();
+        var tournamentId = TournamentId.New();
         var divisionId = DivisionId.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
-        await _adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers, superSweeper, average, default).ConfigureAwait(false);
+        var result = await _adapter.ExecuteAsync(bowler.Object, tournamentId, divisionId, squads, sweepers, superSweeper, average, default).ConfigureAwait(false);
 
-        Assert.That(_adapter.Errors, Is.EqualTo(errors));
+        Assert.That(result, Is.Null);
+        Assert.That(_adapter.Errors.First().Message, Is.EqualTo("command handler error"));
     }
 
     [Test]
-    public async Task ExecuteAsync_AddBowlerView_ReturnsBusinessLogicExecute([Values] bool superSweeper)
+    public async Task ExecuteAsync_AddBowlerView_ReturnsCommandHandlerResult([Values] bool superSweeper)
     {
         var id = RegistrationId.New();
-        _businessLogic.Setup(businessLogic => businessLogic.ExecuteAsync(It.IsAny<TournamentManager.Models.Registration>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
+        _commandHandler.Setup(commandHandler => commandHandler.HandleAsync(It.IsAny<CreateRegistrationCommand>(), It.IsAny<CancellationToken>())).ReturnsAsync(id);
 
         var bowler = new Mock<TournamentManager.Bowlers.IViewModel>();
+        var tournamentId = TournamentId.New();
         var divisionId = DivisionId.New();
         var squads = Enumerable.Empty<SquadId>();
         var sweepers = Enumerable.Empty<SquadId>();
         var average = 200;
 
-        var actual = await _adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers, superSweeper, average, default).ConfigureAwait(false);
+        var actual = await _adapter.ExecuteAsync(bowler.Object, tournamentId, divisionId, squads, sweepers, superSweeper, average, default).ConfigureAwait(false);
 
         Assert.That(actual, Is.EqualTo(id));
     }

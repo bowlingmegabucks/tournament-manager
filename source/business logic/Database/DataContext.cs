@@ -12,6 +12,12 @@ internal class DataContext
     : DbContext, IDataContext
 {
 
+    /// <summary>
+    /// Migration Constructor
+    /// </summary>
+    public DataContext()
+    { }
+
     public DataContext(DbContextOptions<DataContext> options)
         : base(options)
     { }
@@ -50,6 +56,7 @@ internal class DataContext
         modelBuilder.ApplyConfiguration(new Entities.SweeperDivision.Configuration());
         modelBuilder.ApplyConfiguration(new Entities.Registration.Configuration());
         modelBuilder.ApplyConfiguration(new Entities.SquadRegistration.Configuration());
+        modelBuilder.ApplyConfiguration(new Entities.Payment.Configuration());
 
         modelBuilder.ApplyConfiguration(new Entities.Bowler.Configuration());
 

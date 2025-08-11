@@ -36,6 +36,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\business logic\BowlingMegabucks.TournamentManager.BusinessLogic.csproj" />
-	  <ProjectReference Include="..\..\presentation\BowlingMegabucks.TournamentManager.Presentation\BowlingMegabucks.TournamentManager.Presentation.csproj" />
+	  <ProjectReference Include="..\..\presentation\BowlingMegabucks.TournamentManager.Presentation.csproj" />
 	</ItemGroup>
 </Project>

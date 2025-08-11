@@ -339,7 +339,7 @@ internal sealed class Presenter
         {
             _view.Verify(view => view.KeepOpen(), Times.Once);
 
-            _adapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<TournamentManager.Bowlers.IViewModel>(), It.IsAny<DivisionId>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>(), It.IsAny<CancellationToken>()), Times.Never);
+            _adapter.Verify(adapter => adapter.ExecuteAsync(It.IsAny<TournamentManager.Bowlers.IViewModel>(), It.IsAny<TournamentId>(), It.IsAny<DivisionId>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<IEnumerable<SquadId>>(), It.IsAny<bool>(), It.IsAny<int?>(), It.IsAny<CancellationToken>()), Times.Never);
             _view.Verify(view => view.DisplayError(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
             _view.Verify(view => view.Close(), Times.Never);
@@ -352,12 +352,14 @@ internal sealed class Presenter
         _view.Setup(view => view.IsValid()).Returns(true);
 
         var bowler = new Mock<TournamentManager.Bowlers.IViewModel>();
+        var tournamentId = TournamentId.New();
         var divisionId = DivisionId.New();
         var sweepers = new List<SquadId>();
         var squads = new List<SquadId>();
         var average = 200;
 
         _view.SetupGet(view => view.Bowler).Returns(bowler.Object);
+        _view.SetupGet(view => view.TournamentId).Returns(tournamentId);
         _view.SetupGet(view => view.DivisionId).Returns(divisionId);
         _view.SetupGet(view => view.Squads).Returns(squads);
         _view.SetupGet(view => view.Sweepers).Returns(sweepers);
@@ -368,7 +370,7 @@ internal sealed class Presenter
 
         await _presenter.ExecuteAsync(default).ConfigureAwait(false);
 
-        _adapter.Verify(adapter => adapter.ExecuteAsync(bowler.Object, divisionId, squads, sweepers, superSweeper, average, cancellationToken), Times.Once);
+        _adapter.Verify(adapter => adapter.ExecuteAsync(bowler.Object, tournamentId, divisionId, squads, sweepers, superSweeper, average, cancellationToken), Times.Once);
     }
 
     [Test]

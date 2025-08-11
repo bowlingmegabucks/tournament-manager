@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.Api.Registrations;
 using BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 using BowlingMegabucks.TournamentManager.Registrations;
 
@@ -12,7 +13,7 @@ internal static class CreateRegistrationRequestFactory
         IEnumerable<SquadId>? squads = null,
         IEnumerable<SquadId>? sweepers = null,
         bool? superSweeper = false,
-        string? paymentConfirmation = null,
+        PaymentInput? payment = null,
         int? average = null
     )
         => new()
@@ -25,7 +26,7 @@ internal static class CreateRegistrationRequestFactory
                 Squads = squads ?? new[] { SquadId.New() },
                 Sweepers = sweepers ?? new[] { SquadId.New() },
                 SuperSweeper = superSweeper ?? true,
-                PaymentConfirmation = paymentConfirmation ?? "CONF12345",
+                Payment = payment ?? PaymentInputFactory.Create(),
                 Average = average
             }
         };

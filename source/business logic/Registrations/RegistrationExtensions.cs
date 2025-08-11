@@ -14,7 +14,7 @@ internal static class RegistrationExtensions
         services.AddTransient<IRepository, Repository>();
         services.AddSingleton<IEntityMapper, EntityMapper>();
 
-        services.AddSingleton<IValidator<Models.Registration>, Add.Validator>();
+        services.AddSingleton<IValidator<Models.Registration>, Validator>();
         services.AddTransient<Add.IBusinessLogic, Add.BusinessLogic>();
         services.AddTransient<Add.IDataLayer, Add.DataLayer>();
 

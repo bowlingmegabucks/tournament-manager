@@ -66,6 +66,8 @@ internal sealed class CreateRegistrationCommandHandler
 
         var tournament = tournamentResult.Value!;
 
+        command.Payment.CreatedAtUtc = DateTime.UtcNow;
+
         var registration = new Registration
         {
             Bowler = command.Bowler,
@@ -73,9 +75,10 @@ internal sealed class CreateRegistrationCommandHandler
             TournamentStartDate = tournament.Start,
             TournamentSweeperCount = tournament.Sweepers.Count(),
 
-            Squads = command.Squads.Select(squadId => new Models.Squad { Id = squadId }).ToList(),
-            Sweepers = command.Sweepers.Select(sweeperId => new Models.Sweeper { Id = sweeperId }).ToList(),
+            Squads = command.Squads.Select(squadId => new Squad { Id = squadId }).ToList(),
+            Sweepers = command.Sweepers.Select(sweeperId => new Sweeper { Id = sweeperId }).ToList(),
             SuperSweeper = command.SuperSweeper,
+            Payments = [command.Payment],
 
             Average = command.Average
         };

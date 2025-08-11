@@ -1,4 +1,5 @@
 using System.Threading.RateLimiting;
+using Microsoft.Extensions.Options;
 using BowlingMegabucks.TournamentManager.Api.RateLimiting;
 
 namespace BowlingMegabucks.TournamentManager.Api.Extensions;
@@ -7,7 +8,10 @@ internal static class RateLimitingExtensions
 {
     public static WebApplicationBuilder ConfigureRateLimiting(this WebApplicationBuilder builder)
     {
-        builder.Services.Configure<RateLimitingOptions>(builder.Configuration.GetSection("RateLimiting"));
+        builder.Services.AddOptions<RateLimitingOptions>()
+            .Bind(builder.Configuration.GetSection("RateLimiting"))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         var rateLimitingOptions = builder.Configuration.GetSection("RateLimiting").Get<RateLimitingOptions>()
             ?? throw new InvalidOperationException("Rate limiting options are not configured.");
