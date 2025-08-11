@@ -18,7 +18,7 @@ internal sealed class Payment
     public Registration Registration { get; set; } = null!;
 
     [Required]
-    [MaxLength(64)]
+    [MaxLength(43)]
     public string ConfirmationCode { get; set; } = null!;
 
     [Required]
