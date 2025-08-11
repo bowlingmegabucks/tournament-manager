@@ -141,32 +141,6 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
                     b.ToTable("Divisions");
                 });
 
-            modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.Payment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("char(36)");
-
-                    b.Property<decimal>("Amount")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<string>("ConfirmationCode")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("RegistrationId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RegistrationId");
-
-                    b.ToTable("Payments", (string)null);
-                });
-
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.Registration", b =>
                 {
                     b.Property<Guid>("Id")
@@ -384,17 +358,6 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
                     b.Navigation("Tournament");
                 });
 
-            modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.Payment", b =>
-                {
-                    b.HasOne("BowlingMegabucks.TournamentManager.Database.Entities.Registration", "Registration")
-                        .WithMany("Payments")
-                        .HasForeignKey("RegistrationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Registration");
-                });
-
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.Registration", b =>
                 {
                     b.HasOne("BowlingMegabucks.TournamentManager.Database.Entities.Bowler", "Bowler")
@@ -509,8 +472,6 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
 
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.Registration", b =>
                 {
-                    b.Navigation("Payments");
-
                     b.Navigation("Squads");
                 });
 
