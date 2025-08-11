@@ -48,13 +48,18 @@ public class Registration
     /// <summary>
     /// 
     /// </summary>
+    public IEnumerable<Payment> Payments { get; set; } = [];
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="bowlerId"></param>
     /// <param name="divisionId"></param>
     /// <param name="squads"></param>
     /// <param name="sweepers"></param>
     /// <param name="superSweeper"></param>
     /// <param name="average"></param>
-    public Registration(BowlerId bowlerId, BowlingMegabucks.TournamentManager.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+    public Registration(BowlerId bowlerId, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
         : this(new Bowler { Id = bowlerId }, divisionId, squads, sweepers, superSweeper, average)
     { }
 
@@ -67,7 +72,7 @@ public class Registration
     /// <param name="sweepers"></param>
     /// <param name="superSweeper"></param>
     /// <param name="average"></param>
-    public Registration(Bowler bowler, BowlingMegabucks.TournamentManager.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+    public Registration(Bowler bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
     {
         Bowler = bowler;
         Division = new Division { Id = divisionId };
@@ -87,6 +92,7 @@ public class Registration
         Average = registration.Average;
         Squads = registration.Squads.Select(squadRegistration => squadRegistration.Squad).OfType<Database.Entities.TournamentSquad>().Select(squad => new Squad(squad)).ToList();
         Sweepers = registration.Squads.Select(squadRegistration => squadRegistration.Squad).OfType<Database.Entities.SweeperSquad>().Select(sweeper => new Sweeper(sweeper)).ToList();
+        Payments = registration.Payments.Select(payment => new Payment(payment)).ToList();
         SuperSweeper = registration.SuperSweeper;
     }
 
@@ -100,5 +106,6 @@ public class Registration
 
         Squads = [];
         Sweepers = [];
+        Payments = [];
     }
 }

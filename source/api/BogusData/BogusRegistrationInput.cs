@@ -17,6 +17,6 @@ internal sealed class BogusRegistrationInput
         RuleFor(input => input.Sweepers, f => f.Make(f.Random.Number(0, 3), () => SquadId.New()));
         RuleFor(input => input.SuperSweeper, (f, dto) => dto.Sweepers.Any() && f.Random.Bool(0.5f));
 
-        RuleFor(input => input.PaymentConfirmation, f => f.Finance.LitecoinAddress());
+        RuleFor(input => input.Payment, _ => new BogusPaymentInput());
     }
 }

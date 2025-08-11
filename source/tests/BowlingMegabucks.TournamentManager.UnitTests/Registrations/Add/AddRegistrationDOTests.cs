@@ -64,6 +64,7 @@ internal sealed class DataLayer
             .ReturnsAsync(new TournamentManager.Database.Entities.Registration
             {
                 Squads = [],
+                Payments = [],
                 Bowler = new TournamentManager.Database.Entities.Bowler(),
                 Division = new TournamentManager.Database.Entities.Division()
             });
@@ -87,6 +88,7 @@ internal sealed class DataLayer
             {
                 Id = registrationId,
                 Squads = [],
+                Payments = [],
                 Bowler = new TournamentManager.Database.Entities.Bowler(),
                 Division = new TournamentManager.Database.Entities.Division()
             });

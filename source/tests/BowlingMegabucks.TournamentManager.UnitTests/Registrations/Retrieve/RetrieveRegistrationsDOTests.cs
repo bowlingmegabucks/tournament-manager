@@ -38,6 +38,7 @@ internal sealed class DataLayer
             Bowler = new TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() },
             Squads = Enumerable.Repeat(new TournamentManager.Database.Entities.SquadRegistration(), 2).ToList(),
+            Payments = [],
             SuperSweeper = true,
             Average = 200
         };
@@ -48,6 +49,7 @@ internal sealed class DataLayer
             Bowler = new TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() },
             Squads = Enumerable.Repeat(new TournamentManager.Database.Entities.SquadRegistration(), 2).ToList(),
+            Payments = [],
             SuperSweeper = true,
             Average = 200
         };
@@ -58,6 +60,7 @@ internal sealed class DataLayer
             Bowler = new TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() },
             Squads = Enumerable.Repeat(new TournamentManager.Database.Entities.SquadRegistration(), 2).ToList(),
+            Payments = [],
             SuperSweeper = true,
             Average = 200
         };

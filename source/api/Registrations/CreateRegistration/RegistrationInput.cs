@@ -1,3 +1,4 @@
+
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 
 /// <summary>
@@ -43,7 +44,8 @@ public sealed record RegistrationInput
     public required bool SuperSweeper { get; init; }
     
     /// <summary>
-    /// A confirmation code indicating that the payment has been made for the registration.
+    /// Payment details required to finalize the registration.
+    /// This includes payment method, amount, and any other necessary payment information.
     /// </summary>
-    public required string PaymentConfirmation { get; init; }
+    public required PaymentInput Payment { get; init; }
 }

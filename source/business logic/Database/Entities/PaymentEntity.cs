@@ -10,6 +10,9 @@ internal sealed class Payment
     public PaymentId Id { get; set; }
 
     [Required]
+    public DateTime CreatedAtUtc { get; set; }
+
+    [Required]
     public RegistrationId RegistrationId { get; set; }
 
     public Registration Registration { get; set; } = null!;

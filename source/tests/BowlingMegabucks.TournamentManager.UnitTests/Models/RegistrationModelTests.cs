@@ -139,6 +139,7 @@ internal sealed class Registration
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
+            Payments = [],
             SuperSweeper = superSweeper
         };
 
@@ -168,6 +169,7 @@ internal sealed class Registration
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
+            Payments = [],
             SuperSweeper = superSweeper
         };
 
@@ -197,6 +199,7 @@ internal sealed class Registration
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
+            Payments = [],
             SuperSweeper = superSweeper
         };
 
@@ -226,6 +229,7 @@ internal sealed class Registration
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
+            Payments = [],
             SuperSweeper = superSweeper
         };
 
@@ -255,6 +259,7 @@ internal sealed class Registration
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
+            Payments = [],
             SuperSweeper = superSweeper
         };
 
@@ -290,6 +295,7 @@ internal sealed class Registration
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
+            Payments = [],
             SuperSweeper = superSweeper
         };
 
@@ -301,6 +307,64 @@ internal sealed class Registration
 
             Assert.That(model.Sweepers.Count(sweeper => sweeper.Id == sweeperId1), Is.EqualTo(1));
             Assert.That(model.Sweepers.Count(sweeper => sweeper.Id == sweeperId2), Is.EqualTo(1));
+        });
+    }
+
+    [Test]
+    public void Constructor_Entity_PaymentsMapped([Values] bool superSweeper)
+    {
+        var squadId1 = SquadId.New();
+        var squadId2 = SquadId.New();
+        var sweeperId1 = SquadId.New();
+        var sweeperId2 = SquadId.New();
+
+        var payment1 = new TournamentManager.Database.Entities.Payment
+        {
+            Id = PaymentId.New(),
+            CreatedAtUtc = DateTime.UtcNow,
+            RegistrationId = RegistrationId.New(),
+            ConfirmationCode = "CONFIRM123",
+            Amount = 100.00m
+        };
+
+        var payment2 = new TournamentManager.Database.Entities.Payment
+        {
+            Id = PaymentId.New(),
+            CreatedAtUtc = DateTime.UtcNow,
+            RegistrationId = RegistrationId.New(),
+            ConfirmationCode = "CONFIRM456",
+            Amount = 200.00m
+        };
+
+        var entity = new TournamentManager.Database.Entities.Registration
+        {
+            Id = RegistrationId.New(),
+            Bowler = new TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
+            Division = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() },
+            Average = 200,
+            Squads =
+            [
+                new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.TournamentSquad { Id = squadId1} },
+                new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.SweeperSquad {Id = sweeperId1, CashRatio = 5, Divisions = []} },
+                new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
+                new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
+            ],
+            Payments =
+            [
+                payment1,
+                payment2
+            ],
+            SuperSweeper = superSweeper
+        };
+
+        var model = new TournamentManager.Models.Registration(entity);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(model.Payments.Count(), Is.EqualTo(2));
+
+            Assert.That(model.Payments.Any(payment => payment.Id == payment1.Id && payment.Amount == payment1.Amount), Is.True);
+            Assert.That(model.Payments.Any(payment => payment.Id == payment2.Id && payment.Amount == payment2.Amount), Is.True);
         });
     }
 
@@ -325,6 +389,7 @@ internal sealed class Registration
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.TournamentSquad { Id = squadId2} },
                 new TournamentManager.Database.Entities.SquadRegistration { Squad = new TournamentManager.Database.Entities.SweeperSquad { Id = sweeperId2, CashRatio = 5, Divisions = []} }
             ],
+            Payments = [],
             SuperSweeper = superSweeper
         };
 
