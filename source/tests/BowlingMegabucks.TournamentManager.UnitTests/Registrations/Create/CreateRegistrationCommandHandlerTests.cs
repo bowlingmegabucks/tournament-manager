@@ -66,7 +66,12 @@ public sealed class CreateRegistrationCommandHandlerTest
             Bowler = new TournamentManager.Models.Bowler { USBCId = "12345" },
             TournamentId = TournamentId.New(),
             DivisionId = DivisionId.New(),
-            Squads = [SquadId.New()]
+            Squads = [SquadId.New()],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            }
         };
 
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(searchCriteria
@@ -95,7 +100,12 @@ public sealed class CreateRegistrationCommandHandlerTest
             Bowler = new TournamentManager.Models.Bowler { USBCId = "12345" },
             TournamentId = TournamentId.New(),
             DivisionId = DivisionId.New(),
-            Squads = [SquadId.New()]
+            Squads = [SquadId.New()],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            }
         };
 
         _mockSearchBowlers.SetupGet(searchBowlers => searchBowlers.ErrorDetail).Returns(new TournamentManager.Models.ErrorDetail("Database error"));
@@ -120,7 +130,12 @@ public sealed class CreateRegistrationCommandHandlerTest
             Bowler = new TournamentManager.Models.Bowler { USBCId = "12345" },
             TournamentId = TournamentId.New(),
             DivisionId = DivisionId.New(),
-            Squads = [SquadId.New()]
+            Squads = [SquadId.New()],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            }
         };
 
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.IsAny<TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>()))
@@ -149,7 +164,12 @@ public sealed class CreateRegistrationCommandHandlerTest
             Bowler = new TournamentManager.Models.Bowler { USBCId = "12345" },
             TournamentId = TournamentId.New(),
             DivisionId = DivisionId.New(),
-            Squads = [SquadId.New()]
+            Squads = [SquadId.New()],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            }
         };
 
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.IsAny<TournamentManager.Models.BowlerSearchCriteria>(), It.IsAny<CancellationToken>()))
@@ -192,6 +212,11 @@ public sealed class CreateRegistrationCommandHandlerTest
             DivisionId = DivisionId.New(),
             Squads = [squad1Id, squad2Id],
             Sweepers = [sweeper1Id, sweeper2Id],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            },
             SuperSweeper = true
         };
 
@@ -249,7 +274,12 @@ public sealed class CreateRegistrationCommandHandlerTest
             Bowler = new TournamentManager.Models.Bowler { USBCId = "12345" },
             TournamentId = TournamentId.New(),
             DivisionId = DivisionId.New(),
-            Squads = [SquadId.New()]
+            Squads = [SquadId.New()],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            }
         };
 
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))
@@ -286,7 +316,12 @@ public sealed class CreateRegistrationCommandHandlerTest
             Bowler = new TournamentManager.Models.Bowler { USBCId = "12345" },
             TournamentId = TournamentId.New(),
             DivisionId = DivisionId.New(),
-            Squads = [SquadId.New()]
+            Squads = [SquadId.New()],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            }
         };
 
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))
@@ -331,7 +366,12 @@ public sealed class CreateRegistrationCommandHandlerTest
             Bowler = new TournamentManager.Models.Bowler { USBCId = "12345" },
             TournamentId = TournamentId.New(),
             DivisionId = DivisionId.New(),
-            Squads = [SquadId.New()]
+            Squads = [SquadId.New()],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            }
         };
 
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))
@@ -374,7 +414,12 @@ public sealed class CreateRegistrationCommandHandlerTest
             Bowler = new TournamentManager.Models.Bowler { USBCId = "12345" },
             TournamentId = TournamentId.New(),
             DivisionId = DivisionId.New(),
-            Squads = [SquadId.New()]
+            Squads = [SquadId.New()],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            }
         };
 
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))
@@ -409,7 +454,12 @@ public sealed class CreateRegistrationCommandHandlerTest
             Bowler = new TournamentManager.Models.Bowler { USBCId = "12345" },
             TournamentId = TournamentId.New(),
             DivisionId = DivisionId.New(),
-            Squads = [SquadId.New()]
+            Squads = [SquadId.New()],
+            Payment = new TournamentManager.Models.Payment
+            {
+                ConfirmationCode = "CONFIRM123",
+                Amount = 100.00m
+            }
         };
 
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))

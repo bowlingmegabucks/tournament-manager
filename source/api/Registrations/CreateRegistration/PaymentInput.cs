@@ -15,3 +15,15 @@ public sealed record PaymentInput
     /// </summary>
     public required decimal Amount { get; init; }
 }
+
+internal static class PaymentInputExtensions
+{ 
+    public static Models.Payment ToModel(this PaymentInput input)
+    {
+        return new Models.Payment
+        {
+            ConfirmationCode = input.ConfirmationCode,
+            Amount = input.Amount
+        };
+    }
+}

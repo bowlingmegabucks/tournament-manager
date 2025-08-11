@@ -82,7 +82,8 @@ public sealed class CreateRegistrationEndpoint
             Average = req.Registration.Average,
             Squads = req.Registration.Squads,
             Sweepers = req.Registration.Sweepers,
-            SuperSweeper = req.Registration.SuperSweeper
+            SuperSweeper = req.Registration.SuperSweeper,
+            Payment = req.Registration.Payment.ToModel()
         };
 
         var result = await _commandHandler.HandleAsync(command, ct);
