@@ -57,6 +57,7 @@ internal class Repository : IRepository
             .Include(registration => registration.Squads).ThenInclude(squad => squad.Squad)
             .Include(registration => registration.Bowler)
             .Include(registration => registration.Division)
+            .Include(registration => registration.Payments)
             .AsNoTracking()
             .FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 
