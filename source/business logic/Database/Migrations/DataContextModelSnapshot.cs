@@ -91,7 +91,7 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bowlers");
+                    b.ToTable("Bowlers", (string)null);
                 });
 
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.Division", b =>
@@ -138,7 +138,7 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
 
                     b.HasIndex("TournamentId");
 
-                    b.ToTable("Divisions");
+                    b.ToTable("Divisions", (string)null);
                 });
 
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.Registration", b =>
@@ -165,7 +165,7 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
                     b.HasIndex("BowlerId", "DivisionId")
                         .IsUnique();
 
-                    b.ToTable("Registrations");
+                    b.ToTable("Registrations", (string)null);
                 });
 
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.Squad", b =>
@@ -224,7 +224,7 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
 
                     b.HasIndex("SquadId");
 
-                    b.ToTable("SquadRegistration");
+                    b.ToTable("SquadRegistration", (string)null);
                 });
 
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.SquadScore", b =>
@@ -245,7 +245,7 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
 
                     b.HasIndex("SquadId");
 
-                    b.ToTable("SquadScores");
+                    b.ToTable("SquadScores", (string)null);
                 });
 
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.SweeperDivision", b =>
@@ -263,7 +263,7 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
 
                     b.HasIndex("DivisionId");
 
-                    b.ToTable("SweeperDivision");
+                    b.ToTable("SweeperDivision", (string)null);
                 });
 
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.Tournament", b =>
@@ -309,7 +309,7 @@ namespace BowlingMegabucks.TournamentManager.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tournaments");
+                    b.ToTable("Tournaments", (string)null);
                 });
 
             modelBuilder.Entity("BowlingMegabucks.TournamentManager.Database.Entities.SweeperSquad", b =>

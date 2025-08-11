@@ -18,6 +18,7 @@ internal sealed class Payment
     public Registration Registration { get; set; } = null!;
 
     [Required]
+    [MaxLength(64)]
     public string ConfirmationCode { get; set; } = null!;
 
     [Required]
@@ -37,6 +38,9 @@ internal sealed class Payment
 
             builder.Property(payment => payment.RegistrationId)
                 .HasConversion<RegistrationId.EfCoreValueConverter>();
+
+            builder.HasIndex(payment => payment.ConfirmationCode)
+                .IsUnique();
 
             builder.HasOne(payment => payment.Registration)
                 .WithMany(registration => registration.Payments)
