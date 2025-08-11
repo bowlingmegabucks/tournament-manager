@@ -21,7 +21,7 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_DivisionAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Division>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Array.Empty<TournamentManager.Database.Entities.Division>().SetUpDbContext());
 
         var division = new TournamentManager.Database.Entities.Division();
 
@@ -33,7 +33,7 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Division>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Divisions).Returns(Array.Empty<TournamentManager.Database.Entities.Division>().SetUpDbContext());
 
         var division = new TournamentManager.Database.Entities.Division();
         CancellationToken cancellationToken = default;

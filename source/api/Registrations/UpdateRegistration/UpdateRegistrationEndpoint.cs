@@ -61,6 +61,6 @@ public sealed class UpdateRegistrationEndpoint
         // For example, you might call a service to update the registration in the database
 
         // If successful, return a 204 No Content response
-        await SendNoContentAsync(ct);
+        await Send.NoContentAsync(ct);
     }
 }

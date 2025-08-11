@@ -59,7 +59,7 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_TournamentAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Tournament>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Array.Empty<TournamentManager.Database.Entities.Tournament>().SetUpDbContext());
 
         var tournament = new TournamentManager.Database.Entities.Tournament();
 
@@ -71,7 +71,7 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Tournament>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Tournaments).Returns(Array.Empty<TournamentManager.Database.Entities.Tournament>().SetUpDbContext());
 
         var tournament = new TournamentManager.Database.Entities.Tournament();
         CancellationToken cancellationToken = default;

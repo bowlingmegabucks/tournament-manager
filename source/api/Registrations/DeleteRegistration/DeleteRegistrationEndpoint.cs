@@ -62,6 +62,6 @@ public sealed class DeleteRegistrationEndpoint
 
         // Logic to delete the registration goes here
 
-        await SendNoContentAsync(ct);
+        await Send.NoContentAsync(ct);
     }
 }

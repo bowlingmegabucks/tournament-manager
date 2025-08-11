@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MockQueryable;
 using FluentValidation;
 
 namespace BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 internal static class Moq
 {
-    internal static DbSet<TEntity> SetUpDbContext<TEntity>(this IEnumerable<TEntity> items) where TEntity : class
-        => items.AsQueryable().BuildMockDbSet().Object;
+    internal static DbSet<TEntity> SetUpDbContext<TEntity>(this ICollection<TEntity> items) where TEntity : class
+        => items.BuildMockDbSet().Object;
 
     internal static void Validate_IsValid<T>(this Mock<IValidator<T>> mockValidator) where T : class
     {

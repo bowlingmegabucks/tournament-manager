@@ -64,6 +64,6 @@ public sealed class GetRegistrationEndpoint
 
         var response = new BogusGetRegistrationResponse();
 
-        await SendOkAsync(response, ct);
+        await Send.OkAsync(response, ct);
     }
 }
