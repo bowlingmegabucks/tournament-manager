@@ -20,6 +20,7 @@ internal sealed partial class Form
 
         _services = services;
         _presenter = new(this, services);
+        _tournamentId = tournamentId;
 
         _ = _presenter.LoadAsync(tournamentId, default);
     }
@@ -47,6 +48,10 @@ internal sealed partial class Form
         divisionsDropdown.ValueMember = nameof(Divisions.IViewModel.Id);
         divisionsDropdown.DisplayMember = nameof(Divisions.IViewModel.DivisionName);
     }
+
+    private readonly TournamentId _tournamentId;
+    TournamentId IView.TournamentId
+        => _tournamentId;
 
     public DivisionId DivisionId
         => (DivisionId)divisionsDropdown.SelectedValue!;

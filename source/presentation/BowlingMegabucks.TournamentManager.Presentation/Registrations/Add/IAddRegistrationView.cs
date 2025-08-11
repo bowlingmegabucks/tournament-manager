@@ -101,6 +101,11 @@ public interface IView
     Bowlers.IViewModel Bowler { get; }
 
     /// <summary>
+    /// Gets the tournament identifier.
+    /// </summary>
+    TournamentId TournamentId { get; }
+
+    /// <summary>
     /// Gets the selected division identifier.
     /// </summary>
     DivisionId DivisionId { get; }
