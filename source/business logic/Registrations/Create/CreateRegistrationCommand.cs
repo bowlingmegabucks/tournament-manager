@@ -46,5 +46,5 @@ public record CreateRegistrationCommand
     /// <summary>
     /// The payment details for the registration.
     /// </summary>
-    public required Models.Payment Payment { get; init; }
+    public Models.Payment? Payment { get; init; }
 }

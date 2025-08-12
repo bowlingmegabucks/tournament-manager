@@ -20,7 +20,7 @@ public sealed class CreateRegistrationTests
     { }
 
     [Fact]
-    public async Task CreateRegistration_ShouldReturnOk_WhenValidDataIsProvided()
+    public async Task CreateRegistration_ShouldReturnCreated_WhenValidDataIsProvided()
     {
         // Arrange
         await ResetDatabaseAsync();
@@ -69,6 +69,14 @@ public sealed class CreateRegistrationTests
         registrationResponse!.RegistrationId.Should().NotBe(RegistrationId.Empty);
 
         response.Headers.Location!.ToString().Should().Be($"http://localhost/v1/registrations/{registrationResponse.RegistrationId}");
+
+        var registration = await _dbContext.Registrations.AsNoTrackingWithIdentityResolution()
+            .Include(r => r.Payments)
+            .SingleAsync(r => r.Id == registrationResponse.RegistrationId, TestContext.Current.CancellationToken);
+
+        registration.Payments.Should().ContainSingle();
+        registration.Payments.First().Amount.Should().Be(registrationInput.Payment!.Amount);
+        registration.Payments.First().ConfirmationCode.Should().StartWith(createRegistrationRequest.Registration.Payment!.ProcessingSystem);
     }
 
     [Fact]
@@ -208,6 +216,59 @@ public sealed class CreateRegistrationTests
         problemDetails.Should().NotBeNull();
         problemDetails!.Status.Should().Be((int)HttpStatusCode.BadRequest);
         problemDetails.Detail.Should().Be("An error occurred while creating the registration.");
+    }
+
+    [Fact]
+    public async Task CreateRegistration_ShouldSaveRegistration_WhenThereIsNoPaymentInformation()
+    {
+        // Arrange
+        await ResetDatabaseAsync();
+
+        var tournament = TournamentEntityFactory.Bogus();
+        var division = DivisionEntityFactory.Create(tournament.Id, gender: Models.Gender.Male);
+        var squads = SquadEntityFactory.Bogus(6, tournament.Id);
+        var sweepers = SweeperEntityFactory.Bogus(2, tournament.Id);
+
+        _dbContext.Tournaments.Add(tournament);
+        _dbContext.Divisions.Add(division);
+        _dbContext.Squads.AddRange(squads);
+        _dbContext.Sweepers.AddRange(sweepers);
+        await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        var bowlerInput = BowlerInputFactory.Create(gender: Models.Gender.Male);
+        var registrationInput = new RegistrationInput
+        {
+            Bowler = bowlerInput,
+            TournamentId = tournament.Id,
+            DivisionId = division.Id,
+            Squads = squads.Take(2).Select(s => s.Id).ToList(),
+            Sweepers = sweepers.Select(s => s.Id).ToList(),
+            SuperSweeper = false,
+            Payment = null
+        };
+        var createRegistrationRequest = new CreateRegistrationRequest
+        {
+            Registration = registrationInput
+        };
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, "/v1/registrations")
+        {
+            Content = JsonContent.Create(createRegistrationRequest)
+        };
+
+        // Act
+        var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
+
+        var registrationResponse = await response.Content.ReadFromJsonAsync<CreateRegistrationResponse>(TestContext.Current.CancellationToken);
+
+        var registration = await _dbContext.Registrations.AsNoTrackingWithIdentityResolution()
+            .Include(registration => registration.Payments)
+            .SingleAsync(registration => registration.Id == registrationResponse!.RegistrationId, TestContext.Current.CancellationToken);
+
+        registration.Payments.Should().BeEmpty();
     }
 
     [Fact]
