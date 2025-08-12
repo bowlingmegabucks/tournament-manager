@@ -83,7 +83,7 @@ public sealed class CreateRegistrationEndpoint
             Squads = req.Registration.Squads,
             Sweepers = req.Registration.Sweepers,
             SuperSweeper = req.Registration.SuperSweeper,
-            Payment = req.Registration.Payment.ToModel()
+            Payment = req.Registration.Payment?.ToModel()
         };
 
         var result = await _commandHandler.HandleAsync(command, ct);

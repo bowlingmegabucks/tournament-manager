@@ -66,7 +66,10 @@ internal sealed class CreateRegistrationCommandHandler
 
         var tournament = tournamentResult.Value!;
 
-        command.Payment.CreatedAtUtc = DateTime.UtcNow;
+        if (command.Payment is not null)
+        { 
+            command.Payment.CreatedAtUtc = DateTime.UtcNow;
+        }
 
         var registration = new Registration
         {
@@ -78,7 +81,7 @@ internal sealed class CreateRegistrationCommandHandler
             Squads = command.Squads.Select(squadId => new Squad { Id = squadId }).ToList(),
             Sweepers = command.Sweepers.Select(sweeperId => new Sweeper { Id = sweeperId }).ToList(),
             SuperSweeper = command.SuperSweeper,
-            Payments = [command.Payment],
+            Payments = command.Payment is not null ? [command.Payment] : [],
 
             Average = command.Average
         };

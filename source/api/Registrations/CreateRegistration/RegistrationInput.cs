@@ -47,5 +47,5 @@ public sealed record RegistrationInput
     /// Payment details required to finalize the registration.
     /// This includes payment method, amount, and any other necessary payment information.
     /// </summary>
-    public required PaymentInput Payment { get; init; }
+    public PaymentInput? Payment { get; init; }
 }
