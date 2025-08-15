@@ -3,7 +3,7 @@ using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 namespace BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
 
 /// <summary>
-/// Represents a query to retrieve a tournament by its ID.
+/// Represents a query to retrieve a registration by its ID.
 /// </summary>
 public sealed record GetTournamentByIdQuery
     : IQuery<Models.Tournament?>
