@@ -13,13 +13,13 @@ namespace BowlingMegabucks.TournamentManager.Api.Tournaments.GetTournament;
 public sealed class GetTournamentEndpoint
     : Endpoint<GetTournamentRequest, Results<Ok<GetTournamentResponse>, ProblemHttpResult>>
 {
-    private readonly IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> _queryHandler;
+    private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _queryHandler;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="queryHandler"></param>
-    public GetTournamentEndpoint(IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> queryHandler)
+    public GetTournamentEndpoint(IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> queryHandler)
     {
         _queryHandler = queryHandler;
     }

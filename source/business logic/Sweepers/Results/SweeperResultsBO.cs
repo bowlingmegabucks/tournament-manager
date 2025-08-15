@@ -17,15 +17,15 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<Retrieve.IBusinessLogic> _retrieveSweeper;
     private Retrieve.IBusinessLogic RetrieveSweeper => _retrieveSweeper.Value;
 
-    private readonly Lazy<IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?>> _retrieveTournament;
-    private IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> RetrieveTournament => _retrieveTournament.Value;
+    private readonly Lazy<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>> _retrieveTournament;
+    private IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> RetrieveTournament => _retrieveTournament.Value;
 
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
-    public BusinessLogic(Retrieve.IBusinessLogic retrieveSweeper, IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> retrieveTournament, Scores.Retrieve.IBusinessLogic retrieveScores)
+    public BusinessLogic(Retrieve.IBusinessLogic retrieveSweeper, IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> retrieveTournament, Scores.Retrieve.IBusinessLogic retrieveScores)
     {
         _retrieveSweeper = new Lazy<Retrieve.IBusinessLogic>(() => retrieveSweeper);
-        _retrieveTournament = new Lazy<IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?>>(() => retrieveTournament);
+        _retrieveTournament = new Lazy<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>>(() => retrieveTournament);
         _retrieveScores = retrieveScores;
     }
 

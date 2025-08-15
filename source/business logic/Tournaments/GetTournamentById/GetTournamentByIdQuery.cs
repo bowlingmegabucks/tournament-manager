@@ -1,15 +1,15 @@
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 
-namespace BowlingMegabucks.TournamentManager.Registrations.GetRegistrationById;
+namespace BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
 
 /// <summary>
 /// Represents a query to retrieve a registration by its ID.
 /// </summary>
-public sealed record GetRegistrationByIdQuery
-    : IQuery<Models.Registration?>
+public sealed record GetTournamentByIdQuery
+    : IQuery<Models.Tournament?>
 {
     /// <summary>
     /// The ID of the registration to retrieve.
     /// </summary>
-    public RegistrationId Id { get; init; }
+    public TournamentId Id { get; init; }
 }

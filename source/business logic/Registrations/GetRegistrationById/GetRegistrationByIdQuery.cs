@@ -1,6 +1,6 @@
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 
-namespace BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
+namespace BowlingMegabucks.TournamentManager.Registrations.GetRegistrationById;
 
 /// <summary>
 /// Represents a query to retrieve a registration by its ID.

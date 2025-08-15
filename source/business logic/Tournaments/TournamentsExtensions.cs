@@ -35,7 +35,7 @@ internal static class TournamentsExtensions
                 provider.GetRequiredService<ILogger<GetTournamentsQueryHandlerTelemetryDecorator>>()));
 
         services.AddTransient<GetTournamentByIdQueryHandler>();
-        services.AddTransient<IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?>>(provider =>
+        services.AddTransient<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>>(provider =>
             new GetTournamentByIdQueryHandlerTelemetryDecorator(
                 provider.GetRequiredService<GetTournamentByIdQueryHandler>(),
                 provider.GetRequiredService<ILogger<GetTournamentByIdQueryHandlerTelemetryDecorator>>()));

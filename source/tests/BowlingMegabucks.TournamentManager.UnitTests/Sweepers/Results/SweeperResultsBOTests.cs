@@ -9,7 +9,7 @@ namespace BowlingMegabucks.TournamentManager.UnitTests.Sweepers.Results;
 internal sealed class BusinessLogic
 {
     private Mock<TournamentManager.Sweepers.Retrieve.IBusinessLogic> _retrieveSweeper;
-    private Mock<IQueryHandler<GetRegistrationByIdQuery, TournamentManager.Models.Tournament>> _retrieveTournament;
+    private Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>> _retrieveTournament;
     private Mock<TournamentManager.Scores.Retrieve.IBusinessLogic> _retrieveScores;
 
     private TournamentManager.Sweepers.Results.BusinessLogic _businessLogic;
@@ -18,7 +18,7 @@ internal sealed class BusinessLogic
     public void SetUp()
     {
         _retrieveSweeper = new Mock<TournamentManager.Sweepers.Retrieve.IBusinessLogic>();
-        _retrieveTournament = new Mock<IQueryHandler<GetRegistrationByIdQuery, TournamentManager.Models.Tournament>>();
+        _retrieveTournament = new Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>>();
         _retrieveScores = new Mock<TournamentManager.Scores.Retrieve.IBusinessLogic>();
 
         _businessLogic = new TournamentManager.Sweepers.Results.BusinessLogic(_retrieveSweeper.Object, _retrieveTournament.Object, _retrieveScores.Object);
@@ -294,21 +294,21 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecute_CalledCorrectly()
     {
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(new TournamentManager.Models.Tournament());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(new TournamentManager.Models.Tournament());
 
         var tournamentId = TournamentId.New();
         CancellationToken cancellationToken = default;
 
         await _businessLogic.ExecuteAsync(tournamentId, cancellationToken).ConfigureAwait(false);
 
-        _retrieveTournament.Verify(retrieveTournament => retrieveTournament.HandleAsync(It.Is<GetRegistrationByIdQuery>(query => query.Id == tournamentId), cancellationToken), Times.Once);
+        _retrieveTournament.Verify(retrieveTournament => retrieveTournament.HandleAsync(It.Is<GetTournamentByIdQuery>(query => query.Id == tournamentId), cancellationToken), Times.Once);
     }
 
     [Test]
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteHasError_ErrorFlow()
     {
         var error = Error.Conflict();
-        _retrieveTournament.Setup(query => query.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(error);
+        _retrieveTournament.Setup(query => query.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(error);
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
@@ -329,7 +329,7 @@ internal sealed class BusinessLogic
             Sweepers = [new TournamentManager.Models.Sweeper { Id = SquadId.New() }, new TournamentManager.Models.Sweeper { Id = SquadId.New() }]
         };
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var tournamentId = TournamentId.New();
         CancellationToken cancellationToken = default;
@@ -345,7 +345,7 @@ internal sealed class BusinessLogic
         var error = new TournamentManager.Models.ErrorDetail("error");
         _retrieveScores.SetupGet(retrieveScores => retrieveScores.ErrorDetail).Returns(error);
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(new TournamentManager.Models.Tournament());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(new TournamentManager.Models.Tournament());
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
@@ -359,7 +359,7 @@ internal sealed class BusinessLogic
     [Test]
     public async Task ExecuteAsync_TournamentId_RetrieveTournamentExecuteSuccess_RetrieveScoresSuperSweeperReturnsNoScores_NoScoreFlow()
     {
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(new TournamentManager.Models.Tournament());
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(new TournamentManager.Models.Tournament());
 
         var result = await _businessLogic.ExecuteAsync(TournamentId.New(), default).ConfigureAwait(false);
 
@@ -446,7 +446,7 @@ internal sealed class BusinessLogic
             SuperSweeperCashRatio = 2
         };
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var result = await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 
@@ -535,7 +535,7 @@ internal sealed class BusinessLogic
             SuperSweeperCashRatio = 500
         };
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var superSweeperBowlers = new[] { bowler1, bowler2, bowler3, bowler4 };
         _retrieveSweeper.Setup(retrieveSweeper => retrieveSweeper.SuperSweeperBowlersAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>())).ReturnsAsync(superSweeperBowlers);
@@ -643,7 +643,7 @@ internal sealed class BusinessLogic
             SuperSweeperCashRatio = 2
         };
 
-        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
+        _retrieveTournament.Setup(retrieveTournament => retrieveTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>())).ReturnsAsync(tournament);
 
         var result = await _businessLogic.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
 

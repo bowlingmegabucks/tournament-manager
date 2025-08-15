@@ -7,7 +7,7 @@ namespace BowlingMegabucks.TournamentManager.UnitTests.Squads.Results;
 internal sealed class BusinessLogic
 {
     private Mock<TournamentManager.Tournaments.Retrieve.IBusinessLogic> _retrieveTournament;
-    private Mock<IQueryHandler<GetRegistrationByIdQuery, TournamentManager.Models.Tournament>> _getTournamentByQueryHandler;
+    private Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>> _getTournamentByQueryHandler;
     private Mock<TournamentManager.Squads.Results.ICalculator> _squadResultCalculator;
     private Mock<TournamentManager.Scores.Retrieve.IBusinessLogic> _retrieveScores;
 
@@ -17,7 +17,7 @@ internal sealed class BusinessLogic
     public void SetUp()
     {
         _retrieveTournament = new Mock<TournamentManager.Tournaments.Retrieve.IBusinessLogic>();
-        _getTournamentByQueryHandler = new Mock<IQueryHandler<GetRegistrationByIdQuery, TournamentManager.Models.Tournament>>();
+        _getTournamentByQueryHandler = new Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>>();
         _squadResultCalculator = new Mock<TournamentManager.Squads.Results.ICalculator>();
         _retrieveScores = new Mock<TournamentManager.Scores.Retrieve.IBusinessLogic>();
 

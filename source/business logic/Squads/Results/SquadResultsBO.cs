@@ -15,11 +15,11 @@ internal class BusinessLogic : IBusinessLogic
     public Models.ErrorDetail? ErrorDetail { get; private set; }
 
     private readonly Tournaments.Retrieve.IBusinessLogic _retrieveTournament;
-    private readonly IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> _getTournamentQueryHandler;
+    private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _getTournamentQueryHandler;
     private readonly ICalculator _squadResultCalculator;
     private readonly Scores.Retrieve.IBusinessLogic _retrieveScores;
 
-    public BusinessLogic(Tournaments.Retrieve.IBusinessLogic retrieveTournament, IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> getTournamentQueryHandler, ICalculator calculator, Scores.Retrieve.IBusinessLogic retrieveScores)
+    public BusinessLogic(Tournaments.Retrieve.IBusinessLogic retrieveTournament, IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> getTournamentQueryHandler, ICalculator calculator, Scores.Retrieve.IBusinessLogic retrieveScores)
     {
         _retrieveTournament = retrieveTournament;
         _getTournamentQueryHandler = getTournamentQueryHandler;

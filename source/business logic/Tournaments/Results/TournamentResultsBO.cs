@@ -16,9 +16,9 @@ internal class BusinessLogic : IBusinessLogic
 
     private readonly ICalculator _calculator;
     private readonly Squads.Results.IBusinessLogic _retrieveSquadResults;
-    private readonly IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> _retrieveTournament;
+    private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _retrieveTournament;
 
-    public BusinessLogic(ICalculator calculator, Squads.Results.IBusinessLogic retrieveSquadResults, IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> retrieveTournament)
+    public BusinessLogic(ICalculator calculator, Squads.Results.IBusinessLogic retrieveSquadResults, IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> retrieveTournament)
     {
         _calculator = calculator;
         _retrieveSquadResults = retrieveSquadResults;
