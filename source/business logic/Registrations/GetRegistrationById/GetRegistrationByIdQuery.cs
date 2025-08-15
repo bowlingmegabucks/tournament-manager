@@ -9,7 +9,7 @@ public sealed record GetRegistrationByIdQuery
     : IQuery<Models.Registration?>
 {
     /// <summary>
-    /// Represents a query to retrieve a registration by its ID.
+    /// The ID of the registration to retrieve.
     /// </summary>
     public RegistrationId Id { get; init; }
 }
