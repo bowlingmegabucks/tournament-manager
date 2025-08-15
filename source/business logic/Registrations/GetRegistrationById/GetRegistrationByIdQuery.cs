@@ -9,7 +9,13 @@ public sealed record GetRegistrationByIdQuery
     : IQuery<Models.Registration?>
 {
     /// <summary>
-    /// The ID of the tournament to retrieve.
+/// Represents a query to retrieve a registration by its ID.
+/// </summary>
+public sealed record GetTournamentByIdQuery
+    : IQuery<Models.Tournament?>
+{
+    /// <summary>
+    /// The ID of the registration to retrieve.
     /// </summary>
     public RegistrationId Id { get; init; }
 }
