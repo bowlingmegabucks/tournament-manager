@@ -6,7 +6,7 @@ namespace BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
 /// Represents a query to retrieve a registration by its ID.
 /// </summary>
 public sealed record GetTournamentByIdQuery
-    : IQuery<Models.Tournament?>
+    : IQuery<Models.Registration?>
 {
     /// <summary>
     /// The ID of the tournament to retrieve.
