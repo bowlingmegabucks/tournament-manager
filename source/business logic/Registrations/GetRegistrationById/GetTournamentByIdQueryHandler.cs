@@ -18,7 +18,7 @@ internal sealed class GetRegistrationByIdQueryHandler
         var registration = await _repository.RetrieveAsync(query.Id, cancellationToken);
 
         return registration is null
-            ? Error.NotFound("Tournament not found.") 
+            ? Error.NotFound("Registration not found.") 
             : new Models.Registration(registration);
     }
 }
