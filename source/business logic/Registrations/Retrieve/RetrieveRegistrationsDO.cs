@@ -15,7 +15,7 @@ internal class DataLayer : IDataLayer
         => (await _repository.Retrieve(tournamentId).ToListAsync(cancellationToken).ConfigureAwait(false)).Select(registration => new Models.Registration(registration));
 
     async Task<Models.Registration> IDataLayer.ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
-        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false));
+        => new(await _repository.RetrieveAsync(id, cancellationToken).ConfigureAwait(false) ?? throw new InvalidOperationException($"Registration with ID {id} not found."));
 }
 
 internal interface IDataLayer
