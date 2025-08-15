@@ -9,7 +9,7 @@ public sealed record GetTournamentByIdQuery
     : IQuery<Models.Tournament?>
 {
     /// <summary>
-    /// The ID of the registration to retrieve.
+    /// The ID of the tournament to retrieve.
     /// </summary>
     public TournamentId Id { get; init; }
 }
