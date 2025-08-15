@@ -18,20 +18,6 @@ internal sealed class BusinessLogic : IBusinessLogic
         _dataLayer = dataLayer;
     }
 
-    async Task<Models.Registration?> IBusinessLogic.ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
-    {
-        try
-        {
-            return await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-            ErrorDetail = new Models.ErrorDetail(ex);
-
-            return null;
-        }
-    }
-
     async Task<IEnumerable<Models.Registration>> IBusinessLogic.ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         try
@@ -56,14 +42,6 @@ public interface IBusinessLogic
     /// 
     /// </summary>
     Models.ErrorDetail? ErrorDetail { get; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<Models.Registration?> ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
 
     /// <summary>
     /// 
