@@ -13,19 +13,19 @@ internal class Adapter : IAdapter
     private IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> QueryHandler
         => _queryHandler.Value;
 
-    private readonly Lazy<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>> _retrieveTournament;
-    private IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> RetrieveTournament
+    private readonly Lazy<IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?>> _retrieveTournament;
+    private IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> RetrieveTournament
         => _retrieveTournament.Value;
 
     public Models.ErrorDetail? Error { get; private set; }
 
     public Adapter(IBusinessLogic businessLogic, 
         IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>> queryHandler,
-        IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> retrieveTournament)
+        IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> retrieveTournament)
     {
         _queryHandler = new Lazy<IQueryHandler<GetTournamentsQuery, IEnumerable<Models.Tournament>>>(() => queryHandler);
         _businessLogic = new Lazy<IBusinessLogic>(() => businessLogic);
-        _retrieveTournament = new Lazy<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>>(() => retrieveTournament);
+        _retrieveTournament = new Lazy<IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?>>(() => retrieveTournament);
     }
 
     public async Task<IEnumerable<IViewModel>> ExecuteAsync(CancellationToken cancellationToken)

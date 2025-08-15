@@ -4,7 +4,7 @@ using ErrorOr;
 namespace BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
 
 internal sealed class GetTournamentByIdQueryHandler
-    : IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>
+    : IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?>
 {
     private readonly IRepository _repository;
 
@@ -13,7 +13,7 @@ internal sealed class GetTournamentByIdQueryHandler
         _repository = repository;
     }
 
-    public async Task<ErrorOr<Models.Tournament?>> HandleAsync(GetTournamentByIdQuery query, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Models.Tournament?>> HandleAsync(GetRegistrationByIdQuery query, CancellationToken cancellationToken)
     {
         var tournament = await _repository.RetrieveAsync(query.Id, cancellationToken);
 

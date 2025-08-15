@@ -6,18 +6,18 @@ using Microsoft.Extensions.Logging;
 namespace BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
 
 internal sealed class GetTournamentByIdQueryHandlerTelemetryDecorator
-    : IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>
+    : IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?>
 {
-    private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _innerHandler;
+    private readonly IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> _innerHandler;
     private readonly ILogger<GetTournamentByIdQueryHandlerTelemetryDecorator> _logger;
 
-    public GetTournamentByIdQueryHandlerTelemetryDecorator(IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> innerHandler, ILogger<GetTournamentByIdQueryHandlerTelemetryDecorator> logger)
+    public GetTournamentByIdQueryHandlerTelemetryDecorator(IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> innerHandler, ILogger<GetTournamentByIdQueryHandlerTelemetryDecorator> logger)
     {
         _innerHandler = innerHandler;
         _logger = logger;
     }
 
-    public async Task<ErrorOr<Models.Tournament?>> HandleAsync(GetTournamentByIdQuery query, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Models.Tournament?>> HandleAsync(GetRegistrationByIdQuery query, CancellationToken cancellationToken)
     {
         using var activity = TournamentsTelemetry._activity.StartActivity("Retrieve Tournament by ID", ActivityKind.Internal);
 

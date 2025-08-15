@@ -14,7 +14,7 @@ internal class BusinessLogic : IBusinessLogic
     /// </summary>
     public IEnumerable<Models.ErrorDetail> Errors { get; private set; } = [];
 
-    private readonly IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> _getTournamentBO;
+    private readonly IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> _getTournamentBO;
 
     private readonly Lazy<FluentValidation.IValidator<Models.Squad>> _validator;
     private FluentValidation.IValidator<Models.Squad> Validator => _validator.Value;
@@ -22,7 +22,7 @@ internal class BusinessLogic : IBusinessLogic
     private readonly Lazy<IDataLayer> _dataLayer;
     private IDataLayer DataLayer => _dataLayer.Value;
 
-    public BusinessLogic(IQueryHandler<GetTournamentByIdQuery, Models.Tournament?> getTournamentBO, FluentValidation.IValidator<Models.Squad> validator, IDataLayer dataLayer)
+    public BusinessLogic(IQueryHandler<GetRegistrationByIdQuery, Models.Tournament?> getTournamentBO, FluentValidation.IValidator<Models.Squad> validator, IDataLayer dataLayer)
     {
         _getTournamentBO = getTournamentBO;
         _validator = new Lazy<FluentValidation.IValidator<Models.Squad>>(() => validator);

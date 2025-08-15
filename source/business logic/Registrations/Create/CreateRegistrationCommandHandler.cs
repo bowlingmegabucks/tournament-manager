@@ -11,7 +11,7 @@ internal sealed class CreateRegistrationCommandHandler
     : ICommandHandler<CreateRegistrationCommand, RegistrationId>
 {
     private readonly Divisions.Retrieve.IBusinessLogic _getDivision;
-    private readonly IQueryHandler<GetTournamentByIdQuery, Tournament?> _getTournament;
+    private readonly IQueryHandler<GetRegistrationByIdQuery, Tournament?> _getTournament;
     private readonly IValidator<Registration> _validator;
     private readonly Bowlers.Search.IBusinessLogic _searchBowlers;
     private readonly Bowlers.Update.IBusinessLogic _updateBowler;
@@ -19,7 +19,7 @@ internal sealed class CreateRegistrationCommandHandler
     private readonly IRepository _repository;
     private readonly ILogger<CreateRegistrationCommandHandler> _logger;
 
-    public CreateRegistrationCommandHandler(Divisions.Retrieve.IBusinessLogic getDivision, IQueryHandler<GetTournamentByIdQuery, Tournament?> getTournament,
+    public CreateRegistrationCommandHandler(Divisions.Retrieve.IBusinessLogic getDivision, IQueryHandler<GetRegistrationByIdQuery, Tournament?> getTournament,
         IValidator<Registration> validator, Bowlers.Search.IBusinessLogic searchBowlers, Bowlers.Update.IBusinessLogic updateBowler,
         IEntityMapper entityMapper, IRepository repository, ILogger<CreateRegistrationCommandHandler> logger)
     {

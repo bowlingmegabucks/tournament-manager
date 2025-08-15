@@ -12,7 +12,7 @@ namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Create;
 public sealed class CreateRegistrationCommandHandlerTest
 {
     private Mock<TournamentManager.Divisions.Retrieve.IBusinessLogic> _mockGetDivision;
-    private Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>> _mockGetTournament;
+    private Mock<IQueryHandler<GetRegistrationByIdQuery, TournamentManager.Models.Tournament>> _mockGetTournament;
     private Mock<IValidator<TournamentManager.Models.Registration>> _mockValidator;
     private Mock<TournamentManager.Bowlers.Search.IBusinessLogic> _mockSearchBowlers;
     private Mock<TournamentManager.Bowlers.Update.IBusinessLogic> _mockUpdateBowlers;
@@ -26,7 +26,7 @@ public sealed class CreateRegistrationCommandHandlerTest
     public void SetUp()
     {
         _mockGetDivision = new Mock<TournamentManager.Divisions.Retrieve.IBusinessLogic>();
-        _mockGetTournament = new Mock<IQueryHandler<GetTournamentByIdQuery, TournamentManager.Models.Tournament>>();
+        _mockGetTournament = new Mock<IQueryHandler<GetRegistrationByIdQuery, TournamentManager.Models.Tournament>>();
         _mockValidator = new Mock<IValidator<TournamentManager.Models.Registration>>();
         _mockSearchBowlers = new Mock<TournamentManager.Bowlers.Search.IBusinessLogic>();
         _mockUpdateBowlers = new Mock<TournamentManager.Bowlers.Update.IBusinessLogic>();
@@ -181,7 +181,7 @@ public sealed class CreateRegistrationCommandHandlerTest
                 It.Is<DivisionId>(id => id == command.DivisionId), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new TournamentManager.Models.Division { Id = command.DivisionId });
 
-        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>()))
+        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(Error.Failure(description: "Tournament Error"));
 
         // Act
@@ -237,7 +237,7 @@ public sealed class CreateRegistrationCommandHandlerTest
             Sweepers = [new TournamentManager.Models.Sweeper(), new TournamentManager.Models.Sweeper(), new TournamentManager.Models.Sweeper()]
         };
 
-        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>()))
+        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(mockTournament);
 
         var validationResult = new FluentValidation.Results.ValidationResult();
@@ -290,7 +290,7 @@ public sealed class CreateRegistrationCommandHandlerTest
             .ExecuteAsync(
                 It.Is<DivisionId>(id => id == command.DivisionId), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new TournamentManager.Models.Division { Id = command.DivisionId });
-        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>()))
+        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
            .ReturnsAsync(new TournamentManager.Models.Tournament { Id = command.TournamentId });
         _mockValidator.Validate_IsValid();
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => !criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))
@@ -332,7 +332,7 @@ public sealed class CreateRegistrationCommandHandlerTest
             .ExecuteAsync(
                 It.Is<DivisionId>(id => id == command.DivisionId), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new TournamentManager.Models.Division { Id = command.DivisionId });
-        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>()))
+        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
            .ReturnsAsync(new TournamentManager.Models.Tournament { Id = command.TournamentId });
         _mockValidator.Validate_IsValid();
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => !criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))
@@ -382,7 +382,7 @@ public sealed class CreateRegistrationCommandHandlerTest
             .ExecuteAsync(
                 It.Is<DivisionId>(id => id == command.DivisionId), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new TournamentManager.Models.Division { Id = command.DivisionId });
-        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>()))
+        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
            .ReturnsAsync(new TournamentManager.Models.Tournament { Id = command.TournamentId });
         _mockValidator.Validate_IsValid();
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => !criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))
@@ -430,7 +430,7 @@ public sealed class CreateRegistrationCommandHandlerTest
             .ExecuteAsync(
                 It.Is<DivisionId>(id => id == command.DivisionId), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new TournamentManager.Models.Division { Id = command.DivisionId });
-        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>()))
+        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
            .ReturnsAsync(new TournamentManager.Models.Tournament { Id = command.TournamentId });
         _mockValidator.Validate_IsValid();
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => !criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))
@@ -470,7 +470,7 @@ public sealed class CreateRegistrationCommandHandlerTest
             .ExecuteAsync(
                 It.Is<DivisionId>(id => id == command.DivisionId), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new TournamentManager.Models.Division { Id = command.DivisionId });
-        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetTournamentByIdQuery>(), It.IsAny<CancellationToken>()))
+        _mockGetTournament.Setup(getTournament => getTournament.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
            .ReturnsAsync(new TournamentManager.Models.Tournament { Id = command.TournamentId });
         _mockValidator.Validate_IsValid();
         _mockSearchBowlers.Setup(searchBowlers => searchBowlers.ExecuteAsync(It.Is<TournamentManager.Models.BowlerSearchCriteria>(criteria => !criteria.RegisteredInTournament.HasValue), It.IsAny<CancellationToken>()))
