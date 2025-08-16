@@ -1,10 +1,15 @@
 ﻿
+using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Registrations.GetRegistrationById;
+using ErrorOr;
+
 namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Retrieve;
 
 [TestFixture]
 internal sealed class Adapter
 {
     private Mock<TournamentManager.Registrations.Retrieve.IBusinessLogic> _businessLogic;
+    private Mock<IQueryHandler<GetRegistrationByIdQuery, TournamentManager.Models.Registration>> _getRegistrationByIdQueryHandler;
 
     private TournamentManager.Registrations.Retrieve.IAdapter _adapter;
 
@@ -12,8 +17,9 @@ internal sealed class Adapter
     public void SetUp()
     {
         _businessLogic = new Mock<TournamentManager.Registrations.Retrieve.IBusinessLogic>();
+        _getRegistrationByIdQueryHandler = new Mock<IQueryHandler<GetRegistrationByIdQuery, TournamentManager.Models.Registration>>();
 
-        _adapter = new TournamentManager.Registrations.Retrieve.Adapter(_businessLogic.Object);
+        _adapter = new TournamentManager.Registrations.Retrieve.Adapter(_businessLogic.Object, _getRegistrationByIdQueryHandler.Object);
     }
 
     [Test]
@@ -60,5 +66,51 @@ internal sealed class Adapter
             Assert.That(actual.First().Id, Is.EqualTo(registrations[0].Id));
             Assert.That(actual.Last().Id, Is.EqualTo(registrations[registrations.Length - 1].Id));
         });
+    }
+
+    [Test]
+    public async Task ExecuteAsync_RegistrationId_QueryHandlerHandle_CalledCorrectly()
+    {
+        var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
+
+        _getRegistrationByIdQueryHandler.Setup(handler => handler.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), cancellationToken))
+            .ReturnsAsync(new TournamentManager.Models.Registration { Id = registrationId });
+
+        await _adapter.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
+
+        _getRegistrationByIdQueryHandler.Verify(handler => handler.HandleAsync(It.Is<GetRegistrationByIdQuery>(query => query.Id == registrationId), cancellationToken), Times.Once);
+    }
+
+    [Test]
+    public async Task ExecuteAsync_RegistrationId_ErrorSetToQueryHandlerError()
+    {
+        var error = Error.Unexpected(description: "query error");
+
+        _getRegistrationByIdQueryHandler.Setup(handler => handler.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(error);
+
+        var registrationId = RegistrationId.New();
+
+        var result = await _adapter.ExecuteAsync(registrationId, default).ConfigureAwait(false);
+
+        Assert.That(_adapter.Error.Message, Is.EqualTo(error.Description));
+        Assert.That(result, Is.Null);
+    }
+
+    [Test]
+    public async Task ExecuteAsync_RegistrationId_ReturnsRegistrationViewModel()
+    {
+        var registration = new TournamentManager.Models.Registration { Id = RegistrationId.New() };
+
+        _getRegistrationByIdQueryHandler.Setup(handler => handler.HandleAsync(It.IsAny<GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(registration);
+
+        var registrationId = RegistrationId.New();
+
+        var result = await _adapter.ExecuteAsync(registrationId, default).ConfigureAwait(false);
+
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result!.Id, Is.EqualTo(registration.Id));
     }
 }

@@ -10,12 +10,14 @@ namespace BowlingMegabucks.TournamentManager.Api.Registrations.UpdateRegistratio
 public sealed class UpdateRegistrationEndpoint
     : Endpoint<UpdateRegistrationRequest>
 {
+    private const string _route = "/registrations/{Id}";
+
     /// <summary>
     /// 
     /// </summary>
     public override void Configure()
     {
-        Patch("/registrations/{Id}");
+        Patch(_route);
 
         Description(d => d
             .Produces(StatusCodes.Status204NoContent)
@@ -32,10 +34,10 @@ public sealed class UpdateRegistrationEndpoint
 
             s.ExampleRequest = new BogusUpdateRegistrationRequest().Generate();
 
-            s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400("/registrations/{Id}");
-            s.ResponseExamples[StatusCodes.Status401Unauthorized] = HttpStatusCodeResponses.SampleUnauthorized401("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400(_route);
+            s.ResponseExamples[StatusCodes.Status401Unauthorized] = HttpStatusCodeResponses.SampleUnauthorized401(_route);
             s.ResponseExamples[StatusCodes.Status429TooManyRequests] = HttpStatusCodeResponses.SampleRateLimitExceeded429();
-            s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500(_route);
 
             s.Response<NoContent>(StatusCodes.Status204NoContent, "Successfully updated the registration.");
             s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);

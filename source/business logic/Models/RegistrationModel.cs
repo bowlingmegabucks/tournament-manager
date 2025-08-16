@@ -14,6 +14,11 @@ public class Registration
     /// <summary>
     /// 
     /// </summary>
+    public TournamentId TournamentId { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public Bowler Bowler { get; set; }
 
     /// <summary>
@@ -87,6 +92,7 @@ public class Registration
     internal Registration(Database.Entities.Registration registration)
     {
         Id = registration.Id;
+        TournamentId = registration.Division.TournamentId;
         Bowler = new Bowler(registration.Bowler);
         Division = new Division(registration.Division);
         Average = registration.Average;

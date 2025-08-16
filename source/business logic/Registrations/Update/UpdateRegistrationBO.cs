@@ -1,4 +1,7 @@
 ﻿
+using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Models;
+using BowlingMegabucks.TournamentManager.Registrations.GetRegistrationById;
 using FluentValidation;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.Update;
@@ -15,7 +18,7 @@ internal sealed class BusinessLogic : IBusinessLogic
 
     private readonly IDataLayer _dataLayer;
 
-    private readonly Retrieve.IBusinessLogic _retrieveBusinessLogic;
+    private readonly IQueryHandler<GetRegistrationByIdQuery, Models.Registration?> _getRegistrationByIdQueryHandler;
     private readonly Tournaments.Retrieve.IBusinessLogic _retrieveTournamentBusinessLogic;
 
     private readonly Lazy<Divisions.Retrieve.IBusinessLogic> _getDivisionBO;
@@ -30,13 +33,13 @@ internal sealed class BusinessLogic : IBusinessLogic
     private readonly Lazy<IValidator<UpdateRegistrationModel>> _validator;
     private IValidator<UpdateRegistrationModel> Validator => _validator.Value;
 
-    public BusinessLogic(IDataLayer dataLayer, Retrieve.IBusinessLogic retrieveBusinessLogic,
+    public BusinessLogic(IDataLayer dataLayer, IQueryHandler<GetRegistrationByIdQuery, Models.Registration?> retrieveBusinessLogic,
         Tournaments.Retrieve.IBusinessLogic tournamentBusinessLogic, Divisions.Retrieve.IBusinessLogic getDivisionBO,
         Tournaments.Retrieve.IBusinessLogic getTournamentBO, IValidator<UpdateRegistrationModel> validator,
         Scores.IRepository scoresRepository)
     {
         _dataLayer = dataLayer;
-        _retrieveBusinessLogic = retrieveBusinessLogic;
+        _getRegistrationByIdQueryHandler = retrieveBusinessLogic;
         _retrieveTournamentBusinessLogic = tournamentBusinessLogic;
 
         _getDivisionBO = new Lazy<Divisions.Retrieve.IBusinessLogic>(() => getDivisionBO);
@@ -53,16 +56,18 @@ internal sealed class BusinessLogic : IBusinessLogic
     /// <returns></returns>
     public async Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
     {
-        var registration = await _retrieveBusinessLogic.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
+        var registrationResult = await _getRegistrationByIdQueryHandler.HandleAsync(new() { Id = id }, cancellationToken).ConfigureAwait(false);
 
-        if (_retrieveBusinessLogic.ErrorDetail is not null)
+        if (registrationResult.IsError)
         {
-            Errors = [_retrieveBusinessLogic.ErrorDetail];
+            Errors = registrationResult.Errors.ToErrorDetails();
 
             return;
         }
 
-        if (registration!.Sweepers.Any(sweeper => sweeper.Complete))
+        var registration = registrationResult.Value!;
+
+        if (registration.Sweepers.Any(sweeper => sweeper.Complete))
         {
             Errors = [new Models.ErrorDetail("Cannot add super sweeper to registration with completed sweepers.")];
 

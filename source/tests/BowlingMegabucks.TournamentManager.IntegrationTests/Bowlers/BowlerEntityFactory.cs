@@ -6,6 +6,9 @@ internal static class BowlerEntityFactory
 {
     public static Database.Entities.Bowler Bogus()
         => new BowlerEntityFaker().Generate();
+
+    public static IEnumerable<Database.Entities.Bowler> Bogus(int count)
+        => new BowlerEntityFaker().Generate(count);
 }
 
 internal sealed class BowlerEntityFaker
