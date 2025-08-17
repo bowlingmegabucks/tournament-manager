@@ -108,7 +108,7 @@ public sealed class DeleteRegistrationTests
                 Score = 200
             };
         
-             _dbContext.SquadScores.Add(squadScore);
+            _dbContext.SquadScores.Add(squadScore);
         }
 
         await _dbContext.SaveChangesAsync();
