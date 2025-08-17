@@ -1,12 +1,12 @@
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
-using BowlingMegabucks.TournamentManager.Registrations.Create;
+using BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
 using BowlingMegabucks.TournamentManager.Tournaments.GetTournamentById;
 using BowlingMegabucks.TournamentManager.UnitTests.Extensions;
 using ErrorOr;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 
-namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Create;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.CreateRegistration;
 
 [TestFixture]
 public sealed class CreateRegistrationCommandHandlerTest

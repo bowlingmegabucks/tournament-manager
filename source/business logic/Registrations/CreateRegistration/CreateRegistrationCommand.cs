@@ -1,6 +1,6 @@
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 
-namespace BowlingMegabucks.TournamentManager.Registrations.Create;
+namespace BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
 
 /// <summary>
 /// Command to create a new registration.

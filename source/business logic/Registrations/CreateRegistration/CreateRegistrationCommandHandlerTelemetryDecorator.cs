@@ -3,7 +3,7 @@ using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 using ErrorOr;
 using Microsoft.Extensions.Logging;
 
-namespace BowlingMegabucks.TournamentManager.Registrations.Create;
+namespace BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
 
 internal sealed class CreateRegistrationCommandHandlerTelemetryDecorator
     : ICommandHandler<CreateRegistrationCommand, RegistrationId>

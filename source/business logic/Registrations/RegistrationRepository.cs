@@ -80,10 +80,10 @@ internal class Repository : IRepository
     {
         var registration = await _dataContext.Registrations.Include(registration => registration.Squads).FirstAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 
-        if (await _dataContext.SquadScores.AnyAsync(squadScore => squadScore.BowlerId == registration.BowlerId && registration.Squads.Select(squad => squad.SquadId).Contains(squadScore.SquadId), cancellationToken).ConfigureAwait(false))
-        {
-            throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
-        }
+        // if (await _dataContext.SquadScores.AnyAsync(squadScore => squadScore.BowlerId == registration.BowlerId && registration.Squads.Select(squad => squad.SquadId).Contains(squadScore.SquadId), cancellationToken).ConfigureAwait(false))
+        // {
+        //     throw new InvalidOperationException("Cannot remove bowler from squad when scores have been recorded");
+        // }
 
         registration.Squads.Clear();
 

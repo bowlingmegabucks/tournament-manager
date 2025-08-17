@@ -1,15 +1,15 @@
 ﻿using FluentValidation.TestHelper;
 
-namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Create;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.CreateRegistration;
 
 [TestFixture]
 internal sealed class Validator
 {
-    private TournamentManager.Registrations.Create.Validator _validator;
+    private TournamentManager.Registrations.CreateRegistration.Validator _validator;
 
     [OneTimeSetUp]
     public void SetUp()
-        => _validator = new TournamentManager.Registrations.Create.Validator();
+        => _validator = new TournamentManager.Registrations.CreateRegistration.Validator();
 
     [Test]
     public void Bowler_HasBowlerValidator()

@@ -5,7 +5,7 @@ using ErrorOr;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 
-namespace BowlingMegabucks.TournamentManager.Registrations.Create;
+namespace BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
 
 internal sealed class CreateRegistrationCommandHandler
     : ICommandHandler<CreateRegistrationCommand, RegistrationId>
