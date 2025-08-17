@@ -74,7 +74,7 @@ public sealed class DeleteRegistrationTests
 
         _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).Should().BeEmpty();
 
-        var paymentCount = await _dbContext.Database.SqlQueryRaw<Guid>($"SELECT p.Id FROM Payments p").CountAsync(TestContext.Current.CancellationToken);
+        var paymentCount = await _dbContext.Database.SqlQuery<Guid>($"SELECT p.Id FROM Payments p WHERE p.RegistrationId = {registrationId.Value}").CountAsync(TestContext.Current.CancellationToken);
         paymentCount.Should().Be(0);
     }
 
