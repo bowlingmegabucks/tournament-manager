@@ -1,6 +1,6 @@
 ﻿
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
-using BowlingMegabucks.TournamentManager.Registrations.Create;
+using BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
 using BowlingMegabucks.TournamentManager.Registrations.GetRegistrationById;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;

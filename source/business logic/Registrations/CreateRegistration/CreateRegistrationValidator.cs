@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace BowlingMegabucks.TournamentManager.Registrations.Create;
+namespace BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
 internal class Validator : AbstractValidator<Models.Registration>
 {
     public Validator()

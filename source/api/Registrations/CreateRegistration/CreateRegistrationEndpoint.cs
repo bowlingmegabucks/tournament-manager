@@ -2,7 +2,7 @@ using FastEndpoints;
 using BowlingMegabucks.TournamentManager.Api.BogusData;
 using BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 using Microsoft.AspNetCore.Http.HttpResults;
-using BowlingMegabucks.TournamentManager.Registrations.Create;
+using BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 

@@ -1,7 +1,7 @@
 ﻿using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Bowlers;
 using BowlingMegabucks.TournamentManager.Models;
-using BowlingMegabucks.TournamentManager.Registrations.Create;
+using BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
 using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.Add;
