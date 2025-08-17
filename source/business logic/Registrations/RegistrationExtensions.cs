@@ -1,7 +1,9 @@
 ﻿
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
+using BowlingMegabucks.TournamentManager.Registrations.DeleteRegistration;
 using BowlingMegabucks.TournamentManager.Registrations.GetRegistrationById;
+using ErrorOr;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,8 +27,11 @@ internal static class RegistrationExtensions
                 provider.GetRequiredService<CreateRegistrationCommandHandler>(),
                 provider.GetRequiredService<ILogger<CreateRegistrationCommandHandlerTelemetryDecorator>>()));
 
-        services.AddTransient<Delete.IBusinessLogic, Delete.BusinessLogic>();
-        services.AddTransient<Delete.IDataLayer, Delete.DataLayer>();
+        services.AddTransient<DeleteRegistrationCommandHandler>();
+        services.AddTransient<ICommandHandler<DeleteRegistrationCommand, Deleted>>(provider =>
+            new DeleteRegistrationCommandHandlerTelemetryDecorator(
+                provider.GetRequiredService<DeleteRegistrationCommandHandler>(),
+                provider.GetRequiredService<ILogger<DeleteRegistrationCommandHandlerTelemetryDecorator>>()));
 
         services.AddTransient<GetRegistrationByIdQueryHandler>();
         services.AddTransient<IQueryHandler<GetRegistrationByIdQuery, Models.Registration?>>(provider =>
