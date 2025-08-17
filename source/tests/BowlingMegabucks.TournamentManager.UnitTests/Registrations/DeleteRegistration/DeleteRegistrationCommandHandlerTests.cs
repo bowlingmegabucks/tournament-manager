@@ -37,6 +37,7 @@ public sealed class DeleteRegistrationCommandHandlerTests
         _registrationRepository.Verify(repository => repository.RetrieveAsync(command.Id, It.IsAny<CancellationToken>()), Times.Once);
 
         Assert.That(result.IsError);
+        Assert.That(result.FirstError.Type, Is.EqualTo(ErrorType.Validation));
         Assert.That(result.FirstError.Code, Is.EqualTo("RegistrationNotFound"));
         Assert.That(result.FirstError.Description, Is.EqualTo($"Registration with ID {command.Id} not found."));
 
@@ -71,6 +72,7 @@ public sealed class DeleteRegistrationCommandHandlerTests
 
         // Assert
         Assert.That(result.IsError, Is.True);
+        Assert.That(result.FirstError.Type, Is.EqualTo(ErrorType.Validation));
         Assert.That(result.FirstError.Code, Is.EqualTo("RegistrationHasScores"));
         Assert.That(result.FirstError.Description, Is.EqualTo("Cannot delete registration with scores."));
 

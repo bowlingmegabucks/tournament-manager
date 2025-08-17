@@ -1,3 +1,5 @@
+using BowlingMegabucks.TournamentManager.Registrations.DeleteRegistration;
+using ErrorOr;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 
@@ -7,7 +9,7 @@ namespace BowlingMegabucks.TournamentManager.Api.Registrations.DeleteRegistratio
 /// 
 /// </summary>
 public sealed class DeleteRegistrationEndpoint
-    : Endpoint<DeleteRegistrationRequest>
+    : Endpoint<DeleteRegistrationRequest, Results<NoContent, ProblemHttpResult>>
 {
     /// <summary>
     /// 
@@ -48,20 +50,35 @@ public sealed class DeleteRegistrationEndpoint
         });
     }
 
+    private readonly Abstractions.Messaging.ICommandHandler<DeleteRegistrationCommand, Deleted> _commandHandler;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="commandHandler"></param>
+    public DeleteRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<DeleteRegistrationCommand, Deleted> commandHandler)
+    {
+        _commandHandler = commandHandler;
+    }
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="req"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task HandleAsync(
-        DeleteRegistrationRequest req,
-        CancellationToken ct)
+    public override async Task<Results<NoContent, ProblemHttpResult>> ExecuteAsync(DeleteRegistrationRequest req, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(req);
 
-        // Logic to delete the registration goes here
+        var command = new DeleteRegistrationCommand { Id = req.Id };
 
-        await Send.NoContentAsync(ct);
+        var result = await _commandHandler.HandleAsync(command, ct);
+
+        return !result.IsError
+            ? TypedResults.NoContent()
+            : result.FirstError.Type == ErrorType.NotFound
+                ? TypedResults.NotFound().ToProblemDetails(HttpContext.TraceIdentifier)
+                : result.Errors.ToProblemDetails("An error occurred while deleting the registration.", HttpContext.TraceIdentifier);
     }
 }

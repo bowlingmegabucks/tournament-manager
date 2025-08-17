@@ -31,7 +31,7 @@ internal sealed class DeleteRegistrationCommandHandler
 
         if (bowlerHasScoresForTournament)
         {
-            return Error.Conflict(
+            return Error.Validation(
                 code: "RegistrationHasScores",
                 description: "Cannot delete registration with scores.");
         }
