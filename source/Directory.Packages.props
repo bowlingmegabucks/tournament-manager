@@ -39,7 +39,7 @@
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="9.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="9.0.8" />
-    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.13.1" />
+    <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.14.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="MockQueryable.Moq" Version="8.0.0" />
     <PackageVersion Include="Moq" Version="4.20.72" />
@@ -61,7 +61,7 @@
     <PackageVersion Include="ReportGenerator" Version="5.4.12" />
     <PackageVersion Include="ReportViewerCore.WinForms" Version="15.1.17" />
     <PackageVersion Include="Respawn" Version="6.2.1" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.8" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.9" />
     <PackageVersion Include="Serilog.AspNetCore" Version="9.0.0" />
     <PackageVersion Include="Serilog.Enrichers.AspNetCore" Version="1.0.0" />
     <PackageVersion Include="Serilog.Enrichers.ClientInfo" Version="2.3.0" />
@@ -76,11 +76,11 @@
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.3" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.8" />
     <PackageVersion Include="System.Formats.Asn1" Version="9.0.6" />
-    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.13.1" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
     <PackageVersion Include="System.IO.Packaging" Version="9.0.8" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="9.0.8" />
     <PackageVersion Include="Testcontainers.MariaDb" Version="4.6.0" />
-    <PackageVersion Include="xunit.v3" Version="3.0.0" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.3" />
+    <PackageVersion Include="xunit.v3" Version="3.0.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
   </ItemGroup>
 </Project>
