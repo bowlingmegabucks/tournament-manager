@@ -75,7 +75,7 @@ public sealed class DeleteRegistrationCommandHandlerTests
         Assert.That(result.FirstError.Description, Is.EqualTo("Cannot delete registration with scores."));
 
         _registrationRepository
-            .Verify(repository => repository.RetrieveAsync(command.Id, It.IsAny<CancellationToken>()), Times.Never);
+            .Verify(repository => repository.DeleteAsync(command.Id, It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Test]
@@ -95,6 +95,10 @@ public sealed class DeleteRegistrationCommandHandlerTests
             .Setup(repository => repository.RetrieveAsync(registration.Id, It.IsAny<CancellationToken>()))
             .ReturnsAsync(registration);
 
+        _registrationRepository
+            .Setup(r => r.DeleteAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
+
         _scoresRepository
             .Setup(repository => repository.DoesBowlerHaveAnyScoresForTournamentAsync(registration.Id, registration.Division.TournamentId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(false);
@@ -109,6 +113,6 @@ public sealed class DeleteRegistrationCommandHandlerTests
         Assert.That(result.Value, Is.EqualTo(Result.Deleted));
 
         _registrationRepository
-            .Verify(repository => repository.RetrieveAsync(command.Id, It.IsAny<CancellationToken>()), Times.Once);
+            .Verify(repository => repository.DeleteAsync(command.Id, It.IsAny<CancellationToken>()), Times.Once);
     }
 }
