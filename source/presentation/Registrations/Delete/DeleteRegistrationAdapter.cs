@@ -7,7 +7,7 @@ using ErrorOr;
 namespace BowlingMegabucks.TournamentManager.Registrations.Delete;
 internal class Adapter : IAdapter
 {
-    public ErrorDetail? Error { get; private set;}
+    public ErrorDetail? Error { get; private set; }
 
     private readonly IBusinessLogic _businessLogic;
     private readonly ICommandHandler<DeleteRegistrationCommand, Deleted> _commandHandler;
