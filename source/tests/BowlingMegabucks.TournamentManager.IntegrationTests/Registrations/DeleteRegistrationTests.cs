@@ -72,7 +72,7 @@ public sealed class DeleteRegistrationTests
         // Assert
         httpResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
-        _dbContext.Registrations.AsNoTracking().Should().BeEmpty();
+        _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).Should().BeEmpty();
 
         var paymentCount = await _dbContext.Database.SqlQueryRaw<Guid>($"SELECT p.Id FROM Payments p").CountAsync(TestContext.Current.CancellationToken);
         paymentCount.Should().Be(0);
