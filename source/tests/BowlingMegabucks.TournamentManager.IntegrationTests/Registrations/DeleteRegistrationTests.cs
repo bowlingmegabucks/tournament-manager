@@ -24,7 +24,7 @@ public sealed class DeleteRegistrationTests
         // Arrange
         await ResetDatabaseAsync();
 
-        await CreateTestRegistrationAsync();
+        var registrationId = await CreateTestRegistrationAsync();
 
         using var httpRequest = new HttpRequestMessage(HttpMethod.Delete, $"/v1/registrations/{RegistrationId.New()}");
 
@@ -34,7 +34,7 @@ public sealed class DeleteRegistrationTests
         // Assert
         httpResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
-        _dbContext.Registrations.AsNoTracking().Should().ContainSingle();
+        _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).Should().ContainSingle();
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public sealed class DeleteRegistrationTests
         // Assert
         httpResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
-        _dbContext.Registrations.AsNoTracking().Should().ContainSingle();
+        _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).Should().ContainSingle();
     }
 
     [Fact]
