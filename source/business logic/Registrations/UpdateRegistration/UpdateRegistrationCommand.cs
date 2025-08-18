@@ -25,6 +25,12 @@ public sealed record UpdateRegistrationCommand
     public DivisionId? DivisionId { get; init; }
 
     /// <summary>
+    /// The bowlers average.  This is required for certain divisions
+    /// </summary>
+    /// <value></value>
+    public int? Average { get; init; }
+
+    /// <summary>
     /// Squad IDs associated with the registration.  This is a complete set of the participant's squads.
     /// If the participant is not in any squads, this will be empty.  If there is no change, this should be null.
     /// </summary>

@@ -87,6 +87,7 @@ internal static class HttpStatusCodeResponses
 
         var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
         {
+            //TODO: map error metadata to extensions
             Detail = detail,
             Status = statusCode,
             Extensions =
