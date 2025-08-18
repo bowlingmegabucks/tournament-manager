@@ -18,6 +18,13 @@ public sealed record UpdateRegistrationCommand
     public required RegistrationId Id { get; init; }
 
     /// <summary>
+    /// The ID of the division to update.
+    /// If not specified, the division will not be changed.
+    /// </summary>
+    /// <value></value>
+    public DivisionId? DivisionId { get; init; }
+
+    /// <summary>
     /// Squad IDs associated with the registration.  This is a complete set of the participant's squads.
     /// If the participant is not in any squads, this will be empty.  If there is no change, this should be null.
     /// </summary>
