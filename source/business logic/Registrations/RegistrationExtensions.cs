@@ -42,6 +42,13 @@ internal static class RegistrationExtensions
         services.AddTransient<Retrieve.IBusinessLogic, Retrieve.BusinessLogic>();
         services.AddTransient<Retrieve.IDataLayer, Retrieve.DataLayer>();
 
+        services.AddSingleton<IValidator<UpdateRegistration.UpdateRegistrationRecord>, UpdateRegistration.Validator>();
+        services.AddTransient<UpdateRegistration.UpdateRegistrationCommandHandler>();
+        services.AddTransient<ICommandHandler<UpdateRegistration.UpdateRegistrationCommand, Updated>>(provider =>
+            new UpdateRegistration.UpdateRegistrationCommandHandlerTelemetryDecorator(
+                provider.GetRequiredService<UpdateRegistration.UpdateRegistrationCommandHandler>(),
+                provider.GetRequiredService<ILogger<UpdateRegistration.UpdateRegistrationCommandHandlerTelemetryDecorator>>()));
+
         services.AddSingleton<IValidator<Update.UpdateRegistrationModel>, Update.Validator>();
         services.AddTransient<Update.IBusinessLogic, Update.BusinessLogic>();
         services.AddTransient<Update.IDataLayer, Update.DataLayer>();

@@ -1,7 +1,7 @@
 using FluentValidation;
 using BowlingMegabucks.TournamentManager.Database.Entities;
 
-namespace TournamentManager.BusinessLogic.Registrations.UpdateRegistration;
+namespace BowlingMegabucks.TournamentManager.Registrations.UpdateRegistration;
 
 internal sealed class Validator
     : AbstractValidator<UpdateRegistrationRecord>

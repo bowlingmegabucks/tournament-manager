@@ -2,7 +2,6 @@ using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Database.Entities;
 using ErrorOr;
 using FluentValidation;
-using TournamentManager.BusinessLogic.Registrations.UpdateRegistration;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.UpdateRegistration;
 
