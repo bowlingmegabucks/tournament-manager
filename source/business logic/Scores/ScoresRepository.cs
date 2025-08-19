@@ -53,6 +53,11 @@ internal class Repository : IRepository
             .Include(squadScore => squadScore.Squad)
         .Where(squadScore => squadIds.Contains(squadScore.SquadId));
 
+    public async Task<IReadOnlyCollection<Database.Entities.SquadScore>> BowlerScoresForSquads(BowlerId bowlerId, IEnumerable<SquadId> squadIds, CancellationToken cancellationToken)
+        => await _dataContext.SquadScores.AsNoTracking()
+            .Where(score => score.BowlerId == bowlerId && squadIds.Contains(score.SquadId))
+            .ToListAsync(cancellationToken);
+
     public async Task<bool> DoesBowlerHaveAnyScoresForTournamentAsync(RegistrationId registrationId, TournamentId tournamentId, CancellationToken cancellationToken)
     {
         var tournamentSquadIds = _dataContext.Squads.AsNoTracking()
@@ -84,4 +89,6 @@ internal interface IRepository
     IQueryable<Database.Entities.SquadScore> Retrieve(params SquadId[] squadIds);
 
     Task<bool> DoesBowlerHaveAnyScoresForTournamentAsync(RegistrationId registrationId, TournamentId tournamentId, CancellationToken cancellationToken);
+
+    Task<IReadOnlyCollection<Database.Entities.SquadScore>> BowlerScoresForSquads(BowlerId bowlerId, IEnumerable<SquadId> squadIds, CancellationToken cancellationToken);
 }
