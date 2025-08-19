@@ -73,8 +73,9 @@ internal sealed class UpdateRegistrationCommandHandler
 
         if (command.SquadIds is not null || command.SweeperIds is not null)
         {
+            var tournament = await tournamentTask.Value;
             var squadIds = (command.SquadIds ?? []).Union(command.SweeperIds ?? []).ToList();
-            var invalidSquadIds = squadIds.Except((await tournamentTask.Value)!.Squads.Select(s => s.Id)).ToList(); // command squad ids not a part of tournament
+            var invalidSquadIds = squadIds.Except(tournament!.Squads.Select(s => s.Id)).ToList(); // command squad ids not a part of tournament
 
             if (invalidSquadIds.Count > 0)
             {
@@ -101,17 +102,18 @@ internal sealed class UpdateRegistrationCommandHandler
                     });
             }
 
-            var tournamentSquadIds = (await tournamentTask.Value)!.Squads.Select(squad => squad.Id)
-                .Union((await tournamentTask.Value)!.Sweepers.Select(sweeper => sweeper.Id));
+            var tournamentSquadIds = tournament!.Squads.Select(squad => squad.Id)
+                .Union(tournament!.Sweepers.Select(sweeper => sweeper.Id));
 
-            existingRegistration.Squads = [.. (await tournamentTask.Value)!.Squads
+            existingRegistration.Squads = [.. tournament!.Squads
                 .Where(s => tournamentSquadIds.Contains(s.Id))
                 .Select(s => new SquadRegistration { SquadId = s.Id, RegistrationId = existingRegistration.Id })];
         }
 
         if (command.SuperSweeper.HasValue)
         {
-            var sweeperScores = _scoresRepository.Retrieve([.. (await tournamentTask.Value)!.Sweepers.Select(s => s.Id)]);
+            var tournament = await tournamentTask.Value;
+            var sweeperScores = _scoresRepository.Retrieve([.. tournament!.Sweepers.Select(s => s.Id)]);
 
             if (sweeperScores.Any())
             {
@@ -126,8 +128,8 @@ internal sealed class UpdateRegistrationCommandHandler
             }
             else
             {
-                var tournamentSweeperCount = (await tournamentTask.Value)!.Sweepers.Count;
-                var sweeperCount = (await tournamentTask.Value)!.Sweepers.Count;
+                var tournamentSweeperCount = tournament!.Sweepers.Count;
+                var sweeperCount = tournament!.Sweepers.Count;
 
                 if (tournamentSweeperCount != sweeperCount)
                 {
