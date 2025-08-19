@@ -1,6 +1,8 @@
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Database.Entities;
 using ErrorOr;
+using FluentValidation;
+using TournamentManager.BusinessLogic.Registrations.UpdateRegistration;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.UpdateRegistration;
 
@@ -9,15 +11,18 @@ internal sealed class UpdateRegistrationCommandHandler
 {
     private readonly IRepository _registrationRepository;
     private readonly Scores.IRepository _scoresRepository;
+    private readonly IValidator<UpdateRegistrationRecord> _registrationValidator;
     private readonly Tournaments.IRepository _tournamentRepository;
+
     private readonly IPaymentEntityMapper _paymentMapper;
 
-    public UpdateRegistrationCommandHandler(IRepository registrationRepository, Scores.IRepository scoresRepository, Tournaments.IRepository tournamentRepository, IPaymentEntityMapper paymentMapper)
+    public UpdateRegistrationCommandHandler(IRepository registrationRepository, Scores.IRepository scoresRepository, Tournaments.IRepository tournamentRepository, IPaymentEntityMapper paymentMapper, IValidator<UpdateRegistrationRecord> registrationValidator)
     {
         _registrationRepository = registrationRepository;
         _scoresRepository = scoresRepository;
         _tournamentRepository = tournamentRepository;
         _paymentMapper = paymentMapper;
+        _registrationValidator = registrationValidator;
     }
 
     public async Task<ErrorOr<Updated>> HandleAsync(UpdateRegistrationCommand command, CancellationToken cancellationToken)
@@ -49,8 +54,20 @@ internal sealed class UpdateRegistrationCommandHandler
             }
 
             existingRegistration.Average = command.Average ?? existingRegistration.Average;
-            // validate bowler can participate in the division (meets the criteria of division and that bowler hasn't bowled)
-            // look at the create registration validator for the division rules
+            
+            var tournament = await tournamentTask.Value;
+            var updateRecord = new UpdateRegistrationRecord(
+                existingRegistration.Bowler,
+                tournament!,
+                tournament!.Divisions.Single(division => division.Id == command.DivisionId.Value),
+                command.Average);
+
+            var validatorResults = await _registrationValidator.ValidateAsync(updateRecord, cancellationToken);
+
+            if (!validatorResults.IsValid)
+            {
+                return validatorResults.Errors.Select(e => Error.Validation(e.ErrorCode, e.ErrorMessage)).ToList();
+            }
 
             existingRegistration.DivisionId = command.DivisionId.Value;
         }
