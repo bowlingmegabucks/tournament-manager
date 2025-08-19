@@ -64,8 +64,7 @@ internal static partial class GetRegistrationByIdLogMessages
     [LoggerMessage(Level = LogLevel.Debug, Message = "Executing business logic for retrieving registration {Id}.", EventName = "RetrieveRegistrationById")]
     public static partial void RetrievingRegistration(this ILogger<GetRegistrationByIdQueryHandlerTelemetryDecorator> logger, RegistrationId id);
 
-    // need to bring in serilog
-    [LoggerMessage(Level = LogLevel.Error, Message = "Error retrieving Registration: {@Errors}", EventName = "ErrorRetrievingRegistration")]
+    [LoggerMessage(Level = LogLevel.Information, Message = "Error retrieving Registration: {@Errors}", EventName = "ErrorRetrievingRegistration")]
     public static partial void ErrorRetrievingRegistration(this ILogger<GetRegistrationByIdQueryHandlerTelemetryDecorator> logger, IEnumerable<Error> errors);
 
     [LoggerMessage(Level = LogLevel.Error, Message = "Error retrieving registration", EventName = "ExceptionRetrievingRegistration")]
