@@ -52,12 +52,5 @@ internal sealed class CreateRegistrationValidator
             .NotEmpty()
             .WithMessage("At least one squad must be entered.")
             .WithErrorCode("Registration.SquadsRequired");
-
-        RuleFor(request => request.Registration.SuperSweeper)
-            .Must((request, _) => request.Registration.Sweepers.Any())
-            .When(request => request.Registration.SuperSweeper)
-            .WithMessage("Sweepers must be entered if Super Sweeper is selected.")
-            .WithErrorCode("Registration.SweeperRequiredForSuperSweeper");
-
     }
 }
