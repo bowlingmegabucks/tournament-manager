@@ -31,12 +31,24 @@ internal sealed class UpdateRegistrationCommandHandler
                 description: $"Registration with ID {command.Id} not found.");
         }
 
-        var tournamentTask = new Lazy<Task<Database.Entities.Tournament?>>(async () => await _tournamentRepository.RetrieveAsync(existingRegistration.Division.TournamentId, cancellationToken));
+        var tournamentTask = new Lazy<Task<Tournament?>>(async () => await _tournamentRepository.RetrieveAsync(existingRegistration.Division.TournamentId, cancellationToken));
 
         if (command.DivisionId is not null)
         {
+            var tournamentDivisionIds = (await tournamentTask.Value)!.Divisions.Select(d => d.Id);
+
+            if (!tournamentDivisionIds.Contains(command.DivisionId.Value))
+            {
+                return Error.Validation(
+                    code: "Registration.InvalidDivisionId",
+                    description: "Division ID is not valid for the tournament.",
+                    metadata: new Dictionary<string, object>
+                    {
+                        { "ValidDivisionIds", string.Join(", ", tournamentDivisionIds) }
+                    });
+            }
+
             existingRegistration.Average = command.Average ?? existingRegistration.Average;
-            // validate division id is valid for tournament
             // validate bowler can participate in the division (meets the criteria of division and that bowler hasn't bowled)
             // look at the create registration validator for the division rules
 
