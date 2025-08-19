@@ -37,40 +37,6 @@ internal sealed class UpdateRegistrationCommandHandler
 
         var tournamentTask = new Lazy<Task<Tournament?>>(async () => await _tournamentRepository.RetrieveAsync(existingRegistration.Division.TournamentId, cancellationToken));
 
-        if (command.DivisionId is not null)
-        {
-            var tournamentDivisionIds = (await tournamentTask.Value)!.Divisions.Select(d => d.Id);
-
-            if (!tournamentDivisionIds.Contains(command.DivisionId.Value))
-            {
-                return Error.Validation(
-                    code: "Registration.InvalidDivisionId",
-                    description: "Division ID is not valid for the tournament.",
-                    metadata: new Dictionary<string, object>
-                    {
-                        { "ValidDivisionIds", string.Join(", ", tournamentDivisionIds) }
-                    });
-            }
-
-            existingRegistration.Average = command.Average ?? existingRegistration.Average;
-            
-            var tournament = await tournamentTask.Value;
-            var updateRecord = new UpdateRegistrationRecord(
-                existingRegistration.Bowler,
-                tournament!,
-                tournament!.Divisions.Single(division => division.Id == command.DivisionId.Value),
-                command.Average);
-
-            var validatorResults = await _registrationValidator.ValidateAsync(updateRecord, cancellationToken);
-
-            if (!validatorResults.IsValid)
-            {
-                return validatorResults.Errors.Select(e => Error.Validation(e.ErrorCode, e.ErrorMessage)).ToList();
-            }
-
-            existingRegistration.DivisionId = command.DivisionId.Value;
-        }
-
         if (command.SquadIds is not null || command.SweeperIds is not null)
         {
             var tournament = await tournamentTask.Value;
@@ -139,6 +105,40 @@ internal sealed class UpdateRegistrationCommandHandler
 
                 existingRegistration.SuperSweeper = true;
             }
+        }
+
+        if (command.DivisionId is not null)
+        {
+            var tournamentDivisionIds = (await tournamentTask.Value)!.Divisions.Select(d => d.Id);
+
+            if (!tournamentDivisionIds.Contains(command.DivisionId.Value))
+            {
+                return Error.Validation(
+                    code: "Registration.InvalidDivisionId",
+                    description: "Division ID is not valid for the tournament.",
+                    metadata: new Dictionary<string, object>
+                    {
+                        { "ValidDivisionIds", string.Join(", ", tournamentDivisionIds) }
+                    });
+            }
+
+            existingRegistration.Average = command.Average ?? existingRegistration.Average;
+
+            var tournament = await tournamentTask.Value;
+            var updateRecord = new UpdateRegistrationRecord(
+                existingRegistration.Bowler,
+                tournament!,
+                tournament!.Divisions.Single(division => division.Id == command.DivisionId.Value),
+                command.Average);
+
+            var validatorResults = await _registrationValidator.ValidateAsync(updateRecord, cancellationToken);
+
+            if (!validatorResults.IsValid)
+            {
+                return validatorResults.Errors.Select(e => Error.Validation(e.ErrorCode, e.ErrorMessage)).ToList();
+            }
+
+            existingRegistration.DivisionId = command.DivisionId.Value;
         }
 
         if (command.Payment is not null)
