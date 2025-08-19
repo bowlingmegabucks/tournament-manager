@@ -8,7 +8,7 @@ internal sealed class UpdateRegistrationRequestValidator
 {
     public UpdateRegistrationRequestValidator()
     {
-        RuleFor(request => request.Id)
+        RuleFor(request => request.RegistrationId)
             .NotNull()
             .WithMessage("Registration ID is required.")
             .WithErrorCode("Registration.IdRequired");
@@ -18,8 +18,8 @@ internal sealed class UpdateRegistrationRequestValidator
             .WithMessage("Registration details are required.")
             .WithErrorCode("Registration.Required");
 
-        RuleFor(request => request.Id)
-            .Must((request, id) => request.Id == request.Registration.RegistrationId)
+        RuleFor(request => request.RegistrationId)
+            .Must((request, id) => request.RegistrationId == request.Registration.RegistrationId)
             .WithMessage("Registration ID in the request does not match the ID in the registration details.")
             .WithErrorCode("Registration.IdMismatch");
     }
