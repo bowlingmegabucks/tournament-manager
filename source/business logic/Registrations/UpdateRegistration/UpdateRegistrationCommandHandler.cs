@@ -196,12 +196,11 @@ internal sealed class UpdateRegistrationCommandHandler
                 });
         }
 
-        var tournamentSquadIds = tournament!.Squads.Select(squad => squad.Id);
-
-        return tournament!.Squads
-            .Where(s => tournamentSquadIds.Contains(s.Id))
-            .Select(s => new SquadRegistration { SquadId = s.Id, RegistrationId = existingRegistration.Id })
+        var squadRegistrations = squadIds
+            .Select(s => new SquadRegistration { SquadId = s, RegistrationId = existingRegistration.Id })
             .ToList();
+
+        return squadRegistrations;
     }
     
     private async Task<ErrorOr<IEnumerable<SquadRegistration>>> UpdateSweepers(IReadOnlyCollection<SquadId> sweeperIds, Tournament tournament, Registration existingRegistration, CancellationToken cancellationToken)
@@ -252,11 +251,10 @@ internal sealed class UpdateRegistrationCommandHandler
                 });
         }
 
-        var tournamentSweeperIds = tournament!.Sweepers.Select(sweeper => sweeper.Id);
-
-        return tournament!.Sweepers
-            .Where(s => tournamentSweeperIds.Contains(s.Id))
-            .Select(s => new SquadRegistration { SquadId = s.Id, RegistrationId = existingRegistration.Id })
+        var sweeperRegistrations = sweeperIds
+            .Select(s => new SquadRegistration { SquadId = s, RegistrationId = existingRegistration.Id })
             .ToList();
+
+        return sweeperRegistrations;
     }
 }
