@@ -35,36 +35,40 @@ internal sealed class UpdateRegistrationCommandHandler
                 description: $"Registration with ID {command.Id} not found.");
         }
 
+        var currentSquadIds = existingRegistration.Squads
+            .Where(squadRegistration => squadRegistration.Squad is TournamentSquad)
+            .Select(squadRegistration => squadRegistration.SquadId)
+            .ToList();
+
+        var currentSweeperIds = existingRegistration.Squads
+            .Where(squadRegistration => squadRegistration.Squad is SweeperSquad)
+            .Select(squadRegistration => squadRegistration.SquadId)
+            .ToList();
+
+        var squadIds = command.SquadIds?.ToList() ?? currentSquadIds;
+        var sweeperIds = command.SweeperIds?.ToList() ?? currentSweeperIds;
+
         var tournamentTask = new Lazy<Task<Tournament?>>(async () => await _tournamentRepository.RetrieveAsync(existingRegistration.Division.TournamentId, cancellationToken));
 
-        List<SquadRegistration> updatedSquads = [];
-
-        if (command.SquadIds is not null)
+        if (!(command.SquadIds is null && command.SweeperIds is null))
         {
             var tournament = await tournamentTask.Value;
 
-            var squadRegistrationResult = await UpdateSquads(command.SquadIds.ToList(), tournament!, existingRegistration, cancellationToken);
-
+            var squadRegistrationResult = await UpdateSquads(squadIds, tournament!, existingRegistration, cancellationToken);
             if (squadRegistrationResult.IsError)
             {
                 return squadRegistrationResult.Errors;
             }
 
-            updatedSquads.AddRange(squadRegistrationResult.Value);
-        }
-
-        if (command.SweeperIds is not null)
-        {
-            var tournament = await tournamentTask.Value;
-
-            var sweeperRegistrationResult = await UpdateSweepers(command.SweeperIds.ToList(), tournament!, existingRegistration, cancellationToken);
-
+            var sweeperRegistrationResult = await UpdateSweepers(sweeperIds, tournament!, existingRegistration, cancellationToken);
             if (sweeperRegistrationResult.IsError)
             {
                 return sweeperRegistrationResult.Errors;
             }
 
-            updatedSquads.AddRange(sweeperRegistrationResult.Value);
+            var updatedSquads = squadRegistrationResult.Value.Concat(sweeperRegistrationResult.Value);
+
+            existingRegistration.Squads = [.. updatedSquads];
         }
 
         if (command.SuperSweeper.HasValue)
@@ -155,7 +159,20 @@ internal sealed class UpdateRegistrationCommandHandler
                 description: "Invalid squad IDs",
                 metadata: new Dictionary<string, object>
                 {
-                        { "InvalidSquadIds", string.Join(", ", invalidSquadIds) }
+                    { "InvalidSquadIds", string.Join(", ", invalidSquadIds) }
+                });
+        }
+
+        var addedSquadIds = squadIds.Except(existingRegistration.Squads.Select(s => s.SquadId));
+
+        if (addedSquadIds.Any(squadId => existingRegistration.Squads.Where(s => s.Squad.Complete).Select(s => s.SquadId).Contains(squadId)))
+        {
+            return Error.Validation(
+                code: "Registration.InvalidSquadIds",
+                description: "Cannot add squad(s) that are already complete.",
+                metadata: new Dictionary<string, object>
+                {
+                    { "InvalidSquadIds", string.Join(", ", addedSquadIds) }
                 });
         }
 
@@ -175,7 +192,7 @@ internal sealed class UpdateRegistrationCommandHandler
                 description: "Bowler has already bowled in removed squads.",
                 metadata: new Dictionary<string, object>
                 {
-                        { "RemovedSquadIds", string.Join(", ", removedSquadIds) }
+                    { "RemovedSquadIds", string.Join(", ", removedSquadIds) }
                 });
         }
 
@@ -198,7 +215,20 @@ internal sealed class UpdateRegistrationCommandHandler
                 description: "Invalid sweeper IDs",
                 metadata: new Dictionary<string, object>
                 {
-                        { "InvalidSweeperIds", string.Join(", ", invalidSweeperIds) }
+                    { "InvalidSweeperIds", string.Join(", ", invalidSweeperIds) }
+                });
+        }
+
+        var addedSquadIds = sweeperIds.Except(existingRegistration.Squads.Select(s => s.SquadId));
+
+        if (addedSquadIds.Any(squadId => existingRegistration.Squads.Where(s => s.Squad.Complete).Select(s => s.SquadId).Contains(squadId)))
+        {
+            return Error.Validation(
+                code: "Registration.InvalidSweeperIds",
+                description: "Cannot add sweeper(s) that are already complete.",
+                metadata: new Dictionary<string, object>
+                {
+                    { "InvalidSweeperIds", string.Join(", ", addedSquadIds) }
                 });
         }
 

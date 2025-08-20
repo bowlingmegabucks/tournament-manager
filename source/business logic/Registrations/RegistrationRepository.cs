@@ -58,7 +58,6 @@ internal class Repository : IRepository
             .Include(registration => registration.Bowler)
             .Include(registration => registration.Division).ThenInclude(division => division.Tournament)
             .Include(registration => registration.Payments)
-            .AsNoTracking()
             .FirstOrDefaultAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 
     async Task IRepository.DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
