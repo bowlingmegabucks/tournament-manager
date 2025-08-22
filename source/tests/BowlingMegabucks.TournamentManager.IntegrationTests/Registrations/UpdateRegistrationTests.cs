@@ -428,6 +428,10 @@ public sealed class UpdateRegistrationTests
             sweeperIds: sweepers.Select(s => s.Id).Take(2),
             superSweeper: false);
 
+        var payment = PaymentEntityFactory.Bogus(1, registration.Id).Single();
+        registration.Payments.Clear();
+        registration.Payments.Add(payment);
+
         var newDivision = new Division
         {
             Id = DivisionId.New(),
@@ -453,7 +457,8 @@ public sealed class UpdateRegistrationTests
             SquadIds = [squads[0].Id, squads[2].Id],
             SweeperIds = [sweepers[0].Id, sweepers[1].Id, sweepers[2].Id],
             Average = 200,
-            SuperSweeper = true
+            SuperSweeper = true,
+            Payment = PaymentInputFactory.Create(confirmationCode: "abc123")
         };
 
         var updateRegistrationRequest = new UpdateRegistrationRequest
@@ -475,11 +480,13 @@ public sealed class UpdateRegistrationTests
 
         var verifyRegistration = await _dbContext.Registrations
             .Include(registration => registration.Squads)
+            .Include(registration => registration.Payments)
             .AsNoTrackingWithIdentityResolution()
             .SingleAsync(registration => registration.Id == updateRegistrationRequest.RegistrationId, TestContext.Current.CancellationToken);
 
         verifyRegistration.DivisionId.Should().Be(newDivision.Id);
-        verifyRegistration.Squads.Should().HaveCount(5)
+        verifyRegistration.Squads.Should()
+            .HaveCount(5)
             .And.Contain(squad => squad.SquadId == squads[0].Id)
             .And.Contain(squad => squad.SquadId == squads[2].Id)
             .And.Contain(squad => squad.SquadId == sweepers[0].Id)
@@ -487,5 +494,9 @@ public sealed class UpdateRegistrationTests
             .And.Contain(squad => squad.SquadId == sweepers[2].Id);
         verifyRegistration.Average.Should().Be(200);
         verifyRegistration.SuperSweeper.Should().BeTrue();
+        verifyRegistration.Payments.Should()
+            .HaveCount(2)
+            .And.Contain(payment => payment.ConfirmationCode == "Test_abc123")
+            .And.Contain(p => p.Id == payment.Id);
     }
 }
