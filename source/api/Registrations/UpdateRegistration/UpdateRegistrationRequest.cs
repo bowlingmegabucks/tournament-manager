@@ -11,12 +11,11 @@ public sealed record UpdateRegistrationRequest
     /// The unique identifier of the registration.
     /// </summary>
     /// <value></value>
-    [BindFrom("Id")]
+    [RouteParam]
     public required RegistrationId RegistrationId { get; init; }
 
     /// <summary>
     /// The registration to update.
     /// </summary>
-    [FromBody]
     public required UpdateRegistrationInput Registration { get; init; }
 }
