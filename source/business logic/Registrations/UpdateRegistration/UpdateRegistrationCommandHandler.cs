@@ -125,7 +125,7 @@ internal sealed class UpdateRegistrationCommandHandler
                 existingRegistration.Bowler,
                 tournament!,
                 tournament!.Divisions.Single(division => division.Id == command.DivisionId.Value),
-                command.Average);
+                existingRegistration.Average);
 
             var validatorResults = await _registrationValidator.ValidateAsync(updateRecord, cancellationToken);
 
