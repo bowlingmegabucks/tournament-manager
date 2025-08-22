@@ -164,15 +164,16 @@ internal sealed class UpdateRegistrationCommandHandler
         }
 
         var addedSquadIds = squadIds.Except(existingRegistration.Squads.Select(s => s.SquadId));
+        var completedSquadIds = addedSquadIds.Where(squadId => tournament.Squads.Where(s => s.Complete).Select(s => s.Id).Contains(squadId)).ToList();
 
-        if (addedSquadIds.Any(squadId => existingRegistration.Squads.Where(s => s.Squad.Complete).Select(s => s.SquadId).Contains(squadId)))
+        if (completedSquadIds.Count > 0)
         {
             return Error.Validation(
                 code: "Registration.InvalidSquadIds",
                 description: "Cannot add squad(s) that are already complete.",
                 metadata: new Dictionary<string, object>
                 {
-                    { "InvalidSquadIds", string.Join(", ", addedSquadIds) }
+                    { "InvalidSquadIds", string.Join(", ", completedSquadIds) }
                 });
         }
 
@@ -204,7 +205,7 @@ internal sealed class UpdateRegistrationCommandHandler
     }
     
     private async Task<ErrorOr<IEnumerable<SquadRegistration>>> UpdateSweepers(IReadOnlyCollection<SquadId> sweeperIds, Tournament tournament, Registration existingRegistration, CancellationToken cancellationToken)
-    {
+    {       
         var invalidSweeperIds = sweeperIds.Except(tournament!.Sweepers.Select(s => s.Id)).ToList(); // command sweeper ids not a part of tournament
 
         if (invalidSweeperIds.Count > 0)
@@ -219,15 +220,15 @@ internal sealed class UpdateRegistrationCommandHandler
         }
 
         var addedSquadIds = sweeperIds.Except(existingRegistration.Squads.Select(s => s.SquadId));
-
-        if (addedSquadIds.Any(squadId => existingRegistration.Squads.Where(s => s.Squad.Complete).Select(s => s.SquadId).Contains(squadId)))
+        var addedCompletedSquadIds = addedSquadIds.Where(squadId => tournament.Sweepers.Where(s => s.Complete).Select(s => s.Id).Contains(squadId)).ToList();
+        if (addedCompletedSquadIds.Count > 0)
         {
             return Error.Validation(
                 code: "Registration.InvalidSweeperIds",
                 description: "Cannot add sweeper(s) that are already complete.",
                 metadata: new Dictionary<string, object>
                 {
-                    { "InvalidSweeperIds", string.Join(", ", addedSquadIds) }
+                    { "InvalidSweeperIds", string.Join(", ", addedCompletedSquadIds) }
                 });
         }
 
