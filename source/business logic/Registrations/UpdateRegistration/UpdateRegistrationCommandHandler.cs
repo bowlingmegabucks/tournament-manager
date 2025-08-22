@@ -140,6 +140,7 @@ internal sealed class UpdateRegistrationCommandHandler
         if (command.Payment is not null)
         {
             command.Payment.CreatedAtUtc = DateTime.UtcNow;
+            command.Payment.RegistrationId = existingRegistration.Id;
 
             existingRegistration.Payments.Add(_paymentMapper.Execute(command.Payment));
         }
