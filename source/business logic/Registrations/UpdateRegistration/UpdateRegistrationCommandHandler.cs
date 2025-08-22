@@ -60,7 +60,7 @@ internal sealed class UpdateRegistrationCommandHandler
                 return squadRegistrationResult.Errors;
             }
 
-            var sweeperRegistrationResult = await UpdateSweepers(sweeperIds, tournament!, existingRegistration, cancellationToken);
+            var sweeperRegistrationResult = await UpdateSweepers(sweeperIds, tournament!, existingRegistration, command.SuperSweeper, cancellationToken);
             if (sweeperRegistrationResult.IsError)
             {
                 return sweeperRegistrationResult.Errors;
@@ -90,7 +90,8 @@ internal sealed class UpdateRegistrationCommandHandler
             else
             {
                 var tournamentSweeperCount = tournament!.Sweepers.Count;
-                var sweeperCount = tournament!.Sweepers.Count;
+                var sweeperCount = command.SweeperIds?.Count()
+                    ?? existingRegistration.Squads.Count(squadRegistration => squadRegistration.Squad is SweeperSquad);
 
                 if (tournamentSweeperCount != sweeperCount)
                 {
@@ -204,7 +205,7 @@ internal sealed class UpdateRegistrationCommandHandler
         return squadRegistrations;
     }
     
-    private async Task<ErrorOr<IEnumerable<SquadRegistration>>> UpdateSweepers(IReadOnlyCollection<SquadId> sweeperIds, Tournament tournament, Registration existingRegistration, CancellationToken cancellationToken)
+    private async Task<ErrorOr<IEnumerable<SquadRegistration>>> UpdateSweepers(List<SquadId> sweeperIds, Tournament tournament, Registration existingRegistration, bool? superSweeperUpdate, CancellationToken cancellationToken)
     {       
         var invalidSweeperIds = sweeperIds.Except(tournament!.Sweepers.Select(s => s.Id)).ToList(); // command sweeper ids not a part of tournament
 
@@ -250,6 +251,18 @@ internal sealed class UpdateRegistrationCommandHandler
                 {
                     { "RemovedSweeperIds", string.Join(", ", removedSweeperIds) }
                 });
+        }
+
+        if ((superSweeperUpdate.HasValue && superSweeperUpdate.Value) || existingRegistration.SuperSweeper)
+        { 
+            var tournamentSweeperCount = tournament!.Sweepers.Count;
+            var sweeperCount = sweeperIds.Count;
+
+            if (tournamentSweeperCount != sweeperCount)
+            {
+                return Error.Validation(code: "Registration.NotAllSweepersRegistered",
+                    description: "Super Sweeper cannot be enrolled when not all sweepers are registered.");
+            }
         }
 
         var sweeperRegistrations = sweeperIds
