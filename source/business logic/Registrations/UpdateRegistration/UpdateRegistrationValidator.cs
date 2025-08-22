@@ -8,9 +8,18 @@ internal sealed class Validator
 {
     public Validator()
     {
-        RuleFor(record => record.Average).NotNull().When(record => record.Division.MinimumAverage.HasValue || record.Division.MaximumAverage.HasValue).WithMessage("Average is required for selected division");
-        RuleFor(record => record.Average).GreaterThanOrEqualTo(record => record.Division.MinimumAverage!.Value).When(record => record.Division.MinimumAverage.HasValue).WithMessage("Minimum average requirement for division not met");
-        RuleFor(record => record.Average).LessThanOrEqualTo(record => record.Division.MaximumAverage!.Value).When(record => record.Division.MaximumAverage.HasValue).WithMessage("Maximum average requirement for division not met");
+        RuleFor(record => record.Average)
+            .NotNull()
+                .When(record => record.Division.MinimumAverage.HasValue || record.Division.MaximumAverage.HasValue)
+                .WithMessage("Average is required for selected division");
+        RuleFor(record => record.Average)
+            .GreaterThanOrEqualTo(record => record.Division.MinimumAverage!.Value)
+                .When(record => record.Division.MinimumAverage.HasValue)
+                .WithMessage("Minimum average requirement for division not met");
+        RuleFor(record => record.Average)
+            .LessThanOrEqualTo(record => record.Division.MaximumAverage!.Value)
+                .When(record => record.Division.MaximumAverage.HasValue)
+                .WithMessage("Maximum average requirement for division not met");
 
         RuleFor(record => record.Bowler.DateOfBirth).Must(dateOfBirth => dateOfBirth.HasValue)
             .When(record => (record.Division.MinimumAge.HasValue || record.Division.MaximumAge.HasValue) && record.Division.Gender is null)
@@ -24,16 +33,21 @@ internal sealed class Validator
             .When(record => (record.Division.Gender is not null && record.Division.Gender != record.Bowler.Gender) || record.Division.Gender is null)
             .WithMessage("Bowler too old for selected division");
 
-        RuleFor(registration => registration.Bowler.USBCId).NotEmpty().When(registration => registration.Division.HandicapPercentage.HasValue).WithMessage("USBC Id is required for Handicap Divisions");
+        RuleFor(registration => registration.Bowler.USBCId)
+            .NotEmpty()
+                .When(registration => registration.Division.HandicapPercentage.HasValue)
+                .WithMessage("USBC Id is required for Handicap Divisions");
 
-        RuleFor(registration => registration.Bowler.Gender).Must(gender => gender is not null)
-            .When(registration => registration.Division.Gender is not null)
-            .When(registration => !(registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue))
-            .WithMessage("Gender is required for selected division");
-        RuleFor(registration => registration.Bowler.Gender).Must((registration, gender) => registration.Division.Gender!.Value == gender)
-            .When(registration => registration.Division.Gender is not null)
-            .When(registration => !(registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue))
-            .WithMessage("Invalid gender for selected division");
+        RuleFor(registration => registration.Bowler.Gender)
+            .Must(gender => gender is not null)
+                .When(registration => registration.Division.Gender is not null)
+                .When(registration => !(registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue))
+                .WithMessage("Gender is required for selected division");
+        RuleFor(registration => registration.Bowler.Gender)
+            .Must((registration, gender) => registration.Division.Gender!.Value == gender)
+                .When(registration => registration.Division.Gender is not null)
+                .When(registration => !(registration.Division.MinimumAge.HasValue || registration.Division.MaximumAge.HasValue))
+                .WithMessage("Invalid gender for selected division");
     }
 }
 
