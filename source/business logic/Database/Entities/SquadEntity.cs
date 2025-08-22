@@ -46,9 +46,9 @@ internal abstract class Squad
             builder.Property(squad => squad.TournamentId).HasConversion<TournamentId.EfCoreValueConverter>();
 
             builder.ToTable("Squads")
-                      .HasDiscriminator<int>("SquadType")
-                      .HasValue<TournamentSquad>(0)
-                      .HasValue<SweeperSquad>(1);
+                      .HasDiscriminator<SquadType>("SquadType")
+                      .HasValue<TournamentSquad>(SquadType.Squad)
+                      .HasValue<SweeperSquad>(SquadType.Sweeper);
         }
     }
 }

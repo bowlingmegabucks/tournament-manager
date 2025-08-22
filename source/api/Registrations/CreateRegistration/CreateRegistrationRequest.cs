@@ -1,3 +1,5 @@
+using FastEndpoints;
+
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 
 /// <summary>

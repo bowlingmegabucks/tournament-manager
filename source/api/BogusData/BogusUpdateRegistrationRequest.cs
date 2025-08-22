@@ -9,6 +9,6 @@ internal sealed class BogusUpdateRegistrationRequest
     public BogusUpdateRegistrationRequest()
     {
         RuleFor(request => request.Registration, _ => new BogusUpdateRegistrationInput().Generate());
-        RuleFor(request => request.Id, (_, request) => request.Registration.RegistrationId);
+        RuleFor(request => request.RegistrationId, (_, request) => request.Registration.RegistrationId);
     }
 }

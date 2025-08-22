@@ -66,7 +66,7 @@ internal static partial class DeleteRegistrationLogMessages
     [LoggerMessage(LogLevel.Information, "Deleting registration with Id {RegistrationId}")]
     public static partial void DeletingRegistration(this ILogger logger, RegistrationId registrationId);
 
-    [LoggerMessage(LogLevel.Error, "Error deleting registration: {@Errors}")]
+    [LoggerMessage(LogLevel.Information, "Error deleting registration: {@Errors}")]
     public static partial void ErrorDeletingRegistration(this ILogger logger, IEnumerable<Error> errors);
 
     [LoggerMessage(LogLevel.Error, "Exception deleting registration")]

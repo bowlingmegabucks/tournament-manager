@@ -1,6 +1,8 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using BowlingMegabucks.TournamentManager.Api.BogusData;
+using BowlingMegabucks.TournamentManager.Registrations.UpdateRegistration;
+using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.UpdateRegistration;
 
@@ -8,9 +10,9 @@ namespace BowlingMegabucks.TournamentManager.Api.Registrations.UpdateRegistratio
 /// 
 /// </summary>
 public sealed class UpdateRegistrationEndpoint
-    : Endpoint<UpdateRegistrationRequest>
+    : Endpoint<UpdateRegistrationRequest, Results<NoContent, ProblemHttpResult>>
 {
-    private const string _route = "/registrations/{Id}";
+    private const string _route = "/registrations/{RegistrationId}";
 
     /// <summary>
     /// 
@@ -47,22 +49,42 @@ public sealed class UpdateRegistrationEndpoint
         });
     }
 
+    private readonly Abstractions.Messaging.ICommandHandler<UpdateRegistrationCommand, Updated> _commandHandler;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="commandHandler"></param>
+    public UpdateRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<UpdateRegistrationCommand, Updated> commandHandler)
+    {
+        _commandHandler = commandHandler;
+    }
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="req"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task HandleAsync(
-        UpdateRegistrationRequest req,
-        CancellationToken ct)
+    public override async Task<Results<NoContent, ProblemHttpResult>> ExecuteAsync(UpdateRegistrationRequest req, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(req);
 
-        // Logic to update the registration goes here
-        // For example, you might call a service to update the registration in the database
+        var command = new UpdateRegistrationCommand
+        {
+            Id = req.RegistrationId,
+            DivisionId = req.Registration.DivisionId,
+            Average = req.Registration.Average,
+            SquadIds = req.Registration.SquadIds,
+            SweeperIds = req.Registration.SweeperIds,
+            SuperSweeper = req.Registration.SuperSweeper,
+            Payment = req.Registration.Payment?.ToModel()
+        };
 
-        // If successful, return a 204 No Content response
-        await Send.NoContentAsync(ct);
+        var result = await _commandHandler.HandleAsync(command, ct);
+
+        return !result.IsError
+            ? TypedResults.NoContent()
+            : result.Errors.ToProblemDetails("Error updating registration.", HttpContext.TraceIdentifier);
     }
 }

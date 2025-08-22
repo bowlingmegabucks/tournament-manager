@@ -65,7 +65,7 @@ internal static partial class CreateRegistrationLogMessages
     [LoggerMessage(LogLevel.Information, "Creating registration for bowler with UsbcId {UsbcId} in tournament {TournamentId}")]
     public static partial void CreatingRegistration(this ILogger logger, string usbcId, TournamentId tournamentId);
 
-    [LoggerMessage(LogLevel.Error, "Error creating registration: {@Errors}")]
+    [LoggerMessage(LogLevel.Information, "Error creating registration: {@Errors}")]
     public static partial void ErrorCreatingRegistration(this ILogger logger, IEnumerable<Error> errors);
 
     [LoggerMessage(LogLevel.Error, "Exception creating registration")]

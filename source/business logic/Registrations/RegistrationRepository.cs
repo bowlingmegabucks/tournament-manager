@@ -58,7 +58,6 @@ internal class Repository : IRepository
             .Include(registration => registration.Bowler)
             .Include(registration => registration.Division).ThenInclude(division => division.Tournament)
             .Include(registration => registration.Payments)
-            .AsNoTracking()
             .FirstOrDefaultAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 
     async Task IRepository.DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
@@ -118,6 +117,13 @@ internal class Repository : IRepository
     async Task IRepository.UpdateAsync(RegistrationId id, int? average, CancellationToken cancellationToken)
         => await _dataContext.Registrations.Where(registration => registration.Id == id)
             .ExecuteUpdateAsync(setters => setters.SetProperty(registration => registration.Average, average), cancellationToken).ConfigureAwait(false);
+
+    async Task IRepository.UpdateAsync(Database.Entities.Registration registration, CancellationToken cancellationToken)
+    {
+        _dataContext.Registrations.Update(registration);
+        
+        await _dataContext.SaveChangesAsync(cancellationToken);
+    }
 }
 
 internal interface IRepository
@@ -139,4 +145,6 @@ internal interface IRepository
     Task UpdateAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string? usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken);
 
     Task UpdateAsync(RegistrationId id, int? average, CancellationToken cancellationToken);
+
+    Task UpdateAsync(Database.Entities.Registration registration, CancellationToken cancellationToken);
 }
