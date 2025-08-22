@@ -48,32 +48,37 @@ internal sealed class UpdateRegistrationCommandHandler
         var squadIds = command.SquadIds?.ToList() ?? currentSquadIds;
         var sweeperIds = command.SweeperIds?.ToList() ?? currentSweeperIds;
 
-        var tournamentTask = new Lazy<Task<Tournament?>>(async () => await _tournamentRepository.RetrieveAsync(existingRegistration.Division.TournamentId, cancellationToken));
+        Tournament? tournament = null;
+
+        if (command.SquadIds is not null
+            || command.SweeperIds is not null
+            || command.SuperSweeper.HasValue
+            || command.DivisionId is not null)
+        { 
+            tournament = await _tournamentRepository.RetrieveAsync(existingRegistration.Division.TournamentId, cancellationToken);
+        }
 
         if (!(command.SquadIds is null && command.SweeperIds is null))
-        {
-            var tournament = await tournamentTask.Value;
-
-            var squadRegistrationResult = await UpdateSquads(squadIds, tournament!, existingRegistration, cancellationToken);
-            if (squadRegistrationResult.IsError)
             {
-                return squadRegistrationResult.Errors;
+                var squadRegistrationResult = await UpdateSquads(squadIds, tournament!, existingRegistration, cancellationToken);
+                if (squadRegistrationResult.IsError)
+                {
+                    return squadRegistrationResult.Errors;
+                }
+
+                var sweeperRegistrationResult = await UpdateSweepers(sweeperIds, tournament!, existingRegistration, command.SuperSweeper, cancellationToken);
+                if (sweeperRegistrationResult.IsError)
+                {
+                    return sweeperRegistrationResult.Errors;
+                }
+
+                var updatedSquads = squadRegistrationResult.Value.Concat(sweeperRegistrationResult.Value);
+
+                existingRegistration.Squads = [.. updatedSquads];
             }
-
-            var sweeperRegistrationResult = await UpdateSweepers(sweeperIds, tournament!, existingRegistration, command.SuperSweeper, cancellationToken);
-            if (sweeperRegistrationResult.IsError)
-            {
-                return sweeperRegistrationResult.Errors;
-            }
-
-            var updatedSquads = squadRegistrationResult.Value.Concat(sweeperRegistrationResult.Value);
-
-            existingRegistration.Squads = [.. updatedSquads];
-        }
 
         if (command.SuperSweeper.HasValue)
         {
-            var tournament = await tournamentTask.Value;
             var sweeperScores = _scoresRepository.Retrieve([.. tournament!.Sweepers.Select(s => s.Id)]);
 
             if (sweeperScores.Any())
@@ -105,7 +110,7 @@ internal sealed class UpdateRegistrationCommandHandler
 
         if (command.DivisionId is not null)
         {
-            var tournamentDivisionIds = (await tournamentTask.Value)!.Divisions.Select(d => d.Id);
+            var tournamentDivisionIds = tournament!.Divisions.Select(d => d.Id);
 
             if (!tournamentDivisionIds.Contains(command.DivisionId.Value))
             {
@@ -120,7 +125,6 @@ internal sealed class UpdateRegistrationCommandHandler
 
             existingRegistration.Average = command.Average ?? existingRegistration.Average;
 
-            var tournament = await tournamentTask.Value;
             var updateRecord = new UpdateRegistrationRecord(
                 existingRegistration.Bowler,
                 tournament!,
