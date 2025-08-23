@@ -6,5 +6,5 @@ namespace BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 /// <summary>
 /// Represents a query that can be sent to the system.
 /// </summary>
-/// <typeparam name="TResponse"></typeparam>
+/// <typeparam name="TResponse">The type of the response expected from the query.</typeparam>
 public interface IQuery<TResponse>;

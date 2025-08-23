@@ -5,8 +5,14 @@ using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 
-
+/// <summary>
+/// Represents a command that can be sent to the system.
+/// </summary>
 public interface ICommand
     : ICommand<Success>;
 
+/// <summary>
+/// Represents a command that can be sent to the system.
+/// </summary>
+/// <typeparam name="TResponse">The type of the response expected from the command.</typeparam>
 public interface ICommand<TResponse>;
