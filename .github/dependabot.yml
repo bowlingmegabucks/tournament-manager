@@ -6,32 +6,15 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"
-    directory: "/source/api/"
+    directory: "/"
     schedule:
       interval: "weekly"
-    pull_request_assignees:
+    assignees:
       - "kippermand"
-  - package-ecosystem: "nuget"
-    directory: "/source/business logic/"
-    schedule:
-      interval: "weekly"
-    pull_request_assignees:
-      - "kippermand"
-  - package-ecosystem: "nuget"
-    directory: "/source/main/"
-    schedule:
-      interval: "weekly"
-    pull_request_assignees:
-      - "kippermand"
-  - package-ecosystem: "nuget"
-    directory: "/source/tests/"
-    schedule:
-      interval: "weekly"
-    pull_request_assignees:
-      - "kippermand"
-  - package-ecosystem: "terraform"
-    directory: "/source/infrastructure/"
-    schedule:
-      interval: "weekly"
-    pull_request_assignees:
-      - "kippermand"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+  # - package-ecosystem: "terraform"
+  #   directory: "/infrastructure/"
+  #   schedule:
+  #     interval: "weekly"
