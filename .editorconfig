@@ -154,6 +154,9 @@ csharp_space_between_square_brackets = false
 # CA2007: Consider calling ConfigureAwait on the awaited task
 dotnet_diagnostic.CA2007.severity = none
 
+# MA0004: Use Task.ConfigureAwait
+dotnet_diagnostic.MA0004.severity = none
+
 # C++ Files
 
 [*.{cpp,h,in}]
