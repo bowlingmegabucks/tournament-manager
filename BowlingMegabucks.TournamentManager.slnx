@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BowlingMegabucks.TournamentManager.Api/BowlingMegabucks.TournamentManager.Api.csproj" />
+    <Project Path="src/BowlingMegabucks.TournamentManager.Application/BowlingMegabucks.TournamentManager.Application.csproj" />
+    <Project Path="src/BowlingMegabucks.TournamentManager.Domain/BowlingMegabucks.TournamentManager.Domain.csproj" />
+    <Project Path="src/BowlingMegabucks.TournamentManager.Infrastructure/BowlingMegabucks.TournamentManager.Infrastructure.csproj" />
+  </Folder>
+</Solution>
