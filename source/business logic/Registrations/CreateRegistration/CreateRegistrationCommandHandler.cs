@@ -80,7 +80,7 @@ internal sealed class CreateRegistrationCommandHandler
 
             Squads = command.Squads.Select(squadId => new Squad { Id = squadId }).ToList(),
             Sweepers = command.Sweepers.Select(sweeperId => new Sweeper { Id = sweeperId }).ToList(),
-            SuperSweeper = command.SuperSweeper,
+            SuperSweeper = command.SuperSweeper ?? false,
             Payments = command.Payment is not null ? [command.Payment] : [],
 
             Average = command.Average

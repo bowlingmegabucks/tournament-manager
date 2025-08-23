@@ -1,11 +1,11 @@
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 
-namespace BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
+namespace BowlingMegabucks.TournamentManager.Registrations.AppendRegistration;
 
 /// <summary>
 /// Command to create a new registration.
 /// </summary>
-public record CreateRegistrationCommand
+public record AppendRegistrationCommand
     : ICommand<RegistrationId>
 {
     /// <summary>
@@ -40,8 +40,6 @@ public record CreateRegistrationCommand
 
     /// <summary>
     /// Indicates whether the bowler is registering for the super sweeper.
-    /// If null, defaults to false for new registrations
-    /// If registration exists, null mean no change, and a value means to change existing to provided value
     /// </summary>
     public bool? SuperSweeper { get; init; }
     

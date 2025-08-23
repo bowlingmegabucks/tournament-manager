@@ -102,6 +102,15 @@ public class Registration
         SuperSweeper = registration.SuperSweeper;
     }
 
+    internal void AddSquad(Squad squad)
+        => Squads = Squads.Union(new[] { squad });
+
+    internal void AddSweeper(Sweeper sweeper)
+        => Sweepers = Sweepers.Union(new[] { sweeper });
+
+    internal void AddPayment(Payment payment)
+        => Payments = Payments.Union(new[] { payment });
+
     /// <summary>
     /// Unit Test Constructor
     /// </summary>

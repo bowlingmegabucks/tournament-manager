@@ -25,6 +25,11 @@ internal class Repository : IRepository
     public async Task<Database.Entities.SweeperSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken)
         => await _dataContext.Sweepers.AsNoTracking().FirstAsync(sweeper => sweeper.Id == id, cancellationToken).ConfigureAwait(false);
 
+    public async Task<IEnumerable<Database.Entities.SweeperSquad>> RetrieveAsync(IEnumerable<SquadId> ids, CancellationToken cancellationToken)
+        => await _dataContext.Sweepers
+            .Include(sweeper => sweeper.Divisions).AsNoTrackingWithIdentityResolution()
+            .Where(sweeper => ids.Contains(sweeper.Id)).ToListAsync(cancellationToken);
+
     public async Task CompleteAsync(SquadId id, CancellationToken cancellationToken)
     {
         var sweeper = await _dataContext.Sweepers.FirstAsync(sweeper => sweeper.Id == id, cancellationToken).ConfigureAwait(false);
@@ -44,6 +49,8 @@ internal interface IRepository
     IQueryable<Database.Entities.SweeperSquad> Retrieve(TournamentId tournamentId);
 
     Task<Database.Entities.SweeperSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken);
+
+    Task<IEnumerable<Database.Entities.SweeperSquad>> RetrieveAsync(IEnumerable<SquadId> ids, CancellationToken cancellationToken);
 
     Task CompleteAsync(SquadId id, CancellationToken cancellationToken);
 
