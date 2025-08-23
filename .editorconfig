@@ -103,6 +103,10 @@ dotnet_style_prefer_conditional_expression_over_assignment = true:silent
 dotnet_style_prefer_conditional_expression_over_return = true:silent
 csharp_prefer_simple_default_expression = true:suggestion
 
+# Primary Constructor
+csharp_style_prefer_primary_constructors = false
+dotnet_diagnostic.IDE0290.severity = none
+
 # Expression-bodied members
 csharp_style_expression_bodied_methods = true:silent
 csharp_style_expression_bodied_constructors = true:silent
