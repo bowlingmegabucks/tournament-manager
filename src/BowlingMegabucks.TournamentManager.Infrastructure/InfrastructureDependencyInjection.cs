@@ -50,9 +50,6 @@ public static class InfrastructureDependencyInjection
             {
                 context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
                 context.ProblemDetails.Extensions.Add("requestId", context.HttpContext.TraceIdentifier);
-
-                Activity? activity = context.HttpContext.Features.Get<Activity>();
-                context.ProblemDetails.Extensions.Add("traceId", activity?.Id ?? context.HttpContext.TraceIdentifier);
             });
 
         return services;
