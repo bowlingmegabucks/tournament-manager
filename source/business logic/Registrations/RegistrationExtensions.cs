@@ -50,6 +50,10 @@ internal static class RegistrationExtensions
                 provider.GetRequiredService<ILogger<UpdateRegistration.UpdateRegistrationCommandHandlerTelemetryDecorator>>()));
 
         services.AddTransient<AppendRegistration.AppendRegistrationCommandHandler>();
+        services.AddTransient<ICommandHandler<AppendRegistration.AppendRegistrationCommand, RegistrationId>>(provider =>
+            new AppendRegistration.AppendRegistrationCommandHandlerTelemetryDecorator(
+                provider.GetRequiredService<AppendRegistration.AppendRegistrationCommandHandler>(),
+                provider.GetRequiredService<ILogger<AppendRegistration.AppendRegistrationCommandHandlerTelemetryDecorator>>()));
 
         services.AddSingleton<IValidator<Update.UpdateRegistrationModel>, Update.Validator>();
         services.AddTransient<Update.IBusinessLogic, Update.BusinessLogic>();
