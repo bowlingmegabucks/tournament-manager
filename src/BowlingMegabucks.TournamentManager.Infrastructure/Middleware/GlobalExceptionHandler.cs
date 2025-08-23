@@ -1,3 +1,5 @@
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes
+
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +37,6 @@ internal sealed class GlobalExceptionHandler
                 Title = "An unexpected error occurred.",
                 Status = StatusCodes.Status500InternalServerError,
                 Detail = exception.Message,
-                Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}",
                 Type = exception.GetType().Name,
             },
         });

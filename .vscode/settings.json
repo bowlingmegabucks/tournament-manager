@@ -1,7 +1,8 @@
 {
     "dotnet-test-explorer.testProjectPath": "tests/**/*Tests.csproj",
-    
+
     "cSpell.words": [
+        "uninstantiated",
         "xunit"
     ]
 }
