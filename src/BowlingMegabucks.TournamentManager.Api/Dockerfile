@@ -1,0 +1,35 @@
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Directory.Packages.props", "."]
+COPY ["Directory.Build.props", "."]
+COPY ["src/BowlingMegabucks.TournamentManager.Api/BowlingMegabucks.TournamentManager.Api.csproj", "src/BowlingMegabucks.TournamentManager.Api/"]
+COPY ["src/BowlingMegabucks.TournamentManager.Infrastructure/BowlingMegabucks.TournamentManager.Infrastructure.csproj", "src/BowlingMegabucks.TournamentManager.Infrastructure/"]
+COPY ["src/BowlingMegabucks.TournamentManager.Application/BowlingMegabucks.TournamentManager.Application.csproj", "src/BowlingMegabucks.TournamentManager.Application/"]
+COPY ["src/BowlingMegabucks.TournamentManager.Domain/BowlingMegabucks.TournamentManager.Domain.csproj", "src/BowlingMegabucks.TournamentManager.Domain/"]
+RUN dotnet restore "./src/BowlingMegabucks.TournamentManager.Api/BowlingMegabucks.TournamentManager.Api.csproj"
+COPY . .
+WORKDIR "/src/src/BowlingMegabucks.TournamentManager.Api"
+RUN dotnet build "./BowlingMegabucks.TournamentManager.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# This stage is used to publish the service project to be copied to the final stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./BowlingMegabucks.TournamentManager.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "BowlingMegabucks.TournamentManager.Api.dll"]
