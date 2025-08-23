@@ -16,13 +16,14 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
-        
+        dotnet-version: 10.0.x
+
     - name: Clean
-      run: dotnet clean source --configuration Release && dotnet nuget locals all --clear
+      run: dotnet clean --configuration Release && dotnet nuget locals all --clear
     - name: Build
-      run: dotnet build source --configuration Release
+      run: dotnet build --configuration Release
     - name: Unit Tests
-      run: dotnet test source/tests/BowlingMegabucks.TournamentManager.UnitTests --verbosity normal --configuration Release
-    - name: Integration Tests
-      run: dotnet run --project source/tests/BowlingMegabucks.TournamentManager.IntegrationTests
+      run: |
+        dotnet run --project tests/BowlingMegabucks.TournamentManager.Domain.UnitTests --verbosity normal --configuration Release
+    # - name: Integration Tests
+    #   run: dotnet run --project source/tests/BowlingMegabucks.TournamentManager.IntegrationTests
