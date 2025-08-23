@@ -35,7 +35,7 @@ internal sealed class GlobalExceptionHandler
                 Title = "An unexpected error occurred.",
                 Status = StatusCodes.Status500InternalServerError,
                 Detail = exception.Message,
-                Instance = httpContext.Request.Path,
+                Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}",
                 Type = exception.GetType().Name,
             },
         });
