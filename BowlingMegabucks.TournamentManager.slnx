@@ -5,4 +5,8 @@
     <Project Path="src/BowlingMegabucks.TournamentManager.Domain/BowlingMegabucks.TournamentManager.Domain.csproj" />
     <Project Path="src/BowlingMegabucks.TournamentManager.Infrastructure/BowlingMegabucks.TournamentManager.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BowlingMegabucks.TournamentManager.Domain.UnitTests/BowlingMegabucks.TournamentManager.Domain.UnitTests.csproj" />
+    <Project Path="tests/BowlingMegabucks.TournamentManager.Tests/BowlingMegabucks.TournamentManager.Tests.csproj" />
+  </Folder>
 </Solution>

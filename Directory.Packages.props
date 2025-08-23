@@ -12,5 +12,13 @@
     <PackageVersion Include="Roslynator.Analyzers" Version="4.14.0" />
     <PackageVersion Include="AsyncFixer" Version="1.6.0" />
     <PackageVersion Include="Meziantou.Analyzer" Version="2.0.212" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="xunit.v3" Version="3.0.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <PackageVersion Include="xunit.analyzers" Version="1.24.0" />
+    <PackageVersion Include="Moq" Version="4.20.72" />
+    <PackageVersion Include="Moq.Analyzers" Version="0.3.0" />
+    <PackageVersion Include="FluentAssertions" Version="[7.*,8.0)" />
+    <PackageVersion Include="FluentAssertions.Analyzers" Version="0.34.1" />
   </ItemGroup>
 </Project>
