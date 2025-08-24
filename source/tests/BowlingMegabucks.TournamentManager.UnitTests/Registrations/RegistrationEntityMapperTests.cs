@@ -5,6 +5,7 @@ namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations;
 internal sealed class EntityMapper
 {
     private Mock<TournamentManager.Bowlers.IEntityMapper> _bowlerEntityMapper;
+    private TournamentManager.Registrations.IPaymentEntityMapper _paymentEntityMapper;
 
     private TournamentManager.Registrations.EntityMapper _mapper;
 
@@ -12,8 +13,9 @@ internal sealed class EntityMapper
     public void SetUp()
     {
         _bowlerEntityMapper = new Mock<TournamentManager.Bowlers.IEntityMapper>();
+        _paymentEntityMapper = new TournamentManager.Registrations.PaymentEntityMapper();
 
-        _mapper = new TournamentManager.Registrations.EntityMapper(_bowlerEntityMapper.Object);
+        _mapper = new TournamentManager.Registrations.EntityMapper(_bowlerEntityMapper.Object, _paymentEntityMapper);
     }
 
     [Test]

@@ -91,7 +91,24 @@ internal static class HttpStatusCodeResponses
             Status = statusCode,
             Extensions =
                 {
-                    ["errors"] = errors.Select(e => new { e.Code, e.Description, Value=e.Metadata?["PropertyValue"] }).ToList(),
+                    ["errors"] = errors.Select(e => 
+                    {
+                        var errorObj = new Dictionary<string, object?>
+                        {
+                            ["code"] = e.Code,
+                            ["description"] = e.Description
+                        };
+                        
+                        if (e.Metadata != null)
+                        {
+                            foreach (var kvp in e.Metadata)
+                            {
+                                errorObj[kvp.Key] = kvp.Value;
+                            }
+                        }
+                        
+                        return errorObj;
+                    }).ToList(),
                     ["traceId"] = traceId
                 }
         };

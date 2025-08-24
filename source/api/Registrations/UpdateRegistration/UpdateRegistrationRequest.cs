@@ -8,9 +8,11 @@ namespace BowlingMegabucks.TournamentManager.Api.Registrations.UpdateRegistratio
 public sealed record UpdateRegistrationRequest
 {
     /// <summary>
-    /// The ID of the registration to update.  This comes from the route parameter.
+    /// The unique identifier of the registration.
     /// </summary>
-    public required RegistrationId Id { get; init; }
+    /// <value></value>
+    [RouteParam]
+    public required RegistrationId RegistrationId { get; init; }
 
     /// <summary>
     /// The registration to update.
