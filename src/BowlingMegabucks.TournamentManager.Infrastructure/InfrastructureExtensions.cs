@@ -7,7 +7,7 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure;
 /// <summary>
 /// Provides extension methods for configuring infrastructure services and middleware.
 /// </summary>
-public static class InfrastructureDependencyInjection
+public static class InfrastructureExtensions
 {
     /// <summary>
     /// Adds infrastructure services to the specified <see cref="WebApplicationBuilder"/>.
