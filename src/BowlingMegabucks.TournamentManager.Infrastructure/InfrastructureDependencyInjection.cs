@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using BowlingMegabucks.TournamentManager.Infrastructure.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
