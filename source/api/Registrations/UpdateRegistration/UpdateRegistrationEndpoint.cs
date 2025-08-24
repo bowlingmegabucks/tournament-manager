@@ -50,14 +50,18 @@ public sealed class UpdateRegistrationEndpoint
     }
 
     private readonly Abstractions.Messaging.ICommandHandler<UpdateRegistrationCommand, Updated> _commandHandler;
+    private readonly ILogger<UpdateRegistrationEndpoint> _logger;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="commandHandler"></param>
-    public UpdateRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<UpdateRegistrationCommand, Updated> commandHandler)
+    /// <param name="logger"></param>
+    public UpdateRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<UpdateRegistrationCommand, Updated> commandHandler,
+                                       ILogger<UpdateRegistrationEndpoint> logger)
     {
         _commandHandler = commandHandler;
+        _logger = logger;
     }
 
     /// <summary>
@@ -70,6 +74,8 @@ public sealed class UpdateRegistrationEndpoint
     {
         ArgumentNullException.ThrowIfNull(req);
 
+        _logger.LogRequest(req);
+
         var command = new UpdateRegistrationCommand
         {
             Id = req.RegistrationId,
@@ -81,10 +87,24 @@ public sealed class UpdateRegistrationEndpoint
             Payment = req.Registration.Payment?.ToModel()
         };
 
+        _logger.LogCommand(command);
+
         var result = await _commandHandler.HandleAsync(command, ct);
 
         return !result.IsError
             ? TypedResults.NoContent()
             : result.Errors.ToProblemDetails("Error updating registration.", HttpContext.TraceIdentifier);
     }
+}
+
+/// <summary>
+/// These should really be debug, but keeping as information for the first year to have good tracking to what is coming in and going to business logic
+/// </summary>
+internal static partial class UpdateRegistrationEndpointLogMessages
+{
+    [LoggerMessage(Level = LogLevel.Information, Message = "UpdateRegistrationRequest: {@Request}")]
+    public static partial void LogRequest(this ILogger<UpdateRegistrationEndpoint> logger, UpdateRegistrationRequest request);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "UpdateRegistrationCommand: {@Command}")]
+    public static partial void LogCommand(this ILogger<UpdateRegistrationEndpoint> logger, UpdateRegistrationCommand command);
 }
