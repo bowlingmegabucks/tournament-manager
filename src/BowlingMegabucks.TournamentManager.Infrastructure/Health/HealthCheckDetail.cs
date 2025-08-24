@@ -1,3 +1,3 @@
 namespace BowlingMegabucks.TournamentManager.Infrastructure.Health;
 
-internal sealed record HealthCheckDetail(string Status, string? Description);
+internal sealed record HealthCheckDetail(string Status, string? Description, TimeSpan Duration);

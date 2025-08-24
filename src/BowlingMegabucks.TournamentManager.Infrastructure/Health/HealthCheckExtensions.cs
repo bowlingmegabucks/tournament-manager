@@ -59,7 +59,7 @@ internal static class HealthCheckExtensions
 
             var details = report.Entries.ToDictionary(
                 entry => entry.Key,
-                entry => new HealthCheckDetail(entry.Value.Status.ToString(), entry.Value.Description), StringComparer.OrdinalIgnoreCase);
+                entry => new HealthCheckDetail(entry.Value.Status.ToString(), entry.Value.Description, entry.Value.Duration), StringComparer.OrdinalIgnoreCase);
 
             var result = new HealthCheckResponse(report.Status.ToString(), details);
 
