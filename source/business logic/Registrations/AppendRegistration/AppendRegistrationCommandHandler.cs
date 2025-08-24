@@ -8,6 +8,7 @@ internal sealed class AppendRegistrationCommandHandler
     : ICommandHandler<AppendRegistrationCommand, RegistrationId>
 {
     private readonly IRepository _registrationRepository;
+    private readonly Tournaments.IRepository _tournamentRepository;
     private readonly Divisions.IRepository _divisionRepository;
     private readonly Squads.IRepository _squadRepository;
     private readonly Sweepers.IRepository _sweeperRepository;
@@ -16,6 +17,7 @@ internal sealed class AppendRegistrationCommandHandler
     private readonly IPaymentEntityMapper _paymentEntityMapper;
 
     public AppendRegistrationCommandHandler(IRepository registrationRepository,
+                                            Tournaments.IRepository tournamentRepository,
                                             Divisions.IRepository divisionRepository,
                                             Squads.IRepository squadRepository,
                                             Sweepers.IRepository sweeperRepository,
@@ -24,6 +26,7 @@ internal sealed class AppendRegistrationCommandHandler
                                             IPaymentEntityMapper paymentEntityMapper)
     {
         _registrationRepository = registrationRepository;
+        _tournamentRepository = tournamentRepository;
         _registrationValidator = registrationValidator;
         _divisionRepository = divisionRepository;
         _paymentEntityMapper = paymentEntityMapper;
@@ -41,11 +44,15 @@ internal sealed class AppendRegistrationCommandHandler
             return Error.Unexpected("Registration.NotFound", "The specified registration does not exist.");
         }
 
+        var tournament = await _tournamentRepository.RetrieveAsync(command.TournamentId, cancellationToken);
+
         var registrationModel = new Models.Registration(existingRegistration)
         {
             Bowler = command.Bowler,
             Average = command.Average ?? existingRegistration.Average,
-            SuperSweeper = command.SuperSweeper ?? existingRegistration.SuperSweeper
+            SuperSweeper = command.SuperSweeper ?? existingRegistration.SuperSweeper,
+            TournamentStartDate = tournament!.Start,
+            TournamentSweeperCount = tournament.Sweepers.Count
         };
 
         if (existingRegistration.DivisionId != command.DivisionId)
@@ -117,7 +124,7 @@ internal sealed class AppendRegistrationCommandHandler
             registrationModel.Average,
             command.Squads,
             command.Sweepers,
-            command.SuperSweeper,
+            registrationModel.SuperSweeper,
             paymentEntity,
             cancellationToken);
 

@@ -9,6 +9,7 @@ namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.AppendRegis
 public sealed class AppendRegistrationCommandHandlerTests
 {
     private Mock<TournamentManager.Registrations.IRepository> _mockRegistrationRepository;
+    private Mock<TournamentManager.Tournaments.IRepository> _mockTournamentRepository;
     private Mock<TournamentManager.Divisions.IRepository> _mockDivisionRepository;
     private Mock<TournamentManager.Squads.IRepository> _mockSquadRepository;
     private Mock<TournamentManager.Sweepers.IRepository> _mockSweeperRepository;
@@ -22,6 +23,7 @@ public sealed class AppendRegistrationCommandHandlerTests
     public void SetUp()
     {
         _mockRegistrationRepository = new Mock<TournamentManager.Registrations.IRepository>();
+        _mockTournamentRepository = new Mock<TournamentManager.Tournaments.IRepository>();
         _mockDivisionRepository = new Mock<TournamentManager.Divisions.IRepository>();
         _mockSquadRepository = new Mock<TournamentManager.Squads.IRepository>();
         _mockSweeperRepository = new Mock<TournamentManager.Sweepers.IRepository>();
@@ -31,6 +33,7 @@ public sealed class AppendRegistrationCommandHandlerTests
 
         _handler = new AppendRegistrationCommandHandler(
             _mockRegistrationRepository.Object,
+            _mockTournamentRepository.Object,
             _mockDivisionRepository.Object,
             _mockSquadRepository.Object,
             _mockSweeperRepository.Object,
@@ -90,8 +93,22 @@ public sealed class AppendRegistrationCommandHandlerTests
             Payments = []
         };
 
+        var tournament = new TournamentManager.Database.Entities.Tournament
+        {
+            Id = TournamentId.New(),
+            Start = new DateOnly(2024, 1, 1),
+            Sweepers =
+            [
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] },
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] }
+            ]
+        };
+
         _mockRegistrationRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<string>(), It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(existingRegistration);
+
+        _mockTournamentRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tournament);
 
         _mockDivisionRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<DivisionId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync((Division)null);
@@ -136,12 +153,26 @@ public sealed class AppendRegistrationCommandHandlerTests
             Bowler = new Bowler { USBCId = "12345" },
             DivisionId = divisionId, // Set the DivisionId property directly
             Division = new Division { Id = divisionId },
-            Squads = new List<SquadRegistration>(),
-            Payments = new List<Payment>()
+            Squads = [],
+            Payments = []
+        };
+
+        var tournament = new TournamentManager.Database.Entities.Tournament
+        {
+            Id = TournamentId.New(),
+            Start = new DateOnly(2024, 1, 1),
+            Sweepers =
+            [
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] },
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] }
+            ]
         };
 
         _mockRegistrationRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<string>(), It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(existingRegistration);
+
+        _mockTournamentRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tournament);
 
         _mockRegistrationValidator.Setup(validator => validator.ValidateAsync(It.IsAny<TournamentManager.Models.Registration>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new FluentValidation.Results.ValidationResult());
@@ -176,17 +207,31 @@ public sealed class AppendRegistrationCommandHandlerTests
             Bowler = new Bowler { USBCId = "12345" },
             DivisionId = divisionId, // Use same division to avoid division lookup
             Division = new Division { Id = divisionId },
-            Squads = new List<SquadRegistration>
-            {
+            Squads =
+            [
                 new() { SquadId = existingSquadId1 },
                 new() { SquadId = existingSquadId2 },
                 new() { SquadId = overlappingSquadId }
-            },
+            ],
             Payments = []
+        };
+
+        var tournament = new TournamentManager.Database.Entities.Tournament
+        {
+            Id = TournamentId.New(),
+            Start = new DateOnly(2024, 1, 1),
+            Sweepers =
+            [
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] },
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] }
+            ]
         };
 
         _mockRegistrationRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<string>(), It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(existingRegistration);
+
+        _mockTournamentRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tournament);
 
         var command = new AppendRegistrationCommand
         {
@@ -231,17 +276,31 @@ public sealed class AppendRegistrationCommandHandlerTests
             Bowler = new Bowler { USBCId = "12345" },
             DivisionId = divisionId, // Use same division to avoid division lookup
             Division = new Division { Id = divisionId },
-            Squads = new List<SquadRegistration>
-            {
+            Squads =
+            [
                 new() { SquadId = existingSweeperSquadId1 },
                 new() { SquadId = existingSweeperSquadId2 },
                 new() { SquadId = overlappingSweeperSquadId }
-            },
+            ],
             Payments = []
+        };
+
+        var tournament = new TournamentManager.Database.Entities.Tournament
+        {
+            Id = TournamentId.New(),
+            Start = new DateOnly(2024, 1, 1),
+            Sweepers =
+            [
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] },
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] }
+            ]
         };
 
         _mockRegistrationRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<string>(), It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(existingRegistration);
+
+        _mockTournamentRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tournament);
 
         var command = new AppendRegistrationCommand
         {
@@ -289,8 +348,22 @@ public sealed class AppendRegistrationCommandHandlerTests
             Payments = []
         };
 
+        var tournament = new TournamentManager.Database.Entities.Tournament
+        {
+            Id = TournamentId.New(),
+            Start = new DateOnly(2024, 1, 1),
+            Sweepers =
+            [
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] },
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] }
+            ]
+        };
+
         _mockRegistrationRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<string>(), It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(existingRegistration);
+
+        _mockTournamentRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tournament);
 
         // Setup validation to fail with multiple errors
         var validationResult = new FluentValidation.Results.ValidationResult();
@@ -372,6 +445,18 @@ public sealed class AppendRegistrationCommandHandlerTests
             Payments = []
         };
 
+        var tournament = new TournamentManager.Database.Entities.Tournament
+        {
+            Id = TournamentId.New(),
+            Start = new DateOnly(2024, 1, 15),
+            Sweepers =
+            [
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] },
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] },
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] }
+            ]
+        };
+
         var newDivision = new Division { Id = newDivisionId, Name = "New Division" };
         var newSquad1 = new TournamentSquad { Id = newSquadId1, Tournament = new Tournament() };
         var newSquad2 = new TournamentSquad { Id = newSquadId2, Tournament = new Tournament() };
@@ -380,6 +465,9 @@ public sealed class AppendRegistrationCommandHandlerTests
 
         _mockRegistrationRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<string>(), It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(existingRegistration);
+
+        _mockTournamentRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tournament);
 
         _mockDivisionRepository.Setup(repo => repo.RetrieveAsync(newDivisionId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(newDivision);
@@ -416,9 +504,12 @@ public sealed class AppendRegistrationCommandHandlerTests
                 reg.Average == 180 &&
                 reg.SuperSweeper == true &&
                 reg.Squads.Count() == 2 &&
-                reg.Sweepers.Count() == 2),
+                reg.Sweepers.Count() == 2 &&
+                reg.TournamentStartDate == new DateOnly(2024, 1, 15) &&
+                reg.TournamentSweeperCount == 3),
             It.IsAny<CancellationToken>()), Times.Once);
 
+        _mockTournamentRepository.Verify(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Once);
         _mockDivisionRepository.Verify(repo => repo.RetrieveAsync(newDivisionId, It.IsAny<CancellationToken>()), Times.Once);
         _mockSquadRepository.Verify(repo => repo.RetrieveAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Once);
         _mockSweeperRepository.Verify(repo => repo.RetrieveAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Once);
@@ -441,8 +532,22 @@ public sealed class AppendRegistrationCommandHandlerTests
             Payments = []
         };
 
+        var tournament = new TournamentManager.Database.Entities.Tournament
+        {
+            Id = TournamentId.New(),
+            Start = new DateOnly(2024, 1, 1),
+            Sweepers =
+            [
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] },
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] }
+            ]
+        };
+
         _mockRegistrationRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<string>(), It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(existingRegistration);
+
+        _mockTournamentRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tournament);
 
         _mockRegistrationValidator.Setup(validator => validator.ValidateAsync(It.IsAny<TournamentManager.Models.Registration>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new FluentValidation.Results.ValidationResult());
@@ -541,6 +646,17 @@ public sealed class AppendRegistrationCommandHandlerTests
             Payments = [existingPayment1, existingPayment2]
         };
 
+        var tournament = new TournamentManager.Database.Entities.Tournament
+        {
+            Id = TournamentId.New(),
+            Start = new DateOnly(2024, 1, 1),
+            Sweepers =
+            [
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] },
+                new() { Id = SquadId.New(), CashRatio = 1.0m, Divisions = [] }
+            ]
+        };
+
         var newDivision = new Division { Id = newDivisionId, Name = "New Division" };
         var squad1 = new TournamentSquad { Id = squadId1, Tournament = new Tournament() };
         var squad2 = new TournamentSquad { Id = squadId2, Tournament = new Tournament() };
@@ -549,6 +665,9 @@ public sealed class AppendRegistrationCommandHandlerTests
 
         _mockRegistrationRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<string>(), It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(existingRegistration);
+
+        _mockTournamentRepository.Setup(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tournament);
 
         _mockDivisionRepository.Setup(repo => repo.RetrieveAsync(newDivisionId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(newDivision);
@@ -629,6 +748,7 @@ public sealed class AppendRegistrationCommandHandlerTests
             It.IsAny<CancellationToken>()), Times.Once);
 
         // Verify all repositories were called
+        _mockTournamentRepository.Verify(repo => repo.RetrieveAsync(It.IsAny<TournamentId>(), It.IsAny<CancellationToken>()), Times.Once);
         _mockDivisionRepository.Verify(repo => repo.RetrieveAsync(newDivisionId, It.IsAny<CancellationToken>()), Times.Once);
         _mockSquadRepository.Verify(repo => repo.RetrieveAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Once);
         _mockSweeperRepository.Verify(repo => repo.RetrieveAsync(It.IsAny<IEnumerable<SquadId>>(), It.IsAny<CancellationToken>()), Times.Once);
