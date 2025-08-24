@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using BowlingMegabucks.TournamentManager.Infrastructure.Health;
 using BowlingMegabucks.TournamentManager.Infrastructure.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +8,7 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure;
 /// <summary>
 /// Provides extension methods for configuring infrastructure services and middleware.
 /// </summary>
-public static class InfrastructureDependencyInjection
+public static class InfrastructureExtensions
 {
     /// <summary>
     /// Adds infrastructure services to the specified <see cref="WebApplicationBuilder"/>.
@@ -21,7 +21,10 @@ public static class InfrastructureDependencyInjection
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.Services.AddErrorHandling();
+        builder.AddHealthChecks();
+
+        builder.Services
+            .AddErrorHandling();
 
         return builder;
     }
@@ -38,6 +41,8 @@ public static class InfrastructureDependencyInjection
         ArgumentNullException.ThrowIfNull(app);
 
         app.UseExceptionHandler();
+
+        app.MapHealthCheckRoute();
 
         return app;
     }

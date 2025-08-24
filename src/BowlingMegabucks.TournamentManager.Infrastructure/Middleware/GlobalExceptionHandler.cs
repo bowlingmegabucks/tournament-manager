@@ -1,5 +1,4 @@
-#pragma warning disable CA1812 // Avoid uninstantiated internal classes
-
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace BowlingMegabucks.TournamentManager.Infrastructure.Middleware;
 
+[SuppressMessage(
+    "Performance",
+    "CA1812:Avoid uninstantiated internal classes",
+    Justification = "Instantiated by dependency injection container.")]
 internal sealed class GlobalExceptionHandler
     : IExceptionHandler
 {
