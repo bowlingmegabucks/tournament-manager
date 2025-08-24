@@ -3,6 +3,7 @@ using BowlingMegabucks.TournamentManager.Api.BogusData;
 using BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 using Microsoft.AspNetCore.Http.HttpResults;
 using BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
+using BowlingMegabucks.TournamentManager.Registrations.AppendRegistration;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 
@@ -53,15 +54,19 @@ public sealed class CreateRegistrationEndpoint
     }
 
     private readonly Abstractions.Messaging.ICommandHandler<CreateRegistrationCommand, RegistrationId> _commandHandler;
+    private readonly Abstractions.Messaging.ICommandHandler<AppendRegistrationCommand, RegistrationId> _appendCommandHandler;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CreateRegistrationEndpoint"/> class.
     /// This constructor is used to inject the command handler for creating registrations.
     /// </summary>
     /// <param name="commandHandler"></param>
-    public CreateRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<CreateRegistrationCommand, RegistrationId> commandHandler)
+    /// <param name="appendCommandHandler"></param>
+    public CreateRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<CreateRegistrationCommand, RegistrationId> commandHandler,
+                                       Abstractions.Messaging.ICommandHandler<AppendRegistrationCommand, RegistrationId> appendCommandHandler)
     {
         _commandHandler = commandHandler;
+        _appendCommandHandler = appendCommandHandler;
     }
 
     /// <summary>
@@ -98,12 +103,37 @@ public sealed class CreateRegistrationEndpoint
             return TypedResults.CreatedAtRoute(response, GetRegistrationEndpoint.EndpointName, new { Id = response.RegistrationId });
         }
 
-        if (result.FirstError.Type == ErrorOr.ErrorType.Conflict)
+        return result.FirstError.Type == ErrorOr.ErrorType.Conflict
+            ? await HandleAppendRegistrationAsync(req, ct)
+            : result.Errors.ToProblemDetails("An error occurred while creating the registration.", HttpContext.TraceIdentifier);
+    }
+
+    private async Task<Results<CreatedAtRoute<CreateRegistrationResponse>, ProblemHttpResult>> HandleAppendRegistrationAsync(CreateRegistrationRequest req, CancellationToken ct)
+    {
+        var appendRegistrationCommand = new AppendRegistrationCommand
         {
-            // this needs to call update registration instead.  returning problem for now.
-            return TypedResults.Problem("Bowler is already registered for this tournament.", statusCode: StatusCodes.Status409Conflict);
+            Bowler = req.Registration.Bowler.ToModel(),
+            TournamentId = req.Registration.TournamentId,
+            DivisionId = req.Registration.DivisionId,
+            Squads = req.Registration.Squads,
+            Sweepers = req.Registration.Sweepers,
+            SuperSweeper = req.Registration.SuperSweeper,
+            Average = req.Registration.Average,
+            Payment = req.Registration.Payment?.ToModel()
+        };
+
+        var appendResult = await _appendCommandHandler.HandleAsync(appendRegistrationCommand, ct);
+
+        if (!appendResult.IsError)
+        {
+            var response = new CreateRegistrationResponse
+            {
+                RegistrationId = appendResult.Value
+            };
+
+            return TypedResults.CreatedAtRoute(response, GetRegistrationEndpoint.EndpointName, new { Id = response.RegistrationId });
         }
 
-        return result.Errors.ToProblemDetails("An error occurred while creating the registration.", HttpContext.TraceIdentifier);
+        return appendResult.Errors.ToProblemDetails("An error occurred while appending the registration.", HttpContext.TraceIdentifier);
     }
 }

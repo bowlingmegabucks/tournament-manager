@@ -60,6 +60,14 @@ internal class Repository : IRepository
             .Include(registration => registration.Payments)
             .FirstOrDefaultAsync(registration => registration.Id == id, cancellationToken).ConfigureAwait(false);
 
+    async Task<Database.Entities.Registration?> IRepository.RetrieveAsync(string usbcId, TournamentId tournamentId, CancellationToken cancellationToken)
+        => await _dataContext.Registrations
+            .Include(registration => registration.Squads).ThenInclude(squad => squad.Squad)
+            .Include(registration => registration.Bowler)
+            .Include(registration => registration.Division).ThenInclude(division => division.Tournament)
+            .Include(registration => registration.Payments)
+            .FirstOrDefaultAsync(registration => registration.Bowler.USBCId == usbcId && registration.Division.TournamentId == tournamentId, cancellationToken).ConfigureAwait(false);
+
     async Task IRepository.DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken)
     {
         if (await _dataContext.SquadScores.AnyAsync(squadScore => squadScore.BowlerId == bowlerId && squadScore.SquadId == squadId, cancellationToken).ConfigureAwait(false))
@@ -121,7 +129,57 @@ internal class Repository : IRepository
     async Task IRepository.UpdateAsync(Database.Entities.Registration registration, CancellationToken cancellationToken)
     {
         _dataContext.Registrations.Update(registration);
-        
+
+        await _dataContext.SaveChangesAsync(cancellationToken);
+    }
+
+    async Task IRepository.UpdateAsync(
+        Database.Entities.Registration existingRegistration,
+        Database.Entities.Bowler bowlerEntity,
+        DivisionId divisionId,
+        int? average,
+        IEnumerable<SquadId> squads,
+        IEnumerable<SquadId> sweepers,
+        bool? superSweeper,
+        Database.Entities.Payment? paymentEntity,
+        CancellationToken cancellationToken)
+    {
+        var existingBowler = await _dataContext.Bowlers.FirstAsync(bowler => bowler.Id == existingRegistration.BowlerId, cancellationToken);
+
+        existingBowler.USBCId = bowlerEntity.USBCId;
+
+        existingBowler.FirstName = bowlerEntity.FirstName;
+        existingBowler.MiddleInitial = bowlerEntity.MiddleInitial;
+        existingBowler.LastName = bowlerEntity.LastName;
+        existingBowler.Suffix = bowlerEntity.Suffix;
+
+        existingBowler.StreetAddress = bowlerEntity.StreetAddress;
+        existingBowler.CityAddress = bowlerEntity.CityAddress;
+        existingBowler.StateAddress = bowlerEntity.StateAddress;
+        existingBowler.ZipCode = bowlerEntity.ZipCode;
+        existingBowler.EmailAddress = bowlerEntity.EmailAddress;
+        existingBowler.PhoneNumber = bowlerEntity.PhoneNumber;
+        existingBowler.DateOfBirth = bowlerEntity.DateOfBirth ?? existingBowler.DateOfBirth;
+        existingBowler.Gender = bowlerEntity.Gender ?? existingBowler.Gender;
+
+        existingRegistration.DivisionId = divisionId;
+        existingRegistration.Average = average ?? existingRegistration.Average;
+
+        foreach (var squad in squads.Union(sweepers))
+        {
+            existingRegistration.Squads.Add(new Database.Entities.SquadRegistration
+            {
+                RegistrationId = existingRegistration.Id,
+                SquadId = squad
+            });
+        }
+
+        existingRegistration.SuperSweeper = superSweeper ?? existingRegistration.SuperSweeper;
+        if (paymentEntity is not null)
+        {
+            existingRegistration.Payments.Add(paymentEntity);
+        }
+
         await _dataContext.SaveChangesAsync(cancellationToken);
     }
 }
@@ -136,6 +194,8 @@ internal interface IRepository
 
     Task<Database.Entities.Registration?> RetrieveAsync(RegistrationId id, CancellationToken cancellationToken);
 
+    Task<Database.Entities.Registration?> RetrieveAsync(string usbcId, TournamentId tournamentId, CancellationToken cancellationToken);
+
     Task DeleteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
 
     Task DeleteAsync(RegistrationId id, CancellationToken cancellationToken);
@@ -147,4 +207,15 @@ internal interface IRepository
     Task UpdateAsync(RegistrationId id, int? average, CancellationToken cancellationToken);
 
     Task UpdateAsync(Database.Entities.Registration registration, CancellationToken cancellationToken);
+
+    Task UpdateAsync(
+        Database.Entities.Registration existingRegistration,
+        Database.Entities.Bowler bowlerEntity,
+        DivisionId divisionId,
+        int? average,
+        IEnumerable<SquadId> squads,
+        IEnumerable<SquadId> sweepers,
+        bool? superSweeper,
+        Database.Entities.Payment? paymentEntity,
+        CancellationToken cancellationToken);
 }
