@@ -51,14 +51,18 @@ public sealed class DeleteRegistrationEndpoint
     }
 
     private readonly Abstractions.Messaging.ICommandHandler<DeleteRegistrationCommand, Deleted> _commandHandler;
+    private readonly ILogger<DeleteRegistrationEndpoint> _logger;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="commandHandler"></param>
-    public DeleteRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<DeleteRegistrationCommand, Deleted> commandHandler)
+    /// <param name="logger"></param>
+    public DeleteRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<DeleteRegistrationCommand, Deleted> commandHandler,
+                                       ILogger<DeleteRegistrationEndpoint> logger)
     {
         _commandHandler = commandHandler;
+        _logger = logger;
     }
 
     /// <summary>
@@ -71,7 +75,11 @@ public sealed class DeleteRegistrationEndpoint
     {
         ArgumentNullException.ThrowIfNull(req);
 
+        _logger.LogRequest(req);
+
         var command = new DeleteRegistrationCommand { Id = req.Id };
+
+        _logger.LogCommand(command);
 
         var result = await _commandHandler.HandleAsync(command, ct);
 
@@ -81,4 +89,16 @@ public sealed class DeleteRegistrationEndpoint
                 ? TypedResults.NotFound().ToProblemDetails(HttpContext.TraceIdentifier)
                 : result.Errors.ToProblemDetails("An error occurred while deleting the registration.", HttpContext.TraceIdentifier);
     }
+}
+
+/// <summary>
+/// These should really be debug, but keeping as information for the first year to have good tracking to what is coming in and going to business logic
+/// </summary>
+internal static partial class DeleteRegistrationEndpointLogMessages
+{
+    [LoggerMessage(Level = LogLevel.Information, Message = "DeleteRegistrationRequest: {@Request}")]
+    public static partial void LogRequest(this ILogger<DeleteRegistrationEndpoint> logger, DeleteRegistrationRequest request);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "DeleteRegistrationCommand: {@Command}")]
+    public static partial void LogCommand(this ILogger<DeleteRegistrationEndpoint> logger, DeleteRegistrationCommand command);
 }
