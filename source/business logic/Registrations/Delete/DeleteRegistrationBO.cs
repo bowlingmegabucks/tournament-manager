@@ -36,24 +36,6 @@ internal class BusinessLogic : IBusinessLogic
             ErrorDetail = new Models.ErrorDetail(ex);
         }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    public async Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken)
-    {
-        try
-        {
-            await _dataLayer.ExecuteAsync(id, cancellationToken).ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-            ErrorDetail = new Models.ErrorDetail(ex);
-        }
-    }
 }
 
 /// <summary>
@@ -74,12 +56,4 @@ public interface IBusinessLogic
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task ExecuteAsync(BowlerId bowlerId, SquadId squadId, CancellationToken cancellationToken);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task ExecuteAsync(RegistrationId id, CancellationToken cancellationToken);
 }

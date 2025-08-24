@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Ardalis.SmartEnum.SystemTextJson;
+using BowlingMegabucks.TournamentManager.Models;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 
@@ -63,4 +64,29 @@ public sealed record BowlerDetailDto
     /// </summary>
     [JsonConverter(typeof(SmartEnumNameConverter<Models.Gender, int>))]
     public Models.Gender? Gender { get; init; }
+}
+
+internal static class BowlerExtensions
+{
+    public static BowlerDetailDto ToDto(this Bowler bowler)
+        => new()
+        {
+            Id = bowler.Id,
+            FirstName = bowler.Name.First,
+            MiddleInitial = bowler.Name.MiddleInitial,
+            LastName = bowler.Name.Last,
+            Suffix = bowler.Name.Suffix,
+            Address = new()
+            {
+                Street = bowler.StreetAddress,
+                City = bowler.CityAddress,
+                State = bowler.StateAddress,
+                ZipCode = bowler.ZipCode
+            },
+            Email = bowler.EmailAddress,
+            PhoneNumber = bowler.PhoneNumber,
+            UsbcId = bowler.USBCId,
+            DateOfBirth = bowler.DateOfBirth,
+            Gender = bowler.Gender
+        };
 }

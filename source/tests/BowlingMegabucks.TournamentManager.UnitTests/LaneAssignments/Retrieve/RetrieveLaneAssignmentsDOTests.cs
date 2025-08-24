@@ -22,7 +22,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_RepositoryRetrieve_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(Enumerable.Empty<TournamentManager.Database.Entities.SquadRegistration>().BuildMock());
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(Array.Empty<TournamentManager.Database.Entities.SquadRegistration>().BuildMock());
         var squadId = SquadId.New();
 
         await _dataLayer.ExecuteAsync(squadId, default).ConfigureAwait(false);
@@ -48,7 +48,7 @@ internal sealed class DataLayer
                 Average = 200
             },
             LaneAssignment = "12C"
-        }, 3).BuildMock();
+        }, 3).ToList().BuildMock();
 
         _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId>())).Returns(laneAssignments);
 

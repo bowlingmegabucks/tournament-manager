@@ -38,26 +38,4 @@ internal sealed class BusinessLogic
 
         Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
     }
-
-    [Test]
-    public async Task ExecuteAsync_RegistrationId_DataLayerExecute_CalledCorrectly()
-    {
-        var registrationId = RegistrationId.New();
-        CancellationToken cancellationToken = default;
-
-        await _businessLogic.ExecuteAsync(registrationId, cancellationToken).ConfigureAwait(false);
-
-        _dataLayer.Verify(dataLayer => dataLayer.ExecuteAsync(registrationId, cancellationToken), Times.Once);
-    }
-
-    [Test]
-    public async Task ExecuteAsync_RegistrationId_DataLayerExecuteThrowsException_ErrorMapped()
-    {
-        var ex = new Exception("exception");
-        _dataLayer.Setup(dataLayer => dataLayer.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>())).ThrowsAsync(ex);
-
-        await _businessLogic.ExecuteAsync(RegistrationId.New(), default).ConfigureAwait(false);
-
-        Assert.That(_businessLogic.ErrorDetail.Message, Is.EqualTo(ex.Message));
-    }
 }

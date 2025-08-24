@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BowlingMegabucks.TournamentManager.Squads;
 
-internal class Repository : IRepository
+internal class Repository
+    : IRepository
 {
     private readonly Database.IDataContext _dataContext;
 
@@ -25,6 +26,9 @@ internal class Repository : IRepository
 
     public async Task<Database.Entities.TournamentSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken)
         => await _dataContext.Squads.AsNoTracking().FirstAsync(squad => squad.Id == id, cancellationToken).ConfigureAwait(false);
+
+    public async Task<IEnumerable<Database.Entities.TournamentSquad>> RetrieveAsync(IEnumerable<SquadId> ids, CancellationToken cancellationToken)
+        => await _dataContext.Squads.AsNoTracking().Where(squad => ids.Contains(squad.Id)).ToListAsync(cancellationToken);
 
     public async Task CompleteAsync(SquadId id, CancellationToken cancellationToken)
     {
@@ -62,6 +66,8 @@ internal interface IRepository
     IQueryable<Database.Entities.TournamentSquad> Retrieve(TournamentId tournamentId);
 
     Task<Database.Entities.TournamentSquad> RetrieveAsync(SquadId id, CancellationToken cancellationToken);
+
+    Task<IEnumerable<Database.Entities.TournamentSquad>> RetrieveAsync(IEnumerable<SquadId> ids, CancellationToken cancellationToken);
 
     Task CompleteAsync(SquadId id, CancellationToken cancellationToken);
 }

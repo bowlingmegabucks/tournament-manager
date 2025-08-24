@@ -48,3 +48,8 @@ variable "api_megabucks_url_redirect" {
   description = "The URL to redirect API requests to"
   type        = string
 }
+
+variable "api_health_check_frequency" {
+  description = "The frequency of health checks for the API in seconds"
+  type        = number
+}

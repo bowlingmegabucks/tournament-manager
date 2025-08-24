@@ -24,6 +24,8 @@ internal class Registration
 
     public ICollection<SquadRegistration> Squads { get; set; } = null!;
 
+    public ICollection<Payment> Payments { get; set; } = null!;
+
     internal class Configuration : IEntityTypeConfiguration<Registration>
     {
         public void Configure(EntityTypeBuilder<Registration> builder)

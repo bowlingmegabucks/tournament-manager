@@ -23,7 +23,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_SquadIds_RepositoryRetrieve_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId[]>())).Returns(Enumerable.Empty<TournamentManager.Database.Entities.SquadScore>().BuildMock());
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<SquadId[]>())).Returns(Array.Empty<TournamentManager.Database.Entities.SquadScore>().BuildMock());
         var squadIds = new[] { SquadId.New(), SquadId.New() };
 
         await _dataLayer.ExecuteAsync(squadIds, default).ConfigureAwait(false);

@@ -126,3 +126,28 @@ public class DivisionIdValueGenerator : ValueGenerator<DivisionId>
     public override DivisionId Next(EntityEntry entry)
         => DivisionId.New();
 }
+
+/// <summary>
+/// Strongly-typed identifier for a Payment entity.
+/// </summary>
+[StronglyTypedId]
+public readonly partial struct PaymentId { }
+
+/// <summary>
+/// Generates unique <see cref="PaymentId"/> values for EF Core entities.
+/// </summary>
+public class PaymentIdValueGenerator
+    : ValueGenerator<PaymentId>
+{
+    /// <inheritdoc />
+    public override bool GeneratesTemporaryValues
+        => false;
+
+    /// <summary>
+    /// Generates a new <see cref="PaymentId"/> value.
+    /// </summary>
+    /// <param name="entry">The entity entry for which the value is being generated.</param>
+    /// <returns>A new <see cref="PaymentId"/>.</returns>
+    public override PaymentId Next(EntityEntry entry)
+        => PaymentId.New();
+}

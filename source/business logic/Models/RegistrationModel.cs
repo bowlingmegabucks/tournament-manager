@@ -14,6 +14,11 @@ public class Registration
     /// <summary>
     /// 
     /// </summary>
+    public TournamentId TournamentId { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public Bowler Bowler { get; set; }
 
     /// <summary>
@@ -48,13 +53,18 @@ public class Registration
     /// <summary>
     /// 
     /// </summary>
+    public IEnumerable<Payment> Payments { get; set; } = [];
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <param name="bowlerId"></param>
     /// <param name="divisionId"></param>
     /// <param name="squads"></param>
     /// <param name="sweepers"></param>
     /// <param name="superSweeper"></param>
     /// <param name="average"></param>
-    public Registration(BowlerId bowlerId, BowlingMegabucks.TournamentManager.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+    public Registration(BowlerId bowlerId, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
         : this(new Bowler { Id = bowlerId }, divisionId, squads, sweepers, superSweeper, average)
     { }
 
@@ -67,7 +77,7 @@ public class Registration
     /// <param name="sweepers"></param>
     /// <param name="superSweeper"></param>
     /// <param name="average"></param>
-    public Registration(Bowler bowler, BowlingMegabucks.TournamentManager.DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
+    public Registration(Bowler bowler, DivisionId divisionId, IEnumerable<SquadId> squads, IEnumerable<SquadId> sweepers, bool superSweeper, int? average)
     {
         Bowler = bowler;
         Division = new Division { Id = divisionId };
@@ -82,13 +92,24 @@ public class Registration
     internal Registration(Database.Entities.Registration registration)
     {
         Id = registration.Id;
+        TournamentId = registration.Division.TournamentId;
         Bowler = new Bowler(registration.Bowler);
         Division = new Division(registration.Division);
         Average = registration.Average;
         Squads = registration.Squads.Select(squadRegistration => squadRegistration.Squad).OfType<Database.Entities.TournamentSquad>().Select(squad => new Squad(squad)).ToList();
         Sweepers = registration.Squads.Select(squadRegistration => squadRegistration.Squad).OfType<Database.Entities.SweeperSquad>().Select(sweeper => new Sweeper(sweeper)).ToList();
+        Payments = registration.Payments.Select(payment => new Payment(payment)).ToList();
         SuperSweeper = registration.SuperSweeper;
     }
+
+    internal void AddSquad(Squad squad)
+        => Squads = Squads.Union(new[] { squad });
+
+    internal void AddSweeper(Sweeper sweeper)
+        => Sweepers = Sweepers.Union(new[] { sweeper });
+
+    internal void AddPayment(Payment payment)
+        => Payments = Payments.Union(new[] { payment });
 
     /// <summary>
     /// Unit Test Constructor
@@ -100,5 +121,6 @@ public class Registration
 
         Squads = [];
         Sweepers = [];
+        Payments = [];
     }
 }

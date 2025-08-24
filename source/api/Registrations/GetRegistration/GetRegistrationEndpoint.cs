@@ -1,6 +1,8 @@
 using FastEndpoints;
-using Microsoft.AspNetCore.Http.HttpResults;
 using BowlingMegabucks.TournamentManager.Api.BogusData;
+using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Registrations.GetRegistrationById;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 
@@ -8,16 +10,17 @@ namespace BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 /// 
 /// </summary>
 public sealed class GetRegistrationEndpoint
-    : Endpoint<GetRegistrationRequest, GetRegistrationResponse>
+    : Endpoint<GetRegistrationRequest, Results<Ok<GetRegistrationResponse>,ProblemHttpResult>>
 {
     internal const string EndpointName = "Get Registration";
+    private const string _route = "/registrations/{Id}";
 
     /// <summary>
     /// 
     /// </summary>
     public override void Configure()
     {
-        Get("/registrations/{Id}");
+        Get(_route);
 
         Description(d => d
             .Produces<GetRegistrationResponse>(StatusCodes.Status200OK)
@@ -32,11 +35,11 @@ public sealed class GetRegistrationEndpoint
             s.Description = "This endpoint allows you to retrieve a registration using its unique identifier.";
 
             s.ResponseExamples[StatusCodes.Status200OK] = new BogusGetRegistrationResponse().Generate();
-            s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400("/registrations/{Id}");
-            s.ResponseExamples[StatusCodes.Status401Unauthorized] = HttpStatusCodeResponses.SampleUnauthorized401("/registrations/{Id}");
-            s.ResponseExamples[StatusCodes.Status404NotFound] = HttpStatusCodeResponses.SampleNotFound404("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400(_route);
+            s.ResponseExamples[StatusCodes.Status401Unauthorized] = HttpStatusCodeResponses.SampleUnauthorized401(_route);
+            s.ResponseExamples[StatusCodes.Status404NotFound] = HttpStatusCodeResponses.SampleNotFound404(_route);
             s.ResponseExamples[StatusCodes.Status429TooManyRequests] = HttpStatusCodeResponses.SampleRateLimitExceeded429();
-            s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500("/registrations/{Id}");
+            s.ResponseExamples[StatusCodes.Status500InternalServerError] = HttpStatusCodeResponses.SampleInternalServerError500(_route);
 
             s.Response<GetRegistrationResponse>(StatusCodes.Status200OK, "Successfully retrieved the registration.");
             s.Response<ProblemDetails>(StatusCodes.Status400BadRequest, "Invalid request parameters.", HttpContentTypes.ProblemJson);
@@ -47,23 +50,41 @@ public sealed class GetRegistrationEndpoint
         });
     }
 
+    private readonly IQueryHandler<GetRegistrationByIdQuery, Models.Registration?> _queryHandler;
+
     /// <summary>
-    /// Handles the retrieval of a registration by its ID.
+    /// 
+    /// </summary>
+    /// <param name="queryHandler"></param>
+    public GetRegistrationEndpoint(IQueryHandler<GetRegistrationByIdQuery, Models.Registration?> queryHandler)
+    {
+        _queryHandler = queryHandler;
+    }
+
+    /// <summary>
+    /// 
     /// </summary>
     /// <param name="req"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task HandleAsync(
-        GetRegistrationRequest req,
-        CancellationToken ct)
+    public async override Task<Results<Ok<GetRegistrationResponse>, ProblemHttpResult>> ExecuteAsync(GetRegistrationRequest req, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(req);
 
-        // Logic to retrieve the registration goes here
-        // For example, you might fetch the registration from a database
+        var registrationResult = await _queryHandler.HandleAsync(new() { Id = req.Id }, ct);
 
-        var response = new BogusGetRegistrationResponse();
+        if (!registrationResult.IsError)
+        {
+            var registration = registrationResult.Value!.ToDto();
 
-        await SendOkAsync(response, ct);
+            return TypedResults.Ok(new GetRegistrationResponse
+            {
+                Registration = registration
+            });
+        }
+
+        return registrationResult.FirstError.Type == ErrorOr.ErrorType.NotFound
+            ? TypedResults.NotFound().ToProblemDetails(HttpContext.TraceIdentifier)
+            : registrationResult.Errors.ToProblemDetails("An error occurred while retrieving the registration", HttpContext.TraceIdentifier);
     }
 }

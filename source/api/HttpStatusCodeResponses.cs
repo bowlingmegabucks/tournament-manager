@@ -1,26 +1,38 @@
 using ErrorOr;
 using FastEndpoints;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Http.HttpResults;
+using System.Text.Json;
 
 namespace BowlingMegabucks.TournamentManager.Api;
 
 internal static class HttpStatusCodeResponses
 {
-    internal static ProblemDetails SampleBadRequest400(string instance)
-        => new()
+    private static JsonSerializerOptions _jsonOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        WriteIndented = true,
+    };
+
+    private static string ToJson<T>(this T value)
+        => JsonSerializer.Serialize(value, _jsonOptions);
+
+    internal static string SampleBadRequest400(string instance)
+        => new Microsoft.AspNetCore.Mvc.ProblemDetails
         {
             Status = StatusCodes.Status400BadRequest,
             Instance = instance,
-            TraceId = "0HMPNHL0JHL76:00000001",
             Detail = "The request parameters are invalid or missing.",
-            Errors = new List<ProblemDetails.Error>
+            Extensions =
+            {
+                ["errors"] = new List<object>
                 {
-                    new(new ValidationFailure("Entity.Property1","Validation error for Property1"){ ErrorCode = "Entity.ValidationFailure1" }),
-                    new(new ValidationFailure("Entity.Property2","Validation error for Property2"){ ErrorCode = "Entity.ValidationFailure2" }),
-                    new(new ValidationFailure("Entity.Property3","Validation error for Property3"){ ErrorCode = "Entity.ValidationFailure3" })
-                }
-        };
+                    new { code = "Entity.ValidationFailure1", description = "Validation error for Property1", value = "InvalidValue" },
+                    new { code = "Entity.ValidationFailure2", description = "Validation error for Property2", value = 123 },
+                    new { code = "Entity.ValidationFailure3", description = "Validation error for Property3", value = true }
+                },
+                ["traceId"] = "0HMPNHL0JHL76:00000001"
+            }
+        }.ToJson();
 
     internal static ProblemDetails SampleUnauthorized401(string instance)
         => new()
@@ -67,24 +79,53 @@ internal static class HttpStatusCodeResponses
             Detail = "An unexpected error occurred while processing the request."
         };
 
-    internal static ProblemHttpResult ToProblemDetails(this IEnumerable<Error> errors, string detail, int? statusCode = StatusCodes.Status500InternalServerError)
+    internal static ProblemHttpResult ToProblemDetails(this ICollection<Error> errors, string detail, string traceId)
     {
+        var statusCode = errors.Any(error => error.Type == ErrorType.Validation)
+            ? StatusCodes.Status400BadRequest
+            : StatusCodes.Status500InternalServerError;
+
         var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
         {
             Detail = detail,
             Status = statusCode,
-            Extensions = { ["errors"] = errors.Select(e => new { e.Code, e.Description }).ToList() }
+            Extensions =
+                {
+                    ["errors"] = errors.Select(e => 
+                    {
+                        var errorObj = new Dictionary<string, object?>
+                        {
+                            ["code"] = e.Code,
+                            ["description"] = e.Description
+                        };
+                        
+                        if (e.Metadata != null)
+                        {
+                            foreach (var kvp in e.Metadata)
+                            {
+                                errorObj[kvp.Key] = kvp.Value;
+                            }
+                        }
+                        
+                        return errorObj;
+                    }).ToList(),
+                    ["traceId"] = traceId
+                }
         };
 
         return TypedResults.Problem(problemDetails);
     }
     
-    internal static ProblemHttpResult ToProblemDetails(this NotFound _)
+    internal static ProblemHttpResult ToProblemDetails(this NotFound _, string traceId)
     {
         var problemDetails = new Microsoft.AspNetCore.Mvc.ProblemDetails
         {
             Detail = "Resource not found",
-            Status = StatusCodes.Status404NotFound
+            Status = StatusCodes.Status404NotFound,
+            Extensions =
+                {
+                    ["traceId"] = traceId
+                }
         };
 
         return TypedResults.Problem(problemDetails);

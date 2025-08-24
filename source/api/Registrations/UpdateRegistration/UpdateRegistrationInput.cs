@@ -12,6 +12,19 @@ public sealed record UpdateRegistrationInput
     public required RegistrationId RegistrationId { get; init; }
 
     /// <summary>
+    /// The ID of the division to update.
+    /// If not specified, the division will not be changed.
+    /// </summary>
+    /// <value></value>
+    public DivisionId? DivisionId { get; init; }
+
+    /// <summary>
+    /// The bowlers average.  This is required for certain divisions
+    /// </summary>
+    /// <value></value>
+    public int? Average { get; init; }  
+
+    /// <summary>
     /// Squad IDs associated with the registration.  This is a complete set of the participant's squads.
     /// If the participant is not in any squads, this will be empty.  If there is no change, this should be null.
     /// </summary>
@@ -19,12 +32,12 @@ public sealed record UpdateRegistrationInput
 
     /// <summary>
     /// IDs of sweepers associated with the registration.  This is a complete set of the participant's sweepers.
-    /// If the participant is not a sweeper, this will be empty.  If there is no change, this should be null.
+    /// If the participant is not in a sweeper, this will be empty.  If there is no change, this should be null.
     /// </summary>
     public IEnumerable<SquadId>? SweeperIds { get; init; }
 
     /// <summary>
-    /// Indicates if the participant is a super sweeper.
+    /// Indicates if the participant is in the super sweeper.
     /// If there is no change, this should be null.
     /// </summary>
     public bool? SuperSweeper { get; init; }
@@ -33,5 +46,5 @@ public sealed record UpdateRegistrationInput
     /// The payment confirmation for the registration if a new payment has been made or a refund has been issued.
     /// If there is no new charge, this should be null.
     /// </summary>
-    public string? PaymentConfirmation { get; init; }
+    public PaymentInput? Payment { get; init; }
 }

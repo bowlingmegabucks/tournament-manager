@@ -1,6 +1,9 @@
 using FastEndpoints;
 using BowlingMegabucks.TournamentManager.Api.BogusData;
 using BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
+using Microsoft.AspNetCore.Http.HttpResults;
+using BowlingMegabucks.TournamentManager.Registrations.CreateRegistration;
+using BowlingMegabucks.TournamentManager.Registrations.AppendRegistration;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistration;
 
@@ -8,7 +11,8 @@ namespace BowlingMegabucks.TournamentManager.Api.Registrations.CreateRegistratio
 /// 
 /// </summary>
 public sealed class CreateRegistrationEndpoint
-    : Endpoint<CreateRegistrationRequest, CreateRegistrationResponse>
+    : Endpoint<CreateRegistrationRequest, Results<CreatedAtRoute<CreateRegistrationResponse>,
+                                                  ProblemHttpResult>>
 {
     /// <summary>
     /// 
@@ -32,9 +36,10 @@ public sealed class CreateRegistrationEndpoint
 
             s.ExampleRequest = new BogusCreateRegistrationRequest();
 
+            var sampleId = RegistrationId.New();
             s.ResponseExamples[StatusCodes.Status201Created] = new CreateRegistrationResponse
             {
-                RegistrationId = RegistrationId.New()
+                RegistrationId = sampleId
             };
             s.ResponseExamples[StatusCodes.Status400BadRequest] = HttpStatusCodeResponses.SampleBadRequest400("/registrations");
             s.ResponseExamples[StatusCodes.Status429TooManyRequests] = HttpStatusCodeResponses.SampleRateLimitExceeded429();
@@ -48,26 +53,112 @@ public sealed class CreateRegistrationEndpoint
         });
     }
 
+    private readonly Abstractions.Messaging.ICommandHandler<CreateRegistrationCommand, RegistrationId> _commandHandler;
+    private readonly Abstractions.Messaging.ICommandHandler<AppendRegistrationCommand, RegistrationId> _appendCommandHandler;
+    private readonly ILogger<CreateRegistrationEndpoint> _logger;
+
     /// <summary>
-    /// 
+    /// Initializes a new instance of the <see cref="CreateRegistrationEndpoint"/> class.
+    /// This constructor is used to inject the command handler for creating registrations.
+    /// </summary>
+    /// <param name="commandHandler"></param>
+    /// <param name="appendCommandHandler"></param>
+    /// <param name="logger"></param>
+    public CreateRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<CreateRegistrationCommand, RegistrationId> commandHandler,
+                                       Abstractions.Messaging.ICommandHandler<AppendRegistrationCommand, RegistrationId> appendCommandHandler,
+                                       ILogger<CreateRegistrationEndpoint> logger)
+    {
+        _commandHandler = commandHandler;
+        _appendCommandHandler = appendCommandHandler;
+        _logger = logger;
+    }
+
+    /// <summary>
+    /// Handles the incoming request to create a new registration.
     /// </summary>
     /// <param name="req"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task HandleAsync(
-        CreateRegistrationRequest req,
-        CancellationToken ct)
+    public override async Task<Results<CreatedAtRoute<CreateRegistrationResponse>, ProblemHttpResult>> ExecuteAsync(CreateRegistrationRequest req, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(req);
 
-        // Logic to create the registration goes here
-        // For example, you might save the registration to a database
+        _logger.LogRequest(req);
 
-        var response = new CreateRegistrationResponse
+        var command = new CreateRegistrationCommand
         {
-            RegistrationId = RegistrationId.New()
+            Bowler = req.Registration.Bowler.ToModel(),
+            TournamentId = req.Registration.TournamentId,
+            DivisionId = req.Registration.DivisionId,
+            Average = req.Registration.Average,
+            Squads = req.Registration.Squads,
+            Sweepers = req.Registration.Sweepers,
+            SuperSweeper = req.Registration.SuperSweeper,
+            Payment = req.Registration.Payment?.ToModel()
         };
 
-        await SendCreatedAtAsync(GetRegistrationEndpoint.EndpointName, new { Id = response.RegistrationId }, response, cancellation: ct);
+        _logger.LogCommand(command);
+
+        var result = await _commandHandler.HandleAsync(command, ct);
+
+        if (!result.IsError)
+        {
+            var response = new CreateRegistrationResponse
+            {
+                RegistrationId = result.Value
+            };
+
+            return TypedResults.CreatedAtRoute(response, GetRegistrationEndpoint.EndpointName, new { Id = response.RegistrationId });
+        }
+
+        return result.FirstError.Type == ErrorOr.ErrorType.Conflict
+            ? await HandleAppendRegistrationAsync(req, ct)
+            : result.Errors.ToProblemDetails("An error occurred while creating the registration.", HttpContext.TraceIdentifier);
     }
+
+    private async Task<Results<CreatedAtRoute<CreateRegistrationResponse>, ProblemHttpResult>> HandleAppendRegistrationAsync(CreateRegistrationRequest req, CancellationToken ct)
+    {
+        var appendRegistrationCommand = new AppendRegistrationCommand
+        {
+            Bowler = req.Registration.Bowler.ToModel(),
+            TournamentId = req.Registration.TournamentId,
+            DivisionId = req.Registration.DivisionId,
+            Squads = req.Registration.Squads,
+            Sweepers = req.Registration.Sweepers,
+            SuperSweeper = req.Registration.SuperSweeper,
+            Average = req.Registration.Average,
+            Payment = req.Registration.Payment?.ToModel()
+        };
+
+        _logger.LogCommand(appendRegistrationCommand);
+
+        var appendResult = await _appendCommandHandler.HandleAsync(appendRegistrationCommand, ct);
+
+        if (!appendResult.IsError)
+        {
+            var response = new CreateRegistrationResponse
+            {
+                RegistrationId = appendResult.Value
+            };
+
+            return TypedResults.CreatedAtRoute(response, GetRegistrationEndpoint.EndpointName, new { Id = response.RegistrationId });
+        }
+
+        return appendResult.Errors.ToProblemDetails("An error occurred while appending the registration.", HttpContext.TraceIdentifier);
+    }
+}
+
+/// <summary>
+/// These should really be debug, but keeping as information for the first year to have good tracking to what is coming in and going to business logic
+/// </summary>
+internal static partial class CreateRegistrationEndpointLogMessages
+{
+    [LoggerMessage(Level = LogLevel.Information, Message = "CreateRegistrationRequest: {@Request}")]
+    public static partial void LogRequest(this ILogger<CreateRegistrationEndpoint> logger, CreateRegistrationRequest request);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "CreateRegistrationCommand: {@Command}")]
+    public static partial void LogCommand(this ILogger<CreateRegistrationEndpoint> logger, CreateRegistrationCommand command);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "AppendRegistrationCommand: {@Command}")]
+    public static partial void LogCommand(this ILogger<CreateRegistrationEndpoint> logger, AppendRegistrationCommand command);
 }

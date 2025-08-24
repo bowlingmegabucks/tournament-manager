@@ -21,7 +21,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_TournamentId_RepositoryRetrieve_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Registration>().BuildMock());
+        _repository.Setup(repository => repository.Retrieve(It.IsAny<TournamentId>())).Returns(Array.Empty<TournamentManager.Database.Entities.Registration>().BuildMock());
         var tournamentId = TournamentId.New();
 
         await _dataLayer.ExecuteAsync(tournamentId, default).ConfigureAwait(false);
@@ -38,6 +38,7 @@ internal sealed class DataLayer
             Bowler = new TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() },
             Squads = Enumerable.Repeat(new TournamentManager.Database.Entities.SquadRegistration(), 2).ToList(),
+            Payments = [],
             SuperSweeper = true,
             Average = 200
         };
@@ -48,6 +49,7 @@ internal sealed class DataLayer
             Bowler = new TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() },
             Squads = Enumerable.Repeat(new TournamentManager.Database.Entities.SquadRegistration(), 2).ToList(),
+            Payments = [],
             SuperSweeper = true,
             Average = 200
         };
@@ -58,6 +60,7 @@ internal sealed class DataLayer
             Bowler = new TournamentManager.Database.Entities.Bowler { Id = BowlerId.New() },
             Division = new TournamentManager.Database.Entities.Division { Id = DivisionId.New() },
             Squads = Enumerable.Repeat(new TournamentManager.Database.Entities.SquadRegistration(), 2).ToList(),
+            Payments = [],
             SuperSweeper = true,
             Average = 200
         };

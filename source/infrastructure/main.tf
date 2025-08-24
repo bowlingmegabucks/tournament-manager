@@ -4,7 +4,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.37.0"
+      version = "~> 4.38.1"
     }
   }
 
@@ -103,7 +103,7 @@ resource "azurerm_monitor_diagnostic_setting" "app_key_vault_diagnostics" {
     category = "AuditEvent"
   }
 
-  metric {
+  enabled_metric {
     category = "AllMetrics"
   }
 }
@@ -188,7 +188,7 @@ resource "azurerm_monitor_diagnostic_setting" "app_service_diagnostics" {
     category = "AppServiceAppLogs"
   }
 
-  metric {
+  enabled_metric {
     category = "AllMetrics"
   }
 }
@@ -223,7 +223,7 @@ resource "azurerm_application_insights_standard_web_test" "api_health_check" {
 
   description   = "Tournament Manager API Health Check"
   enabled       = true
-  frequency     = 300 # Check every 5 minutes
+  frequency     = var.api_health_check_frequency
   timeout       = 30  # Timeout after 30 seconds
   retry_enabled = true
 

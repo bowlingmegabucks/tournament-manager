@@ -68,8 +68,7 @@ internal static partial class GetTournamentsLogMessages
     [LoggerMessage(Level = LogLevel.Trace, Message = "Executing business logic for retrieving tournaments.", EventName = "RetrieveTournaments")]
     public static partial void RetrievingTournaments(this ILogger<GetTournamentsQueryHandlerTelemetryDecorator> logger);
 
-    // need to bring in serilog
-    [LoggerMessage(Level = LogLevel.Error, Message = "Error retrieving tournaments: {@Errors}", EventName = "ErrorRetrievingTournaments")]
+    [LoggerMessage(Level = LogLevel.Information, Message = "Error retrieving tournaments: {@Errors}", EventName = "ErrorRetrievingTournaments")]
     public static partial void ErrorRetrievingTournaments(this ILogger<GetTournamentsQueryHandlerTelemetryDecorator> logger, IEnumerable<Error> errors);
 
     [LoggerMessage(Level = LogLevel.Error, Message = "Error retrieving tournaments", EventName = "ExceptionRetrievingTournaments")]

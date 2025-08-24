@@ -5,8 +5,42 @@ namespace BowlingMegabucks.TournamentManager.IntegrationTests.Divisions;
 
 internal static class DivisionEntityFactory
 {
+    internal static short NextDivisionNumber = 1;
+
     public static IEnumerable<Database.Entities.Division> Bogus(int count, TournamentId tournamentId)
         => new DivisionEntityFaker(tournamentId).Generate(count);
+
+    public static Database.Entities.Division Create(
+        TournamentId tournamentId,
+        string? name = null,
+        short? number = null,
+        short? minimumAge = null,
+        short? maximumAge = null,
+        int? minimumAverage = null,
+        int? maximumAverage = null,
+        decimal? handicapPercentage = null,
+        int? handicapBase = null,
+        int? maximumHandicapPerGame = null,
+        Models.Gender? gender = null)
+            => new()
+            {
+                Id = DivisionId.New(),
+                Name = name ?? "Default Division",
+                TournamentId = tournamentId,
+                Number = number ?? NextDivisionNumber++,
+
+                MinimumAge = minimumAge,
+                MaximumAge = maximumAge,
+
+                MinimumAverage = minimumAverage,
+                MaximumAverage = maximumAverage,
+
+                HandicapPercentage = handicapPercentage,
+                HandicapBase = handicapBase,
+                MaximumHandicapPerGame = maximumHandicapPerGame,
+
+                Gender = gender
+            };
 }
 
 internal sealed class DivisionEntityFaker
@@ -22,7 +56,7 @@ internal sealed class DivisionEntityFaker
 
         RuleFor(division => division.Id, _ => DivisionId.New());
         RuleFor(division => division.TournamentId, _ => tournamentId);
-        RuleFor(division => division.Number, faker => faker.Random.Short(1, 10));
+        RuleFor(division => division.Number, _ => DivisionEntityFactory.NextDivisionNumber++);
 
         RuleFor(division => division.Name, faker => $"{faker.Company.Random.Word()} Division");
 

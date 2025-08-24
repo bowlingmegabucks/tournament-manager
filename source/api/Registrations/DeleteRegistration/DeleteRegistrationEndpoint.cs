@@ -1,3 +1,5 @@
+using BowlingMegabucks.TournamentManager.Registrations.DeleteRegistration;
+using ErrorOr;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 
@@ -7,7 +9,7 @@ namespace BowlingMegabucks.TournamentManager.Api.Registrations.DeleteRegistratio
 /// 
 /// </summary>
 public sealed class DeleteRegistrationEndpoint
-    : Endpoint<DeleteRegistrationRequest>
+    : Endpoint<DeleteRegistrationRequest, Results<NoContent, ProblemHttpResult>>
 {
     /// <summary>
     /// 
@@ -48,20 +50,55 @@ public sealed class DeleteRegistrationEndpoint
         });
     }
 
+    private readonly Abstractions.Messaging.ICommandHandler<DeleteRegistrationCommand, Deleted> _commandHandler;
+    private readonly ILogger<DeleteRegistrationEndpoint> _logger;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="commandHandler"></param>
+    /// <param name="logger"></param>
+    public DeleteRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<DeleteRegistrationCommand, Deleted> commandHandler,
+                                       ILogger<DeleteRegistrationEndpoint> logger)
+    {
+        _commandHandler = commandHandler;
+        _logger = logger;
+    }
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="req"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public override async Task HandleAsync(
-        DeleteRegistrationRequest req,
-        CancellationToken ct)
+    public override async Task<Results<NoContent, ProblemHttpResult>> ExecuteAsync(DeleteRegistrationRequest req, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(req);
 
-        // Logic to delete the registration goes here
+        _logger.LogRequest(req);
 
-        await SendNoContentAsync(ct);
+        var command = new DeleteRegistrationCommand { Id = req.Id };
+
+        _logger.LogCommand(command);
+
+        var result = await _commandHandler.HandleAsync(command, ct);
+
+        return !result.IsError
+            ? TypedResults.NoContent()
+            : result.FirstError.Type == ErrorType.NotFound
+                ? TypedResults.NotFound().ToProblemDetails(HttpContext.TraceIdentifier)
+                : result.Errors.ToProblemDetails("An error occurred while deleting the registration.", HttpContext.TraceIdentifier);
     }
+}
+
+/// <summary>
+/// These should really be debug, but keeping as information for the first year to have good tracking to what is coming in and going to business logic
+/// </summary>
+internal static partial class DeleteRegistrationEndpointLogMessages
+{
+    [LoggerMessage(Level = LogLevel.Information, Message = "DeleteRegistrationRequest: {@Request}")]
+    public static partial void LogRequest(this ILogger<DeleteRegistrationEndpoint> logger, DeleteRegistrationRequest request);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "DeleteRegistrationCommand: {@Command}")]
+    public static partial void LogCommand(this ILogger<DeleteRegistrationEndpoint> logger, DeleteRegistrationCommand command);
 }

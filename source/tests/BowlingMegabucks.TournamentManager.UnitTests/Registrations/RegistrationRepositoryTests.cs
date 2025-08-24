@@ -19,9 +19,12 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_RegistrationAddedWithId()
     {
-        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Registration>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Array.Empty<TournamentManager.Database.Entities.Registration>().SetUpDbContext());
 
-        var registration = new TournamentManager.Database.Entities.Registration();
+        var registration = new TournamentManager.Database.Entities.Registration()
+        { 
+            BowlerId = BowlerId.New(),
+        };
 
         var id = await _repository.AddAsync(registration, default).ConfigureAwait(false);
 
@@ -31,9 +34,13 @@ internal sealed class Repository
     [Test]
     public async Task AddAsync_DataContextSaveChanges_Called()
     {
-        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Registration>().SetUpDbContext());
+        _dataContext.Setup(dataContext => dataContext.Registrations).Returns(Array.Empty<TournamentManager.Database.Entities.Registration>().SetUpDbContext());
 
-        var registration = new TournamentManager.Database.Entities.Registration();
+        var registration = new TournamentManager.Database.Entities.Registration()
+        { 
+            BowlerId = BowlerId.New(),
+        };
+        
         CancellationToken cancellationToken = default;
 
         await _repository.AddAsync(registration, cancellationToken).ConfigureAwait(false);

@@ -1,21 +1,19 @@
 ﻿
 namespace BowlingMegabucks.TournamentManager.Registrations;
+
 internal class EntityMapper : IEntityMapper
 {
     private readonly Bowlers.IEntityMapper _bowlerMapper;
-
-    public EntityMapper()
-    {
-        _bowlerMapper = new Bowlers.EntityMapper();
-    }
+    private readonly IPaymentEntityMapper _paymentMapper;
 
     /// <summary>
-    /// Unit Test Constructor
+    /// 
     /// </summary>
     /// <param name="bowlerMapper"></param>
-    internal EntityMapper(Bowlers.IEntityMapper bowlerMapper)
+    public EntityMapper(Bowlers.IEntityMapper bowlerMapper, IPaymentEntityMapper paymentMapper)
     {
         _bowlerMapper = bowlerMapper;
+        _paymentMapper = paymentMapper;
     }
 
     public Database.Entities.Registration Execute(Models.Registration registration)
@@ -26,12 +24,13 @@ internal class EntityMapper : IEntityMapper
             Bowler = _bowlerMapper.Execute(registration.Bowler),
             DivisionId = registration.Division.Id,
             Average = registration.Average,
-            Squads = registration.Squads.Select(squad => squad.Id).Union(registration.Sweepers.Select(sweeper => sweeper.Id)).Select(
+            Squads = [.. registration.Squads.Select(squad => squad.Id).Union(registration.Sweepers.Select(sweeper => sweeper.Id)).Select(
                 id => new Database.Entities.SquadRegistration
                 {
                     RegistrationId = registration.Id,
                     SquadId = id
-                }).ToList(),
+                })],
+            Payments = [.. registration.Payments.Select(_paymentMapper.Execute)],
             SuperSweeper = registration.SuperSweeper
         };
 }

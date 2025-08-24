@@ -1,6 +1,7 @@
 using BowlingMegabucks.TournamentManager.Api.Divisions;
 using BowlingMegabucks.TournamentManager.Api.Squads;
 using BowlingMegabucks.TournamentManager.Api.Sweepers;
+using BowlingMegabucks.TournamentManager.Models;
 
 namespace BowlingMegabucks.TournamentManager.Api.Registrations.GetRegistration;
 
@@ -43,4 +44,19 @@ public sealed record RegistrationDetailDto
     /// Indicates whether the bowler is registered for the Super Sweeper event.
     /// </summary>
     public required bool SuperSweeper { get; init; }
+}
+
+internal static class RegistrationExtensions
+{
+    public static RegistrationDetailDto ToDto(this Registration registration)
+        => new()
+        {
+            Id = registration.Id,
+            TournamentId = registration.TournamentId,
+            Bowler = registration.Bowler.ToDto(),
+            Division = registration.Division.ToDto(),
+            Squads = registration.Squads.Select(squad => squad.ToDto()),
+            Sweepers = registration.Sweepers.Select(sweeper => sweeper.ToDto()),
+            SuperSweeper = registration.SuperSweeper
+        };
 }

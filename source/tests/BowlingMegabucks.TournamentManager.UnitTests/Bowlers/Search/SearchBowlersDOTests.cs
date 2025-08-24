@@ -20,7 +20,7 @@ internal sealed class DataLayer
     [Test]
     public async Task ExecuteAsync_RepositorySearch_CalledCorrectly()
     {
-        _repository.Setup(repository => repository.Search(It.IsAny<TournamentManager.Models.BowlerSearchCriteria>())).Returns(Enumerable.Empty<TournamentManager.Database.Entities.Bowler>().BuildMock());
+        _repository.Setup(repository => repository.Search(It.IsAny<TournamentManager.Models.BowlerSearchCriteria>())).Returns(Array.Empty<TournamentManager.Database.Entities.Bowler>().BuildMock());
         var searchCriteria = new TournamentManager.Models.BowlerSearchCriteria();
 
         await _dataLayer.ExecuteAsync(searchCriteria, default).ConfigureAwait(false);

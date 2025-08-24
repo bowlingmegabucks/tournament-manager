@@ -68,6 +68,11 @@ internal class Repository : IRepository
             bowlers = bowlers.Where(bowler => bowler.Id == searchCriteria.BowlerId.Value);
         }
 
+        if (searchCriteria.UsbcId is not null)
+        {
+            bowlers = bowlers.Where(bowler => bowler.USBCId == searchCriteria.UsbcId);
+        }
+
         if (searchCriteria.WithoutRegistrationOnSquads.Any())
         {
             var excludeIds = new List<BowlerId>();
@@ -114,7 +119,7 @@ internal class Repository : IRepository
         current.StateAddress = bowler.StateAddress;
         current.ZipCode = bowler.ZipCode;
         current.EmailAddress = bowler.EmailAddress;
-        current.PhoneNumber = bowler.PhoneNumber;
+        current.PhoneNumber = bowler.PhoneNumber.NormalizePhoneNumber();
         current.DateOfBirth = bowler.DateOfBirth;
         current.SocialSecurityNumber = bowler.SocialSecurityNumber;
         current.Gender = bowler.Gender;

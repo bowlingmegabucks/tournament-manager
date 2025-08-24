@@ -38,6 +38,8 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
@@ -49,10 +51,6 @@
 
 	<ItemGroup>
 	  <EditorConfigFiles Remove="C:\source\northeast-megabuck-tournament-winform\source\business logic\Database\Migrations\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="C:\source\northeast-megabuck-tournament-winform\source\business logic\Database\Migrations\.editorconfig" />
 	</ItemGroup>
 
 </Project>
