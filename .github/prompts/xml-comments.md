@@ -1,6 +1,6 @@
 # XML Comments Prompt Instructions
 
-When asked to add or update XML comments in C# code, always follow these guidelines, based on Microsoft's official recommendations for API documentation:
+When asked to add or update XML comments in C# code, always follow these guidelines, based on Microsoft's official recommendations and ASP.NET Core OpenAPI integration:
 
 ## General Principles
 - All publicly visible types and their public members should be documented with XML comments.
@@ -8,42 +8,37 @@ When asked to add or update XML comments in C# code, always follow these guideli
 - Write documentation text in complete sentences ending with full stops.
 - Documentation must be well-formed XML.
 
-## Recommended XML Tags
+## OpenAPI XML Documentation Support in ASP.NET Core
+- ASP.NET Core automatically extracts XML documentation comments to populate OpenAPI (Swagger) docs if `<GenerateDocumentationFile>true</GenerateDocumentationFile>` is set in the project file.
+- XML comments are detected in the application assembly and referenced assemblies with XML documentation enabled.
+- No extra code is needed—just ensure XML docs are generated and the OpenAPI/Swagger package is used.
 
-### General Tags
-- `<summary>`: Required. Describes the type or member. Displayed in IntelliSense.
+## Supported XML Tags for OpenAPI
+The following tags are supported and recommended for API documentation:
+
+- `<summary>`: Required. Describes the type or member. Displayed in IntelliSense and OpenAPI docs.
 - `<remarks>`: Optional. Adds supplemental information, longer explanations, or examples. Can include `<para>`, `<code>`, and other formatting tags.
-
-### Member-Specific Tags
 - `<param name="name">`: Describes a method parameter. Required for each parameter in methods.
 - `<returns>`: Describes the return value of a method.
+- `<response code="XXX">`: Documents HTTP responses for endpoints (e.g., `<response code="404">Not found</response>`).
+- `<example>`: Provides a usage or value example. For OpenAPI, use for types, properties, and methods.
+- `<deprecated>`: Marks a member as deprecated.
 - `<exception cref="ExceptionType">`: Documents exceptions that may be thrown.
 - `<value>`: Describes the value a property represents.
-- `<example>`: Provides a usage or value example. For OpenAPI, use for properties and methods.
-
-### Formatting and Structure
-- `<para>`: For paragraphs within `<summary>`, `<remarks>`, or `<returns>`.
-- `<list>`, `<item>`, `<listheader>`: For lists or tables.
-- `<c>`: Inline code.
-- `<code>`: Multi-line code or JSON examples.
-- `<b>`, `<i>`, `<u>`, `<br/>`, `<a>`: For formatting and links.
-
-### Reuse and References
 - `<inheritdoc>`: Inherit documentation from base/interface.
 - `<include>`: Include documentation from an external XML file.
 - `<see cref="TypeOrMember">`, `<seealso cref="TypeOrMember">`: Reference other code elements.
 - `<see href="url">`, `<seealso href="url">`: Reference external URLs.
-
-### Generics
-- `<typeparam name="T">`: Describes a generic type parameter.
-- `<typeparamref name="T">`: Refers to a generic type parameter in text.
+- `<para>`, `<list>`, `<item>`, `<listheader>`, `<c>`, `<code>`, `<b>`, `<i>`, `<u>`, `<br/>`, `<a>`: For formatting and structure.
+- `<typeparam name="T">`, `<typeparamref name="T">`: For generics.
 
 ## Best Practices for API Documentation
-- Use `<example>` tags for properties and methods to improve OpenAPI/Swagger output.
+- Use `<example>` tags for types, properties, and methods to improve OpenAPI/Swagger output.
 - For models, include a JSON example in `<remarks>` using `<code language="json">`.
 - If a property is optional or nullable, note this in the `<summary>`.
 - Use `<exception>` tags for methods that can throw exceptions.
 - Use `<param>` and `<returns>` for all methods.
+- Use `<response>` tags for endpoints to document HTTP status codes.
 - Use `<inheritdoc>` for overrides and interface implementations when appropriate.
 - Use `<see>` and `<seealso>` for cross-references.
 
@@ -88,5 +83,7 @@ public sealed record HealthCheckDetail
 - Always use well-formed XML.
 - Use `<paramref>`, `<typeparamref>`, and `cref` attributes for references.
 - Use `<inheritdoc>` to avoid duplicating documentation for overrides and interface implementations.
+- ASP.NET Core OpenAPI integration automatically includes XML comments from referenced projects with XML docs enabled.
+- Use `<response>` and `<example>` tags to maximize OpenAPI/Swagger discoverability.
 
 Always apply these standards unless otherwise specified.
