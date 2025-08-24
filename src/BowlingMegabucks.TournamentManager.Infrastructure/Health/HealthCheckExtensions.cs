@@ -57,14 +57,14 @@ internal static class HealthCheckExtensions
         {
             HealthReport report = await healthChecks.CheckHealthAsync(cancellationToken);
 
-            var details = report.Entries.ToDictionary(
-                entry => entry.Key,
-                entry => new HealthCheckDetail
+            IEnumerable<HealthCheckDetail> details = report.Entries.Select(entry =>
+                new HealthCheckDetail
                 {
+                    Name = entry.Key,
                     Status = entry.Value.Status.ToString(),
                     Description = entry.Value.Description,
                     Duration = entry.Value.Duration,
-                }, StringComparer.OrdinalIgnoreCase);
+                });
 
             var result = new HealthCheckResponse
             {

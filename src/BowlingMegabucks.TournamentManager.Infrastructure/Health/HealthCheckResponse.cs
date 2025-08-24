@@ -35,6 +35,5 @@ public sealed record HealthCheckResponse
     /// <summary>
     /// A dictionary containing the results of individual health checks, keyed by component name.
     /// </summary>
-    /// <example>{ "database": { "status": "Healthy", "description": "Database connection is healthy.", "duration": "00:00:00.1234567" } }</example>
-    public required IReadOnlyDictionary<string, HealthCheckDetail> Details { get; init; }
+    public required IEnumerable<HealthCheckDetail> Details { get; init; }
 }

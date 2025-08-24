@@ -16,6 +16,12 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure.Health;
 public sealed record HealthCheckDetail
 {
     /// <summary>
+    /// The name of the health check.
+    /// </summary>
+    /// <example>Database</example>
+    public required string Name { get; init; }
+
+    /// <summary>
     /// The status of the health check (e.g., "Healthy", "Unhealthy").
     /// </summary>
     /// <example>Healthy</example>

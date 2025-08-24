@@ -11,8 +11,7 @@ internal static class OpenApiExtensions
         builder.Services.Configure<ScalarOptions>(options =>
         {
             options
-                .WithTitle("Bowling Megabucks Tournament Manager API")
-                .xml;
+                .WithTitle("Bowling Megabucks Tournament Manager API");
         });
 
         return builder;
