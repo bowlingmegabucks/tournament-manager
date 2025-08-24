@@ -2,8 +2,10 @@ using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 
 namespace BowlingMegabucks.TournamentManager.Registrations.AppendRegistration;
 
+/// <summary>
 /// Command to append to an existing registration.
 /// </summary>
+/// <value></value>
 public record AppendRegistrationCommand
     : ICommand<RegistrationId>
 {
