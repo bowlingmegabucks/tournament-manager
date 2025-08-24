@@ -1,7 +1,12 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace BowlingMegabucks.TournamentManager.Infrastructure.Health;
 
+[SuppressMessage(
+    "Performance",
+    "CA1812:Avoid uninstantiated internal classes",
+    Justification = "Instantiated by dependency injection container.")]
 internal sealed class SelfHealthCheck
     : IHealthCheck
 {
