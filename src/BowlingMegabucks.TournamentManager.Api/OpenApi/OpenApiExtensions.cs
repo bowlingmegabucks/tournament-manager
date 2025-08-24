@@ -6,7 +6,8 @@ internal static class OpenApiExtensions
 {
     public static WebApplicationBuilder AddOpenApi(this WebApplicationBuilder builder)
     {
-        builder.Services.AddOpenApi();
+        builder.Services.AddOpenApi(options => options
+            .AddDocumentTransformer<BasicOpenApiDocumentTransformer>());
 
         builder.Services.Configure<ScalarOptions>(options =>
         {
