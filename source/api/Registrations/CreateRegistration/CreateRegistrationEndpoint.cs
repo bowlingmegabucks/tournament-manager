@@ -55,6 +55,7 @@ public sealed class CreateRegistrationEndpoint
 
     private readonly Abstractions.Messaging.ICommandHandler<CreateRegistrationCommand, RegistrationId> _commandHandler;
     private readonly Abstractions.Messaging.ICommandHandler<AppendRegistrationCommand, RegistrationId> _appendCommandHandler;
+    private readonly ILogger<CreateRegistrationEndpoint> _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CreateRegistrationEndpoint"/> class.
@@ -62,11 +63,14 @@ public sealed class CreateRegistrationEndpoint
     /// </summary>
     /// <param name="commandHandler"></param>
     /// <param name="appendCommandHandler"></param>
+    /// <param name="logger"></param>
     public CreateRegistrationEndpoint(Abstractions.Messaging.ICommandHandler<CreateRegistrationCommand, RegistrationId> commandHandler,
-                                       Abstractions.Messaging.ICommandHandler<AppendRegistrationCommand, RegistrationId> appendCommandHandler)
+                                       Abstractions.Messaging.ICommandHandler<AppendRegistrationCommand, RegistrationId> appendCommandHandler,
+                                       ILogger<CreateRegistrationEndpoint> logger)
     {
         _commandHandler = commandHandler;
         _appendCommandHandler = appendCommandHandler;
+        _logger = logger;
     }
 
     /// <summary>
@@ -79,6 +83,8 @@ public sealed class CreateRegistrationEndpoint
     {
         ArgumentNullException.ThrowIfNull(req);
 
+        _logger.LogRequest(req);
+
         var command = new CreateRegistrationCommand
         {
             Bowler = req.Registration.Bowler.ToModel(),
@@ -90,6 +96,8 @@ public sealed class CreateRegistrationEndpoint
             SuperSweeper = req.Registration.SuperSweeper,
             Payment = req.Registration.Payment?.ToModel()
         };
+
+        _logger.LogCommand(command);
 
         var result = await _commandHandler.HandleAsync(command, ct);
 
@@ -122,6 +130,8 @@ public sealed class CreateRegistrationEndpoint
             Payment = req.Registration.Payment?.ToModel()
         };
 
+        _logger.LogCommand(appendRegistrationCommand);
+
         var appendResult = await _appendCommandHandler.HandleAsync(appendRegistrationCommand, ct);
 
         if (!appendResult.IsError)
@@ -136,4 +146,19 @@ public sealed class CreateRegistrationEndpoint
 
         return appendResult.Errors.ToProblemDetails("An error occurred while appending the registration.", HttpContext.TraceIdentifier);
     }
+}
+
+/// <summary>
+/// These should really be debug, but keeping as information for the first year to have good tracking to what is coming in and going to business logic
+/// </summary>
+internal static partial class CreateRegistrationEndpointLogMessages
+{
+    [LoggerMessage(Level = LogLevel.Information, Message = "CreateRegistrationRequest: {@Request}")]
+    public static partial void LogRequest(this ILogger<CreateRegistrationEndpoint> logger, CreateRegistrationRequest request);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "CreateRegistrationCommand: {@Command}")]
+    public static partial void LogCommand(this ILogger<CreateRegistrationEndpoint> logger, CreateRegistrationCommand command);
+
+    [LoggerMessage(Level = LogLevel.Information, Message = "AppendRegistrationCommand: {@Command}")]
+    public static partial void LogCommand(this ILogger<CreateRegistrationEndpoint> logger, AppendRegistrationCommand command);
 }
