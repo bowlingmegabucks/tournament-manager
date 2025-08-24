@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.Infrastructure.Health;
 using BowlingMegabucks.TournamentManager.Infrastructure.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +21,10 @@ public static class InfrastructureExtensions
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.Services.AddErrorHandling();
+        builder.AddHealthChecks();
+
+        builder.Services
+            .AddErrorHandling();
 
         return builder;
     }
@@ -37,6 +41,8 @@ public static class InfrastructureExtensions
         ArgumentNullException.ThrowIfNull(app);
 
         app.UseExceptionHandler();
+
+        app.MapHealthCheckRoute();
 
         return app;
     }
