@@ -19,15 +19,7 @@ internal static class HealthCheckExtensions
                 tags: ["ready"]);
 
         builder.Services
-            .AddHealthChecksUI(setup =>
-            {
-                setup.AddHealthCheckEndpoint("Tournament Manager Api", HealthCheckEndpoint);
-
-                setup.MaximumHistoryEntriesPerEndpoint(50);
-                setup.SetEvaluationTimeInSeconds(30); // Poll every 30 seconds (default is 10)
-                setup.SetApiMaxActiveRequests(1);     // Limit concurrent API requests to avoid overload
-                setup.SetHeaderText("Tournament Manager Health Dashboard");
-            })
+            .AddHealthChecksUI()
             .AddInMemoryStorage();
 
         return builder;
