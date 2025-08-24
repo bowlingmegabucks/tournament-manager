@@ -1,22 +1,21 @@
+using BowlingMegabucks.TournamentManager.Api.OpenApi;
 using BowlingMegabucks.TournamentManager.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
+builder.AddOpenApi();
 
 builder.AddInfrastructureServices();
 
 WebApplication app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.UseOpenApi();
 
 app.UseInfrastructure();
 
 app.MapGet("/", () => "Tournament Manager API")
-    .Produces<string>(StatusCodes.Status200OK);
+    .Produces<string>(StatusCodes.Status200OK)
+    .WithTags("Initial");
 
 app.MapGet("/error", () =>
 {
@@ -27,6 +26,7 @@ app.MapGet("/error", () =>
 
 })
     .Produces<string>(StatusCodes.Status200OK)
-    .ProducesProblem(StatusCodes.Status500InternalServerError);
+    .ProducesProblem(StatusCodes.Status500InternalServerError)
+    .WithTags("Initial");
 
 await app.RunAsync();
