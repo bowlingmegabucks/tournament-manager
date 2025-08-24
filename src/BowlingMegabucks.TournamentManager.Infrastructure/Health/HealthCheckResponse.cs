@@ -33,7 +33,7 @@ public sealed record HealthCheckResponse
     public required string Status { get; init; }
 
     /// <summary>
-    /// A dictionary containing the results of individual health checks, keyed by component name.
+    /// A collection of detailed results for each individual health check component.
     /// </summary>
     public required IEnumerable<HealthCheckDetail> Details { get; init; }
 }
