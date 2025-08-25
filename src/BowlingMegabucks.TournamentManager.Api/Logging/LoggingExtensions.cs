@@ -11,4 +11,12 @@ internal static class LoggingExtensions
 
         return builder;
     }
+
+    public static WebApplication UseLogging(this WebApplication app)
+    {
+        app.UseMiddleware<RequestContextLoggingMiddleware>();
+        app.UseSerilogRequestLogging();
+
+        return app;
+    }
 }
