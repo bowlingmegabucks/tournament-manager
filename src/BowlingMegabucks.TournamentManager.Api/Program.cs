@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.Api.Logging;
 using BowlingMegabucks.TournamentManager.Api.OpenApi;
 using BowlingMegabucks.TournamentManager.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -5,22 +6,37 @@ using Scalar.AspNetCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.AddOpenApi();
+if (builder.Environment.IsDevelopment() &&
+    builder.Configuration.GetValue<bool>("DOTNET_USE_DOCKER_JSON"))
+{
+    builder.Configuration.AddJsonFile("appsettings.Docker.Development.json", optional: true, reloadOnChange: true);
+}
 
-builder.AddInfrastructureServices();
+builder.Services.AddHttpContextAccessor();
+
+builder
+    .AddLogging()
+    .AddOpenApi()
+    .AddInfrastructureServices();
 
 WebApplication app = builder.Build();
 
-app.UseOpenApi();
+app
+    .UseOpenApi()
+    .UseInfrastructure();
 
-app.UseInfrastructure();
-
-app.MapGet("/", () => TypedResults.Ok("Tournament Manager API"))
+app.MapGet("/", (IConfiguration config)
+    => TypedResults.Ok($"Tournament Manager API Health UI: {config["HealthChecksUI:HealthChecks:0:Uri"]}"))
     .WithTags("Initial")
     .Deprecated();
 
-app.MapGet("/error", () =>
+app.MapGet("/error", (ILoggerFactory loggerFactory) =>
 {
+    ILogger logger = loggerFactory.CreateLogger("Error");
+#pragma warning disable CA1848 // Use the LoggerMessage delegates
+    logger.LogInformation("Testing Log");
+#pragma warning restore CA1848 // Use the LoggerMessage delegates
+
     if (2 + 2 == 4)
     {
         throw new InvalidOperationException("Test exception");
