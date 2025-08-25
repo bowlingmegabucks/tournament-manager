@@ -6,6 +6,12 @@ using Scalar.AspNetCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+if (builder.Environment.IsDevelopment() &&
+    builder.Configuration.GetValue<bool>("DOTNET_USE_DOCKER_JSON"))
+{
+    builder.Configuration.AddJsonFile("appsettings.Docker.Development.json", optional: true, reloadOnChange: true);
+}
+
 builder.Services.AddHttpContextAccessor();
 
 builder
@@ -19,7 +25,8 @@ app
     .UseOpenApi()
     .UseInfrastructure();
 
-app.MapGet("/", () => TypedResults.Ok("Tournament Manager API"))
+app.MapGet("/", (IConfiguration config)
+    => TypedResults.Ok($"Tournament Manager API Health UI: {config["HealthChecksUI:HealthChecks:0:Uri"]}"))
     .WithTags("Initial")
     .Deprecated();
 
