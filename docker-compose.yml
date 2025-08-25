@@ -1,6 +1,18 @@
 name: megabucks_tournament_manager
 
 services:
+  api:
+    container_name: tournament_manager_api
+    image: tournament-manager-api
+    build:
+      context: .
+      dockerfile: src/BowlingMegabucks.TournamentManager.Api/Dockerfile
+    ports:
+      - 5100:8080
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://telemetry:18889"
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
   telemetry:
     container_name: megabucks_tournament_manager_telemetry
     image: mcr.microsoft.com/dotnet/aspire-dashboard
