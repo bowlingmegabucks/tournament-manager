@@ -28,15 +28,14 @@ app
     .UseOpenApi()
     .UseInfrastructure();
 
-ApiVersionSet version1Set = app.BuildVersionSet(1);
+ApiVersionSet versionSet = app.BuildVersionSet(1);
 
 RouteGroupBuilder group = app.MapGroup("api/v{version:apiVersion}")
-    .WithApiVersionSet(version1Set);
+    .WithApiVersionSet(versionSet);
 
 group.MapGet("/", (IConfiguration config)
     => TypedResults.Ok($"Tournament Manager API Health UI: {config["HealthChecksUI:HealthChecks:0:Uri"]}"))
     .WithTags("Initial")
-    .WithApiVersionSet(version1Set)
     .MapToApiVersion(1)
     .Deprecated();
 
@@ -60,7 +59,6 @@ group.MapGet("/error", (ILoggerFactory loggerFactory) =>
     .Produces<List<int>>(StatusCodes.Status200OK)
     .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
     .WithTags("Initial")
-    .WithApiVersionSet(version1Set)
     .MapToApiVersion(1);
 
 await app.RunAsync();

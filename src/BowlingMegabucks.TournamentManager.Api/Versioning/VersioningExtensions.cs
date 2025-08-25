@@ -5,6 +5,8 @@ namespace BowlingMegabucks.TournamentManager.Api.Versioning;
 
 internal static class VersioningExtensions
 {
+    internal const string Version1 = "v1";
+    
     public static WebApplicationBuilder AddVersioning(this WebApplicationBuilder builder)
     {
         builder.Services.AddApiVersioning(options =>
