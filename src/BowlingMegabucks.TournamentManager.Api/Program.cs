@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.Api.Logging;
 using BowlingMegabucks.TournamentManager.Api.OpenApi;
 using BowlingMegabucks.TournamentManager.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -5,15 +6,16 @@ using Scalar.AspNetCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.AddOpenApi();
-
-builder.AddInfrastructureServices();
+builder
+    .AddLogging()
+    .AddOpenApi()
+    .AddInfrastructureServices();
 
 WebApplication app = builder.Build();
 
-app.UseOpenApi();
-
-app.UseInfrastructure();
+app
+    .UseOpenApi()
+    .UseInfrastructure();
 
 app.MapGet("/", () => TypedResults.Ok("Tournament Manager API"))
     .WithTags("Initial")

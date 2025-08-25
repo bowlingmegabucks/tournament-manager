@@ -2,6 +2,7 @@
     "dotnet-test-explorer.testProjectPath": "tests/**/*Tests.csproj",
 
     "cSpell.words": [
+        "Serilog",
         "uninstantiated",
         "xunit"
     ]
