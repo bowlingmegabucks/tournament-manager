@@ -1,5 +1,7 @@
 using BowlingMegabucks.TournamentManager.Api.OpenApi;
 using BowlingMegabucks.TournamentManager.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Scalar.AspNetCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +15,9 @@ app.UseOpenApi();
 
 app.UseInfrastructure();
 
-app.MapGet("/", () => "Tournament Manager API")
-    .Produces<string>(StatusCodes.Status200OK)
-    .WithTags("Initial");
+app.MapGet("/", () => TypedResults.Ok("Tournament Manager API"))
+    .WithTags("Initial")
+    .Deprecated();
 
 app.MapGet("/error", () =>
 {
@@ -25,8 +27,12 @@ app.MapGet("/error", () =>
     }
 
 })
-    .Produces<string>(StatusCodes.Status200OK)
-    .ProducesProblem(StatusCodes.Status500InternalServerError)
+    .WithSummary("Throws an exception for testing purposes.")
+    .WithDescription("This endpoint is used to test the error handling.")
+    .WithName("Error Handling Test")
+    .Accepts<List<int>>("application/json")
+    .Produces<List<int>>(StatusCodes.Status200OK)
+    .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
     .WithTags("Initial");
 
 await app.RunAsync();
