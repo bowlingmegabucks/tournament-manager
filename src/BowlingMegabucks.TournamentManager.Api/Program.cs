@@ -23,8 +23,13 @@ app.MapGet("/", () => TypedResults.Ok("Tournament Manager API"))
     .WithTags("Initial")
     .Deprecated();
 
-app.MapGet("/error", () =>
+app.MapGet("/error", (ILoggerFactory loggerFactory) =>
 {
+    ILogger logger = loggerFactory.CreateLogger("Error");
+#pragma warning disable CA1848 // Use the LoggerMessage delegates
+    logger.LogInformation("Testing Log");
+#pragma warning restore CA1848 // Use the LoggerMessage delegates
+
     if (2 + 2 == 4)
     {
         throw new InvalidOperationException("Test exception");

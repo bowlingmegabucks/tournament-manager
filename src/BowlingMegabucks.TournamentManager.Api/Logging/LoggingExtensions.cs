@@ -30,7 +30,6 @@ internal static class LoggingExtensions
 
     public static WebApplication UseLogging(this WebApplication app)
     {
-        app.UseMiddleware<RequestContextLoggingMiddleware>();
         app.UseSerilogRequestLogging();
 
         return app;
