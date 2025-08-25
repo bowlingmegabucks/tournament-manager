@@ -1,0 +1,12 @@
+name: megabucks_tournament_manager
+
+services:
+  telemetry:
+    container_name: megabucks_tournament_manager_telemetry
+    image: mcr.microsoft.com/dotnet/aspire-dashboard
+    restart: always
+    environment:
+      DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: true
+    ports:
+      - 18888:18888
+      - 4317:18889
