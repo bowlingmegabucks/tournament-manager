@@ -35,6 +35,22 @@
             "Serilog",
             "uninstantiated",
             "xunit"
+        ],
+        "sqltools.connections": [
+            {
+                "mysqlOptions": {
+                    "authProtocol": "default",
+                    "enableSsl": "Disabled"
+                },
+                "previewLimit": 50,
+                "server": "localhost",
+                "port": 23306,
+                "driver": "MariaDB",
+                "name": "localhost",
+                "group": "Bowling Megabucks",
+                "database": "tournament_manager",
+                "username": "local_user"
+            }
         ]
     },
     "extensions": {
