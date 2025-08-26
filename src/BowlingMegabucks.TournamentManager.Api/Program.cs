@@ -28,10 +28,10 @@ app
     .UseOpenApi()
     .UseInfrastructure();
 
-ApiVersionSet versionSet = app.BuildVersionSet(1);
+ApiVersionSet initialVersionSet = app.BuildVersionSet(1);
 
 RouteGroupBuilder group = app.MapGroup("api/v{version:apiVersion}")
-    .WithApiVersionSet(versionSet);
+    .WithApiVersionSet(initialVersionSet);
 
 group.MapGet("/", (IConfiguration config)
     => TypedResults.Ok($"Tournament Manager API Health UI: {config["HealthChecksUI:HealthChecks:0:Uri"]}"))
