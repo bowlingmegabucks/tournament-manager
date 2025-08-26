@@ -8,15 +8,13 @@ using Scalar.AspNetCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add Docker config conditionally after environment variables are loaded
-
-builder.Configuration.AddJsonFile("appsettings.Infrastructure.json", optional: false, reloadOnChange: true);
-
 if (builder.Environment.IsDevelopment() &&
     builder.Configuration.GetValue<bool>("DOTNET_USE_DOCKER_JSON"))
 {
     builder.Configuration.AddJsonFile("appsettings.Docker.Development.json", optional: true, reloadOnChange: true);
 }
+
+Console.WriteLine($"Using query timeout : {builder.Configuration.GetValue<string>("QueryPerformance:SlowQueryThresholdMilliseconds")}");
 
 builder.Services.AddHttpContextAccessor();
 
