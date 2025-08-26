@@ -14,7 +14,6 @@ if (builder.Environment.IsDevelopment() &&
     builder.Configuration.AddJsonFile("appsettings.Docker.Development.json", optional: true, reloadOnChange: true);
 }
 
-Console.WriteLine($"Using query timeout : {builder.Configuration.GetValue<string>("QueryPerformance:SlowQueryThresholdMilliseconds")}");
 
 builder.Services.AddHttpContextAccessor();
 
