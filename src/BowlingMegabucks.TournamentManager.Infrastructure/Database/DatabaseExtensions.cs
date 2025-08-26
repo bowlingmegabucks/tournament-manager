@@ -10,8 +10,6 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure.Database;
 
 internal static class DatabaseExtensions
 {
-    internal static readonly MySqlServerVersion s_mariaDbServerVersion = new(new Version(11, 4, 7));
-
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config, IWebHostEnvironment environment)
     {
         services.Configure<SlowQueryOptions>(config.GetSection("QueryPerformance"));
@@ -38,7 +36,7 @@ internal static class DatabaseExtensions
         options.UseMySql(
                 config.GetConnectionString("TournamentManager")
                     ?? throw new InvalidOperationException("Cannot get connection string TournamentManager"),
-                s_mariaDbServerVersion,
+                config.GetMariaDbServerVersion(),
                 mySqlOptions => mySqlOptions.EnableRetryOnFailure(3))
             .EnableSensitiveDataLogging(environment.IsDevelopment())
             .EnableDetailedErrors(environment.IsDevelopment())
@@ -46,5 +44,15 @@ internal static class DatabaseExtensions
                 serviceProvider.GetRequiredService<AuditInterceptor>(),
                 serviceProvider.GetRequiredService<SlowQueryInterceptor>())
             .UseExceptionProcessor();
+    }
+
+    internal static MySqlServerVersion GetMariaDbServerVersion(this IConfiguration config)
+    {
+        string mariaDbVersionString = config.GetValue<string>("Database:MariaDbVersion")
+            ?? throw new InvalidOperationException("Cannot get MariaDB version from configuration at Database:MariaDbVersion");
+
+        return Version.TryParse(mariaDbVersionString, out Version? mariaDbVersion)
+            ? new MySqlServerVersion(mariaDbVersion)
+            : throw new InvalidOperationException($"Cannot parse MariaDB version '{mariaDbVersionString}' from configuration at Database:MariaDbVersion");
     }
 }

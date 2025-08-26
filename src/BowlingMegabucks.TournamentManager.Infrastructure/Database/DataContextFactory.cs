@@ -22,9 +22,11 @@ internal sealed class DataContextFactory
         string connectionString = configuration.GetConnectionString("TournamentManager")
             ?? throw new InvalidOperationException("Cannot get connection string TournamentManager");
 
-        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        optionsBuilder.UseMySql(connectionString,
-            DatabaseExtensions.s_mariaDbServerVersion, mySqlOptions => mySqlOptions.EnableRetryOnFailure(3));
+        DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseMySql(
+                connectionString,
+                configuration.GetMariaDbServerVersion(),
+                mySqlOptions => mySqlOptions.EnableRetryOnFailure(3));
 
         return new ApplicationDbContext(optionsBuilder.Options);
     }

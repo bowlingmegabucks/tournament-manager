@@ -8,6 +8,10 @@ using Scalar.AspNetCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+// Add Docker config conditionally after environment variables are loaded
+
+builder.Configuration.AddJsonFile("appsettings.Infrastructure.json", optional: false, reloadOnChange: true);
+
 if (builder.Environment.IsDevelopment() &&
     builder.Configuration.GetValue<bool>("DOTNET_USE_DOCKER_JSON"))
 {
