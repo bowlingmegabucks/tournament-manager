@@ -31,7 +31,7 @@ app
 ApiVersionSet initialVersionSet = app.BuildVersionSet(1);
 
 RouteGroupBuilder group = app.MapGroup("api/v{version:apiVersion}")
-    .WithApiVersionSet(initialVersionSet); //when entity routes come in, that group should set the api version set.  here for example temporarily
+    .WithApiVersionSet(initialVersionSet); // This is set as an example for now. When entity routes are added, the group should set the API version set accordingly.
 
 group.MapGet("/", (IConfiguration config)
     => TypedResults.Ok($"Tournament Manager API Health UI: {config["HealthChecksUI:HealthChecks:0:Uri"]}"))
