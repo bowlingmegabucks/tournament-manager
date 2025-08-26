@@ -10,6 +10,8 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure.Database;
 
 internal static class DatabaseExtensions
 {
+    internal static readonly MySqlServerVersion s_mariaDbServerVersion = new(new Version(11, 4, 7));
+
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config, IWebHostEnvironment environment)
     {
         services.Configure<SlowQueryOptions>(config.GetSection("QueryPerformance"));
@@ -36,7 +38,7 @@ internal static class DatabaseExtensions
         options.UseMySql(
                 config.GetConnectionString("TournamentManager")
                     ?? throw new InvalidOperationException("Cannot get connection string TournamentManager"),
-                new MySqlServerVersion(new Version(11, 4, 7)),
+                s_mariaDbServerVersion,
                 mySqlOptions => mySqlOptions.EnableRetryOnFailure(3))
             .EnableSensitiveDataLogging(environment.IsDevelopment())
             .EnableDetailedErrors(environment.IsDevelopment())
