@@ -6,7 +6,7 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure.Database.Configurati
 internal static class AuditConfiguration
 {
     internal const string CreatedAtColumnName = "CreatedAt";
-    internal const string ModifiedAtColumnName = "ModifiedAt";
+    internal const string UpdatedAtColumnName = "UpdatedAt";
 
     public static EntityTypeBuilder<TEntity> HasAuditFields<TEntity>(this EntityTypeBuilder<TEntity> builder)
         where TEntity : class
@@ -16,10 +16,10 @@ internal static class AuditConfiguration
             .HasColumnType("datetime(6)")
             .HasComment("UTC timestamp when entity was created");
 
-        builder.Property<DateTime>(ModifiedAtColumnName)
+        builder.Property<DateTime>(UpdatedAtColumnName)
             .IsRequired()
             .HasColumnType("datetime(6)")
-            .HasComment("UTC timestamp when entity was last modified");
+            .HasComment("UTC timestamp when entity was last updated");
 
         return builder;
     }

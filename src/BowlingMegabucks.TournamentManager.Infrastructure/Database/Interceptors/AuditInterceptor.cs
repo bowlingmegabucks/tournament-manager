@@ -44,11 +44,11 @@ internal sealed class AuditInterceptor
             {
                 case EntityState.Added:
                     entry.Property(AuditConfiguration.CreatedAtColumnName).CurrentValue = utcNow;
-                    entry.Property(AuditConfiguration.ModifiedAtColumnName).CurrentValue = utcNow;
+                    entry.Property(AuditConfiguration.UpdatedAtColumnName).CurrentValue = utcNow;
                     break;
 
                 case EntityState.Modified:
-                    entry.Property(AuditConfiguration.ModifiedAtColumnName).CurrentValue = utcNow;
+                    entry.Property(AuditConfiguration.UpdatedAtColumnName).CurrentValue = utcNow;
                     entry.Property(AuditConfiguration.CreatedAtColumnName).IsModified = false;
                     break;
             }
