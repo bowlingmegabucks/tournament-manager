@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using BowlingMegabucks.TournamentManager.Infrastructure.Database.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -5,6 +6,10 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace BowlingMegabucks.TournamentManager.Infrastructure.Database.Interceptors;
 
+[SuppressMessage(
+    "Performance",
+    "CA1812:Avoid uninstantiated internal classes",
+    Justification = "Instantiated by dependency injection container.")]
 internal sealed class AuditInterceptor
     : SaveChangesInterceptor
 {
