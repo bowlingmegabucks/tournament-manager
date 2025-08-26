@@ -1,10 +1,57 @@
 {
     "folders": [
-        {
-            "path": "."
-        }
+        { "path": "." },
+        { "path": "src" },
+        { "path": "tests" }
     ],
     "settings": {
-        "dotnet.defaultSolution": "./BowlingMegabucks.TournamentManager.slnx"
+        "dotnet.defaultSolution": "./BowlingMegabucks.TournamentManager.slnx",
+        "editor.tabSize": 4,
+        "editor.formatOnSave": true,
+        "files.exclude": {
+            "**/bin": true,
+            "**/obj": true,
+            "**/.vs": true,
+            "**/.idea": true
+        },
+        "search.exclude": {
+            "**/bin": true,
+            "**/obj": true,
+            "**/.vs": true,
+            "**/.idea": true
+        },
+        "files.watcherExclude": {
+            "**/bin/**": true,
+            "**/obj/**": true
+        },
+        "csharp.format.enable": true,
+        "testExplorer.showExpandButton": true,
+        "terminal.integrated.defaultProfile.osx": "zsh",
+        "dotnet.codeLens.enableReferencesCodeLens": true,
+        "dotnet.codeLens.enableTestsCodeLens": true
+    },
+    "extensions": {
+        "recommendations": [
+            "docker.docker",
+            "eamodio.gitlens",
+            "editorconfig.editorconfig",
+            "github.copilot",
+            "github.copilot-chat",
+            "github.vscode-github-actions",
+            "humao.rest-client",
+            "k--kato.docomment",
+            "ms-azuretools.vscode-containers",
+            "ms-azuretools.vscode-docker",
+            "ms-dotnettools.csdevkit",
+            "ms-dotnettools.csharp",
+            "ms-dotnettools.vscode-dotnet-runtime",
+            "ms-dotnettools.vscodeintellicode-csharp",
+            "ms-vscode-remote.remote-containers",
+            "ms-vsliveshare.vsliveshare",
+            "streetsidesoftware.code-spell-checker",
+            "usernamehw.errorlens",
+            "wayou.vscode-todo-highlight",
+            "yzhang.markdown-all-in-one"
+        ]
     }
 }
