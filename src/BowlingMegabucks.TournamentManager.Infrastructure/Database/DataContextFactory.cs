@@ -26,7 +26,6 @@ internal sealed class DataContextFactory
         optionsBuilder.UseMySql(connectionString,
             DatabaseExtensions.s_mariaDbServerVersion, mySqlOptions => mySqlOptions.EnableRetryOnFailure(3));
 
-
         return new ApplicationDbContext(optionsBuilder.Options);
     }
 }
