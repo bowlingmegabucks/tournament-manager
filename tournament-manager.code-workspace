@@ -2,18 +2,6 @@
     "folders": [
         {
             "path": "."
-        },
-        {
-            "path": "src"
-        },
-        {
-            "path": "tests"
-        },
-        {
-            "path": ".github"
-        },
-        {
-            "path": ".vscode"
         }
     ],
     "settings": {
