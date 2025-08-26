@@ -17,16 +17,32 @@ internal static class DatabaseExtensions
 
         services.AddScoped<AuditInterceptor>();
 
-        services.AddDbContext<ApplicationDbContext>((sp, options) => options
-            .UseMySql(config.GetConnectionString("TournamentManager") ?? throw new InvalidOperationException("Cannot get connection string TournamentManager"),
-                new MySqlServerVersion(new Version(11, 4, 7)), mySqlOptions => mySqlOptions.EnableRetryOnFailure(3))
+        services.AddDbContextPool<ApplicationDbContext>((sp, options) => options
+            .ConfigureDbContext(config, environment, sp),
+            poolSize: 64);
+
+        services.AddDbContextFactory<ApplicationDbContext>((sp, options) => options
+            .ConfigureDbContext(config, environment, sp));
+
+        return services;
+    }
+
+    private static void ConfigureDbContext(
+        this DbContextOptionsBuilder options,
+        IConfiguration config,
+        IWebHostEnvironment environment,
+        IServiceProvider serviceProvider)
+    {
+        options.UseMySql(
+                config.GetConnectionString("TournamentManager")
+                    ?? throw new InvalidOperationException("Cannot get connection string TournamentManager"),
+                new MySqlServerVersion(new Version(11, 4, 7)),
+                mySqlOptions => mySqlOptions.EnableRetryOnFailure(3))
             .EnableSensitiveDataLogging(environment.IsDevelopment())
             .EnableDetailedErrors(environment.IsDevelopment())
             .AddInterceptors(
-                sp.GetRequiredService<AuditInterceptor>(),
-                sp.GetRequiredService<SlowQueryInterceptor>())
-            .UseExceptionProcessor());
-
-        return services;
+                serviceProvider.GetRequiredService<AuditInterceptor>(),
+                serviceProvider.GetRequiredService<SlowQueryInterceptor>())
+            .UseExceptionProcessor();
     }
 }
