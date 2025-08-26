@@ -23,10 +23,6 @@ internal sealed class DataContextFactory
             ?? throw new InvalidOperationException("Cannot get connection string TournamentManager");
 
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        optionsBuilder.UseMySql(connectionString,
-            new MySqlServerVersion(new Version(11, 4, 7)), mySqlOptions => mySqlOptions.EnableRetryOnFailure(3));
-
-
         return new ApplicationDbContext(optionsBuilder.Options);
     }
 }
