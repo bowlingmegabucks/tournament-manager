@@ -1,8 +1,20 @@
 {
     "folders": [
-        { "path": "." },
-        { "path": "src" },
-        { "path": "tests" }
+        {
+            "path": "."
+        },
+        {
+            "path": "src"
+        },
+        {
+            "path": "tests"
+        },
+        {
+            "path": ".github"
+        },
+        {
+            "path": ".vscode"
+        }
     ],
     "settings": {
         "dotnet.defaultSolution": "./BowlingMegabucks.TournamentManager.slnx",
@@ -28,7 +40,14 @@
         "testExplorer.showExpandButton": true,
         "terminal.integrated.defaultProfile.osx": "zsh",
         "dotnet.codeLens.enableReferencesCodeLens": true,
-        "dotnet.codeLens.enableTestsCodeLens": true
+        "dotnet.codeLens.enableTestsCodeLens": true,
+        "cSpell.words": [
+            "appsettings",
+            "aspnet",
+            "Serilog",
+            "uninstantiated",
+            "xunit"
+        ]
     },
     "extensions": {
         "recommendations": [
