@@ -1,4 +1,5 @@
 using BowlingMegabucks.TournamentManager.Infrastructure.Database.Interceptors;
+using EntityFramework.Exceptions.MySQL.Pomelo;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +24,8 @@ internal static class DatabaseExtensions
             .EnableDetailedErrors(environment.IsDevelopment())
             .AddInterceptors(
                 sp.GetRequiredService<AuditInterceptor>(),
-                sp.GetRequiredService<SlowQueryInterceptor>()));
+                sp.GetRequiredService<SlowQueryInterceptor>())
+            .UseExceptionProcessor());
 
         return services;
     }
