@@ -26,7 +26,7 @@ public static class InfrastructureExtensions
 
         builder.Services
             .AddErrorHandling()
-            .AddDatabase(builder.Configuration);
+            .AddDatabase(builder.Configuration, builder.Environment);
 
         return builder;
     }
