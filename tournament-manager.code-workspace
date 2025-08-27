@@ -2,23 +2,10 @@
     "folders": [
         {
             "path": "."
-        },
-        {
-            "path": "src"
-        },
-        {
-            "path": "tests"
-        },
-        {
-            "path": ".github"
-        },
-        {
-            "path": ".vscode"
         }
     ],
     "settings": {
         "dotnet.defaultSolution": "./BowlingMegabucks.TournamentManager.slnx",
-        "editor.tabSize": 4,
         "editor.formatOnSave": true,
         "files.exclude": {
             "**/bin": true,
@@ -47,6 +34,22 @@
             "Serilog",
             "uninstantiated",
             "xunit"
+        ],
+        "sqltools.connections": [
+            {
+                "mysqlOptions": {
+                    "authProtocol": "default",
+                    "enableSsl": "Disabled"
+                },
+                "previewLimit": 50,
+                "server": "localhost",
+                "port": 23306,
+                "driver": "MariaDB",
+                "name": "localhost",
+                "group": "Bowling Megabucks",
+                "database": "tournament_manager",
+                "username": "local_user"
+            }
         ]
     },
     "extensions": {

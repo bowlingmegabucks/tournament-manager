@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.Infrastructure.Database;
 using BowlingMegabucks.TournamentManager.Infrastructure.Health;
 using BowlingMegabucks.TournamentManager.Infrastructure.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -24,7 +25,8 @@ public static class InfrastructureExtensions
         builder.AddHealthChecks();
 
         builder.Services
-            .AddErrorHandling();
+            .AddErrorHandling()
+            .AddDatabase(builder.Configuration, builder.Environment);
 
         return builder;
     }

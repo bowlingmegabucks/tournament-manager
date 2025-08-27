@@ -2,6 +2,7 @@ using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
@@ -18,7 +19,12 @@ internal static class HealthCheckExtensions
         builder.Services.AddHealthChecks()
             .AddCheck<SelfHealthCheck>(
                 name: "self",
-                tags: [ReadyTag, LiveTag]);
+                tags: [LiveTag])
+            .AddMySql(
+                connectionString: builder.Configuration.GetConnectionString("TournamentManager")
+                    ?? throw new InvalidOperationException("Connection string 'TournamentManager' not found."),
+                name: "tournament-manager-db",
+                tags: [ReadyTag, "database"]);
 
         builder.Services
             .AddHealthChecksUI()

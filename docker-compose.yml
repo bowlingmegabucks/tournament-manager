@@ -26,3 +26,20 @@ services:
     ports:
       - 18888:18888
       - 4317:18889
+  database:
+    container_name: megabucks_tournament_manager_database
+    image: mariadb:11.4.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_123!
+      MYSQL_DATABASE: tournament_manager
+      MYSQL_USER: local_user
+      MYSQL_PASSWORD: local_password_123!
+    ports:
+      - "23306:3306"
+    volumes:
+      - megabucks_tournament_manager_data:/var/lib/mysql
+      - ./.docker/mariadb/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  megabucks_tournament_manager_data:
