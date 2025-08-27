@@ -90,7 +90,7 @@ public sealed class Tournament
     /// <summary>
     /// The maximum length of the bowling center name.
     /// </summary>
-    public const int BowlingCenterMaxLength = 150;
+    public const int MaxBowlingCenterLength = 150;
 
     /// <summary>
     /// Gets the name of the bowling center hosting the tournament.
@@ -113,7 +113,7 @@ public sealed class Tournament
     /// <param name="games">The number of games in the tournament. Must be greater than zero.</param>
     /// <param name="finalsRatio">The ratio used for determining finalists.</param>
     /// <param name="cashRatio">The ratio used for determining cash payouts.</param>
-    /// <param name="bowlingCenter">The name of the bowling center hosting the tournament. Must not be null or empty and cannot exceed <see cref="BowlingCenterMaxLength"/> characters.</param>
+    /// <param name="bowlingCenter">The name of the bowling center hosting the tournament. Must not be null or empty and cannot exceed <see cref="MaxBowlingCenterLength"/> characters.</param>
     /// <returns>
     /// An <see cref="ErrorOr{T}"/> containing either a valid <see cref="Tournament"/>
     /// or validation errors if any parameters are invalid.
@@ -147,7 +147,7 @@ public sealed class Tournament
             return TournamentErrors.TournamentBowlingCenterIsRequired;
         }
 
-        if (bowlingCenter.Length > BowlingCenterMaxLength)
+        if (bowlingCenter.Length > MaxBowlingCenterLength)
         {
             return TournamentErrors.TournamentBowlingCenterIsTooLong(bowlingCenter);
         }
