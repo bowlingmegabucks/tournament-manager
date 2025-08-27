@@ -1,0 +1,7 @@
+root = false
+
+# Infrastructure-specific rules
+[*.cs]
+# MA0051: Method is too long - Allow longer methods in database configuration files
+dotnet_diagnostic.MA0051.severity = none
+
