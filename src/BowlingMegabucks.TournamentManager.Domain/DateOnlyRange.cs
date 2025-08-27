@@ -8,12 +8,12 @@ public sealed record DateOnlyRange
     /// <summary>
     /// Gets the start date of the range.
     /// </summary>
-    public DateOnly StartDate { get; init; }
+    public DateOnly StartDate { get; }
 
     /// <summary>
     /// Gets the end date of the range.
     /// </summary>
-    public DateOnly EndDate { get; init; }
+    public DateOnly EndDate { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DateOnlyRange"/> class.
