@@ -8,5 +8,5 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure.Database.Interceptor
     Justification = "Instantiated by dependency injection container.")]
 internal sealed class SlowQueryOptions
 {
-    public int ThresholdMilliseconds { get; init; }
+    public int ThresholdMilliseconds { get; init; } = 100;
 }

@@ -9,14 +9,16 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure.Database;
     "Performance",
     "CA1812:Avoid uninstantiated internal classes",
     Justification = "Instantiated by dependency injection container.")]
-internal sealed class DataContextFactory
+internal sealed class ApplicationDbContextFactory
     : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
     public ApplicationDbContext CreateDbContext(string[] args)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddUserSecrets<DataContextFactory>()
+            .AddJsonFile("appsettings.json", optional: true)
+            .AddUserSecrets<ApplicationDbContextFactory>()
+            .AddEnvironmentVariables()
             .Build();
 
         string connectionString = configuration.GetConnectionString("TournamentManager")
