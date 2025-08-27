@@ -1,4 +1,6 @@
+using Ardalis.GuardClauses;
 using BowlingMegabucks.TournamentManager.Domain.Abstractions;
+using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.Domain.Tournaments;
 
@@ -19,6 +21,35 @@ public sealed class Tournament
         FinalsRatio = null!;
         CashRatio = null!;
     }
+
+    private Tournament(
+        string name,
+        DateOnlyRange tournamentDates,
+        decimal entryFee,
+        short games,
+        Ratio finalsRatio,
+        Ratio cashRatio,
+        string bowlingCenter)
+        : this()
+    {
+        Guard.Against.NullOrWhiteSpace(name);
+        Guard.Against.NegativeOrZero(entryFee);
+        Guard.Against.NegativeOrZero(games);
+        Guard.Against.NullOrWhiteSpace(bowlingCenter);
+
+        Name = name;
+        TournamentDates = tournamentDates;
+        EntryFee = entryFee;
+        Games = games;
+        FinalsRatio = finalsRatio;
+        CashRatio = cashRatio;
+        BowlingCenter = bowlingCenter;
+    }
+
+    /// <summary>
+    /// The maximum length of the tournament name.
+    /// </summary>
+    public const int MaxNameLength = 150;
 
     /// <summary>
     /// Gets the name of the tournament.
@@ -57,6 +88,11 @@ public sealed class Tournament
     public Ratio CashRatio { get; }
 
     /// <summary>
+    /// The maximum length of the bowling center name.
+    /// </summary>
+    public const int BowlingCenterMaxLength = 150;
+
+    /// <summary>
     /// Gets the name of the bowling center hosting the tournament.
     /// </summary>
     /// <value>The name of the bowling center hosting the tournament.</value>
@@ -69,9 +105,60 @@ public sealed class Tournament
     public bool Completed { get; }
 
     /// <summary>
-    /// This is a temporary method for creating a new tournament.
+    /// Creates a new tournament with the specified parameters.
     /// </summary>
-    /// <returns>A new instance of the <see cref="Tournament"/> class.</returns>
-    public static Tournament Create()
-        => new();
+    /// <param name="name">The name of the tournament. Must not be null or empty and cannot exceed <see cref="MaxNameLength"/> characters.</param>
+    /// <param name="tournamentDates">The date range when the tournament takes place.</param>
+    /// <param name="entryFee">The entry fee for the tournament.</param>
+    /// <param name="games">The number of games in the tournament. Must be greater than zero.</param>
+    /// <param name="finalsRatio">The ratio used for determining finalists.</param>
+    /// <param name="cashRatio">The ratio used for determining cash payouts.</param>
+    /// <param name="bowlingCenter">The name of the bowling center hosting the tournament. Must not be null or empty and cannot exceed <see cref="BowlingCenterMaxLength"/> characters.</param>
+    /// <returns>
+    /// An <see cref="ErrorOr{T}"/> containing either a valid <see cref="Tournament"/>
+    /// or validation errors if any parameters are invalid.
+    /// </returns>
+    public static ErrorOr<Tournament> Create(
+        string name,
+        DateOnlyRange tournamentDates,
+        decimal entryFee,
+        short games,
+        Ratio finalsRatio,
+        Ratio cashRatio,
+        string bowlingCenter)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return TournamentErrors.TournamentNameIsRequired;
+        }
+
+        if (name.Length > MaxNameLength)
+        {
+            return TournamentErrors.TournamentNameIsTooLong(name);
+        }
+
+        if (games <= 0)
+        {
+            return TournamentErrors.TournamentGamesMustBeGreaterThanZero;
+        }
+
+        if (string.IsNullOrWhiteSpace(bowlingCenter))
+        {
+            return TournamentErrors.TournamentBowlingCenterIsRequired;
+        }
+
+        if (bowlingCenter.Length > BowlingCenterMaxLength)
+        {
+            return TournamentErrors.TournamentBowlingCenterIsTooLong(bowlingCenter);
+        }
+
+        return new Tournament(
+            name,
+            tournamentDates,
+            entryFee,
+            games,
+            finalsRatio,
+            cashRatio,
+            bowlingCenter);
+    }
 }
