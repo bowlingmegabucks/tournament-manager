@@ -22,4 +22,25 @@ public abstract class Entity<TId>
     {
         Id = id;
     }
+
+    /// <summary>
+    /// Determines whether the specified object is equal to the current entity.
+    /// Two entities are considered equal if they are of the same type and have the same identifier.
+    /// </summary>
+    /// <param name="obj">The object to compare with the current entity.</param>
+    /// <returns>
+    /// <see langword="true"/> if the specified object is equal to the current entity; otherwise, <see langword="false"/>.
+    /// </returns>
+    public override bool Equals(object? obj)
+        => obj is Entity<TId> other && Id.Equals(other.Id);
+
+    /// <summary>
+    /// Returns the hash code for this entity.
+    /// The hash code is based on the entity's identifier to ensure consistent behavior with equality comparisons.
+    /// </summary>
+    /// <returns>
+    /// A hash code for the current entity, suitable for use in hashing algorithms and data structures like hash tables.
+    /// </returns>
+    public override int GetHashCode()
+        => Id.GetHashCode();
 }
