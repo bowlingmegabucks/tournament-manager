@@ -4,9 +4,21 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn)</NoWarn>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.Domain.UnitTests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="StronglyTypedId" PrivateAssets="all" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+  <!-- Configure StronglyTypedId template files -->
+  <ItemGroup>
+    <AdditionalFiles Include="Abstractions/guid7.typedid" />
+    <AdditionalFiles Include="Abstractions/guid-efcore.typedid" />
+    <!-- Add other StronglyTypedId template files if you have them -->
   </ItemGroup>
 
 </Project>
