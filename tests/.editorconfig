@@ -1,0 +1,10 @@
+root = false
+
+# Test-specific rules
+[*.cs]
+# CA1515: Consider making public types internal - Ignore for test projects since test methods must be public
+dotnet_diagnostic.CA1515.severity = none
+
+# CA1707: Identifiers should not contain underscores - Ignore for tests as underscores are used in test method names
+dotnet_diagnostic.CA1707.severity = none
+
