@@ -141,7 +141,7 @@ public sealed class TournamentTests
         short games = 3;
         Ratio finalsRatio = Ratio.Create(7m).Value;
         Ratio cashRatio = Ratio.Create(4m).Value;
-        string bowlingCenter = new('A', Tournament.BowlingCenterMaxLength + 1);
+        string bowlingCenter = new('A', Tournament.MaxBowlingCenterLength + 1);
 
         // Act
         ErrorOr.ErrorOr<Tournament> result = Tournament.Create(
@@ -159,7 +159,7 @@ public sealed class TournamentTests
         result.Errors.Should().ContainSingle();
         result.FirstError.Code.Should().Be("Tournament.TournamentBowlingCenterIsTooLong");
         result.FirstError.Description.Should().Be("Tournament bowling center exceeds maximum length.");
-        result.FirstError.Metadata.Should().ContainKey("MaxLength").WhoseValue.Should().Be(Tournament.BowlingCenterMaxLength);
+        result.FirstError.Metadata.Should().ContainKey("MaxLength").WhoseValue.Should().Be(Tournament.MaxBowlingCenterLength);
         result.FirstError.Metadata.Should().ContainKey("ActualLength").WhoseValue.Should().Be(bowlingCenter.Length);
     }
 

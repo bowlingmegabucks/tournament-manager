@@ -35,7 +35,7 @@ internal static class TournamentErrors
             description: "Tournament bowling center exceeds maximum length.",
             metadata: new Dictionary<string, object>(StringComparer.Ordinal)
             {
-                { "MaxLength", Tournament.BowlingCenterMaxLength },
+                { "MaxLength", Tournament.MaxBowlingCenterLength },
                 { "ActualLength", value.Length },
             });
 }
