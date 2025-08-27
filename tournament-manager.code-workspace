@@ -30,6 +30,7 @@
         "dotnet.codeLens.enableTestsCodeLens": true,
         "cSpell.words": [
             "appsettings",
+            "Ardalis",
             "aspnet",
             "Serilog",
             "uninstantiated",
