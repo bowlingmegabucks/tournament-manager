@@ -1,4 +1,5 @@
-namespace BowlingMegabucks.TournamentManager.Domain;
+
+namespace BowlingMegabucks.TournamentManager.Domain.Abstractions;
 
 /// <summary>
 /// Represents a domain entity with a unique identifier.
