@@ -1,3 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="MySqlConnector" />
+    <PackageReference Include="Testcontainers.MariaDb" />
+  </ItemGroup>
 </Project>
