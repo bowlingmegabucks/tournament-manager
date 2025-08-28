@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.MySql" />
@@ -28,6 +28,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BowlingMegabucks.TournamentManager.Application\BowlingMegabucks.TournamentManager.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.Infrastructure.Tests" />
   </ItemGroup>
 
 </Project>
