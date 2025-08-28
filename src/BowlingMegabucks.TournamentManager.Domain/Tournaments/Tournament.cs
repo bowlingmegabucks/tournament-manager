@@ -20,6 +20,7 @@ public sealed class Tournament
         TournamentDates = null!;
         FinalsRatio = null!;
         CashRatio = null!;
+        SuperSweeperCashRatio = null!;
     }
 
     private Tournament(
@@ -29,6 +30,7 @@ public sealed class Tournament
         short games,
         Ratio finalsRatio,
         Ratio cashRatio,
+        Ratio superSweeperCashRatio,
         string bowlingCenter)
         : this()
     {
@@ -43,6 +45,7 @@ public sealed class Tournament
         Games = games;
         FinalsRatio = finalsRatio;
         CashRatio = cashRatio;
+        SuperSweeperCashRatio = superSweeperCashRatio;
         BowlingCenter = bowlingCenter;
     }
 
@@ -88,6 +91,12 @@ public sealed class Tournament
     public Ratio CashRatio { get; }
 
     /// <summary>
+    /// Gets the standard ratio of cash prizes awarded to Super Sweeper participants.
+    /// </summary>
+    /// <value>The standard ratio of cash prizes awarded to Super Sweeper participants.</value>
+    public Ratio SuperSweeperCashRatio { get; }
+
+    /// <summary>
     /// The maximum length of the bowling center name.
     /// </summary>
     public const int MaxBowlingCenterLength = 150;
@@ -113,6 +122,7 @@ public sealed class Tournament
     /// <param name="games">The number of games in the tournament. Must be greater than zero.</param>
     /// <param name="finalsRatio">The ratio used for determining finalists.</param>
     /// <param name="cashRatio">The ratio used for determining cash payouts.</param>
+    /// <param name="superSweeperCashRatio">The ratio used for determining cash payouts for Super Sweeper participants.</param>
     /// <param name="bowlingCenter">The name of the bowling center hosting the tournament. Must not be null or empty and cannot exceed <see cref="MaxBowlingCenterLength"/> characters.</param>
     /// <returns>
     /// An <see cref="ErrorOr{T}"/> containing either a valid <see cref="Tournament"/>
@@ -125,6 +135,7 @@ public sealed class Tournament
         short games,
         Ratio finalsRatio,
         Ratio cashRatio,
+        Ratio superSweeperCashRatio,
         string bowlingCenter)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -159,6 +170,7 @@ public sealed class Tournament
             games,
             finalsRatio,
             cashRatio,
+            superSweeperCashRatio,
             bowlingCenter);
     }
 }

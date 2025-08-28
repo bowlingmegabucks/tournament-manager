@@ -129,10 +129,32 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure.Database.Migrations
                                 .HasForeignKey("TournamentId");
                         });
 
+                    b.OwnsOne("BowlingMegabucks.TournamentManager.Domain.Tournaments.Ratio", "SuperSweeperCashRatio", b1 =>
+                        {
+                            b1.Property<Guid>("TournamentId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<decimal>("Value")
+                                .HasPrecision(3, 1)
+                                .HasColumnType("decimal(3,1)")
+                                .HasColumnName("SuperSweeperCashRatio")
+                                .HasComment("Super Sweeper cash ratio for the tournament");
+
+                            b1.HasKey("TournamentId");
+
+                            b1.ToTable("Tournaments");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TournamentId");
+                        });
+
                     b.Navigation("CashRatio")
                         .IsRequired();
 
                     b.Navigation("FinalsRatio")
+                        .IsRequired();
+
+                    b.Navigation("SuperSweeperCashRatio")
                         .IsRequired();
 
                     b.Navigation("TournamentDates")

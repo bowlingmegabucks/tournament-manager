@@ -16,6 +16,7 @@ public sealed class TournamentTests
         short games = 3;
         Ratio finalsRatio = Ratio.Create(7m).Value;
         Ratio cashRatio = Ratio.Create(4m).Value;
+        Ratio superSweeperCashRatio = Ratio.Create(2m).Value;
         string bowlingCenter = "Bowling Center";
 
         // Act
@@ -26,6 +27,7 @@ public sealed class TournamentTests
             games,
             finalsRatio,
             cashRatio,
+            superSweeperCashRatio,
             bowlingCenter);
 
         // Assert
@@ -46,6 +48,7 @@ public sealed class TournamentTests
         short games = 3;
         Ratio finalsRatio = Ratio.Create(7m).Value;
         Ratio cashRatio = Ratio.Create(4m).Value;
+        Ratio superSweeperCashRatio = Ratio.Create(2m).Value;
         string bowlingCenter = "Bowling Center";
 
         // Act
@@ -56,6 +59,7 @@ public sealed class TournamentTests
             games,
             finalsRatio,
             cashRatio,
+            superSweeperCashRatio,
             bowlingCenter);
 
         // Assert
@@ -79,6 +83,7 @@ public sealed class TournamentTests
         decimal entryFee = 10m;
         Ratio finalsRatio = Ratio.Create(7m).Value;
         Ratio cashRatio = Ratio.Create(4m).Value;
+        Ratio superSweeperCashRatio = Ratio.Create(2m).Value;
         string bowlingCenter = "Bowling Center";
 
         // Act
@@ -89,6 +94,7 @@ public sealed class TournamentTests
             games,
             finalsRatio,
             cashRatio,
+            superSweeperCashRatio,
             bowlingCenter);
 
         // Assert
@@ -112,6 +118,7 @@ public sealed class TournamentTests
         short games = 3;
         Ratio finalsRatio = Ratio.Create(7m).Value;
         Ratio cashRatio = Ratio.Create(4m).Value;
+        Ratio superSweeperCashRatio = Ratio.Create(2m).Value;
 
         // Act
         ErrorOr.ErrorOr<Tournament> result = Tournament.Create(
@@ -121,6 +128,7 @@ public sealed class TournamentTests
             games,
             finalsRatio,
             cashRatio,
+            superSweeperCashRatio,
             bowlingCenter!);
 
         // Assert
@@ -141,6 +149,7 @@ public sealed class TournamentTests
         short games = 3;
         Ratio finalsRatio = Ratio.Create(7m).Value;
         Ratio cashRatio = Ratio.Create(4m).Value;
+        Ratio superSweeperCashRatio = Ratio.Create(2m).Value;
         string bowlingCenter = new('A', Tournament.MaxBowlingCenterLength + 1);
 
         // Act
@@ -151,6 +160,7 @@ public sealed class TournamentTests
             games,
             finalsRatio,
             cashRatio,
+            superSweeperCashRatio,
             bowlingCenter);
 
         // Assert
@@ -173,6 +183,7 @@ public sealed class TournamentTests
         short games = 3;
         Ratio finalsRatio = Ratio.Create(7m).Value;
         Ratio cashRatio = Ratio.Create(4m).Value;
+        Ratio superSweeperCashRatio = Ratio.Create(2m).Value;
         string bowlingCenter = "Bowling Center";
 
         // Act
@@ -183,6 +194,7 @@ public sealed class TournamentTests
             games,
             finalsRatio,
             cashRatio,
+            superSweeperCashRatio,
             bowlingCenter);
 
         // Assert
