@@ -29,34 +29,9 @@ public sealed record TournamentSummaryDto
     public required DateOnly EndDate { get; init; }
 
     /// <summary>
-    /// The entry fee for the tournament.
-    /// </summary>
-    public required decimal EntryFee { get; init; }
-
-    /// <summary>
     /// The name of the bowling center hosting the tournament.
     /// </summary>
     public required string BowlingCenter { get; init; }
-
-    /// <summary>
-    /// The number of games in the tournament.
-    /// </summary>
-    public required short Games { get; init; }
-
-    /// <summary>
-    /// The ratio for determining finalists.
-    /// </summary>
-    public required decimal FinalsRatio { get; init; }
-
-    /// <summary>
-    /// The ratio for determining cashing positions.
-    /// </summary>
-    public required decimal CashRatio { get; init; }
-
-    /// <summary>
-    /// The ratio for determining Super Sweeper cashing positions.
-    /// </summary>
-    public required decimal SuperSweeperCashRatio { get; init; }
 
     /// <summary>
     /// Indicates whether the tournament is completed.
