@@ -29,6 +29,7 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure.Database.Migrations
                     Games = table.Column<short>(type: "smallint", nullable: false, comment: "Number of games during qualifying in the tournament"),
                     FinalsRatio = table.Column<decimal>(type: "decimal(3,1)", precision: 3, scale: 1, nullable: false, comment: "Finals ratio for the tournament"),
                     CashRatio = table.Column<decimal>(type: "decimal(3,1)", precision: 3, scale: 1, nullable: false, comment: "Cash ratio for the tournament"),
+                    SuperSweeperCashRatio = table.Column<decimal>(type: "decimal(3,1)", precision: 3, scale: 1, nullable: false, comment: "Super Sweeper cash ratio for the tournament"),
                     BowlingCenter = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false, comment: "Bowling center hosting the tournament")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Completed = table.Column<bool>(type: "tinyint(1)", nullable: false, comment: "Indicates if the tournament is completed"),

@@ -62,6 +62,15 @@ internal sealed class TournamentConfiguration
                 .HasComment("Cash ratio for the tournament");
         });
 
+        builder.OwnsOne(tournament => tournament.SuperSweeperCashRatio, ratioBuilder =>
+        {
+            ratioBuilder.Property(ratio => ratio.Value)
+                .HasColumnName("SuperSweeperCashRatio")
+                .IsRequired()
+                .HasPrecision(3, 1)
+                .HasComment("Super Sweeper cash ratio for the tournament");
+        });
+
         builder.Property(tournament => tournament.BowlingCenter)
             .IsRequired()
             .HasMaxLength(Tournament.MaxBowlingCenterLength)
