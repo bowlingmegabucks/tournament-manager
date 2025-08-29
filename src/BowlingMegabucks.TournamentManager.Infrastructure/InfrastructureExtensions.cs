@@ -1,6 +1,8 @@
+using BowlingMegabucks.TournamentManager.Application.Tournaments;
 using BowlingMegabucks.TournamentManager.Infrastructure.Database;
 using BowlingMegabucks.TournamentManager.Infrastructure.Health;
 using BowlingMegabucks.TournamentManager.Infrastructure.Middleware;
+using BowlingMegabucks.TournamentManager.Infrastructure.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,7 +28,8 @@ public static class InfrastructureExtensions
 
         builder.Services
             .AddErrorHandling()
-            .AddDatabase(builder.Configuration, builder.Environment);
+            .AddDatabase(builder.Configuration, builder.Environment)
+            .AddQueries();
 
         return builder;
     }
@@ -58,6 +61,13 @@ public static class InfrastructureExtensions
                 context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
                 context.ProblemDetails.Extensions.Add("requestId", context.HttpContext.TraceIdentifier);
             });
+
+        return services;
+    }
+
+    private static IServiceCollection AddQueries(this IServiceCollection services)
+    {
+        services.AddScoped<ITournamentQueries, TournamentQueries>();
 
         return services;
     }

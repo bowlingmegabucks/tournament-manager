@@ -4,6 +4,7 @@
         "appsettings",
         "Ardalis",
         "aspnet",
+        "Instantiator",
         "Serilog",
         "uninstantiated",
         "xunit"
