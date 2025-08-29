@@ -5,7 +5,13 @@ namespace BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 /// </summary>
 /// <typeparam name="TResponse">The type of response returned by the query.</typeparam>
 public interface IOffsetPaginationQuery<TResponse>
-    : IQuery<TResponse>
+    : IQuery<TResponse>, IOffsetPaginationQuery
+{ }
+
+/// <summary>
+/// Defines the contract for offset-based pagination queries.
+/// </summary>
+public interface IOffsetPaginationQuery
 {
     /// <summary>
     /// Gets the page number (1-indexed) to retrieve.

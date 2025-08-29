@@ -1,7 +1,9 @@
+using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.Infrastructure.Queries;
 using BowlingMegabucks.TournamentManager.Infrastructure.Tests.Fixtures;
+using BowlingMegabucks.TournamentManager.Tests;
 using BowlingMegabucks.TournamentManager.Tests.Factories;
 using BowlingMegabucks.TournamentManager.Tests.Infrastructure;
 
@@ -37,9 +39,11 @@ public sealed class TournamentQueriesTests
     public async Task GetAllTournamentsAsync_ShouldReturnAnEmptyCollection_WhenThereAreNoTournaments()
     {
         // Arrange
+        Mock<IOffsetPaginationQuery> paginationMock = new(MockBehavior.Strict);
+        paginationMock.SetupPagination();
 
         // Act
-        IEnumerable<TournamentSummaryDto> result = await _tournamentQueries.GetAllTournamentsAsync(TestContext.Current.CancellationToken);
+        IEnumerable<TournamentSummaryDto> result = await _tournamentQueries.GetAllTournamentsAsync(paginationMock.Object, TestContext.Current.CancellationToken);
 
         // Assert
         result.Should().BeEmpty();
@@ -52,10 +56,13 @@ public sealed class TournamentQueriesTests
         IEnumerable<Tournament> tournaments = TournamentFactory.FakeMany(5);
         _queryTestFixture.ApplicationDbContext.Tournaments.AddRange(tournaments);
 
+        Mock<IOffsetPaginationQuery> paginationMock = new(MockBehavior.Strict);
+        paginationMock.SetupPagination(1, 10);
+
         await _queryTestFixture.ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
         // Act
-        IEnumerable<TournamentSummaryDto> result = await _tournamentQueries.GetAllTournamentsAsync(TestContext.Current.CancellationToken);
+        IEnumerable<TournamentSummaryDto> result = await _tournamentQueries.GetAllTournamentsAsync(paginationMock.Object, TestContext.Current.CancellationToken);
 
         // Assert
         result.Should().HaveCount(5);
@@ -70,8 +77,11 @@ public sealed class TournamentQueriesTests
 
         await _queryTestFixture.ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
+        Mock<IOffsetPaginationQuery> paginationMock = new(MockBehavior.Strict);
+        paginationMock.SetupPagination(1, 10);
+
         // Act
-        IEnumerable<TournamentSummaryDto> result = await _tournamentQueries.GetAllTournamentsAsync(TestContext.Current.CancellationToken);
+        IEnumerable<TournamentSummaryDto> result = await _tournamentQueries.GetAllTournamentsAsync(paginationMock.Object, TestContext.Current.CancellationToken);
 
         // Assert
         result.Should().BeEquivalentTo(tournaments.Select(t => new TournamentSummaryDto
@@ -84,5 +94,51 @@ public sealed class TournamentQueriesTests
             EntryFee = t.EntryFee,
             Completed = t.Completed
         }));
+    }
+
+    [Fact]
+    public async Task GetAllTournaments_ShouldReturnSubset_WhenPaginationPageSizeIsSmallerThanTotalCount()
+    {
+        // Arrange
+        IEnumerable<Tournament> tournaments = TournamentFactory.FakeMany(50);
+        _queryTestFixture.ApplicationDbContext.Tournaments.AddRange(tournaments);
+
+        await _queryTestFixture.ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        Mock<IOffsetPaginationQuery> paginationMock = new(MockBehavior.Strict);
+        paginationMock.SetupPagination(1, 10);
+
+        // Act
+        IEnumerable<TournamentSummaryDto> result = await _tournamentQueries.GetAllTournamentsAsync(paginationMock.Object, TestContext.Current.CancellationToken);
+
+        // Assert
+        result.Should().HaveCount(10);
+    }
+
+    [Fact]
+    public async Task GetAllTournaments_ShouldReturnLaterSet_WhenPaginationPageSizeIsSmallerThanTotalCountAndPageIsGreaterThanOne()
+    {
+        // Arrange
+        IEnumerable<Tournament> tournaments = TournamentFactory.FakeMany(50);
+        _queryTestFixture.ApplicationDbContext.Tournaments.AddRange(tournaments);
+
+        await _queryTestFixture.ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        Mock<IOffsetPaginationQuery> paginationMock = new(MockBehavior.Strict);
+        paginationMock.SetupPagination(2, 3);
+
+        Mock<IOffsetPaginationQuery> paginationMock2 = new(MockBehavior.Strict);
+        paginationMock2.SetupPagination(1, 100);
+
+        // Act
+        IEnumerable<TournamentSummaryDto> pagedResults = await _tournamentQueries.GetAllTournamentsAsync(paginationMock.Object, TestContext.Current.CancellationToken);
+        IList<TournamentSummaryDto> fullResults = [.. await _tournamentQueries.GetAllTournamentsAsync(paginationMock2.Object, TestContext.Current.CancellationToken)];
+
+        // Assert
+        pagedResults.Should().SatisfyRespectively(
+            first => first.Id.Should().Be(fullResults[3].Id),
+            second => second.Id.Should().Be(fullResults[4].Id),
+            third => third.Id.Should().Be(fullResults[5].Id)
+        );
     }
 }
