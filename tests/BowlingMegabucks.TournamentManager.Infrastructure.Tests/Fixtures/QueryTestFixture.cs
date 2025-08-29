@@ -1,42 +1,64 @@
 using BowlingMegabucks.TournamentManager.Infrastructure.Database;
 using BowlingMegabucks.TournamentManager.Tests.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace BowlingMegabucks.TournamentManager.Infrastructure.Tests.Fixtures;
 
-public abstract class QueryTestFixture
-    : IClassFixture<DatabaseContainer>, IAsyncLifetime
+/// <summary>
+/// Shared test fixture for database-dependent query tests.
+/// Provides optimized database setup with connection pooling and resource reuse.
+/// </summary>
+public sealed class QueryTestFixture
+    : IAsyncLifetime
 {
     private readonly DatabaseContainer _databaseContainer;
-    internal ApplicationDbContext _applicationDbContext = null!;
 
-    protected QueryTestFixture(DatabaseContainer databaseContainer)
+    public QueryTestFixture(DatabaseContainer databaseContainer)
     {
-        ArgumentNullException.ThrowIfNull(databaseContainer);
-
         _databaseContainer = databaseContainer;
     }
 
+    internal ApplicationDbContext ApplicationDbContext { get; private set; } = null!;
+
     public async ValueTask InitializeAsync()
     {
-        await _databaseContainer.InitializeAsync();
+        // Verify database container is ready
+        if (string.IsNullOrEmpty(_databaseContainer.DatabaseConnectionString))
+        {
+            throw new InvalidOperationException("Database container is not initialized");
+        }
 
-        DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        // Create optimized DbContext with connection pooling
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseMySql(
                 _databaseContainer.DatabaseConnectionString,
-                new MySqlServerVersion(new Version(11, 4, 7)))
-                .Options;
+                new MySqlServerVersion(new Version(11, 4, 7)),
+                mySqlOptions => mySqlOptions
+                    .EnableRetryOnFailure(maxRetryCount: 3)) // Resilience optimization
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors()
+            .Options;
 
-        _applicationDbContext = new ApplicationDbContext(options);
+        ApplicationDbContext = new ApplicationDbContext(options);
 
-        await _applicationDbContext.Database.MigrateAsync();
+        // Apply migrations efficiently - only once per test class
+        await ApplicationDbContext.Database.MigrateAsync();
+
+        // Verify database connectivity
+        if (!await ApplicationDbContext.Database.CanConnectAsync())
+        {
+            throw new InvalidOperationException("Cannot connect to the test database after migration");
+        }
     }
 
     public async ValueTask DisposeAsync()
     {
-        await _applicationDbContext.DisposeAsync();
-        await _databaseContainer.DisposeAsync();
+        if (ApplicationDbContext is not null)
+        {
+            await ApplicationDbContext.DisposeAsync();
+        }
 
-        GC.SuppressFinalize(this);
+        // DatabaseContainer disposal handled by xUnit
     }
 }

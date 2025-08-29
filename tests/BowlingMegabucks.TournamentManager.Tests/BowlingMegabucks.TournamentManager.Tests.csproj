@@ -1,7 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <PackageReference Include="Bogus" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="MySqlConnector" />
     <PackageReference Include="Testcontainers.MariaDb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BowlingMegabucks.TournamentManager.Domain\BowlingMegabucks.TournamentManager.Domain.csproj" />
   </ItemGroup>
 </Project>

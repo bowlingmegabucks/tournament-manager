@@ -50,6 +50,20 @@
                 "group": "Bowling Megabucks",
                 "database": "tournament_manager",
                 "username": "local_user"
+            },
+            {
+                "mysqlOptions": {
+                    "authProtocol": "default",
+                    "enableSsl": "Disabled"
+                },
+                "previewLimit": 50,
+                "server": "localhost",
+                "port": 49272,
+                "driver": "MariaDB",
+                "name": "test",
+                "group": "Bowling Megabucks",
+                "database": "tournament_manager",
+                "username": "test_user"
             }
         ]
     },
