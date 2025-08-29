@@ -30,7 +30,7 @@ public sealed class QueryTestFixture
         }
 
         // Create optimized DbContext with connection pooling
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseMySql(
                 _databaseContainer.DatabaseConnectionString,
                 new MySqlServerVersion(new Version(11, 4, 7)),
@@ -50,7 +50,12 @@ public sealed class QueryTestFixture
         {
             throw new InvalidOperationException("Cannot connect to the test database after migration");
         }
+
+        await _databaseContainer.InitializeRespawnerAsync();
     }
+
+    public async Task ResetDatabaseAsync()
+        => await _databaseContainer.ResetDatabaseAsync();
 
     public async ValueTask DisposeAsync()
     {
