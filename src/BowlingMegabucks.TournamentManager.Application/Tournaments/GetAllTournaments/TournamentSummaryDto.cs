@@ -34,6 +34,11 @@ public sealed record TournamentSummaryDto
     public required string BowlingCenter { get; init; }
 
     /// <summary>
+    /// The entry fee for the tournament.
+    /// </summary>
+    public required decimal EntryFee { get; init; }
+
+    /// <summary>
     /// Indicates whether the tournament is completed.
     /// </summary>
     public required bool Completed { get; init; }
