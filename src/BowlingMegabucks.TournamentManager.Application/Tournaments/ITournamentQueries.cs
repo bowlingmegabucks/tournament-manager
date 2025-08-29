@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
 
 namespace BowlingMegabucks.TournamentManager.Application.Tournaments;
@@ -8,9 +9,12 @@ namespace BowlingMegabucks.TournamentManager.Application.Tournaments;
 public interface ITournamentQueries
 {
     /// <summary>
-    /// Retrieves all tournaments asynchronously.
+    /// Retrieves all tournaments asynchronously with pagination support.
     /// </summary>
+    /// <param name="pagination">The pagination parameters to control page size and offset.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A read-only collection of tournament summaries.</returns>
-    Task<IReadOnlyCollection<TournamentSummaryDto>> GetAllTournamentsAsync(CancellationToken cancellationToken);
+    /// <returns>A read-only collection of tournament summaries for the requested page.</returns>
+    Task<IReadOnlyCollection<TournamentSummaryDto>> GetAllTournamentsAsync(
+        IOffsetPaginationQuery pagination,
+        CancellationToken cancellationToken);
 }
