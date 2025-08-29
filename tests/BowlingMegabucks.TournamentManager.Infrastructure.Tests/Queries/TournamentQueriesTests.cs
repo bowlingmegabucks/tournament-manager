@@ -25,6 +25,9 @@ public sealed class TournamentQueriesTests
         await _queryTestFixture.InitializeAsync();
 
         _tournamentQueries = new TournamentQueries(_queryTestFixture.ApplicationDbContext);
+
+        // Reset the database state before each test
+        await _queryTestFixture.ResetDatabaseAsync();
     }
 
     public async ValueTask DisposeAsync()
