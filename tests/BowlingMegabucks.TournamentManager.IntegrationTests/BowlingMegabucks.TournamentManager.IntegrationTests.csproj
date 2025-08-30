@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/BowlingMegabucks.TournamentManager.Api/BowlingMegabucks.TournamentManager.Api.csproj" />
+    <ProjectReference Include="../BowlingMegabucks.TournamentManager.Tests/BowlingMegabucks.TournamentManager.Tests.csproj" />
+  </ItemGroup>
+
+</Project>

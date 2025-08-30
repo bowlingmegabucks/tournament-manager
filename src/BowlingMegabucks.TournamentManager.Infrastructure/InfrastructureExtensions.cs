@@ -4,7 +4,10 @@ using BowlingMegabucks.TournamentManager.Infrastructure.Health;
 using BowlingMegabucks.TournamentManager.Infrastructure.Middleware;
 using BowlingMegabucks.TournamentManager.Infrastructure.Queries;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace BowlingMegabucks.TournamentManager.Infrastructure;
 
@@ -14,31 +17,35 @@ namespace BowlingMegabucks.TournamentManager.Infrastructure;
 public static class InfrastructureExtensions
 {
     /// <summary>
-    /// Adds infrastructure services to the specified <see cref="WebApplicationBuilder"/>.
+    /// Adds infrastructure services to the dependency injection container.
     /// </summary>
-    /// <param name="builder">The web application builder to configure.</param>
-    /// <returns>The configured web application builder.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="builder"/> is null.</exception>
-    public static WebApplicationBuilder AddInfrastructureServices(
-        this WebApplicationBuilder builder)
+    /// <param name="services">The service collection to register services with.</param>
+    /// <param name="config">The application configuration.</param>
+    /// <param name="environment">The web hosting environment.</param>
+    /// <returns>The same service collection for chaining.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when any parameter is null.</exception>
+    public static IServiceCollection AddInfrastructureServices(
+        this IServiceCollection services, IConfiguration config, IWebHostEnvironment environment)
     {
-        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(config);
+        ArgumentNullException.ThrowIfNull(environment);
 
-        builder.AddHealthChecks();
+        services.AddHealthChecks();
 
-        builder.Services
+        services
             .AddErrorHandling()
-            .AddDatabase(builder.Configuration, builder.Environment)
+            .AddDatabase(config, environment)
             .AddQueries();
 
-        return builder;
+        return services;
     }
 
     /// <summary>
-    /// Configures the application to use infrastructure middleware.
+    /// Configures the application to use infrastructure middleware and routing.
     /// </summary>
     /// <param name="app">The web application to configure.</param>
-    /// <returns>The configured web application.</returns>
+    /// <returns>The same web application for chaining.</returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="app"/> is null.</exception>
     public static WebApplication UseInfrastructure(
         this WebApplication app)

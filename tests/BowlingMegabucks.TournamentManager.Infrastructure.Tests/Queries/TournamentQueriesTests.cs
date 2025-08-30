@@ -97,7 +97,7 @@ public sealed class TournamentQueriesTests
     }
 
     [Fact]
-    public async Task GetAllTournaments_ShouldReturnSubset_WhenPaginationPageSizeIsSmallerThanTotalCount()
+    public async Task GetAllTournamentsAsync_ShouldReturnSubset_WhenPaginationPageSizeIsSmallerThanTotalCount()
     {
         // Arrange
         IEnumerable<Tournament> tournaments = TournamentFactory.FakeMany(50);
@@ -116,7 +116,7 @@ public sealed class TournamentQueriesTests
     }
 
     [Fact]
-    public async Task GetAllTournaments_ShouldReturnLaterSet_WhenPaginationPageSizeIsSmallerThanTotalCountAndPageIsGreaterThanOne()
+    public async Task GetAllTournamentsAsync_ShouldReturnLaterSet_WhenPaginationPageSizeIsSmallerThanTotalCountAndPageIsGreaterThanOne()
     {
         // Arrange
         IEnumerable<Tournament> tournaments = TournamentFactory.FakeMany(50);
@@ -140,5 +140,31 @@ public sealed class TournamentQueriesTests
             second => second.Id.Should().Be(fullResults[4].Id),
             third => third.Id.Should().Be(fullResults[5].Id)
         );
+    }
+
+    [Fact]
+    public async Task GetTotalTournamentCountAsync_ShouldReturnZero_WhenThereAreNoTournaments()
+    {
+        // Act
+        int count = await _tournamentQueries.GetTotalTournamentCountAsync(TestContext.Current.CancellationToken);
+
+        // Assert
+        count.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task GetTotalTournamentCountAsync_ShouldReturnCorrectCount_WhenThereAreTournaments()
+    {
+        // Arrange
+        IEnumerable<Tournament> tournaments = TournamentFactory.FakeMany(7);
+        _queryTestFixture.ApplicationDbContext.Tournaments.AddRange(tournaments);
+
+        await _queryTestFixture.ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        // Act
+        int count = await _tournamentQueries.GetTotalTournamentCountAsync(TestContext.Current.CancellationToken);
+
+        // Assert
+        count.Should().Be(7);
     }
 }
