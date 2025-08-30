@@ -1,6 +1,6 @@
 using Asp.Versioning.Builder;
 using BowlingMegabucks.TournamentManager.Api.Versioning;
-using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
+using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
 using BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 
 namespace BowlingMegabucks.TournamentManager.Api.Endpoints.TournamentEndpoints;

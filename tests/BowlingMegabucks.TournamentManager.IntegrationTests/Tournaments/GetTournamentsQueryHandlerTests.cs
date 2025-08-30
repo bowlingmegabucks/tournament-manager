@@ -1,6 +1,6 @@
 using BowlingMegabucks.TournamentManager.Api;
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
-using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
+using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure;
 using BowlingMegabucks.TournamentManager.Tests.Factories;
@@ -9,15 +9,15 @@ using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.IntegrationTests.Tournaments;
 
-public sealed class GetAllTournamentsQueryHandlerTests
+public sealed class GetTournamentsQueryHandlerTests
     : BaseIntegrationTest
 {
-    private readonly IOffsetPaginationQueryHandler<GetAllTournamentsQuery, TournamentSummaryDto> _handler;
+    private readonly IOffsetPaginationQueryHandler<GetTournamentsQuery, TournamentSummaryDto> _handler;
 
-    public GetAllTournamentsQueryHandlerTests(TournamentManagerWebAppFactory<IApiAssemblyMarker> factory)
+    public GetTournamentsQueryHandlerTests(TournamentManagerWebAppFactory<IApiAssemblyMarker> factory)
         : base(factory ?? throw new ArgumentNullException(nameof(factory)))
     {
-        _handler = GetRequiredService<IOffsetPaginationQueryHandler<GetAllTournamentsQuery, TournamentSummaryDto>>();
+        _handler = GetRequiredService<IOffsetPaginationQueryHandler<GetTournamentsQuery, TournamentSummaryDto>>();
     }
 
     [Fact]
@@ -28,7 +28,7 @@ public sealed class GetAllTournamentsQueryHandlerTests
         ApplicationDbContext.Tournaments.AddRange(tournaments);
         await ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-        var query = new GetAllTournamentsQuery
+        var query = new GetTournamentsQuery
         {
             Page = 1,
             PageSize = 20
@@ -68,7 +68,7 @@ public sealed class GetAllTournamentsQueryHandlerTests
         ApplicationDbContext.Tournaments.AddRange(tournaments);
         await ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-        var query = new GetAllTournamentsQuery
+        var query = new GetTournamentsQuery
         {
             Page = 2,
             PageSize = 10
@@ -92,14 +92,14 @@ public sealed class GetAllTournamentsQueryHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldReturnCorrectOffsetPaginatinoResponse_WhenPageSizeIsNotFactorOfTotalCount()
+    public async Task HandleAsync_ShouldReturnCorrectOffsetPaginationResponse_WhenPageSizeIsNotFactorOfTotalCount()
     {
         // Arrange
         IEnumerable<Tournament> tournaments = TournamentFactory.FakeMany(25);
         ApplicationDbContext.Tournaments.AddRange(tournaments);
         await ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
 
-        var query = new GetAllTournamentsQuery
+        var query = new GetTournamentsQuery
         {
             Page = 3,
             PageSize = 10

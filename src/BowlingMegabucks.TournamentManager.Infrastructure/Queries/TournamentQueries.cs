@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Application.Tournaments;
-using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
+using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
 using BowlingMegabucks.TournamentManager.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 

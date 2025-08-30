@@ -1,5 +1,5 @@
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
-using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
+using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.Infrastructure.Queries;
 using BowlingMegabucks.TournamentManager.Infrastructure.Tests.Fixtures;
