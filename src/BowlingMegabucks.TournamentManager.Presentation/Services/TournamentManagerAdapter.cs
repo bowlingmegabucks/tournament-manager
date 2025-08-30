@@ -1,3 +1,7 @@
+using System.Collections;
+using ErrorOr;
+using Refit;
+
 namespace BowlingMegabucks.TournamentManager.Presentation.Services;
 
 internal abstract class TournamentManagerAdapter
@@ -8,4 +12,15 @@ internal abstract class TournamentManagerAdapter
     {
         _tournamentManagerApi = tournamentManagerApi;
     }
+
+    protected static Error GenerateError(ApiException ex, string generalMessage)
+        => Error.Failure(
+            description: generalMessage,
+            metadata: ex.Data
+                .Cast<DictionaryEntry>()
+                .Where(entry => entry.Key is string && entry.Value is not null)
+                .ToDictionary(
+                    entry => (string)entry.Key,
+                    entry => entry.Value!,
+                    StringComparer.Ordinal));
 }
