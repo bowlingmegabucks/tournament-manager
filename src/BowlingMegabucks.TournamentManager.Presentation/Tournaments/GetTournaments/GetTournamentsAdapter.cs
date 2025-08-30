@@ -21,6 +21,7 @@ internal sealed class GetTournamentsAdapter
 
     public async Task<ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>>> ExecuteAsync(int? page, int? pageSize, CancellationToken cancellationToken)
     {
+#pragma warning disable CA1031 // Do not catch general exception types
         try
         {
             OffsetPaginationResponse<TournamentSummary> response = await _tournamentManagerApi.GetTournamentsAsync(
@@ -43,5 +44,12 @@ internal sealed class GetTournamentsAdapter
         {
             return GenerateError(ex, "Tournaments.GetAllException", "Error fetching tournaments");
         }
+        catch (HttpRequestException ex)
+        {
+            return Error.Failure(
+                code: "Tournaments.GetAllRequest",
+                description: ex.Message);
+        }
+#pragma warning restore CA1031 // Do not catch general exception types
     }
 }

@@ -1,8 +1,13 @@
+using System.Diagnostics.CodeAnalysis;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BowlingMegabucks.TournamentManager.App.Tournaments.GetTournaments;
 
+[SuppressMessage(
+    "Performance",
+    "CA1812:Avoid uninstantiated internal classes",
+    Justification = "Instantiated by dependency injection container.")]
 internal sealed class GetTournamentsFormFactory
     : IGetTournamentsFormFactory
 {

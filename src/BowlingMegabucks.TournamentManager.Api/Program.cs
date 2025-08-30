@@ -7,6 +7,8 @@ using BowlingMegabucks.TournamentManager.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Scalar.AspNetCore;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsDevelopment() &&

@@ -13,6 +13,7 @@ internal sealed partial class GetTournamentsForm
         InitializeComponent();
 
         _presenter = presenter;
+        _presenter.SetView(this);
 
         _ = _presenter.GetTournamentsAsync(page: null, pageSize: null, default);
     }
@@ -64,7 +65,11 @@ internal sealed partial class GetTournamentsForm
         => OpenButton_Click(sender, e);
 
     private void NewButton_Click(object sender, EventArgs e)
-        => _presenter.NewTournament();
+
+#pragma warning disable S125 // Sections of code should not be commented out
+                            //=> _presenter.NewTournament();
+        => MessageBox.Show("Not implemented", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#pragma warning restore S125 // Sections of code should not be commented out
 
     private void OpenButton_Click(object sender, EventArgs e)
         => OpenTournament(tournamentsGrid.SelectedTournament!.Id);
