@@ -5,6 +5,7 @@
     <OutputType>Exe</OutputType>
     <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
     <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <RootNamespace>BowlingMegabucks.TournamentManager.UnitTests.Domain</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

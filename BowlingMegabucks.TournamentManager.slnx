@@ -11,7 +11,7 @@
     <Project Path="src/BowlingMegabucks.TournamentManager.Presentation/BowlingMegabucks.TournamentManager.Presentation.csproj" Id="b83fe553-078d-4138-a40f-a5148fdc434f" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/BowlingMegabucks.TournamentManager.Domain.UnitTests/BowlingMegabucks.TournamentManager.Domain.UnitTests.csproj" />
+    <Project Path="tests/BowlingMegabucks.TournamentManager.UnitTests.Domain/BowlingMegabucks.TournamentManager.UnitTests.Domain.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.FunctionalTests/BowlingMegabucks.TournamentManager.FunctionalTests.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.Infrastructure.Tests/BowlingMegabucks.TournamentManager.Infrastructure.Tests.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests/BowlingMegabucks.TournamentManager.IntegrationTests.csproj" />
