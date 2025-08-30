@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BowlingMegabucks.TournamentManager.Infrastructure\BowlingMegabucks.TournamentManager.Infrastructure.csproj" />
+    <ProjectReference Include="..\BowlingMegabucks.TournamentManager.Contracts\BowlingMegabucks.TournamentManager.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

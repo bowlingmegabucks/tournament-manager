@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 
 namespace BowlingMegabucks.TournamentManager.Api;
 

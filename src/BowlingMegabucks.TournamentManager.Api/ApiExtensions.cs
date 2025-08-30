@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 
@@ -100,4 +101,25 @@ internal static class ApiExtensions
         ErrorType.Validation => "Validation failed",
         _ => "An error occurred",
     };
+
+    internal static OffsetPaginationApiResponse<T> ToApiResponse<T>(
+        this OffsetPaginationQueryResponse<T> queryResponse)
+        => new()
+        {
+            TotalItems = queryResponse.TotalItems,
+            TotalPages = queryResponse.TotalPages,
+            CurrentPage = queryResponse.CurrentPage,
+            PageSize = queryResponse.PageSize,
+            Items = queryResponse.Items,
+        };
+
+    internal static OffsetPaginationApiResponse<TDestination> ConvertValues<TSource, TDestination>(this OffsetPaginationApiResponse<TSource> response, Func<TSource, TDestination> converter)
+        => new()
+        {
+            TotalItems = response.TotalItems,
+            TotalPages = response.TotalPages,
+            CurrentPage = response.CurrentPage,
+            PageSize = response.PageSize,
+            Items = response.Items.Select(converter).ToList().AsReadOnly(),
+        };
 }

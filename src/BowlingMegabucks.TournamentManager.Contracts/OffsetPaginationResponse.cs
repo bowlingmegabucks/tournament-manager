@@ -1,10 +1,16 @@
-namespace BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
+using System.Diagnostics.CodeAnalysis;
+
+namespace BowlingMegabucks.TournamentManager.Contracts;
 
 /// <summary>
-/// Represents the response for a paginated query with offset-based pagination.
+/// Represents a paginated response with offset-based pagination for API contracts.
 /// </summary>
 /// <typeparam name="T">The type of items contained in the paginated response.</typeparam>
-public sealed record OffsetPaginationQueryResponse<T>
+[SuppressMessage(
+    "Design",
+    "CA1515:Consider making public types internal",
+    Justification = "Required to be public for OpenAPI documentation generation and external API consumers.")]
+public sealed record OffsetPaginationResponse<T>
 {
     /// <summary>
     /// Gets the total number of items available across all pages.
