@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BowlingMegabucks.TournamentManager.Presentation\BowlingMegabucks.TournamentManager.Presentation.csproj" />
+    <ProjectReference Include="..\BowlingMegabucks.TournamentManager.Tests\BowlingMegabucks.TournamentManager.Tests.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

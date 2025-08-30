@@ -13,9 +13,10 @@ internal abstract class TournamentManagerAdapter
         _tournamentManagerApi = tournamentManagerApi;
     }
 
-    protected static Error GenerateError(ApiException ex, string generalMessage)
+    protected static Error GenerateError(ApiException ex, string errorCode, string errorDescription)
         => Error.Failure(
-            description: generalMessage,
+            code: errorCode,
+            description: errorDescription,
             metadata: ex.Data
                 .Cast<DictionaryEntry>()
                 .Where(entry => entry.Key is string && entry.Value is not null)
