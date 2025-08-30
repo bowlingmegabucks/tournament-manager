@@ -1,4 +1,5 @@
 using BowlingMegabucks.TournamentManager.Presentation.Services;
+using BowlingMegabucks.TournamentManager.Presentation.Tournaments;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
@@ -14,6 +15,16 @@ public static class PresentationExtensions
             {
                 c.BaseAddress = new Uri(config["TournamentManagerApi:BaseUrl"] ?? throw new InvalidOperationException("BaseUrl is not configured."));
             });
+
+        services
+            .AddTournamentsPresentation();
+
+        return services;
+    }
+
+    private static IServiceCollection AddTournamentsPresentation(this IServiceCollection services)
+    {
+        services.AddSingleton<ITournamentsAdapter, TournamentsAdapter>();
 
         return services;
     }
