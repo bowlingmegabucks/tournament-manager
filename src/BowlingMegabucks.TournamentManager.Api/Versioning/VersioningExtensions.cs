@@ -6,7 +6,7 @@ namespace BowlingMegabucks.TournamentManager.Api.Versioning;
 internal static class VersioningExtensions
 {
     internal const string Version1 = "v1";
-    
+
     public static WebApplicationBuilder AddVersioning(this WebApplicationBuilder builder)
     {
         builder.Services.AddApiVersioning(options =>
@@ -25,9 +25,9 @@ internal static class VersioningExtensions
         return builder;
     }
 
-    internal static ApiVersionSet BuildVersionSet(this WebApplication app, params int[] versions)
+    internal static ApiVersionSet BuildVersionSet(this IEndpointRouteBuilder app, string name, params int[] versions)
     {
-        ApiVersionSetBuilder apiVersionSetBuilder = app.NewApiVersionSet();
+        ApiVersionSetBuilder apiVersionSetBuilder = app.NewApiVersionSet(name);
 
         foreach (int version in versions)
         {

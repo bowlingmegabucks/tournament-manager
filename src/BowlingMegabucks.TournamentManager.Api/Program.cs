@@ -1,4 +1,5 @@
 using Asp.Versioning.Builder;
+using BowlingMegabucks.TournamentManager.Api.Endpoints.TournamentEndpoints;
 using BowlingMegabucks.TournamentManager.Api.Logging;
 using BowlingMegabucks.TournamentManager.Api.OpenApi;
 using BowlingMegabucks.TournamentManager.Api.Versioning;
@@ -32,15 +33,14 @@ app
     .UseOpenApi()
     .UseInfrastructure();
 
-ApiVersionSet initialVersionSet = app.BuildVersionSet(1);
+RouteGroupBuilder group = app.MapGroup("api/v{version:apiVersion}");
 
-RouteGroupBuilder group = app.MapGroup("api/v{version:apiVersion}")
-    .WithApiVersionSet(initialVersionSet); // This is set as an example for now. When entity routes are added, the group should set the API version set accordingly.
+group
+    .MapTournamentEndpoints();
 
 group.MapGet("/", (IConfiguration config)
     => TypedResults.Ok($"Tournament Manager API Health UI: {config["HealthChecksUI:HealthChecks:0:Uri"]}"))
     .WithTags("Initial")
-    .MapToApiVersion(1)
     .Deprecated();
 
 group.MapGet("/error", (ILoggerFactory loggerFactory) =>
@@ -62,7 +62,6 @@ group.MapGet("/error", (ILoggerFactory loggerFactory) =>
     .Accepts<List<int>>("application/json")
     .Produces<List<int>>(StatusCodes.Status200OK)
     .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
-    .WithTags("Initial")
-    .MapToApiVersion(1);
+    .WithTags("Initial");
 
 await app.RunAsync();
