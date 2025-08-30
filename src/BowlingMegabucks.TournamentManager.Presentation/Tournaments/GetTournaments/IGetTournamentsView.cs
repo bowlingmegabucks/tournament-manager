@@ -36,20 +36,18 @@ public interface IGetTournamentsView
     /// <summary>
     /// Prompts the user to create a new tournament and returns the details.
     /// </summary>
-    /// <returns>A tuple containing the tournament id, name, and games per squad.</returns>
+    /// <returns>The created tournament <see langword="Id"/>.  If cancelled or an error, will be <see langword="null"/>.</returns>
     /// <remarks>
     /// This method is called when the user initiates the creation of a new tournament.
     /// </remarks>
-    (Guid? id, string name, short gamesPerSquad) CreateNewTournament();
+    Guid? CreateNewTournament();
 
     /// <summary>
     /// Opens the specified tournament in the view.
     /// </summary>
     /// <param name="id">The tournament identifier.</param>
-    /// <param name="tournamentName">The name of the tournament.</param>
-    /// <param name="gamesPerSquad">The number of games per squad.</param>
     /// <remarks>
     /// This method is called to open and display the selected tournament.
     /// </remarks>
-    void OpenTournament(Guid id, string tournamentName, short gamesPerSquad);
+    void OpenTournament(Guid id);
 }

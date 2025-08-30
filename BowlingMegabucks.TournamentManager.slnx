@@ -1,4 +1,12 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
+    <File Path="README.md" />
+  </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/api/">
     <Project Path="src/BowlingMegabucks.TournamentManager.Api/BowlingMegabucks.TournamentManager.Api.csproj" />
@@ -8,6 +16,7 @@
     <Project Path="src/BowlingMegabucks.TournamentManager.Infrastructure/BowlingMegabucks.TournamentManager.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/src/client/">
+    <Project Path="src/BowlingMegabucks.TournamentManager.App/BowlingMegabucks.TournamentManager.App.csproj" Id="1bcb19f3-1ba2-4e1d-88d7-1ddecce46291" />
     <Project Path="src/BowlingMegabucks.TournamentManager.Presentation/BowlingMegabucks.TournamentManager.Presentation.csproj" Id="b83fe553-078d-4138-a40f-a5148fdc434f" />
   </Folder>
   <Folder Name="/tests/">
