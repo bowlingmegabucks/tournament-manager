@@ -17,4 +17,11 @@ public interface ITournamentQueries
     Task<IReadOnlyCollection<TournamentSummaryDto>> GetAllTournamentsAsync(
         IOffsetPaginationQuery pagination,
         CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Retrieves the total count of tournaments asynchronously.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The total count of tournaments.</returns>
+    Task<int> GetTotalTournamentCountAsync(CancellationToken cancellationToken);
 }

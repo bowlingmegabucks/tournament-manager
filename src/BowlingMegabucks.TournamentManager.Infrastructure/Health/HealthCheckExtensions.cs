@@ -14,23 +14,23 @@ internal static class HealthCheckExtensions
     internal const string ReadyTag = "ready";
     internal const string LiveTag = "live";
 
-    public static WebApplicationBuilder AddHealthChecks(this WebApplicationBuilder builder)
+    public static IServiceCollection AddHealthChecks(this IServiceCollection services, IConfiguration config)
     {
-        builder.Services.AddHealthChecks()
+        services.AddHealthChecks()
             .AddCheck<SelfHealthCheck>(
                 name: "self",
                 tags: [LiveTag])
             .AddMySql(
-                connectionString: builder.Configuration.GetConnectionString("TournamentManager")
+                connectionString: config.GetConnectionString("TournamentManager")
                     ?? throw new InvalidOperationException("Connection string 'TournamentManager' not found."),
                 name: "tournament-manager-db",
                 tags: [ReadyTag, "database"]);
 
-        builder.Services
+        services
             .AddHealthChecksUI()
             .AddInMemoryStorage();
 
-        return builder;
+        return services;
     }
 
     public static WebApplication MapHealthCheckRoute(this WebApplication app)

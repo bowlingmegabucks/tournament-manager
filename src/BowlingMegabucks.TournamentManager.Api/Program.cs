@@ -2,6 +2,7 @@ using Asp.Versioning.Builder;
 using BowlingMegabucks.TournamentManager.Api.Logging;
 using BowlingMegabucks.TournamentManager.Api.OpenApi;
 using BowlingMegabucks.TournamentManager.Api.Versioning;
+using BowlingMegabucks.TournamentManager.Application;
 using BowlingMegabucks.TournamentManager.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Scalar.AspNetCore;
@@ -19,8 +20,11 @@ builder.Services.AddHttpContextAccessor();
 builder
     .AddLogging()
     .AddOpenApi()
-    .AddVersioning()
-    .AddInfrastructureServices();
+    .AddVersioning();
+
+builder.Services
+    .AddApplicationServices()
+    .AddInfrastructureServices(builder.Configuration, builder.Environment);
 
 WebApplication app = builder.Build();
 

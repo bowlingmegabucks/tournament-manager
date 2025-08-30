@@ -39,4 +39,7 @@ internal sealed class TournamentQueries
             })
             .ApplyPagination(pagination)
             .ToListAsync(cancellationToken);
+
+    public Task<int> GetTotalTournamentCountAsync(CancellationToken cancellationToken)
+        => _applicationDbContext.Tournaments.CountAsync(cancellationToken);
 }
