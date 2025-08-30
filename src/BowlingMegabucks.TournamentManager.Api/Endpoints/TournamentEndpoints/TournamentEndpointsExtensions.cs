@@ -1,5 +1,7 @@
 using Asp.Versioning.Builder;
 using BowlingMegabucks.TournamentManager.Api.Versioning;
+using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
+using BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 
 namespace BowlingMegabucks.TournamentManager.Api.Endpoints.TournamentEndpoints;
 
@@ -17,5 +19,21 @@ internal static class TournamentEndpointsExtensions
             .MapGetAllTournamentsEndpoint();
 
         return app;
+    }
+
+    internal static TournamentSummary ToTournamentSummary(this TournamentSummaryDto tournament)
+    {
+        ArgumentNullException.ThrowIfNull(tournament);
+
+        return new TournamentSummary
+        {
+            Id = tournament.Id.Value,
+            Name = tournament.Name,
+            StartDate = tournament.StartDate,
+            EndDate = tournament.EndDate,
+            EntryFee = tournament.EntryFee,
+            BowlingCenter = tournament.BowlingCenter,
+            Completed = tournament.Completed,
+        };
     }
 }

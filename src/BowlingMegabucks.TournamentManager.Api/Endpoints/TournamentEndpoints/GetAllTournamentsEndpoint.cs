@@ -1,5 +1,7 @@
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
+using BowlingMegabucks.TournamentManager.Contracts;
+using BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,13 +30,17 @@ internal static class GetAllTournamentsEndpoint
                 return result.Errors.ToProblemDetails();
             }
 
-            return TypedResults.Ok(result.Value);
+            OffsetPaginationApiResponse<TournamentSummary> apiResponse = result.Value
+                .ToApiResponse()
+                .ConvertValues(dto => dto.ToTournamentSummary());
+
+            return TypedResults.Ok(apiResponse);
         })
             .WithName("GetAllTournaments")
             .WithSummary("Retrieves all tournaments with pagination support")
             .WithDescription("Gets a paginated list of all tournaments available in the system. Use the page and pageSize parameters to control pagination.")
             .WithTags("Tournaments")
-            .Produces<OffsetPaginationApiResponse<TournamentSummaryDto>>(
+            .Produces<OffsetPaginationApiResponse<TournamentSummary>>(
                 StatusCodes.Status200OK)
             .Produces<ValidationProblemDetails>(
                 StatusCodes.Status400BadRequest)
