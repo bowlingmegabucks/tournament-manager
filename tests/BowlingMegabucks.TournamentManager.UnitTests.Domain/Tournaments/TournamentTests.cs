@@ -1,6 +1,7 @@
+using BowlingMegabucks.TournamentManager.Domain;
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 
-namespace BowlingMegabucks.TournamentManager.Domain.UnitTests.Tournaments;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Domain.Tournaments;
 
 public sealed class TournamentTests
 {

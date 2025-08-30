@@ -1,6 +1,7 @@
 using System.Globalization;
+using BowlingMegabucks.TournamentManager.Domain;
 
-namespace BowlingMegabucks.TournamentManager.Domain.UnitTests;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Domain;
 
 public sealed class DateOnlyRangeTests
 {

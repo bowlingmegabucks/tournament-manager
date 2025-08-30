@@ -1,6 +1,6 @@
 using BowlingMegabucks.TournamentManager.Domain.Abstractions;
 
-namespace BowlingMegabucks.TournamentManager.Domain.UnitTests.Abstractions;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Domain.Abstractions;
 
 public sealed class EntityTests
 {

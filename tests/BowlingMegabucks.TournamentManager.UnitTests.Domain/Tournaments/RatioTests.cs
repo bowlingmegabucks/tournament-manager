@@ -1,7 +1,7 @@
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using ErrorOr;
 
-namespace BowlingMegabucks.TournamentManager.Domain.UnitTests.Tournaments;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Domain.Tournaments;
 
 public sealed class RatioTests
 {
