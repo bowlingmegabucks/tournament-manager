@@ -3,7 +3,7 @@ using BowlingMegabucks.TournamentManager.Tests.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
-namespace BowlingMegabucks.TournamentManager.Infrastructure.Tests.Fixtures;
+namespace BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure.Fixtures;
 
 /// <summary>
 /// Shared test fixture for database-dependent query tests.
