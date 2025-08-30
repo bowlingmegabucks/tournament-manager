@@ -1,3 +1,5 @@
+using ErrorOr;
+
 namespace BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 
 /// <summary>
@@ -8,11 +10,11 @@ public interface IGetTournamentsView
     /// <summary>
     /// Displays an error message to the user.
     /// </summary>
-    /// <param name="message">The error message to display.</param>
+    /// <param name="errors">The errors to display.</param>
     /// <remarks>
     /// This method is called when an error occurs that needs to be shown to the user.
     /// </remarks>
-    void DisplayErrorMessage(string message);
+    void DisplayErrorMessage(IEnumerable<Error> errors);
 
     /// <summary>
     /// Disables the option to open a tournament in the view.

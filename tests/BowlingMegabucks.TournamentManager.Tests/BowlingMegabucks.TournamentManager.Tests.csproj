@@ -16,5 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\BowlingMegabucks.TournamentManager.Infrastructure\BowlingMegabucks.TournamentManager.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\BowlingMegabucks.TournamentManager.Contracts\BowlingMegabucks.TournamentManager.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\BowlingMegabucks.TournamentManager.Presentation\BowlingMegabucks.TournamentManager.Presentation.csproj" />
   </ItemGroup>
 </Project>
