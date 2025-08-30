@@ -13,9 +13,8 @@ internal sealed partial class GetTournamentsForm
         InitializeComponent();
 
         _presenter = presenter;
-        _presenter.SetView(this);
 
-        _ = _presenter.GetTournamentsAsync(page: null, pageSize: null, default);
+        _ = _presenter.GetTournamentsAsync(this, page: null, pageSize: null, default);
     }
 
     public void BindTournaments(IReadOnlyCollection<TournamentSummaryViewModel> tournaments)

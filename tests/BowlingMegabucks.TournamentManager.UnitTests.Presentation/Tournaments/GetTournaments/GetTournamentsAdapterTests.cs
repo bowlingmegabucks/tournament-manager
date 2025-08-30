@@ -98,7 +98,34 @@ public sealed class GetTournamentsAdapterTests
         result.IsError.Should().BeTrue();
 
         result.Errors.Should().ContainSingle();
+        result.FirstError.Type.Should().Be(ErrorType.Failure);
         result.FirstError.Code.Should().Be("Tournaments.GetAllException");
         result.FirstError.Description.Should().Be("Error fetching tournaments");
+    }
+
+    [Fact]
+    public async Task GetTournamentsAsync_ShouldReturnError_WhenApiCallThrowsException()
+    {
+        // Arrange
+        int page = 1;
+        int pageSize = 10;
+
+        _mockTournamentManagerApi.Setup(api => api.GetTournamentsAsync(
+                page,
+                pageSize,
+                It.IsAny<CancellationToken>()))
+            .ThrowsAsync(new HttpRequestException("Mock Exception"));
+
+        // Act
+        ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>> result =
+            await _getTournamentsAdapter.ExecuteAsync(page, pageSize, TestContext.Current.CancellationToken);
+
+        // Assert
+        result.IsError.Should().BeTrue();
+
+        result.Errors.Should().ContainSingle();
+        result.FirstError.Type.Should().Be(ErrorType.Unexpected);
+        result.FirstError.Code.Should().Be("Tournaments.GetAllRequest");
+        result.FirstError.Description.Should().Be("Mock Exception");
     }
 }
