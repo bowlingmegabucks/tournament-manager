@@ -3,7 +3,7 @@ using BowlingMegabucks.TournamentManager.Infrastructure.Database;
 using BowlingMegabucks.TournamentManager.Tests.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure;
+namespace BowlingMegabucks.TournamentManager.IntegrationTests.Application.Infrastructure;
 
 public abstract class BaseIntegrationTest
     : IClassFixture<TournamentManagerWebAppFactory<IApiAssemblyMarker>>, IAsyncLifetime

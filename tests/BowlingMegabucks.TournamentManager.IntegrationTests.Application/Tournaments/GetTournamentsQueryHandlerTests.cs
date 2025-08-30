@@ -2,12 +2,12 @@ using BowlingMegabucks.TournamentManager.Api;
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
-using BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure;
+using BowlingMegabucks.TournamentManager.IntegrationTests.Application.Infrastructure;
 using BowlingMegabucks.TournamentManager.Tests.Factories;
 using BowlingMegabucks.TournamentManager.Tests.Infrastructure;
 using ErrorOr;
 
-namespace BowlingMegabucks.TournamentManager.IntegrationTests.Tournaments;
+namespace BowlingMegabucks.TournamentManager.IntegrationTests.Application.Tournaments;
 
 public sealed class GetTournamentsQueryHandlerTests
     : BaseIntegrationTest

@@ -13,8 +13,8 @@
   <Folder Name="/tests/">
     <Project Path="tests/BowlingMegabucks.TournamentManager.UnitTests.Domain/BowlingMegabucks.TournamentManager.UnitTests.Domain.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.FunctionalTests/BowlingMegabucks.TournamentManager.FunctionalTests.csproj" />
-    <Project Path="tests/BowlingMegabucks.TournamentManager.Infrastructure.Tests/BowlingMegabucks.TournamentManager.Infrastructure.Tests.csproj" />
-    <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests/BowlingMegabucks.TournamentManager.IntegrationTests.csproj" />
+    <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure/BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure.csproj" />
+    <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests.Application/BowlingMegabucks.TournamentManager.IntegrationTests.Application.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.Tests/BowlingMegabucks.TournamentManager.Tests.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.UnitTests.Presentation/BowlingMegabucks.TournamentManager.UnitTests.Presentation.csproj" />
   </Folder>
