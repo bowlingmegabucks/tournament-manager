@@ -34,33 +34,6 @@ public class Presenter
     }
 
     /// <summary>
-    /// Executes the workflow to retrieve tournaments asynchronously.
-    /// </summary>
-    /// <param name="cancellationToken">A cancellation token for the async operation.</param>
-    /// <returns>A task representing the asynchronous operation.</returns>
-    /// <remarks>
-    /// This method fetches tournaments, handles errors, and updates the view accordingly.
-    /// </remarks>
-    public async Task ExecuteAsync(CancellationToken cancellationToken)
-    {
-        var tournaments = await _adapter.ExecuteAsync(cancellationToken).ConfigureAwait(true);
-
-        if (_adapter.Error != null)
-        {
-            _view.DisplayErrorMessage(_adapter.Error.Message);
-            _view.DisableOpenTournament();
-        }
-        else if (!tournaments.Any())
-        {
-            _view.DisableOpenTournament();
-        }
-        else
-        {
-            _view.BindTournaments([.. tournaments]);
-        }
-    }
-
-    /// <summary>
     /// Initiates the creation of a new tournament.
     /// </summary>
     /// <remarks>

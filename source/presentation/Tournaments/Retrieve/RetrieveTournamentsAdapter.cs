@@ -28,20 +28,6 @@ internal class Adapter : IAdapter
         _retrieveTournament = new Lazy<IQueryHandler<GetTournamentByIdQuery, Models.Tournament?>>(() => retrieveTournament);
     }
 
-    public async Task<IEnumerable<IViewModel>> ExecuteAsync(CancellationToken cancellationToken)
-    {
-        var tournamentsResult = await QueryHandler.HandleAsync(new(), cancellationToken);
-
-        if (tournamentsResult.IsError)
-        {
-            Error = new(tournamentsResult.FirstError.Description, -1);
-
-            return Array.Empty<IViewModel>();
-        }
-
-        return tournamentsResult.Value.Select(tournament => new ViewModel(tournament)).ToList();
-    }
-
     public async Task<IViewModel?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken)
     {
         var tournamentResult = await RetrieveTournament.HandleAsync(new() { Id = tournamentId }, cancellationToken).ConfigureAwait(false);
@@ -69,8 +55,6 @@ internal class Adapter : IAdapter
 internal interface IAdapter
 {
     Models.ErrorDetail? Error { get; }
-
-    Task<IEnumerable<IViewModel>> ExecuteAsync(CancellationToken cancellationToken);
 
     Task<IViewModel?> ExecuteAsync(TournamentId tournamentId, CancellationToken cancellationToken);
 
