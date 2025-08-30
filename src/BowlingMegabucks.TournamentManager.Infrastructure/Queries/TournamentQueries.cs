@@ -19,6 +19,12 @@ internal sealed class TournamentQueries
     public TournamentQueries(ApplicationDbContext applicationDbContext)
     {
         _applicationDbContext = applicationDbContext;
+        string? x = _applicationDbContext.Database.GetConnectionString();
+
+        if (string.IsNullOrEmpty(x))
+        {
+            throw new InvalidOperationException("Database connection string is not configured.");
+        }
     }
 
     // in the query handler, we can have properties that we want to sort on.
