@@ -7,6 +7,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/BowlingMegabucks.TournamentManager.Domain.UnitTests/BowlingMegabucks.TournamentManager.Domain.UnitTests.csproj" />
+    <Project Path="tests/BowlingMegabucks.TournamentManager.FunctionalTests/BowlingMegabucks.TournamentManager.FunctionalTests.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.Infrastructure.Tests/BowlingMegabucks.TournamentManager.Infrastructure.Tests.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests/BowlingMegabucks.TournamentManager.IntegrationTests.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.Tests/BowlingMegabucks.TournamentManager.Tests.csproj" />
