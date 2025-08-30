@@ -3,21 +3,16 @@ using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.App.Tournaments;
 
-internal sealed partial class RetrieveTournamentsForm
+internal sealed partial class GetTournamentsForm
     : System.Windows.Forms.Form, IGetTournamentsView
 {
-#pragma warning disable S4487 // Unread "private" fields should be removed
-    private readonly IServiceProvider _services;
-#pragma warning restore S4487 // Unread "private" fields should be removed
     private readonly GetTournamentsPresenter _presenter;
 
-    public RetrieveTournamentsForm(IServiceProvider services)
+    public GetTournamentsForm(GetTournamentsPresenter presenter)
     {
         InitializeComponent();
 
-        _services = services;
-
-        _presenter = new(this, services);
+        _presenter = presenter;
 
         _ = _presenter.GetTournamentsAsync(page: null, pageSize: null, default);
     }

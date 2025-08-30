@@ -1,8 +1,8 @@
 #if DEBUG
 
-    using BowlingMegabucks.TournamentManager.App.Controls.Grids;
+using BowlingMegabucks.TournamentManager.App.Controls.Grids;
 
-    namespace BowlingMegabucks.TournamentManager.App.Tournaments;
+namespace BowlingMegabucks.TournamentManager.App.Tournaments.GetTournaments;
 
     internal class TournamentMiddleGrid
         : DataGridControl<Presentation.Tournaments.GetTournaments.TournamentSummaryViewModel>
