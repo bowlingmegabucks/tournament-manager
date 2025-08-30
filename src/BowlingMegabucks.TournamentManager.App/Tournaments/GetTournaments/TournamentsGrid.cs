@@ -1,3 +1,5 @@
+using BowlingMegabucks.TournamentManager.App.Tournaments.GetTournaments;
+
 namespace BowlingMegabucks.TournamentManager.App.Tournaments;
 
 internal sealed partial class TournamentsGrid

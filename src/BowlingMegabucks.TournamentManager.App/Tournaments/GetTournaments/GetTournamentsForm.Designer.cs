@@ -1,6 +1,6 @@
 namespace BowlingMegabucks.TournamentManager.App.Tournaments;
 
-partial class RetrieveTournamentsForm
+partial class GetTournamentsForm
 {
     /// <summary>
     /// Required designer variable.

@@ -1,4 +1,5 @@
 using BowlingMegabucks.TournamentManager.App.Tournaments;
+using BowlingMegabucks.TournamentManager.App.Tournaments.GetTournaments;
 using BowlingMegabucks.TournamentManager.Presentation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,9 +36,13 @@ internal static class Program
             .AddPresentationServices(config)
             .AddTournaments();
 
+        ServiceProvider serviceProvider = services.BuildServiceProvider();
+
 #if WINDOWS
-        //using Form form = services.BuildServiceProvider().GetRequiredService<Tournaments.RetrieveForm>();
-        //Application.Run(form);
+        IGetTournamentsFormFactory formFactory = serviceProvider.GetRequiredService<IGetTournamentsFormFactory>();
+        using GetTournamentsForm form = formFactory.Create();
+
+        Application.Run(form);
 #endif
     }
 #pragma warning restore S125 // Sections of code should not be commented out

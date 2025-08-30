@@ -23,6 +23,7 @@ public static class PresentationExtensions
     private static IServiceCollection AddTournamentsPresentation(this IServiceCollection services)
     {
         services.AddSingleton<IGetTournamentsAdapter, GetTournamentsAdapter>();
+        services.AddTransient<GetTournamentsPresenter>();
 
         return services;
     }
