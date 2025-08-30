@@ -46,7 +46,7 @@ internal sealed class GetTournamentsAdapter
         }
         catch (HttpRequestException ex)
         {
-            return Error.Failure(
+            return Error.Unexpected(
                 code: "Tournaments.GetAllRequest",
                 description: ex.Message);
         }

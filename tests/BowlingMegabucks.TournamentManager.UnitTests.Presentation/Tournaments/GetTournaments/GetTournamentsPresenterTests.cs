@@ -15,8 +15,9 @@ public sealed class GetTournamentsPresenterTests
     {
         _mockView = new Mock<IGetTournamentsView>(MockBehavior.Strict);
         _mockAdapter = new Mock<IGetTournamentsAdapter>(MockBehavior.Strict);
-        _presenter = new GetTournamentsPresenter(_mockView.Object, _mockAdapter.Object);
+        _presenter = new GetTournamentsPresenter(_mockAdapter.Object);
     }
+
 
     [Fact]
     public async Task GetTournamentsAsync_ShouldPerformErrorFlow_WhenAdapterReturnsErrors()
@@ -36,7 +37,7 @@ public sealed class GetTournamentsPresenterTests
         _mockView.Setup(view => view.DisableOpenTournament());
 
         // Act
-        await _presenter.GetTournamentsAsync(page, pageSize, TestContext.Current.CancellationToken);
+        await _presenter.GetTournamentsAsync(_mockView.Object, page, pageSize, TestContext.Current.CancellationToken);
 
         // Assert
         _mockView.VerifyAll();
@@ -63,7 +64,7 @@ public sealed class GetTournamentsPresenterTests
         _mockView.Setup(view => view.DisableOpenTournament());
 
         // Act
-        await _presenter.GetTournamentsAsync(page, pageSize, TestContext.Current.CancellationToken);
+        await _presenter.GetTournamentsAsync(_mockView.Object, page, pageSize, TestContext.Current.CancellationToken);
 
         // Assert
         _mockView.VerifyAll();
@@ -91,7 +92,7 @@ public sealed class GetTournamentsPresenterTests
         _mockView.Setup(view => view.BindTournaments(tournaments));
 
         // Act
-        await _presenter.GetTournamentsAsync(page, pageSize, TestContext.Current.CancellationToken);
+        await _presenter.GetTournamentsAsync(_mockView.Object, page, pageSize, TestContext.Current.CancellationToken);
 
         // Assert
         _mockView.VerifyAll();
