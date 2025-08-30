@@ -19,20 +19,29 @@ internal sealed class TournamentsAdapter
         : base(tournamentManagerApi)
     { }
 
-    public async Task<ErrorOr<IReadOnlyCollection<TournamentSummaryViewModel>>> GetTournamentsAsync(int? page, int? pageSize, CancellationToken cancellationToken)
+    public async Task<ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>>> GetTournamentsAsync(int? page, int? pageSize, CancellationToken cancellationToken)
     {
         try
         {
             OffsetPaginationResponse<TournamentSummary> response = await _tournamentManagerApi.GetTournamentsAsync(
                 page,
                 pageSize,
-                cancellationToken).ConfigureAwait(false);
+                cancellationToken);
 
-            return response.Items.Select(tournamentSummary => tournamentSummary.ToViewModel()).ToList();
+            var viewModels = response.Items.Select(tournamentSummary => tournamentSummary.ToViewModel()).ToList();
+
+            return new OffsetPagingResult<TournamentSummaryViewModel>
+            {
+                Items = viewModels,
+                TotalPages = response.TotalPages,
+                CurrentPage = response.CurrentPage,
+                PageSize = response.PageSize,
+                TotalItems = response.TotalItems,
+            };
         }
         catch (ApiException ex)
         {
-            return GenerateError(ex, "Error fetching tournaments");
+            return GenerateError(ex, "Tournaments.GetAllException", "Error fetching tournaments");
         }
     }
 }

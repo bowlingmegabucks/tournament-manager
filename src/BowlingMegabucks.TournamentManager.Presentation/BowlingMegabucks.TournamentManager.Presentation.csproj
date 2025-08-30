@@ -1,11 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <ItemGroup>
     <PackageReference Include="ErrorOr" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     <PackageReference Include="Refit.HttpClientFactory" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\BowlingMegabucks.TournamentManager.Contracts\BowlingMegabucks.TournamentManager.Contracts.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.UnitTests.Presentation" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+
 </Project>

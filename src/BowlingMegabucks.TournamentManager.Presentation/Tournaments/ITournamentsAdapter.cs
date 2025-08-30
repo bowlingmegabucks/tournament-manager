@@ -5,5 +5,5 @@ namespace BowlingMegabucks.TournamentManager.Presentation.Tournaments;
 
 internal interface ITournamentsAdapter
 {
-    Task<ErrorOr<IReadOnlyCollection<TournamentSummaryViewModel>>> GetTournamentsAsync(int? page, int? pageSize, CancellationToken cancellationToken);
+    Task<ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>>> GetTournamentsAsync(int? page, int? pageSize, CancellationToken cancellationToken);
 }

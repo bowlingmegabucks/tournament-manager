@@ -16,5 +16,6 @@
     <Project Path="tests/BowlingMegabucks.TournamentManager.Infrastructure.Tests/BowlingMegabucks.TournamentManager.Infrastructure.Tests.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests/BowlingMegabucks.TournamentManager.IntegrationTests.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.Tests/BowlingMegabucks.TournamentManager.Tests.csproj" />
+    <Project Path="tests/BowlingMegabucks.TournamentManager.UnitTests.Presentation/BowlingMegabucks.TournamentManager.UnitTests.Presentation.csproj" />
   </Folder>
 </Solution>
