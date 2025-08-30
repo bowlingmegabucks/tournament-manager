@@ -33,6 +33,7 @@
   <ItemGroup>
     <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.Tests" />
     <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.Infrastructure.Tests" />
+    <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.FunctionalTests" />
     <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.IntegrationTests" />
   </ItemGroup>
 
