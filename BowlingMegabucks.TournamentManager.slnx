@@ -1,10 +1,14 @@
 <Solution>
-  <Folder Name="/src/">
+  <Folder Name="/src/" />
+  <Folder Name="/src/api/">
     <Project Path="src/BowlingMegabucks.TournamentManager.Api/BowlingMegabucks.TournamentManager.Api.csproj" />
     <Project Path="src/BowlingMegabucks.TournamentManager.Application/BowlingMegabucks.TournamentManager.Application.csproj" />
     <Project Path="src/BowlingMegabucks.TournamentManager.Contracts/BowlingMegabucks.TournamentManager.Contracts.csproj" />
     <Project Path="src/BowlingMegabucks.TournamentManager.Domain/BowlingMegabucks.TournamentManager.Domain.csproj" />
     <Project Path="src/BowlingMegabucks.TournamentManager.Infrastructure/BowlingMegabucks.TournamentManager.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/client/">
+    <Project Path="src/BowlingMegabucks.TournamentManager.Presentation/BowlingMegabucks.TournamentManager.Presentation.csproj" Id="b83fe553-078d-4138-a40f-a5148fdc434f" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/BowlingMegabucks.TournamentManager.Domain.UnitTests/BowlingMegabucks.TournamentManager.Domain.UnitTests.csproj" />
