@@ -1,6 +1,6 @@
 using System;
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
-using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
+using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BowlingMegabucks.TournamentManager.Application;
@@ -20,7 +20,7 @@ public static class ApplicationExtensions
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        services.AddScoped<IOffsetPaginationQueryHandler<GetAllTournamentsQuery, TournamentSummaryDto>, GetAllTournamentsQueryHandler>();
+        services.AddScoped<IOffsetPaginationQueryHandler<GetTournamentsQuery, TournamentSummaryDto>, GetTournamentsQueryHandler>();
 
         return services;
     }

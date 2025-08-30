@@ -1,6 +1,6 @@
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 
-namespace BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
+namespace BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
 
 /// <summary>
 /// Data Transfer Object representing a summary of a tournament.

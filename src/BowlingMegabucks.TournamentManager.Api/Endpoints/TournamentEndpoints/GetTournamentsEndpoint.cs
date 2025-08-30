@@ -1,5 +1,5 @@
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
-using BowlingMegabucks.TournamentManager.Application.Tournaments.GetAllTournaments;
+using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
 using BowlingMegabucks.TournamentManager.Contracts;
 using BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 using ErrorOr;
@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BowlingMegabucks.TournamentManager.Api.Endpoints.TournamentEndpoints;
 
-internal static class GetAllTournamentsEndpoint
+internal static class GetTournamentsEndpoint
 {
     public static IEndpointRouteBuilder MapGetAllTournamentsEndpoint(this IEndpointRouteBuilder app)
     {
         app.MapGet("/", async (
             [FromQuery] int? page,
             [FromQuery] int? pageSize,
-            IOffsetPaginationQueryHandler<GetAllTournamentsQuery, TournamentSummaryDto> queryHandler,
+            IOffsetPaginationQueryHandler<GetTournamentsQuery, TournamentSummaryDto> queryHandler,
             CancellationToken cancellationToken = default) =>
         {
-            var query = new GetAllTournamentsQuery
+            var query = new GetTournamentsQuery
             {
                 Page = page ?? 1,
                 PageSize = pageSize ?? 10,
@@ -36,7 +36,7 @@ internal static class GetAllTournamentsEndpoint
 
             return TypedResults.Ok(apiResponse);
         })
-            .WithName("GetAllTournaments")
+            .WithName("GetTournaments")
             .WithSummary("Retrieves all tournaments with pagination support")
             .WithDescription("Gets a paginated list of all tournaments available in the system. Use the page and pageSize parameters to control pagination.")
             .WithTags("Tournaments")
