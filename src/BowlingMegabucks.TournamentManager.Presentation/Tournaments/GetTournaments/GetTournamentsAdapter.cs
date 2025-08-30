@@ -6,20 +6,20 @@ using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments
 using ErrorOr;
 using Refit;
 
-namespace BowlingMegabucks.TournamentManager.Presentation.Tournaments;
+namespace BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 
 [SuppressMessage(
     "Performance",
     "CA1812:Avoid uninstantiated internal classes",
     Justification = "Instantiated by dependency injection container.")]
-internal sealed class TournamentsAdapter
-    : TournamentManagerAdapter, ITournamentsAdapter
+internal sealed class GetTournamentsAdapter
+    : TournamentManagerAdapter, IGetTournamentsAdapter
 {
-    public TournamentsAdapter(ITournamentManagerApi tournamentManagerApi)
+    public GetTournamentsAdapter(ITournamentManagerApi tournamentManagerApi)
         : base(tournamentManagerApi)
     { }
 
-    public async Task<ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>>> GetTournamentsAsync(int? page, int? pageSize, CancellationToken cancellationToken)
+    public async Task<ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>>> ExecuteAsync(int? page, int? pageSize, CancellationToken cancellationToken)
     {
         try
         {

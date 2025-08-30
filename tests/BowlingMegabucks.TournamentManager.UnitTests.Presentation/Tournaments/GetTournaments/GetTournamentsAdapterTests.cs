@@ -3,24 +3,23 @@ using BowlingMegabucks.TournamentManager.Contracts;
 using BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 using BowlingMegabucks.TournamentManager.Presentation;
 using BowlingMegabucks.TournamentManager.Presentation.Services;
-using BowlingMegabucks.TournamentManager.Presentation.Tournaments;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 using BowlingMegabucks.TournamentManager.Tests.Factories;
 using ErrorOr;
 using Refit;
 
-namespace BowlingMegabucks.TournamentManager.UnitTests.Presentation.Tournaments;
+namespace BowlingMegabucks.TournamentManager.UnitTests.Presentation.Tournaments.GetTournaments;
 
-public sealed class TournamentsAdapterTests
+public sealed class GetTournamentsAdapterTests
 {
     private readonly Mock<ITournamentManagerApi> _mockTournamentManagerApi;
 
-    private readonly TournamentsAdapter _tournamentsAdapter;
+    private readonly GetTournamentsAdapter _getTournamentsAdapter;
 
-    public TournamentsAdapterTests()
+    public GetTournamentsAdapterTests()
     {
         _mockTournamentManagerApi = new Mock<ITournamentManagerApi>(MockBehavior.Strict);
-        _tournamentsAdapter = new TournamentsAdapter(_mockTournamentManagerApi.Object);
+        _getTournamentsAdapter = new GetTournamentsAdapter(_mockTournamentManagerApi.Object);
     }
 
     [Fact]
@@ -47,7 +46,7 @@ public sealed class TournamentsAdapterTests
 
         // Act
         ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>> result =
-            await _tournamentsAdapter.GetTournamentsAsync(page, pageSize, TestContext.Current.CancellationToken);
+            await _getTournamentsAdapter.ExecuteAsync(page, pageSize, TestContext.Current.CancellationToken);
 
         // Assert
         result.IsError.Should().BeFalse();
@@ -93,7 +92,7 @@ public sealed class TournamentsAdapterTests
 
         // Act
         ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>> result =
-            await _tournamentsAdapter.GetTournamentsAsync(page, pageSize, TestContext.Current.CancellationToken);
+            await _getTournamentsAdapter.ExecuteAsync(page, pageSize, TestContext.Current.CancellationToken);
 
         // Assert
         result.IsError.Should().BeTrue();
