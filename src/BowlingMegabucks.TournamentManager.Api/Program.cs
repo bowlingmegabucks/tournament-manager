@@ -1,4 +1,3 @@
-using Asp.Versioning.Builder;
 using BowlingMegabucks.TournamentManager.Api.Endpoints.TournamentEndpoints;
 using BowlingMegabucks.TournamentManager.Api.Logging;
 using BowlingMegabucks.TournamentManager.Api.OpenApi;
@@ -38,12 +37,12 @@ RouteGroupBuilder group = app.MapGroup("api/v{version:apiVersion}");
 group
     .MapTournamentEndpoints();
 
-group.MapGet("/", (IConfiguration config)
+app.MapGet("/", (IConfiguration config)
     => TypedResults.Ok($"Tournament Manager API Health UI: {config["HealthChecksUI:HealthChecks:0:Uri"]}"))
     .WithTags("Initial")
     .Deprecated();
 
-group.MapGet("/error", (ILoggerFactory loggerFactory) =>
+app.MapGet("/error", (ILoggerFactory loggerFactory) =>
 {
     ILogger logger = loggerFactory.CreateLogger("Error");
 #pragma warning disable CA1848 // Use the LoggerMessage delegates
