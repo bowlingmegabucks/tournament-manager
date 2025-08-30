@@ -1,0 +1,76 @@
+using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
+using ErrorOr;
+
+namespace BowlingMegabucks.TournamentManager.App.Tournaments;
+
+internal sealed partial class RetrieveTournamentsForm
+    : System.Windows.Forms.Form, IGetTournamentsView
+{
+#pragma warning disable S4487 // Unread "private" fields should be removed
+    private readonly IServiceProvider _services;
+#pragma warning restore S4487 // Unread "private" fields should be removed
+    private readonly GetTournamentsPresenter _presenter;
+
+    public RetrieveTournamentsForm(IServiceProvider services)
+    {
+        InitializeComponent();
+
+        _services = services;
+
+        _presenter = new(this, services);
+
+        _ = _presenter.GetTournamentsAsync(page: null, pageSize: null, default);
+    }
+
+    public void BindTournaments(IReadOnlyCollection<TournamentSummaryViewModel> tournaments)
+        => tournamentsGrid.Bind(tournaments);
+
+    public void DisableOpenTournament()
+        => openButton.Enabled = false;
+
+    public void DisplayErrorMessage(IEnumerable<Error> errors)
+        => MessageBox.Show(
+            string.Join(
+                Environment.NewLine,
+                errors.Select(error => $"{error.Code}: {error.Description}")),
+            "Error",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
+
+    public Guid? CreateNewTournament()
+#pragma warning disable S125 // Sections of code should not be commented out
+    {
+        //using var form = new Add.Form(_services);
+
+        //return form.ShowDialog() == DialogResult.OK ? form.Tournament.Id : null;
+
+        return null;
+    }
+#pragma warning restore S125 // Sections of code should not be commented out
+
+#pragma warning disable S125 // Sections of code should not be commented out
+#pragma warning disable IDE0060 // Remove unused parameter
+#pragma warning disable RCS1163 // Unused parameter
+    public void OpenTournament(Guid id)
+#pragma warning restore RCS1163 // Unused parameter
+#pragma warning restore IDE0060 // Remove unused parameter
+    {
+        //using var portal = new Portal.Form(_services, id, tournamentName);
+
+        //Hide();
+
+        //portal.ShowDialog();
+
+        Close();
+#pragma warning restore S125 // Sections of code should not be commented out
+    }
+
+    private void TournamentsGrid_GridRowDoubleClicked(object sender, Controls.Grids.GridRowDoubleClickEventArgs e)
+        => OpenButton_Click(sender, e);
+
+    private void NewButton_Click(object sender, EventArgs e)
+        => _presenter.NewTournament();
+
+    private void OpenButton_Click(object sender, EventArgs e)
+        => OpenTournament(tournamentsGrid.SelectedTournament!.Id);
+}

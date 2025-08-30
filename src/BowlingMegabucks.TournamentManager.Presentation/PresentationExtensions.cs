@@ -12,10 +12,7 @@ public static class PresentationExtensions
     public static IServiceCollection AddPresentationServices(this IServiceCollection services, IConfiguration config)
     {
         services.AddRefitClient<ITournamentManagerApi>()
-            .ConfigureHttpClient(c =>
-            {
-                c.BaseAddress = new Uri(config["TournamentManagerApi:BaseUrl"] ?? throw new InvalidOperationException("BaseUrl is not configured."));
-            });
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(config["TournamentManagerApi:BaseUrl"] ?? throw new InvalidOperationException("BaseUrl is not configured.")));
 
         services
             .AddTournamentsPresentation();
