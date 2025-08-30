@@ -7,6 +7,7 @@ using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.FunctionalTests.Infrastructure;
 using BowlingMegabucks.TournamentManager.Tests.Factories;
 using BowlingMegabucks.TournamentManager.Tests.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BowlingMegabucks.TournamentManager.FunctionalTests.Tournaments;
 
@@ -75,14 +76,6 @@ public sealed partial class GetAllTournamentsFunctionalTests
         HttpResponseMessage response = await client.GetAsync(requestUri, TestContext.Current.CancellationToken);
 
         // Assert
-        response.Should().NotBeNull();
-        response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-
-        string responseContent = await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
-        responseContent.Should().NotBeEmpty();
-
-        // Verify it returns a ProblemDetails response for 500 errors
-        // The actual error will be about database connection/retry failures
-        responseContent.Should().ContainAny("RetryLimitExceededException", "database", "error", "status\":500");
+        await response.VerifyResponseWhenDatabaseFailsAsync(s_jsonSerializerOptions);
     }
 }
