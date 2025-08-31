@@ -49,7 +49,7 @@ jobs:
             -backend-config="resource_group_name=rg-infrastructure" \
             -backend-config="storage_account_name=megabucksinfrastructure" \
             -backend-config="container_name=tfstate" \
-            -backend-config="key=stage.tfstate"
+            -backend-config="key=${{ github.event.inputs.environment }}.tfstate"
 
       - name: Terraform Validate
         run: terraform validate
