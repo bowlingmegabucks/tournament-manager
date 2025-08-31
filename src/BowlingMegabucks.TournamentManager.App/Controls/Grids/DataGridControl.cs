@@ -21,6 +21,11 @@ internal abstract partial class DataGridControl<TModel> : UserControl where TMod
     public event EventHandler<PagingChangeEventArgs>? PagingChanged;
 
     /// <summary>
+    /// Raised when a page or page size change is committed and ready for data loading.
+    /// </summary>
+    public event EventHandler<PageChangeCommittedEventArgs>? PageChangeCommitted;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="DataGridControl{TModel}"/> class.
     /// Sets up default grid properties including auto-generation settings, row colors, and event handlers.
     /// </summary>
@@ -48,6 +53,8 @@ internal abstract partial class DataGridControl<TModel> : UserControl where TMod
 
         // Handle resize events for responsive layout
         Resize += DataGridControl_Resize;
+
+        PagingChanged += (s, e) => HandlePagingChanged(e);
     }
 
     private BindingList<TModel> _models;
@@ -149,17 +156,24 @@ internal abstract partial class DataGridControl<TModel> : UserControl where TMod
     /// Gets or sets the available page size options.
     /// </summary>
     /// <value>A collection of integers representing available page sizes.</value>
-    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public List<int> PageSizeOptions
     {
         get => _pageSizeOptions;
         set
         {
-            _pageSizeOptions = value ?? [10];
-            if (_pageSizeOptions.Count == 0)
-                _pageSizeOptions.Add(10);
+            if (value == null || value.Count == 0)
+            {
+                _pageSizeOptions = [10];
+                PageSize = 10;
+            }
+            else
+            {
+                _pageSizeOptions = [.. value];
+                PageSize = _pageSizeOptions[0]; // Use first value before sorting
+                _pageSizeOptions.Sort();
+            }
 
-            _pageSizeOptions.Sort();
             UpdatePageSizeDropdown();
         }
     }
@@ -624,6 +638,24 @@ internal abstract partial class DataGridControl<TModel> : UserControl where TMod
             startRecord,
             endRecord,
             TotalRecords);
+    }
+
+    private void HandlePagingChanged(PagingChangeEventArgs e)
+    {
+        using var cts = new CancellationTokenSource();
+
+        // Set new values immediately
+        CurrentPage = e.NewPage;
+        PageSize = e.NewPageSize;
+
+        // Restore previous values if cancelled
+        cts.Token.Register(() =>
+        {
+            CurrentPage = e.PreviousPage;
+            PageSize = e.PreviousPageSize;
+        });
+
+        PageChangeCommitted?.Invoke(this, new PageChangeCommittedEventArgs(e.NewPage, e.NewPageSize, cts));
     }
 
     #endregion
