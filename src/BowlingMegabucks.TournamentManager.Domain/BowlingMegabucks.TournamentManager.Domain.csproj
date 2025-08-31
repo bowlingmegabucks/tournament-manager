@@ -12,15 +12,10 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" />
     <PackageReference Include="ErrorOr" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="StronglyTypedId" PrivateAssets="all" ExcludeAssets="runtime" />
   </ItemGroup>
 
-  <!-- Configure StronglyTypedId template files -->
   <ItemGroup>
-    <AdditionalFiles Include="Abstractions/guid7.typedid" />
-    <AdditionalFiles Include="Abstractions/guid-efcore.typedid" />
-    <!-- Add other StronglyTypedId template files if you have them -->
+    <ProjectReference Include="..\BowlingMegabucks.TournamentManager.SharedKernel\BowlingMegabucks.TournamentManager.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

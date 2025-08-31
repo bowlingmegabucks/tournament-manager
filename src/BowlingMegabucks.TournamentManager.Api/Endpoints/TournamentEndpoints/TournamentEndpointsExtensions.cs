@@ -27,7 +27,7 @@ internal static class TournamentEndpointsExtensions
 
         return new TournamentSummary
         {
-            Id = tournament.Id.Value,
+            Id = tournament.Id,
             Name = tournament.Name,
             StartDate = tournament.StartDate,
             EndDate = tournament.EndDate,

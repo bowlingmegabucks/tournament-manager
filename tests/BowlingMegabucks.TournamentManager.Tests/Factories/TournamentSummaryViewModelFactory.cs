@@ -1,4 +1,5 @@
 using Bogus;
+using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 
 namespace BowlingMegabucks.TournamentManager.Tests.Factories;
@@ -19,7 +20,7 @@ internal sealed class TournamentSummaryViewModelFaker
 {
     public TournamentSummaryViewModelFaker()
     {
-        RuleFor(t => t.Id, f => f.Random.Guid());
+        RuleFor(t => t.Id, _ => TournamentId.New());
         RuleFor(t => t.Name, f => f.Company.CatchPhrase());
         RuleFor(t => t.StartDate, f => f.Date.PastDateOnly());
         RuleFor(t => t.EndDate, (f, t) => f.Date.FutureDateOnly(refDate: t.StartDate));

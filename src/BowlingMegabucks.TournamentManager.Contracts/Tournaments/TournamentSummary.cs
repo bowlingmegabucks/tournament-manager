@@ -1,3 +1,5 @@
+using BowlingMegabucks.TournamentManager.Domain.Tournaments;
+
 namespace BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 
 /// <summary>
@@ -9,7 +11,7 @@ public sealed record TournamentSummary
     /// The unique identifier for the tournament.
     /// </summary>
     /// <example>550e8400-e29b-41d4-a716-446655440000</example>
-    public required Guid Id { get; init; }
+    public required TournamentId Id { get; init; }
 
     /// <summary>
     /// The name of the tournament.
