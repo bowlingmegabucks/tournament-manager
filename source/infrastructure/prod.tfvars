@@ -2,7 +2,7 @@ environment = "prod"
 
 location = "East US"
 
-app_service_plan_location = "East US"
+app_service_plan_location = "East US 2"
 app_service_plan_sku_name = "P3v3"
 
 log_analytics_workspace_sku            = "PerGB2018"
