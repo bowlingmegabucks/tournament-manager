@@ -1,4 +1,5 @@
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
+using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournamentById;
 using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.Infrastructure.Queries;
@@ -166,5 +167,58 @@ public sealed class TournamentQueriesTests
 
         // Assert
         count.Should().Be(7);
+    }
+
+    [Fact]
+    public async Task GetTournamentAsync_TournamentId_ShouldReturnNull_WhenTournamentDoesNotExist()
+    {
+        // Arrange
+        IEnumerable<Tournament> tournaments = TournamentFactory.FakeMany(10);
+        _queryTestFixture.ApplicationDbContext.Tournaments.AddRange(tournaments);
+
+        await _queryTestFixture.ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        var tournamentId = TournamentId.New();
+
+        // Act
+        TournamentDetailDto? result = await _tournamentQueries.GetTournamentAsync(tournamentId, TestContext.Current.CancellationToken);
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetTournamentAsync_TournamentId_ShouldReturnValue_WhenTournamentExists()
+    {
+        // Arrange
+        List<Tournament> tournaments = [.. TournamentFactory.FakeMany(10)];
+        _queryTestFixture.ApplicationDbContext.Tournaments.AddRange(tournaments);
+
+        await _queryTestFixture.ApplicationDbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
+
+        TournamentId tournamentId = tournaments[3].Id;
+
+        // Act
+        TournamentDetailDto? result = await _tournamentQueries.GetTournamentAsync(tournamentId, TestContext.Current.CancellationToken);
+
+        // Assert
+        result.Should().NotBeNull();
+
+        Tournament existingTournament = tournaments[3];
+
+        result.Id.Should().Be(tournamentId);
+        result.Name.Should().Be(existingTournament.Name);
+
+        result.StartDate.Should().Be(existingTournament.TournamentDates.StartDate);
+        result.EndDate.Should().Be(existingTournament.TournamentDates.EndDate);
+
+        result.EntryFee.Should().Be(existingTournament.EntryFee);
+        result.BowlingCenter.Should().Be(existingTournament.BowlingCenter);
+
+        result.FinalsRatio.Should().Be(existingTournament.FinalsRatio.Value);
+        result.CashRatio.Should().Be(existingTournament.CashRatio.Value);
+        result.SuperSweeperCashRatio.Should().Be(existingTournament.SuperSweeperCashRatio.Value);
+
+        result.Completed.Should().Be(existingTournament.Completed);
     }
 }
