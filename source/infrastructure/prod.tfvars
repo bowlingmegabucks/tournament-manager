@@ -13,4 +13,4 @@ api_megabucks_url_redirect = "api.bowlingmegabucks.com"
 
 api_health_check_frequency = 600
 
-key_vault_purge_protection_enabled = false
+key_vault_purge_protection_enabled = true
