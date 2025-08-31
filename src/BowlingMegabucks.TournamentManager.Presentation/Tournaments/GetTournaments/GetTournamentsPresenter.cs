@@ -22,9 +22,10 @@ public class GetTournamentsPresenter
     /// <summary>
     /// Asynchronously retrieves tournaments with optional pagination and updates the view with the results.
     /// </summary>
+    /// <param name="view">The view interface for displaying tournament data and messages.</param>
     /// <param name="page">The page number to retrieve (1-based). If null, returns the first page.</param>
     /// <param name="pageSize">The number of tournaments per page. If null, uses the default page size.</param>
-    /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
+    /// <param name="cancellationTokenSource">A <see cref="CancellationTokenSource"/> to cancel the asynchronous operation.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
     /// <exception cref="InvalidOperationException">
     /// Thrown when the view is null because <see cref="SetView"/> has not been called before invoking this method.
@@ -43,17 +44,21 @@ public class GetTournamentsPresenter
     /// The view must be set using <see cref="SetView"/> before calling this method, otherwise an <see cref="InvalidOperationException"/> will be thrown.
     /// </para>
     /// </remarks>
-    public async Task GetTournamentsAsync(IGetTournamentsView view,int? page, int? pageSize, CancellationToken cancellationToken)
+    public async Task GetTournamentsAsync(IGetTournamentsView view,int? page, int? pageSize, CancellationTokenSource cancellationTokenSource)
     {
         ArgumentNullException.ThrowIfNull(view);
-        
+
+        view.ShowProcessingMessage("Loading tournaments...", cancellationTokenSource);
+
         ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>> getTournamentResult =
-            await _adapter.ExecuteAsync(page, pageSize, cancellationToken).ConfigureAwait(true);
+            await _adapter.ExecuteAsync(page, pageSize, cancellationTokenSource?.Token ?? default).ConfigureAwait(true);
 
         if (getTournamentResult.IsError)
         {
             view.DisplayErrorMessage(getTournamentResult.Errors);
             view.DisableOpenTournament();
+
+            view.HideProcessingMessage();
 
             return;
         }
@@ -63,10 +68,12 @@ public class GetTournamentsPresenter
         if (tournaments.Count == 0)
         {
             view.DisableOpenTournament();
+            view.HideProcessingMessage();
 
             return;
         }
 
         view.BindTournaments(tournaments);
+        view.HideProcessingMessage();
     }
 }

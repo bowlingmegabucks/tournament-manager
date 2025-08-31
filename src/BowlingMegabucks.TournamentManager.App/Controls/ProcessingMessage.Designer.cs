@@ -33,54 +33,56 @@ namespace BowlingMegabucks.TournamentManager.App.Controls
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessingMessage));
-            this.processingPicture = new System.Windows.Forms.PictureBox();
-            this.messageLabel = new System.Windows.Forms.Label();
-            this.cancelButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.processingPicture)).BeginInit();
-            this.SuspendLayout();
+            processingPicture = new PictureBox();
+            messageLabel = new Label();
+            cancelButton = new Button();
+            ((System.ComponentModel.ISupportInitialize)processingPicture).BeginInit();
+            SuspendLayout();
             // 
             // processingPicture
             // 
-            this.processingPicture.Image = ((System.Drawing.Image)(resources.GetObject("processingPicture.Image")));
-            this.processingPicture.Location = new System.Drawing.Point(200, 100);
-            this.processingPicture.Name = "processingPicture";
-            this.processingPicture.Size = new System.Drawing.Size(200, 200);
-            this.processingPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.processingPicture.TabIndex = 0;
-            this.processingPicture.TabStop = false;
+            processingPicture.Image = (Image)resources.GetObject("processingPicture.Image");
+            processingPicture.Location = new Point(200, 100);
+            processingPicture.Name = "processingPicture";
+            processingPicture.Size = new Size(200, 200);
+            processingPicture.SizeMode = PictureBoxSizeMode.StretchImage;
+            processingPicture.TabIndex = 0;
+            processingPicture.TabStop = false;
             // 
             // messageLabel
             // 
-            this.messageLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.messageLabel.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.messageLabel.Location = new System.Drawing.Point(0, 0);
-            this.messageLabel.Name = "messageLabel";
-            this.messageLabel.Size = new System.Drawing.Size(600, 56);
-            this.messageLabel.TabIndex = 1;
-            this.messageLabel.Text = "Message";
-            this.messageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            messageLabel.Dock = DockStyle.Top;
+            messageLabel.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold);
+            messageLabel.Location = new Point(0, 0);
+            messageLabel.Name = "messageLabel";
+            messageLabel.Size = new Size(600, 56);
+            messageLabel.TabIndex = 1;
+            messageLabel.Text = "Message";
+            messageLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(500, 302);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(97, 23);
-            this.cancelButton.TabIndex = 2;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            cancelButton.Location = new Point(500, 302);
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new Size(97, 23);
+            cancelButton.TabIndex = 2;
+            cancelButton.Text = "Cancel";
+            cancelButton.UseVisualStyleBackColor = true;
+            cancelButton.Click += CancelButton_Click;
             // 
             // ProcessingMessage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.messageLabel);
-            this.Controls.Add(this.processingPicture);
-            this.Name = "ProcessingMessage";
-            this.Size = new System.Drawing.Size(600, 328);
-            ((System.ComponentModel.ISupportInitialize)(this.processingPicture)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
+            Controls.Add(cancelButton);
+            Controls.Add(messageLabel);
+            Controls.Add(processingPicture);
+            Name = "ProcessingMessage";
+            Size = new Size(600, 328);
+            SizeChanged += ProcessingMessage_SizeChanged;
+            ((System.ComponentModel.ISupportInitialize)processingPicture).EndInit();
+            ResumeLayout(false);
 
         }
 

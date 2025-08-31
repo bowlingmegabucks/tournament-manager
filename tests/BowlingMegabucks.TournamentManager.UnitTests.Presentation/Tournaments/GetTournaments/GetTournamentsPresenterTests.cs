@@ -1,5 +1,6 @@
 using BowlingMegabucks.TournamentManager.Presentation;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
+using BowlingMegabucks.TournamentManager.Tests;
 using BowlingMegabucks.TournamentManager.Tests.Factories;
 using ErrorOr;
 
@@ -33,11 +34,15 @@ public sealed class GetTournamentsPresenterTests
         _mockAdapter.Setup(adapter => adapter.ExecuteAsync(page, pageSize, It.IsAny<CancellationToken>()))
             .ReturnsAsync(errors);
 
+        using CancellationTokenSource cancellationTokenSource = TestContext.Current.CancellationToken.CreateLinkedCancellationTokenSource();
+
+        _mockView.Setup(view => view.ShowProcessingMessage("Loading tournaments...", cancellationTokenSource));
         _mockView.Setup(view => view.DisplayErrorMessage(errors));
         _mockView.Setup(view => view.DisableOpenTournament());
+        _mockView.Setup(view => view.HideProcessingMessage());
 
         // Act
-        await _presenter.GetTournamentsAsync(_mockView.Object, page, pageSize, TestContext.Current.CancellationToken);
+        await _presenter.GetTournamentsAsync(_mockView.Object, page, pageSize, cancellationTokenSource);
 
         // Assert
         _mockView.VerifyAll();
@@ -61,10 +66,14 @@ public sealed class GetTournamentsPresenterTests
         _mockAdapter.Setup(adapter => adapter.ExecuteAsync(page, pageSize, It.IsAny<CancellationToken>()))
             .ReturnsAsync(emptyResult);
 
+        using CancellationTokenSource cancellationTokenSource = TestContext.Current.CancellationToken.CreateLinkedCancellationTokenSource();
+
+        _mockView.Setup(view => view.ShowProcessingMessage("Loading tournaments...", cancellationTokenSource));
         _mockView.Setup(view => view.DisableOpenTournament());
+        _mockView.Setup(view => view.HideProcessingMessage());
 
         // Act
-        await _presenter.GetTournamentsAsync(_mockView.Object, page, pageSize, TestContext.Current.CancellationToken);
+        await _presenter.GetTournamentsAsync(_mockView.Object, page, pageSize, cancellationTokenSource);
 
         // Assert
         _mockView.VerifyAll();
@@ -89,10 +98,14 @@ public sealed class GetTournamentsPresenterTests
         _mockAdapter.Setup(adapter => adapter.ExecuteAsync(page, pageSize, It.IsAny<CancellationToken>()))
             .ReturnsAsync(result);
 
+        using CancellationTokenSource cancellationTokenSource = TestContext.Current.CancellationToken.CreateLinkedCancellationTokenSource();
+
+        _mockView.Setup(view => view.ShowProcessingMessage("Loading tournaments...", cancellationTokenSource));
         _mockView.Setup(view => view.BindTournaments(tournaments));
+        _mockView.Setup(view => view.HideProcessingMessage());
 
         // Act
-        await _presenter.GetTournamentsAsync(_mockView.Object, page, pageSize, TestContext.Current.CancellationToken);
+        await _presenter.GetTournamentsAsync(_mockView.Object, page, pageSize, cancellationTokenSource);
 
         // Assert
         _mockView.VerifyAll();
