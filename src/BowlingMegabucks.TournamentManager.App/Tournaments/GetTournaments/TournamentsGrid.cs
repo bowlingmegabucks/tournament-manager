@@ -14,7 +14,9 @@ internal sealed partial class TournamentsGrid
     {
         InitializeComponent();
 
-        PageSizeOptions = [2, 10, 25, 50, 100];
+        PageSizeOptions = PageSizeOptions.Count == 0
+            ? [10, 25]
+            : PageSizeOptions;
     }
 
     public TournamentSummaryViewModel? SelectedTournament

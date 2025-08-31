@@ -20,6 +20,10 @@ internal sealed partial class GetTournamentsForm
 
         _cancellationTokenSource.Token.Register(CancelLoadingTournaments);
 
+        // Subscribe to the new event for paging
+        tournamentsGrid.PageChangeCommitted += (s, e)
+            => _ = _presenter.GetTournamentsAsync(this, e.NewPage, e.NewPageSize, e.CancellationTokenSource);
+
         _ = _presenter.GetTournamentsAsync(this, page: tournamentsGrid.CurrentPage, pageSize: tournamentsGrid.PageSize, _cancellationTokenSource);
     }
 
@@ -101,24 +105,5 @@ internal sealed partial class GetTournamentsForm
         }
 
         base.Dispose(disposing);
-    }
-
-    private async void TournamentsGrid_PagingChanged(object sender, PagingChangeEventArgs e)
-    {
-        _cancellationTokenSource?.Dispose();
-        _cancellationTokenSource = new CancellationTokenSource();
-
-        // Set the new values immediately so the UI updates correctly
-        tournamentsGrid.CurrentPage = e.NewPage;
-        tournamentsGrid.PageSize = e.NewPageSize;
-
-        // Register a callback to restore previous page/page size if cancelled
-        _cancellationTokenSource.Token.Register(() =>
-        {
-            tournamentsGrid.CurrentPage = e.PreviousPage;
-            tournamentsGrid.PageSize = e.PreviousPageSize;
-        });
-
-        await _presenter.GetTournamentsAsync(this, e.NewPage, e.NewPageSize, _cancellationTokenSource);
     }
 }
