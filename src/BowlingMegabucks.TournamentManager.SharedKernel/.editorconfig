@@ -1,0 +1,8 @@
+root = false
+
+[*.cs]
+# Namespace must match folder structure
+dotnet_diagnostic.IDE0130.severity = none
+
+# Make Api component internal
+dotnet_diagnostic.CA1515.severity = none

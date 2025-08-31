@@ -1,11 +1,13 @@
+using BowlingMegabucks.TournamentManager.Domain.Tournaments;
+
 namespace BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 
 public sealed record TournamentSummaryViewModel
 {
-     /// <summary>
+    /// <summary>
     /// The unique identifier of the tournament.
     /// </summary>
-    public required Guid Id { get; init; }
+    public required TournamentId Id { get; init; }
 
     /// <summary>
     /// The name of the tournament.

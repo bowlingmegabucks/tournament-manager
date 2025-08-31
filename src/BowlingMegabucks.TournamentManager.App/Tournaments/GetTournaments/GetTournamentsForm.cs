@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 using ErrorOr;
 
@@ -46,7 +47,7 @@ internal sealed partial class GetTournamentsForm
 #pragma warning disable S125 // Sections of code should not be commented out
 #pragma warning disable IDE0060 // Remove unused parameter
 #pragma warning disable RCS1163 // Unused parameter
-    public void OpenTournament(Guid id)
+    public void OpenTournament(TournamentId id)
 #pragma warning restore RCS1163 // Unused parameter
 #pragma warning restore IDE0060 // Remove unused parameter
     {

@@ -1,4 +1,5 @@
 using ErrorOr;
+using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 
 namespace BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 
@@ -49,5 +50,5 @@ public interface IGetTournamentsView
     /// <remarks>
     /// This method is called to open and display the selected tournament.
     /// </remarks>
-    void OpenTournament(Guid id);
+    void OpenTournament(TournamentId id);
 }

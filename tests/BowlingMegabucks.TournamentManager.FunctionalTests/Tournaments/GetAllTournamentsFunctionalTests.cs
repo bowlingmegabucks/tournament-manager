@@ -53,7 +53,7 @@ public sealed partial class GetAllTournamentsFunctionalTests
         paginatedResponse.Items.Should().HaveCount(10);
         paginatedResponse.Items.Should().BeEquivalentTo(tournaments.Select(t => new TournamentSummary
         {
-            Id = t.Id.Value,
+            Id = t.Id,
             Name = t.Name,
             StartDate = t.TournamentDates.StartDate,
             EndDate = t.TournamentDates.EndDate,
