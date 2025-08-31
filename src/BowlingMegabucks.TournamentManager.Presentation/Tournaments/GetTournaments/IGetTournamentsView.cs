@@ -9,6 +9,18 @@ namespace BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournam
 public interface IGetTournamentsView
 {
     /// <summary>
+    /// Shows a processing message to the user, typically used to indicate that a background operation is in progress.
+    /// </summary>
+    /// <param name="message">The message to display to the user.</param>
+    /// <param name="cancellationTokenSource">The <see cref="CancellationTokenSource"/> that can be used to cancel the processing operation.</param>
+    void ShowProcessingMessage(string message, CancellationTokenSource cancellationTokenSource);
+
+    /// <summary>
+    /// Hides the currently displayed processing message from the user.
+    /// </summary>
+    void HideProcessingMessage();
+
+    /// <summary>
     /// Displays an error message to the user.
     /// </summary>
     /// <param name="errors">The errors to display.</param>

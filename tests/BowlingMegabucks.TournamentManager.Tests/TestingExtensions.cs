@@ -22,4 +22,13 @@ public static class TestingExtensions
 
         mock.Setup(p => p.Offset).CallBase();
     }
+
+    /// <summary>
+    /// Creates a <see cref="CancellationTokenSource"/> that is linked to the provided <see cref="CancellationToken"/>.
+    /// When the provided token is cancelled, the returned <see cref="CancellationTokenSource"/> will also be cancelled.
+    /// </summary>
+    /// <param name="cancellationToken">The existing <see cref="CancellationToken"/> to link to the new source.</param>
+    /// <returns>A <see cref="CancellationTokenSource"/> linked to the specified token.</returns>
+    public static CancellationTokenSource CreateLinkedCancellationTokenSource(this CancellationToken cancellationToken)
+        => CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 }

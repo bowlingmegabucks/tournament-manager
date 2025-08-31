@@ -5,18 +5,34 @@ using ErrorOr;
 namespace BowlingMegabucks.TournamentManager.App.Tournaments;
 
 internal sealed partial class GetTournamentsForm
-    : System.Windows.Forms.Form, IGetTournamentsView
+    : Form, IGetTournamentsView
 {
     private readonly GetTournamentsPresenter _presenter;
+    private CancellationTokenSource? _cancellationTokenSource;
 
     public GetTournamentsForm(GetTournamentsPresenter presenter)
     {
         InitializeComponent();
 
         _presenter = presenter;
+        _cancellationTokenSource = new();
 
-        _ = _presenter.GetTournamentsAsync(this, page: null, pageSize: null, default);
+        _cancellationTokenSource.Token.Register(CancelLoadingTournaments);
+
+        _ = _presenter.GetTournamentsAsync(this, page: null, pageSize: null, _cancellationTokenSource);
     }
+
+    private void CancelLoadingTournaments()
+    {
+        DisableOpenTournament();
+        HideProcessingMessage();
+    }
+
+    public void ShowProcessingMessage(string message, CancellationTokenSource cancellationTokenSource)
+        => this.AddProcessingMessage(message, cancellationTokenSource);
+
+    public void HideProcessingMessage()
+        => this.RemoveProcessingMessage();
 
     public void BindTournaments(IReadOnlyCollection<TournamentSummaryViewModel> tournaments)
         => tournamentsGrid.Bind(tournaments);
@@ -73,4 +89,16 @@ internal sealed partial class GetTournamentsForm
 
     private void OpenButton_Click(object sender, EventArgs e)
         => OpenTournament(tournamentsGrid.SelectedTournament!.Id);
+
+    private void DisposeFields(bool disposing)
+    {
+        if (disposing)
+        {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
+        }
+
+        base.Dispose(disposing);
+    }
 }
