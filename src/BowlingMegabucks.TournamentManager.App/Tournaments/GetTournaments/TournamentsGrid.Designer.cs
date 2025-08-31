@@ -28,67 +28,62 @@ partial class TournamentsGrid
     /// </summary>
     private void InitializeComponent()
     {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.startDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.endDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.locationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // GridView
-            // 
-            this.GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameColumn,
-            this.startDateColumn,
-            this.endDateColumn,
-            this.locationColumn});
-            this.GridView.RowTemplate.Height = 25;
-            // 
-            // nameColumn
-            // 
-            this.nameColumn.DataPropertyName = "TournamentName";
-            this.nameColumn.HeaderText = "Name";
-            this.nameColumn.Name = "nameColumn";
-            this.nameColumn.ReadOnly = true;
-            this.nameColumn.Width = 225;
-            // 
-            // startDateColumn
-            // 
-            this.startDateColumn.DataPropertyName = "Start";
-            dataGridViewCellStyle3.Format = "MM/dd/yyyy";
-            this.startDateColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.startDateColumn.HeaderText = "Start Date";
-            this.startDateColumn.Name = "startDateColumn";
-            this.startDateColumn.ReadOnly = true;
-            this.startDateColumn.Width = 90;
-            // 
-            // endDateColumn
-            // 
-            this.endDateColumn.DataPropertyName = "End";
-            dataGridViewCellStyle4.Format = "MM/dd/yyyy";
-            this.endDateColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.endDateColumn.HeaderText = "End Date";
-            this.endDateColumn.Name = "endDateColumn";
-            this.endDateColumn.ReadOnly = true;
-            this.endDateColumn.Width = 90;
-            // 
-            // locationColumn
-            // 
-            this.locationColumn.DataPropertyName = "BowlingCenter";
-            this.locationColumn.HeaderText = "Location";
-            this.locationColumn.Name = "locationColumn";
-            this.locationColumn.ReadOnly = true;
-            this.locationColumn.Width = 200;
-            // 
-            // TournamentsGrid
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "TournamentsGrid";
-            ((System.ComponentModel.ISupportInitialize)(this.GridView)).EndInit();
-            this.ResumeLayout(false);
+        DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+        DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+        nameColumn = new DataGridViewTextBoxColumn();
+        startDateColumn = new DataGridViewTextBoxColumn();
+        endDateColumn = new DataGridViewTextBoxColumn();
+        locationColumn = new DataGridViewTextBoxColumn();
+        ((System.ComponentModel.ISupportInitialize)GridView).BeginInit();
+        SuspendLayout();
+        // 
+        // GridView
+        // 
+        GridView.Columns.AddRange(new DataGridViewColumn[] { nameColumn, startDateColumn, endDateColumn, locationColumn });
+        // 
+        // nameColumn
+        // 
+        nameColumn.DataPropertyName = "Name";
+        nameColumn.HeaderText = "Name";
+        nameColumn.Name = "nameColumn";
+        nameColumn.ReadOnly = true;
+        nameColumn.Width = 225;
+        // 
+        // startDateColumn
+        // 
+        startDateColumn.DataPropertyName = "StartDate";
+        dataGridViewCellStyle1.Format = "MM/dd/yyyy";
+        startDateColumn.DefaultCellStyle = dataGridViewCellStyle1;
+        startDateColumn.HeaderText = "Start Date";
+        startDateColumn.Name = "startDateColumn";
+        startDateColumn.ReadOnly = true;
+        startDateColumn.Width = 90;
+        // 
+        // endDateColumn
+        // 
+        endDateColumn.DataPropertyName = "EndDate";
+        dataGridViewCellStyle2.Format = "MM/dd/yyyy";
+        endDateColumn.DefaultCellStyle = dataGridViewCellStyle2;
+        endDateColumn.HeaderText = "End Date";
+        endDateColumn.Name = "endDateColumn";
+        endDateColumn.ReadOnly = true;
+        endDateColumn.Width = 90;
+        // 
+        // locationColumn
+        // 
+        locationColumn.DataPropertyName = "BowlingCenter";
+        locationColumn.HeaderText = "Location";
+        locationColumn.Name = "locationColumn";
+        locationColumn.ReadOnly = true;
+        locationColumn.Width = 200;
+        // 
+        // TournamentsGrid
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        Name = "TournamentsGrid";
+        ((System.ComponentModel.ISupportInitialize)GridView).EndInit();
+        ResumeLayout(false);
 
     }
 
