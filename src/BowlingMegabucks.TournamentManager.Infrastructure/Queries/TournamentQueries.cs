@@ -1,7 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Application.Tournaments;
+using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournamentById;
 using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
+using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,4 +44,22 @@ internal sealed class TournamentQueries
 
     public Task<int> GetTotalTournamentCountAsync(CancellationToken cancellationToken)
         => _applicationDbContext.Tournaments.CountAsync(cancellationToken);
+
+    public Task<TournamentDetailDto?> GetTournamentAsync(TournamentId tournamentId, CancellationToken cancellationToken)
+        => _applicationDbContext.Tournaments
+            .AsNoTracking()
+            .Select(tournament => new TournamentDetailDto
+            {
+                Id = tournament.Id,
+                Name = tournament.Name,
+                StartDate = tournament.TournamentDates.StartDate,
+                EndDate = tournament.TournamentDates.EndDate,
+                BowlingCenter = tournament.BowlingCenter,
+                EntryFee = tournament.EntryFee,
+                FinalsRatio = tournament.FinalsRatio.Value,
+                CashRatio = tournament.CashRatio.Value,
+                SuperSweeperCashRatio = tournament.SuperSweeperCashRatio.Value,
+                Completed = tournament.Completed,
+            })
+            .FirstOrDefaultAsync(tournament => tournament.Id == tournamentId, cancellationToken);
 }
