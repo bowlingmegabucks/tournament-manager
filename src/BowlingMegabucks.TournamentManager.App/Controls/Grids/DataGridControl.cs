@@ -321,13 +321,6 @@ internal abstract partial class DataGridControl<TModel> : UserControl where TMod
         => GridRowDoubleClicked?.Invoke(this, e);
 
     /// <summary>
-    /// Raises the <see cref="PagingChanged"/> event.
-    /// </summary>
-    /// <param name="e">The event arguments containing pagination information.</param>
-    private void OnPagingChanged(PagingChangeEventArgs e)
-        => PagingChanged?.Invoke(this, e);
-
-    /// <summary>
     /// Handles the resize event of the control to reposition pagination controls.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -486,8 +479,11 @@ internal abstract partial class DataGridControl<TModel> : UserControl where TMod
     {
         if (CurrentPage > 1)
         {
-            CurrentPage--;
-            OnPagingChanged(new PagingChangeEventArgs(CurrentPage, PageSize));
+            int previousPage = CurrentPage;
+            int previousPageSize = PageSize;
+            int newPage = CurrentPage - 1;
+            int newPageSize = PageSize;
+            OnPagingChanged(new PagingChangeEventArgs(previousPage, previousPageSize, newPage, newPageSize));
         }
     }
 
@@ -498,8 +494,11 @@ internal abstract partial class DataGridControl<TModel> : UserControl where TMod
     {
         if (CurrentPage < TotalPages)
         {
-            CurrentPage++;
-            OnPagingChanged(new PagingChangeEventArgs(CurrentPage, PageSize));
+            int previousPage = CurrentPage;
+            int previousPageSize = PageSize;
+            int newPage = CurrentPage + 1;
+            int newPageSize = PageSize;
+            OnPagingChanged(new PagingChangeEventArgs(previousPage, previousPageSize, newPage, newPageSize));
         }
     }
 
@@ -510,8 +509,11 @@ internal abstract partial class DataGridControl<TModel> : UserControl where TMod
     {
         if (pageComboBox.SelectedItem is int selectedPage && selectedPage != CurrentPage)
         {
-            CurrentPage = selectedPage;
-            OnPagingChanged(new PagingChangeEventArgs(CurrentPage, PageSize));
+            int previousPage = CurrentPage;
+            int previousPageSize = PageSize;
+            int newPage = selectedPage;
+            int newPageSize = PageSize;
+            OnPagingChanged(new PagingChangeEventArgs(previousPage, previousPageSize, newPage, newPageSize));
         }
     }
 
@@ -522,11 +524,20 @@ internal abstract partial class DataGridControl<TModel> : UserControl where TMod
     {
         if (pageSizeComboBox.SelectedItem is int selectedPageSize && selectedPageSize != PageSize)
         {
-            PageSize = selectedPageSize;
-            CurrentPage = 1; // Reset to first page when page size changes
-            OnPagingChanged(new PagingChangeEventArgs(CurrentPage, PageSize));
+            int previousPage = CurrentPage;
+            int previousPageSize = PageSize;
+            const int newPage = 1; // Reset to first page when page size changes
+            int newPageSize = selectedPageSize;
+            OnPagingChanged(new PagingChangeEventArgs(previousPage, previousPageSize, newPage, newPageSize));
         }
     }
+
+    /// <summary>
+    /// Raises the <see cref="PagingChanged"/> event.
+    /// </summary>
+    /// <param name="e">The event arguments containing pagination information.</param>
+    private void OnPagingChanged(PagingChangeEventArgs e)
+        => PagingChanged?.Invoke(this, e);
 
     /// <summary>
     /// Updates the pagination controls based on current state.

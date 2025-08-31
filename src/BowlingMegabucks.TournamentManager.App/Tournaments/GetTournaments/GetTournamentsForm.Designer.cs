@@ -60,10 +60,16 @@ partial class GetTournamentsForm
         tournamentsGrid.PageSizeOptions.Add(25);
         tournamentsGrid.PageSizeOptions.Add(50);
         tournamentsGrid.PageSizeOptions.Add(100);
+        tournamentsGrid.PageSizeOptions.Add(2);
+        tournamentsGrid.PageSizeOptions.Add(10);
+        tournamentsGrid.PageSizeOptions.Add(25);
+        tournamentsGrid.PageSizeOptions.Add(50);
+        tournamentsGrid.PageSizeOptions.Add(100);
         tournamentsGrid.PaginationEnabled = true;
         tournamentsGrid.Size = new Size(670, 377);
         tournamentsGrid.TabIndex = 1;
         tournamentsGrid.GridRowDoubleClicked += TournamentsGrid_GridRowDoubleClicked;
+        tournamentsGrid.PagingChanged += TournamentsGrid_PagingChanged;
         // 
         // newButton
         // 

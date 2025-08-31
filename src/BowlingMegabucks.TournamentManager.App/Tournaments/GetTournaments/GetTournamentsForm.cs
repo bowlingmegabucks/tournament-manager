@@ -1,3 +1,4 @@
+using BowlingMegabucks.TournamentManager.App.Controls.Grids;
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 using ErrorOr;
@@ -83,7 +84,7 @@ internal sealed partial class GetTournamentsForm
     private void NewButton_Click(object sender, EventArgs e)
 
 #pragma warning disable S125 // Sections of code should not be commented out
-                            //=> _presenter.NewTournament();
+        //=> _presenter.NewTournament();
         => MessageBox.Show("Not implemented", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 #pragma warning restore S125 // Sections of code should not be commented out
 
@@ -100,5 +101,24 @@ internal sealed partial class GetTournamentsForm
         }
 
         base.Dispose(disposing);
+    }
+
+    private async void TournamentsGrid_PagingChanged(object sender, PagingChangeEventArgs e)
+    {
+        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        // Set the new values immediately so the UI updates correctly
+        tournamentsGrid.CurrentPage = e.NewPage;
+        tournamentsGrid.PageSize = e.NewPageSize;
+
+        // Register a callback to restore previous page/page size if cancelled
+        _cancellationTokenSource.Token.Register(() =>
+        {
+            tournamentsGrid.CurrentPage = e.PreviousPage;
+            tournamentsGrid.PageSize = e.PreviousPageSize;
+        });
+
+        await _presenter.GetTournamentsAsync(this, e.NewPage, e.NewPageSize, _cancellationTokenSource);
     }
 }
