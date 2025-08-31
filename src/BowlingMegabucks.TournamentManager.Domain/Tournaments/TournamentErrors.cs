@@ -2,14 +2,17 @@ using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.Domain.Tournaments;
 
-internal static class TournamentErrors
+/// <summary>
+/// Provides error definitions related to tournament validation and lookup operations.
+/// </summary>
+public static class TournamentErrors
 {
-    public static Error TournamentNameIsRequired
+    internal static Error TournamentNameIsRequired
         => Error.Validation(
             code: "Tournament.TournamentNameIsRequired",
             description: "Tournament name is required.");
 
-    public static Error TournamentNameIsTooLong(string value)
+    internal static Error TournamentNameIsTooLong(string value)
         => Error.Validation(
             code: "Tournament.TournamentNameIsTooLong",
             description: "Tournament name exceeds maximum length.",
@@ -19,17 +22,17 @@ internal static class TournamentErrors
                 { "ActualLength", value.Length },
             });
 
-    public static Error TournamentGamesMustBeGreaterThanZero
+    internal static Error TournamentGamesMustBeGreaterThanZero
         => Error.Validation(
             code: "Tournament.TournamentGamesMustBeGreaterThanZero",
             description: "Tournament games must be greater than zero.");
 
-    public static Error TournamentBowlingCenterIsRequired
+    internal static Error TournamentBowlingCenterIsRequired
         => Error.Validation(
             code: "Tournament.TournamentBowlingCenterIsRequired",
             description: "Tournament bowling center is required.");
 
-    public static Error TournamentBowlingCenterIsTooLong(string value)
+    internal static Error TournamentBowlingCenterIsTooLong(string value)
         => Error.Validation(
             code: "Tournament.TournamentBowlingCenterIsTooLong",
             description: "Tournament bowling center exceeds maximum length.",
@@ -38,4 +41,19 @@ internal static class TournamentErrors
                 { "MaxLength", Tournament.MaxBowlingCenterLength },
                 { "ActualLength", value.Length },
             });
+
+    /// <summary>
+    /// Returns an error indicating that a tournament with the specified identifier was not found.
+    /// </summary>
+    /// <param name="id">The unique identifier of the tournament that was not found.</param>
+    /// <returns>An <see cref="Error"/> representing the not found result.</returns>
+    public static Error TournamentNotFound(TournamentId id)
+        => Error.NotFound(
+            code: "Tournament.TournamentNotFound",
+            description: "Tournament was not found.",
+            metadata: new Dictionary<string, object>(StringComparer.Ordinal)
+            {
+                { "TournamentId", id }
+            });
+
 }

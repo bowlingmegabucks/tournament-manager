@@ -28,6 +28,12 @@ public sealed record TournamentDetailDto
     public required DateOnly EndDate { get; init; }
 
     /// <summary>
+    /// Gets the number of games in a squad in the tournament.
+    /// </summary>
+    /// <value></value>
+    public required short Games { get; init; }
+
+    /// <summary>
     /// Gets the entry fee for the tournament.
     /// </summary>
     public required decimal EntryFee { get; init; }
