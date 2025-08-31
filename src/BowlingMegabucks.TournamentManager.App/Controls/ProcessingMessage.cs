@@ -1,0 +1,26 @@
+using System.Runtime.Versioning;
+
+namespace BowlingMegabucks.TournamentManager.App.Controls;
+
+[SupportedOSPlatform("windows")]
+internal sealed partial class ProcessingMessage : UserControl
+{
+    private readonly CancellationTokenSource _cancelToken;
+
+    public ProcessingMessage(string message, CancellationTokenSource cancelToken)
+    {
+        InitializeComponent();
+        _cancelToken = cancelToken;
+
+        messageLabel.Text = message;
+
+        if (string.IsNullOrWhiteSpace(message))
+        {
+            messageLabel.Visible = false;
+            processingPicture.Location = new Point(processingPicture.Location.X, processingPicture.Location.Y - (messageLabel.Height / 2));
+        }
+    }
+
+    private void CancelButton_Click(object sender, EventArgs e)
+        => _cancelToken.Cancel();
+}
