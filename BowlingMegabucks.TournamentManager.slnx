@@ -7,7 +7,9 @@
     <File Path="docker-compose.yml" />
     <File Path="README.md" />
   </Folder>
-  <Folder Name="/src/" />
+  <Folder Name="/src/">
+    <Project Path="src/BowlingMegabucks.TournamentManager.SharedKernel/BowlingMegabucks.TournamentManager.SharedKernel.csproj" />
+  </Folder>
   <Folder Name="/src/api/">
     <Project Path="src/BowlingMegabucks.TournamentManager.Api/BowlingMegabucks.TournamentManager.Api.csproj" />
     <Project Path="src/BowlingMegabucks.TournamentManager.Application/BowlingMegabucks.TournamentManager.Application.csproj" />
