@@ -1,4 +1,4 @@
-environment = "stage"
+environment = "prod"
 
 location = "East US"
 
