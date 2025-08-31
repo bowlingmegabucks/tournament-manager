@@ -30,6 +30,7 @@ partial class GetTournamentsForm
     /// </summary>
     private void InitializeComponent()
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GetTournamentsForm));
         openButton = new Button();
         tournamentsGrid = new TournamentsGrid();
         newButton = new Button();
@@ -50,8 +51,7 @@ partial class GetTournamentsForm
         tournamentsGrid.Location = new Point(0, 0);
         tournamentsGrid.Name = "tournamentsGrid";
         tournamentsGrid.PageSize = 10;
-        tournamentsGrid.PageSizeOptions.Add(10);
-        tournamentsGrid.PageSizeOptions.Add(25);
+        tournamentsGrid.PageSizeOptions = (List<int>)resources.GetObject("tournamentsGrid.PageSizeOptions");
         tournamentsGrid.PaginationEnabled = true;
         tournamentsGrid.Size = new Size(670, 377);
         tournamentsGrid.TabIndex = 1;
