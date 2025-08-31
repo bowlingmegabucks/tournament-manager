@@ -38,13 +38,14 @@ public interface IGetTournamentsView
     void DisableOpenTournament();
 
     /// <summary>
-    /// Binds the list of tournaments to the view.
+    /// Binds the list of tournaments to the view and updates pagination information.
     /// </summary>
     /// <param name="tournaments">The collection of tournament view models to display.</param>
+    /// <param name="totalRecords">The total number of tournaments available (for pagination).</param>
     /// <remarks>
-    /// This method is called to update the view with the available tournaments.
+    /// This method is called to update the view with the available tournaments and to update pagination controls such as the page dropdown and total records label.
     /// </remarks>
-    void BindTournaments(IReadOnlyCollection<TournamentSummaryViewModel> tournaments);
+    void BindTournaments(IReadOnlyCollection<TournamentSummaryViewModel> tournaments, int totalRecords);
 
     /// <summary>
     /// Prompts the user to create a new tournament and returns the details.

@@ -19,7 +19,7 @@ internal sealed partial class GetTournamentsForm
 
         _cancellationTokenSource.Token.Register(CancelLoadingTournaments);
 
-        _ = _presenter.GetTournamentsAsync(this, page: null, pageSize: null, _cancellationTokenSource);
+        _ = _presenter.GetTournamentsAsync(this, page: tournamentsGrid.CurrentPage, pageSize: tournamentsGrid.PageSize, _cancellationTokenSource);
     }
 
     private void CancelLoadingTournaments()
@@ -34,8 +34,8 @@ internal sealed partial class GetTournamentsForm
     public void HideProcessingMessage()
         => this.RemoveProcessingMessage();
 
-    public void BindTournaments(IReadOnlyCollection<TournamentSummaryViewModel> tournaments)
-        => tournamentsGrid.Bind(tournaments);
+    public void BindTournaments(IReadOnlyCollection<TournamentSummaryViewModel> tournaments, int totalRecords)
+        => tournamentsGrid.Bind(tournaments, totalRecords);
 
     public void DisableOpenTournament()
         => openButton.Enabled = false;

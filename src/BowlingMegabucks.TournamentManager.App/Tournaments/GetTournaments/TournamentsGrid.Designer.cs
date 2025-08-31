@@ -40,6 +40,7 @@ partial class TournamentsGrid
         // GridView
         // 
         GridView.Columns.AddRange(new DataGridViewColumn[] { nameColumn, startDateColumn, endDateColumn, locationColumn });
+        GridView.Size = new Size(674, 359);
         // 
         // nameColumn
         // 
@@ -82,6 +83,7 @@ partial class TournamentsGrid
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         Name = "TournamentsGrid";
+        Size = new Size(674, 399);
         ((System.ComponentModel.ISupportInitialize)GridView).EndInit();
         ResumeLayout(false);
 

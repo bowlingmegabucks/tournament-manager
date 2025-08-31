@@ -7,7 +7,8 @@ namespace BowlingMegabucks.TournamentManager.App.Controls.Grids;
 /// This control is designed to work seamlessly with the <see cref="DataGridControl{TModel}"/> base class for consistent grid presentation throughout the application.
 /// </summary>
 [Designer(typeof(System.Windows.Forms.Design.ControlDesigner))]
-internal sealed partial class DataGridView : System.Windows.Forms.DataGridView
+internal sealed partial class DataGridView
+    : System.Windows.Forms.DataGridView
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DataGridView"/> class.
