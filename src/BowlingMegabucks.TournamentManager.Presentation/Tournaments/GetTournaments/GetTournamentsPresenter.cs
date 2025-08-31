@@ -73,7 +73,7 @@ public class GetTournamentsPresenter
             return;
         }
 
-        view.BindTournaments(tournaments);
+        view.BindTournaments(tournaments, getTournamentResult.Value.TotalItems);
         view.HideProcessingMessage();
     }
 }

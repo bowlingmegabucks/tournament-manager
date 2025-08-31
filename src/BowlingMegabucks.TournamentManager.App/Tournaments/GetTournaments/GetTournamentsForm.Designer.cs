@@ -21,7 +21,7 @@ partial class GetTournamentsForm
         }
         base.Dispose(disposing);
     }
-    
+
     #region Windows Form Designer generated code
 
     /// <summary>
@@ -30,57 +30,66 @@ partial class GetTournamentsForm
     /// </summary>
     private void InitializeComponent()
     {
-            this.openButton = new System.Windows.Forms.Button();
-            this.tournamentsGrid = new BowlingMegabucks.TournamentManager.App.Tournaments.TournamentsGrid();
-            this.newButton = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // openButton
-            // 
-            this.openButton.Location = new System.Drawing.Point(595, 383);
-            this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(75, 23);
-            this.openButton.TabIndex = 0;
-            this.openButton.Text = "Open";
-            this.openButton.UseVisualStyleBackColor = true;
-            this.openButton.Click += new System.EventHandler(this.OpenButton_Click);
-            // 
-            // tournamentsGrid
-            // 
-            this.tournamentsGrid.AllowRowSelection = true;
-            this.tournamentsGrid.AlternateRowColors = true;
-            this.tournamentsGrid.Location = new System.Drawing.Point(0, 0);
-            this.tournamentsGrid.Name = "tournamentsGrid";
-            this.tournamentsGrid.SelectedRowContextMenu = null;
-            this.tournamentsGrid.Size = new System.Drawing.Size(670, 377);
-            this.tournamentsGrid.TabIndex = 1;
-            this.tournamentsGrid.GridRowDoubleClicked += new System.EventHandler<BowlingMegabucks.TournamentManager.App.Controls.Grids.GridRowDoubleClickEventArgs>(this.TournamentsGrid_GridRowDoubleClicked);
-            // 
-            // newButton
-            // 
-            this.newButton.Location = new System.Drawing.Point(12, 383);
-            this.newButton.Name = "newButton";
-            this.newButton.Size = new System.Drawing.Size(75, 23);
-            this.newButton.TabIndex = 2;
-            this.newButton.Text = "New";
-            this.newButton.UseVisualStyleBackColor = true;
-            this.newButton.Click += new System.EventHandler(this.NewButton_Click);
-            // 
-            // Form
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 415);
-            this.Controls.Add(this.newButton);
-            this.Controls.Add(this.tournamentsGrid);
-            this.Controls.Add(this.openButton);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Form";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Open Tournament";
-            this.ResumeLayout(false);
+        openButton = new Button();
+        tournamentsGrid = new TournamentsGrid();
+        newButton = new Button();
+        SuspendLayout();
+        // 
+        // openButton
+        // 
+        openButton.Location = new Point(595, 383);
+        openButton.Name = "openButton";
+        openButton.Size = new Size(75, 23);
+        openButton.TabIndex = 0;
+        openButton.Text = "Open";
+        openButton.UseVisualStyleBackColor = true;
+        openButton.Click += OpenButton_Click;
+        // 
+        // tournamentsGrid
+        // 
+        tournamentsGrid.Location = new Point(0, 0);
+        tournamentsGrid.Name = "tournamentsGrid";
+        tournamentsGrid.PageSize = 2;
+        tournamentsGrid.PageSizeOptions.Add(2);
+        tournamentsGrid.PageSizeOptions.Add(10);
+        tournamentsGrid.PageSizeOptions.Add(25);
+        tournamentsGrid.PageSizeOptions.Add(50);
+        tournamentsGrid.PageSizeOptions.Add(100);
+        tournamentsGrid.PageSizeOptions.Add(2);
+        tournamentsGrid.PageSizeOptions.Add(10);
+        tournamentsGrid.PageSizeOptions.Add(25);
+        tournamentsGrid.PageSizeOptions.Add(50);
+        tournamentsGrid.PageSizeOptions.Add(100);
+        tournamentsGrid.PaginationEnabled = true;
+        tournamentsGrid.Size = new Size(670, 377);
+        tournamentsGrid.TabIndex = 1;
+        tournamentsGrid.GridRowDoubleClicked += TournamentsGrid_GridRowDoubleClicked;
+        // 
+        // newButton
+        // 
+        newButton.Location = new Point(12, 383);
+        newButton.Name = "newButton";
+        newButton.Size = new Size(75, 23);
+        newButton.TabIndex = 2;
+        newButton.Text = "New";
+        newButton.UseVisualStyleBackColor = true;
+        newButton.Click += NewButton_Click;
+        // 
+        // GetTournamentsForm
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new Size(674, 415);
+        Controls.Add(newButton);
+        Controls.Add(tournamentsGrid);
+        Controls.Add(openButton);
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
+        MinimizeBox = false;
+        Name = "GetTournamentsForm";
+        StartPosition = FormStartPosition.CenterScreen;
+        Text = "Open Tournament";
+        ResumeLayout(false);
 
     }
 

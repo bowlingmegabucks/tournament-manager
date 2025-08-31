@@ -101,7 +101,7 @@ public sealed class GetTournamentsPresenterTests
         using CancellationTokenSource cancellationTokenSource = TestContext.Current.CancellationToken.CreateLinkedCancellationTokenSource();
 
         _mockView.Setup(view => view.ShowProcessingMessage("Loading tournaments...", cancellationTokenSource));
-        _mockView.Setup(view => view.BindTournaments(tournaments));
+        _mockView.Setup(view => view.BindTournaments(tournaments, result.TotalItems));
         _mockView.Setup(view => view.HideProcessingMessage());
 
         // Act
