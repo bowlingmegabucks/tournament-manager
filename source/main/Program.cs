@@ -33,9 +33,9 @@ internal static class Program
         var configBuilder = new ConfigurationBuilder()
                             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                             .AddEnvironmentVariables();
-#if DEBUG
-        configBuilder.AddUserSecrets<Tournaments.Retrieve.Form>();
+#if DEBUG  
         configBuilder.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: true);
+        configBuilder.AddUserSecrets<Tournaments.Retrieve.Form>();
 #else
         configBuilder.AddJsonFile("appsettings.json");
 
@@ -56,6 +56,8 @@ internal static class Program
 
         var services = new ServiceCollection();
         services.AddSingleton<IConfiguration>(config);
+
+        services.AddLogging();
 
         Encryption.Key = config["EncryptionKey"] ?? throw new ConfigurationErrorsException("Cannot get encryption key");
 
