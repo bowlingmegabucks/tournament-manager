@@ -19,15 +19,15 @@ public static class TournamentFactory
     private static Tournament CreateFakeTournament(Faker faker)
     {
         string tournamentName = faker.Company.CatchPhrase();
-        DateOnlyRange tournamentDates = new DateOnlyRange(
+        DateOnlyRange tournamentDates = new(
             faker.Date.PastDateOnly(),
             faker.Date.FutureDateOnly()
         );
         decimal entryFee = faker.Finance.Amount(80, 200);
         short games = (short)faker.Random.Int(3, 8);
-        Ratio finalsRatio = Ratio.Create(faker.Random.Decimal(6, 10)).Value;
-        Ratio cashRatio = Ratio.Create(faker.Random.Decimal(4, 8)).Value;
-        Ratio superSweeperCashRatio = Ratio.Create(faker.Random.Decimal(5, 9)).Value;
+        Ratio finalsRatio = Ratio.Create(Math.Round(faker.Random.Decimal(6, 10),1)).Value;
+        Ratio cashRatio = Ratio.Create(Math.Round(faker.Random.Decimal(4, 8),1)).Value;
+        Ratio superSweeperCashRatio = Ratio.Create(Math.Round(faker.Random.Decimal(5, 9),1)).Value;
         string bowlingCenter = faker.Company.CompanyName();
 
         ErrorOr<Tournament> tournament = Tournament.Create(
