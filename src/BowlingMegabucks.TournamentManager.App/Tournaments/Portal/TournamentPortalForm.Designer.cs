@@ -311,7 +311,7 @@ partial class TournamentPortalForm
         this.nameValueLabel.AutoSize = true;
         this.nameValueLabel.Location = new System.Drawing.Point(227, 0);
         this.nameValueLabel.Name = "nameValueLabel";
-        this.nameValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.nameValueLabel.Size = new System.Drawing.Size(100, 15);
         this.nameValueLabel.TabIndex = 1;
         this.nameValueLabel.Text = "<name>";
         //
@@ -332,7 +332,7 @@ partial class TournamentPortalForm
         this.bowlingCenterValueLabel.AutoSize = true;
         this.bowlingCenterValueLabel.Location = new System.Drawing.Point(227, 25);
         this.bowlingCenterValueLabel.Name = "bowlingCenterValueLabel";
-        this.bowlingCenterValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.bowlingCenterValueLabel.Size = new System.Drawing.Size(100, 15);
         this.bowlingCenterValueLabel.TabIndex = 3;
         this.bowlingCenterValueLabel.Text = "<bowling center>";
         //
@@ -353,7 +353,7 @@ partial class TournamentPortalForm
         this.gamesValueLabel.AutoSize = true;
         this.gamesValueLabel.Location = new System.Drawing.Point(227, 50);
         this.gamesValueLabel.Name = "gamesValueLabel";
-        this.gamesValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.gamesValueLabel.Size = new System.Drawing.Size(100, 15);
         this.gamesValueLabel.TabIndex = 5;
         this.gamesValueLabel.Text = "<games>";
         //
@@ -374,7 +374,7 @@ partial class TournamentPortalForm
         this.completedValueLabel.AutoSize = true;
         this.completedValueLabel.Location = new System.Drawing.Point(227, 75);
         this.completedValueLabel.Name = "completedValueLabel";
-        this.completedValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.completedValueLabel.Size = new System.Drawing.Size(100, 15);
         this.completedValueLabel.TabIndex = 7;
         this.completedValueLabel.Text = "<completed>";
         //
@@ -425,7 +425,7 @@ partial class TournamentPortalForm
         this.startDateValueLabel.AutoSize = true;
         this.startDateValueLabel.Location = new System.Drawing.Point(227, 0);
         this.startDateValueLabel.Name = "startDateValueLabel";
-        this.startDateValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.startDateValueLabel.Size = new System.Drawing.Size(100, 15);
         this.startDateValueLabel.TabIndex = 1;
         this.startDateValueLabel.Text = "<start date>";
         //
@@ -446,7 +446,7 @@ partial class TournamentPortalForm
         this.endDateValueLabel.AutoSize = true;
         this.endDateValueLabel.Location = new System.Drawing.Point(227, 25);
         this.endDateValueLabel.Name = "endDateValueLabel";
-        this.endDateValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.endDateValueLabel.Size = new System.Drawing.Size(100, 15);
         this.endDateValueLabel.TabIndex = 3;
         this.endDateValueLabel.Text = "<end date>";
         //
@@ -503,7 +503,7 @@ partial class TournamentPortalForm
         this.entryFeeValueLabel.AutoSize = true;
         this.entryFeeValueLabel.Location = new System.Drawing.Point(227, 0);
         this.entryFeeValueLabel.Name = "entryFeeValueLabel";
-        this.entryFeeValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.entryFeeValueLabel.Size = new System.Drawing.Size(100, 15);
         this.entryFeeValueLabel.TabIndex = 1;
         this.entryFeeValueLabel.Text = "<entry fee>";
         //
@@ -524,7 +524,7 @@ partial class TournamentPortalForm
         this.finalsRatioValueLabel.AutoSize = true;
         this.finalsRatioValueLabel.Location = new System.Drawing.Point(227, 25);
         this.finalsRatioValueLabel.Name = "finalsRatioValueLabel";
-        this.finalsRatioValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.finalsRatioValueLabel.Size = new System.Drawing.Size(100, 15);
         this.finalsRatioValueLabel.TabIndex = 3;
         this.finalsRatioValueLabel.Text = "<finals ratio>";
         //
@@ -545,7 +545,7 @@ partial class TournamentPortalForm
         this.cashRatioValueLabel.AutoSize = true;
         this.cashRatioValueLabel.Location = new System.Drawing.Point(227, 50);
         this.cashRatioValueLabel.Name = "cashRatioValueLabel";
-        this.cashRatioValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.cashRatioValueLabel.Size = new System.Drawing.Size(100, 15);
         this.cashRatioValueLabel.TabIndex = 5;
         this.cashRatioValueLabel.Text = "<cash ratio>";
         //
@@ -566,7 +566,7 @@ partial class TournamentPortalForm
         this.superSweeperCashRatioValueLabel.AutoSize = true;
         this.superSweeperCashRatioValueLabel.Location = new System.Drawing.Point(227, 75);
         this.superSweeperCashRatioValueLabel.Name = "superSweeperCashRatioValueLabel";
-        this.superSweeperCashRatioValueLabel.Size = new System.Drawing.Size(0, 15);
+        this.superSweeperCashRatioValueLabel.Size = new System.Drawing.Size(100, 15);
         this.superSweeperCashRatioValueLabel.TabIndex = 7;
         this.superSweeperCashRatioValueLabel.Text = "<super sweeper ratio>";
         //
