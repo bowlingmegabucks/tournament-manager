@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\BowlingMegabucks.TournamentManager.Tests\BowlingMegabucks.TournamentManager.Tests.csproj" />
+    <ProjectReference Include="..\..\src\BowlingMegabucks.TournamentManager.Api\BowlingMegabucks.TournamentManager.Api.csproj" />
+  </ItemGroup>
+
+</Project>

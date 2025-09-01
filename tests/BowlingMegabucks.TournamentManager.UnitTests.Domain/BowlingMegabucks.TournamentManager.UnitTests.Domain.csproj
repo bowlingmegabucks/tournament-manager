@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <RootNamespace>BowlingMegabucks.TournamentManager.UnitTests.Domain</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <Using Include="FluentAssertions" />
+    <Using Include="Moq" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BowlingMegabucks.TournamentManager.Tests\BowlingMegabucks.TournamentManager.Tests.csproj" />
+    <ProjectReference Include="..\..\src\BowlingMegabucks.TournamentManager.Domain\BowlingMegabucks.TournamentManager.Domain.csproj" />
+    <ProjectReference Include="..\..\src\BowlingMegabucks.TournamentManager.SharedKernel\BowlingMegabucks.TournamentManager.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>

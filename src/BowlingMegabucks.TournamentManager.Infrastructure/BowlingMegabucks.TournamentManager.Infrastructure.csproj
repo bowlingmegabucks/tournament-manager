@@ -3,11 +3,12 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn)</NoWarn>
+    <UserSecretsId>28a514f4-ac13-4cc8-afe2-680c70263745</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.MySql" />
@@ -18,8 +19,22 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\BowlingMegabucks.TournamentManager.Application\BowlingMegabucks.TournamentManager.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.Tests" />
+    <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure" />
+    <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.FunctionalTests" />
+    <InternalsVisibleTo Include="BowlingMegabucks.TournamentManager.IntegrationTests.Application" />
   </ItemGroup>
 
 </Project>

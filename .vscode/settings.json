@@ -2,7 +2,10 @@
     "dotnet-test-explorer.testProjectPath": "tests/**/*Tests.csproj",
     "cSpell.words": [
         "appsettings",
+        "Ardalis",
         "aspnet",
+        "Instantiator",
+        "Respawner",
         "Serilog",
         "uninstantiated",
         "xunit"

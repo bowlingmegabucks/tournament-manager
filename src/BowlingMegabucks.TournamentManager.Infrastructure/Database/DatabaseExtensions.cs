@@ -13,9 +13,9 @@ internal static class DatabaseExtensions
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration config, IWebHostEnvironment environment)
     {
         services.Configure<SlowQueryOptions>(config.GetSection("QueryPerformance"));
-        services.AddScoped<SlowQueryInterceptor>();
+        services.AddSingleton<SlowQueryInterceptor>();
 
-        services.AddScoped<AuditInterceptor>();
+        services.AddSingleton<AuditInterceptor>();
 
         services.AddDbContextPool<ApplicationDbContext>((sp, options) => options
             .ConfigureDbContext(config, environment, sp),

@@ -1,4 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
+using BowlingMegabucks.TournamentManager.Domain.Tournaments;
+using BowlingMegabucks.TournamentManager.Infrastructure.Database.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BowlingMegabucks.TournamentManager.Infrastructure.Database;
@@ -13,4 +15,14 @@ internal sealed class ApplicationDbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfiguration(new TournamentConfiguration());
+    }
+
+    internal DbSet<Tournament> Tournaments
+        => Set<Tournament>();
 }

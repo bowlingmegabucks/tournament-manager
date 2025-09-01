@@ -1,0 +1,67 @@
+using ErrorOr;
+using BowlingMegabucks.TournamentManager.Domain.Tournaments;
+
+namespace BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
+
+/// <summary>
+/// Represents the view interface for retrieving and managing tournaments.
+/// </summary>
+public interface IGetTournamentsView
+{
+    /// <summary>
+    /// Shows a processing message to the user, typically used to indicate that a background operation is in progress.
+    /// </summary>
+    /// <param name="message">The message to display to the user.</param>
+    /// <param name="cancellationTokenSource">The <see cref="CancellationTokenSource"/> that can be used to cancel the processing operation.</param>
+    void ShowProcessingMessage(string message, CancellationTokenSource cancellationTokenSource);
+
+    /// <summary>
+    /// Hides the currently displayed processing message from the user.
+    /// </summary>
+    void HideProcessingMessage();
+
+    /// <summary>
+    /// Displays an error message to the user.
+    /// </summary>
+    /// <param name="errors">The errors to display.</param>
+    /// <remarks>
+    /// This method is called when an error occurs that needs to be shown to the user.
+    /// </remarks>
+    void DisplayErrorMessage(IEnumerable<Error> errors);
+
+    /// <summary>
+    /// Disables the option to open a tournament in the view.
+    /// </summary>
+    /// <remarks>
+    /// This method is called when opening a tournament is not allowed or not possible.
+    /// </remarks>
+    void DisableOpenTournament();
+
+    /// <summary>
+    /// Binds the list of tournaments to the view and updates pagination information.
+    /// </summary>
+    /// <param name="tournaments">The collection of tournament view models to display.</param>
+    /// <param name="totalRecords">The total number of tournaments available (for pagination).</param>
+    /// <remarks>
+    /// This method is called to update the view with the available tournaments and to update pagination controls such as the page dropdown and total records label.
+    /// </remarks>
+    void BindTournaments(IReadOnlyCollection<TournamentSummaryViewModel> tournaments, int totalRecords);
+
+    /// <summary>
+    /// Prompts the user to create a new tournament and returns the details.
+    /// </summary>
+    /// <returns>The created tournament <see langword="Id"/>.  If cancelled or an error, will be <see langword="null"/>.</returns>
+    /// <remarks>
+    /// This method is called when the user initiates the creation of a new tournament.
+    /// </remarks>
+    Guid? CreateNewTournament();
+
+    /// <summary>
+    /// Opens the specified tournament in the view.
+    /// </summary>
+    /// <param name="id">The tournament identifier.</param>
+    /// <remarks>
+    /// This method is called to open and display the selected tournament.
+    /// </remarks>
+    void OpenTournament(TournamentId id);
+}

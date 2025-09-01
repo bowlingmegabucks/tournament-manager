@@ -161,6 +161,9 @@ dotnet_diagnostic.CA2007.severity = none
 # MA0004: Use Task.ConfigureAwait
 dotnet_diagnostic.MA0004.severity = none
 
+# IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = error
+
 # C++ Files
 
 [*.{cpp,h,in}]

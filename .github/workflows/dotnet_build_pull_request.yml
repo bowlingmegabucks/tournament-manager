@@ -6,24 +6,87 @@ permissions:
 
 on: [pull_request]
 
-jobs:
-  Build:
+env:
+  DOTNET_VERSION: '10.x'
 
+# ...existing code...
+jobs:
+  BuildApi:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 10.0.x
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Clean
-      run: dotnet clean --configuration Release && dotnet nuget locals all --clear
-    - name: Build
-      run: dotnet build --configuration Release
-    - name: Unit Tests
-      run: |
-        dotnet run --project tests/BowlingMegabucks.TournamentManager.Domain.UnitTests --verbosity normal --configuration Release
-    # - name: Integration Tests
-    #   run: dotnet run --project source/tests/BowlingMegabucks.TournamentManager.IntegrationTests
+      - name: Clean
+        run: dotnet clean --configuration Release && dotnet nuget locals all --clear
+      - name: Build
+        run: dotnet build src/BowlingMegabucks.TournamentManager.Api --configuration Release
+
+  BuildApp:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version:  ${{ env.DOTNET_VERSION }}
+
+      - name: Clean
+        run: dotnet clean --configuration Release && dotnet nuget locals all --clear
+      - name: Build
+        run: dotnet build src/BowlingMegabucks.TournamentManager.App --configuration Release
+
+  UnitTests:
+    runs-on: ubuntu-latest
+    needs: [BuildApi, BuildApp]
+    strategy:
+      matrix:
+        test_project:
+          - tests/BowlingMegabucks.TournamentManager.UnitTests.Domain
+          - tests/BowlingMegabucks.TournamentManager.UnitTests.Presentation
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version:  ${{ env.DOTNET_VERSION }}
+      - name: Run Unit Tests
+        run: dotnet run --project ${{ matrix.test_project }} --verbosity normal --configuration Release
+
+  IntegrationTests:
+    runs-on: ubuntu-latest
+    needs: [BuildApi, BuildApp]
+    strategy:
+      matrix:
+        test_project:
+          - tests/BowlingMegabucks.TournamentManager.IntegrationTests.Application
+          - tests/BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version:  ${{ env.DOTNET_VERSION }}
+      - name: Run Integration Tests
+        run: dotnet run --project ${{ matrix.test_project }} --verbosity normal --configuration Release
+
+  FunctionalTests:
+    runs-on: ubuntu-latest
+    needs: [BuildApi, BuildApp]
+    strategy:
+      matrix:
+        test_project:
+          - tests/BowlingMegabucks.TournamentManager.FunctionalTests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version:  ${{ env.DOTNET_VERSION }}
+      - name: Run Functional Tests
+        run: dotnet run --project ${{ matrix.test_project }} --verbosity normal --configuration Release
