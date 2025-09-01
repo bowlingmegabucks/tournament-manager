@@ -23,7 +23,7 @@ public sealed class GetTournamentsAdapterTests
     }
 
     [Fact]
-    public async Task GetTournamentsAsync_ShouldReturnTournaments_WhenApiCallIsSuccessful()
+    public async Task ExecuteAsync_ShouldReturnTournaments_WhenApiCallIsSuccessful()
     {
         // Arrange
         var tournamentSummaries = TournamentSummaryFactory.FakeMany(3).ToList();
@@ -70,7 +70,7 @@ public sealed class GetTournamentsAdapterTests
     }
 
     [Fact]
-    public async Task GetTournamentsAsync_ShouldReturnError_WhenApiCallFails()
+    public async Task ExecuteAsync_ShouldReturnError_WhenApiCallFails()
     {
         // Arrange
         int page = 1;
@@ -104,7 +104,7 @@ public sealed class GetTournamentsAdapterTests
     }
 
     [Fact]
-    public async Task GetTournamentsAsync_ShouldReturnError_WhenApiCallThrowsException()
+    public async Task ExecuteAsync_ShouldReturnError_WhenApiCallThrowsException()
     {
         // Arrange
         int page = 1;

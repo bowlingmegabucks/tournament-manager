@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using BowlingMegabucks.TournamentManager.Contracts;
 using BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 using BowlingMegabucks.TournamentManager.Presentation.Services;
-using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 using ErrorOr;
 using Refit;
 
@@ -21,7 +20,6 @@ internal sealed class GetTournamentsAdapter
 
     public async Task<ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>>> ExecuteAsync(int? page, int? pageSize, CancellationToken cancellationToken)
     {
-#pragma warning disable CA1031 // Do not catch general exception types
         try
         {
             OffsetPaginationResponse<TournamentSummary> response = await _tournamentManagerApi.GetTournamentsAsync(
@@ -50,6 +48,5 @@ internal sealed class GetTournamentsAdapter
                 code: "Tournaments.GetAllRequest",
                 description: ex.Message);
         }
-#pragma warning restore CA1031 // Do not catch general exception types
     }
 }
