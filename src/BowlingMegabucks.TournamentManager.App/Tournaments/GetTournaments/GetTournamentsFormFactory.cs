@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using BowlingMegabucks.TournamentManager.App.Tournaments.Portal;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,7 +22,9 @@ internal sealed class GetTournamentsFormFactory
     public GetTournamentsForm Create()
     {
         GetTournamentsPresenter presenter = _serviceProvider.GetRequiredService<GetTournamentsPresenter>();
+        ITournamentPortalFormFactory tournamentPortalFormFactory
+            = _serviceProvider.GetRequiredService<ITournamentPortalFormFactory>();
 
-        return new GetTournamentsForm(presenter);
+        return new GetTournamentsForm(presenter, tournamentPortalFormFactory);
     }
 }

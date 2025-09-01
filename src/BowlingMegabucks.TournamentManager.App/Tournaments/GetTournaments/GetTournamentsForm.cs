@@ -1,4 +1,5 @@
 using BowlingMegabucks.TournamentManager.App.Controls.Grids;
+using BowlingMegabucks.TournamentManager.App.Tournaments.Portal;
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 using ErrorOr;
@@ -9,13 +10,16 @@ internal sealed partial class GetTournamentsForm
     : Form, IGetTournamentsView
 {
     private readonly GetTournamentsPresenter _presenter;
+    private readonly ITournamentPortalFormFactory _tournamentPortalFormFactory;
+
     private CancellationTokenSource? _cancellationTokenSource;
 
-    public GetTournamentsForm(GetTournamentsPresenter presenter)
+    public GetTournamentsForm(GetTournamentsPresenter presenter, ITournamentPortalFormFactory portalFormFactory)
     {
         InitializeComponent();
 
         _presenter = presenter;
+        _tournamentPortalFormFactory = portalFormFactory;
         _cancellationTokenSource = new();
 
         _cancellationTokenSource.Token.Register(CancelLoadingTournaments);
@@ -59,24 +63,18 @@ internal sealed partial class GetTournamentsForm
     }
 #pragma warning restore S125 // Sections of code should not be commented out
 
-#pragma warning disable S125 // Sections of code should not be commented out
-#pragma warning disable IDE0060 // Remove unused parameter
-#pragma warning disable RCS1163 // Unused parameter
     public void OpenTournament(TournamentId id)
-#pragma warning restore RCS1163 // Unused parameter
-#pragma warning restore IDE0060 // Remove unused parameter
     {
-        //using var portal = new Portal.Form(_services, id, tournamentName);
+        using TournamentPortalForm portal = _tournamentPortalFormFactory.Create(id);
 
-        //Hide();
+        Hide();
 
-        //portal.ShowDialog();
+        portal.ShowDialog();
 
         Close();
-#pragma warning restore S125 // Sections of code should not be commented out
     }
 
-    private void TournamentsGrid_GridRowDoubleClicked(object sender, Controls.Grids.GridRowDoubleClickEventArgs e)
+    private void TournamentsGrid_GridRowDoubleClicked(object sender, GridRowDoubleClickEventArgs e)
         => OpenButton_Click(sender, e);
 
     private void NewButton_Click(object sender, EventArgs e)
