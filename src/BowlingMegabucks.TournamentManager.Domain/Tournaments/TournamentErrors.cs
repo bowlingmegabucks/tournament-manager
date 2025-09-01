@@ -53,7 +53,7 @@ public static class TournamentErrors
             description: "Tournament was not found.",
             metadata: new Dictionary<string, object>(StringComparer.Ordinal)
             {
-                { "TournamentId", id }
+                { "TournamentId", id },
             });
 
 }
