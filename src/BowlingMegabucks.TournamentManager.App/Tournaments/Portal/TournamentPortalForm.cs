@@ -17,6 +17,8 @@ internal sealed partial class TournamentPortalForm
 
         InitializeComponent();
 
+        System.Diagnostics.Debug.WriteLine($"Form initialized. Visible: {this.Visible}, Size: {this.Size}");
+
         _presenter = presenter;
         _cancellationTokenSource = new();
 
@@ -28,6 +30,7 @@ internal sealed partial class TournamentPortalForm
 
     public void ShowProcessingMessage(string message, CancellationTokenSource cancellationTokenSource)
         => this.AddProcessingMessage(message, cancellationTokenSource);
+
     public void HideProcessingMessage()
     {
         System.Diagnostics.Debug.WriteLine("HideProcessingMessage called");
@@ -55,6 +58,17 @@ internal sealed partial class TournamentPortalForm
 
         System.Diagnostics.Debug.WriteLine("BindTournament executing on UI thread");
 
+        // Set tournament data
+        SetTournamentData(tournament);
+
+        // Debug visibility and refresh
+        DebugVisibilityAndRefresh();
+
+        System.Diagnostics.Debug.WriteLine("BindTournament completed successfully");
+    }
+
+    private void SetTournamentData(TournamentDetailViewModel tournament)
+    {
         // Tournament Overview section
         nameValueLabel.Text = tournament.Name;
         bowlingCenterValueLabel.Text = tournament.BowlingCenter;
@@ -74,8 +88,30 @@ internal sealed partial class TournamentPortalForm
         finalsRatioValueLabel.Text = tournament.FinalsRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
         cashRatioValueLabel.Text = tournament.CashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
         superSweeperCashRatioValueLabel.Text = tournament.SuperSweeperCashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
+    }
 
-        System.Diagnostics.Debug.WriteLine("BindTournament completed successfully");
+    private void DebugVisibilityAndRefresh()
+    {
+        // Debug: Check form and control visibility
+        System.Diagnostics.Debug.WriteLine($"Form Visible: {this.Visible}");
+        System.Diagnostics.Debug.WriteLine($"Form Size: {this.Size}");
+        System.Diagnostics.Debug.WriteLine($"MainContainer Visible: {mainContainer.Visible}");
+        System.Diagnostics.Debug.WriteLine($"MainContainer Size: {mainContainer.Size}");
+        System.Diagnostics.Debug.WriteLine($"OverviewGroupBox Visible: {overviewGroupBox.Visible}");
+        System.Diagnostics.Debug.WriteLine($"NameValueLabel Visible: {nameValueLabel.Visible}");
+        System.Diagnostics.Debug.WriteLine($"NameValueLabel Location: {nameValueLabel.Location}");
+        System.Diagnostics.Debug.WriteLine($"NameValueLabel Size: {nameValueLabel.Size}");
+
+        // Force refresh to ensure controls are displayed
+        this.Refresh();
+        System.Diagnostics.Debug.WriteLine("Form refreshed");
+
+        // Ensure form is visible
+        if (!this.Visible)
+        {
+            System.Diagnostics.Debug.WriteLine("Form was not visible, showing it now");
+            this.Show();
+        }
     }
 
     public void DisplayErrorMessage(IEnumerable<Error> errors)
