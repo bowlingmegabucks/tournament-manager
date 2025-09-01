@@ -13,6 +13,8 @@ internal sealed partial class TournamentPortalForm
 
     public TournamentPortalForm(GetTournamentByIdPresenter presenter, TournamentId id)
     {
+        System.Diagnostics.Debug.WriteLine($"TournamentPortalForm constructor called with ID: {id}");
+
         InitializeComponent();
 
         _presenter = presenter;
@@ -20,6 +22,7 @@ internal sealed partial class TournamentPortalForm
 
         _cancellationTokenSource.Token.Register(Close);
 
+        System.Diagnostics.Debug.WriteLine("Calling GetTournamentAsync...");
         _ = _presenter.GetTournamentAsync(this, id, _cancellationTokenSource);
     }
 
@@ -29,11 +32,24 @@ internal sealed partial class TournamentPortalForm
         => this.RemoveProcessingMessage();
     public void BindTournament(TournamentDetailViewModel tournament)
     {
+        // Debug: Show that BindTournament is being called
+        System.Diagnostics.Debug.WriteLine($"BindTournament called with tournament: {tournament?.Name ?? "NULL"}");
+
+        if (tournament is null)
+        {
+            System.Diagnostics.Debug.WriteLine("Tournament is null - cannot bind data");
+            return;
+        }
+
         // Tournament Overview section
         nameValueLabel.Text = tournament.Name;
         bowlingCenterValueLabel.Text = tournament.BowlingCenter;
         gamesValueLabel.Text = tournament.Games.ToString(System.Globalization.CultureInfo.InvariantCulture);
         completedValueLabel.Text = tournament.Completed ? Resources.Yes : Resources.No;
+
+        // Debug: Verify labels are being set
+        System.Diagnostics.Debug.WriteLine($"Name label set to: {nameValueLabel.Text}");
+        System.Diagnostics.Debug.WriteLine($"Bowling Center label set to: {bowlingCenterValueLabel.Text}");
 
         // Dates section
         startDateValueLabel.Text = tournament.StartDate.ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
