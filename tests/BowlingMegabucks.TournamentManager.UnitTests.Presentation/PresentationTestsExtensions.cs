@@ -7,7 +7,7 @@ internal static class PresentationTestsExtensions
     public static Task<ApiException> AsApiException(this Exception ex, HttpResponseMessage httpResponseMessage)
         => ApiException.Create(
             message: httpResponseMessage.RequestMessage!,
-            httpMethod: httpResponseMessage.RequestMessage?.Method ?? HttpMethod.Query,
+            httpMethod: httpResponseMessage.RequestMessage?.Method ?? HttpMethod.Get,
             response: httpResponseMessage,
             refitSettings: null!,
             innerException: ex

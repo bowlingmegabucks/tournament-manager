@@ -66,9 +66,6 @@ internal sealed partial class TournamentPortalForm
         finalsRatioValueLabel.Text = tournament.FinalsRatio.ToString("F1", System.Globalization.CultureInfo.CurrentCulture);
         cashRatioValueLabel.Text = tournament.CashRatio.ToString("F1", System.Globalization.CultureInfo.CurrentCulture);
 
-        // Divisions section (empty for now)
-        // Future: Division list will be populated here
-
         // Squads section
         gamesPerSquadValueLabel.Text = tournament.Games.ToString(System.Globalization.CultureInfo.CurrentCulture);
 
