@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BowlingMegabucks.TournamentManager.Presentation\BowlingMegabucks.TournamentManager.Presentation.csproj" />
+    <ProjectReference Include="..\BowlingMegabucks.TournamentManager.SharedKernel\BowlingMegabucks.TournamentManager.SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

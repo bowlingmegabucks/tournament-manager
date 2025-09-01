@@ -1,5 +1,6 @@
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournamentById;
+using BowlingMegabucks.TournamentManager.SharedKernel.Properties;
 using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.App.Tournaments.Portal;
@@ -28,7 +29,21 @@ internal sealed partial class TournamentPortalForm
         => this.RemoveProcessingMessage();
     public void BindTournament(TournamentDetailViewModel tournament)
     {
+        // Tournament Overview section
+        nameValueLabel.Text = tournament.Name;
+        bowlingCenterValueLabel.Text = tournament.BowlingCenter;
+        gamesValueLabel.Text = tournament.Games.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        completedValueLabel.Text = tournament.Completed ? Resources.Yes : Resources.No;
 
+        // Dates section
+        startDateValueLabel.Text = tournament.StartDate.ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
+        endDateValueLabel.Text = tournament.EndDate.ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+        // Financial Details section
+        entryFeeValueLabel.Text = tournament.EntryFee.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+        finalsRatioValueLabel.Text = tournament.FinalsRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
+        cashRatioValueLabel.Text = tournament.CashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
+        superSweeperCashRatioValueLabel.Text = tournament.SuperSweeperCashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
     }
 
     public void DisplayErrorMessage(IEnumerable<Error> errors)
