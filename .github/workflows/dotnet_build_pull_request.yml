@@ -19,7 +19,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}}}
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Clean
         run: dotnet clean --configuration Release && dotnet nuget locals all --clear
@@ -34,7 +34,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version:  ${{ env.DOTNET_VERSION }}}}
+          dotnet-version:  ${{ env.DOTNET_VERSION }}
 
       - name: Clean
         run: dotnet clean --configuration Release && dotnet nuget locals all --clear
@@ -54,7 +54,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version:  ${{ env.DOTNET_VERSION }}}}
+          dotnet-version:  ${{ env.DOTNET_VERSION }}
       - name: Run Unit Tests
         run: dotnet run --project ${{ matrix.test_project }} --verbosity normal --configuration Release
 
@@ -71,7 +71,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version:  ${{ env.DOTNET_VERSION }}}}
+          dotnet-version:  ${{ env.DOTNET_VERSION }}
       - name: Run Integration Tests
         run: dotnet run --project ${{ matrix.test_project }} --verbosity normal --configuration Release
 
@@ -87,6 +87,6 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version:  ${{ env.DOTNET_VERSION }}}}
+          dotnet-version:  ${{ env.DOTNET_VERSION }}
       - name: Run Functional Tests
         run: dotnet run --project ${{ matrix.test_project }} --verbosity normal --configuration Release
