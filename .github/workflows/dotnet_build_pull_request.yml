@@ -24,7 +24,7 @@ jobs:
       - name: Clean
         run: dotnet clean --configuration Release && dotnet nuget locals all --clear
       - name: Build
-        run: dotnet build src/BowlingMegabucks.TournamentManagement.Api --configuration Release
+        run: dotnet build src/BowlingMegabucks.TournamentManager.Api --configuration Release
 
   BuildApp:
     runs-on: windows-latest
@@ -39,7 +39,7 @@ jobs:
       - name: Clean
         run: dotnet clean --configuration Release && dotnet nuget locals all --clear
       - name: Build
-        run: dotnet build src/BowlingMegabucks.TournamentManagement.App --configuration Release
+        run: dotnet build src/BowlingMegabucks.TournamentManager.App --configuration Release
 
   UnitTests:
     runs-on: ubuntu-latest
