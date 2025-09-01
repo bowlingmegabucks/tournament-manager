@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BowlingMegabucks.TournamentManager.Application.Tournaments;
 using BowlingMegabucks.TournamentManager.Infrastructure.Database;
 using BowlingMegabucks.TournamentManager.Infrastructure.Health;
@@ -5,6 +6,7 @@ using BowlingMegabucks.TournamentManager.Infrastructure.Middleware;
 using BowlingMegabucks.TournamentManager.Infrastructure.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -47,10 +49,21 @@ public static class InfrastructureExtensions
     /// <param name="app">The web application to configure.</param>
     /// <returns>The same web application for chaining.</returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="app"/> is null.</exception>
-    public static WebApplication UseInfrastructure(
+    public static async Task<WebApplication> UseInfrastructure(
         this WebApplication app)
     {
         ArgumentNullException.ThrowIfNull(app);
+
+        if (app.Environment.IsDevelopment())
+        {
+            await using AsyncServiceScope scope = app.Services.CreateAsyncScope();
+            ApplicationDbContext dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            if (await dbContext.Database.CanConnectAsync(app.Lifetime.ApplicationStarted))
+            {
+                await dbContext.Database.MigrateAsync(app.Lifetime.ApplicationStarted);
+            }
+        }
 
         app.UseExceptionHandler();
 

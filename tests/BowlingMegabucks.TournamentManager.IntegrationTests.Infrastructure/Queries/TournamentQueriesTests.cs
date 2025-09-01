@@ -214,6 +214,7 @@ public sealed class TournamentQueriesTests
 
         result.EntryFee.Should().Be(existingTournament.EntryFee);
         result.BowlingCenter.Should().Be(existingTournament.BowlingCenter);
+        result.Games.Should().Be(existingTournament.Games);
 
         result.FinalsRatio.Should().Be(existingTournament.FinalsRatio.Value);
         result.CashRatio.Should().Be(existingTournament.CashRatio.Value);

@@ -30,7 +30,7 @@ builder.Services
 
 WebApplication app = builder.Build();
 
-app
+await app
     .UseOpenApi()
     .UseInfrastructure();
 

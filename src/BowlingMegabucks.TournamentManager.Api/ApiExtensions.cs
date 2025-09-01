@@ -1,5 +1,6 @@
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 using ErrorOr;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BowlingMegabucks.TournamentManager.Api;
@@ -122,4 +123,15 @@ internal static class ApiExtensions
             PageSize = response.PageSize,
             Items = response.Items.Select(converter).ToList().AsReadOnly(),
         };
+    internal static IResult InvalidId(string message, string id)
+        => Results.Problem(
+            detail: $"The provided ID could not be parsed: {id}",
+            statusCode: StatusCodes.Status400BadRequest,
+            title: "Invalid ID format",
+            type: "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+            extensions: new Dictionary<string, object?>(StringComparer.Ordinal)
+            {
+                { "errors", new[] { message }  },
+            }
+        );
 }

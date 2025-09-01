@@ -56,6 +56,7 @@ internal sealed class TournamentQueries
                 EndDate = tournament.TournamentDates.EndDate,
                 BowlingCenter = tournament.BowlingCenter,
                 EntryFee = tournament.EntryFee,
+                Games = tournament.Games,
                 FinalsRatio = tournament.FinalsRatio.Value,
                 CashRatio = tournament.CashRatio.Value,
                 SuperSweeperCashRatio = tournament.SuperSweeperCashRatio.Value,

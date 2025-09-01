@@ -7,25 +7,18 @@ using BowlingMegabucks.TournamentManager.Domain.Tournaments;
 using BowlingMegabucks.TournamentManager.FunctionalTests.Infrastructure;
 using BowlingMegabucks.TournamentManager.Tests.Factories;
 using BowlingMegabucks.TournamentManager.Tests.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BowlingMegabucks.TournamentManager.FunctionalTests.Tournaments;
 
-public sealed partial class GetAllTournamentsFunctionalTests
+public sealed class GetAllTournamentsFunctionalTests
     : BaseFunctionalTest
 {
-    private static readonly JsonSerializerOptions s_jsonSerializerOptions = new()
-    {
-        PropertyNameCaseInsensitive = true
-    };
-
     public GetAllTournamentsFunctionalTests(TournamentManagerWebAppFactory<IApiAssemblyMarker> factory)
         : base(factory ?? throw new ArgumentNullException(nameof(factory)))
-    {
-    }
+    {  }
 
     [Fact]
-    public async Task GetAllTournaments_ShouldReturnOkResponse_WhenTournamentsExist()
+    public async Task GetAllTournaments_ShouldReturnOk_WhenTournamentsExist()
     {
         // Arrange
         IEnumerable<Tournament> tournaments = TournamentFactory.FakeMany(10);
@@ -39,11 +32,10 @@ public sealed partial class GetAllTournamentsFunctionalTests
 
         // Assert
         response.Should().NotBeNull();
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);;
 
-        string responseContent = await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
-
-        OffsetPaginationQueryResponse<TournamentSummary>? paginatedResponse = JsonSerializer.Deserialize<OffsetPaginationQueryResponse<TournamentSummary>>(responseContent, s_jsonSerializerOptions);
+        OffsetPaginationQueryResponse<TournamentSummary>? paginatedResponse =
+            await response.Content.Serialize<OffsetPaginationQueryResponse<TournamentSummary>>(TestContext.Current.CancellationToken);
 
         paginatedResponse.Should().NotBeNull();
         paginatedResponse!.TotalItems.Should().Be(10);
@@ -64,7 +56,7 @@ public sealed partial class GetAllTournamentsFunctionalTests
     }
 
     [Fact]
-    public async Task GetAllTournaments_ShouldReturn500_WhenThereIsAnInternalServerError()
+    public async Task GetAllTournaments_ShouldReturnInternalServerError_WhenThereIsAnInternalServerError()
     {
         // Arrange - Create a factory with invalid database connection
         await using var factoryWithInvalidDb = new InvalidDatabaseWebAppFactory<IApiAssemblyMarker>();
@@ -76,6 +68,6 @@ public sealed partial class GetAllTournamentsFunctionalTests
         HttpResponseMessage response = await client.GetAsync(requestUri, TestContext.Current.CancellationToken);
 
         // Assert
-        await response.VerifyResponseWhenDatabaseFailsAsync(s_jsonSerializerOptions);
+        await response.VerifyResponseWhenDatabaseFailsAsync();
     }
 }
