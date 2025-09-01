@@ -1,4 +1,36 @@
 <Solution>
+  <Folder Name="/Instructions/">
+    <File Path=".github/instructions/api-design.instructions.md" />
+    <File Path=".github/instructions/aspnet-rest-apis.instructions.md" />
+    <File Path=".github/instructions/azure.instructions.md" />
+    <File Path=".github/instructions/backend-testing.instructions.md" />
+    <File Path=".github/instructions/ci-cd.instructions.md" />
+    <File Path=".github/instructions/clean-architecture.instructions.md" />
+    <File Path=".github/instructions/cloud-architecture.instructions.md" />
+    <File Path=".github/instructions/codeReview.instructions.md" />
+    <File Path=".github/instructions/copilot-instructions.md" />
+    <File Path=".github/instructions/cross-cutting-concerns.instructions.md" />
+    <File Path=".github/instructions/csharp.instructions.md" />
+    <File Path=".github/instructions/domain-driven-design.instructions.md" />
+    <File Path=".github/instructions/domain-events.instructions.md" />
+    <File Path=".github/instructions/domain-model.instructions.md" />
+    <File Path=".github/instructions/git-message.instructions.md" />
+    <File Path=".github/instructions/git-pullRequestDescriptionGeneration.instructions.md" />
+    <File Path=".github/instructions/github-actions.instructions.md" />
+    <File Path=".github/instructions/markdown.instructions.md" />
+    <File Path=".github/instructions/performance-optimizations.instructions.md" />
+    <File Path=".github/instructions/persistence.instructions.md" />
+    <File Path=".github/instructions/roles-and-permissions.instructions.md" />
+    <File Path=".github/instructions/security.instructions.md" />
+    <File Path=".github/instructions/terraform.instructions.md" />
+    <File Path=".github/instructions/use-case.instructions.md" />
+    <File Path=".github/instructions/validation-rules.instructions.md" />
+    <File Path=".github/instructions/winform-instructions.md" />
+  </Folder>
+  <Folder Name="/Prompts/">
+    <File Path=".github/prompts/api-endpoint-readme.md" />
+    <File Path=".github/prompts/xml-comments.md" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
@@ -22,11 +54,11 @@
     <Project Path="src/BowlingMegabucks.TournamentManager.Presentation/BowlingMegabucks.TournamentManager.Presentation.csproj" Id="b83fe553-078d-4138-a40f-a5148fdc434f" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/BowlingMegabucks.TournamentManager.UnitTests.Domain/BowlingMegabucks.TournamentManager.UnitTests.Domain.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.FunctionalTests/BowlingMegabucks.TournamentManager.FunctionalTests.csproj" />
-    <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure/BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests.Application/BowlingMegabucks.TournamentManager.IntegrationTests.Application.csproj" />
+    <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure/BowlingMegabucks.TournamentManager.IntegrationTests.Infrastructure.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.Tests/BowlingMegabucks.TournamentManager.Tests.csproj" />
+    <Project Path="tests/BowlingMegabucks.TournamentManager.UnitTests.Domain/BowlingMegabucks.TournamentManager.UnitTests.Domain.csproj" />
     <Project Path="tests/BowlingMegabucks.TournamentManager.UnitTests.Presentation/BowlingMegabucks.TournamentManager.UnitTests.Presentation.csproj" />
   </Folder>
 </Solution>
