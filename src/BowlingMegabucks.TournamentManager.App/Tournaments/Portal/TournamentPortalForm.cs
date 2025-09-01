@@ -29,7 +29,11 @@ internal sealed partial class TournamentPortalForm
     public void ShowProcessingMessage(string message, CancellationTokenSource cancellationTokenSource)
         => this.AddProcessingMessage(message, cancellationTokenSource);
     public void HideProcessingMessage()
-        => this.RemoveProcessingMessage();
+    {
+        System.Diagnostics.Debug.WriteLine("HideProcessingMessage called");
+        this.RemoveProcessingMessage();
+        System.Diagnostics.Debug.WriteLine("HideProcessingMessage completed");
+    }
     public void BindTournament(TournamentDetailViewModel tournament)
     {
         // Debug: Show that BindTournament is being called
@@ -40,6 +44,16 @@ internal sealed partial class TournamentPortalForm
             System.Diagnostics.Debug.WriteLine("Tournament is null - cannot bind data");
             return;
         }
+
+        // Check if we're on the UI thread
+        if (this.InvokeRequired)
+        {
+            System.Diagnostics.Debug.WriteLine("BindTournament called from background thread - invoking on UI thread");
+            this.Invoke(() => BindTournament(tournament));
+            return;
+        }
+
+        System.Diagnostics.Debug.WriteLine("BindTournament executing on UI thread");
 
         // Tournament Overview section
         nameValueLabel.Text = tournament.Name;
@@ -60,6 +74,8 @@ internal sealed partial class TournamentPortalForm
         finalsRatioValueLabel.Text = tournament.FinalsRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
         cashRatioValueLabel.Text = tournament.CashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
         superSweeperCashRatioValueLabel.Text = tournament.SuperSweeperCashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
+
+        System.Diagnostics.Debug.WriteLine("BindTournament completed successfully");
     }
 
     public void DisplayErrorMessage(IEnumerable<Error> errors)

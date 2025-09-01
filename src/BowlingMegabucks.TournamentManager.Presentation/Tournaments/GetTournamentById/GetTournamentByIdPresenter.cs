@@ -71,6 +71,8 @@ public sealed class GetTournamentByIdPresenter
 
         view.BindTournament(tournament);
 
+        System.Diagnostics.Debug.WriteLine("About to call HideProcessingMessage");
         view.HideProcessingMessage();
+        System.Diagnostics.Debug.WriteLine("HideProcessingMessage completed successfully");
     }
 }
