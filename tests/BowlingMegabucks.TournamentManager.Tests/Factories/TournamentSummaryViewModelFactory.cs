@@ -20,11 +20,11 @@ internal sealed class TournamentSummaryViewModelFaker
 {
     public TournamentSummaryViewModelFaker()
     {
-        RuleFor(t => t.Id, _ => TournamentId.New());
-        RuleFor(t => t.Name, f => f.Company.CatchPhrase());
-        RuleFor(t => t.StartDate, f => f.Date.PastDateOnly());
-        RuleFor(t => t.EndDate, (f, t) => f.Date.FutureDateOnly(refDate: t.StartDate));
-        RuleFor(t => t.EntryFee, f => f.Finance.Amount(80, 200));
-        RuleFor(t => t.BowlingCenter, f => f.Company.CompanyName());
+        RuleFor(tournament => tournament.Id, _ => TournamentId.New());
+        RuleFor(tournament => tournament.Name, f => f.Company.CatchPhrase());
+        RuleFor(tournament => tournament.StartDate, f => f.Date.PastDateOnly());
+        RuleFor(tournament => tournament.EndDate, (f, t) => f.Date.FutureDateOnly(refDate: t.StartDate));
+        RuleFor(tournament => tournament.EntryFee, f => f.Finance.Amount(80, 200));
+        RuleFor(tournament => tournament.BowlingCenter, f => f.Company.CompanyName());
     }
 }
