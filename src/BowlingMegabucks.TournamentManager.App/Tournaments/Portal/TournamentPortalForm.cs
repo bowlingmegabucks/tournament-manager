@@ -69,37 +69,92 @@ internal sealed partial class TournamentPortalForm
 
     private void SetTournamentData(TournamentDetailViewModel tournament)
     {
+        // Set overview data
+        SetOverviewData(tournament);
+
+        // Set dates data
+        SetDatesData(tournament);
+
+        // Set financial data
+        SetFinancialData(tournament);
+
+        // Force layout updates
+        PerformLayoutUpdates();
+
+        System.Diagnostics.Debug.WriteLine("All tournament data set and layout updated");
+    }
+
+    private void SetOverviewData(TournamentDetailViewModel tournament)
+    {
         // Tournament Overview section
         nameValueLabel.Text = tournament.Name;
         bowlingCenterValueLabel.Text = tournament.BowlingCenter;
         gamesValueLabel.Text = tournament.Games.ToString(System.Globalization.CultureInfo.InvariantCulture);
         completedValueLabel.Text = tournament.Completed ? Resources.Yes : Resources.No;
 
-        // Debug: Verify labels are being set and check their properties
+        // Force layout update for overview labels
+        nameValueLabel.PerformLayout();
+        bowlingCenterValueLabel.PerformLayout();
+        gamesValueLabel.PerformLayout();
+        completedValueLabel.PerformLayout();
+
+        // Debug: Verify overview labels
         System.Diagnostics.Debug.WriteLine($"Name label set to: {nameValueLabel.Text}");
-        System.Diagnostics.Debug.WriteLine($"Name label properties - Visible: {nameValueLabel.Visible}, Location: {nameValueLabel.Location}, Size: {nameValueLabel.Size}, ForeColor: {nameValueLabel.ForeColor}, BackColor: {nameValueLabel.BackColor}");
+        System.Diagnostics.Debug.WriteLine($"Name label properties - Visible: {nameValueLabel.Visible}, Location: {nameValueLabel.Location}, Size: {nameValueLabel.Size}");
         System.Diagnostics.Debug.WriteLine($"Bowling Center label set to: {bowlingCenterValueLabel.Text}");
         System.Diagnostics.Debug.WriteLine($"Bowling Center label properties - Visible: {bowlingCenterValueLabel.Visible}, Location: {bowlingCenterValueLabel.Location}, Size: {bowlingCenterValueLabel.Size}");
+    }
 
+    private void SetDatesData(TournamentDetailViewModel tournament)
+    {
         // Dates section
         startDateValueLabel.Text = tournament.StartDate.ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
         endDateValueLabel.Text = tournament.EndDate.ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
+        // Force layout update for date labels
+        startDateValueLabel.PerformLayout();
+        endDateValueLabel.PerformLayout();
+
+        System.Diagnostics.Debug.WriteLine($"Start Date: '{startDateValueLabel.Text}', End Date: '{endDateValueLabel.Text}'");
+    }
+
+    private void SetFinancialData(TournamentDetailViewModel tournament)
+    {
         // Financial Details section
         entryFeeValueLabel.Text = tournament.EntryFee.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
         finalsRatioValueLabel.Text = tournament.FinalsRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
         cashRatioValueLabel.Text = tournament.CashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
         superSweeperCashRatioValueLabel.Text = tournament.SuperSweeperCashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
 
-        // Debug: Check all labels after setting
-        System.Diagnostics.Debug.WriteLine("All labels set. Current values:");
-        System.Diagnostics.Debug.WriteLine($"  Name: '{nameValueLabel.Text}'");
-        System.Diagnostics.Debug.WriteLine($"  Bowling Center: '{bowlingCenterValueLabel.Text}'");
-        System.Diagnostics.Debug.WriteLine($"  Games: '{gamesValueLabel.Text}'");
-        System.Diagnostics.Debug.WriteLine($"  Completed: '{completedValueLabel.Text}'");
-        System.Diagnostics.Debug.WriteLine($"  Start Date: '{startDateValueLabel.Text}'");
-        System.Diagnostics.Debug.WriteLine($"  End Date: '{endDateValueLabel.Text}'");
-        System.Diagnostics.Debug.WriteLine($"  Entry Fee: '{entryFeeValueLabel.Text}'");
+        // Force layout update for financial labels
+        entryFeeValueLabel.PerformLayout();
+        finalsRatioValueLabel.PerformLayout();
+        cashRatioValueLabel.PerformLayout();
+        superSweeperCashRatioValueLabel.PerformLayout();
+
+        System.Diagnostics.Debug.WriteLine($"Entry Fee: '{entryFeeValueLabel.Text}'");
+    }
+
+    private void PerformLayoutUpdates()
+    {
+        // Force the table layout panels to recalculate their layout
+        overviewTableLayoutPanel.PerformLayout();
+        datesTableLayoutPanel.PerformLayout();
+        financialTableLayoutPanel.PerformLayout();
+
+        // Force invalidate to ensure labels redraw
+        nameValueLabel.Invalidate();
+        bowlingCenterValueLabel.Invalidate();
+        gamesValueLabel.Invalidate();
+        completedValueLabel.Invalidate();
+        startDateValueLabel.Invalidate();
+        endDateValueLabel.Invalidate();
+        entryFeeValueLabel.Invalidate();
+        finalsRatioValueLabel.Invalidate();
+        cashRatioValueLabel.Invalidate();
+        superSweeperCashRatioValueLabel.Invalidate();
+
+        System.Diagnostics.Debug.WriteLine("Layout updates and invalidates performed on all controls");
     }
 
     private void DebugVisibilityAndRefresh()
