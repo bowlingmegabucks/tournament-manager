@@ -46,13 +46,7 @@ internal sealed partial class GetTournamentsForm
         => openButton.Enabled = false;
 
     public void DisplayErrorMessage(IEnumerable<Error> errors)
-        => MessageBox.Show(
-            string.Join(
-                Environment.NewLine,
-                errors.Select(error => $"{error.Code}: {error.Description}")),
-            "Error",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Error);
+        => errors.ShowMessageBoxWithErrors();
 
     public Guid? CreateNewTournament()
 #pragma warning disable S125 // Sections of code should not be commented out

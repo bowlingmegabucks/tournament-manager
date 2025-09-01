@@ -1,14 +1,49 @@
-using BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 using BowlingMegabucks.TournamentManager.Domain.Tournaments;
+using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournamentById;
+using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.App.Tournaments.Portal;
 
 internal sealed partial class TournamentPortalForm
-    : Form
+    : Form, IGetTournamentByIdView
 {
-    public TournamentPortalForm()
+    private readonly GetTournamentByIdPresenter _presenter;
+    private CancellationTokenSource? _cancellationTokenSource;
+
+    public TournamentPortalForm(GetTournamentByIdPresenter presenter, TournamentId id)
     {
         InitializeComponent();
+
+        _presenter = presenter;
+        _cancellationTokenSource = new();
+
+        _cancellationTokenSource.Token.Register(Close);
+
+        _ = _presenter.GetTournamentAsync(this, id, _cancellationTokenSource);
+    }
+
+    public void ShowProcessingMessage(string message, CancellationTokenSource cancellationTokenSource)
+        => this.AddProcessingMessage(message, cancellationTokenSource);
+    public void HideProcessingMessage()
+        => this.RemoveProcessingMessage();
+    public void BindTournament(TournamentDetailViewModel tournament)
+    {
+
+    }
+
+    public void DisplayErrorMessage(IEnumerable<Error> errors)
+        => errors.ShowMessageBoxWithErrors();
+
+    private void DisposeFields(bool disposing)
+    {
+        if (disposing)
+        {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
+        }
+
+        base.Dispose(disposing);
     }
 
 #pragma warning disable S125 // Sections of code should not be commented out

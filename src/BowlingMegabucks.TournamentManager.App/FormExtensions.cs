@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.App;
 
@@ -27,4 +28,14 @@ internal static class FormExtensions
             processingMessage.Dispose();
         }
     }
+
+    // make extension member off of MessageBox
+    public static void ShowMessageBoxWithErrors(this IEnumerable<Error> errors)
+        => MessageBox.Show(
+            string.Join(
+                Environment.NewLine,
+                errors.Select(error => $"{error.Code}: {error.Description}")),
+            "Error",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
 }
