@@ -1,6 +1,5 @@
 using BowlingMegabucks.TournamentManager.Application.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Application.Tournaments.GetTournaments;
-using BowlingMegabucks.TournamentManager.Contracts;
 using BowlingMegabucks.TournamentManager.Contracts.Tournaments;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;

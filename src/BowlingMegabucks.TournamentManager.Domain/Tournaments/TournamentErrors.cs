@@ -7,6 +7,11 @@ namespace BowlingMegabucks.TournamentManager.Domain.Tournaments;
 /// </summary>
 public static class TournamentErrors
 {
+    /// <summary>
+    /// Error message indicating that the provided ID is not a valid TournamentId.
+    /// </summary>
+    public static readonly string InvalidTournamentIdMessage = "The provided ID is not a valid TournamentId.";
+
     internal static Error TournamentNameIsRequired
         => Error.Validation(
             code: "Tournament.TournamentNameIsRequired",
