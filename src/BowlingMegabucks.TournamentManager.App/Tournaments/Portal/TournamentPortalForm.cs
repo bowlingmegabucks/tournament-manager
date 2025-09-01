@@ -55,7 +55,6 @@ internal sealed partial class TournamentPortalForm
         // Tournament Overview section
         nameValueLabel.Text = tournament.Name;
         bowlingCenterValueLabel.Text = tournament.BowlingCenter;
-        gamesValueLabel.Text = tournament.Games.ToString(System.Globalization.CultureInfo.CurrentCulture);
         completedValueLabel.Text = tournament.Completed ? Resources.Yes : Resources.No;
 
         // Tournament Dates section
@@ -66,7 +65,15 @@ internal sealed partial class TournamentPortalForm
         entryFeeValueLabel.Text = tournament.EntryFee.ToString("C", System.Globalization.CultureInfo.CurrentCulture);
         finalsRatioValueLabel.Text = tournament.FinalsRatio.ToString("F1", System.Globalization.CultureInfo.CurrentCulture);
         cashRatioValueLabel.Text = tournament.CashRatio.ToString("F1", System.Globalization.CultureInfo.CurrentCulture);
-        superSweeperCashRatioValueLabel.Text = tournament.SuperSweeperCashRatio.ToString("F1", System.Globalization.CultureInfo.CurrentCulture);
+
+        // Divisions section (empty for now)
+        // Future: Division list will be populated here
+
+        // Squads section
+        gamesPerSquadValueLabel.Text = tournament.Games.ToString(System.Globalization.CultureInfo.CurrentCulture);
+
+        // Sweepers section
+        superSweeperCashRatioValueLabel2.Text = tournament.SuperSweeperCashRatio.ToString("F1", System.Globalization.CultureInfo.CurrentCulture);
     }
 
     public void DisplayErrorMessage(IEnumerable<Error> errors)

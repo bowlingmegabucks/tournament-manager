@@ -57,8 +57,6 @@ partial class TournamentPortalForm
         nameValueLabel = new Label();
         bowlingCenterLabel = new Label();
         bowlingCenterValueLabel = new Label();
-        gamesLabel = new Label();
-        gamesValueLabel = new Label();
         completedLabel = new Label();
         completedValueLabel = new Label();
         datesGroupBox = new GroupBox();
@@ -75,8 +73,16 @@ partial class TournamentPortalForm
         finalsRatioValueLabel = new Label();
         cashRatioLabel = new Label();
         cashRatioValueLabel = new Label();
-        superSweeperCashRatioLabel = new Label();
-        superSweeperCashRatioValueLabel = new Label();
+        divisionsGroupBox = new GroupBox();
+        divisionsTableLayoutPanel = new TableLayoutPanel();
+        squadsGroupBox = new GroupBox();
+        squadsTableLayoutPanel = new TableLayoutPanel();
+        gamesPerSquadLabel = new Label();
+        gamesPerSquadValueLabel = new Label();
+        sweepersGroupBox = new GroupBox();
+        sweepersTableLayoutPanel = new TableLayoutPanel();
+        superSweeperCashRatioLabel2 = new Label();
+        superSweeperCashRatioValueLabel2 = new Label();
         portalMenuStrip.SuspendLayout();
         mainContainer.SuspendLayout();
         overviewGroupBox.SuspendLayout();
@@ -85,6 +91,12 @@ partial class TournamentPortalForm
         datesTableLayoutPanel.SuspendLayout();
         financialGroupBox.SuspendLayout();
         financialTableLayoutPanel.SuspendLayout();
+        divisionsGroupBox.SuspendLayout();
+        divisionsTableLayoutPanel.SuspendLayout();
+        squadsGroupBox.SuspendLayout();
+        squadsTableLayoutPanel.SuspendLayout();
+        sweepersGroupBox.SuspendLayout();
+        sweepersTableLayoutPanel.SuspendLayout();
         SuspendLayout();
         // 
         // portalMenuStrip
@@ -237,6 +249,9 @@ partial class TournamentPortalForm
         mainContainer.Controls.Add(overviewGroupBox, 0, 0);
         mainContainer.Controls.Add(datesGroupBox, 1, 0);
         mainContainer.Controls.Add(financialGroupBox, 2, 0);
+        mainContainer.Controls.Add(divisionsGroupBox, 0, 1);
+        mainContainer.Controls.Add(squadsGroupBox, 1, 1);
+        mainContainer.Controls.Add(sweepersGroupBox, 2, 1);
         mainContainer.Location = new Point(12, 36);
         mainContainer.Name = "mainContainer";
         mainContainer.RowCount = 4;
@@ -268,16 +283,12 @@ partial class TournamentPortalForm
         overviewTableLayoutPanel.Controls.Add(nameValueLabel, 0, 1);
         overviewTableLayoutPanel.Controls.Add(bowlingCenterLabel, 0, 2);
         overviewTableLayoutPanel.Controls.Add(bowlingCenterValueLabel, 0, 3);
-        overviewTableLayoutPanel.Controls.Add(gamesLabel, 0, 4);
-        overviewTableLayoutPanel.Controls.Add(gamesValueLabel, 0, 5);
-        overviewTableLayoutPanel.Controls.Add(completedLabel, 0, 6);
-        overviewTableLayoutPanel.Controls.Add(completedValueLabel, 0, 7);
+        overviewTableLayoutPanel.Controls.Add(completedLabel, 0, 4);
+        overviewTableLayoutPanel.Controls.Add(completedValueLabel, 0, 5);
         overviewTableLayoutPanel.Dock = DockStyle.Fill;
         overviewTableLayoutPanel.Location = new Point(10, 26);
         overviewTableLayoutPanel.Name = "overviewTableLayoutPanel";
-        overviewTableLayoutPanel.RowCount = 8;
-        overviewTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        overviewTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        overviewTableLayoutPanel.RowCount = 6;
         overviewTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         overviewTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         overviewTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
@@ -329,46 +340,25 @@ partial class TournamentPortalForm
         bowlingCenterValueLabel.TabIndex = 3;
         bowlingCenterValueLabel.Text = "-";
         // 
-        // gamesLabel
-        // 
-        gamesLabel.AutoSize = true;
-        gamesLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-        gamesLabel.Location = new Point(3, 76);
-        gamesLabel.Name = "gamesLabel";
-        gamesLabel.Size = new Size(44, 15);
-        gamesLabel.TabIndex = 4;
-        gamesLabel.Text = "Games";
-        // 
-        // gamesValueLabel
-        // 
-        gamesValueLabel.AutoSize = true;
-        gamesValueLabel.Font = new Font("Segoe UI", 9F);
-        gamesValueLabel.Location = new Point(3, 91);
-        gamesValueLabel.Margin = new Padding(3, 0, 3, 8);
-        gamesValueLabel.Name = "gamesValueLabel";
-        gamesValueLabel.Size = new Size(12, 15);
-        gamesValueLabel.TabIndex = 5;
-        gamesValueLabel.Text = "-";
-        // 
         // completedLabel
         // 
         completedLabel.AutoSize = true;
         completedLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-        completedLabel.Location = new Point(3, 114);
+        completedLabel.Location = new Point(3, 76);
         completedLabel.Name = "completedLabel";
         completedLabel.Size = new Size(68, 15);
-        completedLabel.TabIndex = 6;
+        completedLabel.TabIndex = 4;
         completedLabel.Text = "Completed";
         // 
         // completedValueLabel
         // 
         completedValueLabel.AutoSize = true;
         completedValueLabel.Font = new Font("Segoe UI", 9F);
-        completedValueLabel.Location = new Point(3, 129);
+        completedValueLabel.Location = new Point(3, 91);
         completedValueLabel.Margin = new Padding(3, 0, 3, 8);
         completedValueLabel.Name = "completedValueLabel";
         completedValueLabel.Size = new Size(12, 15);
-        completedValueLabel.TabIndex = 7;
+        completedValueLabel.TabIndex = 5;
         completedValueLabel.Text = "-";
         // 
         // datesGroupBox
@@ -468,14 +458,10 @@ partial class TournamentPortalForm
         financialTableLayoutPanel.Controls.Add(finalsRatioValueLabel, 0, 3);
         financialTableLayoutPanel.Controls.Add(cashRatioLabel, 0, 4);
         financialTableLayoutPanel.Controls.Add(cashRatioValueLabel, 0, 5);
-        financialTableLayoutPanel.Controls.Add(superSweeperCashRatioLabel, 0, 6);
-        financialTableLayoutPanel.Controls.Add(superSweeperCashRatioValueLabel, 0, 7);
         financialTableLayoutPanel.Dock = DockStyle.Fill;
         financialTableLayoutPanel.Location = new Point(10, 26);
         financialTableLayoutPanel.Name = "financialTableLayoutPanel";
-        financialTableLayoutPanel.RowCount = 8;
-        financialTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        financialTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        financialTableLayoutPanel.RowCount = 6;
         financialTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         financialTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
         financialTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
@@ -548,26 +534,128 @@ partial class TournamentPortalForm
         cashRatioValueLabel.TabIndex = 5;
         cashRatioValueLabel.Text = "-";
         // 
-        // superSweeperCashRatioLabel
+        // divisionsGroupBox
         // 
-        superSweeperCashRatioLabel.AutoSize = true;
-        superSweeperCashRatioLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-        superSweeperCashRatioLabel.Location = new Point(3, 114);
-        superSweeperCashRatioLabel.Name = "superSweeperCashRatioLabel";
-        superSweeperCashRatioLabel.Size = new Size(146, 15);
-        superSweeperCashRatioLabel.TabIndex = 6;
-        superSweeperCashRatioLabel.Text = "Super Sweeper Cash Ratio";
+        divisionsGroupBox.Controls.Add(divisionsTableLayoutPanel);
+        divisionsGroupBox.Dock = DockStyle.Fill;
+        divisionsGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+        divisionsGroupBox.Location = new Point(3, 203);
+        divisionsGroupBox.Name = "divisionsGroupBox";
+        divisionsGroupBox.Padding = new Padding(10);
+        divisionsGroupBox.Size = new Size(322, 194);
+        divisionsGroupBox.TabIndex = 3;
+        divisionsGroupBox.TabStop = false;
+        divisionsGroupBox.Text = "Divisions";
         // 
-        // superSweeperCashRatioValueLabel
+        // divisionsTableLayoutPanel
         // 
-        superSweeperCashRatioValueLabel.AutoSize = true;
-        superSweeperCashRatioValueLabel.Font = new Font("Segoe UI", 9F);
-        superSweeperCashRatioValueLabel.Location = new Point(3, 129);
-        superSweeperCashRatioValueLabel.Margin = new Padding(3, 0, 3, 8);
-        superSweeperCashRatioValueLabel.Name = "superSweeperCashRatioValueLabel";
-        superSweeperCashRatioValueLabel.Size = new Size(12, 15);
-        superSweeperCashRatioValueLabel.TabIndex = 7;
-        superSweeperCashRatioValueLabel.Text = "-";
+        divisionsTableLayoutPanel.ColumnCount = 1;
+        divisionsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        divisionsTableLayoutPanel.Dock = DockStyle.Fill;
+        divisionsTableLayoutPanel.Location = new Point(10, 26);
+        divisionsTableLayoutPanel.Name = "divisionsTableLayoutPanel";
+        divisionsTableLayoutPanel.RowCount = 1;
+        divisionsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        divisionsTableLayoutPanel.Size = new Size(302, 158);
+        divisionsTableLayoutPanel.TabIndex = 0;
+        // 
+        // squadsGroupBox
+        // 
+        squadsGroupBox.Controls.Add(squadsTableLayoutPanel);
+        squadsGroupBox.Dock = DockStyle.Fill;
+        squadsGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+        squadsGroupBox.Location = new Point(331, 203);
+        squadsGroupBox.Name = "squadsGroupBox";
+        squadsGroupBox.Padding = new Padding(10);
+        squadsGroupBox.Size = new Size(322, 194);
+        squadsGroupBox.TabIndex = 4;
+        squadsGroupBox.TabStop = false;
+        squadsGroupBox.Text = "Squads";
+        // 
+        // squadsTableLayoutPanel
+        // 
+        squadsTableLayoutPanel.ColumnCount = 1;
+        squadsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        squadsTableLayoutPanel.Controls.Add(gamesPerSquadLabel, 0, 0);
+        squadsTableLayoutPanel.Controls.Add(gamesPerSquadValueLabel, 0, 1);
+        squadsTableLayoutPanel.Dock = DockStyle.Fill;
+        squadsTableLayoutPanel.Location = new Point(10, 26);
+        squadsTableLayoutPanel.Name = "squadsTableLayoutPanel";
+        squadsTableLayoutPanel.RowCount = 2;
+        squadsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        squadsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        squadsTableLayoutPanel.Size = new Size(302, 158);
+        squadsTableLayoutPanel.TabIndex = 0;
+        // 
+        // gamesPerSquadLabel
+        // 
+        gamesPerSquadLabel.AutoSize = true;
+        gamesPerSquadLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+        gamesPerSquadLabel.Location = new Point(3, 0);
+        gamesPerSquadLabel.Name = "gamesPerSquadLabel";
+        gamesPerSquadLabel.Size = new Size(107, 15);
+        gamesPerSquadLabel.TabIndex = 0;
+        gamesPerSquadLabel.Text = "Games per Squad";
+        // 
+        // gamesPerSquadValueLabel
+        // 
+        gamesPerSquadValueLabel.AutoSize = true;
+        gamesPerSquadValueLabel.Font = new Font("Segoe UI", 9F);
+        gamesPerSquadValueLabel.Location = new Point(3, 15);
+        gamesPerSquadValueLabel.Margin = new Padding(3, 0, 3, 8);
+        gamesPerSquadValueLabel.Name = "gamesPerSquadValueLabel";
+        gamesPerSquadValueLabel.Size = new Size(12, 15);
+        gamesPerSquadValueLabel.TabIndex = 1;
+        gamesPerSquadValueLabel.Text = "-";
+        // 
+        // sweepersGroupBox
+        // 
+        sweepersGroupBox.Controls.Add(sweepersTableLayoutPanel);
+        sweepersGroupBox.Dock = DockStyle.Fill;
+        sweepersGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+        sweepersGroupBox.Location = new Point(659, 203);
+        sweepersGroupBox.Name = "sweepersGroupBox";
+        sweepersGroupBox.Padding = new Padding(10);
+        sweepersGroupBox.Size = new Size(322, 194);
+        sweepersGroupBox.TabIndex = 5;
+        sweepersGroupBox.TabStop = false;
+        sweepersGroupBox.Text = "Sweepers";
+        // 
+        // sweepersTableLayoutPanel
+        // 
+        sweepersTableLayoutPanel.ColumnCount = 1;
+        sweepersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        sweepersTableLayoutPanel.Controls.Add(superSweeperCashRatioLabel2, 0, 0);
+        sweepersTableLayoutPanel.Controls.Add(superSweeperCashRatioValueLabel2, 0, 1);
+        sweepersTableLayoutPanel.Dock = DockStyle.Fill;
+        sweepersTableLayoutPanel.Location = new Point(10, 26);
+        sweepersTableLayoutPanel.Name = "sweepersTableLayoutPanel";
+        sweepersTableLayoutPanel.RowCount = 2;
+        sweepersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        sweepersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        sweepersTableLayoutPanel.Size = new Size(302, 158);
+        sweepersTableLayoutPanel.TabIndex = 0;
+        // 
+        // superSweeperCashRatioLabel2
+        // 
+        superSweeperCashRatioLabel2.AutoSize = true;
+        superSweeperCashRatioLabel2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+        superSweeperCashRatioLabel2.Location = new Point(3, 0);
+        superSweeperCashRatioLabel2.Name = "superSweeperCashRatioLabel2";
+        superSweeperCashRatioLabel2.Size = new Size(146, 15);
+        superSweeperCashRatioLabel2.TabIndex = 0;
+        superSweeperCashRatioLabel2.Text = "Super Sweeper Cash Ratio";
+        // 
+        // superSweeperCashRatioValueLabel2
+        // 
+        superSweeperCashRatioValueLabel2.AutoSize = true;
+        superSweeperCashRatioValueLabel2.Font = new Font("Segoe UI", 9F);
+        superSweeperCashRatioValueLabel2.Location = new Point(3, 15);
+        superSweeperCashRatioValueLabel2.Margin = new Padding(3, 0, 3, 8);
+        superSweeperCashRatioValueLabel2.Name = "superSweeperCashRatioValueLabel2";
+        superSweeperCashRatioValueLabel2.Size = new Size(12, 15);
+        superSweeperCashRatioValueLabel2.TabIndex = 1;
+        superSweeperCashRatioValueLabel2.Text = "-";
         // 
         // TournamentPortalForm
         // 
@@ -594,6 +682,15 @@ partial class TournamentPortalForm
         financialGroupBox.ResumeLayout(false);
         financialTableLayoutPanel.ResumeLayout(false);
         financialTableLayoutPanel.PerformLayout();
+        divisionsGroupBox.ResumeLayout(false);
+        divisionsTableLayoutPanel.ResumeLayout(false);
+        divisionsTableLayoutPanel.PerformLayout();
+        squadsGroupBox.ResumeLayout(false);
+        squadsTableLayoutPanel.ResumeLayout(false);
+        squadsTableLayoutPanel.PerformLayout();
+        sweepersGroupBox.ResumeLayout(false);
+        sweepersTableLayoutPanel.ResumeLayout(false);
+        sweepersTableLayoutPanel.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -611,11 +708,11 @@ partial class TournamentPortalForm
     private ToolStripMenuItem sweepersMenuItem;
     private ToolStripMenuItem addSweeperMenuItem;
     private ToolStripMenuItem openSweeperMenuItem;
+    private ToolStripSeparator sweeperSeparator;
+    private ToolStripMenuItem superSweeperResultsMenuItem;
     private ToolStripMenuItem registrationMenuItem;
     private ToolStripMenuItem addRegistrationMenuItem;
     private ToolStripMenuItem viewTournamentRegistrationsMenuItem;
-    private ToolStripSeparator sweeperSeparator;
-    private ToolStripMenuItem superSweeperResultsMenuItem;
     private ToolStripMenuItem exitMenuItem;
     private ToolStripMenuItem resultsMenuItem;
     private ToolStripMenuItem atLargeResultsMenuItem;
@@ -627,8 +724,6 @@ partial class TournamentPortalForm
     private Label nameValueLabel;
     private Label bowlingCenterLabel;
     private Label bowlingCenterValueLabel;
-    private Label gamesLabel;
-    private Label gamesValueLabel;
     private Label completedLabel;
     private Label completedValueLabel;
     private GroupBox datesGroupBox;
@@ -645,6 +740,14 @@ partial class TournamentPortalForm
     private Label finalsRatioValueLabel;
     private Label cashRatioLabel;
     private Label cashRatioValueLabel;
-    private Label superSweeperCashRatioLabel;
-    private Label superSweeperCashRatioValueLabel;
+    private GroupBox divisionsGroupBox;
+    private TableLayoutPanel divisionsTableLayoutPanel;
+    private GroupBox squadsGroupBox;
+    private TableLayoutPanel squadsTableLayoutPanel;
+    private Label gamesPerSquadLabel;
+    private Label gamesPerSquadValueLabel;
+    private GroupBox sweepersGroupBox;
+    private TableLayoutPanel sweepersTableLayoutPanel;
+    private Label superSweeperCashRatioLabel2;
+    private Label superSweeperCashRatioValueLabel2;
 }
