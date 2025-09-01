@@ -123,15 +123,15 @@ internal static class ApiExtensions
             PageSize = response.PageSize,
             Items = response.Items.Select(converter).ToList().AsReadOnly(),
         };
-    internal static BadRequest<ValidationProblemDetails> InvalidId(string message, string id)
-        => TypedResults.BadRequest(new ValidationProblemDetails
-        {
-            Title = "Invalid ID format",
-            Detail = $"The provided ID could not be parsed: {id}",
-            Status = StatusCodes.Status400BadRequest,
-            Errors = new Dictionary<string, string[]>(StringComparer.Ordinal)
+    internal static IResult InvalidId(string message, string id)
+        => Results.Problem(
+            detail: $"The provided ID could not be parsed: {id}",
+            statusCode: StatusCodes.Status400BadRequest,
+            title: "Invalid ID format",
+            type: "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+            extensions: new Dictionary<string, object?>(StringComparer.Ordinal)
             {
-                { "id", [ message ] },
-            },
-        });
+                { "errors", new[] { message }  },
+            }
+        );
 }

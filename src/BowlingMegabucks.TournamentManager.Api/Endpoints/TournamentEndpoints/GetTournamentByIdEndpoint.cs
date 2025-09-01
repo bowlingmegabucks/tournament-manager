@@ -42,7 +42,7 @@ internal static class GetTournamentByIdEndpoint
             .WithTags("Tournaments")
             .Produces<ApiResponse<TournamentDetail>>(
                 StatusCodes.Status200OK)
-            .Produces<ValidationProblemDetails>(
+            .Produces<ProblemDetails>(
                 StatusCodes.Status400BadRequest)
             .Produces<ProblemDetails>(
                 StatusCodes.Status404NotFound)

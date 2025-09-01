@@ -58,8 +58,11 @@ public static class InfrastructureExtensions
         {
             await using AsyncServiceScope scope = app.Services.CreateAsyncScope();
             ApplicationDbContext dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            
-            await dbContext.Database.MigrateAsync(app.Lifetime.ApplicationStarted);
+
+            if (await dbContext.Database.CanConnectAsync(app.Lifetime.ApplicationStarted))
+            {
+                await dbContext.Database.MigrateAsync(app.Lifetime.ApplicationStarted);
+            }
         }
 
         app.UseExceptionHandler();
