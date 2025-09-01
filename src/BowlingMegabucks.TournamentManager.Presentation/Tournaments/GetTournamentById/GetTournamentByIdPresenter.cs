@@ -46,19 +46,13 @@ public sealed class GetTournamentByIdPresenter
         ArgumentNullException.ThrowIfNull(view);
         ArgumentNullException.ThrowIfNull(cancellationTokenSource);
 
-        System.Diagnostics.Debug.WriteLine($"GetTournamentAsync called with ID: {id}");
-
         view.ShowProcessingMessage("Loading tournament...", cancellationTokenSource);
 
-        System.Diagnostics.Debug.WriteLine("Calling adapter.ExecuteAsync...");
         ErrorOr<TournamentDetailViewModel> getTournamentResult =
             await _adapter.ExecuteAsync(id, cancellationTokenSource.Token);
 
-        System.Diagnostics.Debug.WriteLine($"Adapter result - IsError: {getTournamentResult.IsError}");
-
         if (getTournamentResult.IsError)
         {
-            System.Diagnostics.Debug.WriteLine($"Errors: {string.Join(", ", getTournamentResult.Errors.Select(e => e.Description))}");
             view.DisplayErrorMessage(getTournamentResult.Errors);
 
             view.HideProcessingMessage();
@@ -67,12 +61,9 @@ public sealed class GetTournamentByIdPresenter
         }
 
         TournamentDetailViewModel tournament = getTournamentResult.Value;
-        System.Diagnostics.Debug.WriteLine($"Tournament loaded: {tournament.Name}");
 
         view.BindTournament(tournament);
 
-        System.Diagnostics.Debug.WriteLine("About to call HideProcessingMessage");
         view.HideProcessingMessage();
-        System.Diagnostics.Debug.WriteLine("HideProcessingMessage completed successfully");
     }
 }
