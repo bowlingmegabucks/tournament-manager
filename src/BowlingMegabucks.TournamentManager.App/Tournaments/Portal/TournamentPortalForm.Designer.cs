@@ -313,7 +313,7 @@ partial class TournamentPortalForm
         this.nameValueLabel.Name = "nameValueLabel";
         this.nameValueLabel.Size = new System.Drawing.Size(0, 15);
         this.nameValueLabel.TabIndex = 1;
-        this.nameValueLabel.Text = "";
+        this.nameValueLabel.Text = "<name>";
         //
         // bowlingCenterLabel
         //
@@ -334,7 +334,7 @@ partial class TournamentPortalForm
         this.bowlingCenterValueLabel.Name = "bowlingCenterValueLabel";
         this.bowlingCenterValueLabel.Size = new System.Drawing.Size(0, 15);
         this.bowlingCenterValueLabel.TabIndex = 3;
-        this.bowlingCenterValueLabel.Text = "";
+        this.bowlingCenterValueLabel.Text = "<bowling center>";
         //
         // gamesLabel
         //
@@ -355,7 +355,7 @@ partial class TournamentPortalForm
         this.gamesValueLabel.Name = "gamesValueLabel";
         this.gamesValueLabel.Size = new System.Drawing.Size(0, 15);
         this.gamesValueLabel.TabIndex = 5;
-        this.gamesValueLabel.Text = "";
+        this.gamesValueLabel.Text = "<games>";
         //
         // completedLabel
         //
@@ -376,7 +376,7 @@ partial class TournamentPortalForm
         this.completedValueLabel.Name = "completedValueLabel";
         this.completedValueLabel.Size = new System.Drawing.Size(0, 15);
         this.completedValueLabel.TabIndex = 7;
-        this.completedValueLabel.Text = "";
+        this.completedValueLabel.Text = "<completed>";
         //
         // datesGroupBox
         //
@@ -427,7 +427,7 @@ partial class TournamentPortalForm
         this.startDateValueLabel.Name = "startDateValueLabel";
         this.startDateValueLabel.Size = new System.Drawing.Size(0, 15);
         this.startDateValueLabel.TabIndex = 1;
-        this.startDateValueLabel.Text = "";
+        this.startDateValueLabel.Text = "<start date>";
         //
         // endDateLabel
         //
@@ -448,7 +448,7 @@ partial class TournamentPortalForm
         this.endDateValueLabel.Name = "endDateValueLabel";
         this.endDateValueLabel.Size = new System.Drawing.Size(0, 15);
         this.endDateValueLabel.TabIndex = 3;
-        this.endDateValueLabel.Text = "";
+        this.endDateValueLabel.Text = "<end date>";
         //
         // financialGroupBox
         //
@@ -505,7 +505,7 @@ partial class TournamentPortalForm
         this.entryFeeValueLabel.Name = "entryFeeValueLabel";
         this.entryFeeValueLabel.Size = new System.Drawing.Size(0, 15);
         this.entryFeeValueLabel.TabIndex = 1;
-        this.entryFeeValueLabel.Text = "";
+        this.entryFeeValueLabel.Text = "<entry fee>";
         //
         // finalsRatioLabel
         //
@@ -526,7 +526,7 @@ partial class TournamentPortalForm
         this.finalsRatioValueLabel.Name = "finalsRatioValueLabel";
         this.finalsRatioValueLabel.Size = new System.Drawing.Size(0, 15);
         this.finalsRatioValueLabel.TabIndex = 3;
-        this.finalsRatioValueLabel.Text = "";
+        this.finalsRatioValueLabel.Text = "<finals ratio>";
         //
         // cashRatioLabel
         //
@@ -547,7 +547,7 @@ partial class TournamentPortalForm
         this.cashRatioValueLabel.Name = "cashRatioValueLabel";
         this.cashRatioValueLabel.Size = new System.Drawing.Size(0, 15);
         this.cashRatioValueLabel.TabIndex = 5;
-        this.cashRatioValueLabel.Text = "";
+        this.cashRatioValueLabel.Text = "<cash ratio>";
         //
         // superSweeperCashRatioLabel
         //
@@ -568,7 +568,7 @@ partial class TournamentPortalForm
         this.superSweeperCashRatioValueLabel.Name = "superSweeperCashRatioValueLabel";
         this.superSweeperCashRatioValueLabel.Size = new System.Drawing.Size(0, 15);
         this.superSweeperCashRatioValueLabel.TabIndex = 7;
-        this.superSweeperCashRatioValueLabel.Text = "";
+        this.superSweeperCashRatioValueLabel.Text = "<super sweeper ratio>";
         //
         // Form
         //
