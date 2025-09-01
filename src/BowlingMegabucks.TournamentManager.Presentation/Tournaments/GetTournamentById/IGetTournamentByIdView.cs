@@ -4,6 +4,7 @@ using ErrorOr;
 /// Represents the view interface for retrieving and displaying a single tournament's details.
 /// </summary>
 namespace BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournamentById;
+
 public interface IGetTournamentByIdView
 {
     /// <summary>
