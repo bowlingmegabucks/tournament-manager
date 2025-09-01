@@ -75,9 +75,11 @@ internal sealed partial class TournamentPortalForm
         gamesValueLabel.Text = tournament.Games.ToString(System.Globalization.CultureInfo.InvariantCulture);
         completedValueLabel.Text = tournament.Completed ? Resources.Yes : Resources.No;
 
-        // Debug: Verify labels are being set
+        // Debug: Verify labels are being set and check their properties
         System.Diagnostics.Debug.WriteLine($"Name label set to: {nameValueLabel.Text}");
+        System.Diagnostics.Debug.WriteLine($"Name label properties - Visible: {nameValueLabel.Visible}, Location: {nameValueLabel.Location}, Size: {nameValueLabel.Size}, ForeColor: {nameValueLabel.ForeColor}, BackColor: {nameValueLabel.BackColor}");
         System.Diagnostics.Debug.WriteLine($"Bowling Center label set to: {bowlingCenterValueLabel.Text}");
+        System.Diagnostics.Debug.WriteLine($"Bowling Center label properties - Visible: {bowlingCenterValueLabel.Visible}, Location: {bowlingCenterValueLabel.Location}, Size: {bowlingCenterValueLabel.Size}");
 
         // Dates section
         startDateValueLabel.Text = tournament.StartDate.ToString("MMMM dd, yyyy", System.Globalization.CultureInfo.InvariantCulture);
@@ -88,6 +90,16 @@ internal sealed partial class TournamentPortalForm
         finalsRatioValueLabel.Text = tournament.FinalsRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
         cashRatioValueLabel.Text = tournament.CashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
         superSweeperCashRatioValueLabel.Text = tournament.SuperSweeperCashRatio.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
+
+        // Debug: Check all labels after setting
+        System.Diagnostics.Debug.WriteLine("All labels set. Current values:");
+        System.Diagnostics.Debug.WriteLine($"  Name: '{nameValueLabel.Text}'");
+        System.Diagnostics.Debug.WriteLine($"  Bowling Center: '{bowlingCenterValueLabel.Text}'");
+        System.Diagnostics.Debug.WriteLine($"  Games: '{gamesValueLabel.Text}'");
+        System.Diagnostics.Debug.WriteLine($"  Completed: '{completedValueLabel.Text}'");
+        System.Diagnostics.Debug.WriteLine($"  Start Date: '{startDateValueLabel.Text}'");
+        System.Diagnostics.Debug.WriteLine($"  End Date: '{endDateValueLabel.Text}'");
+        System.Diagnostics.Debug.WriteLine($"  Entry Fee: '{entryFeeValueLabel.Text}'");
     }
 
     private void DebugVisibilityAndRefresh()
@@ -95,23 +107,52 @@ internal sealed partial class TournamentPortalForm
         // Debug: Check form and control visibility
         System.Diagnostics.Debug.WriteLine($"Form Visible: {this.Visible}");
         System.Diagnostics.Debug.WriteLine($"Form Size: {this.Size}");
+        System.Diagnostics.Debug.WriteLine($"Form Location: {this.Location}");
+        System.Diagnostics.Debug.WriteLine($"Form WindowState: {this.WindowState}");
+        System.Diagnostics.Debug.WriteLine($"Form TopMost: {this.TopMost}");
         System.Diagnostics.Debug.WriteLine($"MainContainer Visible: {mainContainer.Visible}");
         System.Diagnostics.Debug.WriteLine($"MainContainer Size: {mainContainer.Size}");
         System.Diagnostics.Debug.WriteLine($"OverviewGroupBox Visible: {overviewGroupBox.Visible}");
         System.Diagnostics.Debug.WriteLine($"NameValueLabel Visible: {nameValueLabel.Visible}");
         System.Diagnostics.Debug.WriteLine($"NameValueLabel Location: {nameValueLabel.Location}");
         System.Diagnostics.Debug.WriteLine($"NameValueLabel Size: {nameValueLabel.Size}");
+        System.Diagnostics.Debug.WriteLine($"NameValueLabel Parent: {nameValueLabel.Parent?.Name ?? "null"}");
 
         // Force refresh to ensure controls are displayed
         this.Refresh();
         System.Diagnostics.Debug.WriteLine("Form refreshed");
 
-        // Ensure form is visible
+        // Ensure form is visible and bring to front
         if (!this.Visible)
         {
             System.Diagnostics.Debug.WriteLine("Form was not visible, showing it now");
             this.Show();
         }
+
+        // Bring form to front and activate it
+        this.BringToFront();
+        this.Activate();
+        System.Diagnostics.Debug.WriteLine("Form brought to front and activated");
+
+        // Force another refresh after bringing to front
+        this.Refresh();
+        System.Diagnostics.Debug.WriteLine("Form refreshed again after bringing to front");
+
+        // Use a timer for delayed check
+        using var timer = new System.Windows.Forms.Timer();
+        timer.Interval = 1000;
+        timer.Tick += (s, e) =>
+        {
+            timer.Stop();
+            if (this.IsHandleCreated && !this.IsDisposed)
+            {
+                System.Diagnostics.Debug.WriteLine("Delayed check - Form still visible: " + this.Visible);
+                System.Diagnostics.Debug.WriteLine("Delayed check - Name label text: '" + nameValueLabel.Text + "'");
+                System.Diagnostics.Debug.WriteLine("Delayed check - Name label visible: " + nameValueLabel.Visible);
+            }
+            timer.Dispose();
+        };
+        timer.Start();
     }
 
     public void DisplayErrorMessage(IEnumerable<Error> errors)
