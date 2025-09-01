@@ -82,13 +82,7 @@ public sealed class GetTournamentsAdapterTests
                 page,
                 pageSize,
                 It.IsAny<CancellationToken>()))
-            .ThrowsAsync(await ApiException.Create(
-                null!,
-                HttpMethod.Get,
-                httpResponseMessage,
-                null!,
-                new InvalidOperationException("Mock Exception")
-                ));
+            .ThrowsAsync(await new InvalidOperationException("Mock Exception").AsApiException(httpResponseMessage));
 
         // Act
         ErrorOr<OffsetPagingResult<TournamentSummaryViewModel>> result =

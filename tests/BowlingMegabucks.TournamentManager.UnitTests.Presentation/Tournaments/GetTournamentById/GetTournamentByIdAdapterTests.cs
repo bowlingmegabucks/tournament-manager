@@ -65,10 +65,12 @@ public sealed class GetTournamentByIdAdapterTests
         // Arrange
         TournamentDetail tournament = TournamentDetailFactory.FakeSingle();
 
+        using HttpResponseMessage httpResponseMessage = new(HttpStatusCode.InternalServerError);
+
         _mockTournamentManagerApi.Setup(api => api.GetTournamentByIdAsync(
                 tournament.Id,
                 It.IsAny<CancellationToken>()))
-            .ThrowsAsync(new HttpRequestException("Mock Exception"));
+            .ThrowsAsync(await new InvalidOperationException("Mock Exception").AsApiException(httpResponseMessage));
 
         // Act
         ErrorOr<TournamentDetailViewModel> result =
