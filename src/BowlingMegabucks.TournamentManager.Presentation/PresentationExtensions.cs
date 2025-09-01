@@ -1,5 +1,6 @@
 using BowlingMegabucks.TournamentManager.Presentation.Services;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments;
+using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournamentById;
 using BowlingMegabucks.TournamentManager.Presentation.Tournaments.GetTournaments;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,9 @@ public static class PresentationExtensions
     {
         services.AddSingleton<IGetTournamentsAdapter, GetTournamentsAdapter>();
         services.AddTransient<GetTournamentsPresenter>();
+
+        services.AddSingleton<IGetTournamentByIdAdapter, GetTournamentByIdAdapter>();
+        services.AddTransient<GetTournamentByIdPresenter>();
 
         return services;
     }
