@@ -38,7 +38,7 @@ public class Order
 ```csharp
 optionsBuilder
     .UseSqlServer(connectionString)
-    .USeLzyLoadingProxies(false);
+    .UseLazyLoadingProxies(false);
 ```
 
 ## ⚙️ Migrations
