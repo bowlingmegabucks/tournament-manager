@@ -29,6 +29,7 @@ internal sealed class TournamentQueries
     public async Task<IReadOnlyCollection<TournamentSummaryDto>> GetAllTournamentsAsync(IOffsetPaginationQuery pagination, CancellationToken cancellationToken)
         => await _applicationDbContext.Tournaments
             .AsNoTracking()
+            .ApplyPagination(pagination)
             .Select(tournament => new TournamentSummaryDto
             {
                 Id = tournament.Id,
@@ -39,7 +40,6 @@ internal sealed class TournamentQueries
                 EntryFee = tournament.EntryFee,
                 Completed = tournament.Completed,
             })
-            .ApplyPagination(pagination)
             .ToListAsync(cancellationToken);
 
     public Task<int> GetTotalTournamentCountAsync(CancellationToken cancellationToken)
@@ -48,6 +48,7 @@ internal sealed class TournamentQueries
     public Task<TournamentDetailDto?> GetTournamentAsync(TournamentId tournamentId, CancellationToken cancellationToken)
         => _applicationDbContext.Tournaments
             .AsNoTracking()
+            .Where(tournament => tournament.Id == tournamentId)
             .Select(tournament => new TournamentDetailDto
             {
                 Id = tournament.Id,
@@ -62,5 +63,5 @@ internal sealed class TournamentQueries
                 SuperSweeperCashRatio = tournament.SuperSweeperCashRatio.Value,
                 Completed = tournament.Completed,
             })
-            .FirstOrDefaultAsync(tournament => tournament.Id == tournamentId, cancellationToken);
+            .FirstOrDefaultAsync(cancellationToken);
 }
