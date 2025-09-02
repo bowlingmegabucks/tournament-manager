@@ -45,7 +45,7 @@ optionsBuilder
 
 - Use migrations only in Infrastructure layer
 - Always generate migrations via CLI (`dotnet ef migrations add`)
-- Avoid modifying migrations manuall unless correcting obvious issues
+- Avoid modifying migrations manually unless correcting obvious issues
 - Keep migration history in source control
 
 ```bash
