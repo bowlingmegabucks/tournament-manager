@@ -83,7 +83,7 @@ public sealed class CustomerRepositoryTests
     public CustomerRepositoryTests()
     {
         _dbContainer = new MariaDbBuilder()
-                        .WithImage("mariadb:latest)
+                        .WithImage("mariadb:latest")
                         .Build();
     }
 }
