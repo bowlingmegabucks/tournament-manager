@@ -16,6 +16,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" />
     <PackageReference Include="EntityFrameworkCore.Exceptions.MySQL.Pomelo" />
+    <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
   </ItemGroup>
 

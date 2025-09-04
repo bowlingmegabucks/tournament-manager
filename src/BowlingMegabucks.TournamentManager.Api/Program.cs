@@ -17,6 +17,9 @@ if (builder.Environment.IsDevelopment() &&
     builder.Configuration.AddJsonFile("appsettings.Docker.Development.json", optional: true, reloadOnChange: true);
 }
 
+builder.Host.UseDefaultServiceProvider(config =>
+    config.ValidateOnBuild = true);
+
 builder.Services.AddHttpContextAccessor();
 
 builder
