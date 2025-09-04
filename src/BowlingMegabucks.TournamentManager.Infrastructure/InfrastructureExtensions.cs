@@ -1,9 +1,9 @@
-using System.Threading.Tasks;
 using BowlingMegabucks.TournamentManager.Application.Tournaments;
 using BowlingMegabucks.TournamentManager.Infrastructure.Database;
 using BowlingMegabucks.TournamentManager.Infrastructure.Health;
 using BowlingMegabucks.TournamentManager.Infrastructure.Middleware;
 using BowlingMegabucks.TournamentManager.Infrastructure.Queries;
+using BowlingMegabucks.TournamentManager.Infrastructure.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -65,11 +65,20 @@ public static class InfrastructureExtensions
             }
         }
 
+        app.UseSecurityHeaders();
+
         app.UseExceptionHandler();
 
         app.MapHealthCheckRoute();
 
         return app;
+    }
+
+    private static IApplicationBuilder UseSecurityHeadersMiddleware(this IApplicationBuilder app, SecurityHeadersBuilder builder)
+    {
+        SecurityHeadersPolicy policy = builder.Build();
+
+        return app.UseMiddleware<SecurityHeadersMiddleware>(policy);
     }
 
     private static IServiceCollection AddErrorHandling(this IServiceCollection services)

@@ -37,6 +37,7 @@
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.14.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageVersion Include="MySqlConnector" Version="2.4.0" />
+    <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.1.0" />
     <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     <PackageVersion Include="Refit.HttpClientFactory" Version="8.0.0" />
     <PackageVersion Include="Respawn" Version="6.2.1" />
