@@ -17,6 +17,11 @@ if (builder.Environment.IsDevelopment() &&
     builder.Configuration.AddJsonFile("appsettings.Docker.Development.json", optional: true, reloadOnChange: true);
 }
 
+builder.WebHost.UseKestrel(options =>
+{
+    options.AddServerHeader = false;
+});
+
 builder.Services.AddHttpContextAccessor();
 
 builder
