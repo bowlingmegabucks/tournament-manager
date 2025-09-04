@@ -2,7 +2,6 @@ using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace BowlingMegabucks.TournamentManager.Infrastructure.Database.Interceptors;
 
@@ -14,16 +13,16 @@ internal sealed class SlowQueryInterceptor
     : DbCommandInterceptor
 {
     private readonly ILogger<SlowQueryInterceptor> _logger;
-    private readonly SlowQueryOptions _options;
+    private readonly SlowQueryOptions _slowQueryOptions;
 
-    public SlowQueryInterceptor(ILogger<SlowQueryInterceptor> logger, IOptions<SlowQueryOptions> options)
+    public SlowQueryInterceptor(ILogger<SlowQueryInterceptor> logger, SlowQueryOptions slowQueryOptions)
     {
         _logger = logger;
-        _options = options.Value;
+        _slowQueryOptions = slowQueryOptions;
 
-        if (_options.ThresholdMilliseconds <= 0)
+        if (_slowQueryOptions.ThresholdMilliseconds <= 0)
         {
-            throw new ArgumentException("ThresholdMilliseconds must be greater than zero.", nameof(options));
+            throw new ArgumentException("ThresholdMilliseconds must be greater than zero.", nameof(slowQueryOptions));
         }
     }
 
@@ -43,7 +42,7 @@ internal sealed class SlowQueryInterceptor
 
     private void CheckQuery(DbCommand command, CommandExecutedEventData eventData)
     {
-        if (eventData.Duration.TotalMilliseconds > _options.ThresholdMilliseconds)
+        if (eventData.Duration.TotalMilliseconds > _slowQueryOptions.ThresholdMilliseconds)
         {
             _logger.SlowQuery(command.CommandText, eventData.Duration.TotalMilliseconds);
         }
