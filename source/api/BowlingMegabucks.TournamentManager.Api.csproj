@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Encodings.Web" />
     <ProjectReference Include="../business logic/BowlingMegabucks.TournamentManager.BusinessLogic.csproj" />
   </ItemGroup>
 
