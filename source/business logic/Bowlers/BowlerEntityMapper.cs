@@ -18,9 +18,32 @@ internal class EntityMapper : IEntityMapper
             DateOfBirth = bowler.DateOfBirth,
             Gender = bowler.Gender,
             USBCId = bowler.USBCId,
-            PhoneNumber = bowler.PhoneNumber,
+            PhoneNumber = ExtractMain10Digits(bowler.PhoneNumber) ?? string.Empty,
             SocialSecurityNumber = bowler.SocialSecurityNumber
         };
+
+    private static string? ExtractMain10Digits(string? input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return input;
+        }
+
+        var digits = new System.Text.StringBuilder(10);
+        foreach (var c in input)
+        {
+            if (char.IsDigit(c))
+            {
+                digits.Append(c);
+                if (digits.Length == 10)
+                {
+                    break;
+                }
+            }
+        }
+
+        return digits.Length == 10 ? digits.ToString() : null;
+    }
 }
 
 internal interface IEntityMapper

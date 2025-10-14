@@ -190,17 +190,29 @@ internal sealed class EntityMapper
         Assert.That(entity.USBCId, Is.EqualTo(bowler.USBCId));
     }
 
-    [Test]
-    public void Execute_PhoneNumberMapped()
+    [TestCase("1234567890")]
+    [TestCase("123-456-7890")]
+    [TestCase("123-456-7890 ext 123")]
+    [TestCase("123-456-7890 x123")]
+    [TestCase("123-456-7890 extension 123")]
+    [TestCase("123-456-7890 ext.123")]
+    [TestCase("123-456-7890 x.123")]
+    [TestCase("123-456-7890 extension. 123")]
+    [TestCase("+1 123-456-7890 ext 123")]
+    [TestCase("1234567890 x99999")]
+    [TestCase("1234567890 ext123")]
+    [TestCase("1234567890 extension123")]
+    [TestCase("123.456.7890 x6454")]
+    public void Execute_PhoneNumberMapped(string phoneNumber)
     {
         var bowler = new TournamentManager.Models.Bowler
         {
-            PhoneNumber = "phoneNumber"
+            PhoneNumber = phoneNumber
         };
 
         var entity = _mapper.Execute(bowler);
 
-        Assert.That(entity.PhoneNumber, Is.EqualTo(bowler.PhoneNumber));
+    Assert.That(entity.PhoneNumber, Is.EqualTo("1234567890"));
     }
 
     [Test]
