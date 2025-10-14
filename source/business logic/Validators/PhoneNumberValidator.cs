@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace BowlingMegabucks.TournamentManager.Validators;
 
-internal class PhoneNumber<T> : PropertyValidator<T, string>
+internal partial class PhoneNumber<T> : PropertyValidator<T, string>
 {
     public override string Name => "PhoneNumberValidator";
 
@@ -12,7 +12,11 @@ internal class PhoneNumber<T> : PropertyValidator<T, string>
         => "Property {PropertyName} is not a valid phone number.";
 
     public override bool IsValid(ValidationContext<T> context, string value)
-     => !string.IsNullOrEmpty(value) && Regex.IsMatch(value, @"^\s*\+?\s*([0-9][\s-]*){9,}$");
+     => !string.IsNullOrEmpty(value) && MyRegex().IsMatch(value);
+
+    [GeneratedRegex(@"^\s*\+?1?\s*([0-9][\s\-\.]*){9,}(\s*(ext|x|extension)\.?\s*\d{1,6})?$", RegexOptions.IgnoreCase)]
+    private static partial Regex MyRegex();
+
 }
 
 internal static partial class Extensions
