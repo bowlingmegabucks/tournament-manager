@@ -30,10 +30,21 @@ internal class EntityMapper : IEntityMapper
         }
 
         var digits = new System.Text.StringBuilder(10);
+        var skippedCountryCode = false;
+        
         foreach (var c in input)
         {
             if (char.IsDigit(c))
             {
+                // Skip the first digit if it's '1' and we haven't collected any digits yet (likely country code)
+                if (digits.Length == 0 && c == '1' && !skippedCountryCode &&
+                    (input.TrimStart().StartsWith("+1", StringComparison.Ordinal) || 
+                     input.TrimStart().StartsWith("1 ", StringComparison.Ordinal)))
+                {
+                    skippedCountryCode = true;
+                    continue;
+                }
+                
                 digits.Append(c);
                 if (digits.Length == 10)
                 {
