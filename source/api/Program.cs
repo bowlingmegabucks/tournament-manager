@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using BowlingMegabucks.TournamentManager;
 using BowlingMegabucks.TournamentManager.Api.Authentication;
 using BowlingMegabucks.TournamentManager.Api.Extensions;
+using BowlingMegabucks.TournamentManager.Api.Middleware;
 using BowlingMegabucks.TournamentManager.Database;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,7 @@ var app = builder.Build();
 
 app.UseLogging();
 
+app.UseGlobalExceptionHandler();
 app.UseApiRateLimiting();
 
 app.MapApiHealthChecks();
