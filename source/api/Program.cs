@@ -31,10 +31,9 @@ builder.AddOpenTelemetry();
 
 var app = builder.Build();
 
-app.UseGlobalExceptionHandler();
-
 app.UseLogging();
 
+app.UseGlobalExceptionHandler();
 app.UseApiRateLimiting();
 
 app.MapApiHealthChecks();
