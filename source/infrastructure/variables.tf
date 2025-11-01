@@ -53,3 +53,9 @@ variable "api_health_check_frequency" {
   description = "The frequency of health checks for the API in seconds"
   type        = number
 }
+
+variable "enterprise_app_object_id" {
+  description = "The Object ID of the enterprise application to assign Key Vault permissions. Replace with your app's Object ID."
+  type        = string
+  default     = "e926f6d8-8342-4ae0-a497-9d47c744b024"
+}

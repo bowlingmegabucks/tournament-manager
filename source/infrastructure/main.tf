@@ -215,6 +215,13 @@ resource "azurerm_role_assignment" "web_app_kv_secrets_user" {
   principal_id         = azurerm_linux_web_app.api.identity[0].principal_id
 }
 
+# Assign Key Vault Secrets User to the enterprise application
+resource "azurerm_role_assignment" "enterprise_app_kv_secrets_user" {
+  scope                = azurerm_key_vault.app_key_vault.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = var.enterprise_app_object_id
+}
+
 resource "azurerm_application_insights_standard_web_test" "api_health_check" {
   name                    = "api-health-check-${var.environment}"
   location                = azurerm_service_plan.app_service_plan.location
