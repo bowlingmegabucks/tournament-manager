@@ -228,9 +228,9 @@ resource "azurerm_role_assignment" "enterprise_app_kv_secrets_user" {
 
 # Create a client secret for the enterprise app
 resource "azuread_application_password" "enterprise_app_client_secret" {
-  application_id = var.enterprise_app_application_id
-  display_name   = "${var.environment}"
-  end_date       = "2025-12-31T23:59:59Z" # Expires at end of current year
+  application_object_id = var.enterprise_app_object_id
+  display_name          = "${var.environment}"
+  end_date              = "2025-12-31T23:59:59Z" # Expires at end of current year
 }
 
 # Store the client secret in key_vault_environment
