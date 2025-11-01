@@ -16,6 +16,27 @@
 		<NoWarn>CA1812</NoWarn>
 	</PropertyGroup>
 
+	<!-- ClickOnce Configuration -->
+	<PropertyGroup>
+		<PublishUrl>bin\publish\</PublishUrl>
+		<InstallUrl></InstallUrl> <!-- Will be set during GitHub Actions -->
+		<UpdateEnabled>true</UpdateEnabled>
+		<UpdateMode>Foreground</UpdateMode>
+		<UpdateInterval>0</UpdateInterval>
+		<UpdateIntervalUnits>Days</UpdateIntervalUnits>
+		<UpdatePeriodically>false</UpdatePeriodically>
+		<UpdateRequired>false</UpdateRequired>
+		<MinimumRequiredVersion>$(VersionPrefix)</MinimumRequiredVersion>
+		<PublisherName>Bowling Megabucks</PublisherName>
+		<ProductName>Tournament Manager</ProductName>
+		<ApplicationRevision>0</ApplicationRevision>
+		<IsWebBootstrapper>true</IsWebBootstrapper>
+		<BootstrapperEnabled>true</BootstrapperEnabled>
+		<CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+		<WebPage>publish.html</WebPage>
+		<ApplicationVersion>$(VersionPrefix).$(ApplicationRevision)</ApplicationVersion>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	  <Optimize>False</Optimize>
 	</PropertyGroup>
