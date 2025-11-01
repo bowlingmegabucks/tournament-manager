@@ -229,6 +229,14 @@ resource "azuread_application_password" "enterprise_app_client_secret" {
   end_date              = "2025-12-31T23:59:59Z" # Expires at end of current year
 }
 
+# Store the client secret in key_vault_environment
+resource "azurerm_key_vault_secret" "enterprise_app_client_secret" {
+  name         = "Winform-ClientSecret"
+  value        = azuread_application_password.enterprise_app_client_secret.value
+  key_vault_id = data.azurerm_key_vault.key_vault_environment.id
+  content_type = "Client secret for WinForm Application (${var.environment})"
+}
+
 resource "azurerm_application_insights_standard_web_test" "api_health_check" {
   name                    = "api-health-check-${var.environment}"
   location                = azurerm_service_plan.app_service_plan.location
