@@ -59,3 +59,9 @@ variable "enterprise_app_object_id" {
   type        = string
   default     = "1ea5e4c8-befc-4cce-8be4-0a77252abfde"
 }
+
+variable "enterprise_app_application_id" {
+  description = "The Application (Client) ID of the enterprise application for creating client secrets. Find this in Azure Portal under App Registrations."
+  type        = string
+  default     = "ba5a7c62-a3bd-483b-afde-3385355d99b1"
+}

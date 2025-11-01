@@ -32,10 +32,6 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-data "azuread_application" "enterprise_app" {
-  object_id = var.enterprise_app_object_id
-}
-
 data "azurerm_key_vault" "key_vault_environment" {
   name                = "kv-megabucks-${var.environment}"
   resource_group_name = "rg-infrastructure"
@@ -232,7 +228,7 @@ resource "azurerm_role_assignment" "enterprise_app_kv_secrets_user" {
 
 # Create a client secret for the enterprise app
 resource "azuread_application_password" "enterprise_app_client_secret" {
-  application_id = data.azuread_application.enterprise_app.id
+  application_id = var.enterprise_app_application_id
   display_name   = "${var.environment}"
   end_date       = "2025-12-31T23:59:59Z" # Expires at end of current year
 }
