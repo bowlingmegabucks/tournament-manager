@@ -222,6 +222,13 @@ resource "azurerm_role_assignment" "enterprise_app_kv_secrets_user" {
   principal_id         = var.enterprise_app_object_id
 }
 
+# Create a client secret for the enterprise app
+resource "azuread_application_password" "enterprise_app_client_secret" {
+  application_object_id = var.enterprise_app_object_id
+  display_name          = "${var.environment}"
+  end_date              = "2025-12-31T23:59:59Z" # Expires at end of current year
+}
+
 resource "azurerm_application_insights_standard_web_test" "api_health_check" {
   name                    = "api-health-check-${var.environment}"
   location                = azurerm_service_plan.app_service_plan.location
