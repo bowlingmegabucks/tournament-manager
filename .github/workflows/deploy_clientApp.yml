@@ -1,0 +1,139 @@
+name: Deploy Client Application
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: choice
+        options:
+          - stage
+          - prod
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    environment: ${{ github.event.inputs.environment }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_TERRAFORM_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Get Key Vault URL
+        id: get-keyvault
+        run: |
+          $kvUrl = az keyvault show `
+            --name "kv-megabks-trn-mgr-${{ github.event.inputs.environment }}" `
+            --resource-group "rg-trn-mgr-${{ github.event.inputs.environment }}" `
+            --query "properties.vaultUri" `
+            --output tsv
+          
+          echo "KEYVAULT_URL=$kvUrl" >> $env:GITHUB_ENV
+          Write-Host "Key Vault URL: $kvUrl"
+
+      - name: Update appsettings.json
+        working-directory: source/main
+        run: |
+          Write-Host "Updating appsettings.json with Key Vault URL: $env:KEYVAULT_URL"
+          
+          $appSettings = Get-Content appsettings.json | ConvertFrom-Json
+          $appSettings.KeyVaultConfig.VaultUrl = $env:KEYVAULT_URL
+          
+          $appSettings | ConvertTo-Json -Depth 10 | Set-Content appsettings.json
+          
+          Write-Host "Updated appsettings.json:"
+          Get-Content appsettings.json
+
+      - name: Restore dependencies
+        working-directory: source/main
+        run: dotnet restore BowlingMegabucks.TournamentManager.csproj
+
+      - name: Build application
+        working-directory: source/main
+        run: |
+          dotnet build BowlingMegabucks.TournamentManager.csproj `
+            -c Release `
+            --no-restore
+
+      - name: Get application version
+        id: get-version
+        working-directory: source/main
+        run: |
+          [xml]$csproj = Get-Content BowlingMegabucks.TournamentManager.csproj
+          $version = $csproj.Project.PropertyGroup.VersionPrefix | Where-Object { $_ -ne $null } | Select-Object -First 1
+          echo "VERSION=$version" >> $env:GITHUB_ENV
+          Write-Host "Application version: $version"
+
+      - name: Publish ClickOnce
+        working-directory: source/main
+        env:
+          INSTALL_URL: ${{ vars.CLICKONCE_INSTALL_URL }}
+        run: |
+          dotnet publish BowlingMegabucks.TournamentManager.csproj `
+            -c Release `
+            -o publish `
+            /p:PublishUrl="${env:INSTALL_URL}" `
+            /p:InstallUrl="${env:INSTALL_URL}" `
+            /p:ApplicationVersion="${env:VERSION}.0"
+
+      - name: Deploy to FTP Server
+        working-directory: source/main/publish
+        env:
+          FTP_SERVER: ${{ vars.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_FOLDER: ${{ vars.FTP_FOLDER }}
+        run: |
+          Write-Host "Deploying to FTP Server: $env:FTP_SERVER"
+          Write-Host "Target folder: $env:FTP_FOLDER"
+          
+          # Install WinSCP PowerShell module
+          Install-Module -Name WinSCP -Force -Scope CurrentUser
+          
+          # Create WinSCP session options
+          $sessionOptions = New-Object WinSCP.SessionOptions -Property @{
+              Protocol = [WinSCP.Protocol]::Ftp
+              HostName = $env:FTP_SERVER
+              UserName = $env:FTP_USERNAME
+              Password = $env:FTP_PASSWORD
+          }
+          
+          # Connect to FTP and upload files
+          $session = New-Object WinSCP.Session
+          try {
+              $session.Open($sessionOptions)
+              
+              # Ensure target directory exists
+              if (-not $session.FileExists($env:FTP_FOLDER)) {
+                  $session.CreateDirectory($env:FTP_FOLDER)
+              }
+              
+              # Upload all files
+              $transferOptions = New-Object WinSCP.TransferOptions
+              $transferOptions.TransferMode = [WinSCP.TransferMode]::Binary
+              
+              $transferResult = $session.PutFiles(".\*", "$env:FTP_FOLDER/", $False, $transferOptions)
+              $transferResult.Check()
+              
+              Write-Host "Upload successful!"
+          }
+          finally {
+              $session.Dispose()
+          }
