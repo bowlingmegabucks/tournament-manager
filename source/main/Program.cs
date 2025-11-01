@@ -41,10 +41,14 @@ internal static class Program
 
         var builtConfiguration = configBuilder.Build();
 
-        var kvUrl = builtConfiguration["KEYVAULT_URL"]!;
-        var tenantId = builtConfiguration["KeyVaultConfig:TenantId"];
-        var clientId = builtConfiguration["KeyVaultConfig:ClientId"];
-        var clientSecret = builtConfiguration["KEYVAULT_CLIENT_SECRET"];
+        var kvUrl = builtConfiguration["KeyVaultConfig:VaultUrl"] ?? 
+                    throw new ConfigurationErrorsException("KeyVaultConfig:VaultUrl not configured");
+        var tenantId = builtConfiguration["Authentication:TenantId"] ?? 
+                       throw new ConfigurationErrorsException("Authentication:TenantId not configured");
+        var clientId = builtConfiguration["Authentication:ClientId"] ?? 
+                       throw new ConfigurationErrorsException("Authentication:ClientId not configured");
+        var clientSecret = builtConfiguration["Authentication:ClientSecret"] ?? 
+                           throw new ConfigurationErrorsException("Authentication:ClientSecret not configured");
 
         var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
 
