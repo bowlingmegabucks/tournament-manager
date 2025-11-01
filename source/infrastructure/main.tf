@@ -6,10 +6,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 4.38.1"
     }
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = "~> 2.53"
-    }
   }
 
   backend "azurerm" {}
@@ -226,24 +222,9 @@ resource "azurerm_role_assignment" "enterprise_app_kv_secrets_user" {
   principal_id         = var.enterprise_app_object_id
 }
 
-# Create a client secret for the enterprise app
-resource "azuread_application_password" "enterprise_app_client_secret" {
-  application_object_id = var.enterprise_app_object_id
-  display_name          = "${var.environment}"
-  end_date              = "2025-12-31T23:59:59Z" # Expires at end of current year
-}
-
-# Store the client secret in app_key_vault
-resource "azurerm_key_vault_secret" "enterprise_app_client_secret" {
-  name         = "Authentication--ClientSecret"
-  value        = azuread_application_password.enterprise_app_client_secret.value
-  key_vault_id = azurerm_key_vault.app_key_vault.id
-  content_type = "Client secret for WinForm Application (${var.environment})"
-  
-  depends_on = [
-    azurerm_role_assignment.terraform_kv_secrets_user
-  ]
-}
+# Note: Client secret for the enterprise app is manually created and stored in Key Vault
+# Secret name: Authentication--ClientSecret
+# This must be manually added to the Key Vault for each environment
 
 resource "azurerm_application_insights_standard_web_test" "api_health_check" {
   name                    = "api-health-check-${var.environment}"
