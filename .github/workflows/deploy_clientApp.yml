@@ -98,8 +98,9 @@ jobs:
           Write-Host "Deploying to FTP Server: $env:FTP_SERVER"
           Write-Host "Target folder: $env:FTP_FOLDER"
           
-          # Install WinSCP PowerShell module
+          # Install and import WinSCP PowerShell module
           Install-Module -Name WinSCP -Force -Scope CurrentUser
+          Import-Module WinSCP
           
           # Create WinSCP session options
           $sessionOptions = New-Object WinSCP.SessionOptions -Property @{
