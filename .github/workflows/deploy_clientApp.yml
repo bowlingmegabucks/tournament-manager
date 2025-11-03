@@ -98,6 +98,15 @@ jobs:
           Write-Host "Deploying to FTP Server: $env:FTP_SERVER"
           Write-Host "Target folder: $env:FTP_FOLDER"
           
+          # Download WinSCP
+          $winscpUrl = "https://github.com/winscp/winscp/releases/download/v6.3.5/WinSCP-6.3.5-Automation.zip"
+          $winscpZip = "$env:TEMP\WinSCP.zip"
+          $winscpDir = "$env:TEMP\WinSCP"
+          
+          Write-Host "Downloading WinSCP..."
+          Invoke-WebRequest -Uri $winscpUrl -OutFile $winscpZip
+          Expand-Archive -Path $winscpZip -DestinationPath $winscpDir -Force
+          
           # Install and import WinSCP PowerShell module
           Install-Module -Name WinSCP -Force -Scope CurrentUser
           Import-Module WinSCP
@@ -113,6 +122,9 @@ jobs:
           # Connect to FTP and upload files
           $session = New-Object WinSCP.Session
           try {
+              # Set path to WinSCP executable
+              $session.ExecutablePath = "$winscpDir\WinSCP.com"
+              
               $session.Open($sessionOptions)
               
               # Ensure target directory exists
