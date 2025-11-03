@@ -8,7 +8,6 @@ using System.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BowlingMegabucks.TournamentManager.Bowlers;
 using BowlingMegabucks.TournamentManager.Divisions;
-using BowlingMegabucks.TournamentManager.LaneAssignments;
 using BowlingMegabucks.TournamentManager.Registrations;
 using BowlingMegabucks.TournamentManager.Scores;
 using BowlingMegabucks.TournamentManager.Squads;

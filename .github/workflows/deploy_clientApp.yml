@@ -61,16 +61,10 @@ jobs:
           Write-Host "Updated appsettings.json:"
           Get-Content appsettings.json
 
-      - name: Restore dependencies
-        working-directory: source/main
-        run: dotnet restore BowlingMegabucks.TournamentManager.csproj
-
       - name: Build application
         working-directory: source/main
         run: |
-          dotnet build BowlingMegabucks.TournamentManager.csproj `
-            -c Release `
-            --no-restore
+          dotnet build BowlingMegabucks.TournamentManager.csproj -c Release 
 
       - name: Get application version
         id: get-version
