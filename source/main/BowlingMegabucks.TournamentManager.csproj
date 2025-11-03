@@ -18,22 +18,22 @@
 
 	<!-- ClickOnce Configuration -->
 	<PropertyGroup>
-		<PublishUrl>bin\publish\</PublishUrl>
-		<InstallUrl></InstallUrl> <!-- Will be set during GitHub Actions -->
-		<UpdateEnabled>true</UpdateEnabled>
-		<UpdateMode>Foreground</UpdateMode>
+		<!-- Update behavior -->
 		<UpdateInterval>0</UpdateInterval>
 		<UpdateIntervalUnits>Days</UpdateIntervalUnits>
 		<UpdatePeriodically>false</UpdatePeriodically>
 		<UpdateRequired>false</UpdateRequired>
 		<MinimumRequiredVersion>$(VersionPrefix)</MinimumRequiredVersion>
+		
+		<!-- Application metadata -->
 		<PublisherName>Bowling Megabucks</PublisherName>
 		<ProductName>Tournament Manager</ProductName>
 		<ApplicationRevision>0</ApplicationRevision>
-		<IsWebBootstrapper>true</IsWebBootstrapper>
-		<BootstrapperEnabled>true</BootstrapperEnabled>
-		<CreateWebPageOnPublish>true</CreateWebPageOnPublish>
 		<WebPage>publish.html</WebPage>
+		
+		<!-- Default values (overridden by GitHub Actions) -->
+		<PublishUrl>bin\publish\</PublishUrl>
+		<InstallUrl></InstallUrl>
 		<ApplicationVersion>$(VersionPrefix).$(ApplicationRevision)</ApplicationVersion>
 	</PropertyGroup>
 

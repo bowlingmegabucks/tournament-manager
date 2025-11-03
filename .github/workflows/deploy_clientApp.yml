@@ -64,7 +64,8 @@ jobs:
       - name: Build application
         working-directory: source/main
         run: |
-          dotnet build BowlingMegabucks.TournamentManager.csproj -c Release 
+          dotnet restore BowlingMegabucks.TournamentManager.csproj
+          dotnet build BowlingMegabucks.TournamentManager.csproj -c Release --no-restore 
 
       - name: Get application version
         id: get-version
@@ -80,12 +81,22 @@ jobs:
         env:
           INSTALL_URL: ${{ vars.CLICKONCE_INSTALL_URL }}
         run: |
-          dotnet publish BowlingMegabucks.TournamentManager.csproj `
-            -c Release `
-            -o publish `
+          # Use MSBuild to create ClickOnce deployment
+          msbuild BowlingMegabucks.TournamentManager.csproj `
+            /t:Publish `
+            /p:Configuration=Release `
             /p:PublishUrl="${env:INSTALL_URL}" `
             /p:InstallUrl="${env:INSTALL_URL}" `
-            /p:ApplicationVersion="${env:VERSION}.0"
+            /p:ApplicationVersion="${env:VERSION}.0" `
+            /p:UpdateEnabled=true `
+            /p:UpdateMode=Foreground `
+            /p:IsWebBootstrapper=true `
+            /p:BootstrapperEnabled=true `
+            /p:CreateWebPageOnPublish=true `
+            /p:PublishDir="publish\"
+          
+          Write-Host "ClickOnce files generated:"
+          Get-ChildItem -Path publish -Recurse | Select-Object FullName
 
       - name: Deploy to FTP Server
         working-directory: source/main/publish
@@ -116,6 +127,7 @@ jobs:
               $ftpRequest.Credentials = New-Object System.Net.NetworkCredential($Username, $Password)
               $ftpRequest.UseBinary = $true
               $ftpRequest.UsePassive = $true
+              $ftpRequest.KeepAlive = $false
               
               $fileContent = [System.IO.File]::ReadAllBytes($LocalPath)
               $ftpRequest.ContentLength = $fileContent.Length
@@ -144,18 +156,41 @@ jobs:
                   $ftpRequest.Method = [System.Net.WebRequestMethods+Ftp]::MakeDirectory
                   $ftpRequest.Credentials = New-Object System.Net.NetworkCredential($Username, $Password)
                   $ftpRequest.UsePassive = $true
+                  $ftpRequest.KeepAlive = $false
                   
                   $response = $ftpRequest.GetResponse()
                   Write-Host "Directory created: $RemotePath"
                   $response.Close()
               }
               catch {
-                  Write-Host "Directory may already exist or creation skipped: $RemotePath"
+                  # Ignore errors - directory may already exist
+              }
+          }
+          
+          # Function to ensure full directory path exists
+          function Ensure-FtpDirectoryPath {
+              param(
+                  [string]$RemotePath,
+                  [string]$FtpServer,
+                  [string]$Username,
+                  [string]$Password
+              )
+              
+              $parts = $RemotePath.Split('/', [StringSplitOptions]::RemoveEmptyEntries)
+              $currentPath = ""
+              
+              foreach ($part in $parts) {
+                  if ($currentPath) {
+                      $currentPath += "/$part"
+                  } else {
+                      $currentPath = $part
+                  }
+                  Create-FtpDirectory -RemotePath $currentPath -FtpServer $FtpServer -Username $Username -Password $Password
               }
           }
           
           # Create target directory
-          Create-FtpDirectory -RemotePath $env:FTP_FOLDER -FtpServer $env:FTP_SERVER -Username $env:FTP_USERNAME -Password $env:FTP_PASSWORD
+          Ensure-FtpDirectoryPath -RemotePath $env:FTP_FOLDER -FtpServer $env:FTP_SERVER -Username $env:FTP_USERNAME -Password $env:FTP_PASSWORD
           
           # Upload all files
           $files = Get-ChildItem -Recurse -File
@@ -170,7 +205,7 @@ jobs:
               # Create subdirectories if needed
               $remoteDir = Split-Path $remotePath -Parent
               if ($remoteDir -and $remoteDir -ne $env:FTP_FOLDER) {
-                  Create-FtpDirectory -RemotePath $remoteDir -FtpServer $env:FTP_SERVER -Username $env:FTP_USERNAME -Password $env:FTP_PASSWORD
+                  Ensure-FtpDirectoryPath -RemotePath $remoteDir -FtpServer $env:FTP_SERVER -Username $env:FTP_USERNAME -Password $env:FTP_PASSWORD
               }
               
               Write-Host "[$currentFile/$totalFiles] Uploading $relativePath"
