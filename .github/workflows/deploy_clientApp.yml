@@ -99,12 +99,12 @@ jobs:
           Write-Host "Target folder: $env:FTP_FOLDER"
           
           # Download WinSCP
-          $winscpUrl = "https://github.com/winscp/winscp/releases/download/v6.3.5/WinSCP-6.3.5-Automation.zip"
+          $winscpUrl = "https://sourceforge.net/projects/winscp/files/WinSCP/6.3.5/WinSCP-6.3.5-Automation.zip/download"
           $winscpZip = "$env:TEMP\WinSCP.zip"
           $winscpDir = "$env:TEMP\WinSCP"
           
           Write-Host "Downloading WinSCP..."
-          Invoke-WebRequest -Uri $winscpUrl -OutFile $winscpZip
+          Invoke-WebRequest -Uri $winscpUrl -OutFile $winscpZip -UseBasicParsing
           Expand-Archive -Path $winscpZip -DestinationPath $winscpDir -Force
           
           # Install and import WinSCP PowerShell module
