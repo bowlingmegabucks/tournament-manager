@@ -98,49 +98,83 @@ jobs:
           Write-Host "Deploying to FTP Server: $env:FTP_SERVER"
           Write-Host "Target folder: $env:FTP_FOLDER"
           
-          # Download WinSCP
-          $winscpUrl = "https://sourceforge.net/projects/winscp/files/WinSCP/6.3.5/WinSCP-6.3.5-Automation.zip/download"
-          $winscpZip = "$env:TEMP\WinSCP.zip"
-          $winscpDir = "$env:TEMP\WinSCP"
-          
-          Write-Host "Downloading WinSCP..."
-          Invoke-WebRequest -Uri $winscpUrl -OutFile $winscpZip -UseBasicParsing
-          Expand-Archive -Path $winscpZip -DestinationPath $winscpDir -Force
-          
-          # Install and import WinSCP PowerShell module
-          Install-Module -Name WinSCP -Force -Scope CurrentUser
-          Import-Module WinSCP
-          
-          # Create WinSCP session options
-          $sessionOptions = New-Object WinSCP.SessionOptions -Property @{
-              Protocol = [WinSCP.Protocol]::Ftp
-              HostName = $env:FTP_SERVER
-              UserName = $env:FTP_USERNAME
-              Password = $env:FTP_PASSWORD
+          # Function to upload file via FTP
+          function Upload-FileToFtp {
+              param(
+                  [string]$LocalPath,
+                  [string]$RemotePath,
+                  [string]$FtpServer,
+                  [string]$Username,
+                  [string]$Password
+              )
+              
+              $ftpUri = "ftp://$FtpServer/$RemotePath"
+              Write-Host "Uploading: $LocalPath -> $ftpUri"
+              
+              $ftpRequest = [System.Net.FtpWebRequest]::Create($ftpUri)
+              $ftpRequest.Method = [System.Net.WebRequestMethods+Ftp]::UploadFile
+              $ftpRequest.Credentials = New-Object System.Net.NetworkCredential($Username, $Password)
+              $ftpRequest.UseBinary = $true
+              $ftpRequest.UsePassive = $true
+              
+              $fileContent = [System.IO.File]::ReadAllBytes($LocalPath)
+              $ftpRequest.ContentLength = $fileContent.Length
+              
+              $requestStream = $ftpRequest.GetRequestStream()
+              $requestStream.Write($fileContent, 0, $fileContent.Length)
+              $requestStream.Close()
+              
+              $response = $ftpRequest.GetResponse()
+              Write-Host "Upload completed: $($response.StatusDescription)"
+              $response.Close()
           }
           
-          # Connect to FTP and upload files
-          $session = New-Object WinSCP.Session
-          try {
-              # Set path to WinSCP executable
-              $session.ExecutablePath = "$winscpDir\WinSCP.com"
+          # Function to create directory via FTP
+          function Create-FtpDirectory {
+              param(
+                  [string]$RemotePath,
+                  [string]$FtpServer,
+                  [string]$Username,
+                  [string]$Password
+              )
               
-              $session.Open($sessionOptions)
+              try {
+                  $ftpUri = "ftp://$FtpServer/$RemotePath"
+                  $ftpRequest = [System.Net.FtpWebRequest]::Create($ftpUri)
+                  $ftpRequest.Method = [System.Net.WebRequestMethods+Ftp]::MakeDirectory
+                  $ftpRequest.Credentials = New-Object System.Net.NetworkCredential($Username, $Password)
+                  $ftpRequest.UsePassive = $true
+                  
+                  $response = $ftpRequest.GetResponse()
+                  Write-Host "Directory created: $RemotePath"
+                  $response.Close()
+              }
+              catch {
+                  Write-Host "Directory may already exist or creation skipped: $RemotePath"
+              }
+          }
+          
+          # Create target directory
+          Create-FtpDirectory -RemotePath $env:FTP_FOLDER -FtpServer $env:FTP_SERVER -Username $env:FTP_USERNAME -Password $env:FTP_PASSWORD
+          
+          # Upload all files
+          $files = Get-ChildItem -Recurse -File
+          $totalFiles = $files.Count
+          $currentFile = 0
+          
+          foreach ($file in $files) {
+              $currentFile++
+              $relativePath = $file.FullName.Substring((Get-Location).Path.Length + 1).Replace('\', '/')
+              $remotePath = "$env:FTP_FOLDER/$relativePath"
               
-              # Ensure target directory exists
-              if (-not $session.FileExists($env:FTP_FOLDER)) {
-                  $session.CreateDirectory($env:FTP_FOLDER)
+              # Create subdirectories if needed
+              $remoteDir = Split-Path $remotePath -Parent
+              if ($remoteDir -and $remoteDir -ne $env:FTP_FOLDER) {
+                  Create-FtpDirectory -RemotePath $remoteDir -FtpServer $env:FTP_SERVER -Username $env:FTP_USERNAME -Password $env:FTP_PASSWORD
               }
               
-              # Upload all files
-              $transferOptions = New-Object WinSCP.TransferOptions
-              $transferOptions.TransferMode = [WinSCP.TransferMode]::Binary
-              
-              $transferResult = $session.PutFiles(".\*", "$env:FTP_FOLDER/", $False, $transferOptions)
-              $transferResult.Check()
-              
-              Write-Host "Upload successful!"
+              Write-Host "[$currentFile/$totalFiles] Uploading $relativePath"
+              Upload-FileToFtp -LocalPath $file.FullName -RemotePath $remotePath -FtpServer $env:FTP_SERVER -Username $env:FTP_USERNAME -Password $env:FTP_PASSWORD
           }
-          finally {
-              $session.Dispose()
-          }
+          
+          Write-Host "Upload successful! Deployed $totalFiles files."
