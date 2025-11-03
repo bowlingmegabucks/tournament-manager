@@ -64,8 +64,7 @@ jobs:
       - name: Build application
         working-directory: source/main
         run: |
-          dotnet restore BowlingMegabucks.TournamentManager.csproj
-          dotnet build BowlingMegabucks.TournamentManager.csproj -c Release --no-restore 
+          dotnet build BowlingMegabucks.TournamentManager.csproj -c Release
 
       - name: Get application version
         id: get-version
