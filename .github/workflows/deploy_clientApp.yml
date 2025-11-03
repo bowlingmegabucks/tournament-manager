@@ -80,8 +80,22 @@ jobs:
         env:
           INSTALL_URL: ${{ vars.CLICKONCE_INSTALL_URL }}
         run: |
+          # Find MSBuild
+          $msbuildPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" `
+            -latest `
+            -requires Microsoft.Component.MSBuild `
+            -find MSBuild\**\Bin\MSBuild.exe `
+            -prerelease | Select-Object -First 1
+          
+          if (-not $msbuildPath) {
+            Write-Error "MSBuild not found"
+            exit 1
+          }
+          
+          Write-Host "Using MSBuild: $msbuildPath"
+          
           # Use MSBuild to create ClickOnce deployment
-          msbuild BowlingMegabucks.TournamentManager.csproj `
+          & $msbuildPath BowlingMegabucks.TournamentManager.csproj `
             /t:Publish `
             /p:Configuration=Release `
             /p:PublishUrl="${env:INSTALL_URL}" `
