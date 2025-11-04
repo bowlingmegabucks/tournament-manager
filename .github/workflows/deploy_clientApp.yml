@@ -80,27 +80,63 @@ jobs:
         env:
           INSTALL_URL: ${{ vars.CLICKONCE_INSTALL_URL }}
         run: |
-          # Use dotnet publish with ClickOnce flags for .NET 9
+          # First, do a regular publish to get the application files
           dotnet publish BowlingMegabucks.TournamentManager.csproj `
             -c Release `
             -r win-x64 `
             --self-contained false `
-            /p:PublishProtocol=ClickOnce `
-            /p:PublishUrl="${env:INSTALL_URL}" `
-            /p:InstallUrl="${env:INSTALL_URL}" `
-            /p:ApplicationVersion="${env:VERSION}.0" `
-            /p:PublishDir="publish\" `
-            /p:UpdateEnabled=true `
-            /p:UpdateMode=Foreground `
-            /p:IsWebBootstrapper=true `
-            /p:BootstrapperEnabled=true `
-            /p:CreateWebPageOnPublish=true `
-            /p:WebPage=publish.html `
-            /p:PublisherName="Bowling Megabucks" `
-            /p:ProductName="Tournament Manager"
+            -o publish\app.publish
+          
+          # Find Mage.exe from Windows SDK
+          $magePath = Get-ChildItem -Path "${env:ProgramFiles(x86)}\Windows Kits" -Recurse -Filter "mage.exe" -ErrorAction SilentlyContinue | 
+            Where-Object { $_.FullName -like "*\bin\*\x64\mage.exe" } | 
+            Select-Object -First 1 -ExpandProperty FullName
+          
+          if (-not $magePath) {
+            Write-Error "Mage.exe not found. ClickOnce tools may not be installed."
+            exit 1
+          }
+          
+          Write-Host "Using Mage: $magePath"
+          
+          $appName = "BowlingMegabucks.TournamentManager"
+          $publishPath = "publish\app.publish"
+          $deployUrl = "${env:INSTALL_URL}app.publish/"
+          
+          # Create application manifest
+          & $magePath -New Application `
+            -ToFile "$publishPath\$appName.exe.manifest" `
+            -Name "$appName" `
+            -Version "${env:VERSION}.0" `
+            -FromDirectory $publishPath `
+            -IconFile Resources\NMT.ico
+          
+          # Sign the application manifest (using a certificate would go here in production)
+          # For now, we'll create it without signing
+          
+          # Create deployment manifest (.application file)
+          & $magePath -New Deployment `
+            -ToFile "publish\$appName.application" `
+            -Name "Tournament Manager" `
+            -Version "${env:VERSION}.0" `
+            -AppManifest "$publishPath\$appName.exe.manifest" `
+            -ProviderUrl $deployUrl `
+            -Install true `
+            -Publisher "Bowling Megabucks" `
+            -UpdateEnabled true `
+            -UpdateMode Foreground
+          
+          # Create setup bootstrapper
+          Write-Host "Creating setup.exe bootstrapper"
+          $setupPath = "publish\setup.exe"
+          Copy-Item "$publishPath\$appName.exe" $setupPath
+          
+          # Create publish.html
+          $html = "<!DOCTYPE html><html><head><title>Tournament Manager - Install</title></head><body><h1>Tournament Manager</h1><p>Click the button below to install the application.</p><a href='$appName.application'>Install Now</a></body></html>"
+          Set-Content -Path "publish\publish.html" -Value $html
           
           Write-Host "ClickOnce files generated:"
-          Get-ChildItem -Path publish -Recurse | Select-Object FullName
+          Get-ChildItem -Path publish -Recurse -File | Select-Object FullName
 
       - name: Deploy to FTP Server
         working-directory: source/main/publish
