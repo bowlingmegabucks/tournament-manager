@@ -244,7 +244,7 @@ jobs:
               $remotePath = "$env:FTP_FOLDER/$relativePath"
               
               # Create subdirectories if needed
-              $remoteDir = Split-Path $remotePath -Parent
+              $remoteDir = ($remotePath -replace '\\', '/').Substring(0, $remotePath.LastIndexOf('/'))
               if ($remoteDir -and $remoteDir -ne $env:FTP_FOLDER) {
                   Ensure-FtpDirectoryPath -RemotePath $remoteDir -FtpServer $env:FTP_SERVER -Username $env:FTP_USERNAME -Password $env:FTP_PASSWORD
               }
