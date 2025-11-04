@@ -165,6 +165,7 @@ jobs:
               
               try {
                   $ftpUri = "ftp://$FtpServer/$RemotePath"
+                  Write-Host "Creating directory: $ftpUri"
                   $ftpRequest = [System.Net.FtpWebRequest]::Create($ftpUri)
                   $ftpRequest.Method = [System.Net.WebRequestMethods+Ftp]::MakeDirectory
                   $ftpRequest.Credentials = New-Object System.Net.NetworkCredential($Username, $Password)
@@ -172,11 +173,23 @@ jobs:
                   $ftpRequest.KeepAlive = $false
                   
                   $response = $ftpRequest.GetResponse()
-                  Write-Host "Directory created: $RemotePath"
+                  Write-Host "✓ Directory created: $RemotePath"
                   $response.Close()
               }
+              catch [System.Net.WebException] {
+                  $response = $_.Exception.Response
+                  if ($response) {
+                      $statusCode = [int]$response.StatusCode
+                      # 550 = Directory already exists, which is fine
+                      if ($statusCode -eq 550) {
+                          Write-Host "✓ Directory already exists: $RemotePath"
+                      } else {
+                          Write-Host "Warning: Could not create directory $RemotePath - $($_.Exception.Message)"
+                      }
+                  }
+              }
               catch {
-                  # Ignore errors - directory may already exist
+                  Write-Host "Warning: Could not create directory $RemotePath - $($_.Exception.Message)"
               }
           }
           
@@ -189,6 +202,11 @@ jobs:
                   [string]$Password
               )
               
+              # Skip if already processed
+              if ($script:createdDirectories -contains $RemotePath) {
+                  return
+              }
+              
               $parts = $RemotePath.Split('/', [StringSplitOptions]::RemoveEmptyEntries)
               $currentPath = ""
               
@@ -198,9 +216,19 @@ jobs:
                   } else {
                       $currentPath = $part
                   }
+                  
+                  # Skip if already created
+                  if ($script:createdDirectories -contains $currentPath) {
+                      continue
+                  }
+                  
                   Create-FtpDirectory -RemotePath $currentPath -FtpServer $FtpServer -Username $Username -Password $Password
+                  $script:createdDirectories += $currentPath
               }
           }
+          
+          # Cache for created directories
+          $script:createdDirectories = @()
           
           # Create target directory
           Ensure-FtpDirectoryPath -RemotePath $env:FTP_FOLDER -FtpServer $env:FTP_SERVER -Username $env:FTP_USERNAME -Password $env:FTP_PASSWORD
