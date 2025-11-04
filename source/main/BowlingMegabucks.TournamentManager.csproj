@@ -16,8 +16,8 @@
 		<NoWarn>CA1812</NoWarn>
 	</PropertyGroup>
 
-	<!-- ClickOnce Configuration -->
-	<PropertyGroup>
+	<!-- ClickOnce Configuration - Only active during Publish target -->
+	<PropertyGroup Condition="'$(DeployOnBuild)'=='true' OR '$(IsPublishing)'=='true'">
 		<!-- Enable ClickOnce publishing -->
 		<GenerateManifests>true</GenerateManifests>
 		<IsWebBootstrapper>true</IsWebBootstrapper>

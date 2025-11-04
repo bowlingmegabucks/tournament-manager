@@ -61,10 +61,10 @@ jobs:
           Write-Host "Updated appsettings.json:"
           Get-Content appsettings.json
 
-      - name: Build application
-        working-directory: source/main
-        run: |
-          dotnet build BowlingMegabucks.TournamentManager.csproj -c Release
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: x64
 
       - name: Get application version
         id: get-version
@@ -74,11 +74,6 @@ jobs:
           $version = $csproj.Project.PropertyGroup.VersionPrefix | Where-Object { $_ -ne $null } | Select-Object -First 1
           echo "VERSION=$version" >> $env:GITHUB_ENV
           Write-Host "Application version: $version"
-
-      - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v2
-        with:
-          msbuild-architecture: x64
 
       - name: Publish Application with ClickOnce
         working-directory: source/main
@@ -95,19 +90,12 @@ jobs:
             /target:publish `
             /property:Configuration=Release `
             /property:Platform=AnyCPU `
+            /property:IsPublishing=true `
             /property:PublishDir=publish\ `
             /property:PublishUrl="$env:INSTALL_URL" `
             /property:InstallUrl="$env:INSTALL_URL" `
             /property:UpdateUrl="$env:INSTALL_URL" `
             /property:ApplicationVersion="$env:VERSION.*" `
-            /property:BootstrapperEnabled=true `
-            /property:IsWebBootstrapper=true `
-            /property:UpdateEnabled=true `
-            /property:UpdateMode=Foreground `
-            /property:UpdateInterval=7 `
-            /property:UpdateIntervalUnits=Days `
-            /property:ProductName="Tournament Manager" `
-            /property:PublisherName="Bowling Megabucks" `
             /consoleloggerparameters:NoSummary
           
           if ($LASTEXITCODE -ne 0) {
