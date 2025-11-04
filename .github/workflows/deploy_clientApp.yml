@@ -75,59 +75,20 @@ jobs:
           echo "VERSION=$version" >> $env:GITHUB_ENV
           Write-Host "Application version: $version"
 
-      - name: Publish ClickOnce
+      - name: Publish Application
         working-directory: source/main
         env:
           INSTALL_URL: ${{ vars.CLICKONCE_INSTALL_URL }}
         run: |
-          # Create a publish profile for ClickOnce
-          $profileDir = "Properties\PublishProfiles"
-          New-Item -ItemType Directory -Force -Path $profileDir | Out-Null
+          # Publish the application
+          dotnet publish BowlingMegabucks.TournamentManager.csproj -c Release -r win-x64 --self-contained false -o publish
           
-          $xml = New-Object System.Xml.XmlDocument
-          $project = $xml.CreateElement("Project")
-          $propertyGroup = $xml.CreateElement("PropertyGroup")
+          # Create a simple HTML landing page
+          $html = '<!DOCTYPE html><html><head><title>Tournament Manager</title></head><body><h1>Tournament Manager v' + $env:VERSION + '</h1><p>Download and extract the application files.</p></body></html>'
+          Set-Content -Path "publish\index.html" -Value $html
           
-          $elements = @{
-            "PublishProtocol" = "ClickOnce"
-            "Configuration" = "Release"
-            "Platform" = "Any CPU"
-            "TargetFramework" = "net9.0-windows"
-            "PublishDir" = "publish\"
-            "PublishUrl" = $env:INSTALL_URL
-            "InstallUrl" = $env:INSTALL_URL
-            "ApplicationVersion" = "$($env:VERSION).0"
-            "UpdateEnabled" = "true"
-            "UpdateMode" = "Foreground"
-            "UpdateInterval" = "7"
-            "UpdateIntervalUnits" = "Days"
-            "UpdatePeriodically" = "false"
-            "UpdateRequired" = "false"
-            "MapFileExtensions" = "true"
-            "CreateWebPageOnPublish" = "true"
-            "WebPage" = "publish.html"
-            "ApplicationRevision" = "0"
-            "IsWebBootstrapper" = "true"
-            "BootstrapperEnabled" = "true"
-            "PublisherName" = "Bowling Megabucks"
-            "ProductName" = "Tournament Manager"
-          }
-          
-          foreach ($key in $elements.Keys) {
-            $element = $xml.CreateElement($key)
-            $element.InnerText = $elements[$key]
-            $propertyGroup.AppendChild($element) | Out-Null
-          }
-          
-          $project.AppendChild($propertyGroup) | Out-Null
-          $xml.AppendChild($project) | Out-Null
-          $xml.Save("$profileDir\ClickOnceProfile.pubxml")
-          
-          # Publish using the profile
-          dotnet publish BowlingMegabucks.TournamentManager.csproj /p:PublishProfile=ClickOnceProfile /p:Configuration=Release
-          
-          Write-Host "ClickOnce files generated:"
-          Get-ChildItem -Path publish -Recurse -File | Select-Object FullName
+          Write-Host "Published files:"
+          Get-ChildItem -Path publish -File | Select-Object Name
 
       - name: Deploy to FTP Server
         working-directory: source/main/publish
