@@ -84,8 +84,20 @@ jobs:
           Write-Host "Install URL: $env:INSTALL_URL"
           Write-Host "Version: $env:VERSION"
           
+          # Restore NuGet packages first
+          Write-Host "Restoring NuGet packages..."
+          msbuild BowlingMegabucks.TournamentManager.csproj `
+            /target:Restore `
+            /property:Configuration=Release
+          
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "NuGet restore failed with exit code $LASTEXITCODE"
+            exit $LASTEXITCODE
+          }
+          
           # Use full .NET Framework MSBuild for ClickOnce (from setup-msbuild action)
           # This is the only MSBuild that supports GenerateTrustInfo and full ClickOnce
+          Write-Host "Publishing with ClickOnce..."
           msbuild BowlingMegabucks.TournamentManager.csproj `
             /target:publish `
             /property:Configuration=Release `
