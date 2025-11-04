@@ -80,33 +80,24 @@ jobs:
         env:
           INSTALL_URL: ${{ vars.CLICKONCE_INSTALL_URL }}
         run: |
-          # Find MSBuild
-          $msbuildPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" `
-            -latest `
-            -requires Microsoft.Component.MSBuild `
-            -find MSBuild\**\Bin\MSBuild.exe `
-            -prerelease | Select-Object -First 1
-          
-          if (-not $msbuildPath) {
-            Write-Error "MSBuild not found"
-            exit 1
-          }
-          
-          Write-Host "Using MSBuild: $msbuildPath"
-          
-          # Use MSBuild to create ClickOnce deployment
-          & $msbuildPath BowlingMegabucks.TournamentManager.csproj `
-            /t:Publish `
-            /p:Configuration=Release `
+          # Use dotnet publish with ClickOnce flags for .NET 9
+          dotnet publish BowlingMegabucks.TournamentManager.csproj `
+            -c Release `
+            -r win-x64 `
+            --self-contained false `
+            /p:PublishProtocol=ClickOnce `
             /p:PublishUrl="${env:INSTALL_URL}" `
             /p:InstallUrl="${env:INSTALL_URL}" `
             /p:ApplicationVersion="${env:VERSION}.0" `
+            /p:PublishDir="publish\" `
             /p:UpdateEnabled=true `
             /p:UpdateMode=Foreground `
             /p:IsWebBootstrapper=true `
             /p:BootstrapperEnabled=true `
             /p:CreateWebPageOnPublish=true `
-            /p:PublishDir="publish\"
+            /p:WebPage=publish.html `
+            /p:PublisherName="Bowling Megabucks" `
+            /p:ProductName="Tournament Manager"
           
           Write-Host "ClickOnce files generated:"
           Get-ChildItem -Path publish -Recurse | Select-Object FullName
