@@ -75,20 +75,64 @@ jobs:
           echo "VERSION=$version" >> $env:GITHUB_ENV
           Write-Host "Application version: $version"
 
-      - name: Publish Application
+      - name: Publish Application with ClickOnce
         working-directory: source/main
         env:
           INSTALL_URL: ${{ vars.CLICKONCE_INSTALL_URL }}
         run: |
-          # Publish the application
-          dotnet publish BowlingMegabucks.TournamentManager.csproj -c Release -r win-x64 --self-contained false -o publish
+          # Locate MSBuild using vswhere
+          $vswherePath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
           
-          # Create a simple HTML landing page
-          $html = '<!DOCTYPE html><html><head><title>Tournament Manager</title></head><body><h1>Tournament Manager v' + $env:VERSION + '</h1><p>Download and extract the application files.</p></body></html>'
-          Set-Content -Path "publish\index.html" -Value $html
+          if (-not (Test-Path $vswherePath)) {
+            Write-Error "vswhere.exe not found at $vswherePath"
+            exit 1
+          }
           
+          $vsPath = & $vswherePath -latest -property installationPath
+          
+          if (-not $vsPath) {
+            Write-Error "Visual Studio installation not found"
+            exit 1
+          }
+          
+          $msbuildPath = Join-Path $vsPath "MSBuild\Current\Bin\MSBuild.exe"
+          
+          if (-not (Test-Path $msbuildPath)) {
+            Write-Error "MSBuild not found at $msbuildPath"
+            exit 1
+          }
+          
+          Write-Host "Using MSBuild at: $msbuildPath"
+          Write-Host "Publishing ClickOnce application with InstallUrl: $env:INSTALL_URL"
+          
+          # Publish using MSBuild with ClickOnce properties
+          & $msbuildPath BowlingMegabucks.TournamentManager.csproj `
+            /target:publish `
+            /property:Configuration=Release `
+            /property:Platform=AnyCPU `
+            /property:PublishDir=publish\ `
+            /property:PublishUrl=$env:INSTALL_URL `
+            /property:InstallUrl=$env:INSTALL_URL `
+            /property:ApplicationVersion=$env:VERSION.* `
+            /property:BootstrapperEnabled=true `
+            /property:IsWebBootstrapper=true `
+            /property:UpdateEnabled=true `
+            /property:UpdateMode=Foreground `
+            /property:UpdateInterval=7 `
+            /property:UpdateIntervalUnits=Days `
+            /property:ProductName="Tournament Manager" `
+            /property:PublisherName="Bowling Megabucks" `
+            /property:GenerateManifests=true `
+            /consoleloggerparameters:NoSummary
+          
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "MSBuild publish failed with exit code $LASTEXITCODE"
+            exit $LASTEXITCODE
+          }
+          
+          Write-Host "ClickOnce publish completed successfully"
           Write-Host "Published files:"
-          Get-ChildItem -Path publish -File | Select-Object Name
+          Get-ChildItem -Path publish -Recurse | Select-Object FullName
 
       - name: Deploy to FTP Server
         working-directory: source/main/publish

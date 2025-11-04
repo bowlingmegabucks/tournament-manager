@@ -18,11 +18,20 @@
 
 	<!-- ClickOnce Configuration -->
 	<PropertyGroup>
+		<!-- Enable ClickOnce publishing -->
+		<GenerateManifests>true</GenerateManifests>
+		<IsWebBootstrapper>true</IsWebBootstrapper>
+		<BootstrapperEnabled>true</BootstrapperEnabled>
+		<Install>true</Install>
+		
 		<!-- Update behavior -->
+		<UpdateEnabled>true</UpdateEnabled>
+		<UpdateMode>Foreground</UpdateMode>
 		<UpdateInterval>0</UpdateInterval>
 		<UpdateIntervalUnits>Days</UpdateIntervalUnits>
 		<UpdatePeriodically>false</UpdatePeriodically>
 		<UpdateRequired>false</UpdateRequired>
+		<UpdateUrlEnabled>true</UpdateUrlEnabled>
 		<MinimumRequiredVersion>$(VersionPrefix)</MinimumRequiredVersion>
 		
 		<!-- Application metadata -->
@@ -30,6 +39,9 @@
 		<ProductName>Tournament Manager</ProductName>
 		<ApplicationRevision>0</ApplicationRevision>
 		<WebPage>publish.html</WebPage>
+		
+		<!-- Security -->
+		<TargetZone>LocalIntranet</TargetZone>
 		
 		<!-- Default values (overridden by GitHub Actions) -->
 		<PublishUrl>bin\publish\</PublishUrl>
