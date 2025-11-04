@@ -63,6 +63,7 @@ partial class TournamentsGrid
             this.startDateColumn.Name = "startDateColumn";
             this.startDateColumn.ReadOnly = true;
             this.startDateColumn.Width = 90;
+            this.startDateColumn.DataPropertyName = "StartDate";
             // 
             // endDateColumn
             // 
@@ -73,10 +74,11 @@ partial class TournamentsGrid
             this.endDateColumn.Name = "endDateColumn";
             this.endDateColumn.ReadOnly = true;
             this.endDateColumn.Width = 90;
-            // 
-            // locationColumn
-            // 
-            this.locationColumn.DataPropertyName = "BowlingCenter";
+            this.endDateColumn.DataPropertyName = "EndDate";
+        // 
+        // locationColumn
+        // 
+        this.locationColumn.DataPropertyName = "BowlingCenter";
             this.locationColumn.HeaderText = "Location";
             this.locationColumn.Name = "locationColumn";
             this.locationColumn.ReadOnly = true;
