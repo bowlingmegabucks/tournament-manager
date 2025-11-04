@@ -75,65 +75,61 @@ jobs:
           echo "VERSION=$version" >> $env:GITHUB_ENV
           Write-Host "Application version: $version"
 
+      - name: Install ClickOnce prerequisites
+        run: |
+          # Install .NET Desktop Runtime SDK workload which includes ClickOnce tools
+          dotnet workload install microsoft-net-sdk-windowsdesktop
+          
       - name: Publish ClickOnce
         working-directory: source/main
         env:
           INSTALL_URL: ${{ vars.CLICKONCE_INSTALL_URL }}
         run: |
-          # First, do a regular publish to get the application files
-          dotnet publish BowlingMegabucks.TournamentManager.csproj `
-            -c Release `
-            -r win-x64 `
-            --self-contained false `
-            -o publish\app.publish
+          # Create a publish profile for ClickOnce
+          $profileDir = "Properties\PublishProfiles"
+          New-Item -ItemType Directory -Force -Path $profileDir | Out-Null
           
-          # Find Mage.exe from Windows SDK
-          $magePath = Get-ChildItem -Path "${env:ProgramFiles(x86)}\Windows Kits" -Recurse -Filter "mage.exe" -ErrorAction SilentlyContinue | 
-            Where-Object { $_.FullName -like "*\bin\*\x64\mage.exe" } | 
-            Select-Object -First 1 -ExpandProperty FullName
+          $xml = New-Object System.Xml.XmlDocument
+          $project = $xml.CreateElement("Project")
+          $propertyGroup = $xml.CreateElement("PropertyGroup")
           
-          if (-not $magePath) {
-            Write-Error "Mage.exe not found. ClickOnce tools may not be installed."
-            exit 1
+          $elements = @{
+            "PublishProtocol" = "ClickOnce"
+            "Configuration" = "Release"
+            "Platform" = "Any CPU"
+            "TargetFramework" = "net9.0-windows"
+            "PublishDir" = "publish\"
+            "PublishUrl" = $env:INSTALL_URL
+            "InstallUrl" = $env:INSTALL_URL
+            "ApplicationVersion" = "$($env:VERSION).0"
+            "UpdateEnabled" = "true"
+            "UpdateMode" = "Foreground"
+            "UpdateInterval" = "7"
+            "UpdateIntervalUnits" = "Days"
+            "UpdatePeriodically" = "false"
+            "UpdateRequired" = "false"
+            "MapFileExtensions" = "true"
+            "CreateWebPageOnPublish" = "true"
+            "WebPage" = "publish.html"
+            "ApplicationRevision" = "0"
+            "IsWebBootstrapper" = "true"
+            "BootstrapperEnabled" = "true"
+            "PublisherName" = "Bowling Megabucks"
+            "ProductName" = "Tournament Manager"
           }
           
-          Write-Host "Using Mage: $magePath"
+          foreach ($key in $elements.Keys) {
+            $element = $xml.CreateElement($key)
+            $element.InnerText = $elements[$key]
+            $propertyGroup.AppendChild($element) | Out-Null
+          }
           
-          $appName = "BowlingMegabucks.TournamentManager"
-          $publishPath = "publish\app.publish"
-          $deployUrl = "${env:INSTALL_URL}app.publish/"
+          $project.AppendChild($propertyGroup) | Out-Null
+          $xml.AppendChild($project) | Out-Null
+          $xml.Save("$profileDir\ClickOnceProfile.pubxml")
           
-          # Create application manifest
-          & $magePath -New Application `
-            -ToFile "$publishPath\$appName.exe.manifest" `
-            -Name "$appName" `
-            -Version "${env:VERSION}.0" `
-            -FromDirectory $publishPath `
-            -IconFile Resources\NMT.ico
-          
-          # Sign the application manifest (using a certificate would go here in production)
-          # For now, we'll create it without signing
-          
-          # Create deployment manifest (.application file)
-          & $magePath -New Deployment `
-            -ToFile "publish\$appName.application" `
-            -Name "Tournament Manager" `
-            -Version "${env:VERSION}.0" `
-            -AppManifest "$publishPath\$appName.exe.manifest" `
-            -ProviderUrl $deployUrl `
-            -Install true `
-            -Publisher "Bowling Megabucks" `
-            -UpdateEnabled true `
-            -UpdateMode Foreground
-          
-          # Create setup bootstrapper
-          Write-Host "Creating setup.exe bootstrapper"
-          $setupPath = "publish\setup.exe"
-          Copy-Item "$publishPath\$appName.exe" $setupPath
-          
-          # Create publish.html
-          $html = "<!DOCTYPE html><html><head><title>Tournament Manager - Install</title></head><body><h1>Tournament Manager</h1><p>Click the button below to install the application.</p><a href='$appName.application'>Install Now</a></body></html>"
-          Set-Content -Path "publish\publish.html" -Value $html
+          # Publish using the profile
+          dotnet publish BowlingMegabucks.TournamentManager.csproj /p:PublishProfile=ClickOnceProfile /p:Configuration=Release
           
           Write-Host "ClickOnce files generated:"
           Get-ChildItem -Path publish -Recurse -File | Select-Object FullName
