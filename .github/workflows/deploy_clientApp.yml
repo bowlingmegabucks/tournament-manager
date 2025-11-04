@@ -75,11 +75,6 @@ jobs:
           echo "VERSION=$version" >> $env:GITHUB_ENV
           Write-Host "Application version: $version"
 
-      - name: Install ClickOnce prerequisites
-        run: |
-          # Install .NET Desktop Runtime SDK workload which includes ClickOnce tools
-          dotnet workload install microsoft-net-sdk-windowsdesktop
-          
       - name: Publish ClickOnce
         working-directory: source/main
         env:
