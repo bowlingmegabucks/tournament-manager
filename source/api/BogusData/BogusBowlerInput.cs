@@ -21,6 +21,6 @@ internal sealed class BogusBowlerInput
 
         RuleFor(input => input.UsbcId, f => $"{f.Random.Number(10, 9999)}-{f.Random.Number(100, 99999)}");
         RuleFor(input => input.DateOfBirth, f => DateOnly.FromDateTime(f.Person.DateOfBirth).OrNull(f, .1f));
-        RuleFor(input => input.Gender, f => f.Person.Gender == Bogus.DataSets.Name.Gender.Male ? Gender.Male.Name : Gender.Female.Name);
+        RuleFor(input => input.Gender, f => f.Person.Gender == Bogus.DataSets.Name.Gender.Male ? "M" : "F");
     }
 }

@@ -55,10 +55,18 @@ public sealed record BowlerInput
     public DateOnly? DateOfBirth { get; init; }
 
     /// <summary>
-    /// The gender of the bowler.  This is an optional field.
+    /// The gender of the bowler. Valid values are "M" (Male), "F" (Female), or null.
     /// </summary>
+    /// <remarks>
+    /// Valid values:
+    /// <list type="bullet">
+    /// <item><description>"M" - Male</description></item>
+    /// <item><description>"F" - Female</description></item>
+    /// <item><description>null - Not specified</description></item>
+    /// </list>
+    /// </remarks>
     /// <example>
-    /// "Male"
+    /// "M"
     /// </example>
     public string? Gender { get; init; }
 }
@@ -91,6 +99,6 @@ internal static class BowlerInputExtensions
             DateOfBirth = input.DateOfBirth,
 
             USBCId = input.UsbcId,
-            Gender = input.Gender == "M" ? Models.Gender.Male : Models.Gender.Female
+            Gender = input.Gender == "Male" ? Models.Gender.Male : Models.Gender.Female
         };
 }
