@@ -35,7 +35,7 @@ internal static class OpenTelemetryExtensions
         var otel = builder.Services.AddOpenTelemetry()
             .WithTracing(tracing => tracing
                 .AddHttpClientInstrumentation()
-                .AddAspNetCoreInstrumentation()
+                .AddAspNetCoreInstrumentation(options => options.RecordException = true)
                 .AddEntityFrameworkCoreInstrumentation( options => options.SetDbStatementForText = !builder.Environment.IsProduction())
                 .AddSqlClientInstrumentation()
                 .AddMySqlDataInstrumentation(o => o.EnableConnectionLevelAttributes = !builder.Environment.IsProduction())
