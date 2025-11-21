@@ -26,9 +26,12 @@ partial class RecapSheetForm
         scrollRecapsTimer = new System.Windows.Forms.Timer(components);
         recapPrintDocument = new System.Drawing.Printing.PrintDocument();
         recapsPrintDialog = new PrintDialog();
+        pictureBox1 = new PictureBox();
         buttonsPanel.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)recapsTrackBar).BeginInit();
+        gamesFlowPanelLayout.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)headerPictureBox).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
         SuspendLayout();
         // 
         // buttonsPanel
@@ -72,6 +75,7 @@ partial class RecapSheetForm
         // 
         // gamesFlowPanelLayout
         // 
+        gamesFlowPanelLayout.Controls.Add(pictureBox1);
         gamesFlowPanelLayout.Location = new Point(352, 0);
         gamesFlowPanelLayout.Name = "gamesFlowPanelLayout";
         gamesFlowPanelLayout.Size = new Size(419, 471);
@@ -162,6 +166,17 @@ partial class RecapSheetForm
         recapsPrintDialog.Document = recapPrintDocument;
         recapsPrintDialog.UseEXDialog = true;
         // 
+        // pictureBox1
+        // 
+        pictureBox1.Dock = DockStyle.Bottom;
+        pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+        pictureBox1.Location = new Point(3, 3);
+        pictureBox1.Name = "pictureBox1";
+        pictureBox1.Size = new Size(352, 175);
+        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+        pictureBox1.TabIndex = 3;
+        pictureBox1.TabStop = false;
+        // 
         // RecapSheetForm
         // 
         BackColor = Color.White;
@@ -183,7 +198,9 @@ partial class RecapSheetForm
         buttonsPanel.ResumeLayout(false);
         buttonsPanel.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)recapsTrackBar).EndInit();
+        gamesFlowPanelLayout.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)headerPictureBox).EndInit();
+        ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
         ResumeLayout(false);
     }
 
@@ -221,4 +238,5 @@ partial class RecapSheetForm
 	private System.Windows.Forms.Timer scrollRecapsTimer;
 	private System.Drawing.Printing.PrintDocument recapPrintDocument;
     private PrintDialog recapsPrintDialog;
+    private PictureBox pictureBox1;
 }

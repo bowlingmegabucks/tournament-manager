@@ -28,81 +28,75 @@ partial class SweepersGrid
     /// </summary>
     private void InitializeComponent()
     {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.completeColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gamesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cashRatioColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // GridView
-            // 
-            this.GridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.completeColumn,
-            this.dateColumn,
-            this.timeColumn,
-            this.gamesColumn,
-            this.cashRatioColumn});
-            this.GridView.RowTemplate.Height = 25;
-            this.GridView.Size = new System.Drawing.Size(608, 377);
-            // 
-            // completeColumn
-            // 
-            this.completeColumn.DataPropertyName = "Complete";
-            this.completeColumn.HeaderText = "Complete";
-            this.completeColumn.Name = "completeColumn";
-            this.completeColumn.ReadOnly = true;
-            this.completeColumn.Width = 85;
-            // 
-            // dateColumn
-            // 
-            this.dateColumn.DataPropertyName = "Date";
-            dataGridViewCellStyle3.Format = "d";
-            dataGridViewCellStyle3.NullValue = null;
-            this.dateColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dateColumn.HeaderText = "Sweeper Date";
-            this.dateColumn.Name = "dateColumn";
-            this.dateColumn.ReadOnly = true;
-            this.dateColumn.Width = 125;
-            // 
-            // timeColumn
-            // 
-            this.timeColumn.DataPropertyName = "Date";
-            dataGridViewCellStyle4.Format = "t";
-            dataGridViewCellStyle4.NullValue = null;
-            this.timeColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.timeColumn.HeaderText = "Sweeper Time";
-            this.timeColumn.Name = "timeColumn";
-            this.timeColumn.ReadOnly = true;
-            this.timeColumn.Width = 125;
-            // 
-            // gamesColumn
-            // 
-            this.gamesColumn.DataPropertyName = "Games";
-            this.gamesColumn.HeaderText = "Games";
-            this.gamesColumn.Name = "gamesColumn";
-            this.gamesColumn.ReadOnly = true;
-            this.gamesColumn.Width = 75;
-            // 
-            // cashRatioColumn
-            // 
-            this.cashRatioColumn.DataPropertyName = "CashRatio";
-            this.cashRatioColumn.HeaderText = "Cashing Ratio";
-            this.cashRatioColumn.Name = "cashRatioColumn";
-            this.cashRatioColumn.ReadOnly = true;
-            this.cashRatioColumn.Width = 125;
-            // 
-            // SweepersGrid
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "SweepersGrid";
-            this.Size = new System.Drawing.Size(608, 377);
-            ((System.ComponentModel.ISupportInitialize)(this.GridView)).EndInit();
-            this.ResumeLayout(false);
+        var dataGridViewCellStyle1 = new DataGridViewCellStyle();
+        var dataGridViewCellStyle2 = new DataGridViewCellStyle();
+        completeColumn = new DataGridViewCheckBoxColumn();
+        dateColumn = new DataGridViewTextBoxColumn();
+        timeColumn = new DataGridViewTextBoxColumn();
+        gamesColumn = new DataGridViewTextBoxColumn();
+        cashRatioColumn = new DataGridViewTextBoxColumn();
+        ((System.ComponentModel.ISupportInitialize)GridView).BeginInit();
+        SuspendLayout();
+        // 
+        // GridView
+        // 
+        GridView.Columns.AddRange(new DataGridViewColumn[] { completeColumn, dateColumn, timeColumn, gamesColumn, cashRatioColumn });
+        GridView.Size = new Size(608, 377);
+        // 
+        // completeColumn
+        // 
+        completeColumn.DataPropertyName = "Complete";
+        completeColumn.HeaderText = "Complete";
+        completeColumn.Name = "completeColumn";
+        completeColumn.ReadOnly = true;
+        completeColumn.Width = 85;
+        // 
+        // dateColumn
+        // 
+        dateColumn.DataPropertyName = "SweeperDate";
+        dataGridViewCellStyle1.Format = "d";
+        dataGridViewCellStyle1.NullValue = null;
+        dateColumn.DefaultCellStyle = dataGridViewCellStyle1;
+        dateColumn.HeaderText = "Sweeper Date";
+        dateColumn.Name = "dateColumn";
+        dateColumn.ReadOnly = true;
+        dateColumn.Width = 125;
+        // 
+        // timeColumn
+        // 
+        timeColumn.DataPropertyName = "SweeperDate";
+        dataGridViewCellStyle2.Format = "t";
+        dataGridViewCellStyle2.NullValue = null;
+        timeColumn.DefaultCellStyle = dataGridViewCellStyle2;
+        timeColumn.HeaderText = "Sweeper Time";
+        timeColumn.Name = "timeColumn";
+        timeColumn.ReadOnly = true;
+        timeColumn.Width = 125;
+        // 
+        // gamesColumn
+        // 
+        gamesColumn.DataPropertyName = "Games";
+        gamesColumn.HeaderText = "Games";
+        gamesColumn.Name = "gamesColumn";
+        gamesColumn.ReadOnly = true;
+        gamesColumn.Width = 75;
+        // 
+        // cashRatioColumn
+        // 
+        cashRatioColumn.DataPropertyName = "CashRatio";
+        cashRatioColumn.HeaderText = "Cashing Ratio";
+        cashRatioColumn.Name = "cashRatioColumn";
+        cashRatioColumn.ReadOnly = true;
+        cashRatioColumn.Width = 125;
+        // 
+        // SweepersGrid
+        // 
+        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleMode = AutoScaleMode.Font;
+        Name = "SweepersGrid";
+        Size = new Size(608, 377);
+        ((System.ComponentModel.ISupportInitialize)GridView).EndInit();
+        ResumeLayout(false);
 
     }
 
