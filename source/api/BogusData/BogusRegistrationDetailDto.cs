@@ -17,5 +17,7 @@ internal sealed class BogusRegistrationDetailDto
         RuleFor(dto => dto.Squads, f => new BogusSquadDetailDto().Generate(f.Random.Number(1, 8)));
         RuleFor(dto => dto.Sweepers, f => new BogusSweeperDetailDto().Generate(f.Random.Number(0, 3)));
         RuleFor(dto => dto.SuperSweeper, (f, dto) => dto.Sweepers.Any() && f.Random.Bool(0.5f));
+
+        RuleFor(dto => dto.Average, f => f.Random.Bool(0.8f) ? f.Random.Number(100, 250) : null);
     }
 }

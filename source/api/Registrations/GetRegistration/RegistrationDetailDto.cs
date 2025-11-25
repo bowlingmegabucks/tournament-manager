@@ -44,6 +44,11 @@ public sealed record RegistrationDetailDto
     /// Indicates whether the bowler is registered for the Super Sweeper event.
     /// </summary>
     public required bool SuperSweeper { get; init; }
+
+    /// <summary>
+    /// Gets the average value, or null if the average is not available.
+    /// </summary>
+    public int? Average { get; init; }
 }
 
 internal static class RegistrationExtensions
@@ -57,6 +62,7 @@ internal static class RegistrationExtensions
             Division = registration.Division.ToDto(),
             Squads = registration.Squads.Select(squad => squad.ToDto()),
             Sweepers = registration.Sweepers.Select(sweeper => sweeper.ToDto()),
-            SuperSweeper = registration.SuperSweeper
+            SuperSweeper = registration.SuperSweeper,
+            Average = registration.Average
         };
 }

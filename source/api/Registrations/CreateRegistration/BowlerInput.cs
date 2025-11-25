@@ -99,6 +99,6 @@ internal static class BowlerInputExtensions
             DateOfBirth = input.DateOfBirth,
 
             USBCId = input.UsbcId,
-            Gender = input.Gender == "Male" ? Models.Gender.Male : Models.Gender.Female
+            Gender = input.Gender == "M" ? Models.Gender.Male : Models.Gender.Female
         };
 }
