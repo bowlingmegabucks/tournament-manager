@@ -98,7 +98,7 @@ public class Registration
         Average = registration.Average;
         Squads = registration.Squads.Select(squadRegistration => squadRegistration.Squad).OfType<Database.Entities.TournamentSquad>().Select(squad => new Squad(squad)).ToList();
         Sweepers = registration.Squads.Select(squadRegistration => squadRegistration.Squad).OfType<Database.Entities.SweeperSquad>().Select(sweeper => new Sweeper(sweeper)).ToList();
-        Payments = registration.Payments.Select(payment => new Payment(payment)).ToList();
+        Payments = registration.Payments?.Select(payment => new Payment(payment)).ToList() ?? [];
         SuperSweeper = registration.SuperSweeper;
     }
 
