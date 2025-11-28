@@ -93,6 +93,9 @@ internal sealed partial class Form
 
             openLane!.Bind(registration);
 
+            openLane.MouseDown -= UnassignedRegistration_MouseDown!;
+            openLane.Enter -= LaneAssignmentRegistered_Enter!;
+            openLane.Leave -= LaneAssignmentRegistered_Leave!;
             openLane.MouseDown += UnassignedRegistration_MouseDown!;
             openLane.Enter += LaneAssignmentRegistered_Enter!;
             openLane.Leave += LaneAssignmentRegistered_Leave!;
@@ -108,6 +111,9 @@ internal sealed partial class Form
 
         openLane.Bind(registration);
 
+        openLane.MouseDown -= UnassignedRegistration_MouseDown!;
+        openLane.Enter -= LaneAssignmentRegistered_Enter!;
+        openLane.Leave -= LaneAssignmentRegistered_Leave!;
         openLane.MouseDown += UnassignedRegistration_MouseDown!;
         openLane.Enter += LaneAssignmentRegistered_Enter!;
         openLane.Leave += LaneAssignmentRegistered_Leave!;
