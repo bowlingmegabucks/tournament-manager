@@ -59,6 +59,9 @@ internal static class RegistrationExtensions
         services.AddTransient<Update.IBusinessLogic, Update.BusinessLogic>();
         services.AddTransient<Update.IDataLayer, Update.DataLayer>();
 
+        services.AddTransient<Delete.IBusinessLogic, Delete.BusinessLogic>();
+        services.AddTransient<Delete.IDataLayer, Delete.DataLayer>();
+
         return services;
     }
 }
