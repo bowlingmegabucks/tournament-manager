@@ -124,6 +124,7 @@ internal sealed partial class Form
             var unassignedLane = unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control => control.BowlerId == registration.BowlerId);
             unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedLane);
             unassignedLane.Dispose();
+            unassignedRegistrationsFlowLayoutPanel.PerformLayout();
         }
         else
         {
