@@ -93,6 +93,9 @@ internal sealed partial class Form
 
             openLane!.Bind(registration);
 
+            openLane.MouseDown -= UnassignedRegistration_MouseDown!;
+            openLane.Enter -= LaneAssignmentRegistered_Enter!;
+            openLane.Leave -= LaneAssignmentRegistered_Leave!;
             openLane.MouseDown += UnassignedRegistration_MouseDown!;
             openLane.Enter += LaneAssignmentRegistered_Enter!;
             openLane.Leave += LaneAssignmentRegistered_Leave!;
@@ -108,6 +111,9 @@ internal sealed partial class Form
 
         openLane.Bind(registration);
 
+        openLane.MouseDown -= UnassignedRegistration_MouseDown!;
+        openLane.Enter -= LaneAssignmentRegistered_Enter!;
+        openLane.Leave -= LaneAssignmentRegistered_Leave!;
         openLane.MouseDown += UnassignedRegistration_MouseDown!;
         openLane.Enter += LaneAssignmentRegistered_Enter!;
         openLane.Leave += LaneAssignmentRegistered_Leave!;
@@ -116,8 +122,9 @@ internal sealed partial class Form
         if (string.IsNullOrEmpty(registration!.LaneAssignment))
         {
             var unassignedLane = unassignedRegistrationsFlowLayoutPanel.Controls.OfType<LaneAssignmentControl>().Single(control => control.BowlerId == registration.BowlerId);
+            unassignedRegistrationsFlowLayoutPanel.Controls.Remove(unassignedLane);
             unassignedLane.Dispose();
-            unassignedRegistrationsFlowLayoutPanel.Refresh();
+            unassignedRegistrationsFlowLayoutPanel.PerformLayout();
         }
         else
         {
@@ -271,7 +278,7 @@ internal sealed partial class Form
     private void LaneAssignmentOpen_DragLeave(object sender, EventArgs e)
         => (sender as Control)!.BackColor = SystemColors.Control;
 
-    private void LaneAssignmentOpen_DragDrop(object sender, DragEventArgs e)
+    private async void LaneAssignmentOpen_DragDrop(object sender, DragEventArgs e)
     {
         var registration = e.Data<LaneAssignmentControl>();
 
@@ -282,7 +289,7 @@ internal sealed partial class Form
 
         var openLane = sender as LaneAssignmentControl;
 
-        _ = _presenter.UpdateAsync(SquadId, registration!, openLane!.LaneAssignment, default).ConfigureAwait(true);
+        await _presenter.UpdateAsync(SquadId, registration!, openLane!.LaneAssignment, default).ConfigureAwait(true);
     }
 
     private void LaneAssignmentRegistered_Enter(object sender, EventArgs e)

@@ -36,7 +36,7 @@ internal sealed partial class Form
         InitializeComponent();
 
         _services = services;
-        _presenter = _services.GetRequiredService<Presenter>();
+        _presenter = new(this, services);
 
         _ = _presenter.LoadAsync(tournamentId, squadId, default);
     }
