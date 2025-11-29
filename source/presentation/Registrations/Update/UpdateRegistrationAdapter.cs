@@ -16,6 +16,9 @@ internal sealed class Adapter : IAdapter
     async Task IAdapter.AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
         => await _businessLogic.AddSuperSweeperAsync(id, cancellationToken).ConfigureAwait(false);
 
+    async Task IAdapter.RemoveSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
+        => await _businessLogic.RemoveSuperSweeperAsync(id, cancellationToken).ConfigureAwait(false);
+
     async Task IAdapter.ExecuteAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken)
         => await _businessLogic.ExecuteAsync(id, divisionId, gender, average, usbcId, dateOfBirth, cancellationToken).ConfigureAwait(false);
 
@@ -28,6 +31,8 @@ internal interface IAdapter
     IEnumerable<ErrorDetail> Errors { get; }
 
     Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken);
+
+    Task RemoveSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken);
 
     Task ExecuteAsync(RegistrationId id, DivisionId divisionId, Gender? gender, int? average, string usbcId, DateOnly? dateOfBirth, CancellationToken cancellationToken);
 

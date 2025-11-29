@@ -99,14 +99,21 @@ internal sealed partial class RetrieveTournamentRegistrationsForm : Form, ITourn
     public void UpdateBowlerName(string bowlerName)
         => tournamentRegistrationsGrid.SelectedRegistration.BowlerName = bowlerName;
 
-    public void UpdateBowlerSuperSweeper(RegistrationId id)
-        => tournamentRegistrationsGrid.SelectedRegistration.SuperSweeperEntered = true;
+    public void UpdateBowlerSuperSweeper(RegistrationId id, bool superSweeper)
+        => tournamentRegistrationsGrid.SelectedRegistration.SuperSweeperEntered = superSweeper;
 
     private async void AddSuperSweeperMenuItem_Click(object sender, EventArgs e)
     {
         var registration = tournamentRegistrationsGrid.SelectedRegistration;
 
         await _tournamentRegistrationsPresenter.AddSuperSweeperAsync(registration.Id, default).ConfigureAwait(true);
+    }
+
+    private async void RemoveSuperSweeperMenuItem_Click(object sender, EventArgs e)
+    {
+        var registration = tournamentRegistrationsGrid.SelectedRegistration;
+
+        await _tournamentRegistrationsPresenter.RemoveSuperSweeperAsync(registration.Id, default).ConfigureAwait(true);
     }
 
     private async void ChangeDivisionMenuItem_Click(object sender, EventArgs e)

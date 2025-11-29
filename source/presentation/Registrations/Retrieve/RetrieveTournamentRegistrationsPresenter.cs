@@ -167,6 +167,34 @@ public class TournamentRegistrationsPresenter
         }
 
         _view.DisplayMessage("Super Sweeper has been added");
-        _view.UpdateBowlerSuperSweeper(id);
+        _view.UpdateBowlerSuperSweeper(id, true);
+    }
+
+    /// <summary>
+    /// Removes a Super Sweeper entry from a registration and updates the view.
+    /// </summary>
+    /// <param name="id">The registration identifier.</param>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <remarks>
+    /// This method prompts for confirmation, removes a Super Sweeper entry, handles errors, and updates the view accordingly.
+    /// </remarks>
+    public async Task RemoveSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
+    {
+        if (!_view.Confirm("Are you sure you want to remove the Super Sweeper entry from this registration?"))
+        {
+            return;
+        }
+
+        await UpdateAdapter.RemoveSuperSweeperAsync(id, cancellationToken).ConfigureAwait(false);
+
+        if (UpdateAdapter.Errors.Any())
+        {
+            _view.DisplayError(UpdateAdapter.Errors.First().Message);
+
+            return;
+        }
+
+        _view.DisplayMessage("Super Sweeper has been removed");
+        _view.UpdateBowlerSuperSweeper(id, false);
     }
 }

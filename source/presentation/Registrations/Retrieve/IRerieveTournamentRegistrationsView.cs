@@ -115,8 +115,9 @@ public interface ITournamentRegistrationsView
     /// Updates the super sweeper status for the specified registration.
     /// </summary>
     /// <param name="id">The registration identifier.</param>
+    /// <param name="superSweeper">The super sweeper status.</param>
     /// <remarks>
     /// Use this method to update the super sweeper status in the UI.
     /// </remarks>
-    void UpdateBowlerSuperSweeper(RegistrationId id);
+    void UpdateBowlerSuperSweeper(RegistrationId id, bool superSweeper);
 }

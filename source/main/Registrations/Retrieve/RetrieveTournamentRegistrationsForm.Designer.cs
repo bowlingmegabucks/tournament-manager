@@ -34,6 +34,7 @@ partial class RetrieveTournamentRegistrationsForm
         registrationGridContextMenu = new ContextMenuStrip(components);
         updateBowlerNameMenuItem = new ToolStripMenuItem();
         addSuperSweeperMenuItem = new ToolStripMenuItem();
+        removeSuperSweeperMenuItem = new ToolStripMenuItem();
         changeAverageMenuItem = new ToolStripMenuItem();
         changeDivisionMenuItem = new ToolStripMenuItem();
         toolStripSeparator1 = new ToolStripSeparator();
@@ -61,10 +62,10 @@ partial class RetrieveTournamentRegistrationsForm
         tournamentRegistrationsGrid.TabIndex = 0;
         // 
         // registrationGridContextMenu
-        // 
-        registrationGridContextMenu.Items.AddRange(new ToolStripItem[] { updateBowlerInfoMenuItem, updateBowlerNameMenuItem, addSuperSweeperMenuItem, changeAverageMenuItem, changeDivisionMenuItem, toolStripSeparator1, deleteMenuItem });
+        //
+        registrationGridContextMenu.Items.AddRange(new ToolStripItem[] { updateBowlerInfoMenuItem, updateBowlerNameMenuItem, addSuperSweeperMenuItem, removeSuperSweeperMenuItem, changeAverageMenuItem, changeDivisionMenuItem, toolStripSeparator1, deleteMenuItem });
         registrationGridContextMenu.Name = "registrationGridContextMenu";
-        registrationGridContextMenu.Size = new Size(181, 164);
+        registrationGridContextMenu.Size = new Size(210, 186);
         // 
         // updateBowlerNameMenuItem
         // 
@@ -74,14 +75,21 @@ partial class RetrieveTournamentRegistrationsForm
         updateBowlerNameMenuItem.Click += UpdateBowlerNameMenuItem_Click;
         // 
         // addSuperSweeperMenuItem
-        // 
+        //
         addSuperSweeperMenuItem.Name = "addSuperSweeperMenuItem";
-        addSuperSweeperMenuItem.Size = new Size(180, 22);
+        addSuperSweeperMenuItem.Size = new Size(209, 22);
         addSuperSweeperMenuItem.Text = "Add Super Sweeper";
         addSuperSweeperMenuItem.Click += AddSuperSweeperMenuItem_Click;
-        // 
+        //
+        // removeSuperSweeperMenuItem
+        //
+        removeSuperSweeperMenuItem.Name = "removeSuperSweeperMenuItem";
+        removeSuperSweeperMenuItem.Size = new Size(209, 22);
+        removeSuperSweeperMenuItem.Text = "Remove Super Sweeper";
+        removeSuperSweeperMenuItem.Click += RemoveSuperSweeperMenuItem_Click;
+        //
         // changeAverageMenuItem
-        // 
+        //
         changeAverageMenuItem.Name = "changeAverageMenuItem";
         changeAverageMenuItem.Size = new Size(180, 22);
         changeAverageMenuItem.Text = "Change Average";
@@ -241,6 +249,7 @@ partial class RetrieveTournamentRegistrationsForm
     private ToolStripMenuItem updateBowlerNameMenuItem;
     private ToolStripSeparator toolStripSeparator1;
     private ToolStripMenuItem addSuperSweeperMenuItem;
+    private ToolStripMenuItem removeSuperSweeperMenuItem;
     private ToolStripMenuItem changeDivisionMenuItem;
     private ToolStripMenuItem changeAverageMenuItem;
     private Controls.LabelControl filterLabel;

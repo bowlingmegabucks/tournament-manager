@@ -49,7 +49,7 @@ internal sealed class BusinessLogic : IBusinessLogic
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
@@ -105,6 +105,44 @@ internal sealed class BusinessLogic : IBusinessLogic
         }
 
         await _dataLayer.ExecuteAsync(id, true, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task RemoveSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken)
+    {
+        var registrationResult = await _getRegistrationByIdQueryHandler.HandleAsync(new() { Id = id }, cancellationToken).ConfigureAwait(false);
+
+        if (registrationResult.IsError)
+        {
+            Errors = registrationResult.Errors.ToErrorDetails();
+
+            return;
+        }
+
+        var registration = registrationResult.Value!;
+
+        if (!registration.SuperSweeper)
+        {
+            Errors = [new Models.ErrorDetail("Bowler is not registered for the super sweeper.")];
+
+            return;
+        }
+
+        var hasSweeperScores = await ScoresRepository.DoesBowlerHaveAnySweeperScoresAsync(id, cancellationToken).ConfigureAwait(false);
+
+        if (hasSweeperScores)
+        {
+            Errors = [new Models.ErrorDetail("Cannot remove super sweeper when sweeper scores have been recorded.")];
+
+            return;
+        }
+
+        await _dataLayer.ExecuteAsync(id, false, cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -223,7 +261,7 @@ public interface IBusinessLogic
     IEnumerable<Models.ErrorDetail> Errors { get; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
@@ -231,7 +269,15 @@ public interface IBusinessLogic
     Task AddSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken);
 
     /// <summary>
-    /// 
+    ///
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task RemoveSuperSweeperAsync(RegistrationId id, CancellationToken cancellationToken);
+
+    /// <summary>
+    ///
     /// </summary>
     /// <param name="id"></param>
     /// <param name="divisionId"></param>

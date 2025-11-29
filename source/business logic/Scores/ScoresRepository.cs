@@ -80,6 +80,23 @@ internal class Repository : IRepository
 
         return await scores.AnyAsync(cancellationToken).ConfigureAwait(false);
     }
+
+    public async Task<bool> DoesBowlerHaveAnySweeperScoresAsync(RegistrationId registrationId, CancellationToken cancellationToken)
+    {
+        var registration = await _dataContext.Registrations.AsNoTracking()
+            .Include(r => r.Division)
+            .Where(r => r.Id == registrationId)
+            .SingleAsync(cancellationToken).ConfigureAwait(false);
+
+        var tournamentSweeperIds = _dataContext.Sweepers.AsNoTracking()
+            .Where(sweeper => sweeper.TournamentId == registration.Division.TournamentId)
+            .Select(sweeper => sweeper.Id);
+
+        var scores = _dataContext.SquadScores.AsNoTracking()
+            .Where(score => score.BowlerId == registration.BowlerId && tournamentSweeperIds.Contains(score.SquadId));
+
+        return await scores.AnyAsync(cancellationToken).ConfigureAwait(false);
+    }
 }
 
 internal interface IRepository
@@ -89,6 +106,8 @@ internal interface IRepository
     IQueryable<Database.Entities.SquadScore> Retrieve(params SquadId[] squadIds);
 
     Task<bool> DoesBowlerHaveAnyScoresForTournamentAsync(RegistrationId registrationId, TournamentId tournamentId, CancellationToken cancellationToken);
+
+    Task<bool> DoesBowlerHaveAnySweeperScoresAsync(RegistrationId registrationId, CancellationToken cancellationToken);
 
     Task<IReadOnlyCollection<Database.Entities.SquadScore>> BowlerScoresForSquads(BowlerId bowlerId, IEnumerable<SquadId> squadIds, CancellationToken cancellationToken);
 }

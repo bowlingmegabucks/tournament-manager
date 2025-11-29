@@ -356,4 +356,146 @@ internal sealed class TournamentRegistrationsPresenter
 
         _view.Verify(view => view.UpdateBowlerName("bowlerName"), Times.Once);
     }
+
+    [Test]
+    public async Task AddSuperSweeperAsync_ViewConfirm_CalledCorrectly()
+    {
+        await _presenter.AddSuperSweeperAsync(RegistrationId.New(), default).ConfigureAwait(false);
+
+        _view.Verify(view => view.Confirm("Are you sure you want to add a Super Sweeper entry to this registration?"), Times.Once);
+    }
+
+    [Test]
+    public async Task AddSuperSweeperAsync_ViewConfirmFalse_NothingElseHappens()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
+
+        await _presenter.AddSuperSweeperAsync(RegistrationId.New(), default).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            _updateRegistrationAdapter.Verify(adapter => adapter.AddSuperSweeperAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()), Times.Never);
+
+            _view.Verify(view => view.UpdateBowlerSuperSweeper(It.IsAny<RegistrationId>(), It.IsAny<bool>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public async Task AddSuperSweeperAsync_ViewConfirmTrue_UpdateAdapterAddSuperSweeperAsync_CalledCorrectly()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
+
+        await _presenter.AddSuperSweeperAsync(registrationId, cancellationToken).ConfigureAwait(false);
+
+        _updateRegistrationAdapter.Verify(adapter => adapter.AddSuperSweeperAsync(registrationId, cancellationToken), Times.Once);
+    }
+
+    [Test]
+    public async Task AddSuperSweeperAsync_ViewConfirmTrue_UpdateAdapterHasErrors_ErrorFlow()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var errors = new List<TournamentManager.Models.ErrorDetail> { new("error") };
+        _updateRegistrationAdapter.SetupGet(adapter => adapter.Errors).Returns(errors);
+
+        await _presenter.AddSuperSweeperAsync(RegistrationId.New(), default).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("error"), Times.Once);
+
+            _view.Verify(view => view.UpdateBowlerSuperSweeper(It.IsAny<RegistrationId>(), It.IsAny<bool>()), Times.Never);
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public async Task AddSuperSweeperAsync_ViewConfirmTrue_UpdateAdapterSuccess_ViewUpdateBowlerSuperSweeper_CalledCorrectly()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var registrationId = RegistrationId.New();
+
+        await _presenter.AddSuperSweeperAsync(registrationId, default).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayMessage("Super Sweeper has been added"), Times.Once);
+            _view.Verify(view => view.UpdateBowlerSuperSweeper(registrationId, true), Times.Once);
+        });
+    }
+
+    [Test]
+    public async Task RemoveSuperSweeperAsync_ViewConfirm_CalledCorrectly()
+    {
+        await _presenter.RemoveSuperSweeperAsync(RegistrationId.New(), default).ConfigureAwait(false);
+
+        _view.Verify(view => view.Confirm("Are you sure you want to remove the Super Sweeper entry from this registration?"), Times.Once);
+    }
+
+    [Test]
+    public async Task RemoveSuperSweeperAsync_ViewConfirmFalse_NothingElseHappens()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(false);
+
+        await _presenter.RemoveSuperSweeperAsync(RegistrationId.New(), default).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            _updateRegistrationAdapter.Verify(adapter => adapter.RemoveSuperSweeperAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()), Times.Never);
+
+            _view.Verify(view => view.UpdateBowlerSuperSweeper(It.IsAny<RegistrationId>(), It.IsAny<bool>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public async Task RemoveSuperSweeperAsync_ViewConfirmTrue_UpdateAdapterRemoveSuperSweeperAsync_CalledCorrectly()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var registrationId = RegistrationId.New();
+        CancellationToken cancellationToken = default;
+
+        await _presenter.RemoveSuperSweeperAsync(registrationId, cancellationToken).ConfigureAwait(false);
+
+        _updateRegistrationAdapter.Verify(adapter => adapter.RemoveSuperSweeperAsync(registrationId, cancellationToken), Times.Once);
+    }
+
+    [Test]
+    public async Task RemoveSuperSweeperAsync_ViewConfirmTrue_UpdateAdapterHasErrors_ErrorFlow()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var errors = new List<TournamentManager.Models.ErrorDetail> { new("error") };
+        _updateRegistrationAdapter.SetupGet(adapter => adapter.Errors).Returns(errors);
+
+        await _presenter.RemoveSuperSweeperAsync(RegistrationId.New(), default).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayError("error"), Times.Once);
+
+            _view.Verify(view => view.UpdateBowlerSuperSweeper(It.IsAny<RegistrationId>(), It.IsAny<bool>()), Times.Never);
+            _view.Verify(view => view.DisplayMessage(It.IsAny<string>()), Times.Never);
+        });
+    }
+
+    [Test]
+    public async Task RemoveSuperSweeperAsync_ViewConfirmTrue_UpdateAdapterSuccess_ViewUpdateBowlerSuperSweeper_CalledCorrectly()
+    {
+        _view.Setup(view => view.Confirm(It.IsAny<string>())).Returns(true);
+
+        var registrationId = RegistrationId.New();
+
+        await _presenter.RemoveSuperSweeperAsync(registrationId, default).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            _view.Verify(view => view.DisplayMessage("Super Sweeper has been removed"), Times.Once);
+            _view.Verify(view => view.UpdateBowlerSuperSweeper(registrationId, false), Times.Once);
+        });
+    }
 }
