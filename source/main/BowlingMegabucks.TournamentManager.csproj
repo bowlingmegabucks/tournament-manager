@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net9.0-windows</TargetFramework>
+		<TargetFramework>$(DotNetVersion)-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -70,7 +70,6 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" />
 		<PackageReference Include="QuestPDF" />
-		<PackageReference Include="System.IO.Packaging" />
 		<PackageReference Include="System.Security.Cryptography.Pkcs" />
 	</ItemGroup>
 
