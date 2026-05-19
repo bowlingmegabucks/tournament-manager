@@ -55,7 +55,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.MySqlData" Version="1.0.0-beta.7" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.15.2" />
-    <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
+    <PackageVersion Include="Microting.EntityFrameworkCore.MySql" Version="10.0.8" />
     <PackageVersion Include="QuestPDF" Version="2026.5.0" />
     <PackageVersion Include="ReportGenerator" Version="5.5.10" />
     <PackageVersion Include="ReportViewerCore.WinForms" Version="15.1.17" />

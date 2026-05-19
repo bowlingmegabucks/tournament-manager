@@ -36,7 +36,7 @@ internal static class OpenTelemetryExtensions
             .WithTracing(tracing => tracing
                 .AddHttpClientInstrumentation()
                 .AddAspNetCoreInstrumentation(options => options.RecordException = true)
-                .AddEntityFrameworkCoreInstrumentation( options => options.SetDbStatementForText = !builder.Environment.IsProduction())
+                .AddEntityFrameworkCoreInstrumentation()
                 .AddSqlClientInstrumentation()
                 .AddMySqlDataInstrumentation(o => o.EnableConnectionLevelAttributes = !builder.Environment.IsProduction())
                 .AddSource(TournamentsTelemetry.ActivitySourceName))

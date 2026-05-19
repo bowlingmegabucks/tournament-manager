@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.nuget.org)",
+      "Bash(dotnet restore *)",
+      "Bash(dotnet build *)",
+      "Bash(xargs grep -l \"class Result\\\\b\")",
+      "Bash(Select-String \"error\")"
+    ]
+  }
+}

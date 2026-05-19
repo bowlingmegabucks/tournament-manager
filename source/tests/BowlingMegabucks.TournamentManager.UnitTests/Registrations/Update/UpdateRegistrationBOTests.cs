@@ -1,5 +1,6 @@
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Models;
+using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Update;
 
@@ -41,7 +42,7 @@ internal sealed class BusinessLogic
         var tournament = new Tournament { Sweepers = [new Sweeper()] };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
         _retrieveTournamentBusinessLogic.Setup(bo => bo.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(tournament);
 
@@ -57,7 +58,7 @@ internal sealed class BusinessLogic
         var registration = new Registration { SuperSweeper = true };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
 
         await _businessLogic.AddSuperSweeperAsync(registrationId, default).ConfigureAwait(false);
 
@@ -80,7 +81,7 @@ internal sealed class BusinessLogic
         var registration = new Registration { SuperSweeper = true };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
         _scoresRepository.Setup(repo => repo.DoesBowlerHaveAnySweeperScoresAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(false);
 
@@ -96,7 +97,7 @@ internal sealed class BusinessLogic
         var registration = new Registration { SuperSweeper = false };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
 
         await _businessLogic.RemoveSuperSweeperAsync(registrationId, default).ConfigureAwait(false);
 
@@ -115,7 +116,7 @@ internal sealed class BusinessLogic
         var registration = new Registration { SuperSweeper = true };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
         _scoresRepository.Setup(repo => repo.DoesBowlerHaveAnySweeperScoresAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
 
@@ -133,10 +134,9 @@ internal sealed class BusinessLogic
     public async Task RemoveSuperSweeperAsync_RegistrationNotFound_ErrorSet()
     {
         var registrationId = RegistrationId.New();
-        var error = new ErrorDetail("Registration not found");
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Error(error));
+            .ReturnsAsync((ErrorOr<Registration?>)Error.Failure("Registration.NotFound", "Registration not found"));
 
         await _businessLogic.RemoveSuperSweeperAsync(registrationId, default).ConfigureAwait(false);
 
