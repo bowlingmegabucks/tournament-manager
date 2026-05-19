@@ -77,7 +77,7 @@ public sealed class AppendRegistrationTests
         var response = await CreateClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }
 
     [Fact]
@@ -137,7 +137,7 @@ public sealed class AppendRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         var verifyRegistration = await _dbContext.Registrations
             .Include(registration => registration.Squads)
@@ -145,10 +145,10 @@ public sealed class AppendRegistrationTests
             .AsNoTrackingWithIdentityResolution()
             .SingleAsync(registration => registration.Id == existingRegistration.Id, TestContext.Current.CancellationToken);
 
-        verifyRegistration.Squads.Should().ContainSingle();
-        verifyRegistration.Bowler.FirstName.Should().Be(bowler.FirstName);
-        verifyRegistration.Bowler.LastName.Should().Be(bowler.LastName);
-        verifyRegistration.Average.Should().Be(200);
+        verifyRegistration.Squads.ShouldHaveSingleItem();
+        verifyRegistration.Bowler.FirstName.ShouldBe(bowler.FirstName);
+        verifyRegistration.Bowler.LastName.ShouldBe(bowler.LastName);
+        verifyRegistration.Average.ShouldBe(200);
     }
 
     [Fact]
@@ -218,15 +218,15 @@ public sealed class AppendRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.Created);
-        response.Headers.Location.Should().NotBeNull();
+        response.StatusCode.ShouldBe(HttpStatusCode.Created);
+        response.Headers.Location.ShouldNotBeNull();
 
         var registrationResponse = await response.Content.ReadFromJsonAsync<CreateRegistrationResponse>(TestContext.Current.CancellationToken);
-        registrationResponse.Should().NotBeNull();
-        registrationResponse!.RegistrationId.Should().NotBe(RegistrationId.Empty);
+        registrationResponse.ShouldNotBeNull();
+        registrationResponse!.RegistrationId.ShouldNotBe(RegistrationId.Empty);
 
-        response.Headers.Location!.ToString().Should().Be($"http://localhost/v1/registrations/{registrationResponse.RegistrationId}");
-        registrationResponse.RegistrationId.Should().Be(registration.Id);
+        response.Headers.Location!.ToString().ShouldBe($"http://localhost/v1/registrations/{registrationResponse.RegistrationId}");
+        registrationResponse.RegistrationId.ShouldBe(registration.Id);
 
         var verifyRegistration = await _dbContext.Registrations
             .Include(registration => registration.Squads)
@@ -234,10 +234,10 @@ public sealed class AppendRegistrationTests
             .AsNoTrackingWithIdentityResolution()
             .SingleAsync(r => r.Id == registration.Id, TestContext.Current.CancellationToken);
 
-        verifyRegistration.Squads.Should().HaveCount(6);
-        verifyRegistration.Bowler.FirstName.Should().Be(bowler.FirstName);
-        verifyRegistration.Bowler.LastName.Should().Be(bowler.LastName);
-        verifyRegistration.Average.Should().Be(200);
-        verifyRegistration.SuperSweeper.Should().BeTrue();
+        verifyRegistration.Squads.Count.ShouldBe(6);
+        verifyRegistration.Bowler.FirstName.ShouldBe(bowler.FirstName);
+        verifyRegistration.Bowler.LastName.ShouldBe(bowler.LastName);
+        verifyRegistration.Average.ShouldBe(200);
+        verifyRegistration.SuperSweeper.ShouldBeTrue();
     }
 }

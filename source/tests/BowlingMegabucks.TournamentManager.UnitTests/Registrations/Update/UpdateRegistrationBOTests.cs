@@ -1,5 +1,6 @@
 using BowlingMegabucks.TournamentManager.Abstractions.Messaging;
 using BowlingMegabucks.TournamentManager.Models;
+using ErrorOr;
 
 namespace BowlingMegabucks.TournamentManager.UnitTests.Registrations.Update;
 
@@ -37,11 +38,11 @@ internal sealed class BusinessLogic
     public async Task AddSuperSweeperAsync_DataLayerExecute_CalledCorrectly()
     {
         var registrationId = RegistrationId.New();
-        var registration = new Registration { SuperSweeper = false };
+        var registration = new Registration { SuperSweeper = false, Sweepers = [new Sweeper()] };
         var tournament = new Tournament { Sweepers = [new Sweeper()] };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
         _retrieveTournamentBusinessLogic.Setup(bo => bo.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(tournament);
 
@@ -57,14 +58,16 @@ internal sealed class BusinessLogic
         var registration = new Registration { SuperSweeper = true };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
 
         await _businessLogic.AddSuperSweeperAsync(registrationId, default).ConfigureAwait(false);
 
+        var errors = _businessLogic.Errors.ToList();
+
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.Errors, Has.Count.EqualTo(1));
-            Assert.That(_businessLogic.Errors.First().Message, Is.EqualTo("Bowler is already registered for the super sweeper."));
+            Assert.That(errors, Has.Count.EqualTo(1));
+            Assert.That(errors.First().Message, Is.EqualTo("Bowler is already registered for the super sweeper."));
             _dataLayer.Verify(dl => dl.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
@@ -80,7 +83,7 @@ internal sealed class BusinessLogic
         var registration = new Registration { SuperSweeper = true };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
         _scoresRepository.Setup(repo => repo.DoesBowlerHaveAnySweeperScoresAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(false);
 
@@ -96,14 +99,16 @@ internal sealed class BusinessLogic
         var registration = new Registration { SuperSweeper = false };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
 
         await _businessLogic.RemoveSuperSweeperAsync(registrationId, default).ConfigureAwait(false);
 
+        var errors = _businessLogic.Errors.ToList();
+
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.Errors, Has.Count.EqualTo(1));
-            Assert.That(_businessLogic.Errors.First().Message, Is.EqualTo("Bowler is not registered for the super sweeper."));
+            Assert.That(errors, Has.Count.EqualTo(1));
+            Assert.That(errors.First().Message, Is.EqualTo("Bowler is not registered for the super sweeper."));
             _dataLayer.Verify(dl => dl.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
@@ -115,16 +120,18 @@ internal sealed class BusinessLogic
         var registration = new Registration { SuperSweeper = true };
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Success(registration));
+            .ReturnsAsync((ErrorOr<Registration?>)registration);
         _scoresRepository.Setup(repo => repo.DoesBowlerHaveAnySweeperScoresAsync(It.IsAny<RegistrationId>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
 
         await _businessLogic.RemoveSuperSweeperAsync(registrationId, default).ConfigureAwait(false);
 
+        var errors = _businessLogic.Errors.ToList();
+
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.Errors, Has.Count.EqualTo(1));
-            Assert.That(_businessLogic.Errors.First().Message, Is.EqualTo("Cannot remove super sweeper when sweeper scores have been recorded."));
+            Assert.That(errors, Has.Count.EqualTo(1));
+            Assert.That(errors.First().Message, Is.EqualTo("Cannot remove super sweeper when sweeper scores have been recorded."));
             _dataLayer.Verify(dl => dl.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }
@@ -133,17 +140,18 @@ internal sealed class BusinessLogic
     public async Task RemoveSuperSweeperAsync_RegistrationNotFound_ErrorSet()
     {
         var registrationId = RegistrationId.New();
-        var error = new ErrorDetail("Registration not found");
 
         _getRegistrationByIdQueryHandler.Setup(h => h.HandleAsync(It.IsAny<TournamentManager.Registrations.GetRegistrationById.GetRegistrationByIdQuery>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result<Registration?>.Error(error));
+            .ReturnsAsync((ErrorOr<Registration?>)Error.Failure("Registration.NotFound", "Registration not found"));
 
         await _businessLogic.RemoveSuperSweeperAsync(registrationId, default).ConfigureAwait(false);
 
+        var errors = _businessLogic.Errors.ToList();
+
         Assert.Multiple(() =>
         {
-            Assert.That(_businessLogic.Errors, Has.Count.EqualTo(1));
-            Assert.That(_businessLogic.Errors.First().Message, Is.EqualTo("Registration not found"));
+            Assert.That(errors, Has.Count.EqualTo(1));
+            Assert.That(errors.First().Message, Is.EqualTo("Registration not found"));
             _dataLayer.Verify(dl => dl.ExecuteAsync(It.IsAny<RegistrationId>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()), Times.Never);
         });
     }

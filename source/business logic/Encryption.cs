@@ -40,9 +40,7 @@ public static class Encryption
         var ivStringBytes = Generate256BitsOfRandomEntropy();
         var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
 
-        using var password = new Rfc2898DeriveBytes(Key, saltStringBytes, _derivationIterations, HashAlgorithmName.SHA256);
-
-        var keyBytes = password.GetBytes(_keySize / 8);
+        var keyBytes = Rfc2898DeriveBytes.Pbkdf2(Key, saltStringBytes, _derivationIterations, HashAlgorithmName.SHA256, _keySize / 8);
 
         using var symmetricKey = Aes.Create();
         symmetricKey.BlockSize = 128;
@@ -88,9 +86,7 @@ public static class Encryption
         // Get the actual cipher text bytes by removing the first 64 bytes from the cipherText string.
         var cipherTextBytes = cipherTextBytesWithSaltAndIv.Skip(_keySize / 8 * 2).Take(cipherTextBytesWithSaltAndIv.Length - (_keySize / 8 * 2)).ToArray();
 
-        using var password = new Rfc2898DeriveBytes(Key, saltStringBytes, _derivationIterations, HashAlgorithmName.SHA256);
-
-        var keyBytes = password.GetBytes(_keySize / 8);
+        var keyBytes = Rfc2898DeriveBytes.Pbkdf2(Key, saltStringBytes, _derivationIterations, HashAlgorithmName.SHA256, _keySize / 8);
 
         using var symmetricKey = Aes.Create();
         symmetricKey.BlockSize = 128;

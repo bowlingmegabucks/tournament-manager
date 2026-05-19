@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.nuget.org)",
+      "Bash(dotnet restore *)",
+      "Bash(dotnet build *)",
+      "Bash(xargs grep -l \"class Result\\\\b\")",
+      "Bash(Select-String \"error\")",
+      "Bash(Get-ChildItem -Path \"C:\\\\source\\\\bowlingmegabucks\\\\tournament-manager\\\\source\" -Force)",
+      "Bash(Select-Object Name, Mode)",
+      "WebFetch(domain:www.bowlingmegabucks.com)"
+    ]
+  }
+}

@@ -74,6 +74,13 @@ internal sealed class BusinessLogic : IBusinessLogic
             return;
         }
 
+        if (registration.SuperSweeper)
+        {
+            Errors = [new Models.ErrorDetail("Bowler is already registered for the super sweeper.")];
+
+            return;
+        }
+
         var tournament = await _retrieveTournamentBusinessLogic.ExecuteAsync(registration.Id, cancellationToken).ConfigureAwait(false);
 
         if (_retrieveTournamentBusinessLogic.ErrorDetail is not null)
@@ -90,16 +97,9 @@ internal sealed class BusinessLogic : IBusinessLogic
             return;
         }
 
-        if (tournament!.Sweepers.Count() != tournament.Sweepers.Count())
+        if (registration.Sweepers.Count() != tournament.Sweepers.Count())
         {
             Errors = [new Models.ErrorDetail("Bowler is not registered for all sweepers.")];
-
-            return;
-        }
-
-        if (registration.SuperSweeper)
-        {
-            Errors = [new Models.ErrorDetail("Bowler is already registered for the super sweeper.")];
 
             return;
         }

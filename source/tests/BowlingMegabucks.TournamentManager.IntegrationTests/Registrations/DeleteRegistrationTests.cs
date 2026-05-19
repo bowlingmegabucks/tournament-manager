@@ -32,9 +32,9 @@ public sealed class DeleteRegistrationTests
         var httpResponse = await CreateAuthenticatedClient().SendAsync(httpRequest, TestContext.Current.CancellationToken);
 
         // Assert
-        httpResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        httpResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
 
-        _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).Should().ContainSingle();
+        _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).ShouldHaveSingleItem();
     }
 
     [Fact]
@@ -51,9 +51,9 @@ public sealed class DeleteRegistrationTests
         var httpResponse = await CreateAuthenticatedClient().SendAsync(httpRequest, TestContext.Current.CancellationToken);
 
         // Assert
-        httpResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        httpResponse.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
-        _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).Should().ContainSingle();
+        _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).ShouldHaveSingleItem();
     }
 
     [Fact]
@@ -70,12 +70,12 @@ public sealed class DeleteRegistrationTests
         var httpResponse = await CreateAuthenticatedClient().SendAsync(httpRequest, TestContext.Current.CancellationToken);
 
         // Assert
-        httpResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        httpResponse.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
-        _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).Should().BeEmpty();
+        _dbContext.Registrations.AsNoTracking().Where(registration => registration.Id == registrationId).ShouldBeEmpty();
 
         var paymentCount = await _dbContext.Database.SqlQuery<Guid>($"SELECT p.Id FROM Payments p WHERE p.RegistrationId = {registrationId.Value}").CountAsync(TestContext.Current.CancellationToken);
-        paymentCount.Should().Be(0);
+        paymentCount.ShouldBe(0);
     }
 
     private async Task<RegistrationId> CreateTestRegistrationAsync(bool withScores = false)

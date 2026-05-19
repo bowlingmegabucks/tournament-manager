@@ -1,6 +1,5 @@
 ﻿namespace BowlingMegabucks.TournamentManager.Controls.Grids;
 
-#if DEBUG
 internal class TournamentMiddleGrid : DataGrid<Tournaments.IViewModel>
 {
     public TournamentMiddleGrid()
@@ -9,14 +8,7 @@ internal class TournamentMiddleGrid : DataGrid<Tournaments.IViewModel>
     }
 }
 
-#endif
-
-internal sealed partial class TournamentsGrid
-#if DEBUG   
-    : TournamentMiddleGrid
-#else
-    : DataGrid<Tournaments.IViewModel>
-#endif
+internal sealed partial class TournamentsGrid : TournamentMiddleGrid
 {
     public TournamentsGrid()
     {
