@@ -48,12 +48,12 @@ public sealed class GetRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>(TestContext.Current.CancellationToken);
 
-        problemDetails.Should().NotBeNull();
-        problemDetails!.Status.Should().Be((int)HttpStatusCode.NotFound);
+        problemDetails.ShouldNotBeNull();
+        problemDetails!.Status.ShouldBe((int)HttpStatusCode.NotFound);
     }
 
     [Fact]
@@ -88,17 +88,17 @@ public sealed class GetRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
         var registrationResponse = await response.Content.ReadFromJsonAsync<GetRegistrationResponse>(TestContext.Current.CancellationToken);
-        registrationResponse!.Registration.Should().NotBeNull();
+        registrationResponse!.Registration.ShouldNotBeNull();
 
         var registration = registrationResponse.Registration;
 
-        registration.Should().NotBeNull();
-        registration.Id.Should().Be(registrationSeed.Id);
-        
-        registration.Division.Id.Should().Be(registrationSeed.DivisionId);
-        registration.Squads.Should().HaveCount(registrationSeed.Squads.Count);
+        registration.ShouldNotBeNull();
+        registration.Id.ShouldBe(registrationSeed.Id);
+
+        registration.Division.Id.ShouldBe(registrationSeed.DivisionId);
+        registration.Squads.Count.ShouldBe(registrationSeed.Squads.Count);
     }
 }

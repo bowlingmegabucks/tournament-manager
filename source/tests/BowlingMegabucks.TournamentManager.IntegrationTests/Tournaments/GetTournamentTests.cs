@@ -29,12 +29,12 @@ public sealed class GetTournamentTests
         var response = await CreateClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>(TestContext.Current.CancellationToken);
 
-        problemDetails.Should().NotBeNull();
-        problemDetails!.Status.Should().Be((int)HttpStatusCode.NotFound);
+        problemDetails.ShouldNotBeNull();
+        problemDetails!.Status.ShouldBe((int)HttpStatusCode.NotFound);
     }
 
     [Fact]
@@ -55,18 +55,18 @@ public sealed class GetTournamentTests
         var response = await CreateClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
         var tournamentResponse = await response.Content.ReadFromJsonAsync<GetTournamentResponse>(TestContext.Current.CancellationToken);
-        tournamentResponse!.Tournament.Should().NotBeNull();
+        tournamentResponse!.Tournament.ShouldNotBeNull();
 
         var tournament = tournamentResponse.Tournament;
 
-        tournament.Should().NotBeNull();
-        tournament.Id.Should().Be(tournamentSeed.Id);
-        
-        tournament.Divisions.Should().HaveCount(3);
-        tournament.Squads.Should().HaveCount(3);
-        tournament.Sweepers.Should().HaveCount(3);
+        tournament.ShouldNotBeNull();
+        tournament.Id.ShouldBe(tournamentSeed.Id);
+
+        tournament.Divisions.Count.ShouldBe(3);
+        tournament.Squads.Count.ShouldBe(3);
+        tournament.Sweepers.Count.ShouldBe(3);
     }
 }

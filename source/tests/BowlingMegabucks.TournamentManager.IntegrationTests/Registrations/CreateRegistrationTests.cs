@@ -61,22 +61,22 @@ public sealed class CreateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.Created);
-        response.Headers.Location.Should().NotBeNull();
+        response.StatusCode.ShouldBe(HttpStatusCode.Created);
+        response.Headers.Location.ShouldNotBeNull();
 
         var registrationResponse = await response.Content.ReadFromJsonAsync<CreateRegistrationResponse>(TestContext.Current.CancellationToken);
-        registrationResponse.Should().NotBeNull();
-        registrationResponse!.RegistrationId.Should().NotBe(RegistrationId.Empty);
+        registrationResponse.ShouldNotBeNull();
+        registrationResponse!.RegistrationId.ShouldNotBe(RegistrationId.Empty);
 
-        response.Headers.Location!.ToString().Should().Be($"http://localhost/v1/registrations/{registrationResponse.RegistrationId}");
+        response.Headers.Location!.ToString().ShouldBe($"http://localhost/v1/registrations/{registrationResponse.RegistrationId}");
 
         var registration = await _dbContext.Registrations.AsNoTrackingWithIdentityResolution()
             .Include(r => r.Payments)
             .SingleAsync(r => r.Id == registrationResponse.RegistrationId, TestContext.Current.CancellationToken);
 
-        registration.Payments.Should().ContainSingle();
-        registration.Payments.First().Amount.Should().Be(registrationInput.Payment!.Amount);
-        registration.Payments.First().ConfirmationCode.Should().StartWith(createRegistrationRequest.Registration.Payment!.ProcessingSystem);
+        registration.Payments.ShouldHaveSingleItem();
+        registration.Payments.First().Amount.ShouldBe(registrationInput.Payment!.Amount);
+        registration.Payments.First().ConfirmationCode.ShouldStartWith(createRegistrationRequest.Registration.Payment!.ProcessingSystem);
     }
 
     [Fact]
@@ -138,14 +138,14 @@ public sealed class CreateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.Created);
-        response.Headers.Location.Should().NotBeNull();
+        response.StatusCode.ShouldBe(HttpStatusCode.Created);
+        response.Headers.Location.ShouldNotBeNull();
 
         var updatedBowler = await _dbContext.Bowlers.AsNoTracking().SingleAsync(b => b.Id == bowler.Id, TestContext.Current.CancellationToken);
 
-        updatedBowler.FirstName.Should().Be("UpdatedFirstName");
-        updatedBowler.LastName.Should().Be("UpdatedLastName");
-        updatedBowler.PhoneNumber.Should().Be("5555555555"); // Normalized phone number
+        updatedBowler.FirstName.ShouldBe("UpdatedFirstName");
+        updatedBowler.LastName.ShouldBe("UpdatedLastName");
+        updatedBowler.PhoneNumber.ShouldBe("5555555555"); // Normalized phone number
     }
 
     [Fact]
@@ -209,13 +209,13 @@ public sealed class CreateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<FastEndpoints.ProblemDetails>(TestContext.Current.CancellationToken);
 
-        problemDetails.Should().NotBeNull();
-        problemDetails!.Status.Should().Be((int)HttpStatusCode.BadRequest);
-        problemDetails.Detail.Should().Be("An error occurred while creating the registration.");
+        problemDetails.ShouldNotBeNull();
+        problemDetails!.Status.ShouldBe((int)HttpStatusCode.BadRequest);
+        problemDetails.Detail.ShouldBe("An error occurred while creating the registration.");
     }
 
     [Fact]
@@ -260,7 +260,7 @@ public sealed class CreateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.Created);
+        response.StatusCode.ShouldBe(HttpStatusCode.Created);
 
         var registrationResponse = await response.Content.ReadFromJsonAsync<CreateRegistrationResponse>(TestContext.Current.CancellationToken);
 
@@ -268,7 +268,7 @@ public sealed class CreateRegistrationTests
             .Include(registration => registration.Payments)
             .SingleAsync(registration => registration.Id == registrationResponse!.RegistrationId, TestContext.Current.CancellationToken);
 
-        registration.Payments.Should().BeEmpty();
+        registration.Payments.ShouldBeEmpty();
     }
 
     [Fact]
@@ -313,6 +313,6 @@ public sealed class CreateRegistrationTests
         var response = await CreateClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }
 }

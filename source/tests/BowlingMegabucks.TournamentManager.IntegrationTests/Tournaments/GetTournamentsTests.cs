@@ -30,7 +30,7 @@ public sealed class GetTournamentsTests
         // Assert
         response.EnsureSuccessStatusCode();
 
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
     }
 
     [Fact]
@@ -38,7 +38,7 @@ public sealed class GetTournamentsTests
     {
         // Arrange
         await ResetDatabaseAsync();
-        
+
         var tournamentSeeds = TournamentEntityFactory.Bogus(10);
         await _dbContext.Tournaments.AddRangeAsync(tournamentSeeds, TestContext.Current.CancellationToken);
         await _dbContext.SaveChangesAsync(TestContext.Current.CancellationToken);
@@ -50,11 +50,11 @@ public sealed class GetTournamentsTests
 
         // Assert
         response.EnsureSuccessStatusCode();
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
         var tournaments = await response.Content.ReadFromJsonAsync<GetTournamentsResponse>(TestContext.Current.CancellationToken);
-        tournaments.Should().NotBeNull();
-        tournaments.TotalCount.Should().Be(10);
-        tournaments.Tournaments.Should().HaveCount(10);
+        tournaments.ShouldNotBeNull();
+        tournaments.TotalCount.ShouldBe(10);
+        tournaments.Tournaments.Count.ShouldBe(10);
     }
 }

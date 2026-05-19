@@ -71,13 +71,13 @@ public sealed class UpdateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<FastEndpoints.ProblemDetails>(TestContext.Current.CancellationToken);
 
-        problemDetails.Should().NotBeNull();
-        problemDetails!.Title.Should().Be("Bad Request");
-        problemDetails.Errors.First().Reason.Should().Be("Registration ID in the request does not match the ID in the registration details.");
+        problemDetails.ShouldNotBeNull();
+        problemDetails!.Title.ShouldBe("Bad Request");
+        problemDetails.Errors.First().Reason.ShouldBe("Registration ID in the request does not match the ID in the registration details.");
     }
 
     [Fact]
@@ -130,32 +130,32 @@ public sealed class UpdateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>(TestContext.Current.CancellationToken);
 
-        problemDetails.Should().NotBeNull();
-        problemDetails!.Title.Should().Be("Bad Request");
-        problemDetails.Detail.Should().Be("Error updating registration.");
-        problemDetails.Extensions.Should().ContainKey("errors");
+        problemDetails.ShouldNotBeNull();
+        problemDetails!.Title.ShouldBe("Bad Request");
+        problemDetails.Detail.ShouldBe("Error updating registration.");
+        problemDetails.Extensions.ShouldContainKey("errors");
 
         var errorsJson = (JsonElement)problemDetails.Extensions["errors"]!;
-        errorsJson.ValueKind.Should().Be(JsonValueKind.Array);
+        errorsJson.ValueKind.ShouldBe(JsonValueKind.Array);
 
         var errors = errorsJson.EnumerateArray().ToList();
-        errors.Should().ContainSingle();
+        errors.ShouldHaveSingleItem();
 
         var firstError = errors.First();
-        firstError.GetProperty("code").GetString().Should().Be("Registration.InvalidSquadIds");
-        firstError.GetProperty("description").GetString().Should().Be("Cannot add squad(s) that are already complete.");
-        firstError.GetProperty("InvalidSquadIds").GetString().Should().Be(squads[2].Id.ToString());
+        firstError.GetProperty("code").GetString().ShouldBe("Registration.InvalidSquadIds");
+        firstError.GetProperty("description").GetString().ShouldBe("Cannot add squad(s) that are already complete.");
+        firstError.GetProperty("InvalidSquadIds").GetString().ShouldBe(squads[2].Id.ToString());
 
         var verifyRegistration = await _dbContext.Registrations
             .Include(registration => registration.Squads)
             .AsNoTrackingWithIdentityResolution()
             .SingleAsync(registration => registration.Id == updateRegistrationRequest.RegistrationId, TestContext.Current.CancellationToken);
 
-        verifyRegistration.Squads.Should().HaveCount(3);
+        verifyRegistration.Squads.Count.ShouldBe(3);
     }
 
     [Fact]
@@ -215,35 +215,33 @@ public sealed class UpdateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>(TestContext.Current.CancellationToken);
 
-        problemDetails.Should().NotBeNull();
-        problemDetails!.Title.Should().Be("Bad Request");
-        problemDetails.Detail.Should().Be("Error updating registration.");
-        problemDetails.Extensions.Should().ContainKey("errors");
+        problemDetails.ShouldNotBeNull();
+        problemDetails!.Title.ShouldBe("Bad Request");
+        problemDetails.Detail.ShouldBe("Error updating registration.");
+        problemDetails.Extensions.ShouldContainKey("errors");
 
         var errorsJson = (JsonElement)problemDetails.Extensions["errors"]!;
-        errorsJson.ValueKind.Should().Be(JsonValueKind.Array);
+        errorsJson.ValueKind.ShouldBe(JsonValueKind.Array);
 
         var errors = errorsJson.EnumerateArray().ToList();
-        errors.Should().ContainSingle();
+        errors.ShouldHaveSingleItem();
 
         var firstError = errors.First();
-        firstError.GetProperty("code").GetString().Should().Be("Registration.BowlerHasBowled");
-        firstError.GetProperty("description").GetString().Should().Be("Bowler has already bowled in removed squads.");
-        firstError.GetProperty("RemovedSquadIds").GetString().Should().Be(squads[0].Id.ToString());
+        firstError.GetProperty("code").GetString().ShouldBe("Registration.BowlerHasBowled");
+        firstError.GetProperty("description").GetString().ShouldBe("Bowler has already bowled in removed squads.");
+        firstError.GetProperty("RemovedSquadIds").GetString().ShouldBe(squads[0].Id.ToString());
 
         var verifyRegistration = await _dbContext.Registrations
             .Include(registration => registration.Squads)
             .AsNoTrackingWithIdentityResolution()
             .SingleAsync(registration => registration.Id == updateRegistrationRequest.RegistrationId, TestContext.Current.CancellationToken);
 
-        verifyRegistration.Squads.Should()
-            .HaveCount(3)
-            .And
-            .Contain(squad => squad.SquadId == squads[0].Id);
+        verifyRegistration.Squads.Count.ShouldBe(3);
+        verifyRegistration.Squads.ShouldContain(squad => squad.SquadId == squads[0].Id);
     }
 
     [Fact]
@@ -295,31 +293,31 @@ public sealed class UpdateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>(TestContext.Current.CancellationToken);
 
-        problemDetails.Should().NotBeNull();
-        problemDetails!.Title.Should().Be("Bad Request");
-        problemDetails.Detail.Should().Be("Error updating registration.");
-        problemDetails.Extensions.Should().ContainKey("errors");
+        problemDetails.ShouldNotBeNull();
+        problemDetails!.Title.ShouldBe("Bad Request");
+        problemDetails.Detail.ShouldBe("Error updating registration.");
+        problemDetails.Extensions.ShouldContainKey("errors");
 
         var errorsJson = (JsonElement)problemDetails.Extensions["errors"]!;
-        errorsJson.ValueKind.Should().Be(JsonValueKind.Array);
+        errorsJson.ValueKind.ShouldBe(JsonValueKind.Array);
 
         var errors = errorsJson.EnumerateArray().ToList();
-        errors.Should().ContainSingle();
+        errors.ShouldHaveSingleItem();
 
         var firstError = errors.First();
-        firstError.GetProperty("code").GetString().Should().Be("Registration.InvalidSuperSweeper");
-        firstError.GetProperty("description").GetString().Should().Be("Cannot set Super Sweeper when not all sweepers are registered.");
+        firstError.GetProperty("code").GetString().ShouldBe("Registration.InvalidSuperSweeper");
+        firstError.GetProperty("description").GetString().ShouldBe("Cannot set Super Sweeper when not all sweepers are registered.");
 
         var verifyRegistration = await _dbContext.Registrations
             .Include(registration => registration.Squads)
             .AsNoTrackingWithIdentityResolution()
             .SingleAsync(registration => registration.Id == updateRegistrationRequest.RegistrationId, TestContext.Current.CancellationToken);
 
-        verifyRegistration.SuperSweeper.Should().BeFalse();
+        verifyRegistration.SuperSweeper.ShouldBeFalse();
     }
 
     [Fact]
@@ -383,30 +381,30 @@ public sealed class UpdateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>(TestContext.Current.CancellationToken);
 
-        problemDetails.Should().NotBeNull();
-        problemDetails!.Title.Should().Be("Bad Request");
-        problemDetails.Detail.Should().Be("Error updating registration.");
-        problemDetails.Extensions.Should().ContainKey("errors");
+        problemDetails.ShouldNotBeNull();
+        problemDetails!.Title.ShouldBe("Bad Request");
+        problemDetails.Detail.ShouldBe("Error updating registration.");
+        problemDetails.Extensions.ShouldContainKey("errors");
 
         var errorsJson = (JsonElement)problemDetails.Extensions["errors"]!;
-        errorsJson.ValueKind.Should().Be(JsonValueKind.Array);
+        errorsJson.ValueKind.ShouldBe(JsonValueKind.Array);
 
         var errors = errorsJson.EnumerateArray().ToList();
-        errors.Should().ContainSingle();
+        errors.ShouldHaveSingleItem();
 
         var firstError = errors.First();
-        firstError.GetProperty("description").GetString().Should().Be("Invalid gender for selected division");
+        firstError.GetProperty("description").GetString().ShouldBe("Invalid gender for selected division");
 
         var verifyRegistration = await _dbContext.Registrations
             .Include(registration => registration.Squads)
             .AsNoTrackingWithIdentityResolution()
             .SingleAsync(registration => registration.Id == updateRegistrationRequest.RegistrationId, TestContext.Current.CancellationToken);
 
-        verifyRegistration.DivisionId.Should().Be(bowler.Gender == Models.Gender.Male ? divisionM.Id : divisionF.Id);
+        verifyRegistration.DivisionId.ShouldBe(bowler.Gender == Models.Gender.Male ? divisionM.Id : divisionF.Id);
     }
 
     [Fact]
@@ -476,7 +474,7 @@ public sealed class UpdateRegistrationTests
         var response = await CreateAuthenticatedClient().SendAsync(request, TestContext.Current.CancellationToken);
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
         var verifyRegistration = await _dbContext.Registrations
             .Include(registration => registration.Squads)
@@ -484,19 +482,17 @@ public sealed class UpdateRegistrationTests
             .AsNoTrackingWithIdentityResolution()
             .SingleAsync(registration => registration.Id == updateRegistrationRequest.RegistrationId, TestContext.Current.CancellationToken);
 
-        verifyRegistration.DivisionId.Should().Be(newDivision.Id);
-        verifyRegistration.Squads.Should()
-            .HaveCount(5)
-            .And.Contain(squad => squad.SquadId == squads[0].Id)
-            .And.Contain(squad => squad.SquadId == squads[2].Id)
-            .And.Contain(squad => squad.SquadId == sweepers[0].Id)
-            .And.Contain(squad => squad.SquadId == sweepers[1].Id)
-            .And.Contain(squad => squad.SquadId == sweepers[2].Id);
-        verifyRegistration.Average.Should().Be(200);
-        verifyRegistration.SuperSweeper.Should().BeTrue();
-        verifyRegistration.Payments.Should()
-            .HaveCount(2)
-            .And.Contain(payment => payment.ConfirmationCode == "Test_abc123")
-            .And.Contain(p => p.Id == payment.Id);
+        verifyRegistration.DivisionId.ShouldBe(newDivision.Id);
+        verifyRegistration.Squads.Count.ShouldBe(5);
+        verifyRegistration.Squads.ShouldContain(squad => squad.SquadId == squads[0].Id);
+        verifyRegistration.Squads.ShouldContain(squad => squad.SquadId == squads[2].Id);
+        verifyRegistration.Squads.ShouldContain(squad => squad.SquadId == sweepers[0].Id);
+        verifyRegistration.Squads.ShouldContain(squad => squad.SquadId == sweepers[1].Id);
+        verifyRegistration.Squads.ShouldContain(squad => squad.SquadId == sweepers[2].Id);
+        verifyRegistration.Average.ShouldBe(200);
+        verifyRegistration.SuperSweeper.ShouldBeTrue();
+        verifyRegistration.Payments.Count.ShouldBe(2);
+        verifyRegistration.Payments.ShouldContain(payment => payment.ConfirmationCode == "Test_abc123");
+        verifyRegistration.Payments.ShouldContain(p => p.Id == payment.Id);
     }
 }
