@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../.github/workflows/dotnet_build.yml" />
+    <File Path="../.gitignore" />
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="api/BowlingMegabucks.TournamentManager.Api.csproj" />
+    <Project Path="business logic/BowlingMegabucks.TournamentManager.BusinessLogic.csproj" />
+  </Folder>
+  <Folder Name="/src/WinForm/">
+    <Project Path="main/BowlingMegabucks.TournamentManager.csproj" />
+    <Project Path="presentation/BowlingMegabucks.TournamentManager.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BowlingMegabucks.TournamentManager.IntegrationTests/BowlingMegabucks.TournamentManager.IntegrationTests.csproj" />
+    <Project Path="tests/BowlingMegabucks.TournamentManager.UnitTests/BowlingMegabucks.TournamentManager.UnitTests.csproj" />
+  </Folder>
+</Solution>
