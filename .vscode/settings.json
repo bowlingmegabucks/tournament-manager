@@ -1,0 +1,4 @@
+{
+  "strykerMutator.server.configFile": "server/stryker.config.json",
+  "strykerMutator.server.workingDirectory": "server"
+}
