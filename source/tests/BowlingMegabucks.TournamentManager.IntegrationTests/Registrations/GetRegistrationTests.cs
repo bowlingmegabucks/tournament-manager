@@ -99,6 +99,6 @@ public sealed class GetRegistrationTests
         registration.Id.ShouldBe(registrationSeed.Id);
 
         registration.Division.Id.ShouldBe(registrationSeed.DivisionId);
-        registration.Squads.Count().ShouldBe(registrationSeed.Squads.Count);
+        registration.Squads.Count.ShouldBe(registrationSeed.Squads.Count);
     }
 }
