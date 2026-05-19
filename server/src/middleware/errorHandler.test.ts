@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import type { Request, Response, NextFunction } from 'express';
 import { errorHandler } from './errorHandler';
 
@@ -12,6 +12,21 @@ function makeMocks() {
 }
 
 describe('errorHandler', () => {
+  beforeEach(() => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('logs the error to console.error', () => {
+    const { req, res, next } = makeMocks();
+    const err = new Error('boom');
+    errorHandler(err, req, res, next);
+    expect(console.error).toHaveBeenCalledWith(err);
+  });
+
   it('responds with 500 and INTERNAL_ERROR code', () => {
     const { req, res, next, status, json } = makeMocks();
     errorHandler(new Error('boom'), req, res, next);

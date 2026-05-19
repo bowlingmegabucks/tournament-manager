@@ -31,7 +31,7 @@ describe('requireApiVersion', () => {
     expect(next).not.toHaveBeenCalled();
     expect(status).toHaveBeenCalledWith(400);
     expect(json).toHaveBeenCalledWith(
-      expect.objectContaining({ error: expect.objectContaining({ code: 'UNSUPPORTED_VERSION' }) })
+      expect.objectContaining({ error: expect.objectContaining({ code: 'UNSUPPORTED_VERSION', message: 'x-api-version header must be "1"' }) })
     );
   });
 });

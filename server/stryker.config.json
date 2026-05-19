@@ -1,0 +1,18 @@
+{
+  "$schema": "https://stryker-mutator.io/schemas/stryker-schema.json#",
+  "testRunner": "vitest",
+  "checkers": ["typescript"],
+  "tsconfigFile": "tsconfig.json",
+  "mutate": ["src/**/*.ts", "!src/**/*.test.ts", "!src/server.ts"],
+  "thresholds": {
+    "high": 85,
+    "low": 70,
+    "break": 50
+  },
+  "reporters": ["html", "clear-text", "progress"],
+  "htmlReporter": {
+    "fileName": "reports/mutation/index.html"
+  },
+  "tempDirName": ".stryker-tmp",
+  "cleanTempDir": true
+}

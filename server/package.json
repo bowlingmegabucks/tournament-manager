@@ -5,7 +5,8 @@
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:mutation": "stryker run"
   },
   "dependencies": {
     "cors": "^2.8.6",
@@ -22,12 +23,17 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "^9.6.1",
+    "@stryker-mutator/typescript-checker": "^9.6.1",
+    "@stryker-mutator/vitest-runner": "^9.6.1",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^25.9.1",
+    "@types/supertest": "^7.2.0",
     "@vitest/coverage-v8": "^4.1.6",
+    "supertest": "^7.2.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.6"
