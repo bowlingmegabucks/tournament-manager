@@ -10,5 +10,8 @@
     "mysql2": "^3.22.3",
     "sequelize": "^6.37.8",
     "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6"
   }
 }
