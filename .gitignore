@@ -5,6 +5,8 @@
 
 *.Release.json
 
+*.lscache
+
 # User-specific files
 *.rsuser
 *.suo
