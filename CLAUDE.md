@@ -10,12 +10,12 @@ BowlingMegaBucks Tournament Manager is an internal web app being rewritten from 
 
 ## Spec Documents (read before generating code)
 
-| Document | When to read |
-|----------|-------------|
-| `rewrite/REWRITE_SPEC.md` | Feature requirements, data model, all business rules |
-| `rewrite/PATTERNS.md` | React + Express patterns and anti-patterns — read before any frontend or backend code |
-| `rewrite/DATABASE.md` | Authoritative schema with quirks; read before writing ORM models |
-| `rewrite/THEMING.md` | CSS design tokens, fonts, component visual patterns |
+| Document                  | When to read                                                                          |
+| ------------------------- | ------------------------------------------------------------------------------------- |
+| `rewrite/REWRITE_SPEC.md` | Feature requirements, data model, all business rules                                  |
+| `rewrite/PATTERNS.md`     | React + Express patterns and anti-patterns — read before any frontend or backend code |
+| `rewrite/DATABASE.md`     | Authoritative schema with quirks; read before writing ORM models                      |
+| `rewrite/THEMING.md`      | CSS design tokens, fonts, component visual patterns                                   |
 
 ## Project Structure
 
@@ -42,23 +42,24 @@ tournament-manager/
 
 ## Dev Commands
 
-> Commands are TBD until the project is scaffolded. Update this section once `client/` and `server/` exist.
-
 ```bash
-# Server
+# Server (port 3000)
 cd server && npm run dev
 
-# Client
+# Client (port 5173, proxies /api → port 3000)
 cd client && npm run dev
 
-# Tests
-npm test
+# Server tests
+cd server && npm test
+
+# Client tests
+cd client && npm test
 ```
 
 ## Tech Stack
 
-- **Frontend:** React (Vite), React Router, React Query, shadcn/ui (TBD)
-- **Backend:** Node.js LTS, Express.js, Sequelize or Prisma (MariaDB dialect)
+- **Frontend:** React (Vite), React Router, @tanstack/react-query, shadcn/ui, sonner (toasts)
+- **Backend:** Node.js LTS, Express 5, Sequelize or Prisma (MariaDB dialect)
 - **Validation:** Zod — shared schemas between client and server where practical
 - **Auth:** JWT (8h expiry); role claims: `director` | `staff` | `viewer`
 - **PDF:** pdfkit or puppeteer (server-side)
@@ -88,9 +89,10 @@ Read `rewrite/DATABASE.md` in full before writing ORM models. The most critical 
 
 ## API Conventions
 
-Base URL: `/api/v1`
+Routes use resource paths directly (e.g., `/tournaments`, `/bowlers`). No `/api` or version segment in the URL path — versioning is via the `x-api-version` request header, and in production the API lives on a dedicated domain that already signals "API".
 
 All errors return:
+
 ```json
 { "error": { "code": "SNAKE_CASE_CODE", "message": "...", "details": [...] } }
 ```
@@ -99,9 +101,62 @@ Async route handlers must be wrapped with `asyncHandler` (Express 4 does not for
 
 Layer contract: **Routes** parse params → **Controllers** validate with Zod and call services → **Services** contain business logic with no req/res objects.
 
+## UI Messaging Strategy
+
+Before introducing any new feedback pattern, ask a clarifying question — even if the answer seems obvious. The user drives product decisions; AI writes the implementation.
+
+Use these rules consistently across all features:
+
+| Scenario | Pattern | Component |
+|---|---|---|
+| Mutation success (save, update, delete) | **Toast — success** (auto-dismiss ~4 s) | `toast.success()` via sonner |
+| Mutation failure (couldn't save/update) | **Toast — error** (longer, ~6 s) — user just triggered it and is already watching | `toast.error()` via sonner |
+| Query failure (data didn't load) | **Inline `<ErrorBanner>`** in the section where the data should appear — with a Retry button | `client/src/components/ui/error-banner.tsx` |
+| Form validation errors | **Inline under each field** — never block submit for business-rule reasons | React Hook Form + Zod |
+| Destructive action confirmation | **Confirm dialog** before the action | shadcn `<AlertDialog>` |
+| Auth failure (401) | **Redirect to `/login`** | React Router loader |
+| Forbidden (403) | **Inline `<ErrorBanner>`** on the page — no redirect | `<ErrorBanner>` |
+| System / network down | **Inline `<ErrorBanner>`** at the top of the affected section | `<ErrorBanner>` |
+| Advisory-only eligibility warnings | **Inline callout below field** — never disable Submit | custom `<WarningCallout>` |
+
+**Decision rules:**
+- Toast = immediate feedback for actions the user *just triggered* (mutations). Never use a toast for a query that loads automatically.
+- `ErrorBanner` = the content area is empty because data failed to load. It lives *where the data would be*, not globally at the top of the page.
+- Do not combine both — pick one. If you're unsure which applies, ask.
+
 ## Pull Request Reviews
 
 When reviewing any PR, check whether the changes affect anything a new developer needs to know — setup, running the app, deployment, project structure. If so, update `README.md` as part of the review.
+
+## Testing Requirements
+
+Every piece of code generated must have tests. **Always write tests as part of the same task — never defer them.**
+
+### Server (Vitest)
+- Every route, controller, and service gets unit tests.
+- Route tests use `supertest` against the Express app.
+- Target high mutation score: test boundary values, error branches, and edge cases — not just the happy path.
+- Tests live next to the source file: `foo.ts` → `foo.test.ts`.
+
+### Client (Vitest + React Testing Library)
+- Every React component that renders conditional UI (loading states, error states, empty states) gets tests for each branch.
+- Every `api/` hook gets tests with a mocked `fetch` — test success, error, and loading states.
+- Tests live next to the source file.
+
+### End-to-End (Playwright) — deferred
+- Playwright is the E2E framework. Add it when the first real user-facing feature is complete.
+- E2E tests are functional/smoke — they cover complete flows, not component internals.
+- Do not write E2E tests for temporary or scaffolding code.
+- When adding Playwright, ask clarifying questions about which flows to cover first.
+
+## AI Collaboration Ground Rules
+
+All implementation code in this project is written by AI (Claude). The user reviews, drives decisions, and tests. Keep this in mind:
+
+- **Ask clarifying questions before implementing any new UI pattern, data model decision, or architectural choice.** Even if the answer seems obvious, confirm it — one question upfront is cheaper than a wrong implementation.
+- When introducing a new pattern for the first time (error display, form layout, data fetching shape), document it in CLAUDE.md so future AI instances follow it consistently.
+- Prefer explicit, readable code over clever abstractions — the AI that reads this file next may not share your context.
+- When asked to implement something that conflicts with an existing rule in this file, flag the conflict and ask which rule wins before writing code.
 
 ## Code Anti-Patterns
 

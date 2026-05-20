@@ -151,11 +151,11 @@ CREATE INDEX `IX_Payments_RegistrationId` ON `Payments` (`RegistrationId`);
 
 `Gender` is stored as `int` in both `Bowlers.Gender` and `Divisions.Gender`. Mapping from the .NET `Models.Gender` enum:
 
-| Value | Meaning |
-|-------|---------|
-| `0` | Male (`M`) |
-| `1` | Female (`F`) |
-| `2` | Any (divisions only) |
+| Value | Meaning              |
+| ----- | -------------------- |
+| `0`   | Male (`M`)           |
+| `1`   | Female (`F`)         |
+| `2`   | Any (divisions only) |
 
 `NULL` in `Bowlers.Gender` = not specified. `NULL` in `Divisions.Gender` = no restriction (same as `Any`).
 
@@ -166,30 +166,39 @@ CREATE INDEX `IX_Payments_RegistrationId` ON `Payments` (`RegistrationId`);
 These are real divergences from what REWRITE_SPEC describes. Handle them explicitly.
 
 ### 1. Typo: `SuperSweperCashRatio` (one 'e' in Sweper)
+
 The column name on `Tournaments` is misspelled. Map it as-is in the ORM; do not silently rename without a migration.
 
 ### 2. Single-table inheritance for Squads
+
 `Tournaments`, `TournamentSquad`, and `SweeperSquad` are all stored in a single `Squads` table with a `SquadType` int discriminator. Columns are conditionally applicable:
+
 - `SquadEntryFee`, `FinalsRatio` — tournament squads only (`SquadType = 0`)
 - `SweeperEntryFee`, `Games` — sweeper squads only (`SquadType = 1`)
-NULL in a non-applicable column is normal; do not treat it as missing data.
+  NULL in a non-applicable column is normal; do not treat it as missing data.
 
 ### 3. "Optional" fields stored as empty string, not NULL
+
 Many `Bowlers` text fields (`MiddleInitial`, `Suffix`, `StreetAddress`, etc.) are `NOT NULL` in the DB but store `''` when absent. The new API must treat empty string as absent when reading and write empty string (not NULL) when a value is not provided.
 
 ### 4. `Squads.Complete` vs `Tournaments.Completed`
+
 The completed flag is named `Complete` on squads and `Completed` on tournaments. Map accordingly.
 
 ### 5. Lane assignment is on `SquadRegistration`, not a separate table
+
 `SquadRegistration.LaneAssignment` is a `varchar(3)` storing the starting lane number (left lane of the pair) as a string. Empty string = unassigned. There is no separate lane assignment table.
 
 ### 6. No cascade delete on Registration FKs
+
 `Registrations → Bowlers` and `Registrations → Divisions` foreign keys have **no cascade action**. Similarly `SquadRegistration` and `SquadScores` FKs have no cascade. Deleting a bowler or division will fail if registrations or scores exist. Enforce deletion order in service code.
 
 ### 7. `FinalsRatio` appears on both `Tournaments` and `Squads`
+
 `Squads.FinalsRatio` is a nullable squad-level override. REWRITE_SPEC §4.5 does not mention this — it was present in the original schema. Preserve it; the results logic should prefer the squad value over the tournament value when non-null.
 
 ### 8. `Payments` table was added in a migration not present in the .cs migration files
+
 Migration `20250811162608_PaymentRegistrationInformation` created the `Payments` table. The `.cs` file may not exist in the repo — this migration may have been applied directly. Do not attempt to re-create it.
 
 ---
@@ -204,9 +213,9 @@ Migration `20250811162608_PaymentRegistrationInformation` created the `Payments`
 
 ## Environment Variables
 
-| Variable | Purpose |
-|----------|---------|
-| `DATABASE_URL` | MariaDB connection string |
-| `ENCRYPTION_KEY` | AES-256-GCM key for SSN encryption at rest |
-| `JWT_SECRET` | JWT signing secret |
-| `API_KEY` | Pre-shared key for third-party registration push |
+| Variable         | Purpose                                          |
+| ---------------- | ------------------------------------------------ |
+| `DATABASE_URL`   | MariaDB connection string                        |
+| `ENCRYPTION_KEY` | AES-256-GCM key for SSN encryption at rest       |
+| `JWT_SECRET`     | JWT signing secret                               |
+| `API_KEY`        | Pre-shared key for third-party registration push |

@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-heading: "Lato", sans-serif;
+  --font-body: "Open Sans", sans-serif;
+
+  /* Brand colours */
+  --color-brand-black: #000000;
+  --color-brand-blue: #2196f3;
+
+  /* Surface */
+  --color-surface-dark: #1a1a1a;
+  --color-surface-page: #ffffff;
+  --color-surface-subtle: #f9f9f9;
+  --color-surface-muted: #f2f2f2;
+
+  /* Text */
+  --color-text-primary: #3a3a3a;
+  --color-text-body: #666666;
+  --color-text-muted: #868686;
+  --color-text-placeholder: #b8b8b8;
+  --color-text-on-dark: #ffffff;
+
+  /* Interactive */
+  --color-interactive: #2196f3;
+  --color-interactive-hover: #1976d2;
+
+  /* Borders */
+  --color-border: #e6e6e6;
+  --color-border-light: #eeeeee;
+  --color-border-form: #dddddd;
+
+  /* Shadows */
+  --shadow-nav: 0 2px 4px rgba(0, 0, 0, 0.133);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.2);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  /* Spacing extras */
+  --spacing-site-sm: 10px;
+  --spacing-site-md: 20px;
+  --spacing-site-lg: 30px;
+  --spacing-site-xl: 50px;
+}
+
+/* Map shadcn semantic vars → Tailwind v4 utilities via @theme inline */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius: var(--radius);
+}
+
+/* shadcn/ui CSS variable contract */
+:root {
+  --background: #ffffff;
+  --foreground: #3a3a3a;
+  --card: #ffffff;
+  --card-foreground: #3a3a3a;
+  --popover: #ffffff;
+  --popover-foreground: #3a3a3a;
+  --primary: #2196f3;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f2f2;
+  --secondary-foreground: #3a3a3a;
+  --muted: #f9f9f9;
+  --muted-foreground: #868686;
+  --accent: #2196f3;
+  --accent-foreground: #ffffff;
+  --destructive: #d32f2f;
+  --destructive-foreground: #ffffff;
+  --border: #e6e6e6;
+  --input: #dddddd;
+  --ring: #2196f3;
+  --radius: 4px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-text-primary);
+  }
+
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 22px; }
+  h4 { font-size: 18px; }
+  h5 { font-size: 16px; }
+  h6 { font-size: 14px; }
+
+  a {
+    color: var(--color-interactive);
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: var(--color-interactive-hover);
+  }
+}
