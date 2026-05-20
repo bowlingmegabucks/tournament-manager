@@ -50,3 +50,33 @@ describe('apiVersion middleware integration', () => {
     expect(res.status).toBe(200);
   });
 });
+
+describe('CORS policy', () => {
+  it('allows requests from localhost:5173 (default dev origin)', async () => {
+    const res = await request(app)
+      .get('/health')
+      .set('Origin', 'http://localhost:5173');
+    expect(res.headers['access-control-allow-origin']).toBe(
+      'http://localhost:5173',
+    );
+  });
+
+  it('blocks requests from untrusted origins', async () => {
+    const res = await request(app)
+      .get('/health')
+      .set('Origin', 'https://evil.example.com');
+    expect(res.headers['access-control-allow-origin']).toBeUndefined();
+  });
+
+  it('allows server-to-server requests with no Origin header', async () => {
+    const res = await request(app).get('/health');
+    expect(res.status).toBe(200);
+  });
+
+  it('sets credentials header for allowed origins', async () => {
+    const res = await request(app)
+      .get('/health')
+      .set('Origin', 'http://localhost:5173');
+    expect(res.headers['access-control-allow-credentials']).toBe('true');
+  });
+});

@@ -12,8 +12,22 @@ import tempRoutes from './routes/temp';
 
 const app = express();
 
+const allowedOrigins = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(',').map((o) => o.trim())
+  : ['http://localhost:5173'];
+
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow server-to-server / same-origin requests (no Origin header)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      callback(new Error(`CORS: origin '${origin}' not allowed`));
+    },
+    credentials: true,
+  }),
+);
 app.use(morgan('dev'));
 app.use(express.json());
 
