@@ -19,9 +19,12 @@ const mockUseTempData = vi.mocked(useTempData)
 const mockUseTempError = vi.mocked(useTempError)
 const mockToastSuccess = vi.mocked(toast.success)
 
-type QueryResult = ReturnType<typeof useTempData>
+type TempDataQuery = ReturnType<typeof useTempData>
+type TempErrorQuery = ReturnType<typeof useTempError>
 
-function makeQuery(overrides: Partial<QueryResult> = {}): QueryResult {
+function makeQuery<T extends TempDataQuery | TempErrorQuery = TempDataQuery>(
+  overrides: Partial<TempDataQuery> = {},
+): T {
   return {
     isSuccess: false,
     isError: false,
@@ -31,7 +34,7 @@ function makeQuery(overrides: Partial<QueryResult> = {}): QueryResult {
     refetch: vi.fn(),
     dataUpdatedAt: 0,
     ...overrides,
-  } as unknown as QueryResult
+  } as unknown as T
 }
 
 const MOCK_ROWS: TempRow[] = [
@@ -42,7 +45,7 @@ const MOCK_ROWS: TempRow[] = [
 describe('App', () => {
   beforeEach(() => {
     mockUseTempData.mockReturnValue(makeQuery())
-    mockUseTempError.mockReturnValue(makeQuery())
+    mockUseTempError.mockReturnValue(makeQuery<TempErrorQuery>())
     mockToastSuccess.mockClear()
   })
 
@@ -138,7 +141,7 @@ describe('App', () => {
     })
 
     it('shows Loading… on the error button while fetching', () => {
-      mockUseTempError.mockReturnValue(makeQuery({ isFetching: true }))
+      mockUseTempError.mockReturnValue(makeQuery<TempErrorQuery>({ isFetching: true }))
       render(<App />)
       const buttons = screen.getAllByRole('button', { name: 'Loading…' })
       expect(buttons).toHaveLength(1)
@@ -146,7 +149,7 @@ describe('App', () => {
 
     it('calls refetch when Trigger 500 Error is clicked', async () => {
       const refetch = vi.fn()
-      mockUseTempError.mockReturnValue(makeQuery({ refetch }))
+      mockUseTempError.mockReturnValue(makeQuery<TempErrorQuery>({ refetch }))
       render(<App />)
       await userEvent.click(screen.getByRole('button', { name: 'Trigger 500 Error' }))
       expect(refetch).toHaveBeenCalledOnce()
@@ -154,7 +157,7 @@ describe('App', () => {
 
     it('shows an error banner when the error query fails', () => {
       mockUseTempError.mockReturnValue(
-        makeQuery({ isError: true, error: new Error('Server exploded') }),
+        makeQuery<TempErrorQuery>({ isError: true, error: new Error('Server exploded') }),
       )
       render(<App />)
       expect(screen.getByRole('alert')).toBeInTheDocument()

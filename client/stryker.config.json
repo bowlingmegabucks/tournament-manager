@@ -22,6 +22,8 @@
   "htmlReporter": {
     "fileName": "reports/mutation/index.html"
   },
+  "coverageAnalysis": "all",
+  "inPlace": true,
   "tempDirName": ".stryker-tmp",
-  "cleanTempDir": false
+  "cleanTempDir": true
 }
