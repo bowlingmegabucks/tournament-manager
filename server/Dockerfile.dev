@@ -3,4 +3,5 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 # source is mounted as a volume at runtime
+USER node
 CMD ["npm", "run", "dev"]
