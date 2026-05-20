@@ -1,10 +1,11 @@
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   plugins: [tailwindcss(), react()],
+  cacheDir: process.env.VITE_CACHE_DIR ?? 'node_modules/.vite',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -19,4 +20,4 @@ export default defineConfig({
     // Docker Compose overrides VITE_API_BASE to http://server:3000 (container name).
     // Local dev uses VITE_API_BASE=http://localhost:3000 from .env.development.
   },
-})
+});
