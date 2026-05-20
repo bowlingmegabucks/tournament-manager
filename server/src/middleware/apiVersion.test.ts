@@ -25,6 +25,12 @@ describe('requireApiVersion', () => {
     expect(next).toHaveBeenCalledOnce();
   });
 
+  it('accepts version 1 when x-api-version is a repeated header array', () => {
+    const { req, res, next } = makeMocks({ 'x-api-version': ['1', '1'] as unknown as string });
+    requireApiVersion(req, res, next);
+    expect(next).toHaveBeenCalledOnce();
+  });
+
   it('rejects an unsupported version with 400', () => {
     const { req, res, next, status, json } = makeMocks({
       'x-api-version': '2',

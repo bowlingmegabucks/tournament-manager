@@ -6,7 +6,8 @@ export function requireApiVersion(
   res: Response,
   next: NextFunction,
 ) {
-  const version = req.headers['x-api-version'] ?? '1';
+  const raw = req.headers['x-api-version'];
+  const version = Array.isArray(raw) ? raw[0] : (raw ?? '1');
   if (version !== '1') {
     return res
       .status(400)
