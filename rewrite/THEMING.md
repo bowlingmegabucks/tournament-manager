@@ -193,71 +193,82 @@ Mirrors the rhythm used on the main site:
 
 ---
 
-## Tailwind Config Mapping (if using Tailwind CSS)
+## Tailwind + shadcn/ui
 
-```js
-// tailwind.config.js
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        brand: {
-          black: '#000000',
-          blue: '#2196f3',
-        },
-        surface: {
-          dark: '#1a1a1a',
-          page: '#ffffff',
-          subtle: '#f9f9f9',
-          muted: '#f2f2f2',
-        },
-        text: {
-          primary: '#3a3a3a',
-          body: '#666666',
-          muted: '#868686',
-          placeholder: '#b8b8b8',
-          'on-dark': '#ffffff',
-        },
-        interactive: {
-          DEFAULT: '#2196f3',
-          hover: '#1976d2',
-        },
-        border: {
-          DEFAULT: '#e6e6e6',
-          light: '#eeeeee',
-          form: '#dddddd',
-        },
-      },
-      fontFamily: {
-        heading: ['"Lato"', 'sans-serif'],
-        body: ['"Open Sans"', 'sans-serif'],
-      },
-      fontSize: {
-        h1: ['36px', { lineHeight: '1.2', fontWeight: '700' }],
-        h2: ['28px', { lineHeight: '1.2', fontWeight: '700' }],
-        h3: ['22px', { lineHeight: '1.2', fontWeight: '700' }],
-        h4: ['18px', { lineHeight: '1.2', fontWeight: '700' }],
-        h5: ['16px', { lineHeight: '1.2', fontWeight: '700' }],
-        h6: ['14px', { lineHeight: '1.2', fontWeight: '700' }],
-        body: ['15px', { lineHeight: '24px' }],
-      },
-      spacing: {
-        'site-sm': '10px',
-        'site-md': '20px',
-        'site-lg': '30px',
-        'site-xl': '50px',
-        'site-2xl': '60px',
-      },
-      borderRadius: {
-        site: '4px',
-      },
-      boxShadow: {
-        nav: '0 2px 4px rgba(0,0,0,0.133)',
-        card: '0 1px 3px rgba(0,0,0,0.2)',
-      },
-    },
-  },
-};
+The React app uses **Tailwind CSS v4** (CSS-first config) with **shadcn/ui** (Radix
+UI primitives, copied components). Tokens are defined once in `client/src/index.css`
+inside an `@theme` block and a `:root` block that satisfies shadcn's CSS variable
+contract.
+
+### File locations
+
+| File | Purpose |
+| ---- | ------- |
+| `client/src/index.css` | `@theme` tokens + shadcn `:root` vars + `@layer base` element styles |
+| `client/src/lib/utils.ts` | `cn()` helper (`clsx` + `tailwind-merge`) |
+| `client/src/components/ui/` | Copied shadcn components — edit freely |
+| `client/components.json` | shadcn CLI config (run `npx shadcn@latest add <component>`) |
+
+### Token → Tailwind class mapping
+
+| Token | Tailwind utility |
+| ----- | ---------------- |
+| `--color-brand-black` | `bg-brand-black` / `text-brand-black` |
+| `--color-brand-blue` | `bg-brand-blue` / `text-brand-blue` |
+| `--color-text-on-dark` | `text-text-on-dark` |
+| `--color-text-body` | `text-text-body` |
+| `--color-text-muted` | `text-text-muted` |
+| `--color-surface-muted` | `bg-surface-muted` |
+| `--color-surface-subtle` | `bg-surface-subtle` |
+| `--color-border` | `border-border` |
+| `--color-interactive` | `text-interactive` / `bg-interactive` |
+| `--shadow-nav` | `shadow-nav` |
+| `--shadow-card` | `shadow-card` |
+| `--font-heading` | `font-heading` (Lato 700) |
+| `--font-body` | `font-body` (Open Sans 400) |
+
+### shadcn CSS variable contract
+
+shadcn components reference a fixed set of semantic variables (`--primary`,
+`--background`, `--border`, etc.). These are mapped to brand values in the `:root`
+block in `index.css` — edit there to retheme all shadcn components at once.
+
+| shadcn var | Brand value |
+| ---------- | ----------- |
+| `--primary` | `#2196f3` |
+| `--primary-foreground` | `#ffffff` |
+| `--background` | `#ffffff` |
+| `--foreground` | `#3a3a3a` |
+| `--muted` | `#f9f9f9` |
+| `--muted-foreground` | `#868686` |
+| `--border` | `#e6e6e6` |
+| `--input` | `#dddddd` |
+| `--ring` | `#2196f3` |
+| `--radius` | `4px` |
+
+### Adding shadcn components
+
+```bash
+npx shadcn@latest add <component-name>
+# e.g. npx shadcn@latest add table dialog select
+```
+
+Components are written to `client/src/components/ui/` and are yours to modify.
+
+### Usage pattern
+
+```tsx
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+
+// shadcn component — inherits brand colours via CSS vars
+<Button variant="outline">Manage Bowlers</Button>
+
+// Tailwind utility classes with brand tokens
+<header className="bg-brand-black text-text-on-dark shadow-nav">
+
+// cn() for conditional classes
+<div className={cn('px-4 py-2', isActive && 'bg-surface-subtle')}>
 ```
 
 ---
