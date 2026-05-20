@@ -29,7 +29,7 @@ jobs:
         run: npm run lint
 
       - name: Typecheck
-        run: ./node_modules/.bin/tsc -b
+        run: npm run typecheck
 
       - name: Test
         run: npm test
@@ -53,7 +53,7 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Typecheck
-        run: ./node_modules/.bin/tsc --noEmit
+        run: npm run typecheck
 
       - name: Test
         run: npm test
