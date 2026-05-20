@@ -29,7 +29,7 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
-app.use('/api/v1/temp', tempRoutes);
+app.use('/temp', tempRoutes);
 
 // app.use('/auth', authRoutes);
 // app.use('/tournaments', tournamentRoutes);

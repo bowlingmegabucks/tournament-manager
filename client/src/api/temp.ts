@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { apiFetch } from '@/lib/api-client'
 
 export interface TempRow {
   rank: number
@@ -9,7 +10,7 @@ export interface TempRow {
 }
 
 async function fetchTempData(): Promise<TempRow[]> {
-  const res = await fetch('/api/v1/temp/data')
+  const res = await apiFetch('/temp/data')
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))
     throw new Error(body?.error?.message ?? `Request failed (${res.status})`)
@@ -19,7 +20,7 @@ async function fetchTempData(): Promise<TempRow[]> {
 }
 
 async function fetchTempError(): Promise<never> {
-  const res = await fetch('/api/v1/temp/error')
+  const res = await apiFetch('/temp/error')
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))
     throw new Error(body?.error?.message ?? `Request failed (${res.status})`)
