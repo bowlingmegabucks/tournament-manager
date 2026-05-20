@@ -20,6 +20,7 @@ export function ErrorBanner({ message, onRetry, className }: ErrorBannerProps) {
       <span className="flex-1">{message}</span>
       {onRetry && (
         <button
+          type="button"
           onClick={onRetry}
           className="flex items-center gap-1 font-semibold hover:underline shrink-0"
         >
