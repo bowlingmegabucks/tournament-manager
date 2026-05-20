@@ -10,4 +10,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+    // usePolling required for file-watching inside Docker on macOS
+    watch: { usePolling: true },
+    proxy: {
+      '/api': 'http://server:3000',
+    },
+  },
 })

@@ -249,6 +249,14 @@ Generated_Code/
 # to a newer Visual Studio version. Backup files are not needed,
 # because we have git ;-)
 
+# Environment files (never commit secrets)
+.env
+.env.local
+.env.docker
+server/.env
+server/.env.local
+server/.env.docker
+
 # Stryker mutation testing reports and temp files
 server/reports/
 client/reports/
