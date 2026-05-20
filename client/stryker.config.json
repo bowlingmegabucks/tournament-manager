@@ -23,5 +23,5 @@
     "fileName": "reports/mutation/index.html"
   },
   "tempDirName": ".stryker-tmp",
-  "cleanTempDir": true
+  "cleanTempDir": false
 }
