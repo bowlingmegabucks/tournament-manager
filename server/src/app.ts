@@ -7,8 +7,6 @@ import { errorHandler } from './middleware/errorHandler';
 import { requireApiVersion } from './middleware/apiVersion';
 import { apiError } from './lib/errors';
 import tempRoutes from './routes/temp';
-// import authRoutes from './routes/auth';
-// import tournamentRoutes from './routes/tournaments';
 
 const app = express();
 
@@ -44,9 +42,6 @@ app.get('/health', (_req, res) => {
 });
 
 app.use('/temp', tempRoutes);
-
-// app.use('/auth', authRoutes);
-// app.use('/tournaments', tournamentRoutes);
 
 app.use((_req, res) => {
   res.status(404).json(apiError('NOT_FOUND', 'Route not found'));

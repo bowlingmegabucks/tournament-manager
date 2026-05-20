@@ -2,9 +2,9 @@ import { AlertCircle, RefreshCw } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface ErrorBannerProps {
-  message: string
-  onRetry?: () => void
-  className?: string
+  readonly message: string
+  readonly onRetry?: () => void
+  readonly className?: string
 }
 
 export function ErrorBanner({ message, onRetry, className }: ErrorBannerProps) {
