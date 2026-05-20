@@ -15,8 +15,8 @@ export default defineConfig({
     port: 5173,
     // usePolling required for file-watching inside Docker on macOS
     watch: { usePolling: true },
-    proxy: {
-      '/api': 'http://server:3000',
-    },
+    // No proxy needed: VITE_API_BASE points directly to the API server.
+    // Docker Compose overrides VITE_API_BASE to http://server:3000 (container name).
+    // Local dev uses VITE_API_BASE=http://localhost:3000 from .env.development.
   },
 })

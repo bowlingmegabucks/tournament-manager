@@ -89,7 +89,7 @@ Read `rewrite/DATABASE.md` in full before writing ORM models. The most critical 
 
 ## API Conventions
 
-Base URL: `/api/v1`
+Routes use resource paths directly (e.g., `/tournaments`, `/bowlers`). No `/api` or version segment in the URL path — versioning is via the `x-api-version` request header, and in production the API lives on a dedicated domain that already signals "API".
 
 All errors return:
 
