@@ -4,17 +4,13 @@ import app from './app';
 
 describe('GET /health', () => {
   it('returns 200 with status ok', async () => {
-    const res = await request(app)
-      .get('/health')
-      .set('x-api-version', '1');
+    const res = await request(app).get('/health').set('x-api-version', '1');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ status: 'ok' });
   });
 
   it('status value is the string "ok", not empty', async () => {
-    const res = await request(app)
-      .get('/health')
-      .set('x-api-version', '1');
+    const res = await request(app).get('/health').set('x-api-version', '1');
     expect(res.body.status).toBe('ok');
   });
 });
@@ -44,9 +40,7 @@ describe('404 handler', () => {
 
 describe('apiVersion middleware integration', () => {
   it('rejects requests with unsupported x-api-version before hitting routes', async () => {
-    const res = await request(app)
-      .get('/health')
-      .set('x-api-version', '2');
+    const res = await request(app).get('/health').set('x-api-version', '2');
     expect(res.status).toBe(400);
     expect(res.body.error.code).toBe('UNSUPPORTED_VERSION');
   });

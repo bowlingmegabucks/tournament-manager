@@ -20,7 +20,9 @@ declare global {
 export function authenticate(req: Request, res: Response, next: NextFunction) {
   const header = req.headers.authorization;
   if (!header?.startsWith('Bearer ')) {
-    return res.status(401).json(apiError('UNAUTHORIZED', 'Missing or malformed token'));
+    return res
+      .status(401)
+      .json(apiError('UNAUTHORIZED', 'Missing or malformed token'));
   }
 
   const token = header.slice(7);
@@ -32,14 +34,18 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
     req.user = { id: payload.sub, role: payload.role };
     next();
   } catch {
-    return res.status(401).json(apiError('UNAUTHORIZED', 'Invalid or expired token'));
+    return res
+      .status(401)
+      .json(apiError('UNAUTHORIZED', 'Invalid or expired token'));
   }
 }
 
 export function requireRole(...roles: Role[]) {
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.user || !roles.includes(req.user.role)) {
-      return res.status(403).json(apiError('FORBIDDEN', 'Insufficient permissions'));
+      return res
+        .status(403)
+        .json(apiError('FORBIDDEN', 'Insufficient permissions'));
     }
     next();
   };

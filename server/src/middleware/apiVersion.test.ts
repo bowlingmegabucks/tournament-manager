@@ -26,12 +26,19 @@ describe('requireApiVersion', () => {
   });
 
   it('rejects an unsupported version with 400', () => {
-    const { req, res, next, status, json } = makeMocks({ 'x-api-version': '2' });
+    const { req, res, next, status, json } = makeMocks({
+      'x-api-version': '2',
+    });
     requireApiVersion(req, res, next);
     expect(next).not.toHaveBeenCalled();
     expect(status).toHaveBeenCalledWith(400);
     expect(json).toHaveBeenCalledWith(
-      expect.objectContaining({ error: expect.objectContaining({ code: 'UNSUPPORTED_VERSION', message: 'x-api-version header must be "1"' }) })
+      expect.objectContaining({
+        error: expect.objectContaining({
+          code: 'UNSUPPORTED_VERSION',
+          message: 'x-api-version header must be "1"',
+        }),
+      }),
     );
   });
 });

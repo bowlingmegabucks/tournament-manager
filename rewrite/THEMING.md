@@ -19,23 +19,23 @@ Both fonts are available via Google Fonts:
 />
 ```
 
-| Role                          | Family                  | Weight |
-|-------------------------------|-------------------------|--------|
-| Headings (h1–h6), Navigation  | `"Lato", sans-serif`    | 700    |
-| Body, Labels, Inputs          | `"Open Sans", sans-serif` | 400  |
-| Code / monospace               | `monospace`             | 400    |
+| Role                         | Family                    | Weight |
+| ---------------------------- | ------------------------- | ------ |
+| Headings (h1–h6), Navigation | `"Lato", sans-serif`      | 700    |
+| Body, Labels, Inputs         | `"Open Sans", sans-serif` | 400    |
+| Code / monospace             | `monospace`               | 400    |
 
 ### Type Scale
 
-| Element | Size  | Line Height |
-|---------|-------|-------------|
-| h1      | 36px  | 1.2         |
-| h2      | 28px  | 1.2         |
-| h3      | 22px  | 1.2         |
-| h4      | 18px  | 1.2         |
-| h5      | 16px  | 1.2         |
-| h6      | 14px  | 1.2         |
-| Body    | 15px  | 24px        |
+| Element | Size | Line Height |
+| ------- | ---- | ----------- |
+| h1      | 36px | 1.2         |
+| h2      | 28px | 1.2         |
+| h3      | 22px | 1.2         |
+| h4      | 18px | 1.2         |
+| h5      | 16px | 1.2         |
+| h6      | 14px | 1.2         |
+| Body    | 15px | 24px        |
 
 ---
 
@@ -46,33 +46,33 @@ Both fonts are available via Google Fonts:
 ```css
 :root {
   /* Brand */
-  --color-brand-black:    #000000;
-  --color-brand-blue:     #2196f3;
+  --color-brand-black: #000000;
+  --color-brand-blue: #2196f3;
 
   /* Surface */
-  --color-surface-dark:   #1a1a1a;   /* header, nav, footer background */
-  --color-surface-page:   #ffffff;   /* main content area */
-  --color-surface-subtle: #f9f9f9;   /* alternate section backgrounds */
-  --color-surface-muted:  #f2f2f2;   /* form inputs, table stripes */
+  --color-surface-dark: #1a1a1a; /* header, nav, footer background */
+  --color-surface-page: #ffffff; /* main content area */
+  --color-surface-subtle: #f9f9f9; /* alternate section backgrounds */
+  --color-surface-muted: #f2f2f2; /* form inputs, table stripes */
 
   /* Text */
-  --color-text-primary:   #3a3a3a;   /* headings, strong text on light bg */
-  --color-text-body:      #666666;   /* body copy on light bg */
-  --color-text-muted:     #868686;   /* secondary / meta text */
+  --color-text-primary: #3a3a3a; /* headings, strong text on light bg */
+  --color-text-body: #666666; /* body copy on light bg */
+  --color-text-muted: #868686; /* secondary / meta text */
   --color-text-placeholder: #b8b8b8; /* input placeholder text */
-  --color-text-on-dark:   #ffffff;   /* any text rendered on dark surfaces */
+  --color-text-on-dark: #ffffff; /* any text rendered on dark surfaces */
 
   /* Interactive */
-  --color-interactive:    #2196f3;   /* links, primary buttons, focus rings */
+  --color-interactive: #2196f3; /* links, primary buttons, focus rings */
   --color-interactive-hover: #1976d2; /* buttons/links on hover */
 
   /* Borders & Dividers */
-  --color-border:         #e6e6e6;
-  --color-border-light:   #eeeeee;
-  --color-border-form:    #dddddd;
+  --color-border: #e6e6e6;
+  --color-border-light: #eeeeee;
+  --color-border-form: #dddddd;
 
   /* Shadows / Overlays */
-  --shadow-nav:  0 2px 4px rgba(0, 0, 0, 0.133);
+  --shadow-nav: 0 2px 4px rgba(0, 0, 0, 0.133);
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.2);
   --overlay-gallery: rgba(0, 0, 0, 0.3);
 
@@ -84,18 +84,18 @@ Both fonts are available via Google Fonts:
 
 ### Quick Reference Swatches
 
-| Token                     | Hex / Value          | Usage                                  |
-|---------------------------|----------------------|----------------------------------------|
-| `--color-brand-black`     | `#000000`            | Site brand; header/nav/footer bg       |
-| `--color-brand-blue`      | `#2196f3`            | Primary interactive accent             |
-| `--color-surface-dark`    | `#1a1a1a`            | Dark surface (slightly softer than pure black) |
-| `--color-surface-page`    | `#ffffff`            | Page / card backgrounds                |
-| `--color-surface-subtle`  | `#f9f9f9`            | Alternate row / section shading        |
-| `--color-text-primary`    | `#3a3a3a`            | Headings on white/light bg             |
-| `--color-text-body`       | `#666666`            | Paragraph text                         |
-| `--color-text-on-dark`    | `#ffffff`            | Text on headers, nav, footer           |
-| `--color-interactive`     | `#2196f3`            | Links, primary CTA buttons             |
-| `--color-border`          | `#e6e6e6`            | Dividers, card outlines                |
+| Token                    | Hex / Value | Usage                                          |
+| ------------------------ | ----------- | ---------------------------------------------- |
+| `--color-brand-black`    | `#000000`   | Site brand; header/nav/footer bg               |
+| `--color-brand-blue`     | `#2196f3`   | Primary interactive accent                     |
+| `--color-surface-dark`   | `#1a1a1a`   | Dark surface (slightly softer than pure black) |
+| `--color-surface-page`   | `#ffffff`   | Page / card backgrounds                        |
+| `--color-surface-subtle` | `#f9f9f9`   | Alternate row / section shading                |
+| `--color-text-primary`   | `#3a3a3a`   | Headings on white/light bg                     |
+| `--color-text-body`      | `#666666`   | Paragraph text                                 |
+| `--color-text-on-dark`   | `#ffffff`   | Text on headers, nav, footer                   |
+| `--color-interactive`    | `#2196f3`   | Links, primary CTA buttons                     |
+| `--color-border`         | `#e6e6e6`   | Dividers, card outlines                        |
 
 ---
 
@@ -103,16 +103,16 @@ Both fonts are available via Google Fonts:
 
 Mirrors the rhythm used on the main site:
 
-| Token      | Value |
-|------------|-------|
-| `--space-1` | 4px  |
-| `--space-2` | 8px  |
-| `--space-3` | 10px |
-| `--space-4` | 15px |
-| `--space-5` | 20px |
-| `--space-6` | 30px |
-| `--space-7` | 50px |
-| `--space-8` | 60px |
+| Token       | Value |
+| ----------- | ----- |
+| `--space-1` | 4px   |
+| `--space-2` | 8px   |
+| `--space-3` | 10px  |
+| `--space-4` | 15px  |
+| `--space-5` | 20px  |
+| `--space-6` | 30px  |
+| `--space-7` | 50px  |
+| `--space-8` | 60px  |
 
 ---
 
@@ -136,7 +136,7 @@ Mirrors the rhythm used on the main site:
   border: none;
   border-radius: var(--radius-sm);
   padding: 10px 20px;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
   transition: background-color 0.3s ease;
 }
@@ -151,7 +151,7 @@ Mirrors the rhythm used on the main site:
   border: 1px solid var(--color-interactive);
   border-radius: var(--radius-sm);
   padding: 10px 20px;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
   transition: all 0.3s ease;
 }
@@ -203,61 +203,61 @@ module.exports = {
       colors: {
         brand: {
           black: '#000000',
-          blue:  '#2196f3',
+          blue: '#2196f3',
         },
         surface: {
-          dark:   '#1a1a1a',
-          page:   '#ffffff',
+          dark: '#1a1a1a',
+          page: '#ffffff',
           subtle: '#f9f9f9',
-          muted:  '#f2f2f2',
+          muted: '#f2f2f2',
         },
         text: {
-          primary:     '#3a3a3a',
-          body:        '#666666',
-          muted:       '#868686',
+          primary: '#3a3a3a',
+          body: '#666666',
+          muted: '#868686',
           placeholder: '#b8b8b8',
-          'on-dark':   '#ffffff',
+          'on-dark': '#ffffff',
         },
         interactive: {
           DEFAULT: '#2196f3',
-          hover:   '#1976d2',
+          hover: '#1976d2',
         },
         border: {
           DEFAULT: '#e6e6e6',
-          light:   '#eeeeee',
-          form:    '#dddddd',
+          light: '#eeeeee',
+          form: '#dddddd',
         },
       },
       fontFamily: {
         heading: ['"Lato"', 'sans-serif'],
-        body:    ['"Open Sans"', 'sans-serif'],
+        body: ['"Open Sans"', 'sans-serif'],
       },
       fontSize: {
-        'h1': ['36px', { lineHeight: '1.2', fontWeight: '700' }],
-        'h2': ['28px', { lineHeight: '1.2', fontWeight: '700' }],
-        'h3': ['22px', { lineHeight: '1.2', fontWeight: '700' }],
-        'h4': ['18px', { lineHeight: '1.2', fontWeight: '700' }],
-        'h5': ['16px', { lineHeight: '1.2', fontWeight: '700' }],
-        'h6': ['14px', { lineHeight: '1.2', fontWeight: '700' }],
-        'body': ['15px', { lineHeight: '24px' }],
+        h1: ['36px', { lineHeight: '1.2', fontWeight: '700' }],
+        h2: ['28px', { lineHeight: '1.2', fontWeight: '700' }],
+        h3: ['22px', { lineHeight: '1.2', fontWeight: '700' }],
+        h4: ['18px', { lineHeight: '1.2', fontWeight: '700' }],
+        h5: ['16px', { lineHeight: '1.2', fontWeight: '700' }],
+        h6: ['14px', { lineHeight: '1.2', fontWeight: '700' }],
+        body: ['15px', { lineHeight: '24px' }],
       },
       spacing: {
-        'site-sm':  '10px',
-        'site-md':  '20px',
-        'site-lg':  '30px',
-        'site-xl':  '50px',
+        'site-sm': '10px',
+        'site-md': '20px',
+        'site-lg': '30px',
+        'site-xl': '50px',
         'site-2xl': '60px',
       },
       borderRadius: {
-        'site': '4px',
+        site: '4px',
       },
       boxShadow: {
-        'nav':  '0 2px 4px rgba(0,0,0,0.133)',
-        'card': '0 1px 3px rgba(0,0,0,0.2)',
+        nav: '0 2px 4px rgba(0,0,0,0.133)',
+        card: '0 1px 3px rgba(0,0,0,0.2)',
       },
     },
   },
-}
+};
 ```
 
 ---

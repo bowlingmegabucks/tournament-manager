@@ -10,12 +10,12 @@ BowlingMegaBucks Tournament Manager is an internal web app being rewritten from 
 
 ## Spec Documents (read before generating code)
 
-| Document | When to read |
-|----------|-------------|
-| `rewrite/REWRITE_SPEC.md` | Feature requirements, data model, all business rules |
-| `rewrite/PATTERNS.md` | React + Express patterns and anti-patterns — read before any frontend or backend code |
-| `rewrite/DATABASE.md` | Authoritative schema with quirks; read before writing ORM models |
-| `rewrite/THEMING.md` | CSS design tokens, fonts, component visual patterns |
+| Document                  | When to read                                                                          |
+| ------------------------- | ------------------------------------------------------------------------------------- |
+| `rewrite/REWRITE_SPEC.md` | Feature requirements, data model, all business rules                                  |
+| `rewrite/PATTERNS.md`     | React + Express patterns and anti-patterns — read before any frontend or backend code |
+| `rewrite/DATABASE.md`     | Authoritative schema with quirks; read before writing ORM models                      |
+| `rewrite/THEMING.md`      | CSS design tokens, fonts, component visual patterns                                   |
 
 ## Project Structure
 
@@ -91,6 +91,7 @@ Read `rewrite/DATABASE.md` in full before writing ORM models. The most critical 
 Base URL: `/api/v1`
 
 All errors return:
+
 ```json
 { "error": { "code": "SNAKE_CASE_CODE", "message": "...", "details": [...] } }
 ```

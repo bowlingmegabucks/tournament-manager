@@ -32,7 +32,9 @@ describe('errorHandler', () => {
     errorHandler(new Error('boom'), req, res, next);
     expect(status).toHaveBeenCalledWith(500);
     expect(json).toHaveBeenCalledWith(
-      expect.objectContaining({ error: expect.objectContaining({ code: 'INTERNAL_ERROR' }) })
+      expect.objectContaining({
+        error: expect.objectContaining({ code: 'INTERNAL_ERROR' }),
+      }),
     );
   });
 

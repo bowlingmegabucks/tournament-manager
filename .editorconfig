@@ -1,0 +1,36 @@
+# EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs.
+# See https://editorconfig.org for details
+
+root = true
+
+# Top-level settings for all files
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Tab indentation for Makefiles
+[Makefile]
+indent_style = tab
+
+# TypeScript
+[*.ts]
+indent_style = space
+indent_size = 2
+
+# TypeScript React
+[*.tsx]
+indent_style = space
+indent_size = 2
+
+# JSON files
+[*.json]
+indent_style = space
+indent_size = 2
+
+# Markdown (do not trim whitespace)
+[*.md]
+trim_trailing_whitespace = false

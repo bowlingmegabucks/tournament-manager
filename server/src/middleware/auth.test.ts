@@ -37,39 +37,60 @@ describe('authenticate', () => {
     expect(next).not.toHaveBeenCalled();
     expect(status).toHaveBeenCalledWith(401);
     expect(json).toHaveBeenCalledWith(
-      expect.objectContaining({ error: expect.objectContaining({ code: 'UNAUTHORIZED', message: 'Missing or malformed token' }) })
+      expect.objectContaining({
+        error: expect.objectContaining({
+          code: 'UNAUTHORIZED',
+          message: 'Missing or malformed token',
+        }),
+      }),
     );
   });
 
   it('returns 401 when Authorization header does not start with "Bearer "', () => {
-    const { req, res, next, status, json } = makeMocks({ authorization: 'Basic abc123' });
+    const { req, res, next, status, json } = makeMocks({
+      authorization: 'Basic abc123',
+    });
     authenticate(req, res, next);
     expect(next).not.toHaveBeenCalled();
     expect(status).toHaveBeenCalledWith(401);
     expect(json).toHaveBeenCalledWith(
-      expect.objectContaining({ error: expect.objectContaining({ message: 'Missing or malformed token' }) })
+      expect.objectContaining({
+        error: expect.objectContaining({
+          message: 'Missing or malformed token',
+        }),
+      }),
     );
   });
 
   it('returns 401 for an expired token', () => {
-    const token = jwt.sign({ sub: 'user-1', role: 'staff' }, TEST_SECRET, { expiresIn: -1 });
-    const { req, res, next, status, json } = makeMocks({ authorization: `Bearer ${token}` });
+    const token = jwt.sign({ sub: 'user-1', role: 'staff' }, TEST_SECRET, {
+      expiresIn: -1,
+    });
+    const { req, res, next, status, json } = makeMocks({
+      authorization: `Bearer ${token}`,
+    });
     authenticate(req, res, next);
     expect(next).not.toHaveBeenCalled();
     expect(status).toHaveBeenCalledWith(401);
     expect(json).toHaveBeenCalledWith(
-      expect.objectContaining({ error: expect.objectContaining({ message: 'Invalid or expired token' }) })
+      expect.objectContaining({
+        error: expect.objectContaining({ message: 'Invalid or expired token' }),
+      }),
     );
   });
 
   it('returns 401 for a token signed with the wrong secret', () => {
     const token = signToken({ sub: 'user-1', role: 'staff' }, 'wrong-secret');
-    const { req, res, next, status, json } = makeMocks({ authorization: `Bearer ${token}` });
+    const { req, res, next, status, json } = makeMocks({
+      authorization: `Bearer ${token}`,
+    });
     authenticate(req, res, next);
     expect(next).not.toHaveBeenCalled();
     expect(status).toHaveBeenCalledWith(401);
     expect(json).toHaveBeenCalledWith(
-      expect.objectContaining({ error: expect.objectContaining({ message: 'Invalid or expired token' }) })
+      expect.objectContaining({
+        error: expect.objectContaining({ message: 'Invalid or expired token' }),
+      }),
     );
   });
 
@@ -96,7 +117,12 @@ describe('requireRole', () => {
     expect(next).not.toHaveBeenCalled();
     expect(status).toHaveBeenCalledWith(403);
     expect(json).toHaveBeenCalledWith(
-      expect.objectContaining({ error: expect.objectContaining({ code: 'FORBIDDEN', message: 'Insufficient permissions' }) })
+      expect.objectContaining({
+        error: expect.objectContaining({
+          code: 'FORBIDDEN',
+          message: 'Insufficient permissions',
+        }),
+      }),
     );
   });
 
