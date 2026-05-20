@@ -1,6 +1,9 @@
 {
   "$schema": "https://stryker-mutator.io/schemas/stryker-schema.json#",
   "testRunner": "vitest",
+  "vitest": {
+    "configFile": "vitest.config.ts"
+  },
   "checkers": ["typescript"],
   "tsconfigFile": "tsconfig.vitest.json",
   "mutate": [
