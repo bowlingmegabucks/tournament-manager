@@ -24,6 +24,11 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile.dev
+    user: "node"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     volumes:
       - ./server:/app
       - /app/node_modules
@@ -49,6 +54,11 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile.dev
+    user: "node"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     volumes:
       - ./client:/app
       - /app/node_modules
