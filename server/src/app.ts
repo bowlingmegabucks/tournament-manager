@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import { errorHandler } from './middleware/errorHandler';
 import { requireApiVersion } from './middleware/apiVersion';
 import { apiError } from './lib/errors';
+import tempRoutes from './routes/temp';
 // import authRoutes from './routes/auth';
 // import tournamentRoutes from './routes/tournaments';
 
@@ -27,6 +28,8 @@ app.use('/', generalLimiter);
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
+
+app.use('/api/v1/temp', tempRoutes);
 
 // app.use('/auth', authRoutes);
 // app.use('/tournaments', tournamentRoutes);
