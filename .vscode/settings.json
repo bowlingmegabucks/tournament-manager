@@ -4,5 +4,9 @@
   "strykerMutator.client.configFile": "client/stryker.config.json",
   "strykerMutator.client.workingDirectory": "client",
   "editor.formatOnSave": true,
-  "files.autoSave": "afterDelay"
+  "files.autoSave": "afterDelay",
+  "sonarlint.connectedMode.project": {
+    "connectionId": "bowlingmegabucks",
+    "projectKey": "bowlingmegabucks_tournament-manager"
+  }
 }
