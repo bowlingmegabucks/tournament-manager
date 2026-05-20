@@ -1,4 +1,6 @@
 {
   "strykerMutator.server.configFile": "server/stryker.config.json",
-  "strykerMutator.server.workingDirectory": "server"
+  "strykerMutator.server.workingDirectory": "server",
+  "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay"
 }
