@@ -129,7 +129,10 @@ function useIsOpen(initial = false) {
 
 ```tsx
 // Query key convention: [resource, id?, subresource?]
-['tournaments'][('tournament', id)][('squad', id, 'results')][('bowler', id)];
+['tournaments']
+['tournament', id]
+['squad', id, 'results']
+['bowler', id]
 
 // One file per resource in client/src/api/
 // e.g., client/src/api/squads.ts exports useSquad, useSquadResults, useUpdateSquadScores
