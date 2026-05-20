@@ -3,6 +3,9 @@ name: PR Checks
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   client:
     name: Client (lint · typecheck · test)
