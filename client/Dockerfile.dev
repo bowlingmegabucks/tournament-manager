@@ -1,7 +1,13 @@
 FROM node:22-alpine
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --ignore-scripts
+COPY client/package.json ./client/
+# Full install (not -w client): workspace-scoped installs skip root-level optional
+# native deps (rolldown, tailwindcss/oxide) needed on Alpine. Full install resolves
+# all platform variants correctly. npm install (not ci) because workspace --include-all-platforms
+# doesn't write musl/linux variants to the lock file (npm workspace bug).
+RUN npm install --ignore-scripts
 # source is mounted as a volume at runtime
+WORKDIR /app/client
 USER node
 CMD ["npm", "run", "dev"]

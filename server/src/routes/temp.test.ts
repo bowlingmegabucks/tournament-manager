@@ -1,5 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import request from 'supertest';
+
+vi.mock('../db/models/Tournament', () => ({ default: {} }));
+
 import app from '../app';
 
 const V1 = { 'x-api-version': '1' };

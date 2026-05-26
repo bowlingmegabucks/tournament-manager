@@ -19,57 +19,5 @@ services:
       retries: 10
       start_period: 10s
 
-  server:
-    container_name: server
-    build:
-      context: ./server
-      dockerfile: Dockerfile.dev
-    user: "node"
-    security_opt:
-      - no-new-privileges:true
-    cap_drop:
-      - ALL
-    volumes:
-      - ./server:/app
-      - /app/node_modules
-      - ./tsconfig.base.json:/tsconfig.base.json:ro
-    ports:
-      - "3000:3000"
-    environment:
-      PORT: 3000
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_NAME: tournament_manager
-      DB_USER: app
-      DB_PASSWORD: app
-    env_file:
-      - path: ./server/.env.docker
-        required: false
-    depends_on:
-      db:
-        condition: service_healthy
-
-  client:
-    container_name: client
-    build:
-      context: ./client
-      dockerfile: Dockerfile.dev
-    user: "node"
-    security_opt:
-      - no-new-privileges:true
-    cap_drop:
-      - ALL
-    volumes:
-      - ./client:/app
-      - /app/node_modules
-      - ./tsconfig.base.json:/tsconfig.base.json:ro
-    ports:
-      - "5173:5173"
-    environment:
-      VITE_API_BASE: http://server:3000
-      VITE_CACHE_DIR: /tmp/.vite
-    depends_on:
-      - server
-
 volumes:
   db_data:

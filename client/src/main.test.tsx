@@ -10,6 +10,7 @@ const { mockRender, mockCreateRoot } = vi.hoisted(() => {
 vi.mock('react-dom/client', () => ({ createRoot: mockCreateRoot }))
 vi.mock('./App', () => ({ default: () => null }))
 vi.mock('sonner', () => ({ Toaster: () => null }))
+vi.mock('react-router-dom', () => ({ BrowserRouter: ({ children }: { children: React.ReactNode }) => children }))
 vi.mock('@tanstack/react-query', () => ({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   QueryClient: vi.fn(function QueryClient() {}),

@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Tournament {
+  id                    String     @id @map("Id") @db.Char(36)
+  name                  String     @map("Name") @db.LongText
+  start                 DateTime   @map("Start") @db.DateTime(6)
+  end                   DateTime   @map("End") @db.DateTime(6)
+  entryFee              Decimal    @map("EntryFee") @db.Decimal(5, 2)
+  games                 Int        @map("Games") @db.SmallInt
+  finalsRatio           Decimal    @map("FinalsRatio") @db.Decimal(3, 1)
+  cashRatio             Decimal    @map("CashRatio") @db.Decimal(3, 1)
+  bowlingCenter         String     @map("BowlingCenter") @db.LongText
+  completed             Boolean    @map("Completed")
+  superSweeperCashRatio Decimal    @map("SuperSweperCashRatio") @db.Decimal(3, 1)
+  divisions             Division[]
+  squads                Squad[]
+
+  @@map("Tournaments")
+}
+
+model Division {
+  id            String         @id @map("Id") @db.Char(36)
+  name          String         @map("Name") @db.LongText
+  number        Int            @map("Number") @db.SmallInt
+  tournamentId  String         @map("TournamentId") @db.Char(36)
+  tournament    Tournament     @relation(fields: [tournamentId], references: [id])
+  registrations Registration[]
+
+  @@map("Divisions")
+}
+
+model Squad {
+  id           String     @id @map("Id") @db.Char(36)
+  tournamentId String     @map("TournamentId") @db.Char(36)
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+
+  @@map("Squads")
+}
+
+model Registration {
+  id         String   @id @map("Id") @db.Char(36)
+  bowlerId   String   @map("BowlerId") @db.Char(36)
+  divisionId String   @map("DivisionId") @db.Char(36)
+  division   Division @relation(fields: [divisionId], references: [id])
+
+  @@map("Registrations")
+}
