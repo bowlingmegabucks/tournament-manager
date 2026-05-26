@@ -1,10 +1,9 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 import { ErrorBanner } from '@/components/ui/error-banner'
 import { Skeleton } from '@/components/ui/skeleton'
 import { TournamentDetailHeader } from './TournamentDetailHeader'
 import { TournamentDetailSidebar } from './TournamentDetailSidebar'
 import { useTournament } from '@/api/tournaments'
-import { useParams } from 'react-router-dom'
 
 export function TournamentDetailLayout() {
   const { id } = useParams<{ id: string }>()
@@ -33,9 +32,9 @@ export function TournamentDetailLayout() {
   return (
     <div>
       <TournamentDetailHeader tournament={data} />
-      <div className="flex gap-8">
+      <div className="flex">
         <TournamentDetailSidebar tournamentId={id!} />
-        <main className="flex-1 min-w-0">
+        <main className="flex-1 min-w-0 p-5">
           <Outlet />
         </main>
       </div>

@@ -1,4 +1,3 @@
-import { Decimal } from '@prisma/client/runtime/library';
 import prisma from '../db/models/Tournament';
 
 export type TournamentSummary = {
@@ -36,7 +35,7 @@ function toDateString(date: Date): string {
   return date.toISOString().split('T')[0];
 }
 
-function toDecimal(d: Decimal): number {
+function toDecimal(d: { toNumber(): number }): number {
   return d.toNumber();
 }
 

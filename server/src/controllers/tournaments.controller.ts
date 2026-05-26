@@ -32,7 +32,7 @@ export const list = asyncHandler(async (_req: Request, res: Response) => {
 });
 
 export const detail = asyncHandler(async (req: Request, res: Response) => {
-  const tournament = await tournamentService.getTournament(req.params.id);
+  const tournament = await tournamentService.getTournament(req.params['id'] as string);
   if (!tournament) {
     res
       .status(404)
@@ -53,7 +53,7 @@ export const update = asyncHandler(async (req: Request, res: Response) => {
     return;
   }
 
-  const tournament = await tournamentService.updateTournament(req.params.id, parsed.data);
+  const tournament = await tournamentService.updateTournament(req.params['id'] as string, parsed.data);
   if (!tournament) {
     res
       .status(404)

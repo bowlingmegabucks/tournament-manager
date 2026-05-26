@@ -41,12 +41,12 @@ export function TournamentDetailSidebar({ tournamentId }: TournamentDetailSideba
   const sections = getSections(tournamentId)
 
   return (
-    <nav aria-label="Tournament sections" className="w-full">
+    <nav aria-label="Tournament sections" className="w-full md:w-48 md:shrink-0">
       {/* Desktop sidebar */}
-      <div className="hidden md:block w-48 shrink-0">
+      <div className="hidden md:block w-44 shrink-0 border-r border-border py-4">
         {sections.map((section) => (
-          <div key={section.label} className="mb-4">
-            <p className="mb-1 px-3 text-xs font-bold uppercase tracking-wider text-text-muted">
+          <div key={section.label}>
+            <p className="px-5 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-widest text-text-muted">
               {section.label}
             </p>
             {section.items.map((item) => (
@@ -55,8 +55,9 @@ export function TournamentDetailSidebar({ tournamentId }: TournamentDetailSideba
                 to={item.path}
                 className={({ isActive }) =>
                   cn(
-                    'block rounded px-3 py-1.5 text-sm text-text-body transition-colors hover:bg-surface-subtle',
-                    isActive && 'border-l-2 border-interactive bg-surface-subtle font-semibold text-text-primary',
+                    'block px-5 py-[9px] text-sm text-text-body transition-colors hover:bg-surface-subtle',
+                    isActive &&
+                      'border-r-[3px] border-interactive bg-interactive/10 font-semibold text-text-primary',
                   )
                 }
               >
