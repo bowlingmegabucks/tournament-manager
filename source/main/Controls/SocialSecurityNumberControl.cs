@@ -37,20 +37,18 @@ internal sealed partial class SocialSecurityNumberControl
         ssnText.Clear();
     }
 
-    private string _value = string.Empty;
-
     /// <summary>
     ///
     /// </summary>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public string Value
     {
-        get => _value;
+        get;
         set
         {
-            _value = value;
+            field = value;
 
-            if (string.IsNullOrWhiteSpace(_value))
+            if (string.IsNullOrWhiteSpace(field))
             {
                 ssnText.PasswordChar = '\0';
                 verifyLink.Enabled = false;
@@ -62,7 +60,7 @@ internal sealed partial class SocialSecurityNumberControl
                 ssnText.Text = Resources.DummySsn;
             }
         }
-    }
+    } = string.Empty;
 
     private void SSNText_Leave(object sender, EventArgs e)
         => Value = ssnText.Text.Encrypt();

@@ -54,7 +54,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Formats.Asn1" VersionOverride="9.0.10" />
     <ProjectReference Include="..\..\api\BowlingMegabucks.TournamentManager.Api.csproj" />
   </ItemGroup>
 

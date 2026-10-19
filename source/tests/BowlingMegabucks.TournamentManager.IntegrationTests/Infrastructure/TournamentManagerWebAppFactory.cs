@@ -10,8 +10,7 @@ public sealed class TournamentManagerWebAppFactory
 {
     internal const string _apiKey = "Integration";
 
-    private readonly MariaDbContainer _mariaDbContainer = new MariaDbBuilder()
-        .WithImage("mariadb:11.4.7")
+    private readonly MariaDbContainer _mariaDbContainer = new MariaDbBuilder("mariadb:11.4.7")
         .WithDatabase("bowlingmegabucks")
         .WithUsername("root")
         .WithPassword("password")

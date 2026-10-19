@@ -16,20 +16,16 @@ internal sealed partial class LabelControl
         TabStop = false;
     }
 
-    //doing this for unit test to pass
-    //when using PanelRequired.Visible directly not getting updated
-    private bool _required;
-
     /// <summary>
     /// Show/hide required asterisk
     /// </summary>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
     public bool Required
     {
-        get => _required;
+        get;
         set
         {
-            _required = value;
+            field = value;
             PanelRequired.Visible = value;
         }
     }

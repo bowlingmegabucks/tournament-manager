@@ -17,7 +17,7 @@ internal class DataLayer : IDataLayer
         => (await _repository.Retrieve(squadId).ToListAsync(cancellationToken).ConfigureAwait(false)).Select(squadRegistration => new Models.LaneAssignment(squadRegistration, _handicapCalculator));
 
     async Task<Models.LaneAssignment> IDataLayer.ExecuteAsync(SquadId squadId, BowlerId bowlerId, CancellationToken cancellationToken)
-        => new Models.LaneAssignment(await _repository.RetrieveAsync(squadId, bowlerId, cancellationToken).ConfigureAwait(false), _handicapCalculator);
+        => new(await _repository.RetrieveAsync(squadId, bowlerId, cancellationToken).ConfigureAwait(false), _handicapCalculator);
 }
 
 internal interface IDataLayer

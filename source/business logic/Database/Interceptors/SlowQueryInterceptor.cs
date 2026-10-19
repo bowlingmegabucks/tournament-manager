@@ -42,7 +42,7 @@ internal sealed class SlowQueryInterceptor
         {
             _logger.SlowQuery(SanitizeCommandText(command), eventData.Duration.TotalMilliseconds);
         }
-        else
+        else if (_logger.IsEnabled(LogLevel.Debug))
         {
             _logger.QueryExecuted(SanitizeCommandText(command), eventData.Duration.TotalMilliseconds);
         }

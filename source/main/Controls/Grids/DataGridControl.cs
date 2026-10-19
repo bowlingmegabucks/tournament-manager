@@ -98,18 +98,16 @@ internal abstract partial class DataGrid<TModel> : UserControl where TModel : cl
         UseWaitCursor = false;
     }
 
-    private bool _alternateRowColors;
-
     /// <summary>
     ///
     /// </summary>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool AlternateRowColors
     {
-        get => _alternateRowColors;
+        get;
         set
         {
-            _alternateRowColors = value;
+            field = value;
 
             GridView.AlternatingRowsDefaultCellStyle.BackColor = AlternateRowColors ? Color.FromArgb(224, 224, 224) : GridView.RowsDefaultCellStyle.BackColor;
         }

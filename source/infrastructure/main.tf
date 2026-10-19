@@ -4,7 +4,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.38.1"
+      version = "~> 4.81"
     }
   }
 
@@ -91,7 +91,7 @@ resource "azurerm_key_vault" "app_key_vault" {
   purge_protection_enabled   = var.key_vault_purge_protection_enabled
   soft_delete_retention_days = 90
 
-  enable_rbac_authorization = true
+  rbac_authorization_enabled = true
 }
 
 resource "azurerm_monitor_diagnostic_setting" "app_key_vault_diagnostics" {
@@ -147,7 +147,7 @@ resource "azurerm_linux_web_app" "api" {
     minimum_tls_version = "1.2"
 
     application_stack {
-      dotnet_version = "9.0"
+      dotnet_version = "10.0"
     }
 
     health_check_path                 = "/health"
