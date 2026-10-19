@@ -61,16 +61,6 @@ namespace BowlingMegabucks.TournamentManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap DollarSign {
-            get {
-                object obj = ResourceManager.GetObject("DollarSign", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 000000000.
         /// </summary>
         internal static string DummySsn {
@@ -80,51 +70,11 @@ namespace BowlingMegabucks.TournamentManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon NMT {
-            get {
-                object obj = ResourceManager.GetObject("NMT", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap NMT_Header {
-            get {
-                object obj = ResourceManager.GetObject("NMT_Header", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap NMT_Header_Color {
-            get {
-                object obj = ResourceManager.GetObject("NMT_Header_Color", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to PDF Files (*.pdf)|*.pdf.
         /// </summary>
         internal static string PDF_File_Type {
             get {
                 return ResourceManager.GetString("PDF File Type", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Trophy {
-            get {
-                object obj = ResourceManager.GetObject("Trophy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
